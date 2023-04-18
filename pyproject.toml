@@ -5,21 +5,17 @@ build-backend = "hatchling.build"
 [project]
 name = "lezargus"
 dynamic = ["version"]
-description = ''
+description = "The accompanying data software package to the IRTF SPECTRE Spectrograph."
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.11"
 license = "MIT"
 keywords = []
 authors = [
   { name = "Sparrow", email = "psmd.iberutaru@gmail.com" },
 ]
 classifiers = [
-  "Development Status :: 4 - Beta",
+  "Development Status :: 2 - Pre-Alpha",
   "Programming Language :: Python",
-  "Programming Language :: Python :: 3.7",
-  "Programming Language :: Python :: 3.8",
-  "Programming Language :: Python :: 3.9",
-  "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: Implementation :: CPython",
   "Programming Language :: Python :: Implementation :: PyPy",
@@ -27,12 +23,12 @@ classifiers = [
 dependencies = []
 
 [project.urls]
-Documentation = "https://github.com/unknown/lezargus#readme"
-Issues = "https://github.com/unknown/lezargus/issues"
-Source = "https://github.com/unknown/lezargus"
+Documentation = "https://github.com/psmd-iberutaru/Lezargus/Lezargus#readme"
+Issues = "https://github.com/psmd-iberutaru/Lezargus/Lezargus/issues"
+Source = "https://github.com/psmd-iberutaru/Lezargus/Lezargus"
 
 [tool.hatch.version]
-path = "src/lezargus/__about__.py"
+path = "src/lezargus/__version__.py"
 
 [tool.hatch.envs.default]
 dependencies = [
