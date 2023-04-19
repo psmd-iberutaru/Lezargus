@@ -1,0 +1,4 @@
+# This is a blank gitignore file. By default, coverage writes a git ignore 
+# file to this directory and thus prevents uploading the coverage report to 
+# GitHub Pages. As long as this file exists, the default gitignore made by 
+# coverage will not be created.
