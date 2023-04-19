@@ -1,0 +1,10 @@
+name: Python Black Formatting
+
+on: [push, pull_request]
+
+jobs:
+  black-formatting:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: psf/black@stable
