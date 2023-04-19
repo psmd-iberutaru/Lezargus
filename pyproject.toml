@@ -156,4 +156,4 @@ exclude_lines = [
 
 [tool.coverage.html]
 title = "Lezargus Code Coverage Report"
-directory = "./docs/source/coverage/"
+directory = "./docs/build/html/coverage/"
