@@ -32,81 +32,65 @@ path = "src/lezargus/__version__.py"
 
 [tool.hatch.envs.default]
 dependencies = [
+  "lezargus",
   "coverage[toml]>=6.5",
-  "pytest",
+  "pytest>=7.3.0",
+  "black>=23.1.0",
+  "mypy>=1.0.0",
+  "pylint>=2.17.0",
+  "ruff>=0.0.261"
 ]
 [tool.hatch.envs.default.scripts]
 test = "pytest {args:tests}"
-test-cov = "coverage run -m pytest {args:tests}"
-cov-report = [
+typing = "mypy --install-types --non-interactive {args:src/lezargus tests}"
+format = [
+  "black {args:.}",
+]
+cover = [
+  "coverage run -m pytest {args:tests}",
   "- coverage combine",
   "coverage report",
+  "coverage html",
+  "coverage erase",
 ]
-cov = [
-  "test-cov",
-  "cov-report",
+lint = [
+  "ruff {args:src}",
+  "pylint {args:src}",
 ]
+lintfix = [
+  "ruff {args:src} --fix"
+]
+auxiliary = [
+  "typing",
+  "lint",
+  "lintfix",
+  "test",
+  "cover",
+  "format",
+]
+aux = "auxiliary"
+
 
 [[tool.hatch.envs.all.matrix]]
-python = ["3.7", "3.8", "3.9", "3.10", "3.11"]
+python = ["3.11"]
 
-[tool.hatch.envs.lint]
-detached = true
-dependencies = [
-  "black>=23.1.0",
-  "mypy>=1.0.0",
-  "ruff>=0.0.243",
+[tool.pytest.ini_options]
+pythonpath = [
+  ".", "src",
 ]
-[tool.hatch.envs.lint.scripts]
-typing = "mypy --install-types --non-interactive {args:src/lezargus tests}"
-style = [
-  "ruff {args:.}",
-  "black --check --diff {args:.}",
-]
-fmt = [
-  "black {args:.}",
-  "ruff --fix {args:.}",
-  "style",
-]
-all = [
-  "style",
-  "typing",
+testpaths = [
+  "tests"
 ]
 
 [tool.black]
-target-version = ["py37"]
-line-length = 120
-skip-string-normalization = true
+target-version = ["py311"]
+line-length = 80
 
 [tool.ruff]
-target-version = "py37"
-line-length = 120
+target-version = "py311"
+line-length = 80
 select = [
-  "A",
-  "ARG",
-  "B",
-  "C",
-  "DTZ",
-  "E",
-  "EM",
-  "F",
-  "FBT",
-  "I",
-  "ICN",
-  "ISC",
-  "N",
-  "PLC",
-  "PLE",
-  "PLR",
-  "PLW",
-  "Q",
-  "RUF",
-  "S",
-  "T",
-  "TID",
-  "UP",
-  "W",
-  "YTT",
+  "ALL",
 ]
 ignore = [
   # Allow non-abstract empty methods in abstract base classes
@@ -115,16 +99,15 @@ ignore = [
   "FBT003",
   # Ignore checks for possible passwords
   "S105", "S106", "S107",
-  # Ignore complexity
-  "C901", "PLR0911", "PLR0912", "PLR0913", "PLR0915",
+  # Incompatabilies; these are objectively wrong.
+  "D203", "D213"
 ]
 unfixable = [
-  # Don't touch unused imports
-  "F401",
 ]
 
 [tool.ruff.isort]
-known-first-party = ["lezargus"]
+known-third-party = ["lezargus"]
+force-single-line = true
 
 [tool.ruff.flake8-tidy-imports]
 ban-relative-imports = "all"
@@ -133,12 +116,19 @@ ban-relative-imports = "all"
 # Tests can use magic values, assertions, and relative imports
 "tests/**/*" = ["PLR2004", "S101", "TID252"]
 
+[tool.pylint]
+disable = [
+  "R0903", # (too-few-public-methods)
+  "R0913", # (too-many-arguments)
+  "W0105", # (pointless-string-statement)
+]
+
 [tool.coverage.run]
 source_pkgs = ["lezargus", "tests"]
 branch = true
 parallel = true
 omit = [
-  "src/lezargus/__about__.py",
+  "src/lezargus/__version__.py",
 ]
 
 [tool.coverage.paths]
@@ -151,3 +141,7 @@ exclude_lines = [
   "if __name__ == .__main__.:",
   "if TYPE_CHECKING:",
 ]
+
+[tool.coverage.html]
+title = "Lezargus Code Coverage Report"
+directory = "./docs/coverage/"

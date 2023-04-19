@@ -1,2 +1,7 @@
+"""The version of the software. Use `hatch` to upgrade this version number.
 
-__version__ = "0.0.1.dev0"
+Please do not manually edit this value.
+"""
+
+# DO NOT EDIT MANUALLY.
+__version__ = "0.0.1.dev1"
