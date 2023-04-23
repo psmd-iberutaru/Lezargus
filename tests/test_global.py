@@ -15,5 +15,5 @@ def test_true() -> None:
     """
     # Always true test.
     assert_message = "This test should always pass."
-    assert True, assert_message
+    assert False, assert_message
     return None
