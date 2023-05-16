@@ -163,8 +163,8 @@ disable = [
 extension-pkg-allow-list = [
     "PySide6",
 ]
-generated-member = [
-    "lezargus.library.config.*",
+generated-members = [
+    "library.config.*",
 ]
 
 [tool.coverage.run]
