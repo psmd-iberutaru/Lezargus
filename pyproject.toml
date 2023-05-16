@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "Lezargus"
+name = "lezargus"
 dynamic = ["version"]
 description = "The accompanying data software package to the IRTF SPECTRE Spectrograph."
 readme = "README.md"
@@ -31,7 +31,7 @@ dependencies = [
 
 [project.urls]
 Homepage = "http://irtfweb.ifa.hawaii.edu/~spectre/"
-Documentation = "https://github.com/psmd-iberutaru/Lezargus#readme"
+Documentation = "https://psmd-iberutaru.github.io/Lezargus/"
 Issues = "https://github.com/psmd-iberutaru/Lezargus/issues"
 Source = "https://github.com/psmd-iberutaru/Lezargus/"
 

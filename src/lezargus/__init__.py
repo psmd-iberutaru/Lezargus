@@ -11,7 +11,7 @@ from lezargus import library
 # Lastly, the main file. We only do this so that Sphinx correctly builds the
 # documentation. (Though this too could be a misunderstanding.) Functionality
 # of __main__ should be done via the command line interface.
-from lezargus import __main__ #isort:skip
+from lezargus import __main__  # isort:skip
 
 # Load the default configuration parameters. The user's configurations should
 # overwrite these when supplied.
