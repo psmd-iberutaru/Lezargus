@@ -163,8 +163,9 @@ disable = [
 extension-pkg-allow-list = [
     "PySide6",
 ]
+[tool.pylint.typecheck]
 generated-members = [
-    "lezargus.library.config.*"
+    "lezargus.library.config.*",
 ]
 
 [tool.coverage.run]
