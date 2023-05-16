@@ -164,6 +164,10 @@ extension-pkg-allow-list = [
     "PySide6",
 ]
 generated-members = [
+    # Configuration parameters are generated on-the-fly.
+    # Note: The proper converage is lezargus.library.config.*, but because of 
+    # alises, we use library.config.* for all of the configurations so that is 
+    # what we filter.
     "library.config.*",
 ]
 
