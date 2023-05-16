@@ -1,0 +1,10 @@
+# These are configurable parameters for running Lezargus. This file should
+# not be edited by the user unless copied, it acts as a template and defaults.
+# You should pass your own configuration.yaml file when running this software.
+
+
+# This is the string specifier for how the log records should be formatted. 
+# The formatting specification is detailed in...
+# https://docs.python.org/3/library/logging.html#logging.Formatter
+LOGGING_RECORD_FORMAT_STRING : "[Lezargus] %(asctime)s %(levelname)8s -- %(message)s"
+LOGGING_DATETIME_FORMAT_STRING : "%Y-%m-%dT%H:%M:%S"

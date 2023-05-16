@@ -11,22 +11,32 @@ requires-python = ">=3.11"
 license = "MIT"
 keywords = []
 authors = [
-  { name = "Sparrow", email = "psmd.iberutaru@gmail.com" },
+    { name = "Sparrow", email = "psmd.iberutaru@gmail.com" },
 ]
 classifiers = [
-  "Development Status :: 2 - Pre-Alpha",
-  "Programming Language :: Python",
-  "Programming Language :: Python :: 3.11",
-  "Programming Language :: Python :: Implementation :: CPython",
-  "Programming Language :: Python :: Implementation :: PyPy",
+    "Development Status :: 2 - Pre-Alpha",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
 ]
-dependencies = []
+dependencies = [
+    "numpy",
+    "scipy",
+    "astropy",
+    "pyyaml",
+    "matplotlib",
+    "PySide6",
+]
 
 [project.urls]
+Homepage = "http://irtfweb.ifa.hawaii.edu/~spectre/"
 Documentation = "https://github.com/psmd-iberutaru/Lezargus#readme"
 Issues = "https://github.com/psmd-iberutaru/Lezargus/issues"
 Source = "https://github.com/psmd-iberutaru/Lezargus/"
 
+[project.scripts]
+lezargus = "lezargus.__main__:main"
 
 
 
@@ -38,47 +48,45 @@ path = "src/lezargus/__version__.py"
 
 [tool.hatch.envs.default]
 dependencies = [
-  "coverage[toml]>=6.5",
-  "pytest>=7.3.0",
-  "black>=23.1.0",
-  "mypy>=1.0.0",
-  "pylint>=2.17.0",
-  "ruff>=0.0.261",
-  "sphinx>=6.1.0",
-  "sphinx_rtd_theme>=1.2.0",
+    "coverage[toml]>=6.5",
+    "pytest>=7.3.0",
+    "black>=23.1.0",
+    "pylint>=2.17.0",
+    "ruff>=0.0.261",
+    "sphinx>=6.1.0",
+    "sphinx_rtd_theme>=1.2.0",
 ]
 [tool.hatch.envs.default.scripts]
 test = "pytest {args:tests}"
-typing = "mypy --install-types --non-interactive {args:src/lezargus tests}"
 format = [
-  "black {args:.}",
+    "black {args:.}",
 ]
 cover = [
-  "coverage run -m pytest {args:tests}",
-  "- coverage combine",
-  "coverage report",
-  "coverage html",
-  "coverage erase",
+    "coverage run -m pytest {args:tests}",
+    "- coverage combine",
+    "coverage report",
+    "coverage html",
+    "coverage erase",
 ]
 lint = [
-  "ruff {args:src}",
-  "pylint {args:src}",
+    "ruff {args:src}",
+    "pylint {args:src}",
 ]
 lintfix = [
-  "ruff {args:src} --fix"
+    "ruff {args:src} --fix"
 ]
 docs = [
-  "sphinx-apidoc -f -e -P -o ./docs/source/code/ ./src/lezargus/",
-  "sphinx-build -b html ./docs/source/ ./docs/build/html/",
+    "sphinx-apidoc -f -e -P -o ./docs/source/code/ ./src/lezargus/",
+    "sphinx-build -b html ./docs/source/ ./docs/build/html/",
 ]
 auxiliary = [
-  "typing",
-  "lint",
-  "lintfix",
-  "test",
-  "cover",
-  "format",
-  "docs",
+    "typing",
+    "lint",
+    "lintfix",
+    "test",
+    "cover",
+    "format",
+    "docs",
 ]
 aux = "auxiliary"
 
@@ -88,31 +96,41 @@ python = ["3.11"]
 
 [tool.pytest.ini_options]
 pythonpath = [
-  ".", "src",
+    ".", "src",
 ]
 testpaths = [
-  "tests"
+    "tests"
 ]
 
 [tool.black]
 target-version = ["py311"]
 line-length = 80
+preview = true
 
 [tool.ruff]
 target-version = "py311"
 line-length = 80
 select = [
-  "ALL",
+    "ALL",
 ]
 ignore = [
-  # Allow non-abstract empty methods in abstract base classes
-  "B027",
-  # Allow boolean positional values in function calls, like `dict.get(... True)`
-  "FBT003",
-  # Ignore checks for possible passwords
-  "S105", "S106", "S107",
-  # Incompatabilies; these are objectively wrong.
-  "D203", "D213"
+    # Allow non-abstract empty methods in abstract base classes.
+    "B027",
+    # Allow boolean positional values in function declarations and calls, 
+    # like `dict.get(... True)`. We ignore all of the rules regarding boolean 
+    # positional traps, because generally, it is a non-issue.
+    "FBT",
+    # Ignore checks for possible passwords.
+    "S105", "S106", "S107",
+    # Incompatabilies; these are objectively wrong.
+    "D203", "D213",
+    # Allow variable assignment for return. It is easier to find and follow the
+    # return path.
+    "RET504",
+    # Our file paths are better represented as base strings, we do not ever
+    # need to overcomplicate our paths with OOP. As such, suggestions to 
+    # use pathlib really is not needed.
+    "PTH",
 ]
 unfixable = [
 ]
@@ -127,12 +145,23 @@ ban-relative-imports = "all"
 [tool.ruff.per-file-ignores]
 # Tests can use magic values, assertions, and relative imports
 "tests/**/*" = ["PLR2004", "S101", "TID252"]
+# The hint module can have unused imports because it is part of its job to 
+# provide hints.
+"src/lezargus/library/hint.py" = ["F401", "F403"]
+# The __init__ files often provide the imports to other files. 
+# So they are used, just not in that file.
+"src/lezargus/**/__init__.py" = ["F401"]
 
 [tool.pylint]
 disable = [
-  "R0903", # (too-few-public-methods)
-  "R0913", # (too-many-arguments)
-  "W0105", # (pointless-string-statement)
+    "R0903", # (too-few-public-methods)
+    "R0913", # (too-many-arguments)
+    "W0105", # (pointless-string-statement)
+    "C0209", # (consider-using-f-string)
+    "R0401", # (cyclic-import)
+]
+extension-pkg-allow-list = [
+    "PySide6",
 ]
 
 [tool.coverage.run]
@@ -140,7 +169,7 @@ source_pkgs = ["lezargus", "tests"]
 branch = true
 parallel = true
 omit = [
-  "src/lezargus/__version__.py",
+    "src/lezargus/__version__.py",
 ]
 
 [tool.coverage.paths]
@@ -149,9 +178,9 @@ tests = ["tests", "*/lezargus/tests"]
 
 [tool.coverage.report]
 exclude_lines = [
-  "no cov",
-  "if __name__ == .__main__.:",
-  "if TYPE_CHECKING:",
+    "no cov",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
 ]
 
 [tool.coverage.html]
