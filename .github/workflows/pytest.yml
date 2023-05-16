@@ -3,7 +3,49 @@ name: pytest
 on: [push]
 
 jobs:
-  build:
+  pytest-windows:
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        python-version: ["3.11"]
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install --upgrade opencv-python
+        pip install pylint
+        pip install hatch
+    - name: Analysing the code with pylint via hatchling.
+      run: |
+        hatch run test
+
+  pytest-macos:
+    runs-on: macos-latest
+    strategy:
+      matrix:
+        python-version: ["3.11"]
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install --upgrade opencv-python
+        pip install pylint
+        pip install hatch
+    - name: Analysing the code with pylint via hatchling.
+      run: |
+        hatch run test
+
+  pytest-linux:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -17,7 +59,6 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt update
-        sudo apt upgrade
         sudo apt install -y python3-opencv libgl1-mesa-dev
         python -m pip install --upgrade pip
         python -m pip install --upgrade opencv-python
