@@ -116,7 +116,8 @@ def load_then_apply_configuration(filename: str) -> None:
 
 
 def generate_configuration_file_copy(
-    filename: str, overwrite: bool = False,
+    filename: str,
+    overwrite: bool = False,
 ) -> None:
     """Generate a copy of the default configuration file to the given location.
 
@@ -163,7 +164,6 @@ def generate_configuration_file_copy(
         extension="yaml",
     )
     shutil.copyfile(default_config_path, file_destination)
-
 
 
 # Configuration/constant parameters which are otherwise not usually provided

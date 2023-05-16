@@ -153,7 +153,8 @@ __lezargus_logger.setLevel(logging.DEBUG)
 
 
 def add_stream_logging_handler(
-    stream: object, log_level: int = logging.DEBUG,
+    stream: object,
+    log_level: int = logging.DEBUG,
 ) -> None:
     """Add a stream handler to the logging infrastructure.
 
