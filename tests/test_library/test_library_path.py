@@ -32,7 +32,7 @@ def test_get_directory() -> None:
         )
         expected_dir = (
             R"A:\Kalos\Music\Pokémon\Official Tracks\Mystery Dungeon\PMD"
-            r" Explorers"
+            R" Explorers"
         )
         # Asserting.
         assert_message = "Windows based pathname fail."
@@ -42,7 +42,7 @@ def test_get_directory() -> None:
         # characters.
         example_linux_pathname = (
             R"/home/sparrow/Kirby/星のカービィ (Hoshi no Kaabii) (2001) -"
-            r" Episode 1 - Kirby"
+            R" Episode 1 - Kirby"
             R" - Right Back at Ya! Japanese [a9vrQ3Ns0gg].mkv"
         )
         # Getting the directory.
@@ -88,7 +88,7 @@ def test_get_filename_without_extension() -> None:
         # characters.
         example_linux_pathname = (
             R"/home/sparrow/Kirby/星のカービィ (Hoshi no Kaabii) (2001) -"
-            r" Episode 1 - Kirby"
+            R" Episode 1 - Kirby"
             R" - Right Back at Ya! Japanese [a9vrQ3Ns0gg].mkv"
         )
         # Getting the directory.
@@ -97,7 +97,7 @@ def test_get_filename_without_extension() -> None:
         )
         expected_filename = (
             R"星のカービィ (Hoshi no Kaabii) (2001) - Episode 1 - Kirby - Right"
-            r" Back at Ya!"
+            R" Back at Ya!"
             R" Japanese [a9vrQ3Ns0gg]"
         )
         # Asserting.
@@ -137,7 +137,7 @@ def test_get_filename_with_extension() -> None:
         # characters.
         example_linux_pathname = (
             R"/home/sparrow/Kirby/星のカービィ (Hoshi no Kaabii) (2001) -"
-            r" Episode 1 - Kirby"
+            R" Episode 1 - Kirby"
             R" - Right Back at Ya! Japanese [a9vrQ3Ns0gg].mkv"
         )
         # Getting the directory.
@@ -146,7 +146,7 @@ def test_get_filename_with_extension() -> None:
         )
         expected_filename = (
             R"星のカービィ (Hoshi no Kaabii) (2001) - Episode 1 - Kirby - Right"
-            r" Back at Ya!"
+            R" Back at Ya!"
             R" Japanese [a9vrQ3Ns0gg].mkv"
         )
         # Asserting.
@@ -186,7 +186,7 @@ def test_get_file_extension() -> None:
         # characters.
         example_linux_pathname = (
             R"/home/sparrow/Kirby/星のカービィ (Hoshi no Kaabii) (2001) -"
-            r" Episode 1 - Kirby"
+            R" Episode 1 - Kirby"
             R" - Right Back at Ya! Japanese [a9vrQ3Ns0gg].mkv"
         )
         # Getting the directory.
