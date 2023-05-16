@@ -136,7 +136,7 @@ unfixable = [
 ]
 
 [tool.ruff.isort]
-known-third-party = ["lezargus"]
+known-first-party = ["lezargus"]
 force-single-line = true
 
 [tool.ruff.flake8-tidy-imports]
