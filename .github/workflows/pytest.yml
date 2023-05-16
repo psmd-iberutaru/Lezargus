@@ -20,7 +20,7 @@ jobs:
         python -m pip install --upgrade opencv-python
         pip install pylint
         pip install hatch
-    - name: Analysing the code with pylint via hatchling.
+    - name: Analyzing the code with pylint via hatchling.
       run: |
         hatch run test
 
@@ -41,7 +41,7 @@ jobs:
         python -m pip install --upgrade opencv-python
         pip install pylint
         pip install hatch
-    - name: Analysing the code with pylint via hatchling.
+    - name: Analyzing the code with pylint via hatchling.
       run: |
         hatch run test
 
@@ -64,6 +64,6 @@ jobs:
         python -m pip install --upgrade opencv-python
         pip install pylint
         pip install hatch
-    - name: Analysing the code with pylint via hatchling.
+    - name: Analyzing the code with pylint via hatchling.
       run: |
         hatch run test
