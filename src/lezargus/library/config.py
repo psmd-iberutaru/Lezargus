@@ -109,11 +109,37 @@ def load_then_apply_configuration(filename: str) -> None:
     # more Pythonic manner.
 
     # Constants typically are all capitalized in their variable naming.
-    configuration = {
+    capital_configuration = {
         keydex.upper(): valuedex for keydex, valuedex in configuration.items()
     }
+    # Check that the configuration names were capitalized.
+    for keydex, capital_keydex in zip(
+        configuration.keys(),
+        capital_configuration.keys(),
+        strict=True,
+    ):
+        if keydex.casefold() != capital_keydex.casefold():
+            logging.error(
+                error_type=logging.ConfigurationError,
+                message=(
+                    "The following configuration keys differ on the case"
+                    " transformation: {key} -> {ckey}".format(
+                        key=keydex,
+                        ckey=capital_keydex,
+                    )
+                ),
+            )
+        if keydex != capital_keydex:
+            logging.error(
+                error_type=logging.ConfigurationError,
+                message=(
+                    "The keys of configuration parameters should be in all"
+                    " capital letters. The following key is inappropriate:"
+                    " {key}".format(key=keydex)
+                ),
+            )
     # Applying it to the global space of this module only.
-    globals().update(configuration)
+    globals().update(capital_configuration)
 
 
 def generate_configuration_file_copy(
