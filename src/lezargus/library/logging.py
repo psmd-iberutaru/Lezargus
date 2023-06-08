@@ -5,6 +5,7 @@ Use the functions here when logging or issuing errors or other information.
 
 import logging
 import string
+
 import colorama
 
 from lezargus import library
@@ -156,12 +157,14 @@ class ConfigurationWarning(LezargusWarning):
     parameters are structures are defined.
     """
 
+
 class InputWarning(LezargusWarning):
     """A warning for a weird input.
 
-    This warning is used when the input of a function or a field is not 
+    This warning is used when the input of a function or a field is not
     expected, but may be able to be handled.
     """
+
 
 ###############################################################################
 
@@ -294,11 +297,10 @@ class ColoredLogFormatter(logging.Formatter):
             )
         # Converting from HEX string to the RGB color code.
         color_ansi_escape = "\033[38;2;{r};{g};{b}m".format(
-            r=int(color_hex[1:3],16),
-            g=int(color_hex[3:5],16),
-            b=int(color_hex[5:7],16),
+            r=int(color_hex[1:3], 16),
+            g=int(color_hex[3:5], 16),
+            b=int(color_hex[5:7], 16),
         )
-        print(color_hex, color_ansi_escape)
         return color_ansi_escape
 
 
