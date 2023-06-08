@@ -1,12 +1,21 @@
 lezargus package
 ================
 
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   lezargus.library
+
 Submodules
 ----------
 
 .. toctree::
    :maxdepth: 4
 
+   lezargus.__main__
    lezargus.__version__
 
 Module contents

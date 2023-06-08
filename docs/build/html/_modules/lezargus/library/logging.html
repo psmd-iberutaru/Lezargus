@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lezargus.library.logging &mdash; Lezargus  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Lezargus
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/modules.html">lezargus</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../code/lezargus.html">lezargus package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.html">lezargus.library package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.library.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.library.html#module-lezargus.library">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.__main__.html">lezargus.__main__ module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.__version__.html">lezargus.__version__ module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.html#module-lezargus">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Lezargus</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">lezargus.library.logging</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for lezargus.library.logging</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Error, warning, and logging functionality pertinent to Lezargus.</span>
+
+<span class="sd">Use the functions here when logging or issuing errors or other information.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">string</span>
+
+<span class="kn">import</span> <span class="nn">colorama</span>
+
+<span class="kn">from</span> <span class="nn">lezargus</span> <span class="kn">import</span> <span class="n">library</span>
+<span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">hint</span>
+
+
+<div class="viewcode-block" id="LezargusBaseError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.LezargusBaseError">[docs]</a><span class="k">class</span> <span class="nc">LezargusBaseError</span><span class="p">(</span><span class="ne">BaseException</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The base inheriting class which for all Lezargus errors.</span>
+
+<span class="sd">    This is for exceptions that should never be caught and should bring</span>
+<span class="sd">    everything to a halt.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="DevelopmentError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.DevelopmentError">[docs]</a><span class="k">class</span> <span class="nc">DevelopmentError</span><span class="p">(</span><span class="n">LezargusBaseError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used for a development error.</span>
+
+<span class="sd">    This is an error where the development of Lezargus is not correct and</span>
+<span class="sd">    something is not coded based on the expectations of the software itself.</span>
+<span class="sd">    This is not the fault of the user.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="LogicFlowError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.LogicFlowError">[docs]</a><span class="k">class</span> <span class="nc">LogicFlowError</span><span class="p">(</span><span class="n">LezargusBaseError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used for an error in the flow of program logic.</span>
+
+<span class="sd">    This is an error to ensure that the logic does not flow to a point to a</span>
+<span class="sd">    place where it is not supposed to. This is helpful in making sure changes</span>
+<span class="sd">    to the code do not screw up the logical flow of the program.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="BeyondScopeError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.BeyondScopeError">[docs]</a><span class="k">class</span> <span class="nc">BeyondScopeError</span><span class="p">(</span><span class="n">LezargusBaseError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used for something which is beyond the scope of work.</span>
+
+<span class="sd">    This is an error to be used when what is trying to be done does not</span>
+<span class="sd">    seem reasonable. Usually warnings are the better thing for this but</span>
+<span class="sd">    this error is used when the assumptions for reasonability guided</span>
+<span class="sd">    development and what the user is trying to do is not currently supported</span>
+<span class="sd">    by the software.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="UndiscoveredError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.UndiscoveredError">[docs]</a><span class="k">class</span> <span class="nc">UndiscoveredError</span><span class="p">(</span><span class="n">LezargusBaseError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used for an unknown error.</span>
+
+<span class="sd">    This is an error used in cases where the source of the error has not</span>
+<span class="sd">    been determined and so a more helpful error message or mitigation strategy</span>
+<span class="sd">    cannot be devised.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="LezargusError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.LezargusError">[docs]</a><span class="k">class</span> <span class="nc">LezargusError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The main inheriting class which all Lezargus errors use as their base.</span>
+
+<span class="sd">    This is done for ease of error handling and is something that can and</span>
+<span class="sd">    should be managed.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="CommandLineError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.CommandLineError">[docs]</a><span class="k">class</span> <span class="nc">CommandLineError</span><span class="p">(</span><span class="n">LezargusError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used for an error with the command-line.</span>
+
+<span class="sd">    This error is used when the entered command-line command or its options</span>
+<span class="sd">    are not correct.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="ConfigurationError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.ConfigurationError">[docs]</a><span class="k">class</span> <span class="nc">ConfigurationError</span><span class="p">(</span><span class="n">LezargusError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used for an error with the configuration file.</span>
+
+<span class="sd">    This error is to be used when the configuration file is wrong. There is a</span>
+<span class="sd">    specific expectation for how configuration files and configuration</span>
+<span class="sd">    parameters are structures are defined.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="CriticalError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.CriticalError">[docs]</a><span class="k">class</span> <span class="nc">CriticalError</span><span class="p">(</span><span class="n">LezargusError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used for a critical error.</span>
+
+<span class="sd">    This is a wrapper error class which only exists to better integrate</span>
+<span class="sd">    with the logger/warning hybrid message system.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="DirectoryError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.DirectoryError">[docs]</a><span class="k">class</span> <span class="nc">DirectoryError</span><span class="p">(</span><span class="n">LezargusError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used for directory issues.</span>
+
+<span class="sd">    If there are issues with directories, use this error.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="FileError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.FileError">[docs]</a><span class="k">class</span> <span class="nc">FileError</span><span class="p">(</span><span class="n">LezargusError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used for file issues.</span>
+
+<span class="sd">    If there are issues with files, use this error. This error should not be</span>
+<span class="sd">    used in cases where the problem is because of an incorrect format of the</span>
+<span class="sd">    file (other than corruption).</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="InputError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.InputError">[docs]</a><span class="k">class</span> <span class="nc">InputError</span><span class="p">(</span><span class="n">LezargusError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used for issues with input parameters or data.</span>
+
+<span class="sd">    This is the error to be used when the inputs to a function are not valid</span>
+<span class="sd">    and do not match the expectations of that function.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="ReadOnlyError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.ReadOnlyError">[docs]</a><span class="k">class</span> <span class="nc">ReadOnlyError</span><span class="p">(</span><span class="n">LezargusError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used for problems with read-only files.</span>
+
+<span class="sd">    If the file is read-only and it needs to be read, use FileError. This</span>
+<span class="sd">    error is to be used only when variables or files are assumed to be read</span>
+<span class="sd">    only, this error should be used to enforce that notion.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="SequentialOrderError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.SequentialOrderError">[docs]</a><span class="k">class</span> <span class="nc">SequentialOrderError</span><span class="p">(</span><span class="n">LezargusError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used when things are done out-of-order.</span>
+
+<span class="sd">    This error is used when something is happening out of the expected required</span>
+<span class="sd">    order. This order being in place for specific publicly communicated</span>
+<span class="sd">    reasons.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="LezargusWarning"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.LezargusWarning">[docs]</a><span class="k">class</span> <span class="nc">LezargusWarning</span><span class="p">(</span><span class="ne">UserWarning</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The main inheriting class which all Lezargus warnings use as their base.</span>
+
+<span class="sd">    The base warning class which all of the other Lezargus warnings</span>
+<span class="sd">    are derived from.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="AccuracyWarning"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.AccuracyWarning">[docs]</a><span class="k">class</span> <span class="nc">AccuracyWarning</span><span class="p">(</span><span class="n">LezargusWarning</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A warning for inaccurate results.</span>
+
+<span class="sd">    This warning is used when some elements of the simulation or data</span>
+<span class="sd">    reduction would yield less than desireable results.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="ConfigurationWarning"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.ConfigurationWarning">[docs]</a><span class="k">class</span> <span class="nc">ConfigurationWarning</span><span class="p">(</span><span class="n">LezargusWarning</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A warning for inappropriate configurations.</span>
+
+<span class="sd">    This warning is to be used when the configuration file is wrong. There is a</span>
+<span class="sd">    specific expectation for how configuration files and configuration</span>
+<span class="sd">    parameters are structures are defined.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="InputWarning"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.InputWarning">[docs]</a><span class="k">class</span> <span class="nc">InputWarning</span><span class="p">(</span><span class="n">LezargusWarning</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A warning for a weird input.</span>
+
+<span class="sd">    This warning is used when the input of a function or a field is not</span>
+<span class="sd">    expected, but may be able to be handled.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<span class="c1">###############################################################################</span>
+
+<span class="c1"># Logging levels alias.</span>
+<span class="n">LOGGING_DEBUG_LEVEL</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span>
+<span class="n">LOGGING_INFO_LEVEL</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">INFO</span>
+<span class="n">LOGGING_WARNING_LEVEL</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span>
+<span class="n">LOGGING_ERROR_LEVEL</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span>
+<span class="n">LOGGING_CRITICAL_LEVEL</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">CRITICAL</span>
+<span class="c1"># The logger itself.</span>
+<span class="n">__lezargus_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
+<span class="n">__lezargus_logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">LOGGING_DEBUG_LEVEL</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="ColoredLogFormatter"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.ColoredLogFormatter">[docs]</a><span class="k">class</span> <span class="nc">ColoredLogFormatter</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Use this formatter to have colors.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    message_format : str</span>
+<span class="sd">        The message format, passed directly to the logger formatter after</span>
+<span class="sd">        the color keys are added.</span>
+<span class="sd">    date_format : str</span>
+<span class="sd">        The date format, passed directly to the logger formatter.</span>
+<span class="sd">    color_formatting : dict</span>
+<span class="sd">        The formatting for the color.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="ColoredLogFormatter.__init__"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.ColoredLogFormatter.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="s2">&quot;ColoredLogFormatter&quot;</span><span class="p">,</span>
+        <span class="n">message_format</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">date_format</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">color_hex_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">:</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the color formatter.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        message_format : str</span>
+<span class="sd">            The message format, passed directly to the logger formatter after</span>
+<span class="sd">            the color keys are added.</span>
+<span class="sd">        date_format : str</span>
+<span class="sd">            The date format, passed directly to the logger formatter.</span>
+<span class="sd">        color_hex_dict : dict, default = None</span>
+<span class="sd">            The dictionary containing the color pairings between logging</span>
+<span class="sd">            levels and its actual color. It should be a</span>
+<span class="sd">            {level_number:hex_color} dictionary.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="c1"># The default.</span>
+        <span class="n">color_hex_dict</span> <span class="o">=</span> <span class="p">{}</span> <span class="k">if</span> <span class="n">color_hex_dict</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">color_hex_dict</span>
+        <span class="c1"># Get the escape codes from the HEX colors.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">message_format</span> <span class="o">=</span> <span class="n">message_format</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">date_format</span> <span class="o">=</span> <span class="n">date_format</span>
+        <span class="n">reset_ansi_escape</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\x1b</span><span class="s2">[0m&quot;</span>
+        <span class="c1"># Establishing the formatting.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">color_formatting</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">leveldex</span><span class="p">,</span> <span class="n">colordex</span> <span class="ow">in</span> <span class="n">color_hex_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="c1"># Skip cases where there is no color.</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">colordex</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">color_ansi_escape</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__convert_color_hex_to_ansi_escape</span><span class="p">(</span>
+                <span class="n">color_hex</span><span class="o">=</span><span class="n">colordex</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">color_formatting</span><span class="p">[</span><span class="n">leveldex</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">color_ansi_escape</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">message_format</span> <span class="o">+</span> <span class="n">reset_ansi_escape</span>
+            <span class="p">)</span>
+        <span class="c1"># Flip the Windows color flag compatibility.</span>
+        <span class="n">colorama</span><span class="o">.</span><span class="n">just_fix_windows_console</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="ColoredLogFormatter.format"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.ColoredLogFormatter.format">[docs]</a>    <span class="k">def</span> <span class="nf">format</span><span class="p">(</span>  <span class="c1"># noqa: A003</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="s2">&quot;ColoredLogFormatter&quot;</span><span class="p">,</span>
+        <span class="n">record</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">LogRecord</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Format a log record.</span>
+
+<span class="sd">        The name of this function cannot be helped as it is required for the</span>
+<span class="sd">        Python logging module.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        record : LogRecord</span>
+<span class="sd">            The record to format.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        formatted_record : str</span>
+<span class="sd">            The formatted string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">log_format</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_formatting</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">levelno</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="n">fmt</span><span class="o">=</span><span class="n">log_format</span><span class="p">,</span> <span class="n">datefmt</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">date_format</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">formatter</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">record</span><span class="p">)</span></div>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">__convert_color_hex_to_ansi_escape</span><span class="p">(</span><span class="n">color_hex</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert a hex code to a ANSI escape code.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        color_hex : str</span>
+<span class="sd">            The HEX code of the color, including the # symbol.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        color_ansi_escape : str</span>
+<span class="sd">            The ANSI escape code for the color.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If the color code is not a hex, give a warning.</span>
+        <span class="n">color_hex</span> <span class="o">=</span> <span class="n">color_hex</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+        <span class="c1"># Does it start with a hash?</span>
+        <span class="n">hash_check</span> <span class="o">=</span> <span class="n">color_hex</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;#&quot;</span>
+        <span class="c1"># Is it only 6 characters and the hash?</span>
+        <span class="n">hex_length</span> <span class="o">=</span> <span class="mi">7</span>
+        <span class="n">length_check</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">color_hex</span><span class="p">)</span> <span class="o">==</span> <span class="n">hex_length</span>
+        <span class="c1"># Does it contain only HEX digits?</span>
+        <span class="n">char_check</span> <span class="o">=</span> <span class="nb">all</span><span class="p">(</span>
+            <span class="n">chardex</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">hexdigits</span><span class="p">)</span> <span class="k">for</span> <span class="n">chardex</span> <span class="ow">in</span> <span class="n">color_hex</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">hash_check</span> <span class="ow">and</span> <span class="n">length_check</span> <span class="ow">and</span> <span class="n">char_check</span><span class="p">):</span>
+            <span class="n">warning</span><span class="p">(</span>
+                <span class="n">warning_type</span><span class="o">=</span><span class="n">InputWarning</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;The following HEX color code input is not a proper HEX&quot;</span>
+                    <span class="s2">&quot; color code: </span><span class="si">{hx}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">hx</span><span class="o">=</span><span class="n">color_hex</span><span class="p">)</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="c1"># Converting from HEX string to the RGB color code.</span>
+        <span class="n">color_ansi_escape</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[38;2;</span><span class="si">{r}</span><span class="s2">;</span><span class="si">{g}</span><span class="s2">;</span><span class="si">{b}</span><span class="s2">m&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">r</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">color_hex</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="mi">16</span><span class="p">),</span>
+            <span class="n">g</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">color_hex</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">5</span><span class="p">],</span> <span class="mi">16</span><span class="p">),</span>
+            <span class="n">b</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">color_hex</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="mi">7</span><span class="p">],</span> <span class="mi">16</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">color_ansi_escape</span></div>
+
+
+<div class="viewcode-block" id="add_stream_logging_handler"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.add_stream_logging_handler">[docs]</a><span class="k">def</span> <span class="nf">add_stream_logging_handler</span><span class="p">(</span>
+    <span class="n">stream</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
+    <span class="n">log_level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">LOGGING_DEBUG_LEVEL</span><span class="p">,</span>
+    <span class="n">use_color</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add a stream handler to the logging infrastructure.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    stream : Any</span>
+<span class="sd">        The stream where the logs will write to.</span>
+<span class="sd">    log_level : int</span>
+<span class="sd">        The logging level for this handler.</span>
+<span class="sd">    use_color : bool</span>
+<span class="sd">        If True, use colored log messaged based on the configuration file</span>
+<span class="sd">        parameters.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">stream_handler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">(</span><span class="n">stream</span><span class="p">)</span>
+    <span class="n">stream_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">log_level</span><span class="p">)</span>
+    <span class="c1"># Get the format from the specified configuration.</span>
+    <span class="n">color_format_dict</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">LOGGING_DEBUG_LEVEL</span><span class="p">:</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">LOGGING_STREAM_DEBUG_COLOR_HEX</span><span class="p">,</span>
+        <span class="n">LOGGING_INFO_LEVEL</span><span class="p">:</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">LOGGING_STREAM_INFO_COLOR_HEX</span><span class="p">,</span>
+        <span class="n">LOGGING_WARNING_LEVEL</span><span class="p">:</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">LOGGING_STREAM_WARNING_COLOR_HEX</span><span class="p">,</span>
+        <span class="n">LOGGING_ERROR_LEVEL</span><span class="p">:</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">LOGGING_STREAM_ERROR_COLOR_HEX</span><span class="p">,</span>
+        <span class="n">LOGGING_CRITICAL_LEVEL</span><span class="p">:</span> <span class="p">(</span>
+            <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">LOGGING_STREAM_CRITICAL_COLOR_HEX</span>
+        <span class="p">),</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="n">use_color</span><span class="p">:</span>
+        <span class="n">stream_formatter</span> <span class="o">=</span> <span class="n">ColoredLogFormatter</span><span class="p">(</span>
+            <span class="n">message_format</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">LOGGING_RECORD_FORMAT_STRING</span><span class="p">,</span>
+            <span class="n">date_format</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">LOGGING_DATETIME_FORMAT_STRING</span><span class="p">,</span>
+            <span class="n">color_hex_dict</span><span class="o">=</span><span class="n">color_format_dict</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">stream_formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span>
+            <span class="n">fmt</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">LOGGING_RECORD_FORMAT_STRING</span><span class="p">,</span>
+            <span class="n">datefmt</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">LOGGING_DATETIME_FORMAT_STRING</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="c1"># Adding the logger.</span>
+    <span class="n">stream_handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">stream_formatter</span><span class="p">)</span>
+    <span class="n">__lezargus_logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">stream_handler</span><span class="p">)</span></div>
+    <span class="c1"># All done.</span>
+
+
+<div class="viewcode-block" id="add_file_logging_handler"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.add_file_logging_handler">[docs]</a><span class="k">def</span> <span class="nf">add_file_logging_handler</span><span class="p">(</span>
+    <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">log_level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">LOGGING_DEBUG_LEVEL</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add a stream handler to the logging infrastructure.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filename : str</span>
+<span class="sd">        The filename path where the log file will be saved to.</span>
+<span class="sd">    log_level : int</span>
+<span class="sd">        The logging level for this handler.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">file_handler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">FileHandler</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;a&quot;</span><span class="p">)</span>
+    <span class="n">file_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">log_level</span><span class="p">)</span>
+    <span class="c1"># Get the format from the specified configuration.</span>
+    <span class="n">file_formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span>
+        <span class="n">fmt</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">LOGGING_RECORD_FORMAT_STRING</span><span class="p">,</span>
+        <span class="n">datefmt</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">LOGGING_DATETIME_FORMAT_STRING</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1"># Adding the logger.</span>
+    <span class="n">file_handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">file_formatter</span><span class="p">)</span>
+    <span class="n">__lezargus_logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">file_handler</span><span class="p">)</span></div>
+    <span class="c1"># All done.</span>
+
+
+<div class="viewcode-block" id="update_global_minimum_logging_level"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.update_global_minimum_logging_level">[docs]</a><span class="k">def</span> <span class="nf">update_global_minimum_logging_level</span><span class="p">(</span>
+    <span class="n">log_level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">LOGGING_DEBUG_LEVEL</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Update the logging level of this module.</span>
+
+<span class="sd">    This function updates the minimum logging level which is required for</span>
+<span class="sd">    a log record to be recorded. Handling each single logger handler is really</span>
+<span class="sd">    unnecessary.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    log_level : int, default = logging.DEBUG</span>
+<span class="sd">        The log level which will be set as the minimum level.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Setting the log level.</span>
+    <span class="n">__lezargus_logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">log_level</span><span class="p">)</span>
+    <span class="c1"># ...and the level of the handlers.</span>
+    <span class="k">for</span> <span class="n">handlerdex</span> <span class="ow">in</span> <span class="n">__lezargus_logger</span><span class="o">.</span><span class="n">handlers</span><span class="p">:</span>
+        <span class="n">handlerdex</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">log_level</span><span class="p">)</span></div>
+    <span class="c1"># All done.</span>
+
+
+<div class="viewcode-block" id="debug"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.debug">[docs]</a><span class="k">def</span> <span class="nf">debug</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Log a debug message.</span>
+
+<span class="sd">    This is a wrapper around the debug function to standardize it for Lezargus.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    message : str</span>
+<span class="sd">        The debugging message.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__lezargus_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="info"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.info">[docs]</a><span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Log an informational message.</span>
+
+<span class="sd">    This is a wrapper around the info function to standardize it for Lezargus.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    message : str</span>
+<span class="sd">        The informational message.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__lezargus_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="warning"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.warning">[docs]</a><span class="k">def</span> <span class="nf">warning</span><span class="p">(</span><span class="n">warning_type</span><span class="p">:</span> <span class="n">LezargusWarning</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Log a warning message.</span>
+
+<span class="sd">    This is a wrapper around the warning function to standardize it for</span>
+<span class="sd">    Lezargus.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    warning_type : LezargusWarning</span>
+<span class="sd">        The class of the warning which will be used.</span>
+<span class="sd">    message : str</span>
+<span class="sd">        The warning message.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Check if the warning type provided is a Lezargus type.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">warning_type</span><span class="p">,</span> <span class="n">LezargusWarning</span><span class="p">):</span>
+        <span class="n">critical</span><span class="p">(</span>
+            <span class="n">critical_type</span><span class="o">=</span><span class="n">DevelopmentError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;The provided warning type `</span><span class="si">{ty}</span><span class="s2">` is not a subclass of the&quot;</span>
+                <span class="s2">&quot; Lezargus warning type.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ty</span><span class="o">=</span><span class="n">warning_type</span><span class="p">)</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">__lezargus_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="error"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.error">[docs]</a><span class="k">def</span> <span class="nf">error</span><span class="p">(</span><span class="n">error_type</span><span class="p">:</span> <span class="n">LezargusError</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Log an error message, do not raise.</span>
+
+<span class="sd">    Use this for issues which are more serious than warnings but do not result</span>
+<span class="sd">    in a raised exception.</span>
+
+<span class="sd">    This is a wrapper around the error function to standardize it for Lezargus.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    error_type : LezargusError</span>
+<span class="sd">        The class of the error which will be used.</span>
+<span class="sd">    message : str</span>
+<span class="sd">        The error message.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Check if the warning type provided is a Lezargus type.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">error_type</span><span class="p">,</span> <span class="n">LezargusError</span> <span class="o">|</span> <span class="n">LezargusBaseError</span><span class="p">):</span>
+        <span class="n">critical</span><span class="p">(</span>
+            <span class="n">critical_type</span><span class="o">=</span><span class="n">DevelopmentError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;The provided error type `</span><span class="si">{ty}</span><span class="s2">` is not a subclass of the&quot;</span>
+                <span class="s2">&quot; Lezargus error type.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ty</span><span class="o">=</span><span class="n">error_type</span><span class="p">)</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># The error type needs to be something that can be used for warning.</span>
+        <span class="c1"># Typically, only the non-base errors will be used anyways.</span>
+        <span class="n">__lezargus_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="critical"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.critical">[docs]</a><span class="k">def</span> <span class="nf">critical</span><span class="p">(</span><span class="n">critical_type</span><span class="p">:</span> <span class="n">LezargusError</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Log a critical error and raise.</span>
+
+<span class="sd">    Use this for issues which are more serious than warnings and should</span>
+<span class="sd">    raise/throw an exception. The main difference between critical and error</span>
+<span class="sd">    for logging is that critical will also raise the exception as error will</span>
+<span class="sd">    not and the program will attempt to continue.</span>
+
+<span class="sd">    This is a wrapper around the critical function to standardize it for</span>
+<span class="sd">    Lezargus.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    critical_type : LezargusError</span>
+<span class="sd">        The class of the critical exception error which will be used and</span>
+<span class="sd">        raised.</span>
+<span class="sd">    message : str</span>
+<span class="sd">        The critical error message.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Check if the warning type provided is a Lezargus type.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">issubclass</span><span class="p">(</span><span class="n">critical_type</span><span class="p">,</span> <span class="n">LezargusError</span> <span class="o">|</span> <span class="n">LezargusBaseError</span><span class="p">):</span>
+        <span class="n">critical</span><span class="p">(</span>
+            <span class="n">critical_type</span><span class="o">=</span><span class="n">DevelopmentError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;The provided critical type `</span><span class="si">{ty}</span><span class="s2">` is not a subclass of the&quot;</span>
+                <span class="s2">&quot; Lezargus error type.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ty</span><span class="o">=</span><span class="n">critical_type</span><span class="p">)</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">__lezargus_logger</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="c1"># Finally, we raise/throw the error.</span>
+        <span class="k">raise</span> <span class="n">critical_type</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+    <span class="c1"># The code should not get here.</span>
+    <span class="n">critical</span><span class="p">(</span>
+        <span class="n">critical_type</span><span class="o">=</span><span class="n">LogicFlowError</span><span class="p">,</span>
+        <span class="n">message</span><span class="o">=</span><span class="s2">&quot;The code should not be here.&quot;</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="terminal"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.terminal">[docs]</a><span class="k">def</span> <span class="nf">terminal</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Terminal error function which is used to stop everything.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Raise.</span>
+    <span class="n">msg</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="s2">&quot;TERMINAL - This is a general exception, see the traceback for more&quot;</span>
+        <span class="s2">&quot; information.&quot;</span>
+    <span class="p">)</span>
+    <span class="k">raise</span> <span class="n">LezargusBaseError</span><span class="p">(</span>
+        <span class="n">msg</span><span class="p">,</span>
+    <span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Sparrow.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>
