@@ -173,18 +173,17 @@
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="CriticalError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.CriticalError">[docs]</a><span class="k">class</span> <span class="nc">CriticalError</span><span class="p">(</span><span class="n">LezargusError</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used for a critical error.</span>
-
-<span class="sd">    This is a wrapper error class which only exists to better integrate</span>
-<span class="sd">    with the logger/warning hybrid message system.</span>
-<span class="sd">    &quot;&quot;&quot;</span></div>
-
-
 <div class="viewcode-block" id="DirectoryError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.DirectoryError">[docs]</a><span class="k">class</span> <span class="nc">DirectoryError</span><span class="p">(</span><span class="n">LezargusError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used for directory issues.</span>
 
 <span class="sd">    If there are issues with directories, use this error.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="ElevatedError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.ElevatedError">[docs]</a><span class="k">class</span> <span class="nc">ElevatedError</span><span class="p">(</span><span class="n">LezargusError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used when elevating warnings or errors to critical level.</span>
+
+<span class="sd">    Only to be used when elevating via the configuration property.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
@@ -534,7 +533,11 @@
     <span class="n">__lezargus_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="warning"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.warning">[docs]</a><span class="k">def</span> <span class="nf">warning</span><span class="p">(</span><span class="n">warning_type</span><span class="p">:</span> <span class="n">LezargusWarning</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="warning"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.warning">[docs]</a><span class="k">def</span> <span class="nf">warning</span><span class="p">(</span>
+    <span class="n">warning_type</span><span class="p">:</span> <span class="n">LezargusWarning</span><span class="p">,</span>
+    <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">elevate</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Log a warning message.</span>
 
 <span class="sd">    This is a wrapper around the warning function to standardize it for</span>
@@ -546,6 +549,9 @@
 <span class="sd">        The class of the warning which will be used.</span>
 <span class="sd">    message : str</span>
 <span class="sd">        The warning message.</span>
+<span class="sd">    elevate : bool, default = None</span>
+<span class="sd">        If True, always elevate the warning to a critical issue. By default,</span>
+<span class="sd">        use the configuration value.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -560,11 +566,35 @@
                 <span class="s2">&quot; Lezargus warning type.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ty</span><span class="o">=</span><span class="n">warning_type</span><span class="p">)</span>
             <span class="p">),</span>
         <span class="p">)</span>
+    <span class="c1"># We add the warning type to the message, if the configuration specifies it</span>
+    <span class="c1"># to be so.</span>
+    <span class="k">if</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">LOGGING_INCLUDE_EXCEPTION_TYPE_IN_MESSAGE</span><span class="p">:</span>
+        <span class="n">typed_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">warning_type</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">__lezargus_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
+        <span class="c1"># Do not add anything.</span>
+        <span class="n">typed_message</span> <span class="o">=</span> <span class="n">message</span>
+
+    <span class="c1"># Now we issue the warning.</span>
+    <span class="n">__lezargus_logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="n">typed_message</span><span class="p">)</span>
+
+    <span class="c1"># If the warning should be elevated.</span>
+    <span class="n">elevate</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">elevate</span>
+        <span class="k">if</span> <span class="n">elevate</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="k">else</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">LOGGING_ELEVATE_WARNING_TO_CRITICAL</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">elevate</span><span class="p">:</span>
+        <span class="n">elevated_message</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;The following warning was elevated: </span><span class="si">{</span><span class="n">typed_message</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="p">)</span>
+        <span class="n">critical</span><span class="p">(</span><span class="n">critical_type</span><span class="o">=</span><span class="n">ElevatedError</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">elevated_message</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="error"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.error">[docs]</a><span class="k">def</span> <span class="nf">error</span><span class="p">(</span><span class="n">error_type</span><span class="p">:</span> <span class="n">LezargusError</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="error"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.error">[docs]</a><span class="k">def</span> <span class="nf">error</span><span class="p">(</span>
+    <span class="n">error_type</span><span class="p">:</span> <span class="n">LezargusError</span><span class="p">,</span>
+    <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">elevate</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Log an error message, do not raise.</span>
 
 <span class="sd">    Use this for issues which are more serious than warnings but do not result</span>
@@ -578,6 +608,9 @@
 <span class="sd">        The class of the error which will be used.</span>
 <span class="sd">    message : str</span>
 <span class="sd">        The error message.</span>
+<span class="sd">    elevate : bool, default = None</span>
+<span class="sd">        If True, always elevate the error to a critical issue. By default,</span>
+<span class="sd">        use the configuration value.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -592,10 +625,25 @@
                 <span class="s2">&quot; Lezargus error type.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ty</span><span class="o">=</span><span class="n">error_type</span><span class="p">)</span>
             <span class="p">),</span>
         <span class="p">)</span>
+    <span class="c1"># We add the error type to the message, if the configuration specifies it</span>
+    <span class="c1"># to be so.</span>
+    <span class="k">if</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">LOGGING_INCLUDE_EXCEPTION_TYPE_IN_MESSAGE</span><span class="p">:</span>
+        <span class="n">typed_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">error_type</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="c1"># The error type needs to be something that can be used for warning.</span>
-        <span class="c1"># Typically, only the non-base errors will be used anyways.</span>
-        <span class="n">__lezargus_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
+        <span class="c1"># Do not add anything.</span>
+        <span class="n">typed_message</span> <span class="o">=</span> <span class="n">message</span>
+    <span class="c1"># The error type needs to be something that can be used for warning.</span>
+    <span class="c1"># Typically, only the non-base errors will be used anyways.</span>
+    <span class="n">__lezargus_logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">typed_message</span><span class="p">)</span>
+    <span class="c1"># If the error should be elevated.</span>
+    <span class="n">elevate</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">elevate</span>
+        <span class="k">if</span> <span class="n">elevate</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="k">else</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">LOGGING_ELEVATE_ERROR_TO_CRITICAL</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">elevate</span><span class="p">:</span>
+        <span class="n">elevated_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;The following error was elevated: </span><span class="si">{</span><span class="n">typed_message</span><span class="si">}</span><span class="s2">&quot;</span>
+        <span class="n">critical</span><span class="p">(</span><span class="n">critical_type</span><span class="o">=</span><span class="n">ElevatedError</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">elevated_message</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="critical"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.critical">[docs]</a><span class="k">def</span> <span class="nf">critical</span><span class="p">(</span><span class="n">critical_type</span><span class="p">:</span> <span class="n">LezargusError</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -630,15 +678,17 @@
                 <span class="s2">&quot; Lezargus error type.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ty</span><span class="o">=</span><span class="n">critical_type</span><span class="p">)</span>
             <span class="p">),</span>
         <span class="p">)</span>
+    <span class="c1"># We add the critical type to the message, if the configuration specifies it</span>
+    <span class="c1"># to be so.</span>
+    <span class="k">if</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">LOGGING_INCLUDE_EXCEPTION_TYPE_IN_MESSAGE</span><span class="p">:</span>
+        <span class="n">typed_message</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">critical_type</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> - </span><span class="si">{</span><span class="n">message</span><span class="si">}</span><span class="s2">&quot;</span>
     <span class="k">else</span><span class="p">:</span>
-        <span class="n">__lezargus_logger</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-        <span class="c1"># Finally, we raise/throw the error.</span>
-        <span class="k">raise</span> <span class="n">critical_type</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-    <span class="c1"># The code should not get here.</span>
-    <span class="n">critical</span><span class="p">(</span>
-        <span class="n">critical_type</span><span class="o">=</span><span class="n">LogicFlowError</span><span class="p">,</span>
-        <span class="n">message</span><span class="o">=</span><span class="s2">&quot;The code should not be here.&quot;</span><span class="p">,</span>
-    <span class="p">)</span></div>
+        <span class="c1"># Do not add anything.</span>
+        <span class="n">typed_message</span> <span class="o">=</span> <span class="n">message</span>
+
+    <span class="n">__lezargus_logger</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="n">typed_message</span><span class="p">)</span>
+    <span class="c1"># Finally, we raise/throw the error.</span>
+    <span class="k">raise</span> <span class="n">critical_type</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="terminal"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.terminal">[docs]</a><span class="k">def</span> <span class="nf">terminal</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>

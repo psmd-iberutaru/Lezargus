@@ -1,0 +1,8 @@
+# We override the following configuration parameters for testing Lezargus.
+# Otherwise, we just rely on the default configuration file.
+
+# It is easier to track warnings and errors if they just raise.
+LOGGING_ELEVATE_WARNING_TO_CRITICAL : True
+LOGGING_ELEVATE_ERROR_TO_CRITICAL : True
+# We also want the exception classes.
+LOGGING_INCLUDE_EXCEPTION_TYPE_IN_MESSAGE : True

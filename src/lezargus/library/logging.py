@@ -83,18 +83,17 @@ class ConfigurationError(LezargusError):
     """
 
 
-class CriticalError(LezargusError):
-    """An error used for a critical error.
-
-    This is a wrapper error class which only exists to better integrate
-    with the logger/warning hybrid message system.
-    """
-
-
 class DirectoryError(LezargusError):
     """An error used for directory issues.
 
     If there are issues with directories, use this error.
+    """
+
+
+class ElevatedError(LezargusError):
+    """An error used when elevating warnings or errors to critical level.
+
+    Only to be used when elevating via the configuration property.
     """
 
 
@@ -444,7 +443,11 @@ def info(message: str) -> None:
     __lezargus_logger.info(message)
 
 
-def warning(warning_type: LezargusWarning, message: str) -> None:
+def warning(
+    warning_type: LezargusWarning,
+    message: str,
+    elevate: bool = None,
+) -> None:
     """Log a warning message.
 
     This is a wrapper around the warning function to standardize it for
@@ -456,6 +459,9 @@ def warning(warning_type: LezargusWarning, message: str) -> None:
         The class of the warning which will be used.
     message : str
         The warning message.
+    elevate : bool, default = None
+        If True, always elevate the warning to a critical issue. By default,
+        use the configuration value.
 
     Returns
     -------
@@ -470,11 +476,35 @@ def warning(warning_type: LezargusWarning, message: str) -> None:
                 " Lezargus warning type.".format(ty=warning_type)
             ),
         )
+    # We add the warning type to the message, if the configuration specifies it
+    # to be so.
+    if library.config.LOGGING_INCLUDE_EXCEPTION_TYPE_IN_MESSAGE:
+        typed_message = f"{warning_type.__name__} - {message}"
     else:
-        __lezargus_logger.warning(message)
+        # Do not add anything.
+        typed_message = message
+
+    # Now we issue the warning.
+    __lezargus_logger.warning(typed_message)
+
+    # If the warning should be elevated.
+    elevate = (
+        elevate
+        if elevate is not None
+        else library.config.LOGGING_ELEVATE_WARNING_TO_CRITICAL
+    )
+    if elevate:
+        elevated_message = (
+            f"The following warning was elevated: {typed_message}"
+        )
+        critical(critical_type=ElevatedError, message=elevated_message)
 
 
-def error(error_type: LezargusError, message: str) -> None:
+def error(
+    error_type: LezargusError,
+    message: str,
+    elevate: bool = None,
+) -> None:
     """Log an error message, do not raise.
 
     Use this for issues which are more serious than warnings but do not result
@@ -488,6 +518,9 @@ def error(error_type: LezargusError, message: str) -> None:
         The class of the error which will be used.
     message : str
         The error message.
+    elevate : bool, default = None
+        If True, always elevate the error to a critical issue. By default,
+        use the configuration value.
 
     Returns
     -------
@@ -502,10 +535,25 @@ def error(error_type: LezargusError, message: str) -> None:
                 " Lezargus error type.".format(ty=error_type)
             ),
         )
+    # We add the error type to the message, if the configuration specifies it
+    # to be so.
+    if library.config.LOGGING_INCLUDE_EXCEPTION_TYPE_IN_MESSAGE:
+        typed_message = f"{error_type.__name__} - {message}"
     else:
-        # The error type needs to be something that can be used for warning.
-        # Typically, only the non-base errors will be used anyways.
-        __lezargus_logger.error(message)
+        # Do not add anything.
+        typed_message = message
+    # The error type needs to be something that can be used for warning.
+    # Typically, only the non-base errors will be used anyways.
+    __lezargus_logger.error(typed_message)
+    # If the error should be elevated.
+    elevate = (
+        elevate
+        if elevate is not None
+        else library.config.LOGGING_ELEVATE_ERROR_TO_CRITICAL
+    )
+    if elevate:
+        elevated_message = f"The following error was elevated: {typed_message}"
+        critical(critical_type=ElevatedError, message=elevated_message)
 
 
 def critical(critical_type: LezargusError, message: str) -> None:
@@ -540,15 +588,17 @@ def critical(critical_type: LezargusError, message: str) -> None:
                 " Lezargus error type.".format(ty=critical_type)
             ),
         )
+    # We add the critical type to the message, if the configuration specifies it
+    # to be so.
+    if library.config.LOGGING_INCLUDE_EXCEPTION_TYPE_IN_MESSAGE:
+        typed_message = f"{critical_type.__name__} - {message}"
     else:
-        __lezargus_logger.critical(message)
-        # Finally, we raise/throw the error.
-        raise critical_type(message)
-    # The code should not get here.
-    critical(
-        critical_type=LogicFlowError,
-        message="The code should not be here.",
-    )
+        # Do not add anything.
+        typed_message = message
+
+    __lezargus_logger.critical(typed_message)
+    # Finally, we raise/throw the error.
+    raise critical_type(message)
 
 
 def terminal() -> None:
