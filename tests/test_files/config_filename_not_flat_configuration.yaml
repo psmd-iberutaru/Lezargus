@@ -1,0 +1,6 @@
+# This is a test configuration file. 
+# This configuration file is not flat, for testing purposes.
+
+super_class:
+    subclass_one: "Hello"
+    subclass_two: "World"

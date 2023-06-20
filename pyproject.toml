@@ -81,6 +81,7 @@ docs = [
     "sphinx-build -b html ./docs/source/ ./docs/build/html/",
 ]
 auxiliary = [
+    "format",
     "lintfix",
     "lint",
     "test",

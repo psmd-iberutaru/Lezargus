@@ -3,11 +3,18 @@
 # You should pass your own configuration.yaml file when running this software.
 
 
+# By default, warnings and errors do not raise exceptions, only critical does.
+# Change these flags to elevate them to critical problems.
+LOGGING_ELEVATE_WARNING_TO_CRITICAL : False
+LOGGING_ELEVATE_ERROR_TO_CRITICAL : False
 # This is the string specifier for how the log records should be formatted. 
 # The formatting specification is detailed in...
 # https://docs.python.org/3/library/logging.html#logging.Formatter
 LOGGING_RECORD_FORMAT_STRING : "[Lezargus] %(asctime)s %(levelname)8s -- %(message)s"
-LOGGING_DATETIME_FORMAT_STRING : "%Y-%m-%dT%H:%M:%SZ"
+LOGGING_DATETIME_FORMAT_STRING : "%Y-%m-%dT%H:%M:%S"
+# By default, we add the exception type (of warning, error, or critical) as a 
+# prefix to the logging error message. Turn to False to disable this.
+LOGGING_INCLUDE_EXCEPTION_TYPE_IN_MESSAGE : True
 # And, the HEX colors for the stream logs; if to use color at all.
 LOGGING_STREAM_USE_COLOR : True
 LOGGING_STREAM_DEBUG_COLOR_HEX : "#FFFFFF"
