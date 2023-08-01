@@ -9,18 +9,33 @@ import os
 from lezargus.library import hint
 from lezargus.library import logging
 
+def is_file(pathname:str) -> bool:
+    """Wrapper around os.path function.
+    
+    Parameters
+    ----------
+    pathname : str
+        The path where we test if a file is there or not.
+
+    Returns
+    -------
+    file_exists : bool
+        If True, a file really does exist there.
+    """
+    return os.path.isfile(pathname)
+
 
 def get_directory(pathname: str) -> str:
     """Get the directory from the pathname without the file or the extension.
 
     Parameters
     ----------
-    pathname : string
+    pathname : str
         The pathname which the directory will be extracted.
 
     Returns
     -------
-    directory : string
+    directory : str
         The directory which belongs to the pathname.
     """
     directory = os.path.dirname(pathname)
@@ -41,9 +56,9 @@ def get_most_recent_filename_in_directory(
 
     Parameters
     ----------
-    directory : string
+    directory : str
         The directory by which the most recent file will be derived from.
-    extension : string or list, default = None
+    extension : str or list, default = None
         The extension by which to filter for. It is often the case that some
         files are created but the most recent file of some type is desired.
         Only files which match the included extensions will be considered.
@@ -59,7 +74,7 @@ def get_most_recent_filename_in_directory(
 
     Returns
     -------
-    recent_filename : string
+    recent_filename : str
         The filename of the most recent file, by modification time, in the
         directory.
     """
@@ -129,12 +144,12 @@ def get_filename_without_extension(pathname: str) -> str:
 
     Parameters
     ----------
-    pathname : string
+    pathname : str
         The pathname which the filename will be extracted.
 
     Returns
     -------
-    filename : string
+    filename : str
         The filename without the file extension.
     """
     # In the event that there are more than one period in the full filename.
@@ -149,12 +164,12 @@ def get_filename_with_extension(pathname: str) -> str:
 
     Parameters
     ----------
-    pathname : string
+    pathname : str
         The pathname which the filename will be extracted.
 
     Returns
     -------
-    filename : string
+    filename : str
         The filename with the file extension.
     """
     return os.path.basename(pathname)
@@ -165,12 +180,12 @@ def get_file_extension(pathname: str) -> str:
 
     Parameters
     ----------
-    pathname : string
+    pathname : str
         The pathname which the file extension will be extracted.
 
     Returns
     -------
-    extension : string
+    extension : str
         The file extension only.
     """
     extension = os.path.basename(pathname).split(".")[-1]
@@ -186,17 +201,17 @@ def merge_pathname(
 
     Parameters
     ----------
-    directory : string or list, default = None
+    directory : str or list, default = None
         The directory(s) which is going to be used. If it is a list,
         then the paths within it are combined.
-    filename : string, default = None
+    filename : str, default = None
         The filename that is going to be used for path construction.
-    extension : string, default = None
+    extension : str, default = None
         The filename extension that is going to be used.
 
     Returns
     -------
-    pathname : string
+    pathname : str
         The combined pathname.
     """
     # Combine the directories if it is a list.
@@ -227,16 +242,16 @@ def split_pathname(pathname: str) -> tuple[str, str, str]:
 
     Parameters
     ----------
-    pathname : string
+    pathname : str
         The combined pathname which to be split.
 
     Returns
     -------
-    directory : string
+    directory : str
         The directory which was split from the pathname.
-    filename : string
+    filename : str
         The filename which was split from the pathname.
-    extension : string
+    extension : str
         The filename extension which was split from the pathname.
     """
     directory = get_directory(pathname=pathname)

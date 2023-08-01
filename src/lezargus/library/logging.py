@@ -38,7 +38,7 @@ class LogicFlowError(LezargusBaseError):
     """
 
 
-class BeyondScopeError(LezargusBaseError):
+class NotSupportedError(LezargusBaseError):
     """An error used for something which is beyond the scope of work.
 
     This is an error to be used when what is trying to be done does not
@@ -64,7 +64,6 @@ class LezargusError(Exception):
     This is done for ease of error handling and is something that can and
     should be managed.
     """
-
 
 class CommandLineError(LezargusError):
     """An error used for an error with the command-line.
@@ -123,7 +122,7 @@ class ReadOnlyError(LezargusError):
     """
 
 
-class SequentialOrderError(LezargusError):
+class OutOfOrderError(LezargusError):
     """An error used when things are done out-of-order.
 
     This error is used when something is happening out of the expected required
@@ -156,6 +155,20 @@ class ConfigurationWarning(LezargusWarning):
     parameters are structures are defined.
     """
 
+class DataLossWarning(LezargusWarning):
+    """A warning to caution on data loss.
+    
+    This warning is used when something is being done which might result in 
+    a loss of important data, for example, because a file is not saved or 
+    only part of a data file is read."""
+
+class DevelopmentWarning(LezargusWarning):
+    """A warning used for a development issue.
+
+    This is a warning where the development of Lezargus is not correct and
+    something is not coded based on the expectations of the software itself.
+    This is not the fault of the user.
+    """
 
 class InputWarning(LezargusWarning):
     """A warning for a weird input.
@@ -277,12 +290,12 @@ class ColoredLogFormatter(logging.Formatter):
         """
         # If the color code is not a hex, give a warning.
         color_hex = color_hex.upper()
-        # Does it start with a hash?
+        # Checking if it start with a hash.
         hash_check = color_hex[0] == "#"
-        # Is it only 6 characters and the hash?
+        # Checking if it only 6 characters and the hash.
         hex_length = 7
         length_check = len(color_hex) == hex_length
-        # Does it contain only HEX digits?
+        # Checking if it contains only HEX digits.
         char_check = all(
             chardex in set(string.hexdigits) for chardex in color_hex[1:]
         )

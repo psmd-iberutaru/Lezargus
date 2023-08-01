@@ -26,7 +26,7 @@ def load_configuration_file(filename: str) -> dict:
 
     Parameters
     ----------
-    filename : string
+    filename : str
         The filename of the configuration file, with the extension. Will raise
         if the filename is not the correct extension, just as a quick check.
 
@@ -93,7 +93,7 @@ def load_then_apply_configuration(filename: str) -> None:
 
     Parameters
     ----------
-    filename : string
+    filename : str
         The filename of the configuration file, with the extension. Will raise
         if the filename is not the correct extension, just as a quick check.
 
@@ -150,7 +150,7 @@ def generate_configuration_file_copy(
 
     Parameters
     ----------
-    filename : string
+    filename : str
         The pathname or filename where the configuration file should be put
         to. If it does not have the proper yaml extension, it will be added.
     overwrite : bool, default = False
