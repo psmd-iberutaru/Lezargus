@@ -44,6 +44,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../code/modules.html">lezargus</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../code/lezargus.html">lezargus package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.data.html">lezargus.data package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.data.html#module-lezargus.data">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.html">lezargus.library package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.library.html#submodules">Submodules</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.library.html#module-lezargus.library">Module contents</a></li>
@@ -128,7 +132,7 @@
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="BeyondScopeError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.BeyondScopeError">[docs]</a><span class="k">class</span> <span class="nc">BeyondScopeError</span><span class="p">(</span><span class="n">LezargusBaseError</span><span class="p">):</span>
+<div class="viewcode-block" id="NotSupportedError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.NotSupportedError">[docs]</a><span class="k">class</span> <span class="nc">NotSupportedError</span><span class="p">(</span><span class="n">LezargusBaseError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used for something which is beyond the scope of work.</span>
 
 <span class="sd">    This is an error to be used when what is trying to be done does not</span>
@@ -213,7 +217,7 @@
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="SequentialOrderError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.SequentialOrderError">[docs]</a><span class="k">class</span> <span class="nc">SequentialOrderError</span><span class="p">(</span><span class="n">LezargusError</span><span class="p">):</span>
+<div class="viewcode-block" id="OutOfOrderError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.OutOfOrderError">[docs]</a><span class="k">class</span> <span class="nc">OutOfOrderError</span><span class="p">(</span><span class="n">LezargusError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used when things are done out-of-order.</span>
 
 <span class="sd">    This error is used when something is happening out of the expected required</span>
@@ -244,6 +248,24 @@
 <span class="sd">    This warning is to be used when the configuration file is wrong. There is a</span>
 <span class="sd">    specific expectation for how configuration files and configuration</span>
 <span class="sd">    parameters are structures are defined.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="DataLossWarning"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.DataLossWarning">[docs]</a><span class="k">class</span> <span class="nc">DataLossWarning</span><span class="p">(</span><span class="n">LezargusWarning</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A warning to caution on data loss.</span>
+
+<span class="sd">    This warning is used when something is being done which might result in</span>
+<span class="sd">    a loss of important data, for example, because a file is not saved or</span>
+<span class="sd">    only part of a data file is read.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="DevelopmentWarning"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.DevelopmentWarning">[docs]</a><span class="k">class</span> <span class="nc">DevelopmentWarning</span><span class="p">(</span><span class="n">LezargusWarning</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A warning used for a development issue.</span>
+
+<span class="sd">    This is a warning where the development of Lezargus is not correct and</span>
+<span class="sd">    something is not coded based on the expectations of the software itself.</span>
+<span class="sd">    This is not the fault of the user.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
@@ -367,12 +389,12 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># If the color code is not a hex, give a warning.</span>
         <span class="n">color_hex</span> <span class="o">=</span> <span class="n">color_hex</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
-        <span class="c1"># Does it start with a hash?</span>
+        <span class="c1"># Checking if it start with a hash.</span>
         <span class="n">hash_check</span> <span class="o">=</span> <span class="n">color_hex</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;#&quot;</span>
-        <span class="c1"># Is it only 6 characters and the hash?</span>
+        <span class="c1"># Checking if it only 6 characters and the hash.</span>
         <span class="n">hex_length</span> <span class="o">=</span> <span class="mi">7</span>
         <span class="n">length_check</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">color_hex</span><span class="p">)</span> <span class="o">==</span> <span class="n">hex_length</span>
-        <span class="c1"># Does it contain only HEX digits?</span>
+        <span class="c1"># Checking if it contains only HEX digits.</span>
         <span class="n">char_check</span> <span class="o">=</span> <span class="nb">all</span><span class="p">(</span>
             <span class="n">chardex</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">hexdigits</span><span class="p">)</span> <span class="k">for</span> <span class="n">chardex</span> <span class="ow">in</span> <span class="n">color_hex</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
         <span class="p">)</span>

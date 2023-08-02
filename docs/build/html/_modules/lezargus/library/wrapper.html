@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lezargus.library.wrapper &mdash; Lezargus  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Lezargus
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/modules.html">lezargus</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../code/lezargus.html">lezargus package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.data.html">lezargus.data package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.data.html#module-lezargus.data">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.html">lezargus.library package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.library.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.library.html#module-lezargus.library">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.__main__.html">lezargus.__main__ module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.__version__.html">lezargus.__version__ module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.html#module-lezargus">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Lezargus</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">lezargus.library.wrapper</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for lezargus.library.wrapper</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Function wrappers.</span>
+
+<span class="sd">We borrow a lot of functions from different packages; however, for a lot of</span>
+<span class="sd">them, we build wrappers around them to better integrate them into our</span>
+<span class="sd">package provided its own idiosyncrasies.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">scipy.interpolate</span>
+
+<span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">hint</span>
+<span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">logging</span>
+
+
+<div class="viewcode-block" id="cubic_interpolate_1d_function"><a class="viewcode-back" href="../../../code/lezargus.library.wrapper.html#lezargus.library.wrapper.cubic_interpolate_1d_function">[docs]</a><span class="k">def</span> <span class="nf">cubic_interpolate_1d_function</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span>
+    <span class="n">y</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="n">hint</span><span class="o">.</span><span class="n">Array</span><span class="p">],</span> <span class="n">hint</span><span class="o">.</span><span class="n">Array</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a wrapper around Scipy&#39;s Cubic interpolation.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    x : Array</span>
+<span class="sd">        The x data to interpolate over.</span>
+<span class="sd">    y : Array</span>
+<span class="sd">        The y data to interpolate over.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    interpolate_function : Callable</span>
+<span class="sd">        The interpolation function of the data.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Create a cubic spline.</span>
+    <span class="n">cubic_interpolate_function</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">interpolate</span><span class="o">.</span><span class="n">CubicSpline</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">x</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="n">y</span><span class="p">,</span>
+        <span class="n">bc_type</span><span class="o">=</span><span class="s2">&quot;not-a-knot&quot;</span><span class="p">,</span>
+        <span class="n">extrapolate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Defining the wrapper function.</span>
+    <span class="k">def</span> <span class="nf">interpolate_1d_wrapper</span><span class="p">(</span><span class="n">input_data</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Array</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Cubic interpolator wrapper.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        input_data : Array</span>
+<span class="sd">            The input data.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        output_data : Array</span>
+<span class="sd">            The output data.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We need to check if there is any interpolation.</span>
+        <span class="n">original_x</span> <span class="o">=</span> <span class="n">cubic_interpolate_function</span><span class="o">.</span><span class="n">x</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span>
+            <span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">original_x</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="n">input_data</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">input_data</span> <span class="o">&lt;=</span> <span class="nb">max</span><span class="p">(</span><span class="n">original_x</span><span class="p">))</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">AccuracyWarning</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;Interpolating beyond original input domain, extrapolation&quot;</span>
+                    <span class="s2">&quot; is used.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="c1"># Computing the interpolation.</span>
+        <span class="n">output_data</span> <span class="o">=</span> <span class="n">cubic_interpolate_function</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="n">nu</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">output_data</span>
+
+    <span class="c1"># All done, return the function itself.</span>
+    <span class="k">return</span> <span class="n">interpolate_1d_wrapper</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Sparrow.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

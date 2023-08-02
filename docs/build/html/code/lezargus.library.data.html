@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lezargus.library.data module &mdash; Lezargus  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="lezargus.library.fits module" href="lezargus.library.fits.html" />
+    <link rel="prev" title="lezargus.library.conversion module" href="lezargus.library.conversion.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Lezargus
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">lezargus</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="lezargus.html">lezargus package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="lezargus.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="lezargus.data.html">lezargus.data package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="lezargus.data.html#module-lezargus.data">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4 current"><a class="reference internal" href="lezargus.library.html">lezargus.library package</a><ul class="current">
+<li class="toctree-l5 current"><a class="reference internal" href="lezargus.library.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="lezargus.library.html#module-lezargus.library">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lezargus.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.__main__.html">lezargus.__main__ module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.__version__.html">lezargus.__version__ module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lezargus.html#module-lezargus">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Lezargus</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">lezargus</a></li>
+          <li class="breadcrumb-item"><a href="lezargus.html">lezargus package</a></li>
+          <li class="breadcrumb-item"><a href="lezargus.library.html">lezargus.library package</a></li>
+      <li class="breadcrumb-item active">lezargus.library.data module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/code/lezargus.library.data.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-lezargus.library.data">
+<span id="lezargus-library-data-module"></span><h1>lezargus.library.data module<a class="headerlink" href="#module-lezargus.library.data" title="Permalink to this heading"></a></h1>
+<p>Data file functions.</p>
+<p>This file deals with the loading in and saving of data files which are in
+the /data/ directory of Lezargus. Moreover, the contents of the data
+are accessed using attributes of this module.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="lezargus.library.data.LezargusStarData">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lezargus.library.data.</span></span><span class="sig-name descname"><span class="pre">LezargusStarData</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lezargus/library/data.html#LezargusStarData"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.data.LezargusStarData" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class which packages star spectra data from the data directory.</p>
+<p>Lezargus star data instances contain all of the relevant data of specific
+stars which are important for data simulation or data reduction purposes.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.data.LezargusStarData.wavelength">
+<span class="sig-name descname"><span class="pre">wavelength</span></span><a class="headerlink" href="#lezargus.library.data.LezargusStarData.wavelength" title="Permalink to this definition"></a></dt>
+<dd><p>The wavelength of the spectra of the star, in units of micrometers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.data.LezargusStarData.flux">
+<span class="sig-name descname"><span class="pre">flux</span></span><a class="headerlink" href="#lezargus.library.data.LezargusStarData.flux" title="Permalink to this definition"></a></dt>
+<dd><p>The flux of the star, in units of FLAM.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.data.LezargusStarData.error">
+<span class="sig-name descname"><span class="pre">error</span></span><a class="headerlink" href="#lezargus.library.data.LezargusStarData.error" title="Permalink to this definition"></a></dt>
+<dd><p>The error on the flux of the star, in units of FLAM.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Array</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.data.LezargusStarData.ra">
+<span class="sig-name descname"><span class="pre">ra</span></span><a class="headerlink" href="#lezargus.library.data.LezargusStarData.ra" title="Permalink to this definition"></a></dt>
+<dd><p>The RA of the star.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.data.LezargusStarData.dec">
+<span class="sig-name descname"><span class="pre">dec</span></span><a class="headerlink" href="#lezargus.library.data.LezargusStarData.dec" title="Permalink to this definition"></a></dt>
+<dd><p>The DEC of the star.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.data.LezargusStarData.skycoord">
+<span class="sig-name descname"><span class="pre">skycoord</span></span><a class="headerlink" href="#lezargus.library.data.LezargusStarData.skycoord" title="Permalink to this definition"></a></dt>
+<dd><p>An object of the coordinates.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Astropy SkyCoord</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.data.LezargusStarData.parallax">
+<span class="sig-name descname"><span class="pre">parallax</span></span><a class="headerlink" href="#lezargus.library.data.LezargusStarData.parallax" title="Permalink to this definition"></a></dt>
+<dd><p>The parallax of the star, in milliarcseconds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.data.LezargusStarData.spectral_type">
+<span class="sig-name descname"><span class="pre">spectral_type</span></span><a class="headerlink" href="#lezargus.library.data.LezargusStarData.spectral_type" title="Permalink to this definition"></a></dt>
+<dd><p>The spectral type of the star.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.data.LezargusStarData.B_mag">
+<span class="sig-name descname"><span class="pre">B_mag</span></span><a class="headerlink" href="#lezargus.library.data.LezargusStarData.B_mag" title="Permalink to this definition"></a></dt>
+<dd><p>The B-band magnitude of the star.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.data.LezargusStarData.B_mag_error">
+<span class="sig-name descname"><span class="pre">B_mag_error</span></span><a class="headerlink" href="#lezargus.library.data.LezargusStarData.B_mag_error" title="Permalink to this definition"></a></dt>
+<dd><p>The error on the B-band magnitude of the star.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.data.LezargusStarData.V_mag">
+<span class="sig-name descname"><span class="pre">V_mag</span></span><a class="headerlink" href="#lezargus.library.data.LezargusStarData.V_mag" title="Permalink to this definition"></a></dt>
+<dd><p>The V-band magnitude of the star.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="id0">
+<span class="sig-name descname"><span class="pre">B_mag_error</span></span><a class="headerlink" href="#id0" title="Permalink to this definition"></a></dt>
+<dd><p>The error on the V-band magnitude of the star.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.data.LezargusStarData.J_mag">
+<span class="sig-name descname"><span class="pre">J_mag</span></span><a class="headerlink" href="#lezargus.library.data.LezargusStarData.J_mag" title="Permalink to this definition"></a></dt>
+<dd><p>The J-band magnitude of the star, usually from 2MASS.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.data.LezargusStarData.J_mag_error">
+<span class="sig-name descname"><span class="pre">J_mag_error</span></span><a class="headerlink" href="#lezargus.library.data.LezargusStarData.J_mag_error" title="Permalink to this definition"></a></dt>
+<dd><p>The error on the J-band magnitude of the star, usually from 2MASS.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.data.LezargusStarData.H_mag">
+<span class="sig-name descname"><span class="pre">H_mag</span></span><a class="headerlink" href="#lezargus.library.data.LezargusStarData.H_mag" title="Permalink to this definition"></a></dt>
+<dd><p>The H-band magnitude of the star, usually from 2MASS.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.data.LezargusStarData.H_mag_error">
+<span class="sig-name descname"><span class="pre">H_mag_error</span></span><a class="headerlink" href="#lezargus.library.data.LezargusStarData.H_mag_error" title="Permalink to this definition"></a></dt>
+<dd><p>The error on the H-band magnitude of the star, usually from 2MASS.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.data.LezargusStarData.Ks_mag">
+<span class="sig-name descname"><span class="pre">Ks_mag</span></span><a class="headerlink" href="#lezargus.library.data.LezargusStarData.Ks_mag" title="Permalink to this definition"></a></dt>
+<dd><p>The K-short band magnitude of the star, usually from 2MASS.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.data.LezargusStarData.Ks_mag_error">
+<span class="sig-name descname"><span class="pre">Ks_mag_error</span></span><a class="headerlink" href="#lezargus.library.data.LezargusStarData.Ks_mag_error" title="Permalink to this definition"></a></dt>
+<dd><p>The error on the Ks-band magnitude of the star, usually from 2MASS.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.library.data.LezargusStarData.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lezargus/library/data.html#LezargusStarData.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.data.LezargusStarData.__init__" title="Permalink to this definition"></a></dt>
+<dd><p>Load the Lezargus star file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – The filename of the Lezargus star file to load.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lezargus.library.data.initialize_data_files">
+<span class="sig-prename descclassname"><span class="pre">lezargus.library.data.</span></span><span class="sig-name descname"><span class="pre">initialize_data_files</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lezargus/library/data.html#initialize_data_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.data.initialize_data_files" title="Permalink to this definition"></a></dt>
+<dd><p>Create all of the data files and instances of classes.</p>
+<p>This function creates all of the data objects which represent all of the
+data and saves it to this module. This must be done in a function, and
+called by the initialization of the module, to avoid import errors and
+dependency issues.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="lezargus.library.conversion.html" class="btn btn-neutral float-left" title="lezargus.library.conversion module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="lezargus.library.fits.html" class="btn btn-neutral float-right" title="lezargus.library.fits module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Sparrow.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

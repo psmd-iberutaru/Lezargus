@@ -44,6 +44,10 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../code/modules.html">lezargus</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../code/lezargus.html">lezargus package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.data.html">lezargus.data package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.data.html#module-lezargus.data">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.html">lezargus.library package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.library.html#submodules">Submodules</a></li>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.library.html#module-lezargus.library">Module contents</a></li>
@@ -105,12 +109,12 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    pathname : string</span>
+<span class="sd">    pathname : str</span>
 <span class="sd">        The pathname which the directory will be extracted.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    directory : string</span>
+<span class="sd">    directory : str</span>
 <span class="sd">        The directory which belongs to the pathname.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">directory</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">pathname</span><span class="p">)</span>
@@ -131,9 +135,9 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    directory : string</span>
+<span class="sd">    directory : str</span>
 <span class="sd">        The directory by which the most recent file will be derived from.</span>
-<span class="sd">    extension : string or list, default = None</span>
+<span class="sd">    extension : str or list, default = None</span>
 <span class="sd">        The extension by which to filter for. It is often the case that some</span>
 <span class="sd">        files are created but the most recent file of some type is desired.</span>
 <span class="sd">        Only files which match the included extensions will be considered.</span>
@@ -149,7 +153,7 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    recent_filename : string</span>
+<span class="sd">    recent_filename : str</span>
 <span class="sd">        The filename of the most recent file, by modification time, in the</span>
 <span class="sd">        directory.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -219,12 +223,12 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    pathname : string</span>
+<span class="sd">    pathname : str</span>
 <span class="sd">        The pathname which the filename will be extracted.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    filename : string</span>
+<span class="sd">    filename : str</span>
 <span class="sd">        The filename without the file extension.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># In the event that there are more than one period in the full filename.</span>
@@ -239,12 +243,12 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    pathname : string</span>
+<span class="sd">    pathname : str</span>
 <span class="sd">        The pathname which the filename will be extracted.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    filename : string</span>
+<span class="sd">    filename : str</span>
 <span class="sd">        The filename with the file extension.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">pathname</span><span class="p">)</span></div>
@@ -255,12 +259,12 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    pathname : string</span>
+<span class="sd">    pathname : str</span>
 <span class="sd">        The pathname which the file extension will be extracted.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    extension : string</span>
+<span class="sd">    extension : str</span>
 <span class="sd">        The file extension only.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">extension</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">pathname</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;.&quot;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
@@ -276,17 +280,17 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    directory : string or list, default = None</span>
+<span class="sd">    directory : str or list, default = None</span>
 <span class="sd">        The directory(s) which is going to be used. If it is a list,</span>
 <span class="sd">        then the paths within it are combined.</span>
-<span class="sd">    filename : string, default = None</span>
+<span class="sd">    filename : str, default = None</span>
 <span class="sd">        The filename that is going to be used for path construction.</span>
-<span class="sd">    extension : string, default = None</span>
+<span class="sd">    extension : str, default = None</span>
 <span class="sd">        The filename extension that is going to be used.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    pathname : string</span>
+<span class="sd">    pathname : str</span>
 <span class="sd">        The combined pathname.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Combine the directories if it is a list.</span>
@@ -317,16 +321,16 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    pathname : string</span>
+<span class="sd">    pathname : str</span>
 <span class="sd">        The combined pathname which to be split.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    directory : string</span>
+<span class="sd">    directory : str</span>
 <span class="sd">        The directory which was split from the pathname.</span>
-<span class="sd">    filename : string</span>
+<span class="sd">    filename : str</span>
 <span class="sd">        The filename which was split from the pathname.</span>
-<span class="sd">    extension : string</span>
+<span class="sd">    extension : str</span>
 <span class="sd">        The filename extension which was split from the pathname.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">directory</span> <span class="o">=</span> <span class="n">get_directory</span><span class="p">(</span><span class="n">pathname</span><span class="o">=</span><span class="n">pathname</span><span class="p">)</span>

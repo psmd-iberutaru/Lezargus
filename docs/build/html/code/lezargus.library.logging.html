@@ -47,6 +47,10 @@
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">lezargus</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="lezargus.html">lezargus package</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="lezargus.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="lezargus.data.html">lezargus.data package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="lezargus.data.html#module-lezargus.data">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l4 current"><a class="reference internal" href="lezargus.library.html">lezargus.library package</a><ul class="current">
 <li class="toctree-l5 current"><a class="reference internal" href="lezargus.library.html#submodules">Submodules</a></li>
 <li class="toctree-l5"><a class="reference internal" href="lezargus.library.html#module-lezargus.library">Module contents</a></li>
@@ -104,18 +108,6 @@
 <p>A warning for inaccurate results.</p>
 <p>This warning is used when some elements of the simulation or data
 reduction would yield less than desireable results.</p>
-</dd></dl>
-
-<dl class="py exception">
-<dt class="sig sig-object py" id="lezargus.library.logging.BeyondScopeError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lezargus.library.logging.</span></span><span class="sig-name descname"><span class="pre">BeyondScopeError</span></span><a class="reference internal" href="../_modules/lezargus/library/logging.html#BeyondScopeError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.logging.BeyondScopeError" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#lezargus.library.logging.LezargusBaseError" title="lezargus.library.logging.LezargusBaseError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LezargusBaseError</span></code></a></p>
-<p>An error used for something which is beyond the scope of work.</p>
-<p>This is an error to be used when what is trying to be done does not
-seem reasonable. Usually warnings are the better thing for this but
-this error is used when the assumptions for reasonability guided
-development and what the user is trying to do is not currently supported
-by the software.</p>
 </dd></dl>
 
 <dl class="py class">
@@ -246,11 +238,31 @@ parameters are structures are defined.</p>
 </dd></dl>
 
 <dl class="py exception">
+<dt class="sig sig-object py" id="lezargus.library.logging.DataLossWarning">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lezargus.library.logging.</span></span><span class="sig-name descname"><span class="pre">DataLossWarning</span></span><a class="reference internal" href="../_modules/lezargus/library/logging.html#DataLossWarning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.logging.DataLossWarning" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#lezargus.library.logging.LezargusWarning" title="lezargus.library.logging.LezargusWarning"><code class="xref py py-class docutils literal notranslate"><span class="pre">LezargusWarning</span></code></a></p>
+<p>A warning to caution on data loss.</p>
+<p>This warning is used when something is being done which might result in
+a loss of important data, for example, because a file is not saved or
+only part of a data file is read.</p>
+</dd></dl>
+
+<dl class="py exception">
 <dt class="sig sig-object py" id="lezargus.library.logging.DevelopmentError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lezargus.library.logging.</span></span><span class="sig-name descname"><span class="pre">DevelopmentError</span></span><a class="reference internal" href="../_modules/lezargus/library/logging.html#DevelopmentError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.logging.DevelopmentError" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#lezargus.library.logging.LezargusBaseError" title="lezargus.library.logging.LezargusBaseError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LezargusBaseError</span></code></a></p>
 <p>An error used for a development error.</p>
 <p>This is an error where the development of Lezargus is not correct and
+something is not coded based on the expectations of the software itself.
+This is not the fault of the user.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="lezargus.library.logging.DevelopmentWarning">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lezargus.library.logging.</span></span><span class="sig-name descname"><span class="pre">DevelopmentWarning</span></span><a class="reference internal" href="../_modules/lezargus/library/logging.html#DevelopmentWarning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.logging.DevelopmentWarning" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#lezargus.library.logging.LezargusWarning" title="lezargus.library.logging.LezargusWarning"><code class="xref py py-class docutils literal notranslate"><span class="pre">LezargusWarning</span></code></a></p>
+<p>A warning used for a development issue.</p>
+<p>This is a warning where the development of Lezargus is not correct and
 something is not coded based on the expectations of the software itself.
 This is not the fault of the user.</p>
 </dd></dl>
@@ -337,6 +349,28 @@ to the code do not screw up the logical flow of the program.</p>
 </dd></dl>
 
 <dl class="py exception">
+<dt class="sig sig-object py" id="lezargus.library.logging.NotSupportedError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lezargus.library.logging.</span></span><span class="sig-name descname"><span class="pre">NotSupportedError</span></span><a class="reference internal" href="../_modules/lezargus/library/logging.html#NotSupportedError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.logging.NotSupportedError" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#lezargus.library.logging.LezargusBaseError" title="lezargus.library.logging.LezargusBaseError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LezargusBaseError</span></code></a></p>
+<p>An error used for something which is beyond the scope of work.</p>
+<p>This is an error to be used when what is trying to be done does not
+seem reasonable. Usually warnings are the better thing for this but
+this error is used when the assumptions for reasonability guided
+development and what the user is trying to do is not currently supported
+by the software.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="lezargus.library.logging.OutOfOrderError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lezargus.library.logging.</span></span><span class="sig-name descname"><span class="pre">OutOfOrderError</span></span><a class="reference internal" href="../_modules/lezargus/library/logging.html#OutOfOrderError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.logging.OutOfOrderError" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#lezargus.library.logging.LezargusError" title="lezargus.library.logging.LezargusError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LezargusError</span></code></a></p>
+<p>An error used when things are done out-of-order.</p>
+<p>This error is used when something is happening out of the expected required
+order. This order being in place for specific publicly communicated
+reasons.</p>
+</dd></dl>
+
+<dl class="py exception">
 <dt class="sig sig-object py" id="lezargus.library.logging.ReadOnlyError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lezargus.library.logging.</span></span><span class="sig-name descname"><span class="pre">ReadOnlyError</span></span><a class="reference internal" href="../_modules/lezargus/library/logging.html#ReadOnlyError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.logging.ReadOnlyError" title="Permalink to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="#lezargus.library.logging.LezargusError" title="lezargus.library.logging.LezargusError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LezargusError</span></code></a></p>
@@ -344,16 +378,6 @@ to the code do not screw up the logical flow of the program.</p>
 <p>If the file is read-only and it needs to be read, use FileError. This
 error is to be used only when variables or files are assumed to be read
 only, this error should be used to enforce that notion.</p>
-</dd></dl>
-
-<dl class="py exception">
-<dt class="sig sig-object py" id="lezargus.library.logging.SequentialOrderError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lezargus.library.logging.</span></span><span class="sig-name descname"><span class="pre">SequentialOrderError</span></span><a class="reference internal" href="../_modules/lezargus/library/logging.html#SequentialOrderError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.logging.SequentialOrderError" title="Permalink to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#lezargus.library.logging.LezargusError" title="lezargus.library.logging.LezargusError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LezargusError</span></code></a></p>
-<p>An error used when things are done out-of-order.</p>
-<p>This error is used when something is happening out of the expected required
-order. This order being in place for specific publicly communicated
-reasons.</p>
 </dd></dl>
 
 <dl class="py exception">

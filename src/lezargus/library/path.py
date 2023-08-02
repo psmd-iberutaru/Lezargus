@@ -9,21 +9,6 @@ import os
 from lezargus.library import hint
 from lezargus.library import logging
 
-def is_file(pathname:str) -> bool:
-    """Wrapper around os.path function.
-    
-    Parameters
-    ----------
-    pathname : str
-        The path where we test if a file is there or not.
-
-    Returns
-    -------
-    file_exists : bool
-        If True, a file really does exist there.
-    """
-    return os.path.isfile(pathname)
-
 
 def get_directory(pathname: str) -> str:
     """Get the directory from the pathname without the file or the extension.

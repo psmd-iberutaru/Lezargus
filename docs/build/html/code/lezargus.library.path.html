@@ -19,7 +19,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="lezargus.__main__ module" href="lezargus.__main__.html" />
+    <link rel="next" title="lezargus.library.wrapper module" href="lezargus.library.wrapper.html" />
     <link rel="prev" title="lezargus.library.logging module" href="lezargus.library.logging.html" /> 
 </head>
 
@@ -47,6 +47,10 @@
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">lezargus</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="lezargus.html">lezargus package</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="lezargus.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="lezargus.data.html">lezargus.data package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="lezargus.data.html#module-lezargus.data">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l4 current"><a class="reference internal" href="lezargus.library.html">lezargus.library package</a><ul class="current">
 <li class="toctree-l5 current"><a class="reference internal" href="lezargus.library.html#submodules">Submodules</a></li>
 <li class="toctree-l5"><a class="reference internal" href="lezargus.library.html#module-lezargus.library">Module contents</a></li>
@@ -103,13 +107,13 @@
 <dd><p>Get the directory from the pathname without the file or the extension.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>pathname</strong> (<em>string</em>) – The pathname which the directory will be extracted.</p>
+<dd class="field-odd"><p><strong>pathname</strong> (<em>str</em>) – The pathname which the directory will be extracted.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>directory</strong> – The directory which belongs to the pathname.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>string</p>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -120,13 +124,13 @@
 <dd><p>Get the file extension only from the pathname.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>pathname</strong> (<em>string</em>) – The pathname which the file extension will be extracted.</p>
+<dd class="field-odd"><p><strong>pathname</strong> (<em>str</em>) – The pathname which the file extension will be extracted.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>extension</strong> – The file extension only.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>string</p>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -137,13 +141,13 @@
 <dd><p>Get the filename from the pathname with the file extension.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>pathname</strong> (<em>string</em>) – The pathname which the filename will be extracted.</p>
+<dd class="field-odd"><p><strong>pathname</strong> (<em>str</em>) – The pathname which the filename will be extracted.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>filename</strong> – The filename with the file extension.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>string</p>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -154,13 +158,13 @@
 <dd><p>Get the filename from the pathname without the file extension.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>pathname</strong> (<em>string</em>) – The pathname which the filename will be extracted.</p>
+<dd class="field-odd"><p><strong>pathname</strong> (<em>str</em>) – The pathname which the filename will be extracted.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>filename</strong> – The filename without the file extension.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>string</p>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -175,8 +179,8 @@ off of modification time.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>directory</strong> (<em>string</em>) – The directory by which the most recent file will be derived from.</p></li>
-<li><p><strong>extension</strong> (<em>string</em><em> or </em><em>list</em><em>, </em><em>default = None</em>) – The extension by which to filter for. It is often the case that some
+<li><p><strong>directory</strong> (<em>str</em>) – The directory by which the most recent file will be derived from.</p></li>
+<li><p><strong>extension</strong> (<em>str</em><em> or </em><em>list</em><em>, </em><em>default = None</em>) – The extension by which to filter for. It is often the case that some
 files are created but the most recent file of some type is desired.
 Only files which match the included extensions will be considered.</p></li>
 <li><p><strong>recursive</strong> (<em>bool</em><em>, </em><em>default = False</em>) – If True, the directory is searched recursively for the most recent file
@@ -193,7 +197,7 @@ given file will be considered to be.</p></li>
 directory.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>string</p>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -205,17 +209,17 @@ directory.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>directory</strong> (<em>string</em><em> or </em><em>list</em><em>, </em><em>default = None</em>) – The directory(s) which is going to be used. If it is a list,
+<li><p><strong>directory</strong> (<em>str</em><em> or </em><em>list</em><em>, </em><em>default = None</em>) – The directory(s) which is going to be used. If it is a list,
 then the paths within it are combined.</p></li>
-<li><p><strong>filename</strong> (<em>string</em><em>, </em><em>default = None</em>) – The filename that is going to be used for path construction.</p></li>
-<li><p><strong>extension</strong> (<em>string</em><em>, </em><em>default = None</em>) – The filename extension that is going to be used.</p></li>
+<li><p><strong>filename</strong> (<em>str</em><em>, </em><em>default = None</em>) – The filename that is going to be used for path construction.</p></li>
+<li><p><strong>extension</strong> (<em>str</em><em>, </em><em>default = None</em>) – The filename extension that is going to be used.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><strong>pathname</strong> – The combined pathname.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>string</p>
+<dd class="field-odd"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -229,13 +233,13 @@ then the paths within it are combined.</p></li>
 <cite>get_file_extension</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>pathname</strong> (<em>string</em>) – The combined pathname which to be split.</p>
+<dd class="field-odd"><p><strong>pathname</strong> (<em>str</em>) – The combined pathname which to be split.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">
-<li><p><strong>directory</strong> (<em>string</em>) – The directory which was split from the pathname.</p></li>
-<li><p><strong>filename</strong> (<em>string</em>) – The filename which was split from the pathname.</p></li>
-<li><p><strong>extension</strong> (<em>string</em>) – The filename extension which was split from the pathname.</p></li>
+<li><p><strong>directory</strong> (<em>str</em>) – The directory which was split from the pathname.</p></li>
+<li><p><strong>filename</strong> (<em>str</em>) – The filename which was split from the pathname.</p></li>
+<li><p><strong>extension</strong> (<em>str</em>) – The filename extension which was split from the pathname.</p></li>
 </ul>
 </p>
 </dd>
@@ -249,7 +253,7 @@ then the paths within it are combined.</p></li>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="lezargus.library.logging.html" class="btn btn-neutral float-left" title="lezargus.library.logging module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="lezargus.__main__.html" class="btn btn-neutral float-right" title="lezargus.__main__ module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="lezargus.library.wrapper.html" class="btn btn-neutral float-right" title="lezargus.library.wrapper module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

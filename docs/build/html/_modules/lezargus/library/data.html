@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lezargus.library.data &mdash; Lezargus  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Lezargus
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/modules.html">lezargus</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../code/lezargus.html">lezargus package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.data.html">lezargus.data package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.data.html#module-lezargus.data">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.html">lezargus.library package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.library.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.library.html#module-lezargus.library">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.__main__.html">lezargus.__main__ module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.__version__.html">lezargus.__version__ module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.html#module-lezargus">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Lezargus</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">lezargus.library.data</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for lezargus.library.data</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Data file functions.</span>
+
+<span class="sd">This file deals with the loading in and saving of data files which are in</span>
+<span class="sd">the /data/ directory of Lezargus. Moreover, the contents of the data</span>
+<span class="sd">are accessed using attributes of this module.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">import</span> <span class="nn">astropy.coordinates</span>
+<span class="kn">import</span> <span class="nn">astropy.units</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">lezargus</span> <span class="kn">import</span> <span class="n">library</span>
+<span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">logging</span>
+
+<span class="c1"># We need to get the actual directory of the data.</span>
+<span class="n">MODULE_DATA_DIRECTORY</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+    <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">MODULE_INSTALLATION_PATH</span><span class="p">,</span>
+    <span class="s2">&quot;data&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="LezargusStarData"><a class="viewcode-back" href="../../../code/lezargus.library.data.html#lezargus.library.data.LezargusStarData">[docs]</a><span class="k">class</span> <span class="nc">LezargusStarData</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A class which packages star spectra data from the data directory.</span>
+
+<span class="sd">    Lezargus star data instances contain all of the relevant data of specific</span>
+<span class="sd">    stars which are important for data simulation or data reduction purposes.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    wavelength : Array</span>
+<span class="sd">        The wavelength of the spectra of the star, in units of micrometers.</span>
+<span class="sd">    flux : Array</span>
+<span class="sd">        The flux of the star, in units of FLAM.</span>
+<span class="sd">    error : Array</span>
+<span class="sd">        The error on the flux of the star, in units of FLAM.</span>
+
+<span class="sd">    ra : str</span>
+<span class="sd">        The RA of the star.</span>
+<span class="sd">    dec : str</span>
+<span class="sd">        The DEC of the star.</span>
+<span class="sd">    skycoord : Astropy SkyCoord</span>
+<span class="sd">        An object of the coordinates.</span>
+<span class="sd">    parallax : float</span>
+<span class="sd">        The parallax of the star, in milliarcseconds.</span>
+<span class="sd">    spectral_type : str</span>
+<span class="sd">        The spectral type of the star.</span>
+
+<span class="sd">    B_mag : float</span>
+<span class="sd">        The B-band magnitude of the star.</span>
+<span class="sd">    B_mag_error : float</span>
+<span class="sd">        The error on the B-band magnitude of the star.</span>
+<span class="sd">    V_mag : float</span>
+<span class="sd">        The V-band magnitude of the star.</span>
+<span class="sd">    B_mag_error : float</span>
+<span class="sd">        The error on the V-band magnitude of the star.</span>
+<span class="sd">    J_mag : float</span>
+<span class="sd">        The J-band magnitude of the star, usually from 2MASS.</span>
+<span class="sd">    J_mag_error : float</span>
+<span class="sd">        The error on the J-band magnitude of the star, usually from 2MASS.</span>
+<span class="sd">    H_mag : float</span>
+<span class="sd">        The H-band magnitude of the star, usually from 2MASS.</span>
+<span class="sd">    H_mag_error : float</span>
+<span class="sd">        The error on the H-band magnitude of the star, usually from 2MASS.</span>
+<span class="sd">    Ks_mag : float</span>
+<span class="sd">        The K-short band magnitude of the star, usually from 2MASS.</span>
+<span class="sd">    Ks_mag_error : float</span>
+<span class="sd">        The error on the Ks-band magnitude of the star, usually from 2MASS.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="LezargusStarData.__init__"><a class="viewcode-back" href="../../../code/lezargus.library.data.html#lezargus.library.data.LezargusStarData.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s2">&quot;LezargusStarData&quot;</span><span class="p">,</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Load the Lezargus star file.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        filename : str</span>
+<span class="sd">            The filename of the Lezargus star file to load.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Load the file itself.</span>
+        <span class="n">header</span><span class="p">,</span> <span class="n">data</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_fits_image_file</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+        <span class="c1"># The spectral data.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flux</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">error</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+        <span class="c1"># The Header data.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ra</span> <span class="o">=</span> <span class="n">header</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;RA&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dec</span> <span class="o">=</span> <span class="n">header</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;DEC&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ra</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;The Lezargus star data file </span><span class="si">{fl}</span><span class="s2"> does not have a RA.&quot;</span>
+                    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fl</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dec</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;The Lezargus star data file </span><span class="si">{fl}</span><span class="s2"> does not have a DEC.&quot;</span>
+                    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fl</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ra</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">dec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Creating a coordinate object.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">skycoord</span> <span class="o">=</span> <span class="n">astropy</span><span class="o">.</span><span class="n">coordinates</span><span class="o">.</span><span class="n">SkyCoord</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ra</span><span class="p">,</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dec</span><span class="p">,</span>
+                <span class="n">frame</span><span class="o">=</span><span class="s2">&quot;icrs&quot;</span><span class="p">,</span>
+                <span class="n">unit</span><span class="o">=</span><span class="p">(</span><span class="n">astropy</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">hourangle</span><span class="p">,</span> <span class="n">astropy</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">deg</span><span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;The Lezargus star data file </span><span class="si">{fl}</span><span class="s2"> cannot have its RA and&quot;</span>
+                    <span class="s2">&quot; DEC parsed into an Astropy SkyCoord object.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="c1"># Parallax, in milliarcsec.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parallax</span> <span class="o">=</span> <span class="n">header</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;PLX&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">parallax</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DevelopmentWarning</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;The Lezargus star data file </span><span class="si">{fl}</span><span class="s2"> does not have a parallax.&quot;</span>
+                    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fl</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="c1"># Spectral type.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">spectral_type</span> <span class="o">=</span> <span class="n">header</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;SPTYPE&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">spectral_type</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DevelopmentWarning</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;The Lezargus star data file </span><span class="si">{fl}</span><span class="s2"> does not have a spectral&quot;</span>
+                    <span class="s2">&quot; type.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fl</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Magnitudes, the filter names here are case sensitive and there are</span>
+        <span class="c1"># filter version of the lowercase letters and we do not want to</span>
+        <span class="c1"># confuse users.</span>
+        <span class="n">filter_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;B&quot;</span><span class="p">,</span> <span class="s2">&quot;V&quot;</span><span class="p">,</span> <span class="s2">&quot;J&quot;</span><span class="p">,</span> <span class="s2">&quot;H&quot;</span><span class="p">,</span> <span class="s2">&quot;Ks&quot;</span><span class="p">]</span>
+        <span class="n">tag_max_len</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="k">for</span> <span class="n">filterdex</span> <span class="ow">in</span> <span class="n">filter_names</span><span class="p">:</span>
+            <span class="c1"># Making standard filter names per the FITS file. By convention for</span>
+            <span class="c1"># the FITS file headers, the filter names are described by at most</span>
+            <span class="c1"># two characters with left justified with a trailing underscore if</span>
+            <span class="c1"># required.</span>
+            <span class="n">temp_filter</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">filterdex</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">filterdex</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span>
+                <span class="k">else</span> <span class="n">filterdex</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span>
+            <span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span>
+                <span class="nb">len</span><span class="p">(</span><span class="n">temp_filter</span><span class="p">)</span> <span class="o">==</span> <span class="n">tag_max_len</span>
+                <span class="ow">and</span> <span class="p">(</span>
+                    <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">filterdex</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">temp_filter</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span>
+                    <span class="ow">or</span> <span class="p">(</span>
+                        <span class="nb">len</span><span class="p">(</span><span class="n">filterdex</span><span class="p">)</span> <span class="o">==</span> <span class="n">tag_max_len</span> <span class="ow">and</span> <span class="s2">&quot;_&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">temp_filter</span>
+                    <span class="p">)</span>
+                <span class="p">)</span>
+            <span class="p">):</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                    <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">,</span>
+                    <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                        <span class="s2">&quot;The filter name </span><span class="si">{flt}</span><span class="s2"> does not follow the convention&quot;</span>
+                        <span class="s2">&quot; of being maximally two characters long with a&quot;</span>
+                        <span class="s2">&quot; trailing underscore where needed.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                            <span class="n">flt</span><span class="o">=</span><span class="n">temp_filter</span><span class="p">,</span>
+                        <span class="p">)</span>
+                    <span class="p">),</span>
+                <span class="p">)</span>
+            <span class="c1"># Getting both the magnitude and errors.</span>
+            <span class="n">mag</span> <span class="o">=</span> <span class="n">header</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">temp_filter</span><span class="si">}</span><span class="s2">_MAG&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="n">mag_err</span> <span class="o">=</span> <span class="n">header</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">temp_filter</span><span class="si">}</span><span class="s2">_M_ERR&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">mag</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">mag_err</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                    <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">,</span>
+                    <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                        <span class="s2">&quot;The Lezargus star data file </span><span class="si">{fl}</span><span class="s2"> does not have any&quot;</span>
+                        <span class="s2">&quot; data for the filter band </span><span class="si">{flt}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                            <span class="n">fl</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
+                            <span class="n">flt</span><span class="o">=</span><span class="n">temp_filter</span><span class="p">,</span>
+                        <span class="p">)</span>
+                    <span class="p">),</span>
+                <span class="p">)</span>
+                <span class="n">mag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+                <span class="n">mag_err</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+            <span class="k">elif</span> <span class="n">mag</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">mag_err</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                    <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DataLossWarning</span><span class="p">,</span>
+                    <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                        <span class="s2">&quot;The Lezargus star data file </span><span class="si">{fl}</span><span class="s2"> has, for the filter&quot;</span>
+                        <span class="s2">&quot; </span><span class="si">{flt}</span><span class="s2">, an entry with no magnitude measurement but an&quot;</span>
+                        <span class="s2">&quot; error on it. We null both values.&quot;</span>
+                    <span class="p">),</span>
+                <span class="p">)</span>
+                <span class="n">mag</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+                <span class="n">mag_err</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># All good.</span>
+                <span class="k">pass</span>
+            <span class="c1"># Finally applying the values.</span>
+            <span class="n">mag_variable_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">filterdex</span><span class="si">}</span><span class="s2">_mag&quot;</span>
+            <span class="n">err_variable_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">filterdex</span><span class="si">}</span><span class="s2">_mag_error&quot;</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mag_variable_name</span><span class="p">,</span> <span class="n">mag</span><span class="p">)</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">err_variable_name</span><span class="p">,</span> <span class="n">mag_err</span><span class="p">)</span></div></div>
+        <span class="c1"># All done.</span>
+
+
+<div class="viewcode-block" id="initialize_data_files"><a class="viewcode-back" href="../../../code/lezargus.library.data.html#lezargus.library.data.initialize_data_files">[docs]</a><span class="k">def</span> <span class="nf">initialize_data_files</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create all of the data files and instances of classes.</span>
+
+<span class="sd">    This function creates all of the data objects which represent all of the</span>
+<span class="sd">    data and saves it to this module. This must be done in a function, and</span>
+<span class="sd">    called by the initialization of the module, to avoid import errors and</span>
+<span class="sd">    dependency issues.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">data_files</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="c1"># Loading the stars.</span>
+    <span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;VEGA&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">LezargusStarData</span><span class="p">(</span>
+        <span class="n">filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+            <span class="n">directory</span><span class="o">=</span><span class="n">MODULE_DATA_DIRECTORY</span><span class="p">,</span>
+            <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;star_vega&quot;</span><span class="p">,</span>
+            <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;fits&quot;</span><span class="p">,</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Finally, applying the data to this module.</span>
+    <span class="nb">globals</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">data_files</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Sparrow.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

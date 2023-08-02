@@ -128,6 +128,8 @@ ignore = [
     # Allow variable assignment for return. It is easier to find and follow the
     # return path.
     "RET504",
+    # Sometimes there are actual reasons for having a lot of arguments.
+    "PLR0913",
     # Our file paths are better represented as base strings, we do not ever
     # need to overcomplicate our paths with OOP. As such, suggestions to 
     # use pathlib really is not needed.
@@ -154,12 +156,17 @@ ban-relative-imports = "all"
 "src/lezargus/**/__init__.py" = ["F401"]
 
 [tool.pylint]
+good-names-rgxs = [
+    # Allow for 2-character names, following the usual snake case conventions.
+    "[_a-z][_a-z0-9]?$",
+]
 disable = [
+    "R0902", # (too-many-instance-attributes)
     "R0903", # (too-few-public-methods)
     "R0913", # (too-many-arguments)
+    "R0401", # (cyclic-import)
     "W0105", # (pointless-string-statement)
     "C0209", # (consider-using-f-string)
-    "R0401", # (cyclic-import)
 ]
 extension-pkg-allow-list = [
     "PySide6",
