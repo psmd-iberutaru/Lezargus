@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lezargus.library.fits module &mdash; Lezargus  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="lezargus.library.hint module" href="lezargus.library.hint.html" />
+    <link rel="prev" title="lezargus.library.data module" href="lezargus.library.data.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Lezargus
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">lezargus</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="lezargus.html">lezargus package</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="lezargus.html#subpackages">Subpackages</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="lezargus.data.html">lezargus.data package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="lezargus.data.html#module-lezargus.data">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4 current"><a class="reference internal" href="lezargus.library.html">lezargus.library package</a><ul class="current">
+<li class="toctree-l5 current"><a class="reference internal" href="lezargus.library.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="lezargus.library.html#module-lezargus.library">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lezargus.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.__main__.html">lezargus.__main__ module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.__version__.html">lezargus.__version__ module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lezargus.html#module-lezargus">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Lezargus</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="modules.html">lezargus</a></li>
+          <li class="breadcrumb-item"><a href="lezargus.html">lezargus package</a></li>
+          <li class="breadcrumb-item"><a href="lezargus.library.html">lezargus.library package</a></li>
+      <li class="breadcrumb-item active">lezargus.library.fits module</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/code/lezargus.library.fits.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-lezargus.library.fits">
+<span id="lezargus-library-fits-module"></span><h1>lezargus.library.fits module<a class="headerlink" href="#module-lezargus.library.fits" title="Permalink to this heading"></a></h1>
+<p>FITS file reading, writing, and other manipulations.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="lezargus.library.fits.read_fits_header">
+<span class="sig-prename descclassname"><span class="pre">lezargus.library.fits.</span></span><span class="sig-name descname"><span class="pre">read_fits_header</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://docs.astropy.org/en/stable/io/fits/api/headers.html#astropy.io.fits.Header" title="(in Astropy v5.3)"><span class="pre">Header</span></a></span></span><a class="reference internal" href="../_modules/lezargus/library/fits.html#read_fits_header"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.fits.read_fits_header" title="Permalink to this definition"></a></dt>
+<dd><p>Read a FITS file header.</p>
+<p>This reads the header of fits files only. This should be used only if
+there is no data. Really, this is just a wrapper around Astropy, but it
+is made for consistency and to avoid the usage of the convince functions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>str</em>) – The filename that the fits image file is at.</p></li>
+<li><p><strong>extension</strong> (<em>int</em><em> or </em><em>str</em><em>, </em><em>default = 0</em>) – The fits extension that is desired to be opened.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>header</strong> – The header of the fits file.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Astropy Header</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lezargus.library.fits.read_fits_image_file">
+<span class="sig-prename descclassname"><span class="pre">lezargus.library.fits.</span></span><span class="sig-name descname"><span class="pre">read_fits_image_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.astropy.org/en/stable/io/fits/api/headers.html#astropy.io.fits.Header" title="(in Astropy v5.3)"><span class="pre">astropy.io.fits.header.Header</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.25)"><span class="pre">numpy.ndarray</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/lezargus/library/fits.html#read_fits_image_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.fits.read_fits_image_file" title="Permalink to this definition"></a></dt>
+<dd><p>Read a FITS image file.</p>
+<p>This reads fits files, assuming that the fits file is an image. It is a
+wrapper function around the Astropy functions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>str</em>) – The filename that the fits image file is at.</p></li>
+<li><p><strong>extension</strong> (<em>int</em><em> or </em><em>str</em><em>, </em><em>default = 0</em>) – The fits extension that is desired to be opened.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>header</strong> (<em>Astropy Header</em>) – The header of the fits file.</p></li>
+<li><p><strong>data</strong> (<em>Array</em>) – The data image of the fits file. If the reading of the array does not
+produce a data array, it returns None.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lezargus.library.fits.read_fits_table_file">
+<span class="sig-prename descclassname"><span class="pre">lezargus.library.fits.</span></span><span class="sig-name descname"><span class="pre">read_fits_table_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extension</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://docs.astropy.org/en/stable/io/fits/api/headers.html#astropy.io.fits.Header" title="(in Astropy v5.3)"><span class="pre">astropy.io.fits.header.Header</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://docs.astropy.org/en/stable/api/astropy.table.Table.html#astropy.table.Table" title="(in Astropy v5.3)"><span class="pre">astropy.table.table.Table</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/lezargus/library/fits.html#read_fits_table_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.fits.read_fits_table_file" title="Permalink to this definition"></a></dt>
+<dd><p>Read a FITS table from a file.</p>
+<p>This reads fits files, assuming that the fits file is a binary table.
+It is a wrapper function around the astropy functions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>str</em>) – The filename that the fits image file is at.</p></li>
+<li><p><strong>extension</strong> (<em>int</em><em> or </em><em>str</em><em>, </em><em>default = 0</em>) – The fits extension that is desired to be opened.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>header</strong> (<em>Astropy Header</em>) – The header of the fits file.</p></li>
+<li><p><strong>table</strong> (<em>Astropy Table</em>) – The data table of the fits file. If the reading of the array does not
+produce a data table, it returns None.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lezargus.library.fits.write_fits_image_file">
+<span class="sig-prename descclassname"><span class="pre">lezargus.library.fits.</span></span><span class="sig-name descname"><span class="pre">write_fits_image_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.astropy.org/en/stable/io/fits/api/headers.html#astropy.io.fits.Header" title="(in Astropy v5.3)"><span class="pre">Header</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.25)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lezargus/library/fits.html#write_fits_image_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.fits.write_fits_image_file" title="Permalink to this definition"></a></dt>
+<dd><p>Write FITS image file.</p>
+<p>This writes fits image files to disk. Acting as a wrapper around the
+fits functionality of astropy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>str</em>) – The filename that the fits image file will be written to.</p></li>
+<li><p><strong>header</strong> (<em>Astropy Header</em>) – The header of the fits file.</p></li>
+<li><p><strong>data</strong> (<em>array-like</em>) – The data image of the fits file.</p></li>
+<li><p><strong>overwrite</strong> (<em>boolean</em><em>, </em><em>default = False</em>) – Decides if to overwrite the file if it already exists.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lezargus.library.fits.write_fits_table_file">
+<span class="sig-prename descclassname"><span class="pre">lezargus.library.fits.</span></span><span class="sig-name descname"><span class="pre">write_fits_table_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.astropy.org/en/stable/io/fits/api/headers.html#astropy.io.fits.Header" title="(in Astropy v5.3)"><span class="pre">Header</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">table</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://docs.astropy.org/en/stable/api/astropy.table.Table.html#astropy.table.Table" title="(in Astropy v5.3)"><span class="pre">Table</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lezargus/library/fits.html#write_fits_table_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.fits.write_fits_table_file" title="Permalink to this definition"></a></dt>
+<dd><p>Write a table to a FITS table file.</p>
+<p>This writes fits table files to disk. Acting as a wrapper around the
+fits functionality of Astropy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>string</em>) – The filename that the fits image file will be written to.</p></li>
+<li><p><strong>header</strong> (<em>Astropy Header</em>) – The header of the fits file.</p></li>
+<li><p><strong>table</strong> (<em>Astropy Table</em>) – The data table of the table file.</p></li>
+<li><p><strong>overwrite</strong> (<em>boolean</em><em>, </em><em>default = False</em>) – Decides if to overwrite the file if it already exists.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="lezargus.library.data.html" class="btn btn-neutral float-left" title="lezargus.library.data module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="lezargus.library.hint.html" class="btn btn-neutral float-right" title="lezargus.library.hint module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Sparrow.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

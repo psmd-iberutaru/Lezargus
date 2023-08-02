@@ -65,6 +65,7 @@ class LezargusError(Exception):
     should be managed.
     """
 
+
 class CommandLineError(LezargusError):
     """An error used for an error with the command-line.
 
@@ -155,12 +156,15 @@ class ConfigurationWarning(LezargusWarning):
     parameters are structures are defined.
     """
 
+
 class DataLossWarning(LezargusWarning):
     """A warning to caution on data loss.
-    
-    This warning is used when something is being done which might result in 
-    a loss of important data, for example, because a file is not saved or 
-    only part of a data file is read."""
+
+    This warning is used when something is being done which might result in
+    a loss of important data, for example, because a file is not saved or
+    only part of a data file is read.
+    """
+
 
 class DevelopmentWarning(LezargusWarning):
     """A warning used for a development issue.
@@ -169,6 +173,7 @@ class DevelopmentWarning(LezargusWarning):
     something is not coded based on the expectations of the software itself.
     This is not the fault of the user.
     """
+
 
 class InputWarning(LezargusWarning):
     """A warning for a weird input.

@@ -45,3 +45,6 @@ library.logging.add_file_logging_handler(
     filename=__DEFAULT_LEZARGUS_LOG_FILE_PATH,
     log_level=library.logging.LOGGING_DEBUG_LEVEL,
 )
+
+# Load all of the data files for Lezargus.
+library.data.initialize_data_files()

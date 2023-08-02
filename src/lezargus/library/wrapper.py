@@ -1,22 +1,21 @@
 """Function wrappers.
 
-We borrow a lot of functions from different packages; however, for a lot of 
-them, we build wrappers around them to better integrate them into our 
-package provided its own idiosyncrasies. 
+We borrow a lot of functions from different packages; however, for a lot of
+them, we build wrappers around them to better integrate them into our
+package provided its own idiosyncrasies.
 """
 
-import numpy as np
 import scipy.interpolate
 
-from lezargus import library
-from lezargus.library import logging
 from lezargus.library import hint
+from lezargus.library import logging
 
 
 def cubic_interpolate_1d_function(
-    x: hint.Array, y: hint.Array
+    x: hint.Array,
+    y: hint.Array,
 ) -> hint.Callable[[hint.Array], hint.Array]:
-    """Wrapper around Scipy's Cubic interpolation.
+    """Return a wrapper around Scipy's Cubic interpolation.
 
     Parameters
     ----------
@@ -32,12 +31,15 @@ def cubic_interpolate_1d_function(
     """
     # Create a cubic spline.
     cubic_interpolate_function = scipy.interpolate.CubicSpline(
-        x=x, y=y, bc_type="not-a-knot", extrapolate=True
+        x=x,
+        y=y,
+        bc_type="not-a-knot",
+        extrapolate=True,
     )
 
     # Defining the wrapper function.
     def interpolate_1d_wrapper(input_data: hint.Array) -> hint.Array:
-        """A cubic interpolator wrapper.
+        """Cubic interpolator wrapper.
 
         Parameters
         ----------

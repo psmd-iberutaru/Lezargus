@@ -1,11 +1,14 @@
-"""This file keeps track of all of the functions and computations which deal
-with the atmosphere."""
+"""Atmospheric functions and other operations.
+
+This file keeps track of all of the functions and computations which deal
+with the atmosphere.
+"""
 
 import numpy as np
 
 from lezargus import library
-from lezargus.library import logging
 from lezargus.library import hint
+from lezargus.library import logging
 
 
 def index_of_refraction_ideal_air(wavelength: hint.Array) -> hint.Array:
@@ -30,14 +33,18 @@ def index_of_refraction_ideal_air(wavelength: hint.Array) -> hint.Array:
     # Calculating the index of refraction, left hand then right hand side of
     # the equation.
     ior_ideal_air = (
-        8342.54 + 2406147 / (130 - wavenumber**2) + 15998 / (38.9 - wavenumber**2)
+        8342.54
+        + 2406147 / (130 - wavenumber**2)
+        + 15998 / (38.9 - wavenumber**2)
     )
     ior_ideal_air = ior_ideal_air / 1e8 + 1
     return ior_ideal_air
 
 
 def index_of_refraction_dry_air(
-    wavelength: hint.Array, pressure: float, temperature: float
+    wavelength: hint.Array,
+    pressure: float,
+    temperature: float,
 ) -> hint.Array:
     """Calculate the refraction of air of pressured warm dry air.
 
@@ -66,15 +73,19 @@ def index_of_refraction_dry_air(
     # convert from the standard Kelvin.
     temperature = temperature - 273.15
     if temperature < 0:
-        logging.warning(error_type=logging.NotSupportedError, message="The temperature specified for the Edlén equation for the index of refraction is lower than 0 C. The applicability is of this temperature is unknown.")
+        logging.warning(
+            error_type=logging.NotSupportedError,
+            message=(
+                "The temperature specified for the Edlén equation for the index"
+                " of refraction is lower than 0 C. The applicability is of this"
+                " temperature is unknown."
+            ),
+        )
 
     # Calculating the pressure and temperature term.
-    pt_factor = (
-        (pressure / 96095.43)
-        * (
-            (1 + pressure * (0.601 - 0.009723 * temperature) * 1e-8)
-            / (1 + 0.003661 * temperature)
-        )
+    pt_factor = (pressure / 96095.43) * (
+        (1 + pressure * (0.601 - 0.009723 * temperature) * 1e-8)
+        / (1 + 0.003661 * temperature)
     )
 
     # Calculating the index of refraction of dry air.
@@ -117,11 +128,15 @@ def index_of_refraction_moist_air(
     wavenumber = 1 / wavelength
     # We need the dry air case first.
     ior_dry_air = index_of_refraction_dry_air(
-        wavelength=wavelength, pressure=pressure, temperature=temperature
+        wavelength=wavelength,
+        pressure=pressure,
+        temperature=temperature,
     )
 
     # Calculating the water vapor factor.
-    wv_factor = -1 * water_pressure * (3.7345 - 0.0401 * wavenumber**2) * 1e-10
+    wv_factor = (
+        -1 * water_pressure * (3.7345 - 0.0401 * wavenumber**2) * 1e-10
+    )
 
     # Computing the moist air index of refraction.
     ior_moist_air = ior_dry_air + wv_factor
@@ -176,7 +191,8 @@ def absolute_atmospheric_refraction_function(
 
     # Creating the function itself.
     abs_atm_refr_func = library.wrapper.cubic_interpolate_1d_function(
-        x=wavelength, y=abs_atm_refr
+        x=wavelength,
+        y=abs_atm_refr,
     )
     return abs_atm_refr_func
 
@@ -230,7 +246,7 @@ def relative_atmospheric_refraction_function(
     ref_abs_refr = abs_atm_refr_func(reference_wavelength)
 
     def rel_atm_refr_func(wave: hint.Array) -> hint.Array:
-        """The relative refraction function.
+        """Relative refraction function.
 
         Parameters
         ----------
