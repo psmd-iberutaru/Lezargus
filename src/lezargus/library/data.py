@@ -21,7 +21,7 @@ MODULE_DATA_DIRECTORY = os.path.join(
 )
 
 
-class LezargusStarData:
+class LezargusStarSpectraArchive:
     """A class which packages star spectra data from the data directory.
 
     Lezargus star data instances contain all of the relevant data of specific
@@ -33,8 +33,8 @@ class LezargusStarData:
         The wavelength of the spectra of the star, in units of micrometers.
     flux : Array
         The flux of the star, in units of FLAM.
-    error : Array
-        The error on the flux of the star, in units of FLAM.
+    uncertainty : Array
+        The uncertainty on the flux of the star, in units of FLAM.
 
     ra : str
         The RA of the star.
@@ -49,27 +49,30 @@ class LezargusStarData:
 
     B_mag : float
         The B-band magnitude of the star.
-    B_mag_error : float
-        The error on the B-band magnitude of the star.
+    B_mag_uncertainty : float
+        The uncertainty on the B-band magnitude of the star.
     V_mag : float
         The V-band magnitude of the star.
-    B_mag_error : float
-        The error on the V-band magnitude of the star.
+    V_mag_uncertainty : float
+        The uncertainty on the V-band magnitude of the star.
     J_mag : float
         The J-band magnitude of the star, usually from 2MASS.
-    J_mag_error : float
-        The error on the J-band magnitude of the star, usually from 2MASS.
+    J_mag_uncertainty : float
+        The uncertainty on the J-band magnitude of the star,
+        usually from 2MASS.
     H_mag : float
         The H-band magnitude of the star, usually from 2MASS.
-    H_mag_error : float
-        The error on the H-band magnitude of the star, usually from 2MASS.
+    H_mag_uncertainty : float
+        The uncertainty on the H-band magnitude of the star,
+        usually from 2MASS.
     Ks_mag : float
         The K-short band magnitude of the star, usually from 2MASS.
-    Ks_mag_error : float
-        The error on the Ks-band magnitude of the star, usually from 2MASS.
+    Ks_mag_uncertainty : float
+        The uncertainty on the Ks-band magnitude of the star,
+        usually from 2MASS.
     """
 
-    def __init__(self: "LezargusStarData", filename: str) -> None:
+    def __init__(self: "LezargusStarSpectraArchive", filename: str) -> None:
         """Load the Lezargus star file.
 
         Parameters
@@ -86,7 +89,7 @@ class LezargusStarData:
         # The spectral data.
         self.wavelength = data[0]
         self.flux = data[1]
-        self.error = data[2]
+        self.uncertainty = data[2]
 
         # The Header data.
         self.ra = header.get("RA", None)
@@ -200,7 +203,7 @@ class LezargusStarData:
                     message=(
                         "The Lezargus star data file {fl} has, for the filter"
                         " {flt}, an entry with no magnitude measurement but an"
-                        " error on it. We null both values."
+                        " uncertainty on it. We null both values."
                     ),
                 )
                 mag = np.nan
@@ -210,7 +213,7 @@ class LezargusStarData:
                 pass
             # Finally applying the values.
             mag_variable_name = f"{filterdex}_mag"
-            err_variable_name = f"{filterdex}_mag_error"
+            err_variable_name = f"{filterdex}_mag_uncertainty"
             setattr(self, mag_variable_name, mag)
             setattr(self, err_variable_name, mag_err)
         # All done.
@@ -234,7 +237,7 @@ def initialize_data_files() -> None:
     """
     data_files = {}
     # Loading the stars.
-    data_files["VEGA"] = LezargusStarData(
+    data_files["VEGA"] = LezargusStarSpectraArchive(
         filename=library.path.merge_pathname(
             directory=MODULE_DATA_DIRECTORY,
             filename="star_vega",
