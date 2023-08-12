@@ -38,6 +38,16 @@ class LogicFlowError(LezargusBaseError):
     """
 
 
+class ExpectedCaughtError(LezargusBaseError):
+    """An error used when raising an error to be caught later is needed.
+
+    This error should only be used when an error is needed to be raised which
+    will be caught later. The user should not see this error at all as
+    any time it is used, it should be caught. This name also conveniently
+    provides an obvious and unique error name.
+    """
+
+
 class NotSupportedError(LezargusBaseError):
     """An error used for something which is beyond the scope of work.
 
@@ -63,6 +73,29 @@ class LezargusError(Exception):
 
     This is done for ease of error handling and is something that can and
     should be managed.
+    """
+
+
+class AccuracyError(LezargusError):
+    """An error for inaccurate results.
+
+    This error is used when some elements of the simulation or data
+    reduction would yield very undesirable results. This class should only
+    be used for cases where the results would be quite wrong for most
+    cases; say, much greater +/- 10%. This is just a rule of thumb. For
+    accuracy issues much tamer and closer to the rule of thumb, use
+    AccuracyWarning instead.
+    """
+
+
+class ArithmeticalError(LezargusError):
+    """An error to be used when undefined arithmetic operations are attempted.
+
+    This error is to be used when any arithmetic functions are being attempted
+    which do not have a definition. The most common use case for this error is
+    doing operations on incompatible Lezargus containers. Note, it is named
+    ArithmeticalError to avoid a name conflict with the built-in
+    ArithmeticError.
     """
 
 
@@ -144,7 +177,10 @@ class AccuracyWarning(LezargusWarning):
     """A warning for inaccurate results.
 
     This warning is used when some elements of the simulation or data
-    reduction would yield less than desireable results.
+    reduction would yield less than desireable results. This class should only
+    be used for cases where the results would be slightly wrong for most
+    cases; say, on the order of +/- 10%. This is just a rule of thumb. For
+    accuracy issues much larger, use AccuracyError instead.
     """
 
 
@@ -172,6 +208,17 @@ class DevelopmentWarning(LezargusWarning):
     This is a warning where the development of Lezargus is not correct and
     something is not coded based on the expectations of the software itself.
     This is not the fault of the user.
+    """
+
+
+class FileWarning(LezargusWarning):
+    """A warning used for file and permission issues which are not fatal.
+
+    If there are issues with files, use this warning. However, unlike the
+    error version FileError, this should be used when the file issue is
+    a case considered and is recoverable. This warning should not be
+    used in cases where the problem is because of an incorrect format of the
+    file (other than corruption).
     """
 
 

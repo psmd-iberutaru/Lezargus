@@ -51,8 +51,8 @@ path = "src/lezargus/__version__.py"
 dependencies = [
     "coverage[toml]>=6.5",
     "pytest>=7.3.0",
-    "black>=23.1.0",
-    "pylint>=2.17.0",
+    "black[jupyter]>=23.1.0",
+    "pylint[spelling]>=2.17.0",
     "ruff>=0.0.261",
     "sphinx>=6.1.0",
     "sphinx_rtd_theme>=1.2.0",
@@ -161,9 +161,11 @@ good-names-rgxs = [
     "[_a-z][_a-z0-9]?$",
 ]
 disable = [
+    "R0801", # (duplicate-code)
     "R0902", # (too-many-instance-attributes)
     "R0903", # (too-few-public-methods)
     "R0913", # (too-many-arguments)
+    "R0914", # (too-many-locals)
     "R0401", # (cyclic-import)
     "W0105", # (pointless-string-statement)
     "C0209", # (consider-using-f-string)
