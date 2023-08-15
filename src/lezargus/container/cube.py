@@ -46,13 +46,13 @@ class LezargusCube(LezargusContainerArithmetic):
 
     def __init__(
         self: hint.Self,
-        wavelength: hint.Array,
-        data: hint.Array,
-        uncertainty: hint.Array = None,
+        wavelength: hint.ndarray,
+        data: hint.ndarray,
+        uncertainty: hint.ndarray = None,
         wavelength_unit: str | hint.Unit = None,
         data_unit: str | hint.Unit = None,
-        mask: hint.Array = None,
-        flags: hint.Array = None,
+        mask: hint.ndarray = None,
+        flags: hint.ndarray = None,
         header: hint.Header = None,
     ) -> None:
         """Instantiate the spectra class.

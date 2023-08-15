@@ -51,13 +51,13 @@ class LezargusContainerArithmetic:
 
     def __init__(
         self: "LezargusContainerArithmetic",
-        wavelength: hint.Array,
-        data: hint.Array,
-        uncertainty: hint.Array,
+        wavelength: hint.ndarray,
+        data: hint.ndarray,
+        uncertainty: hint.ndarray,
         wavelength_unit: hint.Unit,
         data_unit: hint.Unit,
-        mask: hint.Array,
-        flags: hint.Array,
+        mask: hint.ndarray,
+        flags: hint.ndarray,
         header: dict,
     ) -> None:
         """Construct a wavelength-aware NDDataArray for arithmetic.

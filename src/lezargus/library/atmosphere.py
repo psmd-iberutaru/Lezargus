@@ -11,7 +11,7 @@ from lezargus.library import hint
 from lezargus.library import logging
 
 
-def index_of_refraction_ideal_air(wavelength: hint.Array) -> hint.Array:
+def index_of_refraction_ideal_air(wavelength: hint.ndarray) -> hint.ndarray:
     """Calculate the ideal refraction of air over wavelength.
 
     The index of refraction of air depends slightly on wavelength, we use
@@ -42,10 +42,10 @@ def index_of_refraction_ideal_air(wavelength: hint.Array) -> hint.Array:
 
 
 def index_of_refraction_dry_air(
-    wavelength: hint.Array,
+    wavelength: hint.ndarray,
     pressure: float,
     temperature: float,
-) -> hint.Array:
+) -> hint.ndarray:
     """Calculate the refraction of air of pressured warm dry air.
 
     The index of refraction depends on wavelength, pressure and temperature, we
@@ -95,11 +95,11 @@ def index_of_refraction_dry_air(
 
 
 def index_of_refraction_moist_air(
-    wavelength: hint.Array,
+    wavelength: hint.ndarray,
     temperature: float,
     pressure: float,
     water_pressure: float,
-) -> hint.Array:
+) -> hint.ndarray:
     """Calculate the refraction of air of pressured warm moist air.
 
     The index of refraction depends on wavelength, pressure, temperature, and
@@ -144,12 +144,12 @@ def index_of_refraction_moist_air(
 
 
 def absolute_atmospheric_refraction_function(
-    wavelength: hint.Array,
+    wavelength: hint.ndarray,
     zenith_angle: float,
     temperature: float,
     pressure: float,
     water_pressure: float,
-) -> hint.Callable[[hint.Array], hint.Array]:
+) -> hint.Callable[[hint.ndarray], hint.ndarray]:
     """Compute the absolute atmospheric refraction function.
 
     The absolute atmospheric refraction is not as useful as the relative
@@ -198,13 +198,13 @@ def absolute_atmospheric_refraction_function(
 
 
 def relative_atmospheric_refraction_function(
-    wavelength: hint.Array,
+    wavelength: hint.ndarray,
     reference_wavelength: float,
     zenith_angle: float,
     temperature: float,
     pressure: float,
     water_pressure: float,
-) -> hint.Callable[[hint.Array], hint.Array]:
+) -> hint.Callable[[hint.ndarray], hint.ndarray]:
     """Compute the relative atmospheric refraction function.
 
     The relative refraction function is the same as the absolute refraction
@@ -245,7 +245,7 @@ def relative_atmospheric_refraction_function(
     # The refraction at the reference wavelength.
     ref_abs_refr = abs_atm_refr_func(reference_wavelength)
 
-    def rel_atm_refr_func(wave: hint.Array) -> hint.Array:
+    def rel_atm_refr_func(wave: hint.ndarray) -> hint.ndarray:
         """Relative refraction function.
 
         Parameters

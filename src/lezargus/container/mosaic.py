@@ -15,7 +15,7 @@ from lezargus.library import logging
 class LezargusMosaic:
     """TODO."""
 
-    def __init__(self:hint.Self) -> None:
+    def __init__(self: hint.Self) -> None:
         """Init doc."""
         __ = library
         __ = hint
