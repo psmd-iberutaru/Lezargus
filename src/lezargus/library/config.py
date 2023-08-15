@@ -65,7 +65,7 @@ def load_configuration_file(filename: str) -> dict:
         )
     # Double check that the configuration is flat as per the documentation
     # and expectation.
-    for __, valuedex in configuration_dict.items():
+    for valuedex in configuration_dict.values():
         if isinstance(valuedex, dict):
             # A dictionary implies a nested configuration which is not allowed.
             logging.error(

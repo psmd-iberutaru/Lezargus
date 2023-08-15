@@ -315,7 +315,7 @@ def write_lezargus_fits_file(
 
 def create_lezargus_fits_header(
     header: hint.Header,
-    entries: dict = None,
+    entries: dict | None = None,
 ) -> hint.Header:
     """Create a Lezargus header.
 

@@ -48,13 +48,13 @@ class LezargusImage(LezargusContainerArithmetic):
     def __init__(
         self: "LezargusImage",
         data: hint.ndarray,
-        uncertainty: hint.ndarray = None,
-        wavelength: float = None,
+        uncertainty: hint.ndarray | None = None,
+        wavelength: float | None = None,
         wavelength_unit: str | hint.Unit = None,
-        data_unit: str | hint.Unit = None,
-        mask: hint.ndarray = None,
-        flags: hint.ndarray = None,
-        header: hint.Header = None,
+        data_unit: str | hint.Unit | None = None,
+        mask: hint.ndarray | None = None,
+        flags: hint.ndarray | None = None,
+        header: hint.Header | None = None,
     ) -> None:
         """Instantiate the spectra class.
 
