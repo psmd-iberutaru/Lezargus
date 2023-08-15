@@ -7,8 +7,12 @@ to define connivent arithmetic.
 
 # The parent class used to properly handle the arithmetic of spectra
 # and data cubes.
+from lezargus.container.parent import LezargusContainerArithmetic
+
+# isort: split
+
+# And all of the following data structures for any given N-dimensional data.
 from lezargus.container.cube import LezargusCube
 from lezargus.container.image import LezargusImage
 from lezargus.container.mosaic import LezargusMosaic
-from lezargus.container.parent import LezargusContainerArithmetic
 from lezargus.container.spectra import LezargusSpectra

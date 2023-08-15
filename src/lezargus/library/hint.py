@@ -22,6 +22,7 @@ from logging import *
 from subprocess import CompletedProcess
 from typing import *
 
+# Astropy imports.
 from astropy.io.fits import FITS_rec
 from astropy.io.fits import Header
 from astropy.io.fits.card import Undefined
@@ -30,24 +31,22 @@ from astropy.table import Table
 from astropy.units import Quantity
 from astropy.units import Unit
 from astropy.wcs import WCS
+
+# Matplotlib imports.
 from matplotlib.backend_bases import MouseEvent
-from numpy import generic as numpy_generic
 
 # Arrays. This is done because ArrayLike casts a rather larger union
 # documentation.
 from numpy import ndarray
-from numpy.typing import ArrayLike
-from numpy.typing import DTypeLike
 
-# The windows.
+# The GUI windows and other imports.
 from PySide6 import QtCore
 from PySide6 import QtGui
 from PySide6 import QtWidgets
 
+# And the windows within the widgets.
+from PySide6.QtWidgets import QMainWindow
+from PySide6.QtWidgets import QWidget
+
 # Lezargus aliases.
 from lezargus.container import *
-
-# Derived types and aliases.
-Array = ndarray
-Widget = QtWidgets.QWidget
-Window = QtWidgets.QMainWindow

@@ -4,6 +4,12 @@ import os
 
 import lezargus
 
+lezargus.library.logging.info(
+    message=(
+        "We are testing; the log messages within this file are often expected."
+    )
+)
+
 
 def test_true() -> None:
     """This is a test that should always pass. This is just a default test

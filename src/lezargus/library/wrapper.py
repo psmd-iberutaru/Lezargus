@@ -14,9 +14,9 @@ from lezargus.library import logging
 
 
 def cubic_interpolate_1d_function(
-    x: hint.Array,
-    y: hint.Array,
-) -> hint.Callable[[hint.Array], hint.Array]:
+    x: hint.ndarray,
+    y: hint.ndarray,
+) -> hint.Callable[[hint.ndarray], hint.ndarray]:
     """Return a wrapper around Scipy's Cubic interpolation.
 
     Parameters
@@ -40,7 +40,7 @@ def cubic_interpolate_1d_function(
     )
 
     # Defining the wrapper function.
-    def interpolate_1d_wrapper(input_data: hint.Array) -> hint.Array:
+    def interpolate_1d_wrapper(input_data: hint.ndarray) -> hint.ndarray:
         """Cubic interpolator wrapper.
 
         Parameters
@@ -75,7 +75,7 @@ def cubic_interpolate_1d_function(
 
 def blackbody_function(
     temperature: float,
-) -> hint.Callable[[hint.Array], hint.Array]:
+) -> hint.Callable[[hint.ndarray], hint.ndarray]:
     """Return a callable blackbody function for a given temperature.
 
     This function is a wrapper around the Astropy blackbody model. This wrapper
@@ -109,7 +109,7 @@ def blackbody_function(
         scale=flam_scale,
     )
 
-    def blackbody(wave: hint.Array) -> hint.Array:
+    def blackbody(wave: hint.ndarray) -> hint.ndarray:
         """Blackbody function.
 
         Parameters
