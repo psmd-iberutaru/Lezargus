@@ -48,12 +48,12 @@ class LezargusSpectra(LezargusContainerArithmetic):
         self: "LezargusSpectra",
         wavelength: hint.ndarray,
         data: hint.ndarray,
-        uncertainty: hint.ndarray = None,
-        wavelength_unit: str | hint.Unit = None,
-        data_unit: str | hint.Unit = None,
-        mask: hint.ndarray = None,
-        flags: hint.ndarray = None,
-        header: hint.Header = None,
+        uncertainty: hint.ndarray | None = None,
+        wavelength_unit: str | hint.Unit | None = None,
+        data_unit: str | hint.Unit | None = None,
+        mask: hint.ndarray | None = None,
+        flags: hint.ndarray | None = None,
+        header: hint.Header | None = None,
     ) -> None:
         """Instantiate the spectra class.
 

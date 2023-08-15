@@ -261,7 +261,7 @@ class ColoredLogFormatter(logging.Formatter):
         self: "ColoredLogFormatter",
         message_format: str,
         date_format: str,
-        color_hex_dict: dict[int:str] = None,
+        color_hex_dict: dict[int:str] | None = None,
     ) -> None:
         """Initialize the color formatter.
 
@@ -511,7 +511,7 @@ def info(message: str) -> None:
 def warning(
     warning_type: LezargusWarning,
     message: str,
-    elevate: bool = None,
+    elevate: bool | None = None,
 ) -> None:
     """Log a warning message.
 
@@ -568,7 +568,7 @@ def warning(
 def error(
     error_type: LezargusError,
     message: str,
-    elevate: bool = None,
+    elevate: bool | None = None,
 ) -> None:
     """Log an error message, do not raise.
 

@@ -441,7 +441,7 @@ class LezargusContainerArithmetic:
 
     def __justify_arithmetic_operation(
         self: hint.Self,
-        operand: hint.Self | float | int,
+        operand: hint.Self | float,
     ) -> bool:
         """Justify operations between two objects is valid.
 
