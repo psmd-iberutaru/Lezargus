@@ -21,9 +21,9 @@ def cubic_interpolate_1d_function(
 
     Parameters
     ----------
-    x : Array
+    x : ndarray
         The x data to interpolate over.
-    y : Array
+    y : ndarray
         The y data to interpolate over.
 
     Returns
@@ -45,12 +45,12 @@ def cubic_interpolate_1d_function(
 
         Parameters
         ----------
-        input_data : Array
+        input_data : ndarray
             The input data.
 
         Returns
         -------
-        output_data : Array
+        output_data : ndarray
             The output data.
         """
         # We need to check if there is any interpolation.
@@ -114,12 +114,12 @@ def blackbody_function(
 
         Parameters
         ----------
-        wave : Array
+        wave : ndarray
             The wavelength of the input, in microns.
 
         Returns
         -------
-        flux : Array
+        flux : ndarray
             The blackbody flux, as returned by a blackbody, in units of FLAM/sr.
         """
         wave = astropy.units.Quantity(wave, unit="micron")

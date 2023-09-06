@@ -113,19 +113,19 @@ def read_lezargus_fits_file(
     -------
     header : Header
         The header of the Lezargus FITS file.
-    wavelength : Array
+    wavelength : ndarray
         The wavelength information of the file.
-    data : Array
+    data : ndarray
         The data array of the Lezargus FITS file.
-    uncertainty : Array
+    uncertainty : ndarray
         The uncertainty in the data.
     wavelength_unit : Unit
         The unit of the wavelength array.
     data_unit : Unit
         The unit of the data.
-    mask : Array
+    mask : ndarray
         The mask of the data.
-    flags : Array
+    flags : ndarray
         The noted flags for each of the data points.
     """
     # We first need to check if the file even exists to read.
@@ -170,8 +170,12 @@ def read_lezargus_fits_file(
         # The uncertainty is stored in its own extension, We transform it like
         # the data itself.
         uncertainty = hdul[header["LZ_UIMGN"]].data.T
-        # Masks and flags are stored in their own extensions as well.
-        mask = hdul[header["LZ_MIMGN"]].data.T
+        # Masks and flags are stored in their own extensions as well. The mask
+        # is actually written as an integer because FITS does not support
+        # writing boolean values. We need to convert it back into the more
+        # familiar data type.
+        mask_int = hdul[header["LZ_MIMGN"]].data.T
+        mask = np.array(mask_int, dtype=bool)
         flags = hdul[header["LZ_FIMGN"]].data.T
     # All done.
     return (
@@ -216,11 +220,11 @@ def write_lezargus_fits_file(
         The filename of the FITS file to write to.
     header : Header
         The header of the Lezargus FITS file.
-    wavelength : Array
+    wavelength : ndarray
         The wavelength information of the file.
-    data : Array
+    data : ndarray
         The data array of the Lezargus FITS file.
-    uncertainty : Array
+    uncertainty : ndarray
         The uncertainty in the data.
     wavelength_unit : Unit
         The unit of the wavelength array.
@@ -228,9 +232,9 @@ def write_lezargus_fits_file(
         The unit of the data.
     uncertainty_unit : Unit
         The unit of the uncertainty of the data.
-    mask : Array
+    mask : ndarray
         The mask of the data.
-    flags : Array
+    flags : ndarray
         The noted flags for each of the data points.
     overwrite : bool, default = False
         If True, overwrite the file upon conflicts.
@@ -240,6 +244,7 @@ def write_lezargus_fits_file(
     None
     """
     # We test if the file already exists.
+    filename = os.path.abspath(filename)
     if os.path.isfile(filename):
         if overwrite:
             logging.warning(
@@ -276,20 +281,20 @@ def write_lezargus_fits_file(
     header.extend(lezargus_header, update=True)
 
     # First we write the main data to the array.
-    data_hdu = astropy.io.fits.PrimaryHDU(data, header=header)
+    data_hdu = astropy.io.fits.PrimaryHDU(data.T, header=header)
     # Now the WCS binary table, most relevant for the wavelength axis. Special
     # care must be made to format the data correctly. Namely, the wavelength
     # index and axis must all fit in a row of a column; see TODO.
     n_wave = len(wavelength)
     wave_index = astropy.io.fits.Column(
         name="WAVEINDEX",
-        array=np.arange(n_wave),
+        array=np.arange(n_wave).reshape(1, 1, n_wave),
         format=f"{n_wave}J",
         dim=f"(1,{n_wave})",
     )
     wave_value = astropy.io.fits.Column(
         name="WAVELENGTH",
-        array=wavelength,
+        array=wavelength.reshape(1, 1, n_wave),
         format=f"{n_wave}E",
         dim=f"(1,{n_wave})",
     )
@@ -302,8 +307,10 @@ def write_lezargus_fits_file(
         uncertainty.T,
         name=header["LZ_UIMGN"],
     )
-    # The mask and flags are also stored in their own HDUs.
-    mask_hdu = astropy.io.fits.ImageHDU(mask.T, name=header["LZ_MIMGN"])
+    # The mask and flags are also stored in their own HDUs. Masks are usually
+    # a boolean, but FITS does not support that so we need to convert.
+    mask_uint8 = np.array(mask, dtype=np.uint8)
+    mask_hdu = astropy.io.fits.ImageHDU(mask_uint8.T, name=header["LZ_MIMGN"])
     flags_hdu = astropy.io.fits.ImageHDU(flags.T, name=header["LZ_FIMGN"])
 
     # Compiling it all together and writing it to disk.
@@ -377,7 +384,7 @@ def create_lezargus_fits_header(
 
     # We construct the WCS header from the Lezargus header if one does not
     # already exist. We insert it in the WCS section of the header.
-    if not header.get("LZWBEGIN", False):
+    if header.get("LZWBEGIN", False):
         logging.info(
             message=(
                 "A WCS header is already present, skipping unnecessary"
@@ -406,6 +413,7 @@ def create_lezargus_fits_header(
                     (keydex, valuedex, commentdex),
                     after=False,
                 )
+            lezargus_header["LZWBEGIN"] = True
 
     # All done.
     return lezargus_header
@@ -428,7 +436,7 @@ def create_wcs_header_from_lezargus_header(header: hint.Header) -> hint.Header:
     """
     # If the header provided is not a Lezargus header, we cannot extract
     # the WCS information from it.
-    if not header.get("LZ_BEGIN", False):
+    if header.get("LZ_BEGIN", False):
         logging.error(
             error_type=logging.InputError,
             message=(

@@ -16,13 +16,13 @@ class LezargusCube(LezargusContainerArithmetic):
 
     Attributes
     ----------
-    wavelength : Array
+    wavelength : ndarray
         The wavelength of the spectra. The unit of wavelength is typically
         in microns; but, check the `wavelength_unit` value.
-    data : Array
+    data : ndarray
         The flux of the spectra cube. The unit of the flux is typically
         in flam; but, check the `flux_unit` value.
-    uncertainty : Array
+    uncertainty : ndarray
         The uncertainty in the flux of the spectra. The unit of the uncertainty
         is the same as the flux value; per `uncertainty_unit`.
 
@@ -34,10 +34,10 @@ class LezargusCube(LezargusContainerArithmetic):
         The unit of the uncertainty array. This unit is the same as the flux
         unit.
 
-    mask : Array
+    mask : ndarray
         A mask of the flux data, used to remove problematic areas. Where True,
         the values of the flux is considered mask.
-    flags : Array
+    flags : ndarray
         Flags of the flux data. These flags store metadata about the flux.
 
     header : Header
@@ -59,11 +59,11 @@ class LezargusCube(LezargusContainerArithmetic):
 
         Parameters
         ----------
-        wavelength : Array
+        wavelength : ndarray
             The wavelength of the spectra.
-        data : Array
+        data : ndarray
             The flux of the spectra.
-        uncertainty : Array, default = None
+        uncertainty : ndarray, default = None
             The uncertainty of the spectra. By default, it is None and the
             uncertainty value is 0.
         wavelength_unit : Astropy-Unit like, default = None
@@ -72,9 +72,9 @@ class LezargusCube(LezargusContainerArithmetic):
         data_unit : Astropy-Unit like, default = None
             The data unit of the spectra. It must be interpretable by
             the Astropy Units package. If None, the the unit is dimensionless.
-        mask : Array, default = None
+        mask : ndarray, default = None
             A mask which should be applied to the spectra, if needed.
-        flags : Array, default = None
+        flags : ndarray, default = None
             A set of flags which describe specific points of data in the
             spectra.
         header : Header, default = None
@@ -98,18 +98,18 @@ class LezargusCube(LezargusContainerArithmetic):
         # shape.
         wavelength = np.array(wavelength, dtype=float)
         data = np.array(data, dtype=float)
-        if wavelength.shape[0] != data.shape[0]:
+        if wavelength.shape[0] != data.shape[2]:
             logging.critical(
                 critical_type=logging.InputError,
                 message=(
                     "Wavelength array shape: {wv_s}; flux cube array shape:"
-                    " {dt_s}. The cube wavelength dimension {dt_s_w} length is"
+                    " {dt_s}. The cube wavelength dimension length {dt_s_w} is"
                     " not compatible with the wavelength length {wv_s_w}."
                     .format(
                         wv_s=wavelength.shape,
                         dt_s=data.shape,
-                        dt_s_w=data.shape[0],
-                        wv_s_w=wavelength.shape[0],
+                        dt_s_w=data.shape[2],
+                        wv_s_w=wavelength.shape[2],
                     )
                 ),
             )

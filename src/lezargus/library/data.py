@@ -7,6 +7,7 @@ are accessed using attributes of this module.
 
 import os
 
+import lezargus
 from lezargus import library
 
 # We need to get the actual directory of the data.
@@ -34,6 +35,13 @@ def initialize_data_files() -> None:
     """
     data_files = {}
     # Loading the stars.
+    data_files["VEGA"] = lezargus.container.LezargusSpectra.read_fits_file(
+        filename=library.path.merge_pathname(
+            directory=MODULE_DATA_DIRECTORY,
+            filename="star_vega",
+            extension="fits",
+        ),
+    )
 
     # Finally, applying the data to this module.
     globals().update(data_files)

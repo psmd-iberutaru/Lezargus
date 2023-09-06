@@ -7,6 +7,7 @@ data object.
 """
 import copy
 
+import astropy.io.fits
 import numpy as np
 
 from lezargus import library
@@ -24,13 +25,13 @@ class LezargusContainerArithmetic:
 
     Attributes
     ----------
-    wavelength : Array
+    wavelength : ndarray
         The wavelength of the spectra. The unit of wavelength is typically
         in microns; but, check the `wavelength_unit` value.
-    data : Array
+    data : ndarray
         The data or flux of the spectra cube. The unit of the flux is typically
         in flam; but, check the `data_unit` value.
-    uncertainty : Array
+    uncertainty : ndarray
         The uncertainty in the data. The unit of the uncertainty
         is the same as the flux value; per `uncertainty_unit`.
     wavelength_unit : Astropy Unit
@@ -40,10 +41,10 @@ class LezargusContainerArithmetic:
     uncertainty_unit : Astropy Unit
         The unit of the uncertainty array. This unit is the same as the data
         unit.
-    mask : Array
+    mask : ndarray
         A mask of the data, used to remove problematic areas. Where True,
         the values of the data is considered masked.
-    flags : Array
+    flags : ndarray
         Flags of the data. These flags store metadata about the data.
     header : Header
         The header information, or metadata in general, about the data.
@@ -64,23 +65,23 @@ class LezargusContainerArithmetic:
 
         Parameters
         ----------
-        wavelength : Array
+        wavelength : ndarray
             The wavelength of the spectra. The unit of wavelength is typically
             in microns; but, check the `wavelength_unit` value.
-        data : Array
+        data : ndarray
             The data of the spectra cube. The unit of the flux is typically
             in flam; but, check the `data_unit` value.
-        uncertainty : Array
+        uncertainty : ndarray
             The uncertainty in the data of the spectra. The unit of the
             uncertainty is the same as the data value; per `uncertainty_unit`.
         wavelength_unit : Astropy Unit
             The unit of the wavelength array.
         data_unit : Astropy Unit
             The unit of the data array.
-        mask : Array
+        mask : ndarray
             A mask of the data, used to remove problematic areas. Where True,
             the values of the data is considered masked.
-        flags : Array
+        flags : ndarray
             Flags of the data. These flags store metadata about the data.
         header : Header, default = None
             A set of header data describing the data. Note that when saving,
@@ -103,13 +104,13 @@ class LezargusContainerArithmetic:
         if uncertainty.size == 1:
             # The uncertainty seems to be single value, we fill it to fit the
             # entire array.
-            uncertainty = np.full_like(data, uncertainty)
+            uncertainty = np.full_like(data, float(uncertainty))
 
         # If there is no mask, we just provide a blank one for convenience.
         # Otherwise we need to format the mask so it can be used properly by
         # the subclass.
         if mask is None:
-            mask = np.full_like(data, False, dtype=bool)
+            mask = np.zeros_like(data, dtype=bool)
         else:
             mask = np.array(mask, dtype=bool)
         if mask.size == 1:
@@ -120,7 +121,7 @@ class LezargusContainerArithmetic:
         else:
             flags = np.array(flags, dtype=np.uint)
         if flags.size == 1:
-            flags = np.full_like(flags, np.uint)
+            flags = np.full_like(int(flags), np.uint)
 
         # The uncertainty must be the same size and shape of the data, else it
         # does not make any sense. The mask as well.
@@ -172,7 +173,8 @@ class LezargusContainerArithmetic:
         # Metadata.
         self.mask = np.asarray(mask)
         self.flags = np.asarray(flags)
-        self.header = header
+        # We just use a blank header if none has been provided.
+        self.header = header if header is not None else astropy.io.fits.Header()
         # All done.
 
     def __add__(self: hint.Self, operand: hint.Self) -> hint.Self:
@@ -670,6 +672,8 @@ class LezargusContainerArithmetic:
         -------
         None
         """
+        # The Lezargus container is the FITS cube format.
+        self.header["LZ_FITSF"] = type(self).__name__
         # We send the file to the library function write.
         library.fits.write_lezargus_fits_file(
             filename=filename,

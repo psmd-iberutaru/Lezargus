@@ -84,15 +84,18 @@ def convert_to_allowable_fits_header_data_types(
         type itself, but Astropy's header None/Undefined type.
     """
     # If it is None, then we assume a blank record.
-    if input_data is None:
+    if input_data is None or isinstance(
+        input_data,
+        astropy.io.fits.card.Undefined,
+    ):
         # By convention, this should be a blank record; Astropy has a nice
         # way of providing it.
         return astropy.io.fits.card.Undefined()
 
-    # If it is an integer, it is fine as well.
-    if isinstance(input_data, int):
+    # If it is an boolean or integer, it is fine as well.
+    if isinstance(input_data, bool | int):
         # All good, again, returning just the basic type.
-        return int(input_data)
+        return input_data
 
     # If the value is a floating point value, we need to check if it is an
     # actual number or not.

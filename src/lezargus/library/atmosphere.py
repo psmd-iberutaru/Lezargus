@@ -4,11 +4,66 @@ This file keeps track of all of the functions and computations which deal
 with the atmosphere.
 """
 
+import astropy.modeling
 import numpy as np
 
 from lezargus import library
 from lezargus.library import hint
 from lezargus.library import logging
+
+
+def airmass(zenith_angle: float | hint.ndarray) -> float | hint.ndarray:
+    """Calculate the airmass from the zenith angle.
+
+    This function calculates the airmass provided a zenith angle. For most
+    cases the plane-parallel atmosphere method works, and it is what this
+    function uses. However, we also use a more accurate formula for airmass at
+    higher zenith angles (>80 degree), namely from DOI:10.1364/AO.28.004735.
+    We use a weighted average between 75 < z < 80 degrees to allow for a
+    smooth transition.
+
+    Parameters
+    ----------
+    zenith_angle : float or ndarray
+        The zenith angle, in radians.
+
+    Returns
+    -------
+    airmass_ : float or ndarray
+        The airmass. The variable name is to avoid name conflicts.
+    """
+    # The bounds of the spline region.
+    low_spline_deg = 75
+    high_spline_deg = 80
+
+    # For the Kasten Young 1989 equation, we need the zenith angle in degrees.
+    zenith_angle_degree = np.rad2deg(zenith_angle)
+
+    # We either use the faster secant version for zenith angles.
+    secant_airmass = 1 / np.cos(zenith_angle)
+    kasten_young_airmass = 1 / (
+        np.cos(zenith_angle)
+        + 0.50572 * (6.07995 + 90 - zenith_angle_degree) ** (-1.6364)
+    )
+    # The two modes of calculation.
+    airmass_ = np.where(
+        zenith_angle_degree <= high_spline_deg,
+        secant_airmass,
+        kasten_young_airmass,
+    )
+    # Creating the average splice between the two regions.
+    splice_index = (zenith_angle_degree >= low_spline_deg) & (
+        zenith_angle_degree <= high_spline_deg
+    )
+    kasten_young_weights = (
+        zenith_angle_degree[splice_index] - low_spline_deg
+    ) / 5.0
+    secant_weights = 1 - kasten_young_weights
+    airmass_[splice_index] = (secant_airmass[splice_index] * secant_weights) + (
+        kasten_young_airmass[splice_index] * kasten_young_weights
+    )
+    # All done.
+    return airmass_
 
 
 def index_of_refraction_ideal_air(wavelength: hint.ndarray) -> hint.ndarray:
@@ -19,13 +74,13 @@ def index_of_refraction_ideal_air(wavelength: hint.ndarray) -> hint.ndarray:
 
     Parameters
     ----------
-    wavelength : Array
+    wavelength : ndarray
         The wavelength that we are calculating the index of refraction over.
         This must in microns.
 
     Returns
     -------
-    ior_ideal_air : Array
+    ior_ideal_air : ndarray
         The ideal air index of refraction.
     """
     # The wave number is actually used more in these equations.
@@ -53,7 +108,7 @@ def index_of_refraction_dry_air(
 
     Parameters
     ----------
-    wavelength : Array
+    wavelength : ndarray
         The wavelength that we are calculating the index of refraction over.
         This must in microns.
     pressure : float
@@ -63,7 +118,7 @@ def index_of_refraction_dry_air(
 
     Returns
     -------
-    ior_dry_air : Array
+    ior_dry_air : ndarray
         The dry air index of refraction.
     """
     # We need the ideal air case first.
@@ -74,7 +129,7 @@ def index_of_refraction_dry_air(
     temperature = temperature - 273.15
     if temperature < 0:
         logging.warning(
-            error_type=logging.NotSupportedError,
+            warning_type=logging.AccuracyWarning,
             message=(
                 "The temperature specified for the Edlén equation for the index"
                 " of refraction is lower than 0 C. The applicability is of this"
@@ -109,7 +164,7 @@ def index_of_refraction_moist_air(
 
     Parameters
     ----------
-    wavelength : Array
+    wavelength : ndarray
         The wavelength that we are calculating the index of refraction over.
         This must in microns.
     temperature : float
@@ -121,7 +176,7 @@ def index_of_refraction_moist_air(
 
     Returns
     -------
-    ior_moist_air : Array
+    ior_moist_air : ndarray
         The moist air index of refraction.
     """
     # The wave number is actually used more in these equations.
@@ -158,7 +213,7 @@ def absolute_atmospheric_refraction_function(
 
     Parameters
     ----------
-    wavelength : Array
+    wavelength : ndarray
         The wavelength over which the absolute atmospheric refraction is
         being computed over, in microns.
     zenith_angle : float
@@ -212,7 +267,7 @@ def relative_atmospheric_refraction_function(
 
     Parameters
     ----------
-    wavelength : Array
+    wavelength : ndarray
         The wavelength over which the absolute atmospheric refraction is
         being computed over, in microns.
     reference_wavelength : float
@@ -250,12 +305,12 @@ def relative_atmospheric_refraction_function(
 
         Parameters
         ----------
-        wave : Array
+        wave : ndarray
             The input wavelength for computation.
 
         Returns
         -------
-        rel_atm_refr : Array
+        rel_atm_refr : ndarray
             The relative atmospheric refraction.
         """
         rel_atm_refr = abs_atm_refr_func(wave) - ref_abs_refr
@@ -263,3 +318,58 @@ def relative_atmospheric_refraction_function(
 
     # All done.
     return rel_atm_refr_func
+
+
+def gaussian_psf_kernel(
+    shape: tuple,
+    x_stddev: float,
+    y_stddev: float,
+    rotation: float,
+) -> hint.ndarray:
+    """Return a 2D Gaussian point spread function convolution kernel.
+
+    We normalize the point spread function via the amplitude of the Gaussian
+    function as a whole for maximal precision: volume = 1. We require the
+    input of the shape of the kernel to allow for `x_stddev` and `y_stddev`
+    to be expressed in pixels to keep it general. By definition, the center
+    of the Gaussian kernel is in the center of the array.
+
+    Parameters
+    ----------
+    shape : tuple
+        The shape of the 2D kernel, in pixels.
+    x_stddev : float
+        The standard deviation of the Gaussian in the x direction, in pixels.
+    y_stddev : float
+        The standard deviation of the Gaussian in the y direction, in pixels.
+    rotation : float
+        The rotation angle, increasing counterclockwise, in radians.
+
+    Returns
+    -------
+    gaussian_kernel : ndarray
+        The discrete kernel array.
+    """
+    # The center of the array given by the shape is defined as just the center
+    # of it. However, we need to take into account off-by-one errors.
+    nrow, ncol = shape
+    cen_row = (nrow - 1) / 2
+    cen_col = (ncol - 1) / 2
+
+    # The normalization constant is provided as amplitude itself.
+    norm_constant = 1 / (2 * np.pi * x_stddev * y_stddev)
+
+    # The mesh grid used to evaluate the Gaussian function to derive the kernel.
+    xx, yy = np.meshgrid(np.arange(ncol), np.arange(nrow))
+
+    # Deriving the kernel and computing it.
+    gaussian2d = astropy.modeling.models.Gaussian2D(
+        amplitude=norm_constant,
+        x_mean=cen_col,
+        y_mean=cen_row,
+        x_stddev=x_stddev,
+        y_stddev=y_stddev,
+        theta=rotation,
+    )
+    gaussian_kernel = gaussian2d(xx, yy)
+    return gaussian_kernel

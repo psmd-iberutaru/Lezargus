@@ -184,6 +184,17 @@ class AccuracyWarning(LezargusWarning):
     """
 
 
+class AlgorithmWarning(LezargusWarning):
+    """A warning for issues with algorithms or methods.
+
+    This warning should be used when something went wrong with an algorithm.
+    Examples include when continuing would lead to inaccurate results, or
+    when alternative methods must be used, or when predicted execution time
+    would be slow. This warning should be used in conjunction with other
+    warnings to give a full picture of the issue.
+    """
+
+
 class ConfigurationWarning(LezargusWarning):
     """A warning for inappropriate configurations.
 
@@ -227,6 +238,17 @@ class InputWarning(LezargusWarning):
 
     This warning is used when the input of a function or a field is not
     expected, but may be able to be handled.
+    """
+
+
+class MemoryFullWarning(LezargusWarning):
+    """A warning for when there is not enough volatile memory.
+
+    This warning is used when the program detects that the machine does not
+    have enough memory to proceed with a given process and so it tries an
+    alternative method to do a similar calculation. We use the name
+    MemoryFullWarning to avoid a name collision with MemoryWarning and to be a
+    little more specific about what the issue is.
     """
 
 
