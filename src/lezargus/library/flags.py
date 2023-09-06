@@ -19,12 +19,12 @@ def combine_masks(*masks: hint.ndarray) -> hint.ndarray:
 
     Parameters
     ----------
-    *masks : Array
+    *masks : ndarray
         The set of masks to combine.
 
     Returns
     -------
-    combined_mask : Array
+    combined_mask : ndarray
         The combined mask.
     """
     # We assume the shape of the first mask.
@@ -44,12 +44,12 @@ def combine_flags(*flags: hint.ndarray) -> hint.ndarray:
 
     Parameters
     ----------
-    *flags : Array
+    *flags : ndarray
         The set of flags to combine.
 
     Returns
     -------
-    combined_flags : Array
+    combined_flags : ndarray
         The combined mask.
     """
     # We assume the shape of the first mask.
@@ -72,13 +72,13 @@ def reduce_flags(flag_array: hint.ndarray) -> hint.ndarray:
 
     Parameters
     ----------
-    flag_array : Array
+    flag_array : ndarray
         The flag array to be reduced into its lowest form.
 
     Returns
     -------
-    lowest_flag_array : Array
-        The flags, lowered.
+    lowest_flag_array : ndarray
+        The flags, reduced to the lowest value.
     """
     # The lowest flag array.
     lowest_flag_array = np.ones_like(flag_array, dtype=np.uint)

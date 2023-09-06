@@ -1,5 +1,6 @@
 """Common routines which are important functions of Lezargus."""
 
+from lezargus.library import array
 from lezargus.library import atmosphere
 from lezargus.library import config
 from lezargus.library import conversion
