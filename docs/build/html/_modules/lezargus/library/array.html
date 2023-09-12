@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lezargus.library.array &mdash; Lezargus  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Lezargus
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/modules.html">lezargus</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../code/lezargus.html">lezargus package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.html">lezargus.container package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.container.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.container.html#module-lezargus.container">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.data.html">lezargus.data package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.data.html#module-lezargus.data">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.html">lezargus.library package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.library.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.library.html#module-lezargus.library">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.__main__.html">lezargus.__main__ module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.__version__.html">lezargus.__version__ module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.html#module-lezargus">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Lezargus</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">lezargus.library.array</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for lezargus.library.array</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Collection of array or image manipulation functions.</span>
+
+<span class="sd">If there are any functions which are done on arrays (or anything that is</span>
+<span class="sd">just an array under the hood), we usually group it here. Moreover, functions</span>
+<span class="sd">which would otherwise operate on images are also placed here. As images are</span>
+<span class="sd">just arrays under the hood (and to avoid conflict with</span>
+<span class="sd">/lezargus/container/image.py), image manipulation functions are kept here too.</span>
+
+<span class="sd">Note that all of these functions follow the axes convention of indexing being</span>
+<span class="sd">(x, y, lambda). If a cube is not of this shape, then it will likely return</span>
+<span class="sd">erroneous results, but, the functions themselves cannot detect this.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">astropy.convolution</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.ndimage</span>
+
+<span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">hint</span>
+<span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">logging</span>
+
+
+<div class="viewcode-block" id="translate_image_array"><a class="viewcode-back" href="../../../code/lezargus.library.array.html#lezargus.library.array.translate_image_array">[docs]</a><span class="k">def</span> <span class="nf">translate_image_array</span><span class="p">(</span>
+    <span class="n">input_array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">x_shift</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">y_shift</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Translate a 2D image array array.</span>
+
+<span class="sd">    This function is a convient wrapper around scipy&#39;s function. The array is</span>
+<span class="sd">    padded with NaNs so any data outside the original array after translation</span>
+<span class="sd">    is null.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    input_array : ndarray</span>
+<span class="sd">        The input array to be translated.</span>
+<span class="sd">    x_shift : float</span>
+<span class="sd">        The number of pixels that the array is shifted in the x-axis.</span>
+<span class="sd">    y_shift : float</span>
+<span class="sd">        The number of pixels that the array is shifted in the y-axis.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    shifted_array : ndarray</span>
+<span class="sd">        The shifted array/image.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># We ensure that the array is 2D, or rather, image like.</span>
+    <span class="n">image_dimensions</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">input_array</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">!=</span> <span class="n">image_dimensions</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;Translating an array with shape </span><span class="si">{sh}</span><span class="s2"> via an image translation&quot;</span>
+                <span class="s2">&quot; is not possible.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sh</span><span class="o">=</span><span class="n">input_array</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="c1"># We then apply the shift.</span>
+    <span class="n">shifted_array</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">ndimage</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span>
+        <span class="n">input_array</span><span class="p">,</span>
+        <span class="p">(</span><span class="n">y_shift</span><span class="p">,</span> <span class="n">x_shift</span><span class="p">),</span>
+        <span class="n">order</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;constant&quot;</span><span class="p">,</span>
+        <span class="n">cval</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">shifted_array</span></div>
+
+
+<div class="viewcode-block" id="rotate_image_array"><a class="viewcode-back" href="../../../code/lezargus.library.array.html#lezargus.library.array.rotate_image_array">[docs]</a><span class="k">def</span> <span class="nf">rotate_image_array</span><span class="p">(</span>
+    <span class="n">input_array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">rotation</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Rotate a 2D image array array.</span>
+
+<span class="sd">    This function is a connivent wrapper around scipy&#39;s function. The array is</span>
+<span class="sd">    padded with NaNs so any data outside the original array after rotation</span>
+<span class="sd">    is null.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    input_array : ndarray</span>
+<span class="sd">        The input array to be rotated.</span>
+<span class="sd">    rotation : float</span>
+<span class="sd">        The rotation angle, in radians.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    rotated_array : ndarray</span>
+<span class="sd">        The rotated array/image.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># We ensure that the array is 2D, or rather, image like.</span>
+    <span class="n">image_dimensions</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">input_array</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">!=</span> <span class="n">image_dimensions</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;Rotating an image array with shape </span><span class="si">{sh}</span><span class="s2"> via an image rotation&quot;</span>
+                <span class="s2">&quot; is not possible.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sh</span><span class="o">=</span><span class="n">input_array</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="c1"># The scipy function takes the angle as degrees, so we need to convert.</span>
+    <span class="n">rotation_deg</span> <span class="o">=</span> <span class="p">(</span><span class="mi">180</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">*</span> <span class="n">rotation</span>
+
+    <span class="c1"># We then apply the shift.</span>
+    <span class="n">rotated_array</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">ndimage</span><span class="o">.</span><span class="n">rotate</span><span class="p">(</span>
+        <span class="n">input_array</span><span class="p">,</span>
+        <span class="n">rotation_deg</span><span class="p">,</span>
+        <span class="n">order</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+        <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;constant&quot;</span><span class="p">,</span>
+        <span class="n">cval</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">rotated_array</span></div>
+
+
+<div class="viewcode-block" id="bin_image_array"><a class="viewcode-back" href="../../../code/lezargus.library.array.html#lezargus.library.array.bin_image_array">[docs]</a><span class="k">def</span> <span class="nf">bin_image_array</span><span class="p">(</span>
+    <span class="n">image</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">x_bin</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">y_bin</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;add&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Bin an image by using integer super pixels.</span>
+
+<span class="sd">    A lot of inspiration for this function is from here:</span>
+<span class="sd">    https://scipython.com/blog/binning-a-2d-array-in-numpy/</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    image : ndarray</span>
+<span class="sd">        The input image/array to binned.</span>
+<span class="sd">    x_bin : int</span>
+<span class="sd">        The number of pixels in the x-direction to bin over per super pixel.</span>
+<span class="sd">    y_bin : int</span>
+<span class="sd">        The number of pixels in the y-direction to bin over per super pixel.</span>
+<span class="sd">    mode : string, default = &quot;add&quot;</span>
+<span class="sd">        The mode to combine the data.</span>
+
+<span class="sd">            * `add` : Add the pixels together.</span>
+<span class="sd">            * `mean` : Use the mean of the pixels.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    binned_image : ndarray</span>
+<span class="sd">        The image/array after binning.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># We need to check if the shape is compatible with the binning count.</span>
+    <span class="n">image_dimensions</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">!=</span> <span class="n">image_dimensions</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Binning an image array with shape </span><span class="si">{sh}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">sh</span><span class="o">=</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">%</span> <span class="n">x_bin</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;The x-axis dimension has length </span><span class="si">{xln}</span><span class="s2">, it is not divisible by&quot;</span>
+                <span class="s2">&quot; the bin pixel count </span><span class="si">{bpx}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">xln</span><span class="o">=</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="n">bpx</span><span class="o">=</span><span class="n">x_bin</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">%</span> <span class="n">y_bin</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;The y-axis dimension has length </span><span class="si">{yln}</span><span class="s2">, it is not divisible by&quot;</span>
+                <span class="s2">&quot; the bin pixel count </span><span class="si">{bpx}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">yln</span><span class="o">=</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                    <span class="n">bpx</span><span class="o">=</span><span class="n">y_bin</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="c1"># We attempt to bin via reshaping and applying the function over the</span>
+    <span class="c1"># provided bin. We group the binned pixels into dimensional extensions.</span>
+    <span class="n">new_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="n">x_bin</span><span class="p">,</span> <span class="n">x_bin</span><span class="p">,</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="n">y_bin</span><span class="p">,</span> <span class="n">y_bin</span><span class="p">)</span>
+    <span class="n">new_image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">new_shape</span><span class="p">)</span>
+
+    <span class="c1"># We apply the combining function here based on the input.</span>
+    <span class="n">mode</span> <span class="o">=</span> <span class="n">mode</span><span class="o">.</span><span class="n">casefold</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;add&quot;</span><span class="p">:</span>
+        <span class="n">binned_image</span> <span class="o">=</span> <span class="n">new_image</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;mean&quot;</span><span class="p">:</span>
+        <span class="n">binned_image</span> <span class="o">=</span> <span class="n">new_image</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;The combining mode </span><span class="si">{md}</span><span class="s2"> is not one of the supported modes:&quot;</span>
+                <span class="s2">&quot; add, mean.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">md</span><span class="o">=</span><span class="n">mode</span><span class="p">)</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">binned_image</span></div>
+
+
+<div class="viewcode-block" id="bin_cube_array_spatially"><a class="viewcode-back" href="../../../code/lezargus.library.array.html#lezargus.library.array.bin_cube_array_spatially">[docs]</a><span class="k">def</span> <span class="nf">bin_cube_array_spatially</span><span class="p">(</span>
+    <span class="n">cube</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">x_bin</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">y_bin</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;add&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Bin a cube spatially into super pixels.</span>
+
+<span class="sd">    We only bin the cube in the spatial directions, the spectral direction is</span>
+<span class="sd">    not touched.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    cube : ndarray</span>
+<span class="sd">        The data cube to binned.</span>
+<span class="sd">    x_bin : int</span>
+<span class="sd">        The number of pixels in the x-direction to bin over per super pixel.</span>
+<span class="sd">    y_bin : int</span>
+<span class="sd">        The number of pixels in the y-direction to bin over per super pixel.</span>
+<span class="sd">    mode : string, default = &quot;add&quot;</span>
+<span class="sd">        The mode to combine the data.</span>
+
+<span class="sd">            * `add` : Add the pixels together.</span>
+<span class="sd">            * `mean` : Use the mean of the pixels.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    binned_image : ndarray</span>
+<span class="sd">        The data cube after binning.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># We need to check if the shape is compatible with the binning count.\</span>
+    <span class="n">cube_dimensions</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cube</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">!=</span> <span class="n">cube_dimensions</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Binning a cube array with shape </span><span class="si">{sh}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                <span class="n">sh</span><span class="o">=</span><span class="n">cube</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">cube</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">%</span> <span class="n">x_bin</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;The x-axis dimension has length </span><span class="si">{xln}</span><span class="s2">, it is not divisible by&quot;</span>
+                <span class="s2">&quot; the bin pixel count </span><span class="si">{bpx}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">xln</span><span class="o">=</span><span class="n">cube</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+                    <span class="n">bpx</span><span class="o">=</span><span class="n">x_bin</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">cube</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">%</span> <span class="n">y_bin</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;The y-axis dimension has length </span><span class="si">{yln}</span><span class="s2">, it is not divisible by&quot;</span>
+                <span class="s2">&quot; the bin pixel count </span><span class="si">{bpx}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">yln</span><span class="o">=</span><span class="n">cube</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
+                    <span class="n">bpx</span><span class="o">=</span><span class="n">y_bin</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="c1"># We attempt to bin via reshaping and applying the function over the</span>
+    <span class="c1"># provided bin. We group the binned pixels into dimensional extensions.</span>
+    <span class="n">new_shape</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">cube</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">//</span> <span class="n">x_bin</span><span class="p">,</span>
+        <span class="n">x_bin</span><span class="p">,</span>
+        <span class="n">cube</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="n">y_bin</span><span class="p">,</span>
+        <span class="n">y_bin</span><span class="p">,</span>
+        <span class="n">cube</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span>
+    <span class="p">)</span>
+    <span class="n">new_cube</span> <span class="o">=</span> <span class="n">cube</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">new_shape</span><span class="p">)</span>
+
+    <span class="c1"># We apply the combining function here based on the input.</span>
+    <span class="n">mode</span> <span class="o">=</span> <span class="n">mode</span><span class="o">.</span><span class="n">casefold</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;add&quot;</span><span class="p">:</span>
+        <span class="n">binned_cube</span> <span class="o">=</span> <span class="n">new_cube</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="k">elif</span> <span class="n">mode</span> <span class="o">==</span> <span class="s2">&quot;mean&quot;</span><span class="p">:</span>
+        <span class="n">binned_cube</span> <span class="o">=</span> <span class="n">new_cube</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;The combining mode </span><span class="si">{md}</span><span class="s2"> is not one of the supported modes:&quot;</span>
+                <span class="s2">&quot; add, mean.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">md</span><span class="o">=</span><span class="n">mode</span><span class="p">)</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">binned_cube</span></div>
+
+
+<div class="viewcode-block" id="convolve_cube_by_image_array"><a class="viewcode-back" href="../../../code/lezargus.library.array.html#lezargus.library.array.convolve_cube_by_image_array">[docs]</a><span class="k">def</span> <span class="nf">convolve_cube_by_image_array</span><span class="p">(</span>
+    <span class="n">cube</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">kernel</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convolve the image slices of a 3D cube with a 2D image.</span>
+
+<span class="sd">    We loop over and convolve image slices of the cube with the provided</span>
+<span class="sd">    kernel; we do not try and do an entire 3D convolution of the cube due to</span>
+<span class="sd">    memory limitations.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    cube : ndarray</span>
+<span class="sd">        The data cube from which we will convolve.</span>
+<span class="sd">    kernel : ndarray</span>
+<span class="sd">        The image kernel we are using to convolve.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    convolved_cube : ndarray</span>
+<span class="sd">        The cube, with the image slices convolved by the provided kernel.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># We need to ensure that the cube is actually a cube.</span>
+    <span class="n">cube_dimensions</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cube</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">!=</span> <span class="n">cube_dimensions</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">AccuracyError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;The input cube is not actually a cube, shape is </span><span class="si">{sh}</span><span class="s2">. Applying&quot;</span>
+                <span class="s2">&quot; convolution across image slices may fail.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">sh</span><span class="o">=</span><span class="n">cube</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="c1"># We want to keep the same numerical precision, or rather, as close as</span>
+    <span class="c1"># we can to the original data type. We can expand this to 192-bit and</span>
+    <span class="c1"># 256-bit, but, it is likely not needed.</span>
+    <span class="k">if</span> <span class="n">cube</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">itemsize</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">&lt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">complex64</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">itemsize</span><span class="p">:</span>
+        <span class="n">complex_data_type</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">complex64</span>
+    <span class="k">elif</span> <span class="n">cube</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">itemsize</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">&lt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">itemsize</span><span class="p">:</span>
+        <span class="n">complex_data_type</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">complex128</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">complex_data_type</span> <span class="o">=</span> <span class="nb">complex</span>
+
+    <span class="c1"># Applying the convolution. For the fill value, the most common value is</span>
+    <span class="c1"># likely to be sky noise so we just pad it with sky noise. Moreover, some</span>
+    <span class="c1"># of these cubes can be rather large. However, sometimes this process can</span>
+    <span class="c1"># be very memory intensive so we need to be able to fallback to a backup.</span>
+    <span class="n">convolved_cube</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">cube</span><span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="c1"># This really is just a repeated process of 2D convolutions.</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">cube</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]):</span>
+            <span class="n">convolved_cube</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">astropy</span><span class="o">.</span><span class="n">convolution</span><span class="o">.</span><span class="n">convolve_fft</span><span class="p">(</span>
+                <span class="n">cube</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">index</span><span class="p">],</span>
+                <span class="n">kernel</span><span class="p">,</span>
+                <span class="n">boundary</span><span class="o">=</span><span class="s2">&quot;fill&quot;</span><span class="p">,</span>
+                <span class="n">fill_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">cube</span><span class="p">),</span>
+                <span class="n">complex_dtype</span><span class="o">=</span><span class="n">complex_data_type</span><span class="p">,</span>
+                <span class="n">nan_treatment</span><span class="o">=</span><span class="s2">&quot;interpolate&quot;</span><span class="p">,</span>
+                <span class="n">normalize_kernel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">preserve_nan</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">allow_huge</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">)</span>
+    <span class="k">except</span> <span class="ne">MemoryError</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">MemoryFullWarning</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;Attempting a layered FFT convolution of a cube with shape&quot;</span>
+                <span class="s2">&quot; </span><span class="si">{csh}</span><span class="s2"> with kernel shape </span><span class="si">{ksh}</span><span class="s2"> requires too much memory.&quot;</span>
+                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">csh</span><span class="o">=</span><span class="n">cube</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">ksh</span><span class="o">=</span><span class="n">kernel</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+        <span class="c1"># We use the alternative discrete convolution.</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">AlgorithmWarning</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;Discrete convolution will be attempted as an alternative to&quot;</span>
+                <span class="s2">&quot; the FFT convolution due to memory issues.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+        <span class="c1"># Again, we try a repeated convolution but instead using the discrete</span>
+        <span class="c1"># version.</span>
+        <span class="c1"># An extended boundary condition is likely more representative of</span>
+        <span class="c1"># sky noise then median.</span>
+        <span class="n">convolved_cube</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">astropy</span><span class="o">.</span><span class="n">convolution</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span>
+            <span class="n">cube</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">index</span><span class="p">],</span>
+            <span class="n">kernel</span><span class="p">,</span>
+            <span class="n">boundary</span><span class="o">=</span><span class="s2">&quot;extend&quot;</span><span class="p">,</span>
+            <span class="n">nan_treatment</span><span class="o">=</span><span class="s2">&quot;interpolate&quot;</span><span class="p">,</span>
+            <span class="n">normalize_kernel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">preserve_nan</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">convolved_cube</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Sparrow.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

@@ -44,6 +44,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../code/modules.html">lezargus</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../code/lezargus.html">lezargus package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.html">lezargus.container package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.container.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.container.html#module-lezargus.container">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.data.html">lezargus.data package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.data.html#module-lezargus.data">Module contents</a></li>
 </ul>
@@ -159,7 +164,7 @@
         <span class="p">)</span>
     <span class="c1"># Double check that the configuration is flat as per the documentation</span>
     <span class="c1"># and expectation.</span>
-    <span class="k">for</span> <span class="n">__</span><span class="p">,</span> <span class="n">valuedex</span> <span class="ow">in</span> <span class="n">configuration_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="k">for</span> <span class="n">valuedex</span> <span class="ow">in</span> <span class="n">configuration_dict</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">valuedex</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
             <span class="c1"># A dictionary implies a nested configuration which is not allowed.</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>

@@ -44,6 +44,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../code/modules.html">lezargus</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../code/lezargus.html">lezargus package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.html">lezargus.container package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.container.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.container.html#module-lezargus.container">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.data.html">lezargus.data package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.data.html#module-lezargus.data">Module contents</a></li>
 </ul>
@@ -132,6 +137,16 @@
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
+<div class="viewcode-block" id="ExpectedCaughtError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.ExpectedCaughtError">[docs]</a><span class="k">class</span> <span class="nc">ExpectedCaughtError</span><span class="p">(</span><span class="n">LezargusBaseError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used when raising an error to be caught later is needed.</span>
+
+<span class="sd">    This error should only be used when an error is needed to be raised which</span>
+<span class="sd">    will be caught later. The user should not see this error at all as</span>
+<span class="sd">    any time it is used, it should be caught. This name also conveniently</span>
+<span class="sd">    provides an obvious and unique error name.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
 <div class="viewcode-block" id="NotSupportedError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.NotSupportedError">[docs]</a><span class="k">class</span> <span class="nc">NotSupportedError</span><span class="p">(</span><span class="n">LezargusBaseError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used for something which is beyond the scope of work.</span>
 
@@ -157,6 +172,29 @@
 
 <span class="sd">    This is done for ease of error handling and is something that can and</span>
 <span class="sd">    should be managed.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="AccuracyError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.AccuracyError">[docs]</a><span class="k">class</span> <span class="nc">AccuracyError</span><span class="p">(</span><span class="n">LezargusError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An error for inaccurate results.</span>
+
+<span class="sd">    This error is used when some elements of the simulation or data</span>
+<span class="sd">    reduction would yield very undesirable results. This class should only</span>
+<span class="sd">    be used for cases where the results would be quite wrong for most</span>
+<span class="sd">    cases; say, much greater +/- 10%. This is just a rule of thumb. For</span>
+<span class="sd">    accuracy issues much tamer and closer to the rule of thumb, use</span>
+<span class="sd">    AccuracyWarning instead.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="ArithmeticalError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.ArithmeticalError">[docs]</a><span class="k">class</span> <span class="nc">ArithmeticalError</span><span class="p">(</span><span class="n">LezargusError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An error to be used when undefined arithmetic operations are attempted.</span>
+
+<span class="sd">    This error is to be used when any arithmetic functions are being attempted</span>
+<span class="sd">    which do not have a definition. The most common use case for this error is</span>
+<span class="sd">    doing operations on incompatible Lezargus containers. Note, it is named</span>
+<span class="sd">    ArithmeticalError to avoid a name conflict with the built-in</span>
+<span class="sd">    ArithmeticError.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
@@ -238,7 +276,21 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A warning for inaccurate results.</span>
 
 <span class="sd">    This warning is used when some elements of the simulation or data</span>
-<span class="sd">    reduction would yield less than desireable results.</span>
+<span class="sd">    reduction would yield less than desireable results. This class should only</span>
+<span class="sd">    be used for cases where the results would be slightly wrong for most</span>
+<span class="sd">    cases; say, on the order of +/- 10%. This is just a rule of thumb. For</span>
+<span class="sd">    accuracy issues much larger, use AccuracyError instead.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="AlgorithmWarning"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.AlgorithmWarning">[docs]</a><span class="k">class</span> <span class="nc">AlgorithmWarning</span><span class="p">(</span><span class="n">LezargusWarning</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A warning for issues with algorithms or methods.</span>
+
+<span class="sd">    This warning should be used when something went wrong with an algorithm.</span>
+<span class="sd">    Examples include when continuing would lead to inaccurate results, or</span>
+<span class="sd">    when alternative methods must be used, or when predicted execution time</span>
+<span class="sd">    would be slow. This warning should be used in conjunction with other</span>
+<span class="sd">    warnings to give a full picture of the issue.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
@@ -269,11 +321,33 @@
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
+<div class="viewcode-block" id="FileWarning"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.FileWarning">[docs]</a><span class="k">class</span> <span class="nc">FileWarning</span><span class="p">(</span><span class="n">LezargusWarning</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A warning used for file and permission issues which are not fatal.</span>
+
+<span class="sd">    If there are issues with files, use this warning. However, unlike the</span>
+<span class="sd">    error version FileError, this should be used when the file issue is</span>
+<span class="sd">    a case considered and is recoverable. This warning should not be</span>
+<span class="sd">    used in cases where the problem is because of an incorrect format of the</span>
+<span class="sd">    file (other than corruption).</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
 <div class="viewcode-block" id="InputWarning"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.InputWarning">[docs]</a><span class="k">class</span> <span class="nc">InputWarning</span><span class="p">(</span><span class="n">LezargusWarning</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A warning for a weird input.</span>
 
 <span class="sd">    This warning is used when the input of a function or a field is not</span>
 <span class="sd">    expected, but may be able to be handled.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="MemoryFullWarning"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.MemoryFullWarning">[docs]</a><span class="k">class</span> <span class="nc">MemoryFullWarning</span><span class="p">(</span><span class="n">LezargusWarning</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A warning for when there is not enough volatile memory.</span>
+
+<span class="sd">    This warning is used when the program detects that the machine does not</span>
+<span class="sd">    have enough memory to proceed with a given process and so it tries an</span>
+<span class="sd">    alternative method to do a similar calculation. We use the name</span>
+<span class="sd">    MemoryFullWarning to avoid a name collision with MemoryWarning and to be a</span>
+<span class="sd">    little more specific about what the issue is.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
@@ -308,7 +382,7 @@
         <span class="bp">self</span><span class="p">:</span> <span class="s2">&quot;ColoredLogFormatter&quot;</span><span class="p">,</span>
         <span class="n">message_format</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">date_format</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-        <span class="n">color_hex_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">:</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">color_hex_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">int</span><span class="p">:</span><span class="nb">str</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the color formatter.</span>
 
@@ -558,7 +632,7 @@
 <div class="viewcode-block" id="warning"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.warning">[docs]</a><span class="k">def</span> <span class="nf">warning</span><span class="p">(</span>
     <span class="n">warning_type</span><span class="p">:</span> <span class="n">LezargusWarning</span><span class="p">,</span>
     <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">elevate</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">elevate</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Log a warning message.</span>
 
@@ -615,7 +689,7 @@
 <div class="viewcode-block" id="error"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.error">[docs]</a><span class="k">def</span> <span class="nf">error</span><span class="p">(</span>
     <span class="n">error_type</span><span class="p">:</span> <span class="n">LezargusError</span><span class="p">,</span>
     <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-    <span class="n">elevate</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">elevate</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Log an error message, do not raise.</span>
 

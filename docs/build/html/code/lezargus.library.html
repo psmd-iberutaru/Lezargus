@@ -1,109 +1,338 @@
-<!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lezargus.library package &mdash; Lezargus  documentation</title>
-      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>lezargus.library package &#8212; Lezargus  documentation</title>
   
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
-    <script src="../_static/js/theme.js"></script>
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'code/lezargus.library';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="lezargus.library.atmosphere module" href="lezargus.library.atmosphere.html" />
-    <link rel="prev" title="lezargus.data package" href="lezargus.data.html" /> 
-</head>
+    <link rel="next" title="lezargus.library.array module" href="lezargus.library.array.html" />
+    <link rel="prev" title="lezargus.data package" href="lezargus.data.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../index.html" class="icon icon-home">
-            Lezargus
-          </a>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">lezargus</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="lezargus.html">lezargus package</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="lezargus.html#subpackages">Subpackages</a><ul class="current">
-<li class="toctree-l4"><a class="reference internal" href="lezargus.data.html">lezargus.data package</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="lezargus.data.html#module-lezargus.data">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l4 current"><a class="current reference internal" href="#">lezargus.library package</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="#submodules">Submodules</a></li>
-<li class="toctree-l5"><a class="reference internal" href="#module-lezargus.library">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.html#submodules">Submodules</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="lezargus.__main__.html">lezargus.__main__ module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lezargus.__version__.html">lezargus.__version__ module</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.html#module-lezargus">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-        </div>
-      </div>
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
     </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">Lezargus</a>
-      </nav>
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
 
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="modules.html">lezargus</a></li>
-          <li class="breadcrumb-item"><a href="lezargus.html">lezargus package</a></li>
-      <li class="breadcrumb-item active">lezargus.library package</li>
-      <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/code/lezargus.library.rst.txt" rel="nofollow"> View page source</a>
-      </li>
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Lezargus  documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="modules.html">lezargus</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="lezargus.html">lezargus package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l3 has-children"><a class="reference internal" href="lezargus.container.html">lezargus.container package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.container.cube.html">lezargus.container.cube module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.container.image.html">lezargus.container.image module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.container.mosaic.html">lezargus.container.mosaic module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.container.parent.html">lezargus.container.parent module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.container.spectra.html">lezargus.container.spectra module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lezargus.data.html">lezargus.data package</a></li>
+<li class="toctree-l3 current active has-children"><a class="current reference internal" href="#">lezargus.library package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.array.html">lezargus.library.array module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.atmosphere.html">lezargus.library.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.config.html">lezargus.library.config module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.conversion.html">lezargus.library.conversion module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.data.html">lezargus.library.data module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.fits.html">lezargus.library.fits module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.flags.html">lezargus.library.flags module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.hint.html">lezargus.library.hint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.logging.html">lezargus.library.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.path.html">lezargus.library.path module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lezargus.__main__.html">lezargus.__main__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lezargus.__version__.html">lezargus.__version__ module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/code/lezargus.library.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
   </ul>
-  <hr/>
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>lezargus.library package</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-lezargus.library">Module contents</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   <section id="lezargus-library-package">
-<h1>lezargus.library package<a class="headerlink" href="#lezargus-library-package" title="Permalink to this heading"></a></h1>
+<h1>lezargus.library package<a class="headerlink" href="#lezargus-library-package" title="Permalink to this heading">#</a></h1>
 <section id="submodules">
-<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading"></a></h2>
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this heading">#</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="lezargus.library.array.html">lezargus.library.array module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="lezargus.library.array.html#lezargus.library.array.bin_cube_array_spatially"><code class="docutils literal notranslate"><span class="pre">bin_cube_array_spatially()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="lezargus.library.array.html#lezargus.library.array.bin_image_array"><code class="docutils literal notranslate"><span class="pre">bin_image_array()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="lezargus.library.array.html#lezargus.library.array.convolve_cube_by_image_array"><code class="docutils literal notranslate"><span class="pre">convolve_cube_by_image_array()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="lezargus.library.array.html#lezargus.library.array.rotate_image_array"><code class="docutils literal notranslate"><span class="pre">rotate_image_array()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="lezargus.library.array.html#lezargus.library.array.translate_image_array"><code class="docutils literal notranslate"><span class="pre">translate_image_array()</span></code></a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="lezargus.library.atmosphere.html">lezargus.library.atmosphere module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="lezargus.library.atmosphere.html#lezargus.library.atmosphere.absolute_atmospheric_refraction_function"><code class="docutils literal notranslate"><span class="pre">absolute_atmospheric_refraction_function()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="lezargus.library.atmosphere.html#lezargus.library.atmosphere.airmass"><code class="docutils literal notranslate"><span class="pre">airmass()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="lezargus.library.atmosphere.html#lezargus.library.atmosphere.gaussian_psf_kernel"><code class="docutils literal notranslate"><span class="pre">gaussian_psf_kernel()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="lezargus.library.atmosphere.html#lezargus.library.atmosphere.index_of_refraction_dry_air"><code class="docutils literal notranslate"><span class="pre">index_of_refraction_dry_air()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="lezargus.library.atmosphere.html#lezargus.library.atmosphere.index_of_refraction_ideal_air"><code class="docutils literal notranslate"><span class="pre">index_of_refraction_ideal_air()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="lezargus.library.atmosphere.html#lezargus.library.atmosphere.index_of_refraction_moist_air"><code class="docutils literal notranslate"><span class="pre">index_of_refraction_moist_air()</span></code></a></li>
@@ -116,44 +345,35 @@
 <li class="toctree-l2"><a class="reference internal" href="lezargus.library.config.html#lezargus.library.config.load_then_apply_configuration"><code class="docutils literal notranslate"><span class="pre">load_then_apply_configuration()</span></code></a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="lezargus.library.conversion.html">lezargus.library.conversion module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lezargus.library.data.html">lezargus.library.data module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="lezargus.library.data.html#lezargus.library.data.LezargusStarData"><code class="docutils literal notranslate"><span class="pre">LezargusStarData</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.library.data.html#lezargus.library.data.LezargusStarData.wavelength"><code class="docutils literal notranslate"><span class="pre">LezargusStarData.wavelength</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.library.data.html#lezargus.library.data.LezargusStarData.flux"><code class="docutils literal notranslate"><span class="pre">LezargusStarData.flux</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.library.data.html#lezargus.library.data.LezargusStarData.error"><code class="docutils literal notranslate"><span class="pre">LezargusStarData.error</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.library.data.html#lezargus.library.data.LezargusStarData.ra"><code class="docutils literal notranslate"><span class="pre">LezargusStarData.ra</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.library.data.html#lezargus.library.data.LezargusStarData.dec"><code class="docutils literal notranslate"><span class="pre">LezargusStarData.dec</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.library.data.html#lezargus.library.data.LezargusStarData.skycoord"><code class="docutils literal notranslate"><span class="pre">LezargusStarData.skycoord</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.library.data.html#lezargus.library.data.LezargusStarData.parallax"><code class="docutils literal notranslate"><span class="pre">LezargusStarData.parallax</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.library.data.html#lezargus.library.data.LezargusStarData.spectral_type"><code class="docutils literal notranslate"><span class="pre">LezargusStarData.spectral_type</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.library.data.html#lezargus.library.data.LezargusStarData.B_mag"><code class="docutils literal notranslate"><span class="pre">LezargusStarData.B_mag</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.library.data.html#lezargus.library.data.LezargusStarData.B_mag_error"><code class="docutils literal notranslate"><span class="pre">LezargusStarData.B_mag_error</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.library.data.html#lezargus.library.data.LezargusStarData.V_mag"><code class="docutils literal notranslate"><span class="pre">LezargusStarData.V_mag</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.library.data.html#id0"><code class="docutils literal notranslate"><span class="pre">LezargusStarData.B_mag_error</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.library.data.html#lezargus.library.data.LezargusStarData.J_mag"><code class="docutils literal notranslate"><span class="pre">LezargusStarData.J_mag</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.library.data.html#lezargus.library.data.LezargusStarData.J_mag_error"><code class="docutils literal notranslate"><span class="pre">LezargusStarData.J_mag_error</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.library.data.html#lezargus.library.data.LezargusStarData.H_mag"><code class="docutils literal notranslate"><span class="pre">LezargusStarData.H_mag</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.library.data.html#lezargus.library.data.LezargusStarData.H_mag_error"><code class="docutils literal notranslate"><span class="pre">LezargusStarData.H_mag_error</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.library.data.html#lezargus.library.data.LezargusStarData.Ks_mag"><code class="docutils literal notranslate"><span class="pre">LezargusStarData.Ks_mag</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.library.data.html#lezargus.library.data.LezargusStarData.Ks_mag_error"><code class="docutils literal notranslate"><span class="pre">LezargusStarData.Ks_mag_error</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.library.data.html#lezargus.library.data.LezargusStarData.__init__"><code class="docutils literal notranslate"><span class="pre">LezargusStarData.__init__()</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="lezargus.library.conversion.html">lezargus.library.conversion module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="lezargus.library.conversion.html#lezargus.library.conversion.convert_to_allowable_fits_header_data_types"><code class="docutils literal notranslate"><span class="pre">convert_to_allowable_fits_header_data_types()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="lezargus.library.conversion.html#lezargus.library.conversion.parse_unit_to_astropy_unit"><code class="docutils literal notranslate"><span class="pre">parse_unit_to_astropy_unit()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="lezargus.library.data.html">lezargus.library.data module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="lezargus.library.data.html#lezargus.library.data.initialize_data_files"><code class="docutils literal notranslate"><span class="pre">initialize_data_files()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="lezargus.library.fits.html">lezargus.library.fits module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="lezargus.library.fits.html#lezargus.library.fits.create_lezargus_fits_header"><code class="docutils literal notranslate"><span class="pre">create_lezargus_fits_header()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="lezargus.library.fits.html#lezargus.library.fits.create_wcs_header_from_lezargus_header"><code class="docutils literal notranslate"><span class="pre">create_wcs_header_from_lezargus_header()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="lezargus.library.fits.html#lezargus.library.fits.read_fits_header"><code class="docutils literal notranslate"><span class="pre">read_fits_header()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="lezargus.library.fits.html#lezargus.library.fits.read_fits_image_file"><code class="docutils literal notranslate"><span class="pre">read_fits_image_file()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="lezargus.library.fits.html#lezargus.library.fits.read_fits_table_file"><code class="docutils literal notranslate"><span class="pre">read_fits_table_file()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="lezargus.library.fits.html#lezargus.library.fits.write_fits_image_file"><code class="docutils literal notranslate"><span class="pre">write_fits_image_file()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="lezargus.library.fits.html#lezargus.library.fits.write_fits_table_file"><code class="docutils literal notranslate"><span class="pre">write_fits_table_file()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="lezargus.library.fits.html#lezargus.library.fits.read_lezargus_fits_file"><code class="docutils literal notranslate"><span class="pre">read_lezargus_fits_file()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="lezargus.library.fits.html#lezargus.library.fits.write_lezargus_fits_file"><code class="docutils literal notranslate"><span class="pre">write_lezargus_fits_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="lezargus.library.flags.html">lezargus.library.flags module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="lezargus.library.flags.html#lezargus.library.flags.combine_flags"><code class="docutils literal notranslate"><span class="pre">combine_flags()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="lezargus.library.flags.html#lezargus.library.flags.combine_masks"><code class="docutils literal notranslate"><span class="pre">combine_masks()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="lezargus.library.flags.html#lezargus.library.flags.reduce_flags"><code class="docutils literal notranslate"><span class="pre">reduce_flags()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="lezargus.library.hint.html">lezargus.library.hint module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lezargus.library.logging.html">lezargus.library.logging module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="lezargus.library.logging.html#lezargus.library.logging.AccuracyError"><code class="docutils literal notranslate"><span class="pre">AccuracyError</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="lezargus.library.logging.html#lezargus.library.logging.AccuracyWarning"><code class="docutils literal notranslate"><span class="pre">AccuracyWarning</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="lezargus.library.logging.html#lezargus.library.logging.AlgorithmWarning"><code class="docutils literal notranslate"><span class="pre">AlgorithmWarning</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="lezargus.library.logging.html#lezargus.library.logging.ArithmeticalError"><code class="docutils literal notranslate"><span class="pre">ArithmeticalError</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="lezargus.library.logging.html#lezargus.library.logging.ColoredLogFormatter"><code class="docutils literal notranslate"><span class="pre">ColoredLogFormatter</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="lezargus.library.logging.html#lezargus.library.logging.ColoredLogFormatter.message_format"><code class="docutils literal notranslate"><span class="pre">ColoredLogFormatter.message_format</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="lezargus.library.logging.html#lezargus.library.logging.ColoredLogFormatter.date_format"><code class="docutils literal notranslate"><span class="pre">ColoredLogFormatter.date_format</span></code></a></li>
@@ -171,13 +391,16 @@
 <li class="toctree-l2"><a class="reference internal" href="lezargus.library.logging.html#lezargus.library.logging.DevelopmentWarning"><code class="docutils literal notranslate"><span class="pre">DevelopmentWarning</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="lezargus.library.logging.html#lezargus.library.logging.DirectoryError"><code class="docutils literal notranslate"><span class="pre">DirectoryError</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="lezargus.library.logging.html#lezargus.library.logging.ElevatedError"><code class="docutils literal notranslate"><span class="pre">ElevatedError</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="lezargus.library.logging.html#lezargus.library.logging.ExpectedCaughtError"><code class="docutils literal notranslate"><span class="pre">ExpectedCaughtError</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="lezargus.library.logging.html#lezargus.library.logging.FileError"><code class="docutils literal notranslate"><span class="pre">FileError</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="lezargus.library.logging.html#lezargus.library.logging.FileWarning"><code class="docutils literal notranslate"><span class="pre">FileWarning</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="lezargus.library.logging.html#lezargus.library.logging.InputError"><code class="docutils literal notranslate"><span class="pre">InputError</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="lezargus.library.logging.html#lezargus.library.logging.InputWarning"><code class="docutils literal notranslate"><span class="pre">InputWarning</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="lezargus.library.logging.html#lezargus.library.logging.LezargusBaseError"><code class="docutils literal notranslate"><span class="pre">LezargusBaseError</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="lezargus.library.logging.html#lezargus.library.logging.LezargusError"><code class="docutils literal notranslate"><span class="pre">LezargusError</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="lezargus.library.logging.html#lezargus.library.logging.LezargusWarning"><code class="docutils literal notranslate"><span class="pre">LezargusWarning</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="lezargus.library.logging.html#lezargus.library.logging.LogicFlowError"><code class="docutils literal notranslate"><span class="pre">LogicFlowError</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="lezargus.library.logging.html#lezargus.library.logging.MemoryFullWarning"><code class="docutils literal notranslate"><span class="pre">MemoryFullWarning</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="lezargus.library.logging.html#lezargus.library.logging.NotSupportedError"><code class="docutils literal notranslate"><span class="pre">NotSupportedError</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="lezargus.library.logging.html#lezargus.library.logging.OutOfOrderError"><code class="docutils literal notranslate"><span class="pre">OutOfOrderError</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="lezargus.library.logging.html#lezargus.library.logging.ReadOnlyError"><code class="docutils literal notranslate"><span class="pre">ReadOnlyError</span></code></a></li>
@@ -204,6 +427,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="lezargus.library.wrapper.html">lezargus.library.wrapper module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="lezargus.library.wrapper.html#lezargus.library.wrapper.blackbody_function"><code class="docutils literal notranslate"><span class="pre">blackbody_function()</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="lezargus.library.wrapper.html#lezargus.library.wrapper.cubic_interpolate_1d_function"><code class="docutils literal notranslate"><span class="pre">cubic_interpolate_1d_function()</span></code></a></li>
 </ul>
 </li>
@@ -211,40 +435,112 @@
 </div>
 </section>
 <section id="module-lezargus.library">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-lezargus.library" title="Permalink to this heading"></a></h2>
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-lezargus.library" title="Permalink to this heading">#</a></h2>
 <p>Common routines which are important functions of Lezargus.</p>
 </section>
 </section>
 
 
-           </div>
-          </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="lezargus.data.html" class="btn btn-neutral float-left" title="lezargus.data package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="lezargus.library.atmosphere.html" class="btn btn-neutral float-right" title="lezargus.library.atmosphere module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
+                </article>
+              
 
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2023, Sparrow.</p>
-  </div>
-
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
-
-</footer>
-        </div>
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="lezargus.data.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">lezargus.data package</p>
       </div>
-    </section>
-  </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(false);
-      });
-  </script> 
+    </a>
+    <a class="right-next"
+       href="lezargus.library.array.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">lezargus.library.array module</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
 
-</body>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-lezargus.library">Module contents</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sparrow
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023, Sparrow.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
 </html>

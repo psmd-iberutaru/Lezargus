@@ -1,0 +1,291 @@
+\begin{sphinxtheindex}
+\let\lettergroup\sphinxstyleindexlettergroup
+\let\lettergroupDefault\sphinxstyleindexlettergroupDefault
+\let\spxpagem\sphinxstyleindexpagemain
+\let\spxentry\sphinxstyleindexentry
+\let\spxextra\sphinxstyleindexextra
+
+
+  \lettergroupDefault{default}
+  \item \spxentry{\_\_add\_\_()}\spxextra{lezargus.container.parent.LezargusContainerArithmetic method}, \hyperpage{9}
+  \item \spxentry{\_\_convert\_color\_hex\_to\_ansi\_escape()}\spxextra{lezargus.library.logging.ColoredLogFormatter method}, \hyperpage{31}
+  \item \spxentry{\_\_init\_\_()}\spxextra{lezargus.container.cube.LezargusCube method}, \hyperpage{3}
+  \item \spxentry{\_\_init\_\_()}\spxextra{lezargus.container.image.LezargusImage method}, \hyperpage{5}
+  \item \spxentry{\_\_init\_\_()}\spxextra{lezargus.container.mosaic.LezargusMosaic method}, \hyperpage{7}
+  \item \spxentry{\_\_init\_\_()}\spxextra{lezargus.container.parent.LezargusContainerArithmetic method}, \hyperpage{9}
+  \item \spxentry{\_\_init\_\_()}\spxextra{lezargus.container.spectra.LezargusSpectra method}, \hyperpage{13}
+  \item \spxentry{\_\_init\_\_()}\spxextra{lezargus.library.logging.ColoredLogFormatter method}, \hyperpage{32}
+  \item \spxentry{\_\_justify\_arithmetic\_operation()}\spxextra{lezargus.container.parent.LezargusContainerArithmetic method}, \hyperpage{9}
+  \item \spxentry{\_\_mul\_\_()}\spxextra{lezargus.container.parent.LezargusContainerArithmetic method}, \hyperpage{10}
+  \item \spxentry{\_\_pow\_\_()}\spxextra{lezargus.container.parent.LezargusContainerArithmetic method}, \hyperpage{10}
+  \item \spxentry{\_\_sub\_\_()}\spxextra{lezargus.container.parent.LezargusContainerArithmetic method}, \hyperpage{10}
+  \item \spxentry{\_\_truediv\_\_()}\spxextra{lezargus.container.parent.LezargusContainerArithmetic method}, \hyperpage{10}
+  \item \spxentry{\_read\_fits\_file()}\spxextra{lezargus.container.parent.LezargusContainerArithmetic class method}, \hyperpage{11}
+  \item \spxentry{\_write\_fits\_file()}\spxextra{lezargus.container.parent.LezargusContainerArithmetic method}, \hyperpage{11}
+
+  \indexspace
+
+  \lettergroup{A}
+  \item \spxentry{absolute\_atmospheric\_refraction\_function()}\spxextra{in module lezargus.library.atmosphere}, \hyperpage{18}
+  \item \spxentry{AccuracyError}, \hyperpage{30}
+  \item \spxentry{AccuracyWarning}, \hyperpage{30}
+  \item \spxentry{add\_file\_logging\_handler()}\spxextra{in module lezargus.library.logging}, \hyperpage{35}
+  \item \spxentry{add\_stream\_logging\_handler()}\spxextra{in module lezargus.library.logging}, \hyperpage{35}
+  \item \spxentry{airmass()}\spxextra{in module lezargus.library.atmosphere}, \hyperpage{19}
+  \item \spxentry{AlgorithmWarning}, \hyperpage{30}
+  \item \spxentry{ArithmeticalError}, \hyperpage{31}
+
+  \indexspace
+
+  \lettergroup{B}
+  \item \spxentry{bin\_cube\_array\_spatially()}\spxextra{in module lezargus.library.array}, \hyperpage{15}
+  \item \spxentry{bin\_image\_array()}\spxextra{in module lezargus.library.array}, \hyperpage{16}
+  \item \spxentry{blackbody\_function()}\spxextra{in module lezargus.library.wrapper}, \hyperpage{40}
+
+  \indexspace
+
+  \lettergroup{C}
+  \item \spxentry{color\_formatting}\spxextra{lezargus.library.logging.ColoredLogFormatter attribute}, \hyperpage{31}
+  \item \spxentry{ColoredLogFormatter}\spxextra{class in lezargus.library.logging}, \hyperpage{31}
+  \item \spxentry{combine\_flags()}\spxextra{in module lezargus.library.flags}, \hyperpage{29}
+  \item \spxentry{combine\_masks()}\spxextra{in module lezargus.library.flags}, \hyperpage{29}
+  \item \spxentry{CommandLineError}, \hyperpage{32}
+  \item \spxentry{ConfigurationError}, \hyperpage{32}
+  \item \spxentry{ConfigurationWarning}, \hyperpage{32}
+  \item \spxentry{convert\_to\_allowable\_fits\_header\_data\_types()}\spxextra{in module lezargus.library.conversion}, \hyperpage{24}
+  \item \spxentry{convolve\_cube\_by\_image\_array()}\spxextra{in module lezargus.library.array}, \hyperpage{16}
+  \item \spxentry{create\_lezargus\_fits\_header()}\spxextra{in module lezargus.library.fits}, \hyperpage{26}
+  \item \spxentry{create\_wcs\_header\_from\_lezargus\_header()}\spxextra{in module lezargus.library.fits}, \hyperpage{26}
+  \item \spxentry{critical()}\spxextra{in module lezargus.library.logging}, \hyperpage{36}
+  \item \spxentry{cubic\_interpolate\_1d\_function()}\spxextra{in module lezargus.library.wrapper}, \hyperpage{40}
+
+  \indexspace
+
+  \lettergroup{D}
+  \item \spxentry{data}\spxextra{lezargus.container.cube.LezargusCube attribute}, \hyperpage{2}
+  \item \spxentry{data}\spxextra{lezargus.container.image.LezargusImage attribute}, \hyperpage{4}
+  \item \spxentry{data}\spxextra{lezargus.container.parent.LezargusContainerArithmetic attribute}, \hyperpage{8}
+  \item \spxentry{data}\spxextra{lezargus.container.spectra.LezargusSpectra attribute}, \hyperpage{12}
+  \item \spxentry{data\_unit}\spxextra{lezargus.container.parent.LezargusContainerArithmetic attribute}, \hyperpage{8}
+  \item \spxentry{DataLossWarning}, \hyperpage{33}
+  \item \spxentry{date\_format}\spxextra{lezargus.library.logging.ColoredLogFormatter attribute}, \hyperpage{31}
+  \item \spxentry{debug()}\spxextra{in module lezargus.library.logging}, \hyperpage{36}
+  \item \spxentry{DevelopmentError}, \hyperpage{33}
+  \item \spxentry{DevelopmentWarning}, \hyperpage{33}
+  \item \spxentry{DirectoryError}, \hyperpage{33}
+
+  \indexspace
+
+  \lettergroup{E}
+  \item \spxentry{ElevatedError}, \hyperpage{33}
+  \item \spxentry{error()}\spxextra{in module lezargus.library.logging}, \hyperpage{36}
+  \item \spxentry{ExpectedCaughtError}, \hyperpage{33}
+
+  \indexspace
+
+  \lettergroup{F}
+  \item \spxentry{FileError}, \hyperpage{33}
+  \item \spxentry{FileWarning}, \hyperpage{33}
+  \item \spxentry{flags}\spxextra{lezargus.container.cube.LezargusCube attribute}, \hyperpage{2}
+  \item \spxentry{flags}\spxextra{lezargus.container.image.LezargusImage attribute}, \hyperpage{5}
+  \item \spxentry{flags}\spxextra{lezargus.container.parent.LezargusContainerArithmetic attribute}, \hyperpage{8}
+  \item \spxentry{flags}\spxextra{lezargus.container.spectra.LezargusSpectra attribute}, \hyperpage{13}
+  \item \spxentry{flux\_unit}\spxextra{lezargus.container.cube.LezargusCube attribute}, \hyperpage{2}
+  \item \spxentry{flux\_unit}\spxextra{lezargus.container.image.LezargusImage attribute}, \hyperpage{5}
+  \item \spxentry{flux\_unit}\spxextra{lezargus.container.spectra.LezargusSpectra attribute}, \hyperpage{12}
+  \item \spxentry{format()}\spxextra{lezargus.library.logging.ColoredLogFormatter method}, \hyperpage{32}
+
+  \indexspace
+
+  \lettergroup{G}
+  \item \spxentry{gaussian\_psf\_kernel()}\spxextra{in module lezargus.library.atmosphere}, \hyperpage{19}
+  \item \spxentry{generate\_configuration\_file\_copy()}\spxextra{in module lezargus.library.config}, \hyperpage{23}
+  \item \spxentry{get\_directory()}\spxextra{in module lezargus.library.path}, \hyperpage{38}
+  \item \spxentry{get\_file\_extension()}\spxextra{in module lezargus.library.path}, \hyperpage{38}
+  \item \spxentry{get\_filename\_with\_extension()}\spxextra{in module lezargus.library.path}, \hyperpage{38}
+  \item \spxentry{get\_filename\_without\_extension()}\spxextra{in module lezargus.library.path}, \hyperpage{38}
+  \item \spxentry{get\_most\_recent\_filename\_in\_directory()}\spxextra{in module lezargus.library.path}, \hyperpage{38}
+
+  \indexspace
+
+  \lettergroup{H}
+  \item \spxentry{header}\spxextra{lezargus.container.cube.LezargusCube attribute}, \hyperpage{2}
+  \item \spxentry{header}\spxextra{lezargus.container.image.LezargusImage attribute}, \hyperpage{5}
+  \item \spxentry{header}\spxextra{lezargus.container.parent.LezargusContainerArithmetic attribute}, \hyperpage{9}
+  \item \spxentry{header}\spxextra{lezargus.container.spectra.LezargusSpectra attribute}, \hyperpage{13}
+
+  \indexspace
+
+  \lettergroup{I}
+  \item \spxentry{index\_of\_refraction\_dry\_air()}\spxextra{in module lezargus.library.atmosphere}, \hyperpage{19}
+  \item \spxentry{index\_of\_refraction\_ideal\_air()}\spxextra{in module lezargus.library.atmosphere}, \hyperpage{20}
+  \item \spxentry{index\_of\_refraction\_moist\_air()}\spxextra{in module lezargus.library.atmosphere}, \hyperpage{20}
+  \item \spxentry{info()}\spxextra{in module lezargus.library.logging}, \hyperpage{37}
+  \item \spxentry{initialize\_data\_files()}\spxextra{in module lezargus.library.data}, \hyperpage{25}
+  \item \spxentry{InputError}, \hyperpage{34}
+  \item \spxentry{InputWarning}, \hyperpage{34}
+
+  \indexspace
+
+  \lettergroup{L}
+  \item \spxentry{lezargus}
+    \subitem \spxentry{module}, \hyperpage{41}
+  \item \spxentry{lezargus.\_\_main\_\_}
+    \subitem \spxentry{module}, \hyperpage{41}
+  \item \spxentry{lezargus.\_\_version\_\_}
+    \subitem \spxentry{module}, \hyperpage{41}
+  \item \spxentry{LezargusBaseError}, \hyperpage{34}
+  \item \spxentry{lezargus.container}
+    \subitem \spxentry{module}, \hyperpage{14}
+  \item \spxentry{LezargusContainerArithmetic}\spxextra{class in lezargus.container.parent}, \hyperpage{7}
+  \item \spxentry{lezargus.container.cube}
+    \subitem \spxentry{module}, \hyperpage{1}
+  \item \spxentry{lezargus.container.image}
+    \subitem \spxentry{module}, \hyperpage{4}
+  \item \spxentry{lezargus.container.mosaic}
+    \subitem \spxentry{module}, \hyperpage{7}
+  \item \spxentry{lezargus.container.parent}
+    \subitem \spxentry{module}, \hyperpage{7}
+  \item \spxentry{lezargus.container.spectra}
+    \subitem \spxentry{module}, \hyperpage{12}
+  \item \spxentry{LezargusCube}\spxextra{class in lezargus.container.cube}, \hyperpage{1}
+  \item \spxentry{lezargus.data}
+    \subitem \spxentry{module}, \hyperpage{15}
+  \item \spxentry{LezargusError}, \hyperpage{34}
+  \item \spxentry{LezargusImage}\spxextra{class in lezargus.container.image}, \hyperpage{4}
+  \item \spxentry{lezargus.library}
+    \subitem \spxentry{module}, \hyperpage{41}
+  \item \spxentry{lezargus.library.array}
+    \subitem \spxentry{module}, \hyperpage{15}
+  \item \spxentry{lezargus.library.atmosphere}
+    \subitem \spxentry{module}, \hyperpage{18}
+  \item \spxentry{lezargus.library.config}
+    \subitem \spxentry{module}, \hyperpage{23}
+  \item \spxentry{lezargus.library.conversion}
+    \subitem \spxentry{module}, \hyperpage{24}
+  \item \spxentry{lezargus.library.data}
+    \subitem \spxentry{module}, \hyperpage{25}
+  \item \spxentry{lezargus.library.fits}
+    \subitem \spxentry{module}, \hyperpage{26}
+  \item \spxentry{lezargus.library.flags}
+    \subitem \spxentry{module}, \hyperpage{29}
+  \item \spxentry{lezargus.library.hint}
+    \subitem \spxentry{module}, \hyperpage{30}
+  \item \spxentry{lezargus.library.logging}
+    \subitem \spxentry{module}, \hyperpage{30}
+  \item \spxentry{lezargus.library.path}
+    \subitem \spxentry{module}, \hyperpage{38}
+  \item \spxentry{lezargus.library.wrapper}
+    \subitem \spxentry{module}, \hyperpage{40}
+  \item \spxentry{LezargusMosaic}\spxextra{class in lezargus.container.mosaic}, \hyperpage{7}
+  \item \spxentry{LezargusSpectra}\spxextra{class in lezargus.container.spectra}, \hyperpage{12}
+  \item \spxentry{LezargusWarning}, \hyperpage{34}
+  \item \spxentry{load\_configuration\_file()}\spxextra{in module lezargus.library.config}, \hyperpage{23}
+  \item \spxentry{load\_then\_apply\_configuration()}\spxextra{in module lezargus.library.config}, \hyperpage{23}
+  \item \spxentry{LogicFlowError}, \hyperpage{34}
+
+  \indexspace
+
+  \lettergroup{M}
+  \item \spxentry{mask}\spxextra{lezargus.container.cube.LezargusCube attribute}, \hyperpage{2}
+  \item \spxentry{mask}\spxextra{lezargus.container.image.LezargusImage attribute}, \hyperpage{5}
+  \item \spxentry{mask}\spxextra{lezargus.container.parent.LezargusContainerArithmetic attribute}, \hyperpage{8}
+  \item \spxentry{mask}\spxextra{lezargus.container.spectra.LezargusSpectra attribute}, \hyperpage{13}
+  \item \spxentry{MemoryFullWarning}, \hyperpage{34}
+  \item \spxentry{merge\_pathname()}\spxextra{in module lezargus.library.path}, \hyperpage{39}
+  \item \spxentry{message\_format}\spxextra{lezargus.library.logging.ColoredLogFormatter attribute}, \hyperpage{31}
+  \item \spxentry{module}
+    \subitem \spxentry{lezargus}, \hyperpage{41}
+    \subitem \spxentry{lezargus.\_\_main\_\_}, \hyperpage{41}
+    \subitem \spxentry{lezargus.\_\_version\_\_}, \hyperpage{41}
+    \subitem \spxentry{lezargus.container}, \hyperpage{14}
+    \subitem \spxentry{lezargus.container.cube}, \hyperpage{1}
+    \subitem \spxentry{lezargus.container.image}, \hyperpage{4}
+    \subitem \spxentry{lezargus.container.mosaic}, \hyperpage{7}
+    \subitem \spxentry{lezargus.container.parent}, \hyperpage{7}
+    \subitem \spxentry{lezargus.container.spectra}, \hyperpage{12}
+    \subitem \spxentry{lezargus.data}, \hyperpage{15}
+    \subitem \spxentry{lezargus.library}, \hyperpage{41}
+    \subitem \spxentry{lezargus.library.array}, \hyperpage{15}
+    \subitem \spxentry{lezargus.library.atmosphere}, \hyperpage{18}
+    \subitem \spxentry{lezargus.library.config}, \hyperpage{23}
+    \subitem \spxentry{lezargus.library.conversion}, \hyperpage{24}
+    \subitem \spxentry{lezargus.library.data}, \hyperpage{25}
+    \subitem \spxentry{lezargus.library.fits}, \hyperpage{26}
+    \subitem \spxentry{lezargus.library.flags}, \hyperpage{29}
+    \subitem \spxentry{lezargus.library.hint}, \hyperpage{30}
+    \subitem \spxentry{lezargus.library.logging}, \hyperpage{30}
+    \subitem \spxentry{lezargus.library.path}, \hyperpage{38}
+    \subitem \spxentry{lezargus.library.wrapper}, \hyperpage{40}
+
+  \indexspace
+
+  \lettergroup{N}
+  \item \spxentry{NotSupportedError}, \hyperpage{35}
+
+  \indexspace
+
+  \lettergroup{O}
+  \item \spxentry{OutOfOrderError}, \hyperpage{35}
+
+  \indexspace
+
+  \lettergroup{P}
+  \item \spxentry{parse\_unit\_to\_astropy\_unit()}\spxextra{in module lezargus.library.conversion}, \hyperpage{25}
+
+  \indexspace
+
+  \lettergroup{R}
+  \item \spxentry{read\_fits\_file()}\spxextra{lezargus.container.cube.LezargusCube class method}, \hyperpage{3}
+  \item \spxentry{read\_fits\_file()}\spxextra{lezargus.container.image.LezargusImage class method}, \hyperpage{6}
+  \item \spxentry{read\_fits\_file()}\spxextra{lezargus.container.spectra.LezargusSpectra class method}, \hyperpage{14}
+  \item \spxentry{read\_fits\_header()}\spxextra{in module lezargus.library.fits}, \hyperpage{26}
+  \item \spxentry{read\_lezargus\_fits\_file()}\spxextra{in module lezargus.library.fits}, \hyperpage{27}
+  \item \spxentry{ReadOnlyError}, \hyperpage{35}
+  \item \spxentry{reduce\_flags()}\spxextra{in module lezargus.library.flags}, \hyperpage{29}
+  \item \spxentry{relative\_atmospheric\_refraction\_function()}\spxextra{in module lezargus.library.atmosphere}, \hyperpage{21}
+  \item \spxentry{rotate\_image\_array()}\spxextra{in module lezargus.library.array}, \hyperpage{17}
+
+  \indexspace
+
+  \lettergroup{S}
+  \item \spxentry{split\_pathname()}\spxextra{in module lezargus.library.path}, \hyperpage{40}
+
+  \indexspace
+
+  \lettergroup{T}
+  \item \spxentry{terminal()}\spxextra{in module lezargus.library.logging}, \hyperpage{37}
+  \item \spxentry{translate\_image\_array()}\spxextra{in module lezargus.library.array}, \hyperpage{17}
+
+  \indexspace
+
+  \lettergroup{U}
+  \item \spxentry{uncertainty}\spxextra{lezargus.container.cube.LezargusCube attribute}, \hyperpage{2}
+  \item \spxentry{uncertainty}\spxextra{lezargus.container.image.LezargusImage attribute}, \hyperpage{5}
+  \item \spxentry{uncertainty}\spxextra{lezargus.container.parent.LezargusContainerArithmetic attribute}, \hyperpage{8}
+  \item \spxentry{uncertainty}\spxextra{lezargus.container.spectra.LezargusSpectra attribute}, \hyperpage{12}
+  \item \spxentry{uncertainty\_unit}\spxextra{lezargus.container.cube.LezargusCube attribute}, \hyperpage{2}
+  \item \spxentry{uncertainty\_unit}\spxextra{lezargus.container.image.LezargusImage attribute}, \hyperpage{5}
+  \item \spxentry{uncertainty\_unit}\spxextra{lezargus.container.parent.LezargusContainerArithmetic attribute}, \hyperpage{8}
+  \item \spxentry{uncertainty\_unit}\spxextra{lezargus.container.spectra.LezargusSpectra attribute}, \hyperpage{12}
+  \item \spxentry{UndiscoveredError}, \hyperpage{35}
+  \item \spxentry{update\_global\_minimum\_logging\_level()}\spxextra{in module lezargus.library.logging}, \hyperpage{37}
+
+  \indexspace
+
+  \lettergroup{W}
+  \item \spxentry{warning()}\spxextra{in module lezargus.library.logging}, \hyperpage{37}
+  \item \spxentry{wavelength}\spxextra{lezargus.container.cube.LezargusCube attribute}, \hyperpage{2}
+  \item \spxentry{wavelength}\spxextra{lezargus.container.image.LezargusImage attribute}, \hyperpage{4}
+  \item \spxentry{wavelength}\spxextra{lezargus.container.parent.LezargusContainerArithmetic attribute}, \hyperpage{8}
+  \item \spxentry{wavelength}\spxextra{lezargus.container.spectra.LezargusSpectra attribute}, \hyperpage{12}
+  \item \spxentry{wavelength\_unit}\spxextra{lezargus.container.cube.LezargusCube attribute}, \hyperpage{2}
+  \item \spxentry{wavelength\_unit}\spxextra{lezargus.container.image.LezargusImage attribute}, \hyperpage{5}
+  \item \spxentry{wavelength\_unit}\spxextra{lezargus.container.parent.LezargusContainerArithmetic attribute}, \hyperpage{8}
+  \item \spxentry{wavelength\_unit}\spxextra{lezargus.container.spectra.LezargusSpectra attribute}, \hyperpage{12}
+  \item \spxentry{write\_fits\_file()}\spxextra{lezargus.container.cube.LezargusCube method}, \hyperpage{3}
+  \item \spxentry{write\_fits\_file()}\spxextra{lezargus.container.image.LezargusImage method}, \hyperpage{6}
+  \item \spxentry{write\_fits\_file()}\spxextra{lezargus.container.spectra.LezargusSpectra method}, \hyperpage{14}
+  \item \spxentry{write\_lezargus\_fits\_file()}\spxextra{in module lezargus.library.fits}, \hyperpage{28}
+
+\end{sphinxtheindex}
