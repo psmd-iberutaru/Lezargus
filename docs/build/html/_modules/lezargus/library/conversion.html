@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>lezargus.library.conversion &mdash; Lezargus  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Lezargus
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../code/modules.html">lezargus</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../code/lezargus.html">lezargus package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.html">lezargus.container package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.container.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.container.html#module-lezargus.container">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.data.html">lezargus.data package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.data.html#module-lezargus.data">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.html">lezargus.library package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.library.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.library.html#module-lezargus.library">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.html#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.__main__.html">lezargus.__main__ module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.__version__.html">lezargus.__version__ module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.html#module-lezargus">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Lezargus</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">lezargus.library.conversion</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for lezargus.library.conversion</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Functions to convert things into something else.</span>
+
+<span class="sd">Any and all generic conversions (string, units, or otherwise) can be found in</span>
+<span class="sd">here. Extremely standard conversion functions are welcome in here, but,</span>
+<span class="sd">sometimes, a simple multiplication factor is more effective.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">astropy.io.fits</span>
+<span class="kn">import</span> <span class="nn">astropy.units</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">hint</span>
+<span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">logging</span>
+
+
+<div class="viewcode-block" id="parse_unit_to_astropy_unit"><a class="viewcode-back" href="../../../code/lezargus.library.conversion.html#lezargus.library.conversion.parse_unit_to_astropy_unit">[docs]</a><span class="k">def</span> <span class="nf">parse_unit_to_astropy_unit</span><span class="p">(</span><span class="n">unit_string</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Unit</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse a unit string to an Astropy Unit class.</span>
+
+<span class="sd">    Although for most cases, it is easier to use the Unit instantiation class</span>
+<span class="sd">    directly, Astropy does not properly understand some unit conventions so</span>
+<span class="sd">    we need to parse them in manually. Because of this, we just build a unified</span>
+<span class="sd">    interface for all unit strings in general.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    unit_string : str</span>
+<span class="sd">        The unit string to parse into an Astropy unit. If it is None, then we</span>
+<span class="sd">        return a dimensionless quantity unit.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    unit_instance : Unit</span>
+<span class="sd">        The unit instance after parsing.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># We check for a few input cases which Astropy does not natively know</span>
+    <span class="c1"># but we do.</span>
+    <span class="c1"># ...for dimensionless unit entries...</span>
+    <span class="n">unit_string</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="k">if</span> <span class="n">unit_string</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">unit_string</span>
+    <span class="c1"># ...for flams, the unit of spectral density over wavelength...</span>
+    <span class="n">unit_string</span> <span class="o">=</span> <span class="s2">&quot;erg / (AA cm^2 s)&quot;</span> <span class="k">if</span> <span class="n">unit_string</span> <span class="o">==</span> <span class="s2">&quot;flam&quot;</span> <span class="k">else</span> <span class="n">unit_string</span>
+
+    <span class="c1"># Finally, converting the string.</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">unit_instance</span> <span class="o">=</span> <span class="n">astropy</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">Unit</span><span class="p">(</span><span class="n">unit_string</span><span class="p">,</span> <span class="n">parse_strict</span><span class="o">=</span><span class="s2">&quot;raise&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="c1"># The unit string provided is likely not something we can parse.</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+            <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;It is likely the unit string provided is not something that&quot;</span>
+                <span class="s2">&quot; can be parsed into an Astropy unit:  </span><span class="si">{us}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">us</span><span class="o">=</span><span class="n">unit_string</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">unit_instance</span></div>
+
+
+<div class="viewcode-block" id="convert_to_allowable_fits_header_data_types"><a class="viewcode-back" href="../../../code/lezargus.library.conversion.html#lezargus.library.conversion.convert_to_allowable_fits_header_data_types">[docs]</a><span class="k">def</span> <span class="nf">convert_to_allowable_fits_header_data_types</span><span class="p">(</span>
+    <span class="n">input_data</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">bool</span> <span class="o">|</span> <span class="n">hint</span><span class="o">.</span><span class="n">Undefined</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert any input into something FITS headers allow.</span>
+
+<span class="sd">    Per the FITS standard, the allowable data types which values entered in</span>
+<span class="sd">    FITS headers is a subset of what Python can do. As such, this function</span>
+<span class="sd">    converts any type of reasonable input into something the FITS headers</span>
+<span class="sd">    would allow. Note, we mostly do basic checking and conversions. If the</span>
+<span class="sd">    object is too exotic, it may cause issues down the line.</span>
+
+<span class="sd">    In general, only strings, integers, floating point, boolean, and no values</span>
+<span class="sd">    are allowed. Astropy usually will handle further conversion from the basic</span>
+<span class="sd">    Python types so we only convert up to there.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    input_data : object</span>
+<span class="sd">        The input to convert into an allowable FITS header keyword.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    header_output : str, int, float, bool, or None</span>
+<span class="sd">        The output after conversion. Note the None is not actually a None</span>
+<span class="sd">        type itself, but Astropy&#39;s header None/Undefined type.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># If it is None, then we assume a blank record.</span>
+    <span class="k">if</span> <span class="n">input_data</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span>
+        <span class="n">input_data</span><span class="p">,</span>
+        <span class="n">astropy</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">card</span><span class="o">.</span><span class="n">Undefined</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="c1"># By convention, this should be a blank record; Astropy has a nice</span>
+        <span class="c1"># way of providing it.</span>
+        <span class="k">return</span> <span class="n">astropy</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">card</span><span class="o">.</span><span class="n">Undefined</span><span class="p">()</span>
+
+    <span class="c1"># If it is an boolean or integer, it is fine as well.</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="nb">bool</span> <span class="o">|</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="c1"># All good, again, returning just the basic type.</span>
+        <span class="k">return</span> <span class="n">input_data</span>
+
+    <span class="c1"># If the value is a floating point value, we need to check if it is an</span>
+    <span class="c1"># actual number or not.</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="c1"># If it is an otherwise good number, it is valid, but if it is</span>
+        <span class="c1"># not finite, we need to handle it appropriately.</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">input_data</span><span class="p">):</span>
+            <span class="c1"># All good.</span>
+            <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">input_data</span><span class="p">)</span>
+        <span class="c1"># Infinites are not well represented and we use strings</span>
+        <span class="c1"># instead. FITS also does not understand NaNs very well, so we just</span>
+        <span class="c1"># use strings.</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isinf</span><span class="p">(</span><span class="n">input_data</span><span class="p">)</span> <span class="ow">or</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">input_data</span><span class="p">):</span>
+            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">input_data</span><span class="p">)</span>
+        <span class="c1"># If you get here, then the number is not a typical float.</span>
+        <span class="c1"># We see if the future string conversion can deal with it.</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DataLossWarning</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;The header input value </span><span class="si">{val}</span><span class="s2"> is a float type, but is not a&quot;</span>
+                <span class="s2">&quot; standard float type understandable by this conversion&quot;</span>
+                <span class="s2">&quot; function.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">val</span><span class="o">=</span><span class="n">input_data</span><span class="p">)</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+    <span class="c1"># We do not expect much use from complex numbers. The FITS standard does</span>
+    <span class="c1"># not specify a fixed-format for complex numbers. We nevertheless check</span>
+    <span class="c1"># and implement the format.</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_data</span><span class="p">,</span> <span class="nb">complex</span><span class="p">):</span>
+        <span class="c1"># We break it into its two parts per the standard and package it</span>
+        <span class="c1"># as a string. Unfortunately, complex integer numbers are not really</span>
+        <span class="c1"># supported in Python so transmitting it over is non-trivial. We</span>
+        <span class="c1"># ignore this use case for now, complex floats should be good enough.</span>
+        <span class="k">return</span> <span class="s2">&quot;(</span><span class="si">{rl}</span><span class="s2">, </span><span class="si">{im}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">rl</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">real</span><span class="p">(</span><span class="n">input_data</span><span class="p">),</span>
+            <span class="n">im</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">imag</span><span class="p">(</span><span class="n">input_data</span><span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="c1"># All Python objects can be strings, so we just cast it one to save.</span>
+    <span class="c1"># However, if the string representation of the object is its __repr__, then</span>
+    <span class="c1"># conversion really was not made and there is no way to save the data</span>
+    <span class="c1"># without losing information.</span>
+    <span class="n">header_output</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">input_data</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">header_output</span> <span class="o">==</span> <span class="nb">repr</span><span class="p">(</span><span class="n">input_data</span><span class="p">):</span>
+        <span class="c1"># A proper string conversion failed. We still return the representation</span>
+        <span class="c1"># but the user should know of the loss of data.</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DataLossWarning</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;The input type </span><span class="si">{ty}</span><span class="s2"> cannot be properly cast into a one usable&quot;</span>
+                <span class="s2">&quot; with FITS headers; only the __repr__ is used. Its value is:&quot;</span>
+                <span class="s2">&quot; </span><span class="si">{val}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">ty</span><span class="o">=</span><span class="nb">type</span><span class="p">(</span><span class="n">input_data</span><span class="p">),</span>
+                    <span class="n">val</span><span class="o">=</span><span class="n">input_data</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">header_output</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023, Sparrow.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(false);
+      });
+  </script> 
+
+</body>
+</html>

@@ -5,8 +5,7 @@
 
 import os
 import sys
-import datetime
-import sphinx_rtd_theme
+import sphinx_book_theme
 
 # For the Python code itself.
 sys.path.insert(0, os.path.abspath(os.path.join("..", "..", "src")))
@@ -56,13 +55,13 @@ numfig = True
 
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
+# https://github.com/executablebooks/sphinx-book-theme
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = "sphinx_rtd_theme"
+html_theme = "sphinx_book_theme"
 html_theme_options = {
     "collapse_navigation": False,
-    "sticky_navigation": False,
     "navigation_depth": 5,
 }
 # html_favicon = "./assets/pyukumuku_favicon.png"

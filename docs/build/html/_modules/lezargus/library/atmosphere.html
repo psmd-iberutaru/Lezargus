@@ -44,6 +44,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../code/modules.html">lezargus</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../code/lezargus.html">lezargus package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.html">lezargus.container package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.container.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.container.html#module-lezargus.container">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.data.html">lezargus.data package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.data.html#module-lezargus.data">Module contents</a></li>
 </ul>
@@ -98,6 +103,7 @@
 <span class="sd">with the atmosphere.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
+<span class="kn">import</span> <span class="nn">astropy.modeling</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">from</span> <span class="nn">lezargus</span> <span class="kn">import</span> <span class="n">library</span>
@@ -105,7 +111,61 @@
 <span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">logging</span>
 
 
-<div class="viewcode-block" id="index_of_refraction_ideal_air"><a class="viewcode-back" href="../../../code/lezargus.library.atmosphere.html#lezargus.library.atmosphere.index_of_refraction_ideal_air">[docs]</a><span class="k">def</span> <span class="nf">index_of_refraction_ideal_air</span><span class="p">(</span><span class="n">wavelength</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Array</span><span class="p">:</span>
+<div class="viewcode-block" id="airmass"><a class="viewcode-back" href="../../../code/lezargus.library.atmosphere.html#lezargus.library.atmosphere.airmass">[docs]</a><span class="k">def</span> <span class="nf">airmass</span><span class="p">(</span><span class="n">zenith_angle</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the airmass from the zenith angle.</span>
+
+<span class="sd">    This function calculates the airmass provided a zenith angle. For most</span>
+<span class="sd">    cases the plane-parallel atmosphere method works, and it is what this</span>
+<span class="sd">    function uses. However, we also use a more accurate formula for airmass at</span>
+<span class="sd">    higher zenith angles (&gt;80 degree), namely from DOI:10.1364/AO.28.004735.</span>
+<span class="sd">    We use a weighted average between 75 &lt; z &lt; 80 degrees to allow for a</span>
+<span class="sd">    smooth transition.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    zenith_angle : float or ndarray</span>
+<span class="sd">        The zenith angle, in radians.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    airmass_ : float or ndarray</span>
+<span class="sd">        The airmass. The variable name is to avoid name conflicts.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># The bounds of the spline region.</span>
+    <span class="n">low_spline_deg</span> <span class="o">=</span> <span class="mi">75</span>
+    <span class="n">high_spline_deg</span> <span class="o">=</span> <span class="mi">80</span>
+
+    <span class="c1"># For the Kasten Young 1989 equation, we need the zenith angle in degrees.</span>
+    <span class="n">zenith_angle_degree</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">rad2deg</span><span class="p">(</span><span class="n">zenith_angle</span><span class="p">)</span>
+
+    <span class="c1"># We either use the faster secant version for zenith angles.</span>
+    <span class="n">secant_airmass</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">zenith_angle</span><span class="p">)</span>
+    <span class="n">kasten_young_airmass</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">zenith_angle</span><span class="p">)</span>
+        <span class="o">+</span> <span class="mf">0.50572</span> <span class="o">*</span> <span class="p">(</span><span class="mf">6.07995</span> <span class="o">+</span> <span class="mi">90</span> <span class="o">-</span> <span class="n">zenith_angle_degree</span><span class="p">)</span> <span class="o">**</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.6364</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="c1"># The two modes of calculation.</span>
+    <span class="n">airmass_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+        <span class="n">zenith_angle_degree</span> <span class="o">&lt;=</span> <span class="n">high_spline_deg</span><span class="p">,</span>
+        <span class="n">secant_airmass</span><span class="p">,</span>
+        <span class="n">kasten_young_airmass</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1"># Creating the average splice between the two regions.</span>
+    <span class="n">splice_index</span> <span class="o">=</span> <span class="p">(</span><span class="n">zenith_angle_degree</span> <span class="o">&gt;=</span> <span class="n">low_spline_deg</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span>
+        <span class="n">zenith_angle_degree</span> <span class="o">&lt;=</span> <span class="n">high_spline_deg</span>
+    <span class="p">)</span>
+    <span class="n">kasten_young_weights</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">zenith_angle_degree</span><span class="p">[</span><span class="n">splice_index</span><span class="p">]</span> <span class="o">-</span> <span class="n">low_spline_deg</span>
+    <span class="p">)</span> <span class="o">/</span> <span class="mf">5.0</span>
+    <span class="n">secant_weights</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">kasten_young_weights</span>
+    <span class="n">airmass_</span><span class="p">[</span><span class="n">splice_index</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">secant_airmass</span><span class="p">[</span><span class="n">splice_index</span><span class="p">]</span> <span class="o">*</span> <span class="n">secant_weights</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span>
+        <span class="n">kasten_young_airmass</span><span class="p">[</span><span class="n">splice_index</span><span class="p">]</span> <span class="o">*</span> <span class="n">kasten_young_weights</span>
+    <span class="p">)</span>
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">airmass_</span></div>
+
+
+<div class="viewcode-block" id="index_of_refraction_ideal_air"><a class="viewcode-back" href="../../../code/lezargus.library.atmosphere.html#lezargus.library.atmosphere.index_of_refraction_ideal_air">[docs]</a><span class="k">def</span> <span class="nf">index_of_refraction_ideal_air</span><span class="p">(</span><span class="n">wavelength</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the ideal refraction of air over wavelength.</span>
 
 <span class="sd">    The index of refraction of air depends slightly on wavelength, we use</span>
@@ -113,13 +173,13 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    wavelength : Array</span>
+<span class="sd">    wavelength : ndarray</span>
 <span class="sd">        The wavelength that we are calculating the index of refraction over.</span>
 <span class="sd">        This must in microns.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    ior_ideal_air : Array</span>
+<span class="sd">    ior_ideal_air : ndarray</span>
 <span class="sd">        The ideal air index of refraction.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># The wave number is actually used more in these equations.</span>
@@ -136,10 +196,10 @@
 
 
 <div class="viewcode-block" id="index_of_refraction_dry_air"><a class="viewcode-back" href="../../../code/lezargus.library.atmosphere.html#lezargus.library.atmosphere.index_of_refraction_dry_air">[docs]</a><span class="k">def</span> <span class="nf">index_of_refraction_dry_air</span><span class="p">(</span>
-    <span class="n">wavelength</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span>
+    <span class="n">wavelength</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">pressure</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">temperature</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Array</span><span class="p">:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the refraction of air of pressured warm dry air.</span>
 
 <span class="sd">    The index of refraction depends on wavelength, pressure and temperature, we</span>
@@ -147,7 +207,7 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    wavelength : Array</span>
+<span class="sd">    wavelength : ndarray</span>
 <span class="sd">        The wavelength that we are calculating the index of refraction over.</span>
 <span class="sd">        This must in microns.</span>
 <span class="sd">    pressure : float</span>
@@ -157,7 +217,7 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    ior_dry_air : Array</span>
+<span class="sd">    ior_dry_air : ndarray</span>
 <span class="sd">        The dry air index of refraction.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># We need the ideal air case first.</span>
@@ -168,7 +228,7 @@
     <span class="n">temperature</span> <span class="o">=</span> <span class="n">temperature</span> <span class="o">-</span> <span class="mf">273.15</span>
     <span class="k">if</span> <span class="n">temperature</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
-            <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">NotSupportedError</span><span class="p">,</span>
+            <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">AccuracyWarning</span><span class="p">,</span>
             <span class="n">message</span><span class="o">=</span><span class="p">(</span>
                 <span class="s2">&quot;The temperature specified for the Edlén equation for the index&quot;</span>
                 <span class="s2">&quot; of refraction is lower than 0 C. The applicability is of this&quot;</span>
@@ -189,11 +249,11 @@
 
 
 <div class="viewcode-block" id="index_of_refraction_moist_air"><a class="viewcode-back" href="../../../code/lezargus.library.atmosphere.html#lezargus.library.atmosphere.index_of_refraction_moist_air">[docs]</a><span class="k">def</span> <span class="nf">index_of_refraction_moist_air</span><span class="p">(</span>
-    <span class="n">wavelength</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span>
+    <span class="n">wavelength</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">temperature</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">pressure</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">water_pressure</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Array</span><span class="p">:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the refraction of air of pressured warm moist air.</span>
 
 <span class="sd">    The index of refraction depends on wavelength, pressure, temperature, and</span>
@@ -203,7 +263,7 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    wavelength : Array</span>
+<span class="sd">    wavelength : ndarray</span>
 <span class="sd">        The wavelength that we are calculating the index of refraction over.</span>
 <span class="sd">        This must in microns.</span>
 <span class="sd">    temperature : float</span>
@@ -215,7 +275,7 @@
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    ior_moist_air : Array</span>
+<span class="sd">    ior_moist_air : ndarray</span>
 <span class="sd">        The moist air index of refraction.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># The wave number is actually used more in these equations.</span>
@@ -238,12 +298,12 @@
 
 
 <div class="viewcode-block" id="absolute_atmospheric_refraction_function"><a class="viewcode-back" href="../../../code/lezargus.library.atmosphere.html#lezargus.library.atmosphere.absolute_atmospheric_refraction_function">[docs]</a><span class="k">def</span> <span class="nf">absolute_atmospheric_refraction_function</span><span class="p">(</span>
-    <span class="n">wavelength</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span>
+    <span class="n">wavelength</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">zenith_angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">temperature</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">pressure</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">water_pressure</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="n">hint</span><span class="o">.</span><span class="n">Array</span><span class="p">],</span> <span class="n">hint</span><span class="o">.</span><span class="n">Array</span><span class="p">]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the absolute atmospheric refraction function.</span>
 
 <span class="sd">    The absolute atmospheric refraction is not as useful as the relative</span>
@@ -252,7 +312,7 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    wavelength : Array</span>
+<span class="sd">    wavelength : ndarray</span>
 <span class="sd">        The wavelength over which the absolute atmospheric refraction is</span>
 <span class="sd">        being computed over, in microns.</span>
 <span class="sd">    zenith_angle : float</span>
@@ -292,13 +352,13 @@
 
 
 <div class="viewcode-block" id="relative_atmospheric_refraction_function"><a class="viewcode-back" href="../../../code/lezargus.library.atmosphere.html#lezargus.library.atmosphere.relative_atmospheric_refraction_function">[docs]</a><span class="k">def</span> <span class="nf">relative_atmospheric_refraction_function</span><span class="p">(</span>
-    <span class="n">wavelength</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span>
+    <span class="n">wavelength</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
     <span class="n">reference_wavelength</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">zenith_angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">temperature</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">pressure</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">water_pressure</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="n">hint</span><span class="o">.</span><span class="n">Array</span><span class="p">],</span> <span class="n">hint</span><span class="o">.</span><span class="n">Array</span><span class="p">]:</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the relative atmospheric refraction function.</span>
 
 <span class="sd">    The relative refraction function is the same as the absolute refraction</span>
@@ -306,7 +366,7 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    wavelength : Array</span>
+<span class="sd">    wavelength : ndarray</span>
 <span class="sd">        The wavelength over which the absolute atmospheric refraction is</span>
 <span class="sd">        being computed over, in microns.</span>
 <span class="sd">    reference_wavelength : float</span>
@@ -339,17 +399,17 @@
     <span class="c1"># The refraction at the reference wavelength.</span>
     <span class="n">ref_abs_refr</span> <span class="o">=</span> <span class="n">abs_atm_refr_func</span><span class="p">(</span><span class="n">reference_wavelength</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">rel_atm_refr_func</span><span class="p">(</span><span class="n">wave</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Array</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">rel_atm_refr_func</span><span class="p">(</span><span class="n">wave</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Relative refraction function.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        wave : Array</span>
+<span class="sd">        wave : ndarray</span>
 <span class="sd">            The input wavelength for computation.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        rel_atm_refr : Array</span>
+<span class="sd">        rel_atm_refr : ndarray</span>
 <span class="sd">            The relative atmospheric refraction.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">rel_atm_refr</span> <span class="o">=</span> <span class="n">abs_atm_refr_func</span><span class="p">(</span><span class="n">wave</span><span class="p">)</span> <span class="o">-</span> <span class="n">ref_abs_refr</span>
@@ -357,6 +417,61 @@
 
     <span class="c1"># All done.</span>
     <span class="k">return</span> <span class="n">rel_atm_refr_func</span></div>
+
+
+<div class="viewcode-block" id="gaussian_psf_kernel"><a class="viewcode-back" href="../../../code/lezargus.library.atmosphere.html#lezargus.library.atmosphere.gaussian_psf_kernel">[docs]</a><span class="k">def</span> <span class="nf">gaussian_psf_kernel</span><span class="p">(</span>
+    <span class="n">shape</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span>
+    <span class="n">x_stddev</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">y_stddev</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">rotation</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a 2D Gaussian point spread function convolution kernel.</span>
+
+<span class="sd">    We normalize the point spread function via the amplitude of the Gaussian</span>
+<span class="sd">    function as a whole for maximal precision: volume = 1. We require the</span>
+<span class="sd">    input of the shape of the kernel to allow for `x_stddev` and `y_stddev`</span>
+<span class="sd">    to be expressed in pixels to keep it general. By definition, the center</span>
+<span class="sd">    of the Gaussian kernel is in the center of the array.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    shape : tuple</span>
+<span class="sd">        The shape of the 2D kernel, in pixels.</span>
+<span class="sd">    x_stddev : float</span>
+<span class="sd">        The standard deviation of the Gaussian in the x direction, in pixels.</span>
+<span class="sd">    y_stddev : float</span>
+<span class="sd">        The standard deviation of the Gaussian in the y direction, in pixels.</span>
+<span class="sd">    rotation : float</span>
+<span class="sd">        The rotation angle, increasing counterclockwise, in radians.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    gaussian_kernel : ndarray</span>
+<span class="sd">        The discrete kernel array.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># The center of the array given by the shape is defined as just the center</span>
+    <span class="c1"># of it. However, we need to take into account off-by-one errors.</span>
+    <span class="n">nrow</span><span class="p">,</span> <span class="n">ncol</span> <span class="o">=</span> <span class="n">shape</span>
+    <span class="n">cen_row</span> <span class="o">=</span> <span class="p">(</span><span class="n">nrow</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="n">cen_col</span> <span class="o">=</span> <span class="p">(</span><span class="n">ncol</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+
+    <span class="c1"># The normalization constant is provided as amplitude itself.</span>
+    <span class="n">norm_constant</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">x_stddev</span> <span class="o">*</span> <span class="n">y_stddev</span><span class="p">)</span>
+
+    <span class="c1"># The mesh grid used to evaluate the Gaussian function to derive the kernel.</span>
+    <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">ncol</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">nrow</span><span class="p">))</span>
+
+    <span class="c1"># Deriving the kernel and computing it.</span>
+    <span class="n">gaussian2d</span> <span class="o">=</span> <span class="n">astropy</span><span class="o">.</span><span class="n">modeling</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Gaussian2D</span><span class="p">(</span>
+        <span class="n">amplitude</span><span class="o">=</span><span class="n">norm_constant</span><span class="p">,</span>
+        <span class="n">x_mean</span><span class="o">=</span><span class="n">cen_col</span><span class="p">,</span>
+        <span class="n">y_mean</span><span class="o">=</span><span class="n">cen_row</span><span class="p">,</span>
+        <span class="n">x_stddev</span><span class="o">=</span><span class="n">x_stddev</span><span class="p">,</span>
+        <span class="n">y_stddev</span><span class="o">=</span><span class="n">y_stddev</span><span class="p">,</span>
+        <span class="n">theta</span><span class="o">=</span><span class="n">rotation</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">gaussian_kernel</span> <span class="o">=</span> <span class="n">gaussian2d</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">gaussian_kernel</span></div>
 </pre></div>
 
            </div>

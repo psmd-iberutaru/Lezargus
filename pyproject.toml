@@ -55,7 +55,7 @@ dependencies = [
     "pylint[spelling]>=2.17.0",
     "ruff>=0.0.284",
     "sphinx>=6.1.0",
-    "sphinx_rtd_theme>=1.2.0",
+    "sphinx-book-theme>=1.0.0",
 ]
 [tool.hatch.envs.default.scripts]
 test = "pytest {args:tests}"
@@ -79,6 +79,10 @@ lintfix = [
 docs = [
     "sphinx-apidoc -f -e -P -o ./docs/source/code/ ./src/lezargus/",
     "sphinx-build -b html ./docs/source/ ./docs/build/html/",
+    # To build the LaTeX file, uncomment this line. We do not usually build 
+    # it all the time due to its low usage and cluttering of the Git tree with 
+    # large files.
+    #"sphinx-build -M latexpdf ./docs/source/ ./docs/build/latex/",
 ]
 auxiliary = [
     "format",

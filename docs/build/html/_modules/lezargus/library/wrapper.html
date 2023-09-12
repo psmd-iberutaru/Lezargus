@@ -44,6 +44,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../code/modules.html">lezargus</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../code/lezargus.html">lezargus package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.html">lezargus.container package</a><ul>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.container.html#submodules">Submodules</a></li>
+<li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.container.html#module-lezargus.container">Module contents</a></li>
+</ul>
+</li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.data.html">lezargus.data package</a><ul>
 <li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.data.html#module-lezargus.data">Module contents</a></li>
 </ul>
@@ -99,6 +104,8 @@
 <span class="sd">package provided its own idiosyncrasies.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
+<span class="kn">import</span> <span class="nn">astropy.modeling.models</span>
+<span class="kn">import</span> <span class="nn">astropy.units</span>
 <span class="kn">import</span> <span class="nn">scipy.interpolate</span>
 
 <span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">hint</span>
@@ -106,16 +113,16 @@
 
 
 <div class="viewcode-block" id="cubic_interpolate_1d_function"><a class="viewcode-back" href="../../../code/lezargus.library.wrapper.html#lezargus.library.wrapper.cubic_interpolate_1d_function">[docs]</a><span class="k">def</span> <span class="nf">cubic_interpolate_1d_function</span><span class="p">(</span>
-    <span class="n">x</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span>
-    <span class="n">y</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Array</span><span class="p">,</span>
-<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="n">hint</span><span class="o">.</span><span class="n">Array</span><span class="p">],</span> <span class="n">hint</span><span class="o">.</span><span class="n">Array</span><span class="p">]:</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">y</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a wrapper around Scipy&#39;s Cubic interpolation.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    x : Array</span>
+<span class="sd">    x : ndarray</span>
 <span class="sd">        The x data to interpolate over.</span>
-<span class="sd">    y : Array</span>
+<span class="sd">    y : ndarray</span>
 <span class="sd">        The y data to interpolate over.</span>
 
 <span class="sd">    Returns</span>
@@ -132,17 +139,17 @@
     <span class="p">)</span>
 
     <span class="c1"># Defining the wrapper function.</span>
-    <span class="k">def</span> <span class="nf">interpolate_1d_wrapper</span><span class="p">(</span><span class="n">input_data</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Array</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">interpolate_1d_wrapper</span><span class="p">(</span><span class="n">input_data</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Cubic interpolator wrapper.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        input_data : Array</span>
+<span class="sd">        input_data : ndarray</span>
 <span class="sd">            The input data.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        output_data : Array</span>
+<span class="sd">        output_data : ndarray</span>
 <span class="sd">            The output data.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># We need to check if there is any interpolation.</span>
@@ -163,6 +170,63 @@
 
     <span class="c1"># All done, return the function itself.</span>
     <span class="k">return</span> <span class="n">interpolate_1d_wrapper</span></div>
+
+
+<div class="viewcode-block" id="blackbody_function"><a class="viewcode-back" href="../../../code/lezargus.library.wrapper.html#lezargus.library.wrapper.blackbody_function">[docs]</a><span class="k">def</span> <span class="nf">blackbody_function</span><span class="p">(</span>
+    <span class="n">temperature</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a callable blackbody function for a given temperature.</span>
+
+<span class="sd">    This function is a wrapper around the Astropy blackbody model. This wrapper</span>
+<span class="sd">    exists to remove the unit baggage of the original Astropy blackbody</span>
+<span class="sd">    model so that we can stick to the convention of Lezargus.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    temperature : float</span>
+<span class="sd">        The blackbody temperature, in Kelvin.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    blackbody : Callable</span>
+<span class="sd">        The blackbody function, the wavelength callable is in microns. The</span>
+<span class="sd">        return units are in FLAM/sr.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># The temperature, assigning units to them because that is what Astropy</span>
+    <span class="c1"># wants.</span>
+    <span class="n">temperature_qty</span> <span class="o">=</span> <span class="n">astropy</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">Quantity</span><span class="p">(</span><span class="n">temperature</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;Kelvin&quot;</span><span class="p">)</span>
+    <span class="n">flam_scale</span> <span class="o">=</span> <span class="n">astropy</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">Quantity</span><span class="p">(</span>
+        <span class="mi">1</span><span class="p">,</span>
+        <span class="n">unit</span><span class="o">=</span><span class="n">astropy</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">erg</span>
+        <span class="o">/</span> <span class="n">astropy</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">s</span>
+        <span class="o">/</span> <span class="n">astropy</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">cm</span><span class="o">**</span><span class="mi">2</span>
+        <span class="o">/</span> <span class="n">astropy</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">AA</span>
+        <span class="o">/</span> <span class="n">astropy</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">sr</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">blackbody_instance</span> <span class="o">=</span> <span class="n">astropy</span><span class="o">.</span><span class="n">modeling</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">BlackBody</span><span class="p">(</span>
+        <span class="n">temperature</span><span class="o">=</span><span class="n">temperature_qty</span><span class="p">,</span>
+        <span class="n">scale</span><span class="o">=</span><span class="n">flam_scale</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">blackbody</span><span class="p">(</span><span class="n">wave</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Blackbody function.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        wave : ndarray</span>
+<span class="sd">            The wavelength of the input, in microns.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        flux : ndarray</span>
+<span class="sd">            The blackbody flux, as returned by a blackbody, in units of FLAM/sr.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">wave</span> <span class="o">=</span> <span class="n">astropy</span><span class="o">.</span><span class="n">units</span><span class="o">.</span><span class="n">Quantity</span><span class="p">(</span><span class="n">wave</span><span class="p">,</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;micron&quot;</span><span class="p">)</span>
+        <span class="n">flux</span> <span class="o">=</span> <span class="n">blackbody_instance</span><span class="p">(</span><span class="n">wave</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">flux</span><span class="o">.</span><span class="n">value</span>
+
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">blackbody</span></div>
 </pre></div>
 
            </div>

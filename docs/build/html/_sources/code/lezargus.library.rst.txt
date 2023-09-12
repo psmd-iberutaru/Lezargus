@@ -7,11 +7,13 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
+   lezargus.library.array
    lezargus.library.atmosphere
    lezargus.library.config
    lezargus.library.conversion
    lezargus.library.data
    lezargus.library.fits
+   lezargus.library.flags
    lezargus.library.hint
    lezargus.library.logging
    lezargus.library.path
