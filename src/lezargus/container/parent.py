@@ -1,9 +1,11 @@
 """Parent class for the containers to implement arithmetic and other functions.
 
-The Astropy NDArrayData arithmetic class is not wavelength aware. This class
-overwrites and wraps around the NDArithmeticMixin class and allows it to be
-wavelength aware. We also avoid the need to do a lot of the recreating of the
-data object.
+The Astropy NDArrayData arithmetic class is not wavelength aware, and so we
+implement our own class with similar functionality to it to allow for 
+wavelength aware operations. Unlike specutils, the interpolation for doing 
+arithmetic operations of spectral classes of different wavelength solutions 
+must be explicit. This is to prevent errors from mis-matched spectra being 
+operated on.
 """
 import copy
 

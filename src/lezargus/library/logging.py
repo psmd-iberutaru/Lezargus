@@ -5,6 +5,10 @@ Use the functions here when logging or issuing errors or other information.
 
 import logging
 import string
+import sys
+import glob
+import uuid
+import os
 
 import colorama
 
@@ -261,7 +265,7 @@ LOGGING_WARNING_LEVEL = logging.WARNING
 LOGGING_ERROR_LEVEL = logging.ERROR
 LOGGING_CRITICAL_LEVEL = logging.CRITICAL
 # The logger itself.
-__lezargus_logger = logging.getLogger()
+__lezargus_logger = logging.getLogger(name="LezargusLogger")
 __lezargus_logger.setLevel(LOGGING_DEBUG_LEVEL)
 
 
@@ -390,12 +394,81 @@ class ColoredLogFormatter(logging.Formatter):
         return color_ansi_escape
 
 
+def add_console_logging_handler(
+    console: object = sys.stderr,
+    log_level: int = LOGGING_DEBUG_LEVEL,
+    use_color: bool = True,
+) -> None:
+    """Add a console stream handler to the logging infrastructure.
+
+    This differs from the main stream implementation in that a specific check 
+    is done to see if there is a logging handler which is specific to this 
+    console or console output. If there is, this function does not make a new
+    one. This is helpful for Jupyter Notebooks.
+
+    Parameters
+    ----------
+    stream : Any
+        The stream where the logs will write to.
+    log_level : int
+        The logging level for this handler.
+    use_color : bool
+        If True, use colored log messaged based on the configuration file
+        parameters.
+
+    Returns
+    -------
+    None
+    """
+    # A unique console name.
+    CONSOLE_NAME = library.config.LOGGING_SPECIFIC_CONSOLE_HANDLER_FLAG_NAME
+
+    # We first check if there already exists a console handler. 
+    for handlerdex in __lezargus_logger.handlers:
+        if handlerdex.name == CONSOLE_NAME:
+            # There already exists a Lezargus console handler, there is no 
+            # need to make a new one.
+            return None
+
+    console_handler = logging.StreamHandler(console)
+    console_handler.setLevel(log_level)
+    # We use an overly specific name to avoid any overlap or namespace clashes.
+    console_handler.name = CONSOLE_NAME
+    # Get the format from the specified configuration.
+    color_format_dict = {
+        LOGGING_DEBUG_LEVEL: library.config.LOGGING_STREAM_DEBUG_COLOR_HEX,
+        LOGGING_INFO_LEVEL: library.config.LOGGING_STREAM_INFO_COLOR_HEX,
+        LOGGING_WARNING_LEVEL: library.config.LOGGING_STREAM_WARNING_COLOR_HEX,
+        LOGGING_ERROR_LEVEL: library.config.LOGGING_STREAM_ERROR_COLOR_HEX,
+        LOGGING_CRITICAL_LEVEL: (
+            library.config.LOGGING_STREAM_CRITICAL_COLOR_HEX
+        ),
+    }
+    if use_color:
+        console_formatter = ColoredLogFormatter(
+            message_format=library.config.LOGGING_RECORD_FORMAT_STRING,
+            date_format=library.config.LOGGING_DATETIME_FORMAT_STRING,
+            color_hex_dict=color_format_dict,
+        )
+    else:
+        console_formatter = logging.Formatter(
+            fmt=library.config.LOGGING_RECORD_FORMAT_STRING,
+            datefmt=library.config.LOGGING_DATETIME_FORMAT_STRING,
+        )
+    # Adding the logger.
+    console_handler.setFormatter(console_formatter)
+    __lezargus_logger.addHandler(console_handler)
+    # All done.
+
+
 def add_stream_logging_handler(
     stream: object,
     log_level: int = LOGGING_DEBUG_LEVEL,
     use_color: bool = True,
 ) -> None:
     """Add a stream handler to the logging infrastructure.
+
+    This function may not be used for most cases.
 
     Parameters
     ----------
@@ -707,3 +780,70 @@ def terminal() -> None:
     raise LezargusBaseError(
         msg,
     )
+
+
+
+def initialize_default_logging_outputs() -> None:
+    """Initialize the default logging console and file outputs.
+
+    This function initializes the logging outputs based on configured 
+    parameters. Additional logging outputs may be provided.
+
+    Parameters
+    ----------
+    None
+
+    Return
+    ------
+    None
+    """
+    # Construct the default console and file-based logging functions. The file is
+    # saved in the package directory.
+    library.logging.add_console_logging_handler(
+        console=sys.stderr,
+        log_level=library.logging.LOGGING_INFO_LEVEL,
+        use_color=library.config.LOGGING_STREAM_USE_COLOR,
+    )
+    # The default file logging is really a temporary thing (just in case) and
+    # should not kept from run to run. Moreover, if there are multiple instances
+    # of Lezargus being run, they all cannot use the same log file and so we
+    # encode a UUID tag.
+
+    # Adding a new file handler. We add the file handler first only so we can
+    # capture the log messages when we try and remove the old logs.
+    __DEFAULT_LEZARGUS_UNIQUE_HEX_IDENTIFIER = uuid.uuid4().hex
+    __DEFAULT_LEZARGUS_LOG_FILE_PATH = library.path.merge_pathname(
+        directory=library.config.MODULE_INSTALLATION_PATH,
+        filename="lezargus_" + __DEFAULT_LEZARGUS_UNIQUE_HEX_IDENTIFIER,
+        extension="log",
+    )
+    library.logging.add_file_logging_handler(
+        filename=__DEFAULT_LEZARGUS_LOG_FILE_PATH,
+        log_level=library.logging.LOGGING_DEBUG_LEVEL,
+    )
+    # We try and remove all of the log files which currently exist, if we can.
+    # We make an exception for the one which we are going to use, we do not
+    # want to clog the log with it.
+    old_log_files = glob.glob(
+        library.path.merge_pathname(
+            directory=library.config.MODULE_INSTALLATION_PATH,
+            filename="lezargus*",
+            extension="log",
+        ),
+        recursive=False,
+    )
+    for filedex in old_log_files:
+        if filedex == __DEFAULT_LEZARGUS_LOG_FILE_PATH:
+            # We do not try to delete the current file.
+            continue
+        try:
+            os.remove(filedex)
+        except OSError:
+            # The file is likely in use by another logger or Lezargus instance.
+            # The deletion can wait.
+            library.logging.info(
+                message=(
+                    "The temporary log file {lfl} is currently in-use, we defer"
+                    " deletion.".format(lfl=filedex)
+                ),
+            )

@@ -32,7 +32,7 @@ def load_configuration_file(filename: str) -> dict:
 
     Returns
     -------
-    configuration_dict : dictionary
+    configuration_dict : dict
         The dictionary which contains all of the configuration parameters
         within it.
     """
@@ -63,6 +63,7 @@ def load_configuration_file(filename: str) -> dict:
                 .format(fname=filename)
             ),
         )
+
     # Double check that the configuration is flat as per the documentation
     # and expectation.
     for valuedex in configuration_dict.values():
@@ -140,6 +141,9 @@ def load_then_apply_configuration(filename: str) -> None:
             )
     # Applying it to the global space of this module only.
     globals().update(capital_configuration)
+    # Notifying that it was applied.
+    logging.info(message="Configuration file {fl} was loaded and applied.".format(fl=filename))
+
 
 
 def generate_configuration_file_copy(
@@ -193,6 +197,31 @@ def generate_configuration_file_copy(
     shutil.copyfile(default_config_path, file_destination)
 
 
+def initialize_default_configuration() -> None:
+    """Initialize the default configuration file.
+
+    This function forces the reading and applying of the default 
+    configuration file. Note, this should not called when a user configuration
+    file has already been provided.
+    
+    Parameters
+    ----------
+    None
+    
+    Returns
+    -------
+    None
+    """
+    # Load the default configuration parameters. The user's configurations should
+    # overwrite these when supplied.
+    load_then_apply_configuration(
+        filename=library.path.merge_pathname(
+            directory=MODULE_INSTALLATION_PATH,
+            filename="configuration",
+            extension="yaml",
+        ),
+    )
+
 # Configuration/constant parameters which are otherwise not usually provided
 # or must be provided at runtime with code.
 ###################
@@ -202,3 +231,4 @@ def generate_configuration_file_copy(
 MODULE_INSTALLATION_PATH = os.path.dirname(
     os.path.realpath(os.path.join(os.path.realpath(__file__), "..")),
 )
+

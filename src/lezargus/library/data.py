@@ -34,14 +34,37 @@ def initialize_data_files() -> None:
     None
     """
     data_files = {}
-    # Loading the stars.
-    data_files["VEGA"] = lezargus.container.LezargusSpectra.read_fits_file(
+    # Loading the stars, often used as standard stars.
+    data_files["STAR_16CYGB"] = lezargus.container.LezargusSpectra.read_fits_file(
         filename=library.path.merge_pathname(
             directory=MODULE_DATA_DIRECTORY,
-            filename="star_vega",
+            filename="star_spectra_16CygB",
             extension="fits",
         ),
     )
+    data_files["STAR_109VIR"] = lezargus.container.LezargusSpectra.read_fits_file(
+        filename=library.path.merge_pathname(
+            directory=MODULE_DATA_DIRECTORY,
+            filename="star_spectra_109Vir",
+            extension="fits",
+        ),
+    )
+    data_files["STAR_SUN"] = lezargus.container.LezargusSpectra.read_fits_file(
+        filename=library.path.merge_pathname(
+            directory=MODULE_DATA_DIRECTORY,
+            filename="star_spectra_Sun",
+            extension="fits",
+        ),
+    )
+    data_files["STAR_VEGA"] = lezargus.container.LezargusSpectra.read_fits_file(
+        filename=library.path.merge_pathname(
+            directory=MODULE_DATA_DIRECTORY,
+            filename="star_spectra_Vega",
+            extension="fits",
+        ),
+    )
+
+    # Loading the filters.
 
     # Finally, applying the data to this module.
     globals().update(data_files)
