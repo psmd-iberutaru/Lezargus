@@ -47,6 +47,12 @@ lezargus = "lezargus.__main__:main"
 [tool.hatch.version]
 path = "src/lezargus/__version__.py"
 
+[tool.hatch.build]
+exclude = [
+    # We do not want to package the utility scripts and files in a build.
+    "./_utility/*"
+]
+
 [tool.hatch.envs.default]
 dependencies = [
     "coverage[toml]>=6.5",
@@ -79,9 +85,9 @@ lintfix = [
 docs = [
     "sphinx-apidoc -f -e -P -o ./docs/source/code/ ./src/lezargus/",
     "sphinx-build -b html ./docs/source/ ./docs/build/html/",
-    # To build the LaTeX file, uncomment this line. We do not usually build 
-    # it all the time due to its low usage and cluttering of the Git tree with 
-    # large files.
+    # To build the LaTeX file, uncomment the line below. We do not usually 
+    # build it all the time due to its low usage and cluttering of the Git 
+    # tree with large files.
     #"sphinx-build -M latexpdf ./docs/source/ ./docs/build/latex/",
 ]
 auxiliary = [

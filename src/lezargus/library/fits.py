@@ -25,6 +25,7 @@ _LEZARGUS_HEADER_KEYWORDS_DICTIONARY = {
     "LZ_FIMGN": ("FLAGS", "LZ: Flag image extension name."),
     # Instrument information for whatever data Lezargus is reducing.
     "LZI_INST": (None, "LZ: Specified instrument."),
+    "LZIFNAME": (None, "LZ: Initial pathless filename."),
     "LZI_PXPS": (None, "LZ: Pixel plate scale, deg/pix."),
     "LZI_SLPS": (None, "LZ: Slice plate scale, deg/slice."),
     # Information about the object itself.
@@ -34,6 +35,26 @@ _LEZARGUS_HEADER_KEYWORDS_DICTIONARY = {
     "LZOPK_RA": (None, "LZ: PSF peak RA value, degrees."),
     "LZOPKDEC": (None, "LZ: PSF peak DEC value, degrees."),
     "LZO_ROTA": (None, "LZ: Rotation angle, degrees"),
+    # Synthetic photometric magnitudes derived from the spectra. This is a 
+    # helpful place to put photometry measurements.
+    "LZOM_J_U": (None, "LZ: Johnson U magnitude."),
+    "LZOU_J_U": (None, "LZ: Johnson U uncertainty."),
+    "LZOM_J_B": (None, "LZ: Johnson B magnitude."),
+    "LZOU_J_B": (None, "LZ: Johnson B uncertainty."),
+    "LZOM_J_V": (None, "LZ: Johnson V magnitude."),
+    "LZOU_J_V": (None, "LZ: Johnson V uncertainty."),
+    "LZOM_G_G": (None, "LZ: Gaia G magnitude."),
+    "LZOU_G_G": (None, "LZ: Gaia G uncertainty."),
+    "LZOM_GGB": (None, "LZ: Gaia GB magnitude."),
+    "LZOU_GGB": (None, "LZ: Gaia GB uncertainty."),
+    "LZOM_GGR": (None, "LZ: Gaia GR magnitude."),
+    "LZOU_GGR": (None, "LZ: Gaia GR uncertainty."),
+    "LZOM_2_J": (None, "LZ: 2MASS J magnitude."),
+    "LZOU_2_J": (None, "LZ: 2MASS J uncertainty."),
+    "LZOM_2_H": (None, "LZ: 2MASS H magnitude."),
+    "LZOU_2_H": (None, "LZ: 2MASS H uncertainty."),
+    "LZOM_2Ks": (None, "LZ: 2MASS Ks magnitude."),
+    "LZOU_2Ks": (None, "LZ: 2MASS Ks uncertainty."),
     # Units on the data.
     "LZDWUNIT": (None, "LZ: The wavelength unit."),
     "LZDFUNIT": (None, "LZ: The flux/data unit."),
@@ -265,7 +286,7 @@ def write_lezargus_fits_file(
 
     # We first compile the header. The unit information is kept in the header
     # as well.
-    header = astropy.io.fits.Header(header)
+    header = create_fits_header(input_dict=header)
     lezargus_header = create_lezargus_fits_header(
         header=header,
         entries={
@@ -319,6 +340,46 @@ def write_lezargus_fits_file(
     )
     hdul.writeto(filename, overwrite=overwrite)
 
+def create_fits_header(input_dict:dict |hint.Header| None=None):
+    """Create a FITS header provided dictionary input.
+    
+    This function creates a FITS header from provided input cards in the 
+    form of a dictionary. This function mostly exists to properly sanitize 
+    input data to better conform to the FITS standard.
+    
+    Parameter
+    ---------
+    input_dict : dict, default = None
+        The input dictionary to create a FITS header from. If it is None, the 
+        input is considered blank.
+    
+    Returns
+    -------
+    output_header : Astropy Header
+        The header made from the input.
+    """
+    # If it is a header, there is nothing to do.
+    if isinstance(input_dict, astropy.io.fits.Header):
+        return input_dict
+    else:
+        # Otherwise, we first need to check if there is input.
+        input_dict = input_dict if input_dict is not None else {}
+    
+    # We sort through every record and fix the issues with the dictionary.
+    corrected_cards = []
+    for keydex, valuedex in input_dict.items():
+        # The header keys are usually capitalized.
+        key = str(keydex).upper()
+        
+        value = library.conversion.convert_to_allowable_fits_header_data_types(input_data=valuedex)
+        
+        # Saving the corrected record.
+        carddex = astropy.io.fits.Card(key, value)
+        corrected_cards.append(carddex)
+
+    # Building the header from the corrected records.
+    output_header = astropy.io.fits.Header(corrected_cards)
+    return output_header
 
 def create_lezargus_fits_header(
     header: hint.Header,
@@ -339,7 +400,7 @@ def create_lezargus_fits_header(
     ----------
     header : Astropy Header
         The header which the entries will be added to.
-    entries : dictionary, default = None
+    entries : dict, default = None
         The new entries to the header. By default, None means nothing is
         to be overwritten at the last minute.
 
