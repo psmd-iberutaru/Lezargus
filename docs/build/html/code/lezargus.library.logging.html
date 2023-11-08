@@ -123,11 +123,18 @@
 </a></div>
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../technical/index.html">Technical Manual</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../technical/uncertainty.html">Uncertainty Propagation</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="modules.html">lezargus</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l2 current active has-children"><a class="reference internal" href="lezargus.html">lezargus package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l3 has-children"><a class="reference internal" href="lezargus.container.html">lezargus.container package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="modules.html">lezargus</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="lezargus.html">lezargus package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l3 has-children"><a class="reference internal" href="lezargus.container.html">lezargus.container package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.container.cube.html">lezargus.container.cube module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.container.image.html">lezargus.container.image module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.container.mosaic.html">lezargus.container.mosaic module</a></li>
@@ -135,8 +142,7 @@
 <li class="toctree-l4"><a class="reference internal" href="lezargus.container.spectra.html">lezargus.container.spectra module</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.data.html">lezargus.data package</a></li>
-<li class="toctree-l3 current active has-children"><a class="reference internal" href="lezargus.library.html">lezargus.library package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="lezargus.library.html">lezargus.library package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.array.html">lezargus.library.array module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.atmosphere.html">lezargus.library.atmosphere module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.config.html">lezargus.library.config module</a></li>
@@ -147,6 +153,8 @@
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.hint.html">lezargus.library.hint module</a></li>
 <li class="toctree-l4 current active"><a class="current reference internal" href="#">lezargus.library.logging module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.path.html">lezargus.library.path module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.uncertainty.html">lezargus.library.uncertainty module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
 </ul>
 </li>
@@ -302,7 +310,6 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.AccuracyError"><code class="docutils literal notranslate"><span class="pre">AccuracyError</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.AccuracyWarning"><code class="docutils literal notranslate"><span class="pre">AccuracyWarning</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.AlgorithmWarning"><code class="docutils literal notranslate"><span class="pre">AlgorithmWarning</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.ArithmeticalError"><code class="docutils literal notranslate"><span class="pre">ArithmeticalError</span></code></a></li>
@@ -320,7 +327,6 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.ConfigurationWarning"><code class="docutils literal notranslate"><span class="pre">ConfigurationWarning</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.DataLossWarning"><code class="docutils literal notranslate"><span class="pre">DataLossWarning</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.DevelopmentError"><code class="docutils literal notranslate"><span class="pre">DevelopmentError</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.DevelopmentWarning"><code class="docutils literal notranslate"><span class="pre">DevelopmentWarning</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.DirectoryError"><code class="docutils literal notranslate"><span class="pre">DirectoryError</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.ElevatedError"><code class="docutils literal notranslate"><span class="pre">ElevatedError</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.ExpectedCaughtError"><code class="docutils literal notranslate"><span class="pre">ExpectedCaughtError</span></code></a></li>
@@ -337,12 +343,14 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.OutOfOrderError"><code class="docutils literal notranslate"><span class="pre">OutOfOrderError</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.ReadOnlyError"><code class="docutils literal notranslate"><span class="pre">ReadOnlyError</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.UndiscoveredError"><code class="docutils literal notranslate"><span class="pre">UndiscoveredError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.add_console_logging_handler"><code class="docutils literal notranslate"><span class="pre">add_console_logging_handler()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.add_file_logging_handler"><code class="docutils literal notranslate"><span class="pre">add_file_logging_handler()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.add_stream_logging_handler"><code class="docutils literal notranslate"><span class="pre">add_stream_logging_handler()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.critical"><code class="docutils literal notranslate"><span class="pre">critical()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.debug"><code class="docutils literal notranslate"><span class="pre">debug()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.error"><code class="docutils literal notranslate"><span class="pre">error()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.info"><code class="docutils literal notranslate"><span class="pre">info()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.initialize_default_logging_outputs"><code class="docutils literal notranslate"><span class="pre">initialize_default_logging_outputs()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.terminal"><code class="docutils literal notranslate"><span class="pre">terminal()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.update_global_minimum_logging_level"><code class="docutils literal notranslate"><span class="pre">update_global_minimum_logging_level()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.warning"><code class="docutils literal notranslate"><span class="pre">warning()</span></code></a></li>
@@ -362,28 +370,14 @@ document.write(`
 <p>Error, warning, and logging functionality pertinent to Lezargus.</p>
 <p>Use the functions here when logging or issuing errors or other information.</p>
 <dl class="py exception">
-<dt class="sig sig-object py" id="lezargus.library.logging.AccuracyError">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lezargus.library.logging.</span></span><span class="sig-name descname"><span class="pre">AccuracyError</span></span><a class="reference internal" href="../_modules/lezargus/library/logging.html#AccuracyError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.logging.AccuracyError" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#lezargus.library.logging.LezargusError" title="lezargus.library.logging.LezargusError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LezargusError</span></code></a></p>
-<p>An error for inaccurate results.</p>
-<p>This error is used when some elements of the simulation or data
-reduction would yield very undesirable results. This class should only
-be used for cases where the results would be quite wrong for most
-cases; say, much greater +/- 10%. This is just a rule of thumb. For
-accuracy issues much tamer and closer to the rule of thumb, use
-AccuracyWarning instead.</p>
-</dd></dl>
-
-<dl class="py exception">
 <dt class="sig sig-object py" id="lezargus.library.logging.AccuracyWarning">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lezargus.library.logging.</span></span><span class="sig-name descname"><span class="pre">AccuracyWarning</span></span><a class="reference internal" href="../_modules/lezargus/library/logging.html#AccuracyWarning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.logging.AccuracyWarning" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#lezargus.library.logging.LezargusWarning" title="lezargus.library.logging.LezargusWarning"><code class="xref py py-class docutils literal notranslate"><span class="pre">LezargusWarning</span></code></a></p>
 <p>A warning for inaccurate results.</p>
 <p>This warning is used when some elements of the simulation or data
-reduction would yield less than desireable results. This class should only
-be used for cases where the results would be slightly wrong for most
-cases; say, on the order of +/- 10%. This is just a rule of thumb. For
-accuracy issues much larger, use AccuracyError instead.</p>
+reduction would yield less than desireable results. In general, a brief
+description on how bad the accuracy issue is, is desired. We trust that,
+for the most part, a user will take the messages into account.</p>
 </dd></dl>
 
 <dl class="py exception">
@@ -558,16 +552,6 @@ This is not the fault of the user.</p>
 </dd></dl>
 
 <dl class="py exception">
-<dt class="sig sig-object py" id="lezargus.library.logging.DevelopmentWarning">
-<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lezargus.library.logging.</span></span><span class="sig-name descname"><span class="pre">DevelopmentWarning</span></span><a class="reference internal" href="../_modules/lezargus/library/logging.html#DevelopmentWarning"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.logging.DevelopmentWarning" title="Permalink to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#lezargus.library.logging.LezargusWarning" title="lezargus.library.logging.LezargusWarning"><code class="xref py py-class docutils literal notranslate"><span class="pre">LezargusWarning</span></code></a></p>
-<p>A warning used for a development issue.</p>
-<p>This is a warning where the development of Lezargus is not correct and
-something is not coded based on the expectations of the software itself.
-This is not the fault of the user.</p>
-</dd></dl>
-
-<dl class="py exception">
 <dt class="sig sig-object py" id="lezargus.library.logging.DirectoryError">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lezargus.library.logging.</span></span><span class="sig-name descname"><span class="pre">DirectoryError</span></span><a class="reference internal" href="../_modules/lezargus/library/logging.html#DirectoryError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.logging.DirectoryError" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#lezargus.library.logging.LezargusError" title="lezargus.library.logging.LezargusError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LezargusError</span></code></a></p>
@@ -688,11 +672,15 @@ little more specific about what the issue is.</p>
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lezargus.library.logging.</span></span><span class="sig-name descname"><span class="pre">NotSupportedError</span></span><a class="reference internal" href="../_modules/lezargus/library/logging.html#NotSupportedError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.logging.NotSupportedError" title="Permalink to this definition">#</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#lezargus.library.logging.LezargusBaseError" title="lezargus.library.logging.LezargusBaseError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LezargusBaseError</span></code></a></p>
 <p>An error used for something which is beyond the scope of work.</p>
-<p>This is an error to be used when what is trying to be done does not
-seem reasonable. Usually warnings are the better thing for this but
-this error is used when the assumptions for reasonability guided
-development and what the user is trying to do is not currently supported
-by the software.</p>
+<p>This is an error to be used when what is trying to be done is not
+implemented. We use this error as catch all for two main cases:</p>
+<ul class="simple">
+<li><p>The functionality is originally intended, but not yet implemented.</p></li>
+<li><p>The functionality is not currently supported, and will not be for the
+forseeable future.</p></li>
+</ul>
+<p>For all other cases, the usages of warnings and other errors are probably
+better. Exactly which case applies should be explained by the error itself.</p>
 </dd></dl>
 
 <dl class="py exception">
@@ -726,6 +714,29 @@ cannot be devised.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="lezargus.library.logging.add_console_logging_handler">
+<span class="sig-prename descclassname"><span class="pre">lezargus.library.logging.</span></span><span class="sig-name descname"><span class="pre">add_console_logging_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">console:</span> <span class="pre">object</span> <span class="pre">=</span> <span class="pre">&lt;_io.TextIOWrapper</span> <span class="pre">name='&lt;stderr&gt;'</span> <span class="pre">mode='w'</span> <span class="pre">encoding='utf-8'&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_level:</span> <span class="pre">int</span> <span class="pre">=</span> <span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_color:</span> <span class="pre">bool</span> <span class="pre">=</span> <span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lezargus/library/logging.html#add_console_logging_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.logging.add_console_logging_handler" title="Permalink to this definition">#</a></dt>
+<dd><p>Add a console stream handler to the logging infrastructure.</p>
+<p>This differs from the main stream implementation in that a specific check
+is done to see if there is a logging handler which is specific to this
+console or console output. If there is, this function does not make a new
+one. This is helpful for Jupyter Notebooks.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>console</strong> (<em>Any</em>) – The stream where the logs will write to.</p></li>
+<li><p><strong>log_level</strong> (<em>int</em>) – The logging level for this handler.</p></li>
+<li><p><strong>use_color</strong> (<em>bool</em>) – If True, use colored log messaged based on the configuration file
+parameters.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="lezargus.library.logging.add_file_logging_handler">
 <span class="sig-prename descclassname"><span class="pre">lezargus.library.logging.</span></span><span class="sig-name descname"><span class="pre">add_file_logging_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lezargus/library/logging.html#add_file_logging_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.logging.add_file_logging_handler" title="Permalink to this definition">#</a></dt>
 <dd><p>Add a stream handler to the logging infrastructure.</p>
@@ -746,6 +757,7 @@ cannot be devised.</p>
 <dt class="sig sig-object py" id="lezargus.library.logging.add_stream_logging_handler">
 <span class="sig-prename descclassname"><span class="pre">lezargus.library.logging.</span></span><span class="sig-name descname"><span class="pre">add_stream_logging_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">log_level</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_color</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lezargus/library/logging.html#add_stream_logging_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.logging.add_stream_logging_handler" title="Permalink to this definition">#</a></dt>
 <dd><p>Add a stream handler to the logging infrastructure.</p>
+<p>This function may not be used for most cases.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -830,6 +842,22 @@ use the configuration value.</p></li>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>message</strong> (<em>str</em>) – The informational message.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lezargus.library.logging.initialize_default_logging_outputs">
+<span class="sig-prename descclassname"><span class="pre">lezargus.library.logging.</span></span><span class="sig-name descname"><span class="pre">initialize_default_logging_outputs</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lezargus/library/logging.html#initialize_default_logging_outputs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.logging.initialize_default_logging_outputs" title="Permalink to this definition">#</a></dt>
+<dd><p>Initialize the default logging console and file outputs.</p>
+<p>This function initializes the logging outputs based on configured
+parameters. Additional logging outputs may be provided.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
@@ -939,7 +967,6 @@ use the configuration value.</p></li>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.AccuracyError"><code class="docutils literal notranslate"><span class="pre">AccuracyError</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.AccuracyWarning"><code class="docutils literal notranslate"><span class="pre">AccuracyWarning</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.AlgorithmWarning"><code class="docutils literal notranslate"><span class="pre">AlgorithmWarning</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.ArithmeticalError"><code class="docutils literal notranslate"><span class="pre">ArithmeticalError</span></code></a></li>
@@ -957,7 +984,6 @@ use the configuration value.</p></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.ConfigurationWarning"><code class="docutils literal notranslate"><span class="pre">ConfigurationWarning</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.DataLossWarning"><code class="docutils literal notranslate"><span class="pre">DataLossWarning</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.DevelopmentError"><code class="docutils literal notranslate"><span class="pre">DevelopmentError</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.DevelopmentWarning"><code class="docutils literal notranslate"><span class="pre">DevelopmentWarning</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.DirectoryError"><code class="docutils literal notranslate"><span class="pre">DirectoryError</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.ElevatedError"><code class="docutils literal notranslate"><span class="pre">ElevatedError</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.ExpectedCaughtError"><code class="docutils literal notranslate"><span class="pre">ExpectedCaughtError</span></code></a></li>
@@ -974,12 +1000,14 @@ use the configuration value.</p></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.OutOfOrderError"><code class="docutils literal notranslate"><span class="pre">OutOfOrderError</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.ReadOnlyError"><code class="docutils literal notranslate"><span class="pre">ReadOnlyError</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.UndiscoveredError"><code class="docutils literal notranslate"><span class="pre">UndiscoveredError</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.add_console_logging_handler"><code class="docutils literal notranslate"><span class="pre">add_console_logging_handler()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.add_file_logging_handler"><code class="docutils literal notranslate"><span class="pre">add_file_logging_handler()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.add_stream_logging_handler"><code class="docutils literal notranslate"><span class="pre">add_stream_logging_handler()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.critical"><code class="docutils literal notranslate"><span class="pre">critical()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.debug"><code class="docutils literal notranslate"><span class="pre">debug()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.error"><code class="docutils literal notranslate"><span class="pre">error()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.info"><code class="docutils literal notranslate"><span class="pre">info()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.initialize_default_logging_outputs"><code class="docutils literal notranslate"><span class="pre">initialize_default_logging_outputs()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.terminal"><code class="docutils literal notranslate"><span class="pre">terminal()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.update_global_minimum_logging_level"><code class="docutils literal notranslate"><span class="pre">update_global_minimum_logging_level()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.warning"><code class="docutils literal notranslate"><span class="pre">warning()</span></code></a></li>

@@ -8,7 +8,6 @@ Subpackages
    :maxdepth: 4
 
    lezargus.container
-   lezargus.data
    lezargus.library
 
 Submodules

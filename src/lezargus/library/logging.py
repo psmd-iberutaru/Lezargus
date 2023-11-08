@@ -3,12 +3,12 @@
 Use the functions here when logging or issuing errors or other information.
 """
 
+import glob
 import logging
+import os
 import string
 import sys
-import glob
 import uuid
-import os
 
 import colorama
 
@@ -55,11 +55,15 @@ class ExpectedCaughtError(LezargusBaseError):
 class NotSupportedError(LezargusBaseError):
     """An error used for something which is beyond the scope of work.
 
-    This is an error to be used when what is trying to be done does not
-    seem reasonable. Usually warnings are the better thing for this but
-    this error is used when the assumptions for reasonability guided
-    development and what the user is trying to do is not currently supported
-    by the software.
+    This is an error to be used when what is trying to be done is not
+    implemented. We use this error as catch all for two main cases:
+
+    - The functionality is originally intended, but not yet implemented.
+    - The functionality is not currently supported, and will not be for the
+      forseeable future.
+
+    For all other cases, the usages of warnings and other errors are probably
+    better. Exactly which case applies should be explained by the error itself.
     """
 
 
@@ -77,18 +81,6 @@ class LezargusError(Exception):
 
     This is done for ease of error handling and is something that can and
     should be managed.
-    """
-
-
-class AccuracyError(LezargusError):
-    """An error for inaccurate results.
-
-    This error is used when some elements of the simulation or data
-    reduction would yield very undesirable results. This class should only
-    be used for cases where the results would be quite wrong for most
-    cases; say, much greater +/- 10%. This is just a rule of thumb. For
-    accuracy issues much tamer and closer to the rule of thumb, use
-    AccuracyWarning instead.
     """
 
 
@@ -181,10 +173,9 @@ class AccuracyWarning(LezargusWarning):
     """A warning for inaccurate results.
 
     This warning is used when some elements of the simulation or data
-    reduction would yield less than desireable results. This class should only
-    be used for cases where the results would be slightly wrong for most
-    cases; say, on the order of +/- 10%. This is just a rule of thumb. For
-    accuracy issues much larger, use AccuracyError instead.
+    reduction would yield less than desireable results. In general, a brief
+    description on how bad the accuracy issue is, is desired. We trust that,
+    for the most part, a user will take the messages into account.
     """
 
 
@@ -214,15 +205,6 @@ class DataLossWarning(LezargusWarning):
     This warning is used when something is being done which might result in
     a loss of important data, for example, because a file is not saved or
     only part of a data file is read.
-    """
-
-
-class DevelopmentWarning(LezargusWarning):
-    """A warning used for a development issue.
-
-    This is a warning where the development of Lezargus is not correct and
-    something is not coded based on the expectations of the software itself.
-    This is not the fault of the user.
     """
 
 
@@ -401,14 +383,14 @@ def add_console_logging_handler(
 ) -> None:
     """Add a console stream handler to the logging infrastructure.
 
-    This differs from the main stream implementation in that a specific check 
-    is done to see if there is a logging handler which is specific to this 
+    This differs from the main stream implementation in that a specific check
+    is done to see if there is a logging handler which is specific to this
     console or console output. If there is, this function does not make a new
     one. This is helpful for Jupyter Notebooks.
 
     Parameters
     ----------
-    stream : Any
+    console : Any
         The stream where the logs will write to.
     log_level : int
         The logging level for this handler.
@@ -420,20 +402,22 @@ def add_console_logging_handler(
     -------
     None
     """
-    # A unique console name.
-    CONSOLE_NAME = library.config.LOGGING_SPECIFIC_CONSOLE_HANDLER_FLAG_NAME
-
-    # We first check if there already exists a console handler. 
+    # We first check if there already exists a console handler.
     for handlerdex in __lezargus_logger.handlers:
-        if handlerdex.name == CONSOLE_NAME:
-            # There already exists a Lezargus console handler, there is no 
+        if (
+            handlerdex.name
+            == library.config.LOGGING_SPECIFIC_CONSOLE_HANDLER_FLAG_NAME
+        ):
+            # There already exists a Lezargus console handler, there is no
             # need to make a new one.
-            return None
+            return
 
     console_handler = logging.StreamHandler(console)
     console_handler.setLevel(log_level)
     # We use an overly specific name to avoid any overlap or namespace clashes.
-    console_handler.name = CONSOLE_NAME
+    console_handler.name = (
+        library.config.LOGGING_SPECIFIC_CONSOLE_HANDLER_FLAG_NAME
+    )
     # Get the format from the specified configuration.
     color_format_dict = {
         LOGGING_DEBUG_LEVEL: library.config.LOGGING_STREAM_DEBUG_COLOR_HEX,
@@ -782,11 +766,10 @@ def terminal() -> None:
     )
 
 
-
 def initialize_default_logging_outputs() -> None:
     """Initialize the default logging console and file outputs.
 
-    This function initializes the logging outputs based on configured 
+    This function initializes the logging outputs based on configured
     parameters. Additional logging outputs may be provided.
 
     Parameters
@@ -797,28 +780,28 @@ def initialize_default_logging_outputs() -> None:
     ------
     None
     """
-    # Construct the default console and file-based logging functions. The file is
-    # saved in the package directory.
+    # Construct the default console and file-based logging functions. The file
+    # is saved in the package directory.
     library.logging.add_console_logging_handler(
         console=sys.stderr,
         log_level=library.logging.LOGGING_INFO_LEVEL,
         use_color=library.config.LOGGING_STREAM_USE_COLOR,
     )
     # The default file logging is really a temporary thing (just in case) and
-    # should not kept from run to run. Moreover, if there are multiple instances
-    # of Lezargus being run, they all cannot use the same log file and so we
-    # encode a UUID tag.
+    # should not kept from run to run. Moreover, if there are multiple
+    # instances of Lezargus being run, they all cannot use the same log file
+    # and so we encode a UUID tag.
 
     # Adding a new file handler. We add the file handler first only so we can
     # capture the log messages when we try and remove the old logs.
-    __DEFAULT_LEZARGUS_UNIQUE_HEX_IDENTIFIER = uuid.uuid4().hex
-    __DEFAULT_LEZARGUS_LOG_FILE_PATH = library.path.merge_pathname(
+    unique_hex_identifier = uuid.uuid4().hex
+    default_log_file_filename = library.path.merge_pathname(
         directory=library.config.MODULE_INSTALLATION_PATH,
-        filename="lezargus_" + __DEFAULT_LEZARGUS_UNIQUE_HEX_IDENTIFIER,
+        filename="lezargus_" + unique_hex_identifier,
         extension="log",
     )
     library.logging.add_file_logging_handler(
-        filename=__DEFAULT_LEZARGUS_LOG_FILE_PATH,
+        filename=default_log_file_filename,
         log_level=library.logging.LOGGING_DEBUG_LEVEL,
     )
     # We try and remove all of the log files which currently exist, if we can.
@@ -833,7 +816,7 @@ def initialize_default_logging_outputs() -> None:
         recursive=False,
     )
     for filedex in old_log_files:
-        if filedex == __DEFAULT_LEZARGUS_LOG_FILE_PATH:
+        if filedex == default_log_file_filename:
             # We do not try to delete the current file.
             continue
         try:
