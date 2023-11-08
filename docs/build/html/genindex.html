@@ -120,11 +120,18 @@
 </a></div>
         <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="code/modules.html">lezargus</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="code/lezargus.html">lezargus package</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l3 has-children"><a class="reference internal" href="code/lezargus.container.html">lezargus.container package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="technical/index.html">Technical Manual</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="technical/uncertainty.html">Uncertainty Propagation</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="code/modules.html">lezargus</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="code/lezargus.html">lezargus package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="code/lezargus.container.html">lezargus.container package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.container.cube.html">lezargus.container.cube module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.container.image.html">lezargus.container.image module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.container.mosaic.html">lezargus.container.mosaic module</a></li>
@@ -132,8 +139,7 @@
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.container.spectra.html">lezargus.container.spectra module</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="code/lezargus.data.html">lezargus.data package</a></li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="code/lezargus.library.html">lezargus.library package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="code/lezargus.library.html">lezargus.library package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.library.array.html">lezargus.library.array module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.library.atmosphere.html">lezargus.library.atmosphere module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.library.config.html">lezargus.library.config module</a></li>
@@ -144,6 +150,8 @@
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.library.hint.html">lezargus.library.hint module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.library.logging.html">lezargus.library.logging module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.library.path.html">lezargus.library.path module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="code/lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="code/lezargus.library.uncertainty.html">lezargus.library.uncertainty module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
 </ul>
 </li>
@@ -324,14 +332,16 @@ document.write(`
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/lezargus.library.atmosphere.html#lezargus.library.atmosphere.absolute_atmospheric_refraction_function">absolute_atmospheric_refraction_function() (in module lezargus.library.atmosphere)</a>
 </li>
-      <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.AccuracyError">AccuracyError</a>
-</li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.AccuracyWarning">AccuracyWarning</a>
 </li>
-      <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.add_file_logging_handler">add_file_logging_handler() (in module lezargus.library.logging)</a>
+      <li><a href="code/lezargus.library.uncertainty.html#lezargus.library.uncertainty.add">add() (in module lezargus.library.uncertainty)</a>
+</li>
+      <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.add_console_logging_handler">add_console_logging_handler() (in module lezargus.library.logging)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.add_file_logging_handler">add_file_logging_handler() (in module lezargus.library.logging)</a>
+</li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.add_stream_logging_handler">add_stream_logging_handler() (in module lezargus.library.logging)</a>
 </li>
       <li><a href="code/lezargus.library.atmosphere.html#lezargus.library.atmosphere.airmass">airmass() (in module lezargus.library.atmosphere)</a>
@@ -360,6 +370,12 @@ document.write(`
 <h2 id="C">C</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="code/lezargus.library.photometry.html#lezargus.library.photometry.calculate_filter_magnitude_vega">calculate_filter_magnitude_vega() (in module lezargus.library.photometry)</a>
+</li>
+      <li><a href="code/lezargus.library.photometry.html#lezargus.library.photometry.calculate_filter_zero_point_vega">calculate_filter_zero_point_vega() (in module lezargus.library.photometry)</a>
+</li>
+      <li><a href="code/lezargus.library.photometry.html#lezargus.library.photometry.calculate_photometric_correction_factor_vega">calculate_photometric_correction_factor_vega() (in module lezargus.library.photometry)</a>
+</li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.ColoredLogFormatter.color_formatting">color_formatting (lezargus.library.logging.ColoredLogFormatter attribute)</a>
 </li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.ColoredLogFormatter">ColoredLogFormatter (class in lezargus.library.logging)</a>
@@ -379,6 +395,10 @@ document.write(`
       <li><a href="code/lezargus.library.conversion.html#lezargus.library.conversion.convert_to_allowable_fits_header_data_types">convert_to_allowable_fits_header_data_types() (in module lezargus.library.conversion)</a>
 </li>
       <li><a href="code/lezargus.library.array.html#lezargus.library.array.convolve_cube_by_image_array">convolve_cube_by_image_array() (in module lezargus.library.array)</a>
+</li>
+      <li><a href="code/lezargus.library.uncertainty.html#lezargus.library.uncertainty.covariance">covariance() (in module lezargus.library.uncertainty)</a>
+</li>
+      <li><a href="code/lezargus.library.fits.html#lezargus.library.fits.create_fits_header">create_fits_header() (in module lezargus.library.fits)</a>
 </li>
       <li><a href="code/lezargus.library.fits.html#lezargus.library.fits.create_lezargus_fits_header">create_lezargus_fits_header() (in module lezargus.library.fits)</a>
 </li>
@@ -416,9 +436,9 @@ document.write(`
 </li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.DevelopmentError">DevelopmentError</a>
 </li>
-      <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.DevelopmentWarning">DevelopmentWarning</a>
-</li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.DirectoryError">DirectoryError</a>
+</li>
+      <li><a href="code/lezargus.library.uncertainty.html#lezargus.library.uncertainty.divide">divide() (in module lezargus.library.uncertainty)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -428,11 +448,13 @@ document.write(`
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.ElevatedError">ElevatedError</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.error">error() (in module lezargus.library.logging)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.ExpectedCaughtError">ExpectedCaughtError</a>
+</li>
+      <li><a href="code/lezargus.library.uncertainty.html#lezargus.library.uncertainty.exponentiate">exponentiate() (in module lezargus.library.uncertainty)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -516,15 +538,25 @@ document.write(`
 </li>
       <li><a href="code/lezargus.library.atmosphere.html#lezargus.library.atmosphere.index_of_refraction_moist_air">index_of_refraction_moist_air() (in module lezargus.library.atmosphere)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.info">info() (in module lezargus.library.logging)</a>
 </li>
+      <li><a href="code/lezargus.html#lezargus.initialize">initialize() (in module lezargus)</a>
+</li>
       <li><a href="code/lezargus.library.data.html#lezargus.library.data.initialize_data_files">initialize_data_files() (in module lezargus.library.data)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="code/lezargus.library.config.html#lezargus.library.config.initialize_default_configuration">initialize_default_configuration() (in module lezargus.library.config)</a>
+</li>
+      <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.initialize_default_logging_outputs">initialize_default_logging_outputs() (in module lezargus.library.logging)</a>
 </li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.InputError">InputError</a>
 </li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.InputWarning">InputWarning</a>
+</li>
+      <li><a href="code/lezargus.library.uncertainty.html#lezargus.library.uncertainty.integrate_discrete">integrate_discrete() (in module lezargus.library.uncertainty)</a>
+</li>
+      <li><a href="code/lezargus.container.spectra.html#lezargus.container.spectra.LezargusSpectra.interpolate">interpolate() (lezargus.container.spectra.LezargusSpectra method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -630,8 +662,6 @@ document.write(`
         <li><a href="code/lezargus.library.config.html#module-lezargus.library.config">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     lezargus.library.conversion
 
@@ -639,6 +669,8 @@ document.write(`
         <li><a href="code/lezargus.library.conversion.html#module-lezargus.library.conversion">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     lezargus.library.data
 
@@ -682,6 +714,20 @@ document.write(`
 </li>
       </ul></li>
       <li>
+    lezargus.library.photometry
+
+      <ul>
+        <li><a href="code/lezargus.library.photometry.html#module-lezargus.library.photometry">module</a>
+</li>
+      </ul></li>
+      <li>
+    lezargus.library.uncertainty
+
+      <ul>
+        <li><a href="code/lezargus.library.uncertainty.html#module-lezargus.library.uncertainty">module</a>
+</li>
+      </ul></li>
+      <li>
     lezargus.library.wrapper
 
       <ul>
@@ -707,6 +753,8 @@ document.write(`
       <li><a href="code/lezargus.library.config.html#lezargus.library.config.load_configuration_file">load_configuration_file() (in module lezargus.library.config)</a>
 </li>
       <li><a href="code/lezargus.library.config.html#lezargus.library.config.load_then_apply_configuration">load_then_apply_configuration() (in module lezargus.library.config)</a>
+</li>
+      <li><a href="code/lezargus.library.uncertainty.html#lezargus.library.uncertainty.logarithm">logarithm() (in module lezargus.library.uncertainty)</a>
 </li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.LogicFlowError">LogicFlowError</a>
 </li>
@@ -778,9 +826,17 @@ document.write(`
 </li>
         <li><a href="code/lezargus.library.path.html#module-lezargus.library.path">lezargus.library.path</a>
 </li>
+        <li><a href="code/lezargus.library.photometry.html#module-lezargus.library.photometry">lezargus.library.photometry</a>
+</li>
+        <li><a href="code/lezargus.library.uncertainty.html#module-lezargus.library.uncertainty">lezargus.library.uncertainty</a>
+</li>
         <li><a href="code/lezargus.library.wrapper.html#module-lezargus.library.wrapper">lezargus.library.wrapper</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="code/lezargus.library.uncertainty.html#lezargus.library.uncertainty.multiply">multiply() (in module lezargus.library.uncertainty)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -840,6 +896,10 @@ document.write(`
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/lezargus.library.path.html#lezargus.library.path.split_pathname">split_pathname() (in module lezargus.library.path)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="code/lezargus.library.uncertainty.html#lezargus.library.uncertainty.subtract">subtract() (in module lezargus.library.uncertainty)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -903,6 +963,8 @@ document.write(`
         <li><a href="code/lezargus.container.spectra.html#lezargus.container.spectra.LezargusSpectra.wavelength">(lezargus.container.spectra.LezargusSpectra attribute)</a>
 </li>
       </ul></li>
+      <li><a href="code/lezargus.library.wrapper.html#lezargus.library.wrapper.wavelength_overlap_fraction">wavelength_overlap_fraction() (in module lezargus.library.wrapper)</a>
+</li>
       <li><a href="code/lezargus.container.cube.html#lezargus.container.cube.LezargusCube.wavelength_unit">wavelength_unit (lezargus.container.cube.LezargusCube attribute)</a>
 
       <ul>

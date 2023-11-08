@@ -1,10 +1,10 @@
 """Parent class for the containers to implement arithmetic and other functions.
 
 The Astropy NDArrayData arithmetic class is not wavelength aware, and so we
-implement our own class with similar functionality to it to allow for 
-wavelength aware operations. Unlike specutils, the interpolation for doing 
-arithmetic operations of spectral classes of different wavelength solutions 
-must be explicit. This is to prevent errors from mis-matched spectra being 
+implement our own class with similar functionality to it to allow for
+wavelength aware operations. Unlike specutils, the interpolation for doing
+arithmetic operations of spectral classes of different wavelength solutions
+must be explicit. This is to prevent errors from mis-matched spectra being
 operated on.
 """
 import copy
@@ -179,270 +179,6 @@ class LezargusContainerArithmetic:
         self.header = header if header is not None else astropy.io.fits.Header()
         # All done.
 
-    def __add__(self: hint.Self, operand: hint.Self) -> hint.Self:
-        """Perform an addition operation.
-
-        Parameters
-        ----------
-        operand : Self-like
-            The container object to add to this.
-
-        Returns
-        -------
-        result : Self-like
-            A copy of this object with the resultant calculations done.
-        """
-        # We need to check the applicability of the operand and the operation
-        # being attempted. The actual return is likely not needed, but we
-        # still test for it.
-        if not self.__justify_arithmetic_operation(operand=operand):
-            logging.critical(
-                critical_type=logging.DevelopmentError,
-                message=(
-                    "The arithmetic justification check returned False, but it"
-                    " really should have raised an error and should not have"
-                    " returned here."
-                ),
-            )
-
-        # If the operand is a single value, then we need to take that into
-        # account.
-        if isinstance(operand, LezargusContainerArithmetic):
-            operand_data = operand.data
-            operand_uncertainty = operand.uncertainty
-        else:
-            # We assume a single value does not have any uncertainty that
-            # we really care about.
-            operand_data = operand
-            operand_uncertainty = np.zeros_like(self.uncertainty)
-
-        # We do not want to modify our own objects as that goes against the
-        # the main idea of operator operations.
-        result = copy.deepcopy(self)
-
-        # Now we perform the addition.
-        result.data = self.data + operand_data
-        # Propagating the uncertainty.
-        covariance = np.cov(self.data.flatten(), operand_data.flatten())[0, 1]
-        result.uncertainty = np.sqrt(
-            self.uncertainty**2 + operand_uncertainty**2 + 2 * covariance,
-        )
-        # All done.
-        return result
-
-    def __sub__(self: hint.Self, operand: hint.Self) -> hint.Self:
-        """Perform a subtraction operation.
-
-        Parameters
-        ----------
-        operand : Self-like
-            The container object to add to this.
-
-        Returns
-        -------
-        result : Self-like
-            A copy of this object with the resultant calculations done.
-        """
-        # We need to check the applicability of the operand and the operation
-        # being attempted. The actual return is likely not needed, but we
-        # still test for it.
-        if not self.__justify_arithmetic_operation(operand=operand):
-            logging.critical(
-                critical_type=logging.DevelopmentError,
-                message=(
-                    "The arithmetic justification check returned False, but it"
-                    " really should have raised an error and should not have"
-                    " returned here."
-                ),
-            )
-
-        # If the operand is a single value, then we need to take that into
-        # account.
-        if isinstance(operand, LezargusContainerArithmetic):
-            operand_data = operand.data
-            operand_uncertainty = operand.uncertainty
-        else:
-            # We assume a single value does not have any uncertainty that
-            # we really care about.
-            operand_data = operand
-            operand_uncertainty = np.zeros_like(self.uncertainty)
-
-        # We do not want to modify our own objects as that goes against the
-        # the main idea of operator operations.
-        result = copy.deepcopy(self)
-
-        # Now we perform the addition.
-        result.data = self.data - operand_data
-        # Propagating the uncertainty.
-        covariance = np.cov(self.data.flatten(), operand_data.flatten())[0, 1]
-        result.uncertainty = np.sqrt(
-            self.uncertainty**2 + operand_uncertainty**2 - 2 * covariance,
-        )
-        # All done.
-        return result
-
-    def __mul__(self: hint.Self, operand: hint.Self) -> hint.Self:
-        """Perform a multiplication operation.
-
-        Parameters
-        ----------
-        operand : Self-like
-            The container object to add to this.
-
-        Returns
-        -------
-        result : Self-like
-            A copy of this object with the resultant calculations done.
-        """
-        # We need to check the applicability of the operand and the operation
-        # being attempted. The actual return is likely not needed, but we
-        # still test for it.
-        if not self.__justify_arithmetic_operation(operand=operand):
-            logging.critical(
-                critical_type=logging.DevelopmentError,
-                message=(
-                    "The arithmetic justification check returned False, but it"
-                    " really should have raised an error and should not have"
-                    " returned here."
-                ),
-            )
-
-        # If the operand is a single value, then we need to take that into
-        # account.
-        if isinstance(operand, LezargusContainerArithmetic):
-            operand_data = operand.data
-            operand_uncertainty = operand.uncertainty
-        else:
-            # We assume a single value does not have any uncertainty that
-            # we really care about.
-            operand_data = operand
-            operand_uncertainty = np.zeros_like(self.uncertainty)
-
-        # We do not want to modify our own objects as that goes against the
-        # the main idea of operator operations.
-        result = copy.deepcopy(self)
-
-        # Now we perform the addition.
-        result.data = self.data * operand_data
-        # Propagating the uncertainty.
-        covariance = np.cov(self.data.flatten(), operand_data.flatten())[0, 1]
-        result.uncertainty = np.abs(result.data) * np.sqrt(
-            (self.uncertainty / self.data) ** 2
-            + (operand_uncertainty / operand_data) ** 2
-            + ((2 * covariance) / (result.data)),
-        )
-        # All done.
-        return result
-
-    def __truediv__(self: hint.Self, operand: hint.Self) -> hint.Self:
-        """Perform a true division operation.
-
-        Parameters
-        ----------
-        operand : Self-like
-            The container object to add to this.
-
-        Returns
-        -------
-        result : Self-like
-            A copy of this object with the resultant calculations done.
-        """
-        # We need to check the applicability of the operand and the operation
-        # being attempted. The actual return is likely not needed, but we
-        # still test for it.
-        if not self.__justify_arithmetic_operation(operand=operand):
-            logging.critical(
-                critical_type=logging.DevelopmentError,
-                message=(
-                    "The arithmetic justification check returned False, but it"
-                    " really should have raised an error and should not have"
-                    " returned here."
-                ),
-            )
-
-        # If the operand is a single value, then we need to take that into
-        # account.
-        if isinstance(operand, LezargusContainerArithmetic):
-            operand_data = operand.data
-            operand_uncertainty = operand.uncertainty
-        else:
-            # We assume a single value does not have any uncertainty that
-            # we really care about.
-            operand_data = operand
-            operand_uncertainty = np.zeros_like(self.uncertainty)
-
-        # We do not want to modify our own objects as that goes against the
-        # the main idea of operator operations.
-        result = copy.deepcopy(self)
-
-        # Now we perform the addition.
-        result.data = self.data / operand_data
-        # Propagating the uncertainty.
-        covariance = np.cov(self.data.flatten(), operand_data.flatten())[0, 1]
-        result.uncertainty = np.abs(result.data) * np.sqrt(
-            (self.uncertainty / self.data) ** 2
-            + (operand_uncertainty / operand_data) ** 2
-            - ((2 * covariance) / (result.data)),
-        )
-        # All done.
-        return result
-
-    def __pow__(self: hint.Self, operand: hint.Self) -> hint.Self:
-        """Perform a true division operation.
-
-        Parameters
-        ----------
-        operand : Self-like
-            The container object to add to this.
-
-        Returns
-        -------
-        result : Self-like
-            A copy of this object with the resultant calculations done.
-        """
-        # We need to check the applicability of the operand and the operation
-        # being attempted. The actual return is likely not needed, but we
-        # still test for it.
-        if not self.__justify_arithmetic_operation(operand=operand):
-            logging.critical(
-                critical_type=logging.DevelopmentError,
-                message=(
-                    "The arithmetic justification check returned False, but it"
-                    " really should have raised an error and should not have"
-                    " returned here."
-                ),
-            )
-
-        # If the operand is a single value, then we need to take that into
-        # account.
-        if isinstance(operand, LezargusContainerArithmetic):
-            operand_data = operand.data
-            operand_uncertainty = operand.uncertainty
-        else:
-            # We assume a single value does not have any uncertainty that
-            # we really care about.
-            operand_data = operand
-            operand_uncertainty = np.zeros_like(self.uncertainty)
-
-        # We do not want to modify our own objects as that goes against the
-        # the main idea of operator operations.
-        result = copy.deepcopy(self)
-
-        # Now we perform the addition.
-        result.data = self.data**operand_data
-        # Propagating the uncertainty.
-        covariance = np.cov(self.data.flatten(), operand_data.flatten())[0, 1]
-        result.uncertainty = np.abs(result.data) * np.sqrt(
-            (self.uncertainty * operand_data / self.data) ** 2
-            + (np.log(self.data) * operand_uncertainty) ** 2
-            + (
-                (2 * operand_data * np.log(self.data) * covariance)
-                / (self.data)
-            ),
-        )
-        # All done.
-        return result
-
     def __justify_arithmetic_operation(
         self: hint.Self,
         operand: hint.Self | float,
@@ -476,12 +212,15 @@ class LezargusContainerArithmetic:
 
         # We first check for appropriate types. Only singular values, and
         # equivalent Lezargus containers can be accessed.
-        if isinstance(operand, int | float):
+        if isinstance(operand, int | float | np.number):
             # The operand is likely a singular value, so it can be properly
-            # broadcast together.
-            operand_data = np.array(operand)
+            # broadcast together. It is a singe value, all other checks 
+            # are unneeded.
+            justification = True
+            return justification
+        
         # If the Lezargus data types are the same.
-        elif self.__class__ == operand.__class__:
+        if self.__class__ == operand.__class__:
             # All good.
             operand_data = operand.data
         else:
@@ -590,6 +329,235 @@ class LezargusContainerArithmetic:
         # If it survived all of the tests above, then it should be fine.
         justification = True
         return justification
+
+    def __add__(self: hint.Self, operand: hint.Self) -> hint.Self:
+        """Perform an addition operation.
+
+        Parameters
+        ----------
+        operand : Self-like
+            The container object to add to this.
+
+        Returns
+        -------
+        result : Self-like
+            A copy of this object with the resultant calculations done.
+        """
+        # We need to check the applicability of the operand and the operation
+        # being attempted. The actual return is likely not needed, but we
+        # still test for it.
+        if not self.__justify_arithmetic_operation(operand=operand):
+            logging.critical(
+                critical_type=logging.DevelopmentError,
+                message=(
+                    "The arithmetic justification check returned False, but it"
+                    " really should have raised an error and should not have"
+                    " returned here."
+                ),
+            )
+
+        # If the operand is a single value, then we need to take that into
+        # account.
+        if isinstance(operand, LezargusContainerArithmetic):
+            operand_data = operand.data
+            operand_uncertainty = operand.uncertainty
+        else:
+            # We assume a single value does not have any uncertainty that
+            # we really care about.
+            operand_data = operand
+            operand_uncertainty = np.zeros_like(self.uncertainty)
+
+        # Now we do the addition.
+        # We do not want to modify our own objects as that goes against the
+        # the main idea of operator operations.
+        result = copy.deepcopy(self)
+        result.data, result.uncertainty = library.uncertainty.add(augend=self.data, addend=operand_data, augend_uncertainty=self.uncertainty, addend_uncertainty=operand_uncertainty)
+        # All done.
+        return result
+
+    def __sub__(self: hint.Self, operand: hint.Self) -> hint.Self:
+        """Perform a subtraction operation.
+
+        Parameters
+        ----------
+        operand : Self-like
+            The container object to add to this.
+
+        Returns
+        -------
+        result : Self-like
+            A copy of this object with the resultant calculations done.
+        """
+        # We need to check the applicability of the operand and the operation
+        # being attempted. The actual return is likely not needed, but we
+        # still test for it.
+        if not self.__justify_arithmetic_operation(operand=operand):
+            logging.critical(
+                critical_type=logging.DevelopmentError,
+                message=(
+                    "The arithmetic justification check returned False, but it"
+                    " really should have raised an error and should not have"
+                    " returned here."
+                ),
+            )
+
+        # If the operand is a single value, then we need to take that into
+        # account.
+        if isinstance(operand, LezargusContainerArithmetic):
+            operand_data = operand.data
+            operand_uncertainty = operand.uncertainty
+        else:
+            # We assume a single value does not have any uncertainty that
+            # we really care about.
+            operand_data = operand
+            operand_uncertainty = np.zeros_like(self.uncertainty)
+
+        # We do not want to modify our own objects as that goes against the
+        # the main idea of operator operations.
+        result = copy.deepcopy(self)
+
+        # Now we perform the subtraction.
+        # We do not want to modify our own objects as that goes against the
+        # the main idea of operator operations.
+        result = copy.deepcopy(self)
+        result.data, result.uncertainty = library.uncertainty.subtract(minuend=self.data,subtrahend=operand_data, minuend_uncertainty=self.uncertainty, subtrahend_uncertainty=operand_uncertainty)
+        # All done.
+        return result
+
+    def __mul__(self: hint.Self, operand: hint.Self) -> hint.Self:
+        """Perform a multiplication operation.
+
+        Parameters
+        ----------
+        operand : Self-like
+            The container object to add to this.
+
+        Returns
+        -------
+        result : Self-like
+            A copy of this object with the resultant calculations done.
+        """
+        # We need to check the applicability of the operand and the operation
+        # being attempted. The actual return is likely not needed, but we
+        # still test for it.
+        if not self.__justify_arithmetic_operation(operand=operand):
+            logging.critical(
+                critical_type=logging.DevelopmentError,
+                message=(
+                    "The arithmetic justification check returned False, but it"
+                    " really should have raised an error and should not have"
+                    " returned here."
+                ),
+            )
+
+        # If the operand is a single value, then we need to take that into
+        # account.
+        if isinstance(operand, LezargusContainerArithmetic):
+            operand_data = operand.data
+            operand_uncertainty = operand.uncertainty
+        else:
+            # We assume a single value does not have any uncertainty that
+            # we really care about.
+            operand_data = operand
+            operand_uncertainty = np.zeros_like(self.uncertainty)
+
+        # Now we perform the multiplication.
+        # We do not want to modify our own objects as that goes against the
+        # the main idea of operator operations.
+        result = copy.deepcopy(self)
+        result.data, result.uncertainty = library.uncertainty.multiply(multiplier=self.data,multiplicand=operand_data, multiplier_uncertainty=self.uncertainty, multiplicand_uncertainty=operand_uncertainty)
+        # All done.
+        return result
+
+    def __truediv__(self: hint.Self, operand: hint.Self) -> hint.Self:
+        """Perform a true division operation.
+
+        Parameters
+        ----------
+        operand : Self-like
+            The container object to add to this.
+
+        Returns
+        -------
+        result : Self-like
+            A copy of this object with the resultant calculations done.
+        """
+        # We need to check the applicability of the operand and the operation
+        # being attempted. The actual return is likely not needed, but we
+        # still test for it.
+        if not self.__justify_arithmetic_operation(operand=operand):
+            logging.critical(
+                critical_type=logging.DevelopmentError,
+                message=(
+                    "The arithmetic justification check returned False, but it"
+                    " really should have raised an error and should not have"
+                    " returned here."
+                ),
+            )
+
+        # If the operand is a single value, then we need to take that into
+        # account.
+        if isinstance(operand, LezargusContainerArithmetic):
+            operand_data = operand.data
+            operand_uncertainty = operand.uncertainty
+        else:
+            # We assume a single value does not have any uncertainty that
+            # we really care about.
+            operand_data = operand
+            operand_uncertainty = np.zeros_like(self.uncertainty)
+
+        # Now we perform the division.
+        # We do not want to modify our own objects as that goes against the
+        # the main idea of operator operations.
+        result = copy.deepcopy(self)
+        result.data, result.uncertainty = library.uncertainty.divide(numerator=self.data,denominator=operand_data, numerator_uncertainty=self.uncertainty, denominator_uncertainty=operand_uncertainty)
+        # All done.
+        return result
+
+    def __pow__(self: hint.Self, operand: hint.Self) -> hint.Self:
+        """Perform a true division operation.
+
+        Parameters
+        ----------
+        operand : Self-like
+            The container object to add to this.
+
+        Returns
+        -------
+        result : Self-like
+            A copy of this object with the resultant calculations done.
+        """
+        # We need to check the applicability of the operand and the operation
+        # being attempted. The actual return is likely not needed, but we
+        # still test for it.
+        if not self.__justify_arithmetic_operation(operand=operand):
+            logging.critical(
+                critical_type=logging.DevelopmentError,
+                message=(
+                    "The arithmetic justification check returned False, but it"
+                    " really should have raised an error and should not have"
+                    " returned here."
+                ),
+            )
+
+        # If the operand is a single value, then we need to take that into
+        # account.
+        if isinstance(operand, LezargusContainerArithmetic):
+            operand_data = operand.data
+            operand_uncertainty = operand.uncertainty
+        else:
+            # We assume a single value does not have any uncertainty that
+            # we really care about.
+            operand_data = operand
+            operand_uncertainty = np.zeros_like(self.uncertainty)
+
+        # Now we perform the exponentiation..
+        # We do not want to modify our own objects as that goes against the
+        # the main idea of operator operations.
+        result = copy.deepcopy(self)
+        result.data, result.uncertainty = library.uncertainty.exponentiate(base=self.data,exponent=operand_data, base_uncertainty=self.uncertainty, exponent_uncertainty=operand_uncertainty)
+        # All done.
+        return result
 
     @classmethod
     def _read_fits_file(

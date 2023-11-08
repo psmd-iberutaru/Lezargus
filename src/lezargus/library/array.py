@@ -18,6 +18,63 @@ from lezargus.library import hint
 from lezargus.library import logging
 
 
+def verify_shape_compatibility(
+    reference_array: hint.ndarray,
+    test_array: hint.ndarray,
+    return_broadcast: bool = False,
+) -> bool | tuple[bool, hint.ndarray]:
+    """Verify if a test array is compatible with the reference array.
+
+    This function serves to see if two arrays are compatible in shape. If
+    the "test" array is just a single number, we allow it to broadcast, and
+    return it if needed.
+
+    Parameters
+    ----------
+    reference_array : ndarray
+        The reference array which we are testing against.
+    test_array : ndarray
+        The test array that we are testing to.
+    return_broadcast : bool, default = False
+        If True, we return a compatible array built from the test array
+        information.
+
+    Returns
+    -------
+    verify : bool
+        The verification.
+    broadcast : ndarray, optional
+        The broadcast, we only return this if `return_broadcast` was provided.
+        If verify is False, then this is None.
+    """
+    # We need to make them like arrays.
+    reference_array = np.array(reference_array)
+    test_array = np.array(test_array)
+    # We assume the verification is False.
+    verify = False
+    # The basic check.
+    if reference_array.shape == test_array.shape:
+        verify = True
+        broadcast = test_array
+    # The next check is if the parameter is a single value which we can fill
+    # into a new array.
+    elif (isinstance(test_array, np.ndarray) and test_array.size == 1) or (
+        isinstance(test_array, np.number | float | int)
+    ):
+        # It is considered broadcast-able.
+        verify = True
+        broadcast = np.full_like(reference_array, test_array)
+    else:
+        # The verification did not return a good result.
+        verify = False
+        broadcast = None
+    # All done.
+    if return_broadcast:
+        return verify, broadcast
+    # Otherwise, we just return the verification status only.
+    return verify
+
+
 def translate_image_array(
     input_array: hint.ndarray,
     x_shift: float,

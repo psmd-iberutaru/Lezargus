@@ -35,7 +35,7 @@ _LEZARGUS_HEADER_KEYWORDS_DICTIONARY = {
     "LZOPK_RA": (None, "LZ: PSF peak RA value, degrees."),
     "LZOPKDEC": (None, "LZ: PSF peak DEC value, degrees."),
     "LZO_ROTA": (None, "LZ: Rotation angle, degrees"),
-    # Synthetic photometric magnitudes derived from the spectra. This is a 
+    # Synthetic photometric magnitudes derived from the spectra. This is a
     # helpful place to put photometry measurements.
     "LZOM_J_U": (None, "LZ: Johnson U magnitude."),
     "LZOU_J_U": (None, "LZ: Johnson U uncertainty."),
@@ -340,19 +340,23 @@ def write_lezargus_fits_file(
     )
     hdul.writeto(filename, overwrite=overwrite)
 
-def create_fits_header(input_dict:dict |hint.Header| None=None):
+
+def create_fits_header(
+    input_dict: dict | hint.Header | None = None,
+) -> hint.Header:
     """Create a FITS header provided dictionary input.
-    
-    This function creates a FITS header from provided input cards in the 
-    form of a dictionary. This function mostly exists to properly sanitize 
+
+    This function creates a FITS header from provided input cards in the
+    form of a dictionary. This function mostly exists to properly sanitize
     input data to better conform to the FITS standard.
-    
+
     Parameter
     ---------
     input_dict : dict, default = None
-        The input dictionary to create a FITS header from. If it is None, the 
+        The input dictionary to create a FITS header from. If it is None, the
         input is considered blank.
-    
+
+
     Returns
     -------
     output_header : Astropy Header
@@ -361,18 +365,19 @@ def create_fits_header(input_dict:dict |hint.Header| None=None):
     # If it is a header, there is nothing to do.
     if isinstance(input_dict, astropy.io.fits.Header):
         return input_dict
-    else:
-        # Otherwise, we first need to check if there is input.
-        input_dict = input_dict if input_dict is not None else {}
-    
+    # Otherwise, we first need to check if there is input.
+    input_dict = input_dict if input_dict is not None else {}
+
     # We sort through every record and fix the issues with the dictionary.
     corrected_cards = []
     for keydex, valuedex in input_dict.items():
         # The header keys are usually capitalized.
         key = str(keydex).upper()
-        
-        value = library.conversion.convert_to_allowable_fits_header_data_types(input_data=valuedex)
-        
+
+        value = library.conversion.convert_to_allowable_fits_header_data_types(
+            input_data=valuedex,
+        )
+
         # Saving the corrected record.
         carddex = astropy.io.fits.Card(key, value)
         corrected_cards.append(carddex)
@@ -380,6 +385,7 @@ def create_fits_header(input_dict:dict |hint.Header| None=None):
     # Building the header from the corrected records.
     output_header = astropy.io.fits.Header(corrected_cards)
     return output_header
+
 
 def create_lezargus_fits_header(
     header: hint.Header,

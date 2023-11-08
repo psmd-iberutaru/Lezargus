@@ -26,14 +26,14 @@ from lezargus import __main__  # isort:skip
 
 
 def initialize() -> None:
-    """This is a wrapper function to initialize the data.
-    
-    This initialization function should be the very first thing that is done 
-    when the module is loaded. However, we create this function (as opposed to 
-    doing it on load) to be explicit on the load times for the module, to 
-    avoid circular dependencies, and to prevent logging when only importing 
-    the module. 
-    
+    """Initialize the Lezargus module and its parts.
+
+    This initialization function should be the very first thing that is done
+    when the module is loaded. However, we create this function (as opposed to
+    doing it on load) to be explicit on the load times for the module, to
+    avoid circular dependencies, and to prevent logging when only importing
+    the module.
+
     The order of the initialization is important.
 
     Parameters
@@ -44,7 +44,6 @@ def initialize() -> None:
     -------
     None
     """
-
     # Load in the default configuration file.
     library.config.initialize_default_configuration()
 

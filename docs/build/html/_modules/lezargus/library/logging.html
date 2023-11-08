@@ -1,109 +1,278 @@
+
+
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" >
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>lezargus.library.logging &mdash; Lezargus  documentation</title>
-      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
-  <!--[if lt IE 9]>
-    <script src="../../../_static/js/html5shiv.min.js"></script>
-  <![endif]-->
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lezargus.library.logging &#8212; Lezargus  documentation</title>
   
-        <script src="../../../_static/jquery.js"></script>
-        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-        <script src="../../../_static/doctools.js"></script>
-        <script src="../../../_static/sphinx_highlight.js"></script>
-    <script src="../../../_static/js/theme.js"></script>
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/lezargus/library/logging';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
-    <link rel="search" title="Search" href="../../../search.html" /> 
-</head>
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-<body class="wy-body-for-nav"> 
-  <div class="wy-grid-for-nav">
-    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
-      <div class="wy-side-scroll">
-        <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="../../../index.html" class="icon icon-home">
-            Lezargus
-          </a>
-<div role="search">
-  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
-    <input type="hidden" name="check_keywords" value="yes" />
-    <input type="hidden" name="area" value="default" />
-  </form>
-</div>
-        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../../code/modules.html">lezargus</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../../../code/lezargus.html">lezargus package</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.html#subpackages">Subpackages</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.html">lezargus.container package</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.container.html#submodules">Submodules</a></li>
-<li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.container.html#module-lezargus.container">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.data.html">lezargus.data package</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.data.html#module-lezargus.data">Module contents</a></li>
-</ul>
-</li>
-<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.html">lezargus.library package</a><ul>
-<li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.library.html#submodules">Submodules</a></li>
-<li class="toctree-l5"><a class="reference internal" href="../../../code/lezargus.library.html#module-lezargus.library">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.html#submodules">Submodules</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.__main__.html">lezargus.__main__ module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.__version__.html">lezargus.__version__ module</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.html#module-lezargus">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-
-        </div>
-      </div>
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
     </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
-          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../../index.html">Lezargus</a>
-      </nav>
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
 
-      <div class="wy-nav-content">
-        <div class="rst-content">
-          <div role="navigation" aria-label="Page navigation">
-  <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">lezargus.library.logging</li>
-      <li class="wy-breadcrumbs-aside">
-      </li>
-  </ul>
-  <hr/>
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Lezargus  documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../technical/index.html">Technical Manual</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/uncertainty.html">Uncertainty Propagation</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../code/modules.html">lezargus</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../code/lezargus.html">lezargus package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.container.html">lezargus.container package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.cube.html">lezargus.container.cube module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.image.html">lezargus.container.image module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.mosaic.html">lezargus.container.mosaic module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.parent.html">lezargus.container.parent module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.spectra.html">lezargus.container.spectra module</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.library.html">lezargus.library package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.array.html">lezargus.library.array module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.atmosphere.html">lezargus.library.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.config.html">lezargus.library.config module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.conversion.html">lezargus.library.conversion module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.data.html">lezargus.library.data module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.fits.html">lezargus.library.fits module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.flags.html">lezargus.library.flags module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.hint.html">lezargus.library.hint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.logging.html">lezargus.library.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.path.html">lezargus.library.path module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.uncertainty.html">lezargus.library.uncertainty module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__main__.html">lezargus.__main__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__version__.html">lezargus.__version__ module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
 </div>
-          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
-           <div itemprop="articleBody">
-             
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
   <h1>Source code for lezargus.library.logging</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Error, warning, and logging functionality pertinent to Lezargus.</span>
 
 <span class="sd">Use the functions here when logging or issuing errors or other information.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
+<span class="kn">import</span> <span class="nn">glob</span>
 <span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">string</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">uuid</span>
 
 <span class="kn">import</span> <span class="nn">colorama</span>
 
@@ -150,11 +319,15 @@
 <div class="viewcode-block" id="NotSupportedError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.NotSupportedError">[docs]</a><span class="k">class</span> <span class="nc">NotSupportedError</span><span class="p">(</span><span class="n">LezargusBaseError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used for something which is beyond the scope of work.</span>
 
-<span class="sd">    This is an error to be used when what is trying to be done does not</span>
-<span class="sd">    seem reasonable. Usually warnings are the better thing for this but</span>
-<span class="sd">    this error is used when the assumptions for reasonability guided</span>
-<span class="sd">    development and what the user is trying to do is not currently supported</span>
-<span class="sd">    by the software.</span>
+<span class="sd">    This is an error to be used when what is trying to be done is not</span>
+<span class="sd">    implemented. We use this error as catch all for two main cases:</span>
+
+<span class="sd">    - The functionality is originally intended, but not yet implemented.</span>
+<span class="sd">    - The functionality is not currently supported, and will not be for the</span>
+<span class="sd">      forseeable future.</span>
+
+<span class="sd">    For all other cases, the usages of warnings and other errors are probably</span>
+<span class="sd">    better. Exactly which case applies should be explained by the error itself.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
@@ -172,18 +345,6 @@
 
 <span class="sd">    This is done for ease of error handling and is something that can and</span>
 <span class="sd">    should be managed.</span>
-<span class="sd">    &quot;&quot;&quot;</span></div>
-
-
-<div class="viewcode-block" id="AccuracyError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.AccuracyError">[docs]</a><span class="k">class</span> <span class="nc">AccuracyError</span><span class="p">(</span><span class="n">LezargusError</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;An error for inaccurate results.</span>
-
-<span class="sd">    This error is used when some elements of the simulation or data</span>
-<span class="sd">    reduction would yield very undesirable results. This class should only</span>
-<span class="sd">    be used for cases where the results would be quite wrong for most</span>
-<span class="sd">    cases; say, much greater +/- 10%. This is just a rule of thumb. For</span>
-<span class="sd">    accuracy issues much tamer and closer to the rule of thumb, use</span>
-<span class="sd">    AccuracyWarning instead.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
@@ -276,10 +437,9 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A warning for inaccurate results.</span>
 
 <span class="sd">    This warning is used when some elements of the simulation or data</span>
-<span class="sd">    reduction would yield less than desireable results. This class should only</span>
-<span class="sd">    be used for cases where the results would be slightly wrong for most</span>
-<span class="sd">    cases; say, on the order of +/- 10%. This is just a rule of thumb. For</span>
-<span class="sd">    accuracy issues much larger, use AccuracyError instead.</span>
+<span class="sd">    reduction would yield less than desireable results. In general, a brief</span>
+<span class="sd">    description on how bad the accuracy issue is, is desired. We trust that,</span>
+<span class="sd">    for the most part, a user will take the messages into account.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
@@ -311,14 +471,6 @@
 <span class="sd">    only part of a data file is read.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
-
-<div class="viewcode-block" id="DevelopmentWarning"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.DevelopmentWarning">[docs]</a><span class="k">class</span> <span class="nc">DevelopmentWarning</span><span class="p">(</span><span class="n">LezargusWarning</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A warning used for a development issue.</span>
-
-<span class="sd">    This is a warning where the development of Lezargus is not correct and</span>
-<span class="sd">    something is not coded based on the expectations of the software itself.</span>
-<span class="sd">    This is not the fault of the user.</span>
-<span class="sd">    &quot;&quot;&quot;</span></div>
 
 
 <div class="viewcode-block" id="FileWarning"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.FileWarning">[docs]</a><span class="k">class</span> <span class="nc">FileWarning</span><span class="p">(</span><span class="n">LezargusWarning</span><span class="p">):</span>
@@ -360,7 +512,7 @@
 <span class="n">LOGGING_ERROR_LEVEL</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span>
 <span class="n">LOGGING_CRITICAL_LEVEL</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">CRITICAL</span>
 <span class="c1"># The logger itself.</span>
-<span class="n">__lezargus_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">()</span>
+<span class="n">__lezargus_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;LezargusLogger&quot;</span><span class="p">)</span>
 <span class="n">__lezargus_logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">LOGGING_DEBUG_LEVEL</span><span class="p">)</span>
 
 
@@ -489,12 +641,83 @@
         <span class="k">return</span> <span class="n">color_ansi_escape</span></div>
 
 
+<div class="viewcode-block" id="add_console_logging_handler"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.add_console_logging_handler">[docs]</a><span class="k">def</span> <span class="nf">add_console_logging_handler</span><span class="p">(</span>
+    <span class="n">console</span><span class="p">:</span> <span class="nb">object</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">,</span>
+    <span class="n">log_level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">LOGGING_DEBUG_LEVEL</span><span class="p">,</span>
+    <span class="n">use_color</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add a console stream handler to the logging infrastructure.</span>
+
+<span class="sd">    This differs from the main stream implementation in that a specific check</span>
+<span class="sd">    is done to see if there is a logging handler which is specific to this</span>
+<span class="sd">    console or console output. If there is, this function does not make a new</span>
+<span class="sd">    one. This is helpful for Jupyter Notebooks.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    console : Any</span>
+<span class="sd">        The stream where the logs will write to.</span>
+<span class="sd">    log_level : int</span>
+<span class="sd">        The logging level for this handler.</span>
+<span class="sd">    use_color : bool</span>
+<span class="sd">        If True, use colored log messaged based on the configuration file</span>
+<span class="sd">        parameters.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># We first check if there already exists a console handler.</span>
+    <span class="k">for</span> <span class="n">handlerdex</span> <span class="ow">in</span> <span class="n">__lezargus_logger</span><span class="o">.</span><span class="n">handlers</span><span class="p">:</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="n">handlerdex</span><span class="o">.</span><span class="n">name</span>
+            <span class="o">==</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">LOGGING_SPECIFIC_CONSOLE_HANDLER_FLAG_NAME</span>
+        <span class="p">):</span>
+            <span class="c1"># There already exists a Lezargus console handler, there is no</span>
+            <span class="c1"># need to make a new one.</span>
+            <span class="k">return</span>
+
+    <span class="n">console_handler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">StreamHandler</span><span class="p">(</span><span class="n">console</span><span class="p">)</span>
+    <span class="n">console_handler</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">log_level</span><span class="p">)</span>
+    <span class="c1"># We use an overly specific name to avoid any overlap or namespace clashes.</span>
+    <span class="n">console_handler</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">LOGGING_SPECIFIC_CONSOLE_HANDLER_FLAG_NAME</span>
+    <span class="p">)</span>
+    <span class="c1"># Get the format from the specified configuration.</span>
+    <span class="n">color_format_dict</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">LOGGING_DEBUG_LEVEL</span><span class="p">:</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">LOGGING_STREAM_DEBUG_COLOR_HEX</span><span class="p">,</span>
+        <span class="n">LOGGING_INFO_LEVEL</span><span class="p">:</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">LOGGING_STREAM_INFO_COLOR_HEX</span><span class="p">,</span>
+        <span class="n">LOGGING_WARNING_LEVEL</span><span class="p">:</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">LOGGING_STREAM_WARNING_COLOR_HEX</span><span class="p">,</span>
+        <span class="n">LOGGING_ERROR_LEVEL</span><span class="p">:</span> <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">LOGGING_STREAM_ERROR_COLOR_HEX</span><span class="p">,</span>
+        <span class="n">LOGGING_CRITICAL_LEVEL</span><span class="p">:</span> <span class="p">(</span>
+            <span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">LOGGING_STREAM_CRITICAL_COLOR_HEX</span>
+        <span class="p">),</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="n">use_color</span><span class="p">:</span>
+        <span class="n">console_formatter</span> <span class="o">=</span> <span class="n">ColoredLogFormatter</span><span class="p">(</span>
+            <span class="n">message_format</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">LOGGING_RECORD_FORMAT_STRING</span><span class="p">,</span>
+            <span class="n">date_format</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">LOGGING_DATETIME_FORMAT_STRING</span><span class="p">,</span>
+            <span class="n">color_hex_dict</span><span class="o">=</span><span class="n">color_format_dict</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">console_formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span>
+            <span class="n">fmt</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">LOGGING_RECORD_FORMAT_STRING</span><span class="p">,</span>
+            <span class="n">datefmt</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">LOGGING_DATETIME_FORMAT_STRING</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="c1"># Adding the logger.</span>
+    <span class="n">console_handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">console_formatter</span><span class="p">)</span>
+    <span class="n">__lezargus_logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">console_handler</span><span class="p">)</span></div>
+    <span class="c1"># All done.</span>
+
+
 <div class="viewcode-block" id="add_stream_logging_handler"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.add_stream_logging_handler">[docs]</a><span class="k">def</span> <span class="nf">add_stream_logging_handler</span><span class="p">(</span>
     <span class="n">stream</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
     <span class="n">log_level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">LOGGING_DEBUG_LEVEL</span><span class="p">,</span>
     <span class="n">use_color</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Add a stream handler to the logging infrastructure.</span>
+
+<span class="sd">    This function may not be used for most cases.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -806,33 +1029,141 @@
     <span class="k">raise</span> <span class="n">LezargusBaseError</span><span class="p">(</span>
         <span class="n">msg</span><span class="p">,</span>
     <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="initialize_default_logging_outputs"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.initialize_default_logging_outputs">[docs]</a><span class="k">def</span> <span class="nf">initialize_default_logging_outputs</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize the default logging console and file outputs.</span>
+
+<span class="sd">    This function initializes the logging outputs based on configured</span>
+<span class="sd">    parameters. Additional logging outputs may be provided.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    Return</span>
+<span class="sd">    ------</span>
+<span class="sd">    None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Construct the default console and file-based logging functions. The file</span>
+    <span class="c1"># is saved in the package directory.</span>
+    <span class="n">library</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">add_console_logging_handler</span><span class="p">(</span>
+        <span class="n">console</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">,</span>
+        <span class="n">log_level</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">LOGGING_INFO_LEVEL</span><span class="p">,</span>
+        <span class="n">use_color</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">LOGGING_STREAM_USE_COLOR</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1"># The default file logging is really a temporary thing (just in case) and</span>
+    <span class="c1"># should not kept from run to run. Moreover, if there are multiple</span>
+    <span class="c1"># instances of Lezargus being run, they all cannot use the same log file</span>
+    <span class="c1"># and so we encode a UUID tag.</span>
+
+    <span class="c1"># Adding a new file handler. We add the file handler first only so we can</span>
+    <span class="c1"># capture the log messages when we try and remove the old logs.</span>
+    <span class="n">unique_hex_identifier</span> <span class="o">=</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span>
+    <span class="n">default_log_file_filename</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+        <span class="n">directory</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">MODULE_INSTALLATION_PATH</span><span class="p">,</span>
+        <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;lezargus_&quot;</span> <span class="o">+</span> <span class="n">unique_hex_identifier</span><span class="p">,</span>
+        <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">library</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">add_file_logging_handler</span><span class="p">(</span>
+        <span class="n">filename</span><span class="o">=</span><span class="n">default_log_file_filename</span><span class="p">,</span>
+        <span class="n">log_level</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">LOGGING_DEBUG_LEVEL</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1"># We try and remove all of the log files which currently exist, if we can.</span>
+    <span class="c1"># We make an exception for the one which we are going to use, we do not</span>
+    <span class="c1"># want to clog the log with it.</span>
+    <span class="n">old_log_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span>
+        <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+            <span class="n">directory</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">MODULE_INSTALLATION_PATH</span><span class="p">,</span>
+            <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;lezargus*&quot;</span><span class="p">,</span>
+            <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">,</span>
+        <span class="p">),</span>
+        <span class="n">recursive</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">for</span> <span class="n">filedex</span> <span class="ow">in</span> <span class="n">old_log_files</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">filedex</span> <span class="o">==</span> <span class="n">default_log_file_filename</span><span class="p">:</span>
+            <span class="c1"># We do not try to delete the current file.</span>
+            <span class="k">continue</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">filedex</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+            <span class="c1"># The file is likely in use by another logger or Lezargus instance.</span>
+            <span class="c1"># The deletion can wait.</span>
+            <span class="n">library</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;The temporary log file </span><span class="si">{lfl}</span><span class="s2"> is currently in-use, we defer&quot;</span>
+                    <span class="s2">&quot; deletion.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lfl</span><span class="o">=</span><span class="n">filedex</span><span class="p">)</span>
+                <span class="p">),</span>
+            <span class="p">)</span></div>
 </pre></div>
 
-           </div>
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+            
           </div>
-          <footer>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sparrow
+</p>
 
-  <hr/>
-
-  <div role="contentinfo">
-    <p>&#169; Copyright 2023, Sparrow.</p>
   </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023, Sparrow.
+      <br/>
+    
+  </p>
 
-  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    provided by <a href="https://readthedocs.org">Read the Docs</a>.
-   
-
-</footer>
-        </div>
-      </div>
-    </section>
   </div>
-  <script>
-      jQuery(function () {
-          SphinxRtdTheme.Navigation.enable(false);
-      });
-  </script> 
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
 
-</body>
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
 </html>

@@ -1,0 +1,701 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lezargus.library.photometry &#8212; Lezargus  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/lezargus/library/photometry';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Lezargus  documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../technical/index.html">Technical Manual</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/uncertainty.html">Uncertainty Propagation</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../code/modules.html">lezargus</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../code/lezargus.html">lezargus package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.container.html">lezargus.container package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.cube.html">lezargus.container.cube module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.image.html">lezargus.container.image module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.mosaic.html">lezargus.container.mosaic module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.parent.html">lezargus.container.parent module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.spectra.html">lezargus.container.spectra module</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.library.html">lezargus.library package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.array.html">lezargus.library.array module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.atmosphere.html">lezargus.library.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.config.html">lezargus.library.config module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.conversion.html">lezargus.library.conversion module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.data.html">lezargus.library.data module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.fits.html">lezargus.library.fits module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.flags.html">lezargus.library.flags module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.hint.html">lezargus.library.hint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.logging.html">lezargus.library.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.path.html">lezargus.library.path module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.uncertainty.html">lezargus.library.uncertainty module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__main__.html">lezargus.__main__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__version__.html">lezargus.__version__ module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <h1>Source code for lezargus.library.photometry</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Functions to deal with the computation of synthetic and real photometry.&quot;&quot;&quot;</span>
+
+
+<span class="kn">from</span> <span class="nn">lezargus</span> <span class="kn">import</span> <span class="n">library</span>
+<span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">hint</span>
+<span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">logging</span>
+
+
+<div class="viewcode-block" id="calculate_filter_zero_point_vega"><a class="viewcode-back" href="../../../code/lezargus.library.photometry.html#lezargus.library.photometry.calculate_filter_zero_point_vega">[docs]</a><span class="k">def</span> <span class="nf">calculate_filter_zero_point_vega</span><span class="p">(</span>
+    <span class="n">filter_spectra</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusSpectra</span><span class="p">,</span>
+    <span class="n">standard_spectra</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusSpectra</span><span class="p">,</span>
+    <span class="n">standard_filter_magnitude</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">standard_filter_uncertainty</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the magnitude zero point of a filter in the Vega system.</span>
+
+<span class="sd">    This function computes Vega zero points by integrating it over the</span>
+<span class="sd">    filter band pass. To better facilitate this as a library function, the</span>
+<span class="sd">    standard spectra and its magnitude may be input. However, for most cases,</span>
+<span class="sd">    the Vega spectra in the data collection is good enough.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filter_spectra : LezargusSpectra</span>
+<span class="sd">        The filter transmission, saved as a spectra container instance. The</span>
+<span class="sd">        filter provided must be in the photon counting form. We assume that</span>
+<span class="sd">        the wavelength term has already been multiplied through. The</span>
+<span class="sd">        variable name is chosen to prevent a name clash with the Python</span>
+<span class="sd">        built-in.</span>
+<span class="sd">    standard_spectra : LezargusSpectra</span>
+<span class="sd">        The standard star, as saved by a spectra container instance.</span>
+<span class="sd">    standard_filter_magnitude : float</span>
+<span class="sd">        The magnitude of the standard star in that filter.</span>
+<span class="sd">    standard_filter_uncertainty : float, default = None</span>
+<span class="sd">        The uncertainty in the magnitude of the standard star in that filter.</span>
+<span class="sd">        Often this is not needed because the magnitude value of standard</span>
+<span class="sd">        defines the filter system anyways and so, by definition, there is no</span>
+<span class="sd">        uncertainty.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    zero_point : float</span>
+<span class="sd">        The zero point value.</span>
+<span class="sd">    zero_point_uncertainty : float or None</span>
+<span class="sd">        The uncertainty on the zero point. If the standard star provided has</span>
+<span class="sd">        some uncertainty, or if the filter does, then we attempt to calculate</span>
+<span class="sd">        the uncertainty on the value.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># We assume that the standard star has data covering the entire filter</span>
+    <span class="c1"># range as otherwise, you cannot really calculate an accurate zero point.</span>
+    <span class="c1"># However, we should still warn otherwise.</span>
+    <span class="n">overlap</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">wavelength_overlap_fraction</span><span class="p">(</span>
+        <span class="n">base</span><span class="o">=</span><span class="n">standard_spectra</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+        <span class="n">contain</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">overlap</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">AccuracyWarning</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;A filter zero point is being computed where the standard&quot;</span>
+                <span class="s2">&quot; spectra does not cover the entire filter. The overlap&quot;</span>
+                <span class="s2">&quot; fraction is </span><span class="si">{of}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">of</span><span class="o">=</span><span class="n">overlap</span><span class="p">)</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Computing the total filter-weighted flux, using usual integration methods.</span>
+    <span class="n">star_flux</span><span class="p">,</span> <span class="n">star_uncertainty</span><span class="p">,</span> <span class="n">__</span><span class="p">,</span> <span class="n">__</span> <span class="o">=</span> <span class="n">standard_spectra</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span>
+        <span class="n">wavelength</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+        <span class="n">skip_mask</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">skip_flags</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1"># Integrating...</span>
+    <span class="n">star_filter_flux</span><span class="p">,</span> <span class="n">star_filter_flux_uncertainty</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span>
+            <span class="n">multiplier</span><span class="o">=</span><span class="n">star_flux</span><span class="p">,</span>
+            <span class="n">multiplicand</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">multiplier_uncertainty</span><span class="o">=</span><span class="n">star_uncertainty</span><span class="p">,</span>
+            <span class="n">multiplicand_uncertainty</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">star_filter_integral</span><span class="p">,</span> <span class="n">star_filter_integral_uncertainty</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">integrate_discrete</span><span class="p">(</span>
+            <span class="n">variable</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+            <span class="n">integrand</span><span class="o">=</span><span class="n">star_filter_flux</span><span class="p">,</span>
+            <span class="n">integrand_uncertainty</span><span class="o">=</span><span class="n">star_filter_flux_uncertainty</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">filter_integral</span><span class="p">,</span> <span class="n">filter_integral_uncertainty</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">integrate_discrete</span><span class="p">(</span>
+            <span class="n">variable</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+            <span class="n">integrand</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">integrand_uncertainty</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="c1"># The zero point itself. Going through the equation with propagation.</span>
+    <span class="n">_frac</span><span class="p">,</span> <span class="n">_frac_uncert</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span>
+        <span class="n">numerator</span><span class="o">=</span><span class="n">star_filter_integral</span><span class="p">,</span>
+        <span class="n">denominator</span><span class="o">=</span><span class="n">filter_integral</span><span class="p">,</span>
+        <span class="n">numerator_uncertainty</span><span class="o">=</span><span class="n">star_filter_integral_uncertainty</span><span class="p">,</span>
+        <span class="n">denominator_uncertainty</span><span class="o">=</span><span class="n">filter_integral_uncertainty</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">_log</span><span class="p">,</span> <span class="n">_log_uncert</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">logarithm</span><span class="p">(</span>
+        <span class="n">antilogarithm</span><span class="o">=</span><span class="n">_frac</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">antilogarithm_uncertainty</span><span class="o">=</span><span class="n">_frac_uncert</span>
+    <span class="p">)</span>
+    <span class="n">_mul</span><span class="p">,</span> <span class="n">_mul_uncert</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span>
+        <span class="n">multiplier</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span>
+        <span class="n">multiplicand</span><span class="o">=</span><span class="n">_log</span><span class="p">,</span>
+        <span class="n">multiplier_uncertainty</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">multiplicand_uncertainty</span><span class="o">=</span><span class="n">_log_uncert</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1"># Finally, the zero point itself.</span>
+    <span class="n">zero_point</span><span class="p">,</span> <span class="n">zero_point_uncertainty</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+        <span class="n">augend</span><span class="o">=</span><span class="n">standard_filter_magnitude</span><span class="p">,</span>
+        <span class="n">addend</span><span class="o">=</span><span class="n">_mul</span><span class="p">,</span>
+        <span class="n">augend_uncertainty</span><span class="o">=</span><span class="n">standard_filter_uncertainty</span><span class="p">,</span>
+        <span class="n">addend_uncertainty</span><span class="o">=</span><span class="n">_mul_uncert</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">zero_point</span><span class="p">,</span> <span class="n">zero_point_uncertainty</span></div>
+
+
+<div class="viewcode-block" id="calculate_filter_magnitude_vega"><a class="viewcode-back" href="../../../code/lezargus.library.photometry.html#lezargus.library.photometry.calculate_filter_magnitude_vega">[docs]</a><span class="k">def</span> <span class="nf">calculate_filter_magnitude_vega</span><span class="p">(</span>
+    <span class="n">star_spectra</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusSpectra</span><span class="p">,</span>
+    <span class="n">filter_spectra</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusSpectra</span><span class="p">,</span>
+    <span class="n">filter_zero_point</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">filter_zero_point_uncertainty</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the Vega-based synthetic magnitude of a star in a filter.</span>
+
+<span class="sd">    We compute the synthetic magnitude of a star using its spectra, provided</span>
+<span class="sd">    the filter transmission. This function is the manual method, where the</span>
+<span class="sd">    filters and its properties must be defined manually. An automatic mode</span>
+<span class="sd">    is also available, see `auto_calculate_filter_magnitude_vega`.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    star_spectra : LezargusSpectra</span>
+<span class="sd">        The target star that we will compute the synthetic filter magnitude of.</span>
+<span class="sd">    filter_spectra : LezargusSpectra</span>
+<span class="sd">        The filter transmission, saved as a spectra container instance. The</span>
+<span class="sd">        filter provided must be in the photon counting form. We assume that</span>
+<span class="sd">        the wavelength term has already been multiplied through. The</span>
+<span class="sd">        variable name is chosen to prevent a name clash with the Python</span>
+<span class="sd">        built-in.</span>
+<span class="sd">    filter_zero_point : float</span>
+<span class="sd">        The zero point value for the provided filter.</span>
+<span class="sd">    filter_zero_point_uncertainty : float, default = None</span>
+<span class="sd">        The uncertainty on the zero point. If not provided, we assume a zero</span>
+<span class="sd">        uncertainty.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    magnitude : float</span>
+<span class="sd">        The computed synthetic magnitude.</span>
+<span class="sd">    uncertainty : float</span>
+<span class="sd">        The uncertainty in the computed synthetic magnitude.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># We assume that the target star has data covering the entire filter</span>
+    <span class="c1"># range as otherwise, you cannot really calculate an accurate magnitude.</span>
+    <span class="c1"># However, we should still warn otherwise.</span>
+    <span class="n">overlap</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">wavelength_overlap_fraction</span><span class="p">(</span>
+        <span class="n">base</span><span class="o">=</span><span class="n">star_spectra</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+        <span class="n">contain</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">overlap</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">AccuracyWarning</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;A filter magnitude is being computed where the star&quot;</span>
+                <span class="s2">&quot; spectra does not cover the entire filter. The overlap&quot;</span>
+                <span class="s2">&quot; fraction is </span><span class="si">{of}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">of</span><span class="o">=</span><span class="n">overlap</span><span class="p">)</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Computing the total filter-weighted flux, using usual integration methods.</span>
+    <span class="n">star_flux</span><span class="p">,</span> <span class="n">star_uncertainty</span><span class="p">,</span> <span class="n">__</span><span class="p">,</span> <span class="n">__</span> <span class="o">=</span> <span class="n">star_spectra</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span>
+        <span class="n">wavelength</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+        <span class="n">skip_mask</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">skip_flags</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1"># Integrating...</span>
+    <span class="n">star_filter_flux</span><span class="p">,</span> <span class="n">star_filter_flux_uncertainty</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span>
+            <span class="n">multiplier</span><span class="o">=</span><span class="n">star_flux</span><span class="p">,</span>
+            <span class="n">multiplicand</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">multiplier_uncertainty</span><span class="o">=</span><span class="n">star_uncertainty</span><span class="p">,</span>
+            <span class="n">multiplicand_uncertainty</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">star_filter_integral</span><span class="p">,</span> <span class="n">star_filter_integral_uncertainty</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">integrate_discrete</span><span class="p">(</span>
+            <span class="n">variable</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+            <span class="n">integrand</span><span class="o">=</span><span class="n">star_filter_flux</span><span class="p">,</span>
+            <span class="n">integrand_uncertainty</span><span class="o">=</span><span class="n">star_filter_flux_uncertainty</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">filter_integral</span><span class="p">,</span> <span class="n">filter_integral_uncertainty</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">integrate_discrete</span><span class="p">(</span>
+            <span class="n">variable</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+            <span class="n">integrand</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">integrand_uncertainty</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="c1"># Going through the equation via propagation.</span>
+    <span class="n">_frac</span><span class="p">,</span> <span class="n">_frac_uncert</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span>
+        <span class="n">numerator</span><span class="o">=</span><span class="n">star_filter_integral</span><span class="p">,</span>
+        <span class="n">denominator</span><span class="o">=</span><span class="n">filter_integral</span><span class="p">,</span>
+        <span class="n">numerator_uncertainty</span><span class="o">=</span><span class="n">star_filter_integral_uncertainty</span><span class="p">,</span>
+        <span class="n">denominator_uncertainty</span><span class="o">=</span><span class="n">filter_integral_uncertainty</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">_log</span><span class="p">,</span> <span class="n">_log_uncert</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">logarithm</span><span class="p">(</span>
+        <span class="n">antilogarithm</span><span class="o">=</span><span class="n">_frac</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">antilogarithm_uncertainty</span><span class="o">=</span><span class="n">_frac_uncert</span>
+    <span class="p">)</span>
+    <span class="n">_mul</span><span class="p">,</span> <span class="n">_mul_uncert</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span>
+        <span class="n">multiplier</span><span class="o">=-</span><span class="mf">2.5</span><span class="p">,</span>
+        <span class="n">multiplicand</span><span class="o">=</span><span class="n">_log</span><span class="p">,</span>
+        <span class="n">multiplier_uncertainty</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">multiplicand_uncertainty</span><span class="o">=</span><span class="n">_log_uncert</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Finally, the magnitude after the zero point correction.</span>
+    <span class="n">magnitude</span><span class="p">,</span> <span class="n">uncertainty</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+        <span class="n">augend</span><span class="o">=</span><span class="n">_mul</span><span class="p">,</span>
+        <span class="n">addend</span><span class="o">=</span><span class="n">filter_zero_point</span><span class="p">,</span>
+        <span class="n">augend_uncertainty</span><span class="o">=</span><span class="n">_mul_uncert</span><span class="p">,</span>
+        <span class="n">addend_uncertainty</span><span class="o">=</span><span class="n">filter_zero_point_uncertainty</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">magnitude</span><span class="p">,</span> <span class="n">uncertainty</span></div>
+
+
+<div class="viewcode-block" id="calculate_photometric_correction_factor_vega"><a class="viewcode-back" href="../../../code/lezargus.library.photometry.html#lezargus.library.photometry.calculate_photometric_correction_factor_vega">[docs]</a><span class="k">def</span> <span class="nf">calculate_photometric_correction_factor_vega</span><span class="p">(</span>
+    <span class="n">star_spectra</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusSpectra</span><span class="p">,</span>
+    <span class="n">filter_spectra</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusSpectra</span><span class="p">,</span>
+    <span class="n">star_magnitude</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">filter_zero_point</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">star_magnitude_uncertainty</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">filter_zero_point_uncertainty</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute photometric correction factors for Vega-based filters.</span>
+
+<span class="sd">    We use the definition of the Vega photometric system to try and compute</span>
+<span class="sd">    the scaling factor to scale the spectra so that it is</span>
+<span class="sd">    spectro-photometrically calibrated.</span>
+
+<span class="sd">    See [[TODO]] for more information.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    star_spectra : LezargusSpectra</span>
+<span class="sd">        The target star that we will compute the synthetic filter magnitude of.</span>
+<span class="sd">    filter_spectra : LezargusSpectra</span>
+<span class="sd">        The filter transmission, saved as a spectra container instance. The</span>
+<span class="sd">        filter provided must be in the photon counting form. We assume that</span>
+<span class="sd">        the wavelength term has already been multiplied through. The</span>
+<span class="sd">        variable name is chosen to prevent a name clash with the Python</span>
+<span class="sd">        built-in.</span>
+<span class="sd">    star_magnitude : float</span>
+<span class="sd">        The magnitude of the star in the given filter. We use this value to</span>
+<span class="sd">        compute the photometric scale factor.</span>
+<span class="sd">    filter_zero_point : float</span>
+<span class="sd">        The zero point value for the provided filter.</span>
+<span class="sd">    star_magnitude_uncertainty : float, default = None</span>
+<span class="sd">        The uncertainty on the star&#39;s magnitude. If not provided, we assume a</span>
+<span class="sd">        zero uncertainty.</span>
+<span class="sd">    filter_zero_point_uncertainty : float, default = None</span>
+<span class="sd">        The uncertainty on the zero point. If not provided, we assume a</span>
+<span class="sd">        zero uncertainty.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    correction_factor : float</span>
+<span class="sd">        The correction factor calculated using synthetic photometry.</span>
+<span class="sd">    correction_factor_uncertainty : float</span>
+<span class="sd">        The uncertainty on the correction factor.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># We assume that the target star has data covering the entire filter</span>
+    <span class="c1"># range as otherwise, you cannot really calculate an accurate magnitude.</span>
+    <span class="c1"># However, we should still warn otherwise.</span>
+    <span class="n">overlap</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">wavelength_overlap_fraction</span><span class="p">(</span>
+        <span class="n">base</span><span class="o">=</span><span class="n">star_spectra</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+        <span class="n">contain</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">overlap</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">AccuracyWarning</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;A filter magnitude is being computed where the star&quot;</span>
+                <span class="s2">&quot; spectra does not cover the entire filter. The overlap&quot;</span>
+                <span class="s2">&quot; fraction is </span><span class="si">{of}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">of</span><span class="o">=</span><span class="n">overlap</span><span class="p">)</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Computing the total filter-weighted flux, using usual integration</span>
+    <span class="c1"># methods.</span>
+    <span class="n">star_flux</span><span class="p">,</span> <span class="n">star_uncertainty</span><span class="p">,</span> <span class="n">__</span><span class="p">,</span> <span class="n">__</span> <span class="o">=</span> <span class="n">star_spectra</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span>
+        <span class="n">wavelength</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+        <span class="n">skip_mask</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">skip_flags</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">star_filter_flux</span><span class="p">,</span> <span class="n">star_filter_flux_uncertainty</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span>
+            <span class="n">multiplier</span><span class="o">=</span><span class="n">star_flux</span><span class="p">,</span>
+            <span class="n">multiplicand</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">multiplier_uncertainty</span><span class="o">=</span><span class="n">star_uncertainty</span><span class="p">,</span>
+            <span class="n">multiplicand_uncertainty</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="c1"># Integrating.</span>
+    <span class="n">star_filter_integral</span><span class="p">,</span> <span class="n">star_filter_integral_uncertainty</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">integrate_discrete</span><span class="p">(</span>
+            <span class="n">variable</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+            <span class="n">integrand</span><span class="o">=</span><span class="n">star_filter_flux</span><span class="p">,</span>
+            <span class="n">integrand_uncertainty</span><span class="o">=</span><span class="n">star_filter_flux_uncertainty</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">filter_integral</span><span class="p">,</span> <span class="n">filter_integral_uncertainty</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">integrate_discrete</span><span class="p">(</span>
+            <span class="n">variable</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+            <span class="n">integrand</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">integrand_uncertainty</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="c1"># The inverted fraction section of the calculation.</span>
+    <span class="n">fraction</span><span class="p">,</span> <span class="n">fraction_uncertainty</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span>
+        <span class="n">numerator</span><span class="o">=</span><span class="n">filter_integral</span><span class="p">,</span>
+        <span class="n">denominator</span><span class="o">=</span><span class="n">star_filter_integral</span><span class="p">,</span>
+        <span class="n">numerator_uncertainty</span><span class="o">=</span><span class="n">filter_integral_uncertainty</span><span class="p">,</span>
+        <span class="n">denominator_uncertainty</span><span class="o">=</span><span class="n">star_filter_integral_uncertainty</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># The exponential term.</span>
+    <span class="n">_sub</span><span class="p">,</span> <span class="n">_sub_uncert</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span>
+        <span class="n">minuend</span><span class="o">=</span><span class="n">filter_zero_point</span><span class="p">,</span>
+        <span class="n">subtrahend</span><span class="o">=</span><span class="n">star_magnitude</span><span class="p">,</span>
+        <span class="n">minuend_uncertainty</span><span class="o">=</span><span class="n">filter_zero_point_uncertainty</span><span class="p">,</span>
+        <span class="n">subtrahend_uncertainty</span><span class="o">=</span><span class="n">star_magnitude_uncertainty</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">_div</span><span class="p">,</span> <span class="n">_div_uncert</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span>
+        <span class="n">numerator</span><span class="o">=</span><span class="n">_sub</span><span class="p">,</span>
+        <span class="n">denominator</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span>
+        <span class="n">numerator_uncertainty</span><span class="o">=</span><span class="n">_sub_uncert</span><span class="p">,</span>
+        <span class="n">denominator_uncertainty</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">exponent</span><span class="p">,</span> <span class="n">exponent_uncertainty</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">exponentiate</span><span class="p">(</span>
+        <span class="n">base</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">exponent</span><span class="o">=</span><span class="n">_div</span><span class="p">,</span>
+        <span class="n">base_uncertainty</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">exponent_uncertainty</span><span class="o">=</span><span class="n">_div_uncert</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># And computing the factor itself.</span>
+    <span class="n">correction_factor</span><span class="p">,</span> <span class="n">correction_factor_uncertainty</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span>
+            <span class="n">multiplier</span><span class="o">=</span><span class="n">exponent</span><span class="p">,</span>
+            <span class="n">multiplicand</span><span class="o">=</span><span class="n">fraction</span><span class="p">,</span>
+            <span class="n">multiplier_uncertainty</span><span class="o">=</span><span class="n">exponent_uncertainty</span><span class="p">,</span>
+            <span class="n">multiplicand_uncertainty</span><span class="o">=</span><span class="n">fraction_uncertainty</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">correction_factor</span><span class="p">,</span> <span class="n">correction_factor_uncertainty</span></div>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sparrow
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023, Sparrow.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

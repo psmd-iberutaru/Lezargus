@@ -17,6 +17,8 @@ Submodules
    lezargus.library.hint
    lezargus.library.logging
    lezargus.library.path
+   lezargus.library.photometry
+   lezargus.library.uncertainty
    lezargus.library.wrapper
 
 Module contents

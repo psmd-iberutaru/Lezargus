@@ -10,4 +10,7 @@ from lezargus.library import flags
 from lezargus.library import hint
 from lezargus.library import logging
 from lezargus.library import path
+from lezargus.library import photometry
+from lezargus.library import stitch
+from lezargus.library import uncertainty
 from lezargus.library import wrapper

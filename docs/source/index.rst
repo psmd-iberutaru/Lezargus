@@ -3,14 +3,51 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to Lezargus's documentation!
-====================================
+===========================
+IRTF Lezargus Documentation
+===========================
+
+Hello
+
+.. note::
+    This documentation comes in two forms, a set of HTML webpages and a LaTeX 
+    PDF document. The HTML is given preference when formatting issues arise 
+    between the two. We highly suggest that you read the 
+    `HTML version <https://psmd-iberutaru.github.io/Lezargus>`_ as it is 
+    better formatted, easier to navigate, and more likely to be up to date.
+
+
+.. _home-user-manual:
+
+User Manual
+===========
+
+The user manual is primarily for users of the SPECTRE and supported instruments
+for data reduction.
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+    :maxdepth: 3
+    :hidden:
+    :caption: User Manual
 
+    user/index
 
+.. _home-technical-manual:
+
+Technical Manual
+================
+
+The technical manual is primarily for software maintainers and other IRTF 
+staff. 
+
+.. toctree::
+    :maxdepth: 3
+    :hidden:
+    :caption: Technical Manual
+
+    technical/index
+
+.. _home-code-manual:
 
 Code Manual
 ===========
@@ -34,8 +71,6 @@ a different tool. As such, it is manually linked rather than integrated.
     code/modules
 
 
-Indices and tables
-==================
 
 * :ref:`genindex`
 * :ref:`modindex`

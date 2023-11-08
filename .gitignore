@@ -130,4 +130,4 @@ dmypy.json
 .pyre/
 
 # Other package data.
-ancillary/
+utility/
