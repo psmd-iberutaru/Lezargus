@@ -6,9 +6,6 @@ from lezargus.library import hint
 from lezargus.library import logging
 
 
-
-
-
 def calculate_filter_zero_point_vega(
     filter_spectra: hint.LezargusSpectra,
     standard_spectra: hint.LezargusSpectra,

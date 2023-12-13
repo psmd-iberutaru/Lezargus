@@ -5,14 +5,11 @@ pitfalls in check, is not trivial. We group these three stitching functions,
 and the required spin-off functions, here.
 """
 
-
 import numpy as np
 
 from lezargus import library
 from lezargus.library import hint
 from lezargus.library import logging
-
-
 
 
 def stitch_spectra_arrays(
@@ -30,8 +27,9 @@ def stitch_spectra_arrays(
     This function takes any number of spectra, represented as parallel
     arrays of wavelength, spectral flux or data, and (optionally) weights,
     and combines them. We stitch them together; the formal method is described
-    in [[TODO]]. In summary, we interpolate over overlapping regions and
-    combine the data according to the average function.
+    in [[TODO]]. In summary, we interpolate over overlapping regions,
+    ignoring gaps if needed, and combine the data according to the average
+    function.
 
     Note, the average function provided is re-wrapped to properly handle NaNs.
     NaNs in the data are ignored and not used for any stitching. If NaNs are
@@ -58,7 +56,7 @@ def stitch_spectra_arrays(
         data list, or None. If the entry (or entire input) is None, we assume
         uniform weights for the corresponding input spectra arrays.
     average_function : Callable, str, default = None
-        The function used to average all of the spectra together. 
+        The function used to average all of the spectra together.
         It must also be able to accept weights and propagate uncertainties.
         If None, we default to the weighted mean. Namely, it must be of the
         form f(val, uncert, weight) = avg, uncert.
@@ -102,7 +100,7 @@ def stitch_spectra_arrays(
     # into structures with all the same shape. We assume that the wavelength
     # list is the primary array to base it all off of.
     # We first need to check the parallelism of the arrays.
-    if not (len(wavelength) == len(data) == len(uncertainty) == len(weight)):
+    if not len(wavelength) == len(data) == len(uncertainty) == len(weight):
         logging.critical(
             critical_type=logging.InputError,
             message=(
@@ -216,17 +214,17 @@ def stitch_spectra_arrays(
             temp_data = __spectra_rewrapped_interpolation_factory(
                 base_wave=wavedex,
                 base_data=datadex,
-                interp_factory=library.wrapper.cubic_interpolate_1d_function,
+                interp_factory=library.wrapper.cubic_1d_interpolate_factory,
             )
             temp_uncertainty = __spectra_rewrapped_interpolation_factory(
                 base_wave=wavedex,
                 base_data=uncertdex,
-                interp_factory=library.wrapper.nearest_neighbor_interpolate_1d_function,
+                interp_factory=library.wrapper.nearest_neighbor_1d_interpolate_factory,
             )
             temp_weights = __spectra_rewrapped_interpolation_factory(
                 base_wave=wavedex,
                 base_data=weightdex,
-                interp_factory=library.wrapper.nearest_neighbor_interpolate_1d_function,
+                interp_factory=library.wrapper.nearest_neighbor_1d_interpolate_factory,
             )
         except ValueError:
             # The interpolation cannot be derived, this is likely because there
@@ -234,10 +232,9 @@ def stitch_spectra_arrays(
             logging.warning(
                 warning_type=logging.AccuracyWarning,
                 message=(
-                    "Interpolation routines cannot be derived the {i} index"
-                    " spectra; likely not enough valid data. Skipping.".format(
-                        i=index,
-                    )
+                    "Interpolation routines cannot be derived from the {i}"
+                    " index spectra; likely not enough valid data. Skipping."
+                    .format(i=index)
                 ),
             )
             continue
@@ -269,10 +266,9 @@ def stitch_spectra_arrays(
     average_wavelength, average_data, average_uncertainty = (
         [] for __ in range(3)
     )
-    for index in range(len(total_wavelength)):
+    for index, wavedex in enumerate(total_wavelength):
         # We use the averaging function to determine the data. We also
         # use the function's expected uncertainty propagation.
-        temp_wave = total_wavelength[index]
         temp_data, temp_uncertainty = (
             __spectra_rewrapped_interpolation_average_function(
                 data=total_data[:, index],
@@ -281,7 +277,7 @@ def stitch_spectra_arrays(
                 average_function=average_function,
             )
         )
-        average_wavelength.append(temp_wave)
+        average_wavelength.append(wavedex)
         average_data.append(temp_data)
         average_uncertainty.append(temp_uncertainty)
 
@@ -299,12 +295,12 @@ def stitch_spectra_arrays(
         *wavelength,
     )
     # Interpolating out the proper data and uncertainty.
-    stitch_data = library.wrapper.cubic_interpolate_1d_function(
+    stitch_data = library.wrapper.cubic_1d_interpolate_factory(
         x=unique_wavelength,
         y=unique_data,
     )(stitch_wavelength)
     stitch_uncertainty = (
-        library.wrapper.nearest_neighbor_interpolate_1d_function(
+        library.wrapper.nearest_neighbor_1d_interpolate_factory(
             x=unique_wavelength,
             y=unique_uncertainty,
         )(stitch_wavelength)

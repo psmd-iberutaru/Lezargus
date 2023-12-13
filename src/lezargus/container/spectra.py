@@ -4,6 +4,7 @@ This module and class primarily deals with spectral data.
 """
 
 import copy
+
 import numpy as np
 import scipy.interpolate
 
@@ -278,7 +279,7 @@ class LezargusSpectra(LezargusContainerArithmetic):
         else:
             interp_mask = None
             logging.error(
-                error_type=logging.NotSupportedError,
+                error_type=logging.ToDoError,
                 message=(
                     "The interpolation of a mask for spectra is not yet"
                     " implemented."
@@ -290,7 +291,7 @@ class LezargusSpectra(LezargusContainerArithmetic):
         else:
             interp_flags = None
             logging.error(
-                error_type=logging.NotSupportedError,
+                error_type=logging.ToDoError,
                 message=(
                     "The interpolation of flags for spectra is not yet"
                     " implemented."
@@ -301,7 +302,7 @@ class LezargusSpectra(LezargusContainerArithmetic):
         return interp_data, interp_uncertainty, interp_mask, interp_flags
 
     def stitch(
-        self:"LezargusSpectra",
+        self: "LezargusSpectra",
         *spectra: "LezargusSpectra",
         weight: list[hint.ndarray] | str = "uniform",
         average_function: hint.Callable[
@@ -342,7 +343,13 @@ class LezargusSpectra(LezargusContainerArithmetic):
         # If there are no spectra to stitch, then we do nothing.
         if len(spectra) == 0:
             # We still warn just in case.
-            logging.warning(warning_type=logging.InputWarning, message="No additional spectra objects were submitted to stitch, no stitching applied.")
+            logging.warning(
+                warning_type=logging.InputWarning,
+                message=(
+                    "No additional spectra objects were submitted to stitch, no"
+                    " stitching applied."
+                ),
+            )
             return self
 
         # We need to make sure these are all Lezargus spectra.
@@ -384,7 +391,8 @@ class LezargusSpectra(LezargusContainerArithmetic):
                     message=(
                         "The weight shortcut option {opt} is not valid; it must"
                         " be one of: {acc}".format(
-                            opt=weight, acc=accepted_options
+                            opt=weight,
+                            acc=accepted_options,
                         )
                     ),
                 )
@@ -404,18 +412,16 @@ class LezargusSpectra(LezargusContainerArithmetic):
         # We also stitch together the flags and the mask. They are handled
         # with a different function. TODO
         logging.error(
-            error_type=logging.NotSupportedError, message=
-                "Flag and mask stitching not yet supported."
-            
+            error_type=logging.ToDoError,
+            message="Flag and mask stitching not yet supported.",
         )
         stitch_mask = None
         stitch_flags = None
 
         # We merge the header. TODO
         logging.error(
-            error_type=logging.NotSupportedError, message=
-                "Header stitching not yet supported."
-            
+            error_type=logging.ToDoError,
+            message="Header stitching not yet supported.",
         )
         stitch_header = None
 

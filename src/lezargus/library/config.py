@@ -200,34 +200,6 @@ def generate_configuration_file_copy(
     shutil.copyfile(default_config_path, file_destination)
 
 
-def initialize_default_configuration() -> None:
-    """Initialize the default configuration file.
-
-    This function forces the reading and applying of the default
-    configuration file. Note, this should not called when a user configuration
-    file has already been provided.
-
-
-    Parameters
-    ----------
-    None
-
-
-    Returns
-    -------
-    None
-    """
-    # Load the default configuration parameters. The user's configurations
-    # should overwrite these when supplied.
-    load_then_apply_configuration(
-        filename=library.path.merge_pathname(
-            directory=MODULE_INSTALLATION_PATH,
-            filename="configuration",
-            extension="yaml",
-        ),
-    )
-
-
 # Configuration/constant parameters which are otherwise not usually provided
 # or must be provided at runtime with code.
 ###################

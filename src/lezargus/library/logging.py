@@ -3,12 +3,9 @@
 Use the functions here when logging or issuing errors or other information.
 """
 
-import glob
 import logging
-import os
 import string
 import sys
-import uuid
 
 import colorama
 
@@ -55,15 +52,12 @@ class ExpectedCaughtError(LezargusBaseError):
 class NotSupportedError(LezargusBaseError):
     """An error used for something which is beyond the scope of work.
 
-    This is an error to be used when what is trying to be done is not
-    implemented. We use this error as catch all for two main cases:
-
-    - The functionality is originally intended, but not yet implemented.
-    - The functionality is not currently supported, and will not be for the
-      forseeable future.
+    This error is to be used when whatever procedure is expected will not be
+    done for a variety of reasons. Exactly why should be explained by the error
+    itself.
 
     For all other cases, the usages of warnings and other errors are probably
-    better. Exactly which case applies should be explained by the error itself.
+    better.
     """
 
 
@@ -73,6 +67,17 @@ class UndiscoveredError(LezargusBaseError):
     This is an error used in cases where the source of the error has not
     been determined and so a more helpful error message or mitigation strategy
     cannot be devised.
+    """
+
+
+class ToDoError(LezargusBaseError):
+    """An error used for something which is not yet implemented.
+
+    This is an error to be used when what is trying to be done is not yet
+    implemented, but it is supposed to be. This type of error is rare and
+    is used as a placeholder for actual functionality. This is an error because
+    not all cases can be bypassed like other levels of logging, and,
+    fundamentally, code is missing.
     """
 
 
@@ -144,7 +149,7 @@ class InputError(LezargusError):
 
 
 class ReadOnlyError(LezargusError):
-    """An error used for problems with read-only files.
+    """An error used for problems with read-only files and variables.
 
     If the file is read-only and it needs to be read, use FileError. This
     error is to be used only when variables or files are assumed to be read
@@ -764,69 +769,3 @@ def terminal() -> None:
     raise LezargusBaseError(
         msg,
     )
-
-
-def initialize_default_logging_outputs() -> None:
-    """Initialize the default logging console and file outputs.
-
-    This function initializes the logging outputs based on configured
-    parameters. Additional logging outputs may be provided.
-
-    Parameters
-    ----------
-    None
-
-    Return
-    ------
-    None
-    """
-    # Construct the default console and file-based logging functions. The file
-    # is saved in the package directory.
-    library.logging.add_console_logging_handler(
-        console=sys.stderr,
-        log_level=library.logging.LOGGING_INFO_LEVEL,
-        use_color=library.config.LOGGING_STREAM_USE_COLOR,
-    )
-    # The default file logging is really a temporary thing (just in case) and
-    # should not kept from run to run. Moreover, if there are multiple
-    # instances of Lezargus being run, they all cannot use the same log file
-    # and so we encode a UUID tag.
-
-    # Adding a new file handler. We add the file handler first only so we can
-    # capture the log messages when we try and remove the old logs.
-    unique_hex_identifier = uuid.uuid4().hex
-    default_log_file_filename = library.path.merge_pathname(
-        directory=library.config.MODULE_INSTALLATION_PATH,
-        filename="lezargus_" + unique_hex_identifier,
-        extension="log",
-    )
-    library.logging.add_file_logging_handler(
-        filename=default_log_file_filename,
-        log_level=library.logging.LOGGING_DEBUG_LEVEL,
-    )
-    # We try and remove all of the log files which currently exist, if we can.
-    # We make an exception for the one which we are going to use, we do not
-    # want to clog the log with it.
-    old_log_files = glob.glob(
-        library.path.merge_pathname(
-            directory=library.config.MODULE_INSTALLATION_PATH,
-            filename="lezargus*",
-            extension="log",
-        ),
-        recursive=False,
-    )
-    for filedex in old_log_files:
-        if filedex == default_log_file_filename:
-            # We do not try to delete the current file.
-            continue
-        try:
-            os.remove(filedex)
-        except OSError:
-            # The file is likely in use by another logger or Lezargus instance.
-            # The deletion can wait.
-            library.logging.info(
-                message=(
-                    "The temporary log file {lfl} is currently in-use, we defer"
-                    " deletion.".format(lfl=filedex)
-                ),
-            )
