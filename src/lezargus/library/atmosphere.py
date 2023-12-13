@@ -245,7 +245,7 @@ def absolute_atmospheric_refraction_function(
     abs_atm_refr = const_of_refr * np.tan(zenith_angle)
 
     # Creating the function itself.
-    abs_atm_refr_func = library.wrapper.cubic_interpolate_1d_function(
+    abs_atm_refr_func = library.wrapper.cubic_1d_interpolate_factory(
         x=wavelength,
         y=abs_atm_refr,
     )

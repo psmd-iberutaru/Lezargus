@@ -18,11 +18,11 @@ from lezargus.library import hint
 from lezargus.library import logging
 
 
-def cubic_interpolate_1d_function(
+def cubic_1d_interpolate_factory(
     x: hint.ndarray,
     y: hint.ndarray,
 ) -> hint.Callable[[hint.ndarray], hint.ndarray]:
-    """Return a wrapper around Scipy's Cubic interpolation.
+    """Return a wrapper function around Scipy's Cubic interpolation.
 
     We ignore NaN values for interpolation.
 
@@ -51,7 +51,7 @@ def cubic_interpolate_1d_function(
     )
 
     # Defining the wrapper function.
-    def interpolate_1d_wrapper(input_data: hint.ndarray) -> hint.ndarray:
+    def interpolate_wrapper(input_data: hint.ndarray) -> hint.ndarray:
         """Cubic interpolator wrapper.
 
         Parameters
@@ -81,14 +81,117 @@ def cubic_interpolate_1d_function(
         return output_data
 
     # All done, return the function itself.
-    return interpolate_1d_wrapper
+    return interpolate_wrapper
 
 
-def nearest_neighbor_interpolate_1d_function(
+def cubic_1d_interpolate_gap_factory(
+    x: hint.ndarray,
+    y: hint.ndarray,
+    gap_delta: float | None = None,
+) -> hint.Callable[[hint.ndarray], hint.ndarray]:
+    """Return a wrapper around Scipy's Cubic interpolation, accounting for gaps.
+
+    Regions which are considered to have a gap are not interpolated. Should a
+    request for data within a gap region be called, we return NaN.
+    We also ignore NaN values for interpolation.
+
+    Parameters
+    ----------
+    x : ndarray
+        The x data to interpolate over.
+    y : ndarray
+        The y data to interpolate over.
+    gap_delta : float, default = None
+        The maximum difference between two ordered x-coordinates before the
+        region within the difference is considered to be a gap. If None,
+        we assume that there is no gaps.
+
+    Returns
+    -------
+    interpolate_function : Callable
+        The interpolation function of the data.
+    """
+    # Defaults for the gap spacing limit. Note, if no gap is provided, there
+    # really is no reason to be using this function.
+    if gap_delta is None:
+        logging.warning(
+            warning_type=logging.AlgorithmWarning,
+            message=(
+                "Gap interpolation delta is None; consider using normal"
+                " interpolation, it is strictly better."
+            ),
+        )
+        gap_delta = -1
+    else:
+        gap_delta = float(gap_delta)
+
+    # Clean up the data, removing anything that is not usable. We also sort it.
+    clean_index = np.isfinite(x) & np.isfinite(y)
+    sort_index = np.argsort(x[clean_index])
+    clean_x = x[clean_index][sort_index]
+    clean_y = y[clean_index][sort_index]
+
+    # We next need to find where the bounds of the gap regions are, measuring
+    # based on the gap delta criteria.
+    x_delta = clean_x[1:] - clean_x[:-1]
+    is_gap = x_delta > gap_delta
+    # And the bounds of each of the gaps.
+    upper_gap = clean_x[1:][is_gap]
+    lower_gap = clean_x[:-1][is_gap]
+
+    # The basic cubic interpolator function.
+    cubic_interpolate_function = cubic_1d_interpolate_factory(
+        x=clean_x,
+        y=clean_y,
+    )
+    # And we attach the gap limits to it so it can carry it. We use our
+    # module name to avoid name conflicts with anything the Scipy project may
+    # add in the future.
+    cubic_interpolate_function.lezargus_upper_gap = upper_gap
+    cubic_interpolate_function.lezargus_lower_gap = lower_gap
+
+    # Defining the wrapper function.
+    def interpolate_wrapper(input_data: hint.ndarray) -> hint.ndarray:
+        """Cubic gap interpolator wrapper.
+
+        Parameters
+        ----------
+        input_data : ndarray
+            The input data.
+
+        Returns
+        -------
+        output_data : ndarray
+            The output data.
+        """
+        # We first interpolate the data.
+        output_data = cubic_interpolate_function(input_data)
+        # And, we NaN out any points within the gaps of the domain of the data.
+        for upperdex, lowerdex in zip(
+            cubic_interpolate_function.lezargus_upper_gap,
+            cubic_interpolate_function.lezargus_lower_gap,
+            strict=True,
+        ):
+            # We NaN out points based on the input. We do not want to NaN the
+            # actual bounds themselves however.
+            output_data[(lowerdex < input_data) & (input_data < upperdex)] = (
+                np.nan
+            )
+        # All done.
+        return output_data
+
+    # All done, return the function itself.
+    return interpolate_wrapper
+
+
+def nearest_neighbor_1d_interpolate_factory(
     x: hint.ndarray,
     y: hint.ndarray,
 ) -> hint.Callable[[hint.ndarray], hint.ndarray]:
     """Return a wrapper around Scipy's interp1d interpolation.
+
+    This function exists so that in the event of the removal of Scipy's
+    interp1d function, we only need to fix it once here.
 
     Parameters
     ----------
@@ -115,7 +218,7 @@ def nearest_neighbor_interpolate_1d_function(
     )
 
     # Defining the wrapper function.
-    def interpolate_1d_wrapper(input_data: hint.ndarray) -> hint.ndarray:
+    def interpolate_wrapper(input_data: hint.ndarray) -> hint.ndarray:
         """Cubic interpolator wrapper.
 
         Parameters
@@ -145,7 +248,7 @@ def nearest_neighbor_interpolate_1d_function(
         return output_data
 
     # All done, return the function itself.
-    return interpolate_1d_wrapper
+    return interpolate_wrapper
 
 
 def blackbody_function(

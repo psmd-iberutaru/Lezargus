@@ -214,11 +214,11 @@ class LezargusContainerArithmetic:
         # equivalent Lezargus containers can be accessed.
         if isinstance(operand, int | float | np.number):
             # The operand is likely a singular value, so it can be properly
-            # broadcast together. It is a singe value, all other checks 
+            # broadcast together. It is a singe value, all other checks
             # are unneeded.
             justification = True
             return justification
-        
+
         # If the Lezargus data types are the same.
         if self.__class__ == operand.__class__:
             # All good.
@@ -371,7 +371,12 @@ class LezargusContainerArithmetic:
         # We do not want to modify our own objects as that goes against the
         # the main idea of operator operations.
         result = copy.deepcopy(self)
-        result.data, result.uncertainty = library.uncertainty.add(augend=self.data, addend=operand_data, augend_uncertainty=self.uncertainty, addend_uncertainty=operand_uncertainty)
+        result.data, result.uncertainty = library.uncertainty.add(
+            augend=self.data,
+            addend=operand_data,
+            augend_uncertainty=self.uncertainty,
+            addend_uncertainty=operand_uncertainty,
+        )
         # All done.
         return result
 
@@ -420,7 +425,12 @@ class LezargusContainerArithmetic:
         # We do not want to modify our own objects as that goes against the
         # the main idea of operator operations.
         result = copy.deepcopy(self)
-        result.data, result.uncertainty = library.uncertainty.subtract(minuend=self.data,subtrahend=operand_data, minuend_uncertainty=self.uncertainty, subtrahend_uncertainty=operand_uncertainty)
+        result.data, result.uncertainty = library.uncertainty.subtract(
+            minuend=self.data,
+            subtrahend=operand_data,
+            minuend_uncertainty=self.uncertainty,
+            subtrahend_uncertainty=operand_uncertainty,
+        )
         # All done.
         return result
 
@@ -465,7 +475,12 @@ class LezargusContainerArithmetic:
         # We do not want to modify our own objects as that goes against the
         # the main idea of operator operations.
         result = copy.deepcopy(self)
-        result.data, result.uncertainty = library.uncertainty.multiply(multiplier=self.data,multiplicand=operand_data, multiplier_uncertainty=self.uncertainty, multiplicand_uncertainty=operand_uncertainty)
+        result.data, result.uncertainty = library.uncertainty.multiply(
+            multiplier=self.data,
+            multiplicand=operand_data,
+            multiplier_uncertainty=self.uncertainty,
+            multiplicand_uncertainty=operand_uncertainty,
+        )
         # All done.
         return result
 
@@ -510,7 +525,12 @@ class LezargusContainerArithmetic:
         # We do not want to modify our own objects as that goes against the
         # the main idea of operator operations.
         result = copy.deepcopy(self)
-        result.data, result.uncertainty = library.uncertainty.divide(numerator=self.data,denominator=operand_data, numerator_uncertainty=self.uncertainty, denominator_uncertainty=operand_uncertainty)
+        result.data, result.uncertainty = library.uncertainty.divide(
+            numerator=self.data,
+            denominator=operand_data,
+            numerator_uncertainty=self.uncertainty,
+            denominator_uncertainty=operand_uncertainty,
+        )
         # All done.
         return result
 
@@ -555,7 +575,12 @@ class LezargusContainerArithmetic:
         # We do not want to modify our own objects as that goes against the
         # the main idea of operator operations.
         result = copy.deepcopy(self)
-        result.data, result.uncertainty = library.uncertainty.exponentiate(base=self.data,exponent=operand_data, base_uncertainty=self.uncertainty, exponent_uncertainty=operand_uncertainty)
+        result.data, result.uncertainty = library.uncertainty.exponentiate(
+            base=self.data,
+            exponent=operand_data,
+            base_uncertainty=self.uncertainty,
+            exponent_uncertainty=operand_uncertainty,
+        )
         # All done.
         return result
 

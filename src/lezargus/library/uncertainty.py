@@ -356,8 +356,6 @@ def integrate_discrete(
     uncertainty : float
         The uncertainty on the integration.
     """
-    # TODO
-
     # The result of the integral.
     result = scipy.integrate.trapezoid(
         integrand,
@@ -365,10 +363,11 @@ def integrate_discrete(
     )
 
     logging.error(
-        error_type=logging.NotSupportedError,
+        error_type=logging.ToDoError,
         message="Uncertainty values on integrations need to be done.",
     )
-    uncertainty = 0
+    integrand_uncertainty = 0
+    uncertainty = integrand_uncertainty
 
     return result, uncertainty
 
@@ -385,7 +384,8 @@ def weighted_mean(
     are not provided, we default to equal weights and thus the ordinary
     arithmetic mean.
 
-    TODO : EXPLAIN ERROR PROPAGATION FOR MEANS.
+    See :ref:`technical-uncertainty-weighted-mean` for more
+    information.
 
     Parameters
     ----------
