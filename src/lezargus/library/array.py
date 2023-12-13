@@ -370,8 +370,8 @@ def convolve_cube_by_image_array(
     # We need to ensure that the cube is actually a cube.
     cube_dimensions = 3
     if len(cube.shape) != cube_dimensions:
-        logging.error(
-            error_type=logging.AccuracyError,
+        logging.warning(
+            error_type=logging.AccuracyWarning,
             message=(
                 "The input cube is not actually a cube, shape is {sh}. Applying"
                 " convolution across image slices may fail.".format(

@@ -192,8 +192,9 @@ generated-members = [
     # Configuration parameters are generated on-the-fly.
     # Note: The proper coverage is lezargus.library.config.*, but because of 
     # alises, we use library.config.* for all of the configurations so that is 
-    # what we filter.
+    # what we filter. Same thing with library.data.*.
     "library.config.*",
+    "library.data.*",
 ]
 
 [tool.coverage.run]

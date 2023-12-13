@@ -289,11 +289,11 @@ class LezargusContainerArithmetic:
                 ),
             )
         if not np.allclose(self.wavelength, operand.wavelength):
-            # This is a serious error which can lead to bad results. However,
+            # This is a serious problem which can lead to bad results. However,
             # it only affects accuracy and not the overall computation of the
             # program.
-            logging.error(
-                error_type=logging.AccuracyError,
+            logging.warning(
+                warning_type=logging.AccuracyWarning,
                 message=(
                     "The wavelength arrays between two Lezargus containers are"
                     " not matching; operation had interpolation performed to"
@@ -304,8 +304,8 @@ class LezargusContainerArithmetic:
         # If the wavelength or data units are all off, it will lead to
         # incorrect results.
         if self.wavelength_unit != operand.wavelength_unit:
-            logging.error(
-                error_type=logging.AccuracyError,
+            logging.warning(
+                warning_type=logging.AccuracyWarning,
                 message=(
                     "The Lezargus container wavelength unit {lwu} is not the"
                     " same as the operand unit {owu}.".format(
@@ -315,8 +315,8 @@ class LezargusContainerArithmetic:
                 ),
             )
         if self.data_unit != operand.data_unit:
-            logging.error(
-                error_type=logging.AccuracyError,
+            logging.warning(
+                warning_type=logging.AccuracyWarning,
                 message=(
                     "The Lezargus container data/flux unit {lwu} is not the"
                     " same as the operand unit {owu}.".format(
