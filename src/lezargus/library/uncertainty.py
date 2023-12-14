@@ -3,6 +3,7 @@
 import numpy as np
 import scipy.integrate
 
+from lezargus import library
 from lezargus.library import hint
 from lezargus.library import logging
 
@@ -374,15 +375,65 @@ def integrate_discrete(
 
 def weighted_mean(
     values: hint.ndarray,
-    values_uncertainty: hint.ndarray = None,
+    uncertainties: hint.ndarray = None,
     weights: hint.ndarray = None,
 ) -> tuple[float, float]:
     """Calculate a weighted mean, propagating uncertainties where needed.
 
     This function calculates the weighted arithmetic mean of a group of samples
-    and weights, ignoring any entry that is not a valid number. If the weights
-    are not provided, we default to equal weights and thus the ordinary
-    arithmetic mean.
+    and weights. If the weights are not provided, we default to equal weights 
+    and thus the ordinary arithmetic mean. If any value, uncertainty, or weight
+    is NaN, the result is a NaN. 
+
+    See :ref:`technical-uncertainty-weighted-mean` for more
+    information.
+
+    Parameters
+    ----------
+    values : ndarray
+        The values which we will compute the weighted mean of.
+    uncertainties : ndarray, default = None
+        The uncertainties in the values. If None, we default to no uncertainty.
+    weights : ndarray, default = None
+        The weights for the given values for the weighted mean. If None, we
+        assume equal weights.
+
+    Returns
+    -------
+    mean_value : float
+        The calculated mean.
+    mean_uncertainty : float
+        The calculated uncertainty in the mean.
+    """
+    # We determine the defaults for the uncertainty and the weights.
+    uncertainties = (
+        np.zeros_like(values)
+        if uncertainties is None
+        else uncertainties
+    )
+    weights = np.ones_like(values) if weights is None else weights
+
+    # Finally, calculating the mean.
+    mean_value = np.average(values, weights=weights)
+    # The error propagation, done as prescribed. We assume next to no
+    # covariance and in general we calculate it via variance propagation of
+    # the definition of the weighted mean.
+    mean_uncertainty = (
+        np.sqrt(np.sum((uncertainties * weights) ** 2))
+        / values.size
+    )
+    # All done.
+    return mean_value, mean_uncertainty
+
+def nan_weighted_mean(
+            values: hint.ndarray,
+    uncertainties: hint.ndarray = None,
+    weights: hint.ndarray = None,
+) -> tuple[float, float]:
+    """Calculate the no-NaN weighted mean and uncertainty.
+
+    This function is similar to :py:func:`library.uncertainty.weighted_mean`,
+    but we do not include any non-finite values.
 
     See :ref:`technical-uncertainty-weighted-mean` for more
     information.
@@ -405,29 +456,16 @@ def weighted_mean(
         The calculated uncertainty in the mean.
     """
     # We determine the defaults for the uncertainty and the weights.
-    values_uncertainty = (
+    uncertainties = (
         np.zeros_like(values)
-        if values_uncertainty is None
-        else values_uncertainty
+        if uncertainties is None
+        else uncertainties
     )
     weights = np.ones_like(values) if weights is None else weights
+
     # We also do not include any values which are not actual numbers.
-    clean_index = (
-        np.isfinite(values)
-        & np.isfinite(values_uncertainty)
-        & np.isfinite(weights)
-    )
-    clean_values = values[clean_index]
-    clean_uncertainty = values_uncertainty[clean_index]
-    clean_weights = weights[clean_index]
-    # Finally, calculating the mean.
-    mean_value = np.average(clean_values, weights=clean_weights)
-    # The error propagation, done as prescribed. We assume next to no
-    # covariance and in general we calculate it via variance propagation of
-    # the definition of the weighted mean.
-    mean_uncertainty = (
-        np.sqrt(np.nansum((clean_uncertainty * clean_weights) ** 2))
-        / clean_index.sum()
-    )
-    # All done.
+    clean_values, clean_uncertainty, clean_weights = library.array.clean_finite_arrays(values, uncertainties, weights)
+
+    # And we just send it to the original function to compute it.
+    mean_value, mean_uncertainty = weighted_mean(values=clean_values, uncertainties=clean_uncertainty, weights=clean_weights)
     return mean_value, mean_uncertainty

@@ -14,8 +14,11 @@ import astropy.units
 import numpy as np
 import scipy.interpolate
 
+from lezargus import library
 from lezargus.library import hint
 from lezargus.library import logging
+
+
 
 
 def cubic_1d_interpolate_factory(
@@ -39,9 +42,8 @@ def cubic_1d_interpolate_factory(
         The interpolation function of the data.
     """
     # Clean up the data, removing anything that is not usable.
-    clean_index = np.isfinite(x) & np.isfinite(y)
-    clean_x = x[clean_index]
-    clean_y = y[clean_index]
+    clean_x, clean_y = library.array.clean_finite_arrays(x, y)
+
     # Create a cubic spline.
     cubic_interpolate_function = scipy.interpolate.CubicSpline(
         x=clean_x,
@@ -87,7 +89,7 @@ def cubic_1d_interpolate_factory(
 def cubic_1d_interpolate_gap_factory(
     x: hint.ndarray,
     y: hint.ndarray,
-    gap_delta: float | None = None,
+    gap_size: float | None = None,
 ) -> hint.Callable[[hint.ndarray], hint.ndarray]:
     """Return a wrapper around Scipy's Cubic interpolation, accounting for gaps.
 
@@ -101,10 +103,10 @@ def cubic_1d_interpolate_gap_factory(
         The x data to interpolate over.
     y : ndarray
         The y data to interpolate over.
-    gap_delta : float, default = None
+    gap_size : float, default = None
         The maximum difference between two ordered x-coordinates before the
         region within the difference is considered to be a gap. If None,
-        we assume that there is no gaps.
+        we assume that there are no gaps.
 
     Returns
     -------
@@ -113,7 +115,7 @@ def cubic_1d_interpolate_gap_factory(
     """
     # Defaults for the gap spacing limit. Note, if no gap is provided, there
     # really is no reason to be using this function.
-    if gap_delta is None:
+    if gap_size is None:
         logging.warning(
             warning_type=logging.AlgorithmWarning,
             message=(
@@ -121,28 +123,28 @@ def cubic_1d_interpolate_gap_factory(
                 " interpolation, it is strictly better."
             ),
         )
-        gap_delta = -1
+        gap_size = +np.inf
     else:
-        gap_delta = float(gap_delta)
+        gap_size = float(gap_size)
 
-    # Clean up the data, removing anything that is not usable. We also sort it.
-    clean_index = np.isfinite(x) & np.isfinite(y)
-    sort_index = np.argsort(x[clean_index])
-    clean_x = x[clean_index][sort_index]
-    clean_y = y[clean_index][sort_index]
+    # Clean up the data, removing anything that is not usable.
+    clean_x, clean_y = library.array.clean_finite_arrays(x, y)
+    sort_index = np.argsort(clean_x)
+    sort_x = clean_x[sort_index]
+    sort_y = clean_y[sort_index]
 
     # We next need to find where the bounds of the gap regions are, measuring
     # based on the gap delta criteria.
-    x_delta = clean_x[1:] - clean_x[:-1]
-    is_gap = x_delta > gap_delta
+    x_delta = sort_x[1:] - sort_x[:-1]
+    is_gap = x_delta > gap_size
     # And the bounds of each of the gaps.
-    upper_gap = clean_x[1:][is_gap]
+    upper_gap = sort_x[1:][is_gap]
     lower_gap = clean_x[:-1][is_gap]
 
     # The basic cubic interpolator function.
     cubic_interpolate_function = cubic_1d_interpolate_factory(
-        x=clean_x,
-        y=clean_y,
+        x=sort_x,
+        y=sort_y,
     )
     # And we attach the gap limits to it so it can carry it. We use our
     # module name to avoid name conflicts with anything the Scipy project may
@@ -167,9 +169,10 @@ def cubic_1d_interpolate_gap_factory(
         # We first interpolate the data.
         output_data = cubic_interpolate_function(input_data)
         # And, we NaN out any points within the gaps of the domain of the data.
-        for upperdex, lowerdex in zip(
-            cubic_interpolate_function.lezargus_upper_gap,
+        for lowerdex, upperdex in zip(
             cubic_interpolate_function.lezargus_lower_gap,
+            cubic_interpolate_function.lezargus_upper_gap,
+
             strict=True,
         ):
             # We NaN out points based on the input. We do not want to NaN the
@@ -206,9 +209,7 @@ def nearest_neighbor_1d_interpolate_factory(
         The interpolation function of the data.
     """
     # Clean up the data, removing anything that is not usable.
-    clean_index = np.isfinite(x) & np.isfinite(y)
-    clean_x = x[clean_index]
-    clean_y = y[clean_index]
+    clean_x, clean_y = library.array.clean_finite_arrays(x, y)
     # Create a cubic spline.
     nearest_neighbor_function = scipy.interpolate.interp1d(
         x=clean_x,
