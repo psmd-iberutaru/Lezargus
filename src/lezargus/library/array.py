@@ -18,6 +18,46 @@ from lezargus.library import hint
 from lezargus.library import logging
 
 
+def clean_finite_arrays(*arrays:hint.ndarray) -> tuple[hint.ndarray]:
+    """Return parallel arrays with any non-finite number removed from them.
+
+    We remove all parallel-aligned values (aligned with each other) which are
+    not a finite number, such as NaN and infinity. Because we remove data, 
+    the shape of the output arrays will likely be very different to the input.
+
+    Parameters
+    ----------
+    *arrays : ndarray
+        The arrays, which are all parallel, to remove the non-finite numbers 
+        from.
+
+    Returns
+    -------
+    clean_arrays : tuple
+        The cleaned arrays, arranged in a tuple, in the exact order they were
+        input in as `arrays`.
+    """
+    # We need to make sure each array is compatible with themselves. We assume
+    # the first array is the reference array for size and shape comparison.
+    reference_array = arrays[0]
+    sized_arrays = []
+    for index, arraydex in enumerate(arrays):
+        compatible, compatible_array = verify_shape_compatibility(reference_array=reference_array, test_array=arraydex, return_broadcast=True)
+        # We skip the non-compatible arrays.
+        if compatible:
+            sized_arrays.append(compatible_array)
+        else:
+            logging.error(error_type=logging.InputError, message="Input array index {i} shape {i_sh} is not compatible with the first array reference shape of {r_sh}. Skipping.".format(i=index, i_sh=arraydex.shape, r_sh=reference_array.shape))
+
+    # We now find the aligned clean index of all of the arrays.
+    clean_index = np.full_like(reference_array, True, dtype=bool)
+    for arraydex in sized_arrays:
+        clean_index = clean_index & np.isfinite(arraydex, dtype=bool)
+    
+    # Finally, only returning the cleaned arrays. 
+    clean_arrays = tuple(arraydex[clean_index] for arraydex in sized_arrays)
+    return clean_arrays
+
 def verify_shape_compatibility(
     reference_array: hint.ndarray,
     test_array: hint.ndarray,

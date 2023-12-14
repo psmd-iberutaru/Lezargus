@@ -225,14 +225,7 @@ class LezargusSpectra(LezargusContainerArithmetic):
         """
         # Interpolation cannot deal with NaNs, so we exclude any set of data
         # which includes them.
-        clean_index = (
-            np.isfinite(self.wavelength)
-            & np.isfinite(self.data)
-            & np.isfinite(self.uncertainty)
-        )
-        clean_wavelength = self.wavelength[clean_index]
-        clean_data = self.data[clean_index]
-        clean_uncertainty = self.uncertainty[clean_index]
+        clean_wavelength, clean_data, clean_uncertainty = library.array.clean_finite_arrays(self.wavelength, self.data, self.uncertainty)
 
         # If the wavelengths we are using to interpolate to are not all
         # numbers, it is a good idea to warn. It is not a good idea to change
