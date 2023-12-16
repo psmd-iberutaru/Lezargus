@@ -148,15 +148,19 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.fits.html">lezargus.library.fits module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.flags.html">lezargus.library.flags module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.hint.html">lezargus.library.hint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.interpolate.html">lezargus.library.interpolate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.logging.html">lezargus.library.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.old_stitch.html">lezargus.library.old_stitch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.path.html">lezargus.library.path module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.stitch.html">lezargus.library.stitch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.uncertainty.html">lezargus.library.uncertainty module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__main__.html">lezargus.__main__ module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__version__.html">lezargus.__version__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.initialize.html">lezargus.initialize module</a></li>
 </ul>
 </li>
 </ul>
@@ -267,12 +271,9 @@ document.write(`
 <span class="sd">Use the functions here when logging or issuing errors or other information.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="kn">import</span> <span class="nn">glob</span>
 <span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">string</span>
 <span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">uuid</span>
 
 <span class="kn">import</span> <span class="nn">colorama</span>
 
@@ -319,15 +320,12 @@ document.write(`
 <div class="viewcode-block" id="NotSupportedError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.NotSupportedError">[docs]</a><span class="k">class</span> <span class="nc">NotSupportedError</span><span class="p">(</span><span class="n">LezargusBaseError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used for something which is beyond the scope of work.</span>
 
-<span class="sd">    This is an error to be used when what is trying to be done is not</span>
-<span class="sd">    implemented. We use this error as catch all for two main cases:</span>
-
-<span class="sd">    - The functionality is originally intended, but not yet implemented.</span>
-<span class="sd">    - The functionality is not currently supported, and will not be for the</span>
-<span class="sd">      forseeable future.</span>
+<span class="sd">    This error is to be used when whatever procedure is expected will not be</span>
+<span class="sd">    done for a variety of reasons. Exactly why should be explained by the error</span>
+<span class="sd">    itself.</span>
 
 <span class="sd">    For all other cases, the usages of warnings and other errors are probably</span>
-<span class="sd">    better. Exactly which case applies should be explained by the error itself.</span>
+<span class="sd">    better.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
@@ -337,6 +335,17 @@ document.write(`
 <span class="sd">    This is an error used in cases where the source of the error has not</span>
 <span class="sd">    been determined and so a more helpful error message or mitigation strategy</span>
 <span class="sd">    cannot be devised.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+<div class="viewcode-block" id="ToDoError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.ToDoError">[docs]</a><span class="k">class</span> <span class="nc">ToDoError</span><span class="p">(</span><span class="n">LezargusBaseError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used for something which is not yet implemented.</span>
+
+<span class="sd">    This is an error to be used when what is trying to be done is not yet</span>
+<span class="sd">    implemented, but it is supposed to be. This type of error is rare and</span>
+<span class="sd">    is used as a placeholder for actual functionality. This is an error because</span>
+<span class="sd">    not all cases can be bypassed like other levels of logging, and,</span>
+<span class="sd">    fundamentally, code is missing.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
@@ -408,7 +417,7 @@ document.write(`
 
 
 <div class="viewcode-block" id="ReadOnlyError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.ReadOnlyError">[docs]</a><span class="k">class</span> <span class="nc">ReadOnlyError</span><span class="p">(</span><span class="n">LezargusError</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used for problems with read-only files.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used for problems with read-only files and variables.</span>
 
 <span class="sd">    If the file is read-only and it needs to be read, use FileError. This</span>
 <span class="sd">    error is to be used only when variables or files are assumed to be read</span>
@@ -470,7 +479,6 @@ document.write(`
 <span class="sd">    a loss of important data, for example, because a file is not saved or</span>
 <span class="sd">    only part of a data file is read.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
-
 
 
 <div class="viewcode-block" id="FileWarning"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.FileWarning">[docs]</a><span class="k">class</span> <span class="nc">FileWarning</span><span class="p">(</span><span class="n">LezargusWarning</span><span class="p">):</span>
@@ -1029,72 +1037,6 @@ document.write(`
     <span class="k">raise</span> <span class="n">LezargusBaseError</span><span class="p">(</span>
         <span class="n">msg</span><span class="p">,</span>
     <span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="initialize_default_logging_outputs"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.initialize_default_logging_outputs">[docs]</a><span class="k">def</span> <span class="nf">initialize_default_logging_outputs</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize the default logging console and file outputs.</span>
-
-<span class="sd">    This function initializes the logging outputs based on configured</span>
-<span class="sd">    parameters. Additional logging outputs may be provided.</span>
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    None</span>
-
-<span class="sd">    Return</span>
-<span class="sd">    ------</span>
-<span class="sd">    None</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Construct the default console and file-based logging functions. The file</span>
-    <span class="c1"># is saved in the package directory.</span>
-    <span class="n">library</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">add_console_logging_handler</span><span class="p">(</span>
-        <span class="n">console</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">,</span>
-        <span class="n">log_level</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">LOGGING_INFO_LEVEL</span><span class="p">,</span>
-        <span class="n">use_color</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">LOGGING_STREAM_USE_COLOR</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="c1"># The default file logging is really a temporary thing (just in case) and</span>
-    <span class="c1"># should not kept from run to run. Moreover, if there are multiple</span>
-    <span class="c1"># instances of Lezargus being run, they all cannot use the same log file</span>
-    <span class="c1"># and so we encode a UUID tag.</span>
-
-    <span class="c1"># Adding a new file handler. We add the file handler first only so we can</span>
-    <span class="c1"># capture the log messages when we try and remove the old logs.</span>
-    <span class="n">unique_hex_identifier</span> <span class="o">=</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span>
-    <span class="n">default_log_file_filename</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
-        <span class="n">directory</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">MODULE_INSTALLATION_PATH</span><span class="p">,</span>
-        <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;lezargus_&quot;</span> <span class="o">+</span> <span class="n">unique_hex_identifier</span><span class="p">,</span>
-        <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="n">library</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">add_file_logging_handler</span><span class="p">(</span>
-        <span class="n">filename</span><span class="o">=</span><span class="n">default_log_file_filename</span><span class="p">,</span>
-        <span class="n">log_level</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">LOGGING_DEBUG_LEVEL</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="c1"># We try and remove all of the log files which currently exist, if we can.</span>
-    <span class="c1"># We make an exception for the one which we are going to use, we do not</span>
-    <span class="c1"># want to clog the log with it.</span>
-    <span class="n">old_log_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span>
-        <span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
-            <span class="n">directory</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">MODULE_INSTALLATION_PATH</span><span class="p">,</span>
-            <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;lezargus*&quot;</span><span class="p">,</span>
-            <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;log&quot;</span><span class="p">,</span>
-        <span class="p">),</span>
-        <span class="n">recursive</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="k">for</span> <span class="n">filedex</span> <span class="ow">in</span> <span class="n">old_log_files</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">filedex</span> <span class="o">==</span> <span class="n">default_log_file_filename</span><span class="p">:</span>
-            <span class="c1"># We do not try to delete the current file.</span>
-            <span class="k">continue</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">filedex</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
-            <span class="c1"># The file is likely in use by another logger or Lezargus instance.</span>
-            <span class="c1"># The deletion can wait.</span>
-            <span class="n">library</span><span class="o">.</span><span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
-                    <span class="s2">&quot;The temporary log file </span><span class="si">{lfl}</span><span class="s2"> is currently in-use, we defer&quot;</span>
-                    <span class="s2">&quot; deletion.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">lfl</span><span class="o">=</span><span class="n">filedex</span><span class="p">)</span>
-                <span class="p">),</span>
-            <span class="p">)</span></div>
 </pre></div>
 
                 </article>

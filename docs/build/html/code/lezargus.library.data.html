@@ -151,15 +151,19 @@
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.fits.html">lezargus.library.fits module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.flags.html">lezargus.library.flags module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.hint.html">lezargus.library.hint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.interpolate.html">lezargus.library.interpolate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.logging.html">lezargus.library.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.old_stitch.html">lezargus.library.old_stitch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.path.html">lezargus.library.path module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.stitch.html">lezargus.library.stitch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.uncertainty.html">lezargus.library.uncertainty module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="lezargus.__main__.html">lezargus.__main__ module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="lezargus.__version__.html">lezargus.__version__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lezargus.initialize.html">lezargus.initialize module</a></li>
 </ul>
 </li>
 </ul>
@@ -310,7 +314,9 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.data.initialize_data_files"><code class="docutils literal notranslate"><span class="pre">initialize_data_files()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.data._zero_buffer_custom_filters"><code class="docutils literal notranslate"><span class="pre">_zero_buffer_custom_filters()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.data.add_data_object"><code class="docutils literal notranslate"><span class="pre">add_data_object()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.data.custom_rectangular_filter"><code class="docutils literal notranslate"><span class="pre">custom_rectangular_filter()</span></code></a></li>
 </ul>
             </nav>
         </div>
@@ -328,20 +334,68 @@ document.write(`
 <p>This file deals with the loading in and saving of data files which are in
 the /data/ directory of Lezargus. Moreover, the contents of the data
 are accessed using attributes of this module.</p>
+<p>Also, custom functions are provided to make things which are similarly
+contained in the data directory. You can find all of these functions under the
+<cite>custom_*</cite> namespace.</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="lezargus.library.data.initialize_data_files">
-<span class="sig-prename descclassname"><span class="pre">lezargus.library.data.</span></span><span class="sig-name descname"><span class="pre">initialize_data_files</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lezargus/library/data.html#initialize_data_files"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.data.initialize_data_files" title="Permalink to this definition">#</a></dt>
-<dd><p>Create all of the data files and instances of classes.</p>
-<p>This function creates all of the data objects which represent all of the
-data and saves it to this module. This must be done in a function, and
-called by the initialization of the module, to avoid import errors and
-dependency issues.</p>
+<dt class="sig sig-object py" id="lezargus.library.data._zero_buffer_custom_filters">
+<span class="sig-prename descclassname"><span class="pre">lezargus.library.data.</span></span><span class="sig-name descname"><span class="pre">_zero_buffer_custom_filters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wavelength</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">transmission</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><span class="pre">ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><span class="pre">numpy.ndarray</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><span class="pre">numpy.ndarray</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/lezargus/library/data.html#_zero_buffer_custom_filters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.data._zero_buffer_custom_filters" title="Permalink to this definition">#</a></dt>
+<dd><p>Create a zero transmission buffer on either side of the filter.</p>
+<p>This function is a convenience function for creating tail ends of created
+custom filter profiles with zero transmission, as expected.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>None</strong> – </p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wavelength</strong> (<em>ndarray</em>) – The original wavelength of the filter.</p></li>
+<li><p><strong>transmission</strong> (<em>ndarray</em>) – The original transmission wavelength of the filter.</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>zero_wavelength</strong> (<em>ndarray</em>) – The wavelength, with added points for the zero section.</p></li>
+<li><p><strong>zero_transmission</strong> (<em>ndarray</em>) – The transmission, with added points for the zero section, of zero.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lezargus.library.data.add_data_object">
+<span class="sig-prename descclassname"><span class="pre">lezargus.library.data.</span></span><span class="sig-name descname"><span class="pre">add_data_object</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">object</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lezargus/library/data.html#add_data_object"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.data.add_data_object" title="Permalink to this definition">#</a></dt>
+<dd><p>Add a data variable to the library data module.</p>
+<p>If the addition of a new data object with the same name as one already
+present, we raise an error as these values are technically constants.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<em>str</em>) – The name of the data object to be added, it will be coerced to be all
+capitalized as it ought to be effectively a constant.</p></li>
+<li><p><strong>data</strong> (<em>object</em>) – The data object to be added to the data module.</p></li>
+<li><p><strong>force</strong> (<em>bool</em>) – Force the loading of the data object regardless of any critical errors.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lezargus.library.data.custom_rectangular_filter">
+<span class="sig-prename descclassname"><span class="pre">lezargus.library.data.</span></span><span class="sig-name descname"><span class="pre">custom_rectangular_filter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lower_limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">upper_limit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="lezargus.container.spectra.html#lezargus.container.spectra.LezargusSpectra" title="lezargus.container.spectra.LezargusSpectra"><span class="pre">LezargusSpectra</span></a></span></span><a class="reference internal" href="../_modules/lezargus/library/data.html#custom_rectangular_filter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.data.custom_rectangular_filter" title="Permalink to this definition">#</a></dt>
+<dd><p>Make a custom rectangular filter profile.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lower_limit</strong> (<em>float</em>) – The lower limit of the rectangular filter. This value is typically
+a wavelength.</p></li>
+<li><p><strong>upper_limit</strong> (<em>float</em>) – The upper limit of the rectangular filter. This value is typically
+a wavelength.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>rectangular_filter</strong> – The filter, as defined.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="lezargus.container.spectra.html#lezargus.container.spectra.LezargusSpectra" title="lezargus.container.spectra.LezargusSpectra">LezargusSpectra</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -396,7 +450,9 @@ dependency issues.</p>
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.data.initialize_data_files"><code class="docutils literal notranslate"><span class="pre">initialize_data_files()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.data._zero_buffer_custom_filters"><code class="docutils literal notranslate"><span class="pre">_zero_buffer_custom_filters()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.data.add_data_object"><code class="docutils literal notranslate"><span class="pre">add_data_object()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.data.custom_rectangular_filter"><code class="docutils literal notranslate"><span class="pre">custom_rectangular_filter()</span></code></a></li>
 </ul>
   </nav></div>
 

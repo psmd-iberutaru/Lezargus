@@ -151,15 +151,19 @@
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.fits.html">lezargus.library.fits module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.flags.html">lezargus.library.flags module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.hint.html">lezargus.library.hint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.interpolate.html">lezargus.library.interpolate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.logging.html">lezargus.library.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.old_stitch.html">lezargus.library.old_stitch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.path.html">lezargus.library.path module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.stitch.html">lezargus.library.stitch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.uncertainty.html">lezargus.library.uncertainty module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="lezargus.__main__.html">lezargus.__main__ module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="lezargus.__version__.html">lezargus.__version__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lezargus.initialize.html">lezargus.initialize module</a></li>
 </ul>
 </li>
 </ul>
@@ -312,9 +316,11 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.array.bin_cube_array_spatially"><code class="docutils literal notranslate"><span class="pre">bin_cube_array_spatially()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.array.bin_image_array"><code class="docutils literal notranslate"><span class="pre">bin_image_array()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.array.clean_finite_arrays"><code class="docutils literal notranslate"><span class="pre">clean_finite_arrays()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.array.convolve_cube_by_image_array"><code class="docutils literal notranslate"><span class="pre">convolve_cube_by_image_array()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.array.rotate_image_array"><code class="docutils literal notranslate"><span class="pre">rotate_image_array()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.array.translate_image_array"><code class="docutils literal notranslate"><span class="pre">translate_image_array()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.array.verify_shape_compatibility"><code class="docutils literal notranslate"><span class="pre">verify_shape_compatibility()</span></code></a></li>
 </ul>
             </nav>
         </div>
@@ -400,6 +406,28 @@ not touched.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt class="sig sig-object py" id="lezargus.library.array.clean_finite_arrays">
+<span class="sig-prename descclassname"><span class="pre">lezargus.library.array.</span></span><span class="sig-name descname"><span class="pre">clean_finite_arrays</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">arrays</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><span class="pre">ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><span class="pre">numpy.ndarray</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/lezargus/library/array.html#clean_finite_arrays"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.array.clean_finite_arrays" title="Permalink to this definition">#</a></dt>
+<dd><p>Return parallel arrays with any non-finite number removed from them.</p>
+<p>We remove all parallel-aligned values (aligned with each other) which are
+not a finite number, such as NaN and infinity. Because we remove data,
+the shape of the output arrays will likely be very different to the input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>*arrays</strong> (<em>ndarray</em>) – The arrays, which are all parallel, to remove the non-finite numbers
+from.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>clean_arrays</strong> – The cleaned arrays, arranged in a tuple, in the exact order they were
+input in as <cite>arrays</cite>.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="lezargus.library.array.convolve_cube_by_image_array">
 <span class="sig-prename descclassname"><span class="pre">lezargus.library.array.</span></span><span class="sig-name descname"><span class="pre">convolve_cube_by_image_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cube</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><span class="pre">ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><span class="pre">ndarray</span></a></span></span><a class="reference internal" href="../_modules/lezargus/library/array.html#convolve_cube_by_image_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.array.convolve_cube_by_image_array" title="Permalink to this definition">#</a></dt>
 <dd><p>Convolve the image slices of a 3D cube with a 2D image.</p>
@@ -469,6 +497,33 @@ is null.</p>
 </dl>
 </dd></dl>
 
+<dl class="py function">
+<dt class="sig sig-object py" id="lezargus.library.array.verify_shape_compatibility">
+<span class="sig-prename descclassname"><span class="pre">lezargus.library.array.</span></span><span class="sig-name descname"><span class="pre">verify_shape_compatibility</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reference_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_array</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_broadcast</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><span class="pre">numpy.ndarray</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/lezargus/library/array.html#verify_shape_compatibility"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.array.verify_shape_compatibility" title="Permalink to this definition">#</a></dt>
+<dd><p>Verify if a test array is compatible with the reference array.</p>
+<p>This function serves to see if two arrays are compatible in shape. If
+the “test” array is just a single number, we allow it to broadcast, and
+return it if needed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>reference_array</strong> (<em>ndarray</em>) – The reference array which we are testing against.</p></li>
+<li><p><strong>test_array</strong> (<em>ndarray</em>) – The test array that we are testing to.</p></li>
+<li><p><strong>return_broadcast</strong> (<em>bool</em><em>, </em><em>default = False</em>) – If True, we return a compatible array built from the test array
+information.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>verify</strong> (<em>bool</em>) – The verification.</p></li>
+<li><p><strong>broadcast</strong> (<em>ndarray, optional</em>) – The broadcast, we only return this if <cite>return_broadcast</cite> was provided.
+If verify is False, then this is None.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
 </section>
 
 
@@ -521,9 +576,11 @@ is null.</p>
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.array.bin_cube_array_spatially"><code class="docutils literal notranslate"><span class="pre">bin_cube_array_spatially()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.array.bin_image_array"><code class="docutils literal notranslate"><span class="pre">bin_image_array()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.array.clean_finite_arrays"><code class="docutils literal notranslate"><span class="pre">clean_finite_arrays()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.array.convolve_cube_by_image_array"><code class="docutils literal notranslate"><span class="pre">convolve_cube_by_image_array()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.array.rotate_image_array"><code class="docutils literal notranslate"><span class="pre">rotate_image_array()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.array.translate_image_array"><code class="docutils literal notranslate"><span class="pre">translate_image_array()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.array.verify_shape_compatibility"><code class="docutils literal notranslate"><span class="pre">verify_shape_compatibility()</span></code></a></li>
 </ul>
   </nav></div>
 

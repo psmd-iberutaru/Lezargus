@@ -70,27 +70,30 @@ def calculate_filter_zero_point_vega(
         skip_flags=True,
     )
     # Integrating...
-    star_filter_flux, star_filter_flux_uncertainty = (
-        library.uncertainty.multiply(
-            multiplier=star_flux,
-            multiplicand=filter_spectra.data,
-            multiplier_uncertainty=star_uncertainty,
-            multiplicand_uncertainty=filter_spectra.uncertainty,
-        )
+    (
+        star_filter_flux,
+        star_filter_flux_uncertainty,
+    ) = library.uncertainty.multiply(
+        multiplier=star_flux,
+        multiplicand=filter_spectra.data,
+        multiplier_uncertainty=star_uncertainty,
+        multiplicand_uncertainty=filter_spectra.uncertainty,
     )
-    star_filter_integral, star_filter_integral_uncertainty = (
-        library.uncertainty.integrate_discrete(
-            variable=filter_spectra.wavelength,
-            integrand=star_filter_flux,
-            integrand_uncertainty=star_filter_flux_uncertainty,
-        )
+    (
+        star_filter_integral,
+        star_filter_integral_uncertainty,
+    ) = library.uncertainty.integrate_discrete(
+        variable=filter_spectra.wavelength,
+        integrand=star_filter_flux,
+        integrand_uncertainty=star_filter_flux_uncertainty,
     )
-    filter_integral, filter_integral_uncertainty = (
-        library.uncertainty.integrate_discrete(
-            variable=filter_spectra.wavelength,
-            integrand=filter_spectra.data,
-            integrand_uncertainty=filter_spectra.uncertainty,
-        )
+    (
+        filter_integral,
+        filter_integral_uncertainty,
+    ) = library.uncertainty.integrate_discrete(
+        variable=filter_spectra.wavelength,
+        integrand=filter_spectra.data,
+        integrand_uncertainty=filter_spectra.uncertainty,
     )
 
     # The zero point itself. Going through the equation with propagation.
@@ -183,27 +186,30 @@ def calculate_filter_magnitude_vega(
         skip_flags=True,
     )
     # Integrating...
-    star_filter_flux, star_filter_flux_uncertainty = (
-        library.uncertainty.multiply(
-            multiplier=star_flux,
-            multiplicand=filter_spectra.data,
-            multiplier_uncertainty=star_uncertainty,
-            multiplicand_uncertainty=filter_spectra.uncertainty,
-        )
+    (
+        star_filter_flux,
+        star_filter_flux_uncertainty,
+    ) = library.uncertainty.multiply(
+        multiplier=star_flux,
+        multiplicand=filter_spectra.data,
+        multiplier_uncertainty=star_uncertainty,
+        multiplicand_uncertainty=filter_spectra.uncertainty,
     )
-    star_filter_integral, star_filter_integral_uncertainty = (
-        library.uncertainty.integrate_discrete(
-            variable=filter_spectra.wavelength,
-            integrand=star_filter_flux,
-            integrand_uncertainty=star_filter_flux_uncertainty,
-        )
+    (
+        star_filter_integral,
+        star_filter_integral_uncertainty,
+    ) = library.uncertainty.integrate_discrete(
+        variable=filter_spectra.wavelength,
+        integrand=star_filter_flux,
+        integrand_uncertainty=star_filter_flux_uncertainty,
     )
-    filter_integral, filter_integral_uncertainty = (
-        library.uncertainty.integrate_discrete(
-            variable=filter_spectra.wavelength,
-            integrand=filter_spectra.data,
-            integrand_uncertainty=filter_spectra.uncertainty,
-        )
+    (
+        filter_integral,
+        filter_integral_uncertainty,
+    ) = library.uncertainty.integrate_discrete(
+        variable=filter_spectra.wavelength,
+        integrand=filter_spectra.data,
+        integrand_uncertainty=filter_spectra.uncertainty,
     )
     # Going through the equation via propagation.
     _frac, _frac_uncert = library.uncertainty.divide(
@@ -305,28 +311,31 @@ def calculate_photometric_correction_factor_vega(
         skip_mask=True,
         skip_flags=True,
     )
-    star_filter_flux, star_filter_flux_uncertainty = (
-        library.uncertainty.multiply(
-            multiplier=star_flux,
-            multiplicand=filter_spectra.data,
-            multiplier_uncertainty=star_uncertainty,
-            multiplicand_uncertainty=filter_spectra.uncertainty,
-        )
+    (
+        star_filter_flux,
+        star_filter_flux_uncertainty,
+    ) = library.uncertainty.multiply(
+        multiplier=star_flux,
+        multiplicand=filter_spectra.data,
+        multiplier_uncertainty=star_uncertainty,
+        multiplicand_uncertainty=filter_spectra.uncertainty,
     )
     # Integrating.
-    star_filter_integral, star_filter_integral_uncertainty = (
-        library.uncertainty.integrate_discrete(
-            variable=filter_spectra.wavelength,
-            integrand=star_filter_flux,
-            integrand_uncertainty=star_filter_flux_uncertainty,
-        )
+    (
+        star_filter_integral,
+        star_filter_integral_uncertainty,
+    ) = library.uncertainty.integrate_discrete(
+        variable=filter_spectra.wavelength,
+        integrand=star_filter_flux,
+        integrand_uncertainty=star_filter_flux_uncertainty,
     )
-    filter_integral, filter_integral_uncertainty = (
-        library.uncertainty.integrate_discrete(
-            variable=filter_spectra.wavelength,
-            integrand=filter_spectra.data,
-            integrand_uncertainty=filter_spectra.uncertainty,
-        )
+    (
+        filter_integral,
+        filter_integral_uncertainty,
+    ) = library.uncertainty.integrate_discrete(
+        variable=filter_spectra.wavelength,
+        integrand=filter_spectra.data,
+        integrand_uncertainty=filter_spectra.uncertainty,
     )
 
     # The inverted fraction section of the calculation.
@@ -358,12 +367,13 @@ def calculate_photometric_correction_factor_vega(
     )
 
     # And computing the factor itself.
-    correction_factor, correction_factor_uncertainty = (
-        library.uncertainty.multiply(
-            multiplier=exponent,
-            multiplicand=fraction,
-            multiplier_uncertainty=exponent_uncertainty,
-            multiplicand_uncertainty=fraction_uncertainty,
-        )
+    (
+        correction_factor,
+        correction_factor_uncertainty,
+    ) = library.uncertainty.multiply(
+        multiplier=exponent,
+        multiplicand=fraction,
+        multiplier_uncertainty=exponent_uncertainty,
+        multiplicand_uncertainty=fraction_uncertainty,
     )
     return correction_factor, correction_factor_uncertainty

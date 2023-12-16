@@ -234,7 +234,9 @@ def stitch_spectra_arrays(
                 message=(
                     "Interpolation routines cannot be derived from the {i}"
                     " index spectra; likely not enough valid data. Skipping."
-                    .format(i=index)
+                    .format(
+                        i=index,
+                    )
                 ),
             )
             continue
@@ -269,13 +271,14 @@ def stitch_spectra_arrays(
     for index, wavedex in enumerate(total_wavelength):
         # We use the averaging function to determine the data. We also
         # use the function's expected uncertainty propagation.
-        temp_data, temp_uncertainty = (
-            __spectra_rewrapped_interpolation_average_function(
-                data=total_data[:, index],
-                uncertainty=total_uncertainty[:, index],
-                weights=total_weights[:, index],
-                average_function=average_function,
-            )
+        (
+            temp_data,
+            temp_uncertainty,
+        ) = __spectra_rewrapped_interpolation_average_function(
+            data=total_data[:, index],
+            uncertainty=total_uncertainty[:, index],
+            weights=total_weights[:, index],
+            average_function=average_function,
         )
         average_wavelength.append(wavedex)
         average_data.append(temp_data)

@@ -658,15 +658,14 @@ def initialize_data_filter_zero_point_values(
 
     # Calculating Johnson filters zero point values.
     # Johnson U band.
-    johnson_u_zp, johnson_u_zpu = (
-        library.photometry.calculate_filter_zero_point_vega(
-            filter_spectra=library.data.FILTER_JOHNSON_U_PHOTON,
-            standard_spectra=library.data.STAR_A0V,
-            standard_filter_magnitude=library.data.STAR_A0V.header["LZPM_J_U"],
-            standard_filter_uncertainty=library.data.STAR_A0V.header[
-                "LZPU_J_U"
-            ],
-        )
+    (
+        johnson_u_zp,
+        johnson_u_zpu,
+    ) = library.photometry.calculate_filter_zero_point_vega(
+        filter_spectra=library.data.FILTER_JOHNSON_U_PHOTON,
+        standard_spectra=library.data.STAR_A0V,
+        standard_filter_magnitude=library.data.STAR_A0V.header["LZPM_J_U"],
+        standard_filter_uncertainty=library.data.STAR_A0V.header["LZPU_J_U"],
     )
     library.data.add_data_object(
         name="ZERO_POINT_VEGA_JOHNSON_U",
@@ -677,15 +676,14 @@ def initialize_data_filter_zero_point_values(
         data=johnson_u_zpu,
     )
     # Johnson B band.
-    johnson_b_zp, johnson_b_zpu = (
-        library.photometry.calculate_filter_zero_point_vega(
-            filter_spectra=library.data.FILTER_JOHNSON_B_PHOTON,
-            standard_spectra=library.data.STAR_A0V,
-            standard_filter_magnitude=library.data.STAR_A0V.header["LZPM_J_B"],
-            standard_filter_uncertainty=library.data.STAR_A0V.header[
-                "LZPU_J_B"
-            ],
-        )
+    (
+        johnson_b_zp,
+        johnson_b_zpu,
+    ) = library.photometry.calculate_filter_zero_point_vega(
+        filter_spectra=library.data.FILTER_JOHNSON_B_PHOTON,
+        standard_spectra=library.data.STAR_A0V,
+        standard_filter_magnitude=library.data.STAR_A0V.header["LZPM_J_B"],
+        standard_filter_uncertainty=library.data.STAR_A0V.header["LZPU_J_B"],
     )
     library.data.add_data_object(
         name="ZERO_POINT_VEGA_JOHNSON_B",
@@ -696,15 +694,14 @@ def initialize_data_filter_zero_point_values(
         data=johnson_b_zpu,
     )
     # Johnson V band.
-    johnson_v_zp, johnson_v_zpu = (
-        library.photometry.calculate_filter_zero_point_vega(
-            filter_spectra=library.data.FILTER_JOHNSON_V_PHOTON,
-            standard_spectra=library.data.STAR_A0V,
-            standard_filter_magnitude=library.data.STAR_A0V.header["LZPM_J_V"],
-            standard_filter_uncertainty=library.data.STAR_A0V.header[
-                "LZPU_J_V"
-            ],
-        )
+    (
+        johnson_v_zp,
+        johnson_v_zpu,
+    ) = library.photometry.calculate_filter_zero_point_vega(
+        filter_spectra=library.data.FILTER_JOHNSON_V_PHOTON,
+        standard_spectra=library.data.STAR_A0V,
+        standard_filter_magnitude=library.data.STAR_A0V.header["LZPM_J_V"],
+        standard_filter_uncertainty=library.data.STAR_A0V.header["LZPU_J_V"],
     )
     library.data.add_data_object(
         name="ZERO_POINT_VEGA_JOHNSON_V",
@@ -723,15 +720,14 @@ def initialize_data_filter_zero_point_values(
 
     # Calculating 2MASS filters zero point values.
     # 2MASS J band.
-    mass2_j_zp, mass2_j_zpu = (
-        library.photometry.calculate_filter_zero_point_vega(
-            filter_spectra=library.data.FILTER_2MASS_J_PHOTON,
-            standard_spectra=library.data.STAR_A0V,
-            standard_filter_magnitude=library.data.STAR_A0V.header["LZPM_2_J"],
-            standard_filter_uncertainty=library.data.STAR_A0V.header[
-                "LZPU_2_J"
-            ],
-        )
+    (
+        mass2_j_zp,
+        mass2_j_zpu,
+    ) = library.photometry.calculate_filter_zero_point_vega(
+        filter_spectra=library.data.FILTER_2MASS_J_PHOTON,
+        standard_spectra=library.data.STAR_A0V,
+        standard_filter_magnitude=library.data.STAR_A0V.header["LZPM_2_J"],
+        standard_filter_uncertainty=library.data.STAR_A0V.header["LZPU_2_J"],
     )
     library.data.add_data_object(
         name="ZERO_POINT_VEGA_2MASS_J",
@@ -742,15 +738,14 @@ def initialize_data_filter_zero_point_values(
         data=mass2_j_zpu,
     )
     # 2MASS H band.
-    mass2_h_zp, mass2_h_zpu = (
-        library.photometry.calculate_filter_zero_point_vega(
-            filter_spectra=library.data.FILTER_2MASS_H_PHOTON,
-            standard_spectra=library.data.STAR_A0V,
-            standard_filter_magnitude=library.data.STAR_A0V.header["LZPM_2_H"],
-            standard_filter_uncertainty=library.data.STAR_A0V.header[
-                "LZPU_2_H"
-            ],
-        )
+    (
+        mass2_h_zp,
+        mass2_h_zpu,
+    ) = library.photometry.calculate_filter_zero_point_vega(
+        filter_spectra=library.data.FILTER_2MASS_H_PHOTON,
+        standard_spectra=library.data.STAR_A0V,
+        standard_filter_magnitude=library.data.STAR_A0V.header["LZPM_2_H"],
+        standard_filter_uncertainty=library.data.STAR_A0V.header["LZPU_2_H"],
     )
     library.data.add_data_object(
         name="ZERO_POINT_VEGA_2MASS_H",
@@ -761,15 +756,14 @@ def initialize_data_filter_zero_point_values(
         data=mass2_h_zpu,
     )
     # 2MASS Ks band.
-    mass2_ks_zp, mass2_ks_zpu = (
-        library.photometry.calculate_filter_zero_point_vega(
-            filter_spectra=library.data.FILTER_2MASS_KS_PHOTON,
-            standard_spectra=library.data.STAR_A0V,
-            standard_filter_magnitude=library.data.STAR_A0V.header["LZPM_2KS"],
-            standard_filter_uncertainty=library.data.STAR_A0V.header[
-                "LZPU_2KS"
-            ],
-        )
+    (
+        mass2_ks_zp,
+        mass2_ks_zpu,
+    ) = library.photometry.calculate_filter_zero_point_vega(
+        filter_spectra=library.data.FILTER_2MASS_KS_PHOTON,
+        standard_spectra=library.data.STAR_A0V,
+        standard_filter_magnitude=library.data.STAR_A0V.header["LZPM_2KS"],
+        standard_filter_uncertainty=library.data.STAR_A0V.header["LZPU_2KS"],
     )
     library.data.add_data_object(
         name="ZERO_POINT_VEGA_2MASS_KS",

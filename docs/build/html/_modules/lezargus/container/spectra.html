@@ -148,15 +148,19 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.fits.html">lezargus.library.fits module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.flags.html">lezargus.library.flags module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.hint.html">lezargus.library.hint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.interpolate.html">lezargus.library.interpolate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.logging.html">lezargus.library.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.old_stitch.html">lezargus.library.old_stitch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.path.html">lezargus.library.path module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.stitch.html">lezargus.library.stitch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.uncertainty.html">lezargus.library.uncertainty module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__main__.html">lezargus.__main__ module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__version__.html">lezargus.__version__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.initialize.html">lezargus.initialize module</a></li>
 </ul>
 </li>
 </ul>
@@ -267,6 +271,7 @@ document.write(`
 <span class="sd">This module and class primarily deals with spectral data.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
+<span class="kn">import</span> <span class="nn">copy</span>
 
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">scipy.interpolate</span>
@@ -357,7 +362,9 @@ document.write(`
                 <span class="n">message</span><span class="o">=</span><span class="p">(</span>
                     <span class="s2">&quot;The input data for a LezargusSpectra instantiation has a&quot;</span>
                     <span class="s2">&quot; shape </span><span class="si">{sh}</span><span class="s2">, which is not the expected one dimension.&quot;</span>
-                    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sh</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+                    <span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">sh</span><span class="o">=</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+                    <span class="p">)</span>
                 <span class="p">),</span>
             <span class="p">)</span>
         <span class="c1"># The wavelength and the data must be parallel, and thus the same</span>
@@ -488,14 +495,15 @@ document.write(`
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># Interpolation cannot deal with NaNs, so we exclude any set of data</span>
         <span class="c1"># which includes them.</span>
-        <span class="n">clean_index</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span><span class="p">)</span>
-            <span class="o">&amp;</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-            <span class="o">&amp;</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">)</span>
+        <span class="p">(</span>
+            <span class="n">clean_wavelength</span><span class="p">,</span>
+            <span class="n">clean_data</span><span class="p">,</span>
+            <span class="n">clean_uncertainty</span><span class="p">,</span>
+        <span class="p">)</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">clean_finite_arrays</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="n">clean_wavelength</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span><span class="p">[</span><span class="n">clean_index</span><span class="p">]</span>
-        <span class="n">clean_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">clean_index</span><span class="p">]</span>
-        <span class="n">clean_uncertainty</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">[</span><span class="n">clean_index</span><span class="p">]</span>
 
         <span class="c1"># If the wavelengths we are using to interpolate to are not all</span>
         <span class="c1"># numbers, it is a good idea to warn. It is not a good idea to change</span>
@@ -542,7 +550,7 @@ document.write(`
         <span class="k">else</span><span class="p">:</span>
             <span class="n">interp_mask</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">NotSupportedError</span><span class="p">,</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ToDoError</span><span class="p">,</span>
                 <span class="n">message</span><span class="o">=</span><span class="p">(</span>
                     <span class="s2">&quot;The interpolation of a mask for spectra is not yet&quot;</span>
                     <span class="s2">&quot; implemented.&quot;</span>
@@ -554,7 +562,7 @@ document.write(`
         <span class="k">else</span><span class="p">:</span>
             <span class="n">interp_flags</span> <span class="o">=</span> <span class="kc">None</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">NotSupportedError</span><span class="p">,</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ToDoError</span><span class="p">,</span>
                 <span class="n">message</span><span class="o">=</span><span class="p">(</span>
                     <span class="s2">&quot;The interpolation of flags for spectra is not yet&quot;</span>
                     <span class="s2">&quot; implemented.&quot;</span>
@@ -562,7 +570,148 @@ document.write(`
             <span class="p">)</span>
 
         <span class="c1"># All done.</span>
-        <span class="k">return</span> <span class="n">interp_data</span><span class="p">,</span> <span class="n">interp_uncertainty</span><span class="p">,</span> <span class="n">interp_mask</span><span class="p">,</span> <span class="n">interp_flags</span></div></div>
+        <span class="k">return</span> <span class="n">interp_data</span><span class="p">,</span> <span class="n">interp_uncertainty</span><span class="p">,</span> <span class="n">interp_mask</span><span class="p">,</span> <span class="n">interp_flags</span></div>
+
+<div class="viewcode-block" id="LezargusSpectra.stitch"><a class="viewcode-back" href="../../../code/lezargus.container.spectra.html#lezargus.container.spectra.LezargusSpectra.stitch">[docs]</a>    <span class="k">def</span> <span class="nf">stitch</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="s2">&quot;LezargusSpectra&quot;</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">spectra</span><span class="p">:</span> <span class="s2">&quot;LezargusSpectra&quot;</span><span class="p">,</span>
+        <span class="n">weight</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;uniform&quot;</span><span class="p">,</span>
+        <span class="n">average_function</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Callable</span><span class="p">[</span>
+            <span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+            <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+        <span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Stitch together different spectra; we do not scaling.</span>
+
+<span class="sd">        We stitch this spectra with input spectra. If the spectra are not</span>
+<span class="sd">        already to the same scale however, this will result in wildly incorrect</span>
+<span class="sd">        results. The header information is preserved, though we take what we</span>
+<span class="sd">        can from the other objects.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        *spectra : LezargusSpectra</span>
+<span class="sd">            A set of Lezargus spectra which we will stitch to this one.</span>
+<span class="sd">        weight : list[ndarray] or str, default = None</span>
+<span class="sd">            A list of the weights in the data for stitching. Each entry in</span>
+<span class="sd">            the list must have a corresponding entry in the wavelength and</span>
+<span class="sd">            data list, or None. For convenience, we provide short-cut inputs</span>
+<span class="sd">            for the following:</span>
+
+<span class="sd">                - `uniform` : Uniform weights.</span>
+<span class="sd">                - `invar` : Inverse variance weights.</span>
+<span class="sd">        average_function : Callable, str, default = None</span>
+<span class="sd">            The function used to average all of the spectra together.</span>
+<span class="sd">            It must also be able to accept weights and propagate uncertainties.</span>
+<span class="sd">            If None, we default to the weighted mean. Namely, it must be of the</span>
+<span class="sd">            form f(val, uncert, weight) = avg, uncert.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        stitch_spectra : LezargusSpectra</span>
+<span class="sd">            The spectra after stitching.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If there are no spectra to stitch, then we do nothing.</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">spectra</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># We still warn just in case.</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputWarning</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;No additional spectra objects were submitted to stitch, no&quot;</span>
+                    <span class="s2">&quot; stitching applied.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="bp">self</span>
+
+        <span class="c1"># We need to make sure these are all Lezargus spectra.</span>
+        <span class="n">lz_spectra</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">spectradex</span> <span class="ow">in</span> <span class="n">spectra</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spectradex</span><span class="p">,</span> <span class="n">LezargusSpectra</span><span class="p">):</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+                    <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                    <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                        <span class="s2">&quot;Input type </span><span class="si">{spx}</span><span class="s2"> is not a LezargusSpectra, we cannot&quot;</span>
+                        <span class="s2">&quot; use it to stitch.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">spx</span><span class="o">=</span><span class="nb">type</span><span class="p">(</span><span class="n">spectradex</span><span class="p">))</span>
+                    <span class="p">),</span>
+                <span class="p">)</span>
+            <span class="n">lz_spectra</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">spectradex</span><span class="p">)</span>
+        <span class="c1"># We finally append ourselves. Working on a copy is probably for the</span>
+        <span class="c1"># best.</span>
+        <span class="n">lz_spectra</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span>
+
+        <span class="c1"># We need to translate the weight input.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">weight</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">weight</span> <span class="o">=</span> <span class="n">weight</span><span class="o">.</span><span class="n">casefold</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">weight</span> <span class="o">==</span> <span class="s2">&quot;uniform&quot;</span><span class="p">:</span>
+                <span class="c1"># We compute uniform weights.</span>
+                <span class="n">using_weights</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">spectradex</span><span class="o">.</span><span class="n">wavelength</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">spectradex</span> <span class="ow">in</span> <span class="n">spectra</span>
+                <span class="p">]</span>
+            <span class="k">elif</span> <span class="n">weight</span> <span class="o">==</span> <span class="s2">&quot;invar&quot;</span><span class="p">:</span>
+                <span class="c1"># We compute weights which are the inverse of the variance</span>
+                <span class="c1"># in the data.</span>
+                <span class="n">using_weights</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="mi">1</span> <span class="o">/</span> <span class="n">spectradex</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">spectradex</span> <span class="ow">in</span> <span class="n">spectra</span>
+                <span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># A valid shortcut string has not been provided.</span>
+                <span class="n">accepted_options</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;uniform&quot;</span><span class="p">,</span> <span class="s2">&quot;invar&quot;</span><span class="p">]</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+                    <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                    <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                        <span class="s2">&quot;The weight shortcut option </span><span class="si">{opt}</span><span class="s2"> is not valid; it must&quot;</span>
+                        <span class="s2">&quot; be one of: </span><span class="si">{acc}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                            <span class="n">opt</span><span class="o">=</span><span class="n">weight</span><span class="p">,</span>
+                            <span class="n">acc</span><span class="o">=</span><span class="n">accepted_options</span><span class="p">,</span>
+                        <span class="p">)</span>
+                    <span class="p">),</span>
+                <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">using_weights</span> <span class="o">=</span> <span class="n">weight</span>
+
+        <span class="c1"># Next, we stitch together the data for the spectra.</span>
+        <span class="p">(</span>
+            <span class="n">stitch_wavelength</span><span class="p">,</span>
+            <span class="n">stitch_data</span><span class="p">,</span>
+            <span class="n">stitch_uncertainty</span><span class="p">,</span>
+        <span class="p">)</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">stitch</span><span class="o">.</span><span class="n">stitch_spectra_arrays</span><span class="p">(</span>
+            <span class="n">wavelength</span><span class="o">=</span><span class="p">[</span><span class="n">spectradex</span><span class="o">.</span><span class="n">wavelength</span> <span class="k">for</span> <span class="n">spectradex</span> <span class="ow">in</span> <span class="n">spectra</span><span class="p">],</span>
+            <span class="n">data</span><span class="o">=</span><span class="p">[</span><span class="n">spectradex</span><span class="o">.</span><span class="n">data</span> <span class="k">for</span> <span class="n">spectradex</span> <span class="ow">in</span> <span class="n">spectra</span><span class="p">],</span>
+            <span class="n">uncertainty</span><span class="o">=</span><span class="p">[</span><span class="n">spectradex</span><span class="o">.</span><span class="n">uncertainty</span> <span class="k">for</span> <span class="n">spectradex</span> <span class="ow">in</span> <span class="n">spectra</span><span class="p">],</span>
+            <span class="n">weight</span><span class="o">=</span><span class="n">using_weights</span><span class="p">,</span>
+            <span class="n">average_function</span><span class="o">=</span><span class="n">average_function</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># We also stitch together the flags and the mask. They are handled</span>
+        <span class="c1"># with a different function. TODO</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ToDoError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Flag and mask stitching not yet supported.&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">stitch_mask</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">stitch_flags</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># We merge the header. TODO</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ToDoError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Header stitching not yet supported.&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">stitch_header</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># We compile the new Spectra. We do not expect a subclass but we</span>
+        <span class="c1"># try and allow it.</span>
+        <span class="n">stitch_spectra</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="p">(</span>
+            <span class="n">wavelength</span><span class="o">=</span><span class="n">stitch_wavelength</span><span class="p">,</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">stitch_data</span><span class="p">,</span>
+            <span class="n">uncertainty</span><span class="o">=</span><span class="n">stitch_uncertainty</span><span class="p">,</span>
+            <span class="n">wavelength_unit</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">wavelength_unit</span><span class="p">,</span>
+            <span class="n">data_unit</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">wavelength_unit</span><span class="p">,</span>
+            <span class="n">mask</span><span class="o">=</span><span class="n">stitch_mask</span><span class="p">,</span>
+            <span class="n">flags</span><span class="o">=</span><span class="n">stitch_flags</span><span class="p">,</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">stitch_header</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">stitch_spectra</span></div></div>
 </pre></div>
 
                 </article>

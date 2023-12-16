@@ -18,7 +18,7 @@ def cubic_1d_interpolate_factory(
 ) -> hint.Callable[[hint.ndarray], hint.ndarray]:
     """Return a wrapper function around Scipy's Cubic interpolation.
 
-    We ignore NaN values for interpolation. This is a simple wrapper, for other 
+    We ignore NaN values for interpolation. This is a simple wrapper, for other
     use cases, see the entire `cubic_1d_interpolate_*_factory` namespace.
 
     Parameters
@@ -67,7 +67,8 @@ def cubic_1d_interpolate_factory(
             logging.warning(
                 warning_type=logging.AccuracyWarning,
                 message=(
-                    "Interpolating beyond original input domain, NaNs may be returned."
+                    "Interpolating beyond original input domain, NaNs may be"
+                    " returned."
                 ),
             )
         # Computing the interpolation.
@@ -78,15 +79,14 @@ def cubic_1d_interpolate_factory(
     return interpolate_wrapper
 
 
-
 def cubic_1d_interpolate_extrapolate_factory(
     x: hint.ndarray,
     y: hint.ndarray,
 ) -> hint.Callable[[hint.ndarray], hint.ndarray]:
     """Return a wrapper function around Scipy's Cubic interpolation.
 
-    We ignore NaN values for interpolation. Moreover, this function allows 
-    for extrapolation outside of the normal domain, though we still log it 
+    We ignore NaN values for interpolation. Moreover, this function allows
+    for extrapolation outside of the normal domain, though we still log it
     for debugging purposes.
 
     Parameters
@@ -133,7 +133,8 @@ def cubic_1d_interpolate_extrapolate_factory(
         ).all():
             logging.debug(
                 message=(
-                    "Extrapolation of a cubic interpolator extrapolation function attempted."
+                    "Extrapolation of a cubic interpolator extrapolation"
+                    " function attempted."
                 ),
             )
         # Computing the interpolation.
@@ -142,8 +143,6 @@ def cubic_1d_interpolate_extrapolate_factory(
 
     # All done, return the function itself.
     return interpolate_wrapper
-
-
 
 
 def cubic_1d_interpolate_gap_factory(
@@ -232,7 +231,6 @@ def cubic_1d_interpolate_gap_factory(
         for lowerdex, upperdex in zip(
             cubic_interpolate_function.lezargus_lower_gap,
             cubic_interpolate_function.lezargus_upper_gap,
-
             strict=True,
         ):
             # We NaN out points based on the input. We do not want to NaN the

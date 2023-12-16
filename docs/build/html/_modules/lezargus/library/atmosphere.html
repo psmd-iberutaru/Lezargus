@@ -148,15 +148,19 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.fits.html">lezargus.library.fits module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.flags.html">lezargus.library.flags module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.hint.html">lezargus.library.hint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.interpolate.html">lezargus.library.interpolate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.logging.html">lezargus.library.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.old_stitch.html">lezargus.library.old_stitch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.path.html">lezargus.library.path module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.stitch.html">lezargus.library.stitch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.uncertainty.html">lezargus.library.uncertainty module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__main__.html">lezargus.__main__ module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__version__.html">lezargus.__version__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.initialize.html">lezargus.initialize module</a></li>
 </ul>
 </li>
 </ul>
@@ -509,7 +513,7 @@ document.write(`
     <span class="n">abs_atm_refr</span> <span class="o">=</span> <span class="n">const_of_refr</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">zenith_angle</span><span class="p">)</span>
 
     <span class="c1"># Creating the function itself.</span>
-    <span class="n">abs_atm_refr_func</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">cubic_interpolate_1d_function</span><span class="p">(</span>
+    <span class="n">abs_atm_refr_func</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">cubic_1d_interpolate_factory</span><span class="p">(</span>
         <span class="n">x</span><span class="o">=</span><span class="n">wavelength</span><span class="p">,</span>
         <span class="n">y</span><span class="o">=</span><span class="n">abs_atm_refr</span><span class="p">,</span>
     <span class="p">)</span>

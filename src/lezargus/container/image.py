@@ -93,7 +93,9 @@ class LezargusImage(LezargusContainerArithmetic):
                 message=(
                     "The input data for a LezargusImage instantiation has a"
                     " shape {sh}, which is not the expected two dimension."
-                    .format(sh=data.shape)
+                    .format(
+                        sh=data.shape,
+                    )
                 ),
             )
 
