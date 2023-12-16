@@ -156,7 +156,9 @@ def read_lezargus_fits_file(
             critical_type=logging.FileError,
             message=(
                 "We cannot read the Lezargus FITS file {fl}, it does not exist."
-                .format(fl=filename)
+                .format(
+                    fl=filename,
+                )
             ),
         )
     else:
@@ -281,7 +283,9 @@ def write_lezargus_fits_file(
                 critical_type=logging.FileError,
                 message=(
                     "The FITS file {fl} already exists. Overwrite is False."
-                    .format(fl=filename)
+                    .format(
+                        fl=filename,
+                    )
                 ),
             )
 

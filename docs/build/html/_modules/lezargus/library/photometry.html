@@ -148,15 +148,19 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.fits.html">lezargus.library.fits module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.flags.html">lezargus.library.flags module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.hint.html">lezargus.library.hint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.interpolate.html">lezargus.library.interpolate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.logging.html">lezargus.library.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.old_stitch.html">lezargus.library.old_stitch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.path.html">lezargus.library.path module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.stitch.html">lezargus.library.stitch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.uncertainty.html">lezargus.library.uncertainty module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__main__.html">lezargus.__main__ module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__version__.html">lezargus.__version__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.initialize.html">lezargus.initialize module</a></li>
 </ul>
 </li>
 </ul>
@@ -334,27 +338,30 @@ document.write(`
         <span class="n">skip_flags</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="c1"># Integrating...</span>
-    <span class="n">star_filter_flux</span><span class="p">,</span> <span class="n">star_filter_flux_uncertainty</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span>
-            <span class="n">multiplier</span><span class="o">=</span><span class="n">star_flux</span><span class="p">,</span>
-            <span class="n">multiplicand</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
-            <span class="n">multiplier_uncertainty</span><span class="o">=</span><span class="n">star_uncertainty</span><span class="p">,</span>
-            <span class="n">multiplicand_uncertainty</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">,</span>
-        <span class="p">)</span>
+    <span class="p">(</span>
+        <span class="n">star_filter_flux</span><span class="p">,</span>
+        <span class="n">star_filter_flux_uncertainty</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span>
+        <span class="n">multiplier</span><span class="o">=</span><span class="n">star_flux</span><span class="p">,</span>
+        <span class="n">multiplicand</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+        <span class="n">multiplier_uncertainty</span><span class="o">=</span><span class="n">star_uncertainty</span><span class="p">,</span>
+        <span class="n">multiplicand_uncertainty</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">star_filter_integral</span><span class="p">,</span> <span class="n">star_filter_integral_uncertainty</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">integrate_discrete</span><span class="p">(</span>
-            <span class="n">variable</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
-            <span class="n">integrand</span><span class="o">=</span><span class="n">star_filter_flux</span><span class="p">,</span>
-            <span class="n">integrand_uncertainty</span><span class="o">=</span><span class="n">star_filter_flux_uncertainty</span><span class="p">,</span>
-        <span class="p">)</span>
+    <span class="p">(</span>
+        <span class="n">star_filter_integral</span><span class="p">,</span>
+        <span class="n">star_filter_integral_uncertainty</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">integrate_discrete</span><span class="p">(</span>
+        <span class="n">variable</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+        <span class="n">integrand</span><span class="o">=</span><span class="n">star_filter_flux</span><span class="p">,</span>
+        <span class="n">integrand_uncertainty</span><span class="o">=</span><span class="n">star_filter_flux_uncertainty</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">filter_integral</span><span class="p">,</span> <span class="n">filter_integral_uncertainty</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">integrate_discrete</span><span class="p">(</span>
-            <span class="n">variable</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
-            <span class="n">integrand</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
-            <span class="n">integrand_uncertainty</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">,</span>
-        <span class="p">)</span>
+    <span class="p">(</span>
+        <span class="n">filter_integral</span><span class="p">,</span>
+        <span class="n">filter_integral_uncertainty</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">integrate_discrete</span><span class="p">(</span>
+        <span class="n">variable</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+        <span class="n">integrand</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+        <span class="n">integrand_uncertainty</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">,</span>
     <span class="p">)</span>
 
     <span class="c1"># The zero point itself. Going through the equation with propagation.</span>
@@ -365,7 +372,9 @@ document.write(`
         <span class="n">denominator_uncertainty</span><span class="o">=</span><span class="n">filter_integral_uncertainty</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">_log</span><span class="p">,</span> <span class="n">_log_uncert</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">logarithm</span><span class="p">(</span>
-        <span class="n">antilogarithm</span><span class="o">=</span><span class="n">_frac</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">antilogarithm_uncertainty</span><span class="o">=</span><span class="n">_frac_uncert</span>
+        <span class="n">antilogarithm</span><span class="o">=</span><span class="n">_frac</span><span class="p">,</span>
+        <span class="n">base</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">antilogarithm_uncertainty</span><span class="o">=</span><span class="n">_frac_uncert</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">_mul</span><span class="p">,</span> <span class="n">_mul_uncert</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span>
         <span class="n">multiplier</span><span class="o">=</span><span class="mf">2.5</span><span class="p">,</span>
@@ -445,27 +454,30 @@ document.write(`
         <span class="n">skip_flags</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="c1"># Integrating...</span>
-    <span class="n">star_filter_flux</span><span class="p">,</span> <span class="n">star_filter_flux_uncertainty</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span>
-            <span class="n">multiplier</span><span class="o">=</span><span class="n">star_flux</span><span class="p">,</span>
-            <span class="n">multiplicand</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
-            <span class="n">multiplier_uncertainty</span><span class="o">=</span><span class="n">star_uncertainty</span><span class="p">,</span>
-            <span class="n">multiplicand_uncertainty</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">,</span>
-        <span class="p">)</span>
+    <span class="p">(</span>
+        <span class="n">star_filter_flux</span><span class="p">,</span>
+        <span class="n">star_filter_flux_uncertainty</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span>
+        <span class="n">multiplier</span><span class="o">=</span><span class="n">star_flux</span><span class="p">,</span>
+        <span class="n">multiplicand</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+        <span class="n">multiplier_uncertainty</span><span class="o">=</span><span class="n">star_uncertainty</span><span class="p">,</span>
+        <span class="n">multiplicand_uncertainty</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">star_filter_integral</span><span class="p">,</span> <span class="n">star_filter_integral_uncertainty</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">integrate_discrete</span><span class="p">(</span>
-            <span class="n">variable</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
-            <span class="n">integrand</span><span class="o">=</span><span class="n">star_filter_flux</span><span class="p">,</span>
-            <span class="n">integrand_uncertainty</span><span class="o">=</span><span class="n">star_filter_flux_uncertainty</span><span class="p">,</span>
-        <span class="p">)</span>
+    <span class="p">(</span>
+        <span class="n">star_filter_integral</span><span class="p">,</span>
+        <span class="n">star_filter_integral_uncertainty</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">integrate_discrete</span><span class="p">(</span>
+        <span class="n">variable</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+        <span class="n">integrand</span><span class="o">=</span><span class="n">star_filter_flux</span><span class="p">,</span>
+        <span class="n">integrand_uncertainty</span><span class="o">=</span><span class="n">star_filter_flux_uncertainty</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">filter_integral</span><span class="p">,</span> <span class="n">filter_integral_uncertainty</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">integrate_discrete</span><span class="p">(</span>
-            <span class="n">variable</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
-            <span class="n">integrand</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
-            <span class="n">integrand_uncertainty</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">,</span>
-        <span class="p">)</span>
+    <span class="p">(</span>
+        <span class="n">filter_integral</span><span class="p">,</span>
+        <span class="n">filter_integral_uncertainty</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">integrate_discrete</span><span class="p">(</span>
+        <span class="n">variable</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+        <span class="n">integrand</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+        <span class="n">integrand_uncertainty</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="c1"># Going through the equation via propagation.</span>
     <span class="n">_frac</span><span class="p">,</span> <span class="n">_frac_uncert</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span>
@@ -475,7 +487,9 @@ document.write(`
         <span class="n">denominator_uncertainty</span><span class="o">=</span><span class="n">filter_integral_uncertainty</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">_log</span><span class="p">,</span> <span class="n">_log_uncert</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">logarithm</span><span class="p">(</span>
-        <span class="n">antilogarithm</span><span class="o">=</span><span class="n">_frac</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">antilogarithm_uncertainty</span><span class="o">=</span><span class="n">_frac_uncert</span>
+        <span class="n">antilogarithm</span><span class="o">=</span><span class="n">_frac</span><span class="p">,</span>
+        <span class="n">base</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">antilogarithm_uncertainty</span><span class="o">=</span><span class="n">_frac_uncert</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">_mul</span><span class="p">,</span> <span class="n">_mul_uncert</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span>
         <span class="n">multiplier</span><span class="o">=-</span><span class="mf">2.5</span><span class="p">,</span>
@@ -501,8 +515,8 @@ document.write(`
     <span class="n">filter_spectra</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusSpectra</span><span class="p">,</span>
     <span class="n">star_magnitude</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">filter_zero_point</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-    <span class="n">star_magnitude_uncertainty</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-    <span class="n">filter_zero_point_uncertainty</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">star_magnitude_uncertainty</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">filter_zero_point_uncertainty</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute photometric correction factors for Vega-based filters.</span>
 
@@ -565,28 +579,31 @@ document.write(`
         <span class="n">skip_mask</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
         <span class="n">skip_flags</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">star_filter_flux</span><span class="p">,</span> <span class="n">star_filter_flux_uncertainty</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span>
-            <span class="n">multiplier</span><span class="o">=</span><span class="n">star_flux</span><span class="p">,</span>
-            <span class="n">multiplicand</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
-            <span class="n">multiplier_uncertainty</span><span class="o">=</span><span class="n">star_uncertainty</span><span class="p">,</span>
-            <span class="n">multiplicand_uncertainty</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">,</span>
-        <span class="p">)</span>
+    <span class="p">(</span>
+        <span class="n">star_filter_flux</span><span class="p">,</span>
+        <span class="n">star_filter_flux_uncertainty</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span>
+        <span class="n">multiplier</span><span class="o">=</span><span class="n">star_flux</span><span class="p">,</span>
+        <span class="n">multiplicand</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+        <span class="n">multiplier_uncertainty</span><span class="o">=</span><span class="n">star_uncertainty</span><span class="p">,</span>
+        <span class="n">multiplicand_uncertainty</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="c1"># Integrating.</span>
-    <span class="n">star_filter_integral</span><span class="p">,</span> <span class="n">star_filter_integral_uncertainty</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">integrate_discrete</span><span class="p">(</span>
-            <span class="n">variable</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
-            <span class="n">integrand</span><span class="o">=</span><span class="n">star_filter_flux</span><span class="p">,</span>
-            <span class="n">integrand_uncertainty</span><span class="o">=</span><span class="n">star_filter_flux_uncertainty</span><span class="p">,</span>
-        <span class="p">)</span>
+    <span class="p">(</span>
+        <span class="n">star_filter_integral</span><span class="p">,</span>
+        <span class="n">star_filter_integral_uncertainty</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">integrate_discrete</span><span class="p">(</span>
+        <span class="n">variable</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+        <span class="n">integrand</span><span class="o">=</span><span class="n">star_filter_flux</span><span class="p">,</span>
+        <span class="n">integrand_uncertainty</span><span class="o">=</span><span class="n">star_filter_flux_uncertainty</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">filter_integral</span><span class="p">,</span> <span class="n">filter_integral_uncertainty</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">integrate_discrete</span><span class="p">(</span>
-            <span class="n">variable</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
-            <span class="n">integrand</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
-            <span class="n">integrand_uncertainty</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">,</span>
-        <span class="p">)</span>
+    <span class="p">(</span>
+        <span class="n">filter_integral</span><span class="p">,</span>
+        <span class="n">filter_integral_uncertainty</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">integrate_discrete</span><span class="p">(</span>
+        <span class="n">variable</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+        <span class="n">integrand</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+        <span class="n">integrand_uncertainty</span><span class="o">=</span><span class="n">filter_spectra</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">,</span>
     <span class="p">)</span>
 
     <span class="c1"># The inverted fraction section of the calculation.</span>
@@ -618,13 +635,14 @@ document.write(`
     <span class="p">)</span>
 
     <span class="c1"># And computing the factor itself.</span>
-    <span class="n">correction_factor</span><span class="p">,</span> <span class="n">correction_factor_uncertainty</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span>
-            <span class="n">multiplier</span><span class="o">=</span><span class="n">exponent</span><span class="p">,</span>
-            <span class="n">multiplicand</span><span class="o">=</span><span class="n">fraction</span><span class="p">,</span>
-            <span class="n">multiplier_uncertainty</span><span class="o">=</span><span class="n">exponent_uncertainty</span><span class="p">,</span>
-            <span class="n">multiplicand_uncertainty</span><span class="o">=</span><span class="n">fraction_uncertainty</span><span class="p">,</span>
-        <span class="p">)</span>
+    <span class="p">(</span>
+        <span class="n">correction_factor</span><span class="p">,</span>
+        <span class="n">correction_factor_uncertainty</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span>
+        <span class="n">multiplier</span><span class="o">=</span><span class="n">exponent</span><span class="p">,</span>
+        <span class="n">multiplicand</span><span class="o">=</span><span class="n">fraction</span><span class="p">,</span>
+        <span class="n">multiplier_uncertainty</span><span class="o">=</span><span class="n">exponent_uncertainty</span><span class="p">,</span>
+        <span class="n">multiplicand_uncertainty</span><span class="o">=</span><span class="n">fraction_uncertainty</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="k">return</span> <span class="n">correction_factor</span><span class="p">,</span> <span class="n">correction_factor_uncertainty</span></div>
 </pre></div>

@@ -148,15 +148,19 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.fits.html">lezargus.library.fits module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.flags.html">lezargus.library.flags module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.hint.html">lezargus.library.hint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.interpolate.html">lezargus.library.interpolate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.logging.html">lezargus.library.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.old_stitch.html">lezargus.library.old_stitch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.path.html">lezargus.library.path module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.stitch.html">lezargus.library.stitch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.uncertainty.html">lezargus.library.uncertainty module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__main__.html">lezargus.__main__ module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__version__.html">lezargus.__version__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.initialize.html">lezargus.initialize module</a></li>
 </ul>
 </li>
 </ul>
@@ -271,18 +275,19 @@ document.write(`
 <span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">hint</span>
 <span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">logging</span>
 
+
 <div class="viewcode-block" id="covariance"><a class="viewcode-back" href="../../../code/lezargus.library.uncertainty.html#lezargus.library.uncertainty.covariance">[docs]</a><span class="k">def</span> <span class="nf">covariance</span><span class="p">(</span><span class="n">param_1</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">param_2</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the covariance for two parameters.</span>
 
 <span class="sd">    If the covariance cannot be computed, we default to 0.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    param_1 : ndarray</span>
 <span class="sd">        The first parameter.</span>
 <span class="sd">    param_2 : ndarray</span>
 <span class="sd">        The second parameter.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    covar : float</span>
@@ -299,16 +304,24 @@ document.write(`
     <span class="c1"># Calculating the covariance.</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">covar</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="n">param_1</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">param_2</span><span class="o">.</span><span class="n">flatten</span><span class="p">())[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-    <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
         <span class="n">covar</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="c1"># We are forcing the covariances to be 0.</span>
+    <span class="n">covar</span> <span class="o">=</span> <span class="mi">0</span>
+
     <span class="c1"># All done.</span>
     <span class="k">return</span> <span class="n">covar</span></div>
 
+
 <div class="viewcode-block" id="add"><a class="viewcode-back" href="../../../code/lezargus.library.uncertainty.html#lezargus.library.uncertainty.add">[docs]</a><span class="k">def</span> <span class="nf">add</span><span class="p">(</span>
-    <span class="n">augend</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">addend</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">augend_uncertainty</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">addend_uncertainty</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="o">=</span><span class="kc">None</span>
+    <span class="n">augend</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">addend</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">augend_uncertainty</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">addend_uncertainty</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Add two values and propagate uncertainties.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    augend : ndarray</span>
@@ -316,10 +329,10 @@ document.write(`
 <span class="sd">    addend : ndarray</span>
 <span class="sd">        The &quot;right&quot;-side of the addition.</span>
 <span class="sd">    augend_uncertainty : ndarray, default = None</span>
-<span class="sd">        The uncertainty on the augend term. If None, we assume that the </span>
+<span class="sd">        The uncertainty on the augend term. If None, we assume that the</span>
 <span class="sd">        uncertainty is 0.</span>
 <span class="sd">    addend_uncertainty : ndarray, default = None</span>
-<span class="sd">        The uncertainty on the addend term. If None, we assume that the </span>
+<span class="sd">        The uncertainty on the addend term. If None, we assume that the</span>
 <span class="sd">        uncertainty is 0.</span>
 
 <span class="sd">    Returns</span>
@@ -337,26 +350,31 @@ document.write(`
     <span class="n">result</span> <span class="o">=</span> <span class="n">augend</span> <span class="o">+</span> <span class="n">addend</span>
     <span class="c1"># Propagating the uncertainty.</span>
     <span class="n">covar</span> <span class="o">=</span> <span class="n">covariance</span><span class="p">(</span><span class="n">param_1</span><span class="o">=</span><span class="n">augend</span><span class="p">,</span> <span class="n">param_2</span><span class="o">=</span><span class="n">addend</span><span class="p">)</span>
-    <span class="n">uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">augend_uncertainty</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">addend_uncertainty</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span><span class="o">*</span><span class="n">covar</span><span class="p">)</span>
+    <span class="n">uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
+        <span class="n">augend_uncertainty</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">addend_uncertainty</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">covar</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">return</span> <span class="n">result</span><span class="p">,</span> <span class="n">uncertainty</span></div>
 
 
 <div class="viewcode-block" id="subtract"><a class="viewcode-back" href="../../../code/lezargus.library.uncertainty.html#lezargus.library.uncertainty.subtract">[docs]</a><span class="k">def</span> <span class="nf">subtract</span><span class="p">(</span>
-    <span class="n">minuend</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">subtrahend</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">minuend_uncertainty</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">subtrahend_uncertainty</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="o">=</span><span class="kc">None</span>
+    <span class="n">minuend</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">subtrahend</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">minuend_uncertainty</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">subtrahend_uncertainty</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Subtract two values and propagate uncertainties.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    minuend : ndarray</span>
-<span class="sd">        The &quot;left&quot;-side of the subtraction. </span>
+<span class="sd">        The &quot;left&quot;-side of the subtraction.</span>
 <span class="sd">    subtrahend : ndarray</span>
 <span class="sd">        The &quot;right&quot;-side of the subtraction.</span>
 <span class="sd">    minuend_uncertainty : ndarray, default = None</span>
-<span class="sd">        The uncertainty on the minuend term. If None, we assume that the </span>
+<span class="sd">        The uncertainty on the minuend term. If None, we assume that the</span>
 <span class="sd">        uncertainty is 0.</span>
 <span class="sd">    subtrahend_uncertainty : ndarray, default = None</span>
-<span class="sd">        The uncertainty on the subtrahend term. If None, we assume that the </span>
+<span class="sd">        The uncertainty on the subtrahend term. If None, we assume that the</span>
 <span class="sd">        uncertainty is 0.</span>
 
 <span class="sd">    Returns</span>
@@ -367,41 +385,49 @@ document.write(`
 <span class="sd">        The propagated uncertainty.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># If the uncertainties are not provided, we assume they are 0.</span>
-    <span class="n">minuend_uncertainty</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">minuend_uncertainty</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">minuend_uncertainty</span>
-    <span class="n">subtrahend_uncertainty</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">subtrahend_uncertainty</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">subtrahend_uncertainty</span>
+    <span class="n">minuend_uncertainty</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="mi">0</span> <span class="k">if</span> <span class="n">minuend_uncertainty</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">minuend_uncertainty</span>
+    <span class="p">)</span>
+    <span class="n">subtrahend_uncertainty</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="mi">0</span> <span class="k">if</span> <span class="n">subtrahend_uncertainty</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">subtrahend_uncertainty</span>
+    <span class="p">)</span>
 
     <span class="c1"># Computing the result.</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">minuend</span> <span class="o">-</span> <span class="n">subtrahend</span>
     <span class="c1"># Propagating the uncertainty.</span>
     <span class="n">covar</span> <span class="o">=</span> <span class="n">covariance</span><span class="p">(</span><span class="n">param_1</span><span class="o">=</span><span class="n">minuend</span><span class="p">,</span> <span class="n">param_2</span><span class="o">=</span><span class="n">subtrahend</span><span class="p">)</span>
-    <span class="n">uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">minuend_uncertainty</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">subtrahend_uncertainty</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">covar</span><span class="p">)</span>
+    <span class="n">uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
+        <span class="n">minuend_uncertainty</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">subtrahend_uncertainty</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">covar</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="k">return</span> <span class="n">result</span><span class="p">,</span> <span class="n">uncertainty</span></div>
 
 
-
 <div class="viewcode-block" id="multiply"><a class="viewcode-back" href="../../../code/lezargus.library.uncertainty.html#lezargus.library.uncertainty.multiply">[docs]</a><span class="k">def</span> <span class="nf">multiply</span><span class="p">(</span>
-    <span class="n">multiplier</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">multiplicand</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">multiplier_uncertainty</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">multiplicand_uncertainty</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="o">=</span><span class="kc">None</span>
+    <span class="n">multiplier</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">multiplicand</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">multiplier_uncertainty</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">multiplicand_uncertainty</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Multiply two values and propagate uncertainties.</span>
 
-<span class="sd">    Note, the typical formula for the propagation of uncertainties for </span>
-<span class="sd">    multiplication can lead to issues because of division by zero. We </span>
-<span class="sd">    rewrite the equations. This reformulation is based on Astropy&#39;s </span>
-<span class="sd">    reformulation. </span>
-<span class="sd">    See :ref:`technical-uncertainty-multiplication_and_division` for more </span>
+<span class="sd">    Note, the typical formula for the propagation of uncertainties for</span>
+<span class="sd">    multiplication can lead to issues because of division by zero. We</span>
+<span class="sd">    rewrite the equations. This reformulation is based on Astropy&#39;s</span>
+<span class="sd">    reformulation.</span>
+<span class="sd">    See :ref:`technical-uncertainty-multiplication_and_division` for more</span>
 <span class="sd">    information.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    multiplier : ndarray</span>
-<span class="sd">        The &quot;left&quot;-side of the multiplication. </span>
+<span class="sd">        The &quot;left&quot;-side of the multiplication.</span>
 <span class="sd">    multiplicand : ndarray</span>
 <span class="sd">        The &quot;right&quot;-side of the multiplication.</span>
 <span class="sd">    multiplier_uncertainty : ndarray, default = None</span>
-<span class="sd">        The uncertainty on the multiplier term. If None, we assume that the </span>
+<span class="sd">        The uncertainty on the multiplier term. If None, we assume that the</span>
 <span class="sd">        uncertainty is 0.</span>
 <span class="sd">    multiplicand_uncertainty : ndarray, default = None</span>
-<span class="sd">        The uncertainty on the multiplicand term. If None, we assume that the </span>
+<span class="sd">        The uncertainty on the multiplicand term. If None, we assume that the</span>
 <span class="sd">        uncertainty is 0.</span>
 
 <span class="sd">    Returns</span>
@@ -412,43 +438,55 @@ document.write(`
 <span class="sd">        The propagated uncertainty.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># If the uncertainties are not provided, then we assume zero.</span>
-    <span class="n">multiplier_uncertainty</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">multiplier_uncertainty</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">multiplier_uncertainty</span>
-    <span class="n">multiplicand_uncertainty</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">multiplicand_uncertainty</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">multiplicand_uncertainty</span>
+    <span class="n">multiplier_uncertainty</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="mi">0</span> <span class="k">if</span> <span class="n">multiplier_uncertainty</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">multiplier_uncertainty</span>
+    <span class="p">)</span>
+    <span class="n">multiplicand_uncertainty</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="mi">0</span> <span class="k">if</span> <span class="n">multiplicand_uncertainty</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">multiplicand_uncertainty</span>
+    <span class="p">)</span>
 
     <span class="c1"># The result.</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">multiplier</span> <span class="o">*</span> <span class="n">multiplicand</span>
+
     <span class="c1"># Propagating...</span>
     <span class="n">covar</span> <span class="o">=</span> <span class="n">covariance</span><span class="p">(</span><span class="n">param_1</span><span class="o">=</span><span class="n">multiplier</span><span class="p">,</span> <span class="n">param_2</span><span class="o">=</span><span class="n">multiplicand</span><span class="p">)</span>
-
     <span class="c1"># Doing the propagation via the new equation to remove some NaN treatment.</span>
-    <span class="n">variance</span> <span class="o">=</span> <span class="p">((</span><span class="n">multiplier_uncertainty</span><span class="o">*</span><span class="n">multiplicand</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">multiplicand_uncertainty</span><span class="o">*</span><span class="n">multiplier</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">multiplier</span> <span class="o">*</span> <span class="n">multiplicand</span><span class="o">*</span><span class="n">covar</span><span class="p">))</span>
+    <span class="n">variance</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="n">multiplier_uncertainty</span> <span class="o">*</span> <span class="n">multiplicand</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="o">+</span> <span class="p">(</span><span class="n">multiplicand_uncertainty</span> <span class="o">*</span> <span class="n">multiplier</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">multiplier</span> <span class="o">*</span> <span class="n">multiplicand</span> <span class="o">*</span> <span class="n">covar</span><span class="p">)</span>
+    <span class="p">)</span>
     <span class="n">uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">variance</span><span class="p">)</span>
 
-    <span class="c1">#print(result, error, cov_div, covar, &quot;\n\n========\n\n&quot;)</span>
     <span class="k">return</span> <span class="n">result</span><span class="p">,</span> <span class="n">uncertainty</span></div>
 
 
 <div class="viewcode-block" id="divide"><a class="viewcode-back" href="../../../code/lezargus.library.uncertainty.html#lezargus.library.uncertainty.divide">[docs]</a><span class="k">def</span> <span class="nf">divide</span><span class="p">(</span>
-    <span class="n">numerator</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">denominator</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">numerator_uncertainty</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">denominator_uncertainty</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="o">=</span><span class="kc">None</span>
+    <span class="n">numerator</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">denominator</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">numerator_uncertainty</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">denominator_uncertainty</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Divide two values and propagate uncertainties.</span>
 
-<span class="sd">    Note, the typical formula for the propagation of uncertainties for </span>
-<span class="sd">    division can lead to issues because of division by zero. We </span>
-<span class="sd">    rewrite the equations. This reformulation is based on Astropy&#39;s </span>
-<span class="sd">    reformulation. See [[TODO]] for more information.</span>
-<span class="sd">    </span>
+<span class="sd">    Note, the typical formula for the propagation of uncertainties for</span>
+<span class="sd">    division can lead to issues because of division by zero. We</span>
+<span class="sd">    rewrite the equations. This reformulation is based on Astropy&#39;s</span>
+<span class="sd">    reformulation.</span>
+<span class="sd">    See :ref:`technical-uncertainty-multiplication_and_division` for more</span>
+<span class="sd">    information.</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    numerator : ndarray</span>
-<span class="sd">        The numerator of the division; the top value. </span>
+<span class="sd">        The numerator of the division; the top value.</span>
 <span class="sd">    denominator : ndarray</span>
 <span class="sd">        The denominator of the division; the bottom value.</span>
 <span class="sd">    numerator_uncertainty : ndarray, default = None</span>
-<span class="sd">        The uncertainty on the numerator term. If None, we assume that the </span>
+<span class="sd">        The uncertainty on the numerator term. If None, we assume that the</span>
 <span class="sd">        uncertainty is 0.</span>
 <span class="sd">    denominator_uncertainty : ndarray, default = None</span>
-<span class="sd">        The uncertainty on the denominator term. If None, we assume that the </span>
+<span class="sd">        The uncertainty on the denominator term. If None, we assume that the</span>
 <span class="sd">        uncertainty is 0.</span>
 
 <span class="sd">    Returns</span>
@@ -459,33 +497,47 @@ document.write(`
 <span class="sd">        The propagated uncertainty.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># If the uncertainties are not provided, then we assume zero.</span>
-    <span class="n">numerator_uncertainty</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">numerator_uncertainty</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">numerator_uncertainty</span>
-    <span class="n">denominator_uncertainty</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">denominator_uncertainty</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">denominator_uncertainty</span>
+    <span class="n">numerator_uncertainty</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="mi">0</span> <span class="k">if</span> <span class="n">numerator_uncertainty</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">numerator_uncertainty</span>
+    <span class="p">)</span>
+    <span class="n">denominator_uncertainty</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="mi">0</span> <span class="k">if</span> <span class="n">denominator_uncertainty</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">denominator_uncertainty</span>
+    <span class="p">)</span>
 
     <span class="c1"># The result.</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">numerator</span> <span class="o">/</span> <span class="n">denominator</span>
-    <span class="c1"># Propagating.</span>
+
+    <span class="c1"># Propagating...</span>
     <span class="n">covar</span> <span class="o">=</span> <span class="n">covariance</span><span class="p">(</span><span class="n">param_1</span><span class="o">=</span><span class="n">numerator</span><span class="p">,</span> <span class="n">param_2</span><span class="o">=</span><span class="n">denominator</span><span class="p">)</span>
-    <span class="n">num_div</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">numerator_uncertainty</span><span class="p">,</span> <span class="n">numerator</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">numerator</span><span class="p">),</span> <span class="n">where</span><span class="o">=</span><span class="n">numerator</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="n">den_div</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="n">denominator_uncertainty</span><span class="p">,</span> <span class="n">denominator</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">denominator</span><span class="p">),</span> <span class="n">where</span><span class="o">=</span><span class="n">denominator</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="n">cov_div</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">covar</span><span class="p">,</span> <span class="n">numerator</span> <span class="o">*</span> <span class="n">denominator</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">denominator</span><span class="p">),</span> <span class="n">where</span><span class="o">=</span><span class="p">(</span><span class="n">numerator</span> <span class="o">*</span> <span class="n">denominator</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">)</span>
-    <span class="n">uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">num_div</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">den_div</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">cov_div</span><span class="p">)</span>
+    <span class="c1"># Doing the propagation via the new equation to remove some NaN treatment.</span>
+    <span class="n">variance</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="n">numerator_uncertainty</span> <span class="o">*</span> <span class="n">denominator</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="o">+</span> <span class="p">(</span><span class="n">denominator_uncertainty</span> <span class="o">*</span> <span class="n">numerator</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+        <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">numerator</span> <span class="o">*</span> <span class="n">denominator</span> <span class="o">*</span> <span class="n">covar</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">variance</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">result</span><span class="p">,</span> <span class="n">uncertainty</span></div>
 
-<div class="viewcode-block" id="exponentiate"><a class="viewcode-back" href="../../../code/lezargus.library.uncertainty.html#lezargus.library.uncertainty.exponentiate">[docs]</a><span class="k">def</span> <span class="nf">exponentiate</span><span class="p">(</span><span class="n">base</span><span class="p">:</span><span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">exponent</span><span class="p">:</span><span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">base_uncertainty</span><span class="p">:</span><span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">exponent_uncertainty</span><span class="p">:</span><span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+
+<div class="viewcode-block" id="exponentiate"><a class="viewcode-back" href="../../../code/lezargus.library.uncertainty.html#lezargus.library.uncertainty.exponentiate">[docs]</a><span class="k">def</span> <span class="nf">exponentiate</span><span class="p">(</span>
+    <span class="n">base</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">exponent</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">base_uncertainty</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">exponent_uncertainty</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the exponent of two values and propagate uncertainties.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    base : ndarray</span>
-<span class="sd">        The base of the exponentiation; the lower value. </span>
+<span class="sd">        The base of the exponentiation; the lower value.</span>
 <span class="sd">    exponent : ndarray</span>
 <span class="sd">        The exponent of the exponentiation; the upper value.</span>
 <span class="sd">    base_uncertainty : ndarray, default = None</span>
-<span class="sd">        The uncertainty on the base term. If None, we assume that the </span>
+<span class="sd">        The uncertainty on the base term. If None, we assume that the</span>
 <span class="sd">        uncertainty is 0.</span>
 <span class="sd">    exponent_uncertainty : ndarray, default = None</span>
-<span class="sd">        The uncertainty on the exponent term. If None, we assume that the </span>
+<span class="sd">        The uncertainty on the exponent term. If None, we assume that the</span>
 <span class="sd">        uncertainty is 0.</span>
 
 <span class="sd">    Returns</span>
@@ -497,22 +549,29 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># If the uncertainties are not provided, then we assume zero.</span>
     <span class="n">base_uncertainty</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">base_uncertainty</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">base_uncertainty</span>
-    <span class="n">exponent_uncertainty</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">exponent_uncertainty</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">exponent_uncertainty</span>
+    <span class="n">exponent_uncertainty</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="mi">0</span> <span class="k">if</span> <span class="n">exponent_uncertainty</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">exponent_uncertainty</span>
+    <span class="p">)</span>
 
     <span class="c1"># The result.</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="n">base</span> <span class="o">**</span> <span class="n">exponent</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">base</span><span class="o">**</span><span class="n">exponent</span>
     <span class="c1"># Propagating the uncertainty, term by term.</span>
     <span class="n">covar</span> <span class="o">=</span> <span class="n">covariance</span><span class="p">(</span><span class="n">param_1</span><span class="o">=</span><span class="n">base</span><span class="p">,</span> <span class="n">param_2</span><span class="o">=</span><span class="n">exponent</span><span class="p">)</span>
-    <span class="n">base_term</span> <span class="o">=</span> <span class="p">((</span><span class="n">exponent</span><span class="o">/</span><span class="n">base</span><span class="p">)</span> <span class="o">*</span> <span class="n">base_uncertainty</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
-    <span class="n">expo_term</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">base</span><span class="p">)</span> <span class="o">*</span> <span class="n">exponent_uncertainty</span><span class="p">)</span> <span class="o">**</span><span class="mi">2</span>
-    <span class="n">covar_term</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">((</span><span class="n">exponent</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">base</span><span class="p">))</span><span class="o">/</span><span class="n">base_uncertainty</span><span class="p">)</span> <span class="o">*</span> <span class="n">covar</span>
+    <span class="n">base_term</span> <span class="o">=</span> <span class="p">((</span><span class="n">exponent</span> <span class="o">/</span> <span class="n">base</span><span class="p">)</span> <span class="o">*</span> <span class="n">base_uncertainty</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="n">expo_term</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">base</span><span class="p">)</span> <span class="o">*</span> <span class="n">exponent_uncertainty</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
+    <span class="n">covar_term</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">((</span><span class="n">exponent</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">base</span><span class="p">))</span> <span class="o">/</span> <span class="n">base</span><span class="p">)</span> <span class="o">*</span> <span class="n">covar</span>
     <span class="n">uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">base_term</span> <span class="o">+</span> <span class="n">expo_term</span> <span class="o">+</span> <span class="n">covar_term</span><span class="p">)</span>
     <span class="c1"># All done.</span>
     <span class="k">return</span> <span class="n">result</span><span class="p">,</span> <span class="n">uncertainty</span></div>
 
-<div class="viewcode-block" id="logarithm"><a class="viewcode-back" href="../../../code/lezargus.library.uncertainty.html#lezargus.library.uncertainty.logarithm">[docs]</a><span class="k">def</span> <span class="nf">logarithm</span><span class="p">(</span><span class="n">antilogarithm</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">base</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">antilogarithm_uncertainty</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+
+<div class="viewcode-block" id="logarithm"><a class="viewcode-back" href="../../../code/lezargus.library.uncertainty.html#lezargus.library.uncertainty.logarithm">[docs]</a><span class="k">def</span> <span class="nf">logarithm</span><span class="p">(</span>
+    <span class="n">antilogarithm</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">base</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">antilogarithm_uncertainty</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the logarithm of two values and propagate uncertainties.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    antilogarithm : ndarray</span>
@@ -530,18 +589,25 @@ document.write(`
 <span class="sd">        The propagated uncertainty.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># If the uncertainties are not provided, then we assume zero.</span>
-    <span class="n">antilogarithm_uncertainty</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">antilogarithm_uncertainty</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">antilogarithm_uncertainty</span>
+    <span class="n">antilogarithm_uncertainty</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="mi">0</span> <span class="k">if</span> <span class="n">antilogarithm_uncertainty</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">antilogarithm_uncertainty</span>
+    <span class="p">)</span>
 
     <span class="c1"># Computing the result and propagating.</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">antilogarithm</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
-    <span class="n">uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">antilogarithm_uncertainty</span> <span class="o">/</span> <span class="p">(</span><span class="n">antilogarithm</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">base</span><span class="p">)))</span>
+    <span class="n">uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span>
+        <span class="n">antilogarithm_uncertainty</span> <span class="o">/</span> <span class="p">(</span><span class="n">antilogarithm</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">base</span><span class="p">)),</span>
+    <span class="p">)</span>
     <span class="k">return</span> <span class="n">result</span><span class="p">,</span> <span class="n">uncertainty</span></div>
 
 
-
-<div class="viewcode-block" id="integrate_discrete"><a class="viewcode-back" href="../../../code/lezargus.library.uncertainty.html#lezargus.library.uncertainty.integrate_discrete">[docs]</a><span class="k">def</span> <span class="nf">integrate_discrete</span><span class="p">(</span><span class="n">variable</span><span class="p">:</span><span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">integrand</span><span class="p">:</span><span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">integrand_uncertainty</span><span class="p">:</span><span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span><span class="nb">float</span><span class="p">]:</span>
+<div class="viewcode-block" id="integrate_discrete"><a class="viewcode-back" href="../../../code/lezargus.library.uncertainty.html#lezargus.library.uncertainty.integrate_discrete">[docs]</a><span class="k">def</span> <span class="nf">integrate_discrete</span><span class="p">(</span>
+    <span class="n">variable</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">integrand</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">integrand_uncertainty</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Integrate discrete values and propagate the errors.</span>
-<span class="sd">    </span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    variable : ndarray</span>
@@ -549,7 +615,7 @@ document.write(`
 <span class="sd">    integrand : ndarray</span>
 <span class="sd">        The integrand function being integrated.</span>
 <span class="sd">    integrand_uncertainty : ndarray, default = None</span>
-<span class="sd">        The uncertainty in the integrand. If None, we assume that the </span>
+<span class="sd">        The uncertainty in the integrand. If None, we assume that the</span>
 <span class="sd">        uncertainty is 0.</span>
 
 <span class="sd">    Returns</span>
@@ -566,14 +632,115 @@ document.write(`
     <span class="p">)</span>
 
     <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-        <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">NotSupportedError</span><span class="p">,</span>
-        <span class="n">message</span><span class="o">=</span><span class="p">(</span>
-            <span class="s2">&quot;Uncertainty values on integrations need to be done.&quot;</span>
-        <span class="p">),</span>
+        <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ToDoError</span><span class="p">,</span>
+        <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Uncertainty values on integrations need to be done.&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="n">uncertainty</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">integrand_uncertainty</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">uncertainty</span> <span class="o">=</span> <span class="n">integrand_uncertainty</span>
 
     <span class="k">return</span> <span class="n">result</span><span class="p">,</span> <span class="n">uncertainty</span></div>
+
+
+<div class="viewcode-block" id="weighted_mean"><a class="viewcode-back" href="../../../code/lezargus.library.uncertainty.html#lezargus.library.uncertainty.weighted_mean">[docs]</a><span class="k">def</span> <span class="nf">weighted_mean</span><span class="p">(</span>
+    <span class="n">values</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">uncertainties</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">weights</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate a weighted mean, propagating uncertainties where needed.</span>
+
+<span class="sd">    This function calculates the weighted arithmetic mean of a group of samples</span>
+<span class="sd">    and weights. If the weights are not provided, we default to equal weights</span>
+<span class="sd">    and thus the ordinary arithmetic mean. If any value, uncertainty, or weight</span>
+<span class="sd">    is NaN, the result is a NaN.</span>
+
+<span class="sd">    See :ref:`technical-uncertainty-weighted-mean` for more</span>
+<span class="sd">    information.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    values : ndarray</span>
+<span class="sd">        The values which we will compute the weighted mean of.</span>
+<span class="sd">    uncertainties : ndarray, default = None</span>
+<span class="sd">        The uncertainties in the values. If None, we default to no uncertainty.</span>
+<span class="sd">    weights : ndarray, default = None</span>
+<span class="sd">        The weights for the given values for the weighted mean. If None, we</span>
+<span class="sd">        assume equal weights.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    mean_value : float</span>
+<span class="sd">        The calculated mean.</span>
+<span class="sd">    mean_uncertainty : float</span>
+<span class="sd">        The calculated uncertainty in the mean.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># We determine the defaults for the uncertainty and the weights.</span>
+    <span class="n">uncertainties</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="k">if</span> <span class="n">uncertainties</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">uncertainties</span>
+    <span class="p">)</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="k">if</span> <span class="n">weights</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">weights</span>
+
+    <span class="c1"># Finally, calculating the mean.</span>
+    <span class="n">mean_value</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="n">weights</span><span class="p">)</span>
+    <span class="c1"># The error propagation, done as prescribed. We assume next to no</span>
+    <span class="c1"># covariance and in general we calculate it via variance propagation of</span>
+    <span class="c1"># the definition of the weighted mean.</span>
+    <span class="n">mean_uncertainty</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">((</span><span class="n">uncertainties</span> <span class="o">*</span> <span class="n">weights</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">))</span> <span class="o">/</span> <span class="n">values</span><span class="o">.</span><span class="n">size</span>
+    <span class="p">)</span>
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">mean_value</span><span class="p">,</span> <span class="n">mean_uncertainty</span></div>
+
+
+<div class="viewcode-block" id="nan_weighted_mean"><a class="viewcode-back" href="../../../code/lezargus.library.uncertainty.html#lezargus.library.uncertainty.nan_weighted_mean">[docs]</a><span class="k">def</span> <span class="nf">nan_weighted_mean</span><span class="p">(</span>
+    <span class="n">values</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">uncertainties</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">weights</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate the no-NaN weighted mean and uncertainty.</span>
+
+<span class="sd">    This function is similar to :py:func:`library.uncertainty.weighted_mean`,</span>
+<span class="sd">    but we do not include any non-finite values.</span>
+
+<span class="sd">    See :ref:`technical-uncertainty-weighted-mean` for more</span>
+<span class="sd">    information.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    values : ndarray</span>
+<span class="sd">        The values which we will compute the weighted mean of.</span>
+<span class="sd">    uncertainties : ndarray, default = None</span>
+<span class="sd">        The uncertainties in the values. If None, we default to no uncertainty.</span>
+<span class="sd">    weights : ndarray, default = None</span>
+<span class="sd">        The weights for the given values for the weighted mean. If None, we</span>
+<span class="sd">        assume equal weights.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    mean_value : float</span>
+<span class="sd">        The calculated mean.</span>
+<span class="sd">    mean_uncertainty : float</span>
+<span class="sd">        The calculated uncertainty in the mean.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># We determine the defaults for the uncertainty and the weights.</span>
+    <span class="n">uncertainties</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="k">if</span> <span class="n">uncertainties</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">uncertainties</span>
+    <span class="p">)</span>
+    <span class="n">weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">values</span><span class="p">)</span> <span class="k">if</span> <span class="n">weights</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">weights</span>
+
+    <span class="c1"># We also do not include any values which are not actual numbers.</span>
+    <span class="p">(</span>
+        <span class="n">clean_values</span><span class="p">,</span>
+        <span class="n">clean_uncertainty</span><span class="p">,</span>
+        <span class="n">clean_weights</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">clean_finite_arrays</span><span class="p">(</span><span class="n">values</span><span class="p">,</span> <span class="n">uncertainties</span><span class="p">,</span> <span class="n">weights</span><span class="p">)</span>
+
+    <span class="c1"># And we just send it to the original function to compute it.</span>
+    <span class="n">mean_value</span><span class="p">,</span> <span class="n">mean_uncertainty</span> <span class="o">=</span> <span class="n">weighted_mean</span><span class="p">(</span>
+        <span class="n">values</span><span class="o">=</span><span class="n">clean_values</span><span class="p">,</span>
+        <span class="n">uncertainties</span><span class="o">=</span><span class="n">clean_uncertainty</span><span class="p">,</span>
+        <span class="n">weights</span><span class="o">=</span><span class="n">clean_weights</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">mean_value</span><span class="p">,</span> <span class="n">mean_uncertainty</span></div>
 </pre></div>
 
                 </article>

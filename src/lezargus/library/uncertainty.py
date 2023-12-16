@@ -381,9 +381,9 @@ def weighted_mean(
     """Calculate a weighted mean, propagating uncertainties where needed.
 
     This function calculates the weighted arithmetic mean of a group of samples
-    and weights. If the weights are not provided, we default to equal weights 
+    and weights. If the weights are not provided, we default to equal weights
     and thus the ordinary arithmetic mean. If any value, uncertainty, or weight
-    is NaN, the result is a NaN. 
+    is NaN, the result is a NaN.
 
     See :ref:`technical-uncertainty-weighted-mean` for more
     information.
@@ -407,9 +407,7 @@ def weighted_mean(
     """
     # We determine the defaults for the uncertainty and the weights.
     uncertainties = (
-        np.zeros_like(values)
-        if uncertainties is None
-        else uncertainties
+        np.zeros_like(values) if uncertainties is None else uncertainties
     )
     weights = np.ones_like(values) if weights is None else weights
 
@@ -419,14 +417,14 @@ def weighted_mean(
     # covariance and in general we calculate it via variance propagation of
     # the definition of the weighted mean.
     mean_uncertainty = (
-        np.sqrt(np.sum((uncertainties * weights) ** 2))
-        / values.size
+        np.sqrt(np.sum((uncertainties * weights) ** 2)) / values.size
     )
     # All done.
     return mean_value, mean_uncertainty
 
+
 def nan_weighted_mean(
-            values: hint.ndarray,
+    values: hint.ndarray,
     uncertainties: hint.ndarray = None,
     weights: hint.ndarray = None,
 ) -> tuple[float, float]:
@@ -442,7 +440,7 @@ def nan_weighted_mean(
     ----------
     values : ndarray
         The values which we will compute the weighted mean of.
-    values_uncertainty : ndarray, default = None
+    uncertainties : ndarray, default = None
         The uncertainties in the values. If None, we default to no uncertainty.
     weights : ndarray, default = None
         The weights for the given values for the weighted mean. If None, we
@@ -457,15 +455,21 @@ def nan_weighted_mean(
     """
     # We determine the defaults for the uncertainty and the weights.
     uncertainties = (
-        np.zeros_like(values)
-        if uncertainties is None
-        else uncertainties
+        np.zeros_like(values) if uncertainties is None else uncertainties
     )
     weights = np.ones_like(values) if weights is None else weights
 
     # We also do not include any values which are not actual numbers.
-    clean_values, clean_uncertainty, clean_weights = library.array.clean_finite_arrays(values, uncertainties, weights)
+    (
+        clean_values,
+        clean_uncertainty,
+        clean_weights,
+    ) = library.array.clean_finite_arrays(values, uncertainties, weights)
 
     # And we just send it to the original function to compute it.
-    mean_value, mean_uncertainty = weighted_mean(values=clean_values, uncertainties=clean_uncertainty, weights=clean_weights)
+    mean_value, mean_uncertainty = weighted_mean(
+        values=clean_values,
+        uncertainties=clean_uncertainty,
+        weights=clean_weights,
+    )
     return mean_value, mean_uncertainty

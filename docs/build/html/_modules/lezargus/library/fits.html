@@ -148,15 +148,19 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.fits.html">lezargus.library.fits module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.flags.html">lezargus.library.flags module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.hint.html">lezargus.library.hint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.interpolate.html">lezargus.library.interpolate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.logging.html">lezargus.library.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.old_stitch.html">lezargus.library.old_stitch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.path.html">lezargus.library.path module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.stitch.html">lezargus.library.stitch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.uncertainty.html">lezargus.library.uncertainty module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__main__.html">lezargus.__main__ module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__version__.html">lezargus.__version__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.initialize.html">lezargus.initialize module</a></li>
 </ul>
 </li>
 </ul>
@@ -298,27 +302,28 @@ document.write(`
     <span class="s2">&quot;LZOPK__Y&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: PSF peak Y index.&quot;</span><span class="p">),</span>
     <span class="s2">&quot;LZOPK_RA&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: PSF peak RA value, degrees.&quot;</span><span class="p">),</span>
     <span class="s2">&quot;LZOPKDEC&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: PSF peak DEC value, degrees.&quot;</span><span class="p">),</span>
-    <span class="s2">&quot;LZO_ROTA&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: Rotation angle, degrees&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;LZO_ROTA&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: Rotation angle, degrees.&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;LZO_AIRM&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: Airmass.&quot;</span><span class="p">),</span>
     <span class="c1"># Synthetic photometric magnitudes derived from the spectra. This is a</span>
     <span class="c1"># helpful place to put photometry measurements.</span>
-    <span class="s2">&quot;LZOM_J_U&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: Johnson U magnitude.&quot;</span><span class="p">),</span>
-    <span class="s2">&quot;LZOU_J_U&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: Johnson U uncertainty.&quot;</span><span class="p">),</span>
-    <span class="s2">&quot;LZOM_J_B&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: Johnson B magnitude.&quot;</span><span class="p">),</span>
-    <span class="s2">&quot;LZOU_J_B&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: Johnson B uncertainty.&quot;</span><span class="p">),</span>
-    <span class="s2">&quot;LZOM_J_V&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: Johnson V magnitude.&quot;</span><span class="p">),</span>
-    <span class="s2">&quot;LZOU_J_V&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: Johnson V uncertainty.&quot;</span><span class="p">),</span>
-    <span class="s2">&quot;LZOM_G_G&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: Gaia G magnitude.&quot;</span><span class="p">),</span>
-    <span class="s2">&quot;LZOU_G_G&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: Gaia G uncertainty.&quot;</span><span class="p">),</span>
-    <span class="s2">&quot;LZOM_GGB&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: Gaia GB magnitude.&quot;</span><span class="p">),</span>
-    <span class="s2">&quot;LZOU_GGB&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: Gaia GB uncertainty.&quot;</span><span class="p">),</span>
-    <span class="s2">&quot;LZOM_GGR&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: Gaia GR magnitude.&quot;</span><span class="p">),</span>
-    <span class="s2">&quot;LZOU_GGR&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: Gaia GR uncertainty.&quot;</span><span class="p">),</span>
-    <span class="s2">&quot;LZOM_2_J&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: 2MASS J magnitude.&quot;</span><span class="p">),</span>
-    <span class="s2">&quot;LZOU_2_J&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: 2MASS J uncertainty.&quot;</span><span class="p">),</span>
-    <span class="s2">&quot;LZOM_2_H&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: 2MASS H magnitude.&quot;</span><span class="p">),</span>
-    <span class="s2">&quot;LZOU_2_H&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: 2MASS H uncertainty.&quot;</span><span class="p">),</span>
-    <span class="s2">&quot;LZOM_2Ks&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: 2MASS Ks magnitude.&quot;</span><span class="p">),</span>
-    <span class="s2">&quot;LZOU_2Ks&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: 2MASS Ks uncertainty.&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;LZPM_J_U&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: Johnson U magnitude.&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;LZPU_J_U&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: Johnson U uncertainty.&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;LZPM_J_B&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: Johnson B magnitude.&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;LZPU_J_B&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: Johnson B uncertainty.&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;LZPM_J_V&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: Johnson V magnitude.&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;LZPU_J_V&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: Johnson V uncertainty.&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;LZPM_G_G&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: Gaia G magnitude.&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;LZPU_G_G&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: Gaia G uncertainty.&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;LZPM_GGB&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: Gaia GB magnitude.&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;LZPU_GGB&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: Gaia GB uncertainty.&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;LZPM_GGR&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: Gaia GR magnitude.&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;LZPU_GGR&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: Gaia GR uncertainty.&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;LZPM_2_J&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: 2MASS J magnitude.&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;LZPU_2_J&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: 2MASS J uncertainty.&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;LZPM_2_H&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: 2MASS H magnitude.&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;LZPU_2_H&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: 2MASS H uncertainty.&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;LZPM_2Ks&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: 2MASS Ks magnitude.&quot;</span><span class="p">),</span>
+    <span class="s2">&quot;LZPU_2Ks&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: 2MASS Ks uncertainty.&quot;</span><span class="p">),</span>
     <span class="c1"># Units on the data.</span>
     <span class="s2">&quot;LZDWUNIT&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: The wavelength unit.&quot;</span><span class="p">),</span>
     <span class="s2">&quot;LZDFUNIT&quot;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s2">&quot;LZ: The flux/data unit.&quot;</span><span class="p">),</span>
@@ -419,7 +424,9 @@ document.write(`
             <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">FileError</span><span class="p">,</span>
             <span class="n">message</span><span class="o">=</span><span class="p">(</span>
                 <span class="s2">&quot;We cannot read the Lezargus FITS file </span><span class="si">{fl}</span><span class="s2">, it does not exist.&quot;</span>
-                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fl</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">fl</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
+                <span class="p">)</span>
             <span class="p">),</span>
         <span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
@@ -544,7 +551,9 @@ document.write(`
                 <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">FileError</span><span class="p">,</span>
                 <span class="n">message</span><span class="o">=</span><span class="p">(</span>
                     <span class="s2">&quot;The FITS file </span><span class="si">{fl}</span><span class="s2"> already exists. Overwrite is False.&quot;</span>
-                    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fl</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+                    <span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">fl</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
+                    <span class="p">)</span>
                 <span class="p">),</span>
             <span class="p">)</span>
 

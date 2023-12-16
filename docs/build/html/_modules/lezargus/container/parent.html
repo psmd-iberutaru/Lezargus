@@ -148,15 +148,19 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.fits.html">lezargus.library.fits module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.flags.html">lezargus.library.flags module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.hint.html">lezargus.library.hint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.interpolate.html">lezargus.library.interpolate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.logging.html">lezargus.library.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.old_stitch.html">lezargus.library.old_stitch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.path.html">lezargus.library.path module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.stitch.html">lezargus.library.stitch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.uncertainty.html">lezargus.library.uncertainty module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__main__.html">lezargus.__main__ module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__version__.html">lezargus.__version__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.initialize.html">lezargus.initialize module</a></li>
 </ul>
 </li>
 </ul>
@@ -476,12 +480,15 @@ document.write(`
 
         <span class="c1"># We first check for appropriate types. Only singular values, and</span>
         <span class="c1"># equivalent Lezargus containers can be accessed.</span>
-        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">operand</span><span class="p">,</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">operand</span><span class="p">,</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">):</span>
             <span class="c1"># The operand is likely a singular value, so it can be properly</span>
-            <span class="c1"># broadcast together.</span>
-            <span class="n">operand_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">operand</span><span class="p">)</span>
+            <span class="c1"># broadcast together. It is a singe value, all other checks</span>
+            <span class="c1"># are unneeded.</span>
+            <span class="n">justification</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">return</span> <span class="n">justification</span>
+
         <span class="c1"># If the Lezargus data types are the same.</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span> <span class="o">==</span> <span class="n">operand</span><span class="o">.</span><span class="vm">__class__</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span> <span class="o">==</span> <span class="n">operand</span><span class="o">.</span><span class="vm">__class__</span><span class="p">:</span>
             <span class="c1"># All good.</span>
             <span class="n">operand_data</span> <span class="o">=</span> <span class="n">operand</span><span class="o">.</span><span class="n">data</span>
         <span class="k">else</span><span class="p">:</span>
@@ -550,11 +557,11 @@ document.write(`
                 <span class="p">),</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span> <span class="n">operand</span><span class="o">.</span><span class="n">wavelength</span><span class="p">):</span>
-            <span class="c1"># This is a serious error which can lead to bad results. However,</span>
+            <span class="c1"># This is a serious problem which can lead to bad results. However,</span>
             <span class="c1"># it only affects accuracy and not the overall computation of the</span>
             <span class="c1"># program.</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">AccuracyError</span><span class="p">,</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">AccuracyWarning</span><span class="p">,</span>
                 <span class="n">message</span><span class="o">=</span><span class="p">(</span>
                     <span class="s2">&quot;The wavelength arrays between two Lezargus containers are&quot;</span>
                     <span class="s2">&quot; not matching; operation had interpolation performed to&quot;</span>
@@ -565,8 +572,8 @@ document.write(`
         <span class="c1"># If the wavelength or data units are all off, it will lead to</span>
         <span class="c1"># incorrect results.</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">wavelength_unit</span> <span class="o">!=</span> <span class="n">operand</span><span class="o">.</span><span class="n">wavelength_unit</span><span class="p">:</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">AccuracyError</span><span class="p">,</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">AccuracyWarning</span><span class="p">,</span>
                 <span class="n">message</span><span class="o">=</span><span class="p">(</span>
                     <span class="s2">&quot;The Lezargus container wavelength unit </span><span class="si">{lwu}</span><span class="s2"> is not the&quot;</span>
                     <span class="s2">&quot; same as the operand unit </span><span class="si">{owu}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
@@ -576,8 +583,8 @@ document.write(`
                 <span class="p">),</span>
             <span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_unit</span> <span class="o">!=</span> <span class="n">operand</span><span class="o">.</span><span class="n">data_unit</span><span class="p">:</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">AccuracyError</span><span class="p">,</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">AccuracyWarning</span><span class="p">,</span>
                 <span class="n">message</span><span class="o">=</span><span class="p">(</span>
                     <span class="s2">&quot;The Lezargus container data/flux unit </span><span class="si">{lwu}</span><span class="s2"> is not the&quot;</span>
                     <span class="s2">&quot; same as the operand unit </span><span class="si">{owu}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
@@ -628,17 +635,15 @@ document.write(`
             <span class="n">operand_data</span> <span class="o">=</span> <span class="n">operand</span>
             <span class="n">operand_uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">)</span>
 
+        <span class="c1"># Now we do the addition.</span>
         <span class="c1"># We do not want to modify our own objects as that goes against the</span>
         <span class="c1"># the main idea of operator operations.</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-
-        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Self-calculation of error propagation in spectra parent class should instead use the uncertainty module.&quot;</span><span class="p">)</span>
-        <span class="c1"># Now we perform the addition.</span>
-        <span class="n">result</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">+</span> <span class="n">operand_data</span>
-        <span class="c1"># Propagating the uncertainty.</span>
-        <span class="n">covariance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">operand_data</span><span class="o">.</span><span class="n">flatten</span><span class="p">())[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-        <span class="n">result</span><span class="o">.</span><span class="n">uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">operand_uncertainty</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">covariance</span><span class="p">,</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">uncertainty</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+            <span class="n">augend</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">addend</span><span class="o">=</span><span class="n">operand_data</span><span class="p">,</span>
+            <span class="n">augend_uncertainty</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">,</span>
+            <span class="n">addend_uncertainty</span><span class="o">=</span><span class="n">operand_uncertainty</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="n">result</span></div>
@@ -684,14 +689,15 @@ document.write(`
         <span class="c1"># the main idea of operator operations.</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
 
-
-        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Self-calculation of error propagation in spectra parent class should instead use the uncertainty module.&quot;</span><span class="p">)</span>
-        <span class="c1"># Now we perform the addition.</span>
-        <span class="n">result</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">-</span> <span class="n">operand_data</span>
-        <span class="c1"># Propagating the uncertainty.</span>
-        <span class="n">covariance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">operand_data</span><span class="o">.</span><span class="n">flatten</span><span class="p">())[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-        <span class="n">result</span><span class="o">.</span><span class="n">uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">**</span><span class="mi">2</span> <span class="o">+</span> <span class="n">operand_uncertainty</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">covariance</span><span class="p">,</span>
+        <span class="c1"># Now we perform the subtraction.</span>
+        <span class="c1"># We do not want to modify our own objects as that goes against the</span>
+        <span class="c1"># the main idea of operator operations.</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">uncertainty</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span>
+            <span class="n">minuend</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">subtrahend</span><span class="o">=</span><span class="n">operand_data</span><span class="p">,</span>
+            <span class="n">minuend_uncertainty</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">,</span>
+            <span class="n">subtrahend_uncertainty</span><span class="o">=</span><span class="n">operand_uncertainty</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="n">result</span></div>
@@ -733,19 +739,15 @@ document.write(`
             <span class="n">operand_data</span> <span class="o">=</span> <span class="n">operand</span>
             <span class="n">operand_uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">)</span>
 
+        <span class="c1"># Now we perform the multiplication.</span>
         <span class="c1"># We do not want to modify our own objects as that goes against the</span>
         <span class="c1"># the main idea of operator operations.</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-
-        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Self-calculation of error propagation in spectra parent class should instead use the uncertainty module.&quot;</span><span class="p">)</span>
-        <span class="c1"># Now we perform the addition.</span>
-        <span class="n">result</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">*</span> <span class="n">operand_data</span>
-        <span class="c1"># Propagating the uncertainty.</span>
-        <span class="n">covariance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">operand_data</span><span class="o">.</span><span class="n">flatten</span><span class="p">())[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-        <span class="n">result</span><span class="o">.</span><span class="n">uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
-            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uncertainty</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
-            <span class="o">+</span> <span class="p">(</span><span class="n">operand_uncertainty</span> <span class="o">/</span> <span class="n">operand_data</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
-            <span class="o">+</span> <span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="n">covariance</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="p">)),</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">uncertainty</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span>
+            <span class="n">multiplier</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">multiplicand</span><span class="o">=</span><span class="n">operand_data</span><span class="p">,</span>
+            <span class="n">multiplier_uncertainty</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">,</span>
+            <span class="n">multiplicand_uncertainty</span><span class="o">=</span><span class="n">operand_uncertainty</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="n">result</span></div>
@@ -787,20 +789,15 @@ document.write(`
             <span class="n">operand_data</span> <span class="o">=</span> <span class="n">operand</span>
             <span class="n">operand_uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">)</span>
 
+        <span class="c1"># Now we perform the division.</span>
         <span class="c1"># We do not want to modify our own objects as that goes against the</span>
         <span class="c1"># the main idea of operator operations.</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-
-
-        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Self-calculation of error propagation in spectra parent class should instead use the uncertainty module.&quot;</span><span class="p">)</span>
-        <span class="c1"># Now we perform the addition.</span>
-        <span class="n">result</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">/</span> <span class="n">operand_data</span>
-        <span class="c1"># Propagating the uncertainty.</span>
-        <span class="n">covariance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">operand_data</span><span class="o">.</span><span class="n">flatten</span><span class="p">())[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-        <span class="n">result</span><span class="o">.</span><span class="n">uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
-            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uncertainty</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
-            <span class="o">+</span> <span class="p">(</span><span class="n">operand_uncertainty</span> <span class="o">/</span> <span class="n">operand_data</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
-            <span class="o">-</span> <span class="p">((</span><span class="mi">2</span> <span class="o">*</span> <span class="n">covariance</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="p">)),</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">uncertainty</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span>
+            <span class="n">numerator</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">denominator</span><span class="o">=</span><span class="n">operand_data</span><span class="p">,</span>
+            <span class="n">numerator_uncertainty</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">,</span>
+            <span class="n">denominator_uncertainty</span><span class="o">=</span><span class="n">operand_uncertainty</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="n">result</span></div>
@@ -842,23 +839,15 @@ document.write(`
             <span class="n">operand_data</span> <span class="o">=</span> <span class="n">operand</span>
             <span class="n">operand_uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">)</span>
 
+        <span class="c1"># Now we perform the exponentiation..</span>
         <span class="c1"># We do not want to modify our own objects as that goes against the</span>
         <span class="c1"># the main idea of operator operations.</span>
         <span class="n">result</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
-
-
-        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Self-calculation of error propagation in spectra parent class should instead use the uncertainty module.&quot;</span><span class="p">)</span>
-        <span class="c1"># Now we perform the addition.</span>
-        <span class="n">result</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">**</span><span class="n">operand_data</span>
-        <span class="c1"># Propagating the uncertainty.</span>
-        <span class="n">covariance</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">cov</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">flatten</span><span class="p">(),</span> <span class="n">operand_data</span><span class="o">.</span><span class="n">flatten</span><span class="p">())[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-        <span class="n">result</span><span class="o">.</span><span class="n">uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
-            <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uncertainty</span> <span class="o">*</span> <span class="n">operand_data</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
-            <span class="o">+</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">*</span> <span class="n">operand_uncertainty</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span>
-            <span class="o">+</span> <span class="p">(</span>
-                <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">operand_data</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span> <span class="o">*</span> <span class="n">covariance</span><span class="p">)</span>
-                <span class="o">/</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-            <span class="p">),</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">uncertainty</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">exponentiate</span><span class="p">(</span>
+            <span class="n">base</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">exponent</span><span class="o">=</span><span class="n">operand_data</span><span class="p">,</span>
+            <span class="n">base_uncertainty</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">,</span>
+            <span class="n">exponent_uncertainty</span><span class="o">=</span><span class="n">operand_uncertainty</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="n">result</span></div>

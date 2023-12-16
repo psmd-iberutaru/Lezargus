@@ -18,6 +18,7 @@ Submodules
 
    lezargus.__main__
    lezargus.__version__
+   lezargus.initialize
 
 Module contents
 ---------------

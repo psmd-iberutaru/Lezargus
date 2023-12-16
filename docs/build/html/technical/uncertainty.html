@@ -152,15 +152,19 @@
 <li class="toctree-l4"><a class="reference internal" href="../code/lezargus.library.fits.html">lezargus.library.fits module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../code/lezargus.library.flags.html">lezargus.library.flags module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../code/lezargus.library.hint.html">lezargus.library.hint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../code/lezargus.library.interpolate.html">lezargus.library.interpolate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../code/lezargus.library.logging.html">lezargus.library.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../code/lezargus.library.old_stitch.html">lezargus.library.old_stitch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../code/lezargus.library.path.html">lezargus.library.path module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../code/lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../code/lezargus.library.stitch.html">lezargus.library.stitch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../code/lezargus.library.uncertainty.html">lezargus.library.uncertainty module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../code/lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../code/lezargus.__main__.html">lezargus.__main__ module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../code/lezargus.__version__.html">lezargus.__version__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../code/lezargus.initialize.html">lezargus.initialize module</a></li>
 </ul>
 </li>
 </ul>
@@ -313,6 +317,10 @@ document.write(`
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#addition-and-subtraction">Addition and Subtraction</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiplication-and-division">Multiplication and Division</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exponentiation">Exponentiation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logarithms">Logarithms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discrete-integration">Discrete Integration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weighted-mean">Weighted Mean</a></li>
 </ul>
             </nav>
         </div>
@@ -327,10 +335,20 @@ document.write(`
   <section id="uncertainty-propagation">
 <h1>Uncertainty Propagation<a class="headerlink" href="#uncertainty-propagation" title="Permalink to this heading">#</a></h1>
 <p>We follow the typical fundamental equations for the propagation of uncertainty
-for simple operations. We describe the methods for each operation as follows.</p>
+for simple operations. We describe the methods for each operation as follows.
+The calculations below propagate uncertainty via variances, though we adapt
+the methods below for uncertainty propagation via standard deviations.</p>
+<p>The variables with some provided uncertainty are <span class="math notranslate nohighlight">\(A\)</span> and <span class="math notranslate nohighlight">\(B\)</span> with
+their corresponding standard deviation uncertainty <span class="math notranslate nohighlight">\(\sigma_A\)</span> and
+<span class="math notranslate nohighlight">\(\sigma\)</span>. We assume the covariance term for all of our operations are
+zero, so, for our purposes, <span class="math notranslate nohighlight">\(\sigma_{AB} \triangleq 0\)</span>; however, for the
+sake of clarity, we leave this term in our equations below.</p>
 <section id="addition-and-subtraction">
-<h2>Addition and Subtraction<a class="headerlink" href="#addition-and-subtraction" title="Permalink to this heading">#</a></h2>
-<p>[[TODO]]</p>
+<span id="technical-uncertainty-addition-and-subtraction"></span><h2>Addition and Subtraction<a class="headerlink" href="#addition-and-subtraction" title="Permalink to this heading">#</a></h2>
+<p>The typical equations for the propagation of variance uncertainty for
+addition and subtraction are:</p>
+<div class="math notranslate nohighlight">
+\[ \begin{align}\begin{aligned}f = A + B \qquad \sigma_f^2 \approx \sigma_A^2 + \sigma_B^2 + 2 \sigma_{AB}\\f = A - B \qquad \sigma_f^2 \approx \sigma_A^2 + \sigma_B^2 - 2 \sigma_{AB}\end{aligned}\end{align} \]</div>
 </section>
 <section id="multiplication-and-division">
 <span id="technical-uncertainty-multiplication-and-division"></span><h2>Multiplication and Division<a class="headerlink" href="#multiplication-and-division" title="Permalink to this heading">#</a></h2>
@@ -340,10 +358,42 @@ multiplication and division are:</p>
 \[ \begin{align}\begin{aligned}f = AB \qquad \sigma_f^2 \approx f^2 \left(\left(\frac{\sigma_A}{A}\right)^2 + \left(\frac{\sigma_B}{B}\right)^2 + 2\frac{\sigma_{AB}}{AB} \right)\\f = \frac{A}{B} \qquad \sigma_f^2 \approx f^2 \left(\left(\frac{\sigma_A}{A}\right)^2 + \left(\frac{\sigma_B}{B}\right)^2 - 2\frac{\sigma_{AB}}{AB} \right)\end{aligned}\end{align} \]</div>
 <p>However, these formula are not very handy so we adapt it to remove possible
 division by zeros. This results in the following equations of the variance.
-The methodology is similar to Astropy. We calculate the standard deviation
-uncertainty from the variance.</p>
+The methodology is similar to Astropy.</p>
 <div class="math notranslate nohighlight">
 \[ \begin{align}\begin{aligned}f = AB \qquad \sigma_f^2 \approx \sigma_A^2 B^2 + \sigma_B^2 A^2  + 2AB\sigma_{AB}\\f = \frac{A}{B} \qquad \sigma_f^2 \approx \sigma_A^2 B^2 + \sigma_B^2 A^2 - 2AB\sigma_{AB}\end{aligned}\end{align} \]</div>
+<p>For the case of multiplication without any variance (i.e. <span class="math notranslate nohighlight">\(a\)</span> and
+<span class="math notranslate nohighlight">\(\sigma_a = 0\)</span>), it simplifies to:</p>
+<div class="math notranslate nohighlight">
+\[f = aB \qquad \sigma_f^2 \approx a^2 \sigma_B^2\]</div>
+</section>
+<section id="exponentiation">
+<span id="technical-uncertainty-exponentiation"></span><h2>Exponentiation<a class="headerlink" href="#exponentiation" title="Permalink to this heading">#</a></h2>
+<p>The typical equation for the propagation of variance uncertainty for
+exponentiation is:</p>
+<div class="math notranslate nohighlight">
+\[f = A^B \qquad \sigma_f^2 \approx f^2 \left( \left(\frac{B}{A} \sigma_A\right)^2 + (\sigma_B \ln A)^2 + 2 \frac{B \ln A}{A} \sigma_{AB} \right)\]</div>
+</section>
+<section id="logarithms">
+<span id="technical-uncertainty-logarithms"></span><h2>Logarithms<a class="headerlink" href="#logarithms" title="Permalink to this heading">#</a></h2>
+<p>The typical equation for the propagation of variance uncertainty for
+exponentiation is:</p>
+<div class="math notranslate nohighlight">
+\[f = \log_b A \qquad \sigma_f^2 = \left( \frac{\sigma_A}{A \ln b}\right)^2\]</div>
+<p>Note, we assume that the logarithm base <span class="math notranslate nohighlight">\(b\)</span> is exact in this case, and
+does not have any associated uncertainty to its value.</p>
+</section>
+<section id="discrete-integration">
+<span id="technical-uncertainty-discrete-integration"></span><h2>Discrete Integration<a class="headerlink" href="#discrete-integration" title="Permalink to this heading">#</a></h2>
+<p>[[TODO]].</p>
+</section>
+<section id="weighted-mean">
+<span id="technical-uncertainty-weighted-mean"></span><h2>Weighted Mean<a class="headerlink" href="#weighted-mean" title="Permalink to this heading">#</a></h2>
+<p>A weighted mean <span class="math notranslate nohighlight">\(f\)</span> is defined by weights <span class="math notranslate nohighlight">\(w_i\)</span> and values
+<span class="math notranslate nohighlight">\(A_i\)</span>. The weights need to be normalized, thus <span class="math notranslate nohighlight">\(\sum w_i = 1\)</span>.
+The typical equation for the propagation of variance uncertainty for a
+weighted mean is:</p>
+<div class="math notranslate nohighlight">
+\[f = \frac{1}{\sum w_i} \sum w_i A_i \qquad \sigma_f^2 = \sum \left(w_i \sigma_{A}_i \right)^2\]</div>
 </section>
 </section>
 
@@ -397,6 +447,10 @@ uncertainty from the variance.</p>
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#addition-and-subtraction">Addition and Subtraction</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multiplication-and-division">Multiplication and Division</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exponentiation">Exponentiation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logarithms">Logarithms</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#discrete-integration">Discrete Integration</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#weighted-mean">Weighted Mean</a></li>
 </ul>
   </nav></div>
 

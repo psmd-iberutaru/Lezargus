@@ -151,15 +151,19 @@
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.fits.html">lezargus.library.fits module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.flags.html">lezargus.library.flags module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.hint.html">lezargus.library.hint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.interpolate.html">lezargus.library.interpolate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.logging.html">lezargus.library.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.old_stitch.html">lezargus.library.old_stitch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.path.html">lezargus.library.path module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.stitch.html">lezargus.library.stitch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.uncertainty.html">lezargus.library.uncertainty module</a></li>
 <li class="toctree-l4 current active"><a class="current reference internal" href="#">lezargus.library.wrapper module</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="lezargus.__main__.html">lezargus.__main__ module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="lezargus.__version__.html">lezargus.__version__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lezargus.initialize.html">lezargus.initialize module</a></li>
 </ul>
 </li>
 </ul>
@@ -311,7 +315,8 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.wrapper.blackbody_function"><code class="docutils literal notranslate"><span class="pre">blackbody_function()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.wrapper.cubic_interpolate_1d_function"><code class="docutils literal notranslate"><span class="pre">cubic_interpolate_1d_function()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.wrapper.combine_overlap_wavelength_array"><code class="docutils literal notranslate"><span class="pre">combine_overlap_wavelength_array()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.wrapper.flatten_list_recursively"><code class="docutils literal notranslate"><span class="pre">flatten_list_recursively()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.wrapper.wavelength_overlap_fraction"><code class="docutils literal notranslate"><span class="pre">wavelength_overlap_fraction()</span></code></a></li>
 </ul>
             </nav>
@@ -329,7 +334,9 @@ document.write(`
 <p>Function wrappers.</p>
 <p>We borrow a lot of functions from different packages; however, for a lot of
 them, we build wrappers around them to better integrate them into our
-package provided its own idiosyncrasies.</p>
+package provided its own idiosyncrasies. Moreover, a lot of these wrapper
+functions are either legacy or depreciated or otherwise overly-complex; and
+as such, they may be changed in future builds so we unify all changes.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="lezargus.library.wrapper.blackbody_function">
 <span class="sig-prename descclassname"><span class="pre">lezargus.library.wrapper.</span></span><span class="sig-name descname"><span class="pre">blackbody_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">temperature</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><span class="pre">ndarray</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><span class="pre">ndarray</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/lezargus/library/wrapper.html#blackbody_function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.wrapper.blackbody_function" title="Permalink to this definition">#</a></dt>
@@ -352,21 +359,39 @@ return units are in FLAM/sr.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="lezargus.library.wrapper.cubic_interpolate_1d_function">
-<span class="sig-prename descclassname"><span class="pre">lezargus.library.wrapper.</span></span><span class="sig-name descname"><span class="pre">cubic_interpolate_1d_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><span class="pre">ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><span class="pre">ndarray</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><span class="pre">ndarray</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/lezargus/library/wrapper.html#cubic_interpolate_1d_function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.wrapper.cubic_interpolate_1d_function" title="Permalink to this definition">#</a></dt>
-<dd><p>Return a wrapper around Scipy’s Cubic interpolation.</p>
+<dt class="sig sig-object py" id="lezargus.library.wrapper.combine_overlap_wavelength_array">
+<span class="sig-prename descclassname"><span class="pre">lezargus.library.wrapper.</span></span><span class="sig-name descname"><span class="pre">combine_overlap_wavelength_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">wavelengths</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><span class="pre">ndarray</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><span class="pre">ndarray</span></a></span></span><a class="reference internal" href="../_modules/lezargus/library/wrapper.html#combine_overlap_wavelength_array"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.wrapper.combine_overlap_wavelength_array" title="Permalink to this definition">#</a></dt>
+<dd><p>Combine overlapping wavelengths, building on earlier bands.</p>
+<p>For more information, see [[TODO]].</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>ndarray</em>) – The x data to interpolate over.</p></li>
-<li><p><strong>y</strong> (<em>ndarray</em>) – The y data to interpolate over.</p></li>
-</ul>
+<dd class="field-odd"><p><strong>*wavelengths</strong> (<em>ndarray</em>) – Positional arguments for the wavelength arrays we are combining. We
+use the first wavelength array provided and add points to it from
+areas in subsequent wavelength arrays that the original one does not
+cover.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>interpolate_function</strong> – The interpolation function of the data.</p>
+<dd class="field-even"><p><strong>combine_wavelength</strong> – The combined wavelength.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Callable</p>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lezargus.library.wrapper.flatten_list_recursively">
+<span class="sig-prename descclassname"><span class="pre">lezargus.library.wrapper.</span></span><span class="sig-name descname"><span class="pre">flatten_list_recursively</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">object_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><span class="pre">numpy.ndarray</span></a><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/lezargus/library/wrapper.html#flatten_list_recursively"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.wrapper.flatten_list_recursively" title="Permalink to this definition">#</a></dt>
+<dd><p>Flatten a list containing different sized numerical data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>object_list</strong> (<em>list</em>) – The object to flatten. Note, it must contain numerical data only.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>flattened_list</strong> – The list object, flattened.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>list</p>
 </dd>
 </dl>
 </dd></dl>
@@ -448,7 +473,8 @@ other. This value may be larger than 1 for large overlaps.</p>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.wrapper.blackbody_function"><code class="docutils literal notranslate"><span class="pre">blackbody_function()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.wrapper.cubic_interpolate_1d_function"><code class="docutils literal notranslate"><span class="pre">cubic_interpolate_1d_function()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.wrapper.combine_overlap_wavelength_array"><code class="docutils literal notranslate"><span class="pre">combine_overlap_wavelength_array()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.wrapper.flatten_list_recursively"><code class="docutils literal notranslate"><span class="pre">flatten_list_recursively()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.wrapper.wavelength_overlap_fraction"><code class="docutils literal notranslate"><span class="pre">wavelength_overlap_fraction()</span></code></a></li>
 </ul>
   </nav></div>

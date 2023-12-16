@@ -60,7 +60,9 @@ def load_configuration_file(filename: str) -> dict:
             critical_type=logging.FileError,
             message=(
                 "The following configuration filename does not exist: {fname}"
-                .format(fname=filename)
+                .format(
+                    fname=filename,
+                )
             ),
         )
 

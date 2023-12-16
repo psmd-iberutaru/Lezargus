@@ -94,7 +94,9 @@ class LezargusSpectra(LezargusContainerArithmetic):
                 message=(
                     "The input data for a LezargusSpectra instantiation has a"
                     " shape {sh}, which is not the expected one dimension."
-                    .format(sh=data.shape)
+                    .format(
+                        sh=data.shape,
+                    )
                 ),
             )
         # The wavelength and the data must be parallel, and thus the same
@@ -225,7 +227,15 @@ class LezargusSpectra(LezargusContainerArithmetic):
         """
         # Interpolation cannot deal with NaNs, so we exclude any set of data
         # which includes them.
-        clean_wavelength, clean_data, clean_uncertainty = library.array.clean_finite_arrays(self.wavelength, self.data, self.uncertainty)
+        (
+            clean_wavelength,
+            clean_data,
+            clean_uncertainty,
+        ) = library.array.clean_finite_arrays(
+            self.wavelength,
+            self.data,
+            self.uncertainty,
+        )
 
         # If the wavelengths we are using to interpolate to are not all
         # numbers, it is a good idea to warn. It is not a good idea to change
@@ -393,14 +403,16 @@ class LezargusSpectra(LezargusContainerArithmetic):
             using_weights = weight
 
         # Next, we stitch together the data for the spectra.
-        stitch_wavelength, stitch_data, stitch_uncertainty = (
-            library.stitch.stitch_spectra_arrays(
-                wavelength=[spectradex.wavelength for spectradex in spectra],
-                data=[spectradex.data for spectradex in spectra],
-                uncertainty=[spectradex.uncertainty for spectradex in spectra],
-                weight=using_weights,
-                average_function=average_function,
-            )
+        (
+            stitch_wavelength,
+            stitch_data,
+            stitch_uncertainty,
+        ) = library.stitch.stitch_spectra_arrays(
+            wavelength=[spectradex.wavelength for spectradex in spectra],
+            data=[spectradex.data for spectradex in spectra],
+            uncertainty=[spectradex.uncertainty for spectradex in spectra],
+            weight=using_weights,
+            average_function=average_function,
         )
         # We also stitch together the flags and the mask. They are handled
         # with a different function. TODO

@@ -151,15 +151,19 @@
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.fits.html">lezargus.library.fits module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.flags.html">lezargus.library.flags module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.hint.html">lezargus.library.hint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.interpolate.html">lezargus.library.interpolate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.logging.html">lezargus.library.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.old_stitch.html">lezargus.library.old_stitch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.path.html">lezargus.library.path module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.stitch.html">lezargus.library.stitch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.uncertainty.html">lezargus.library.uncertainty module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="lezargus.__main__.html">lezargus.__main__ module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="lezargus.__version__.html">lezargus.__version__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lezargus.initialize.html">lezargus.initialize module</a></li>
 </ul>
 </li>
 </ul>
@@ -311,7 +315,6 @@ document.write(`
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.config.generate_configuration_file_copy"><code class="docutils literal notranslate"><span class="pre">generate_configuration_file_copy()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.config.initialize_default_configuration"><code class="docutils literal notranslate"><span class="pre">initialize_default_configuration()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.config.load_configuration_file"><code class="docutils literal notranslate"><span class="pre">load_configuration_file()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.config.load_then_apply_configuration"><code class="docutils literal notranslate"><span class="pre">load_then_apply_configuration()</span></code></a></li>
 </ul>
@@ -346,23 +349,6 @@ to. If it does not have the proper yaml extension, it will be added.</p></li>
 <li><p><strong>overwrite</strong> (<em>bool</em><em>, </em><em>default = False</em>) – If the file already exists, overwrite it. If False, it would raise
 an error instead.</p></li>
 </ul>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="lezargus.library.config.initialize_default_configuration">
-<span class="sig-prename descclassname"><span class="pre">lezargus.library.config.</span></span><span class="sig-name descname"><span class="pre">initialize_default_configuration</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lezargus/library/config.html#initialize_default_configuration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.config.initialize_default_configuration" title="Permalink to this definition">#</a></dt>
-<dd><p>Initialize the default configuration file.</p>
-<p>This function forces the reading and applying of the default
-configuration file. Note, this should not called when a user configuration
-file has already been provided.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>None</strong> – </p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>None</p>
@@ -462,7 +448,6 @@ if the filename is not the correct extension, just as a quick check.</p>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.config.generate_configuration_file_copy"><code class="docutils literal notranslate"><span class="pre">generate_configuration_file_copy()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.config.initialize_default_configuration"><code class="docutils literal notranslate"><span class="pre">initialize_default_configuration()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.config.load_configuration_file"><code class="docutils literal notranslate"><span class="pre">load_configuration_file()</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.config.load_then_apply_configuration"><code class="docutils literal notranslate"><span class="pre">load_then_apply_configuration()</span></code></a></li>
 </ul>

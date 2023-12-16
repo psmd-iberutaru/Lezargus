@@ -148,15 +148,19 @@
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.library.fits.html">lezargus.library.fits module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.library.flags.html">lezargus.library.flags module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.library.hint.html">lezargus.library.hint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="code/lezargus.library.interpolate.html">lezargus.library.interpolate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.library.logging.html">lezargus.library.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="code/lezargus.library.old_stitch.html">lezargus.library.old_stitch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.library.path.html">lezargus.library.path module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="code/lezargus.library.stitch.html">lezargus.library.stitch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.library.uncertainty.html">lezargus.library.uncertainty module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="code/lezargus.__main__.html">lezargus.__main__ module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="code/lezargus.__version__.html">lezargus.__version__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="code/lezargus.initialize.html">lezargus.initialize module</a></li>
 </ul>
 </li>
 </ul>
@@ -284,6 +288,7 @@ document.write(`
  | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
  | <a href="#U"><strong>U</strong></a>
+ | <a href="#V"><strong>V</strong></a>
  | <a href="#W"><strong>W</strong></a>
  
 </div>
@@ -308,13 +313,17 @@ document.write(`
         <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.ColoredLogFormatter.__init__">(lezargus.library.logging.ColoredLogFormatter method)</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/lezargus.container.parent.html#lezargus.container.parent.LezargusContainerArithmetic.__justify_arithmetic_operation">__justify_arithmetic_operation() (lezargus.container.parent.LezargusContainerArithmetic method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/lezargus.container.parent.html#lezargus.container.parent.LezargusContainerArithmetic.__mul__">__mul__() (lezargus.container.parent.LezargusContainerArithmetic method)</a>
 </li>
       <li><a href="code/lezargus.container.parent.html#lezargus.container.parent.LezargusContainerArithmetic.__pow__">__pow__() (lezargus.container.parent.LezargusContainerArithmetic method)</a>
+</li>
+      <li><a href="code/lezargus.library.old_stitch.html#lezargus.library.old_stitch.__spectra_rewrapped_interpolation_average_function">__spectra_rewrapped_interpolation_average_function() (in module lezargus.library.old_stitch)</a>
+</li>
+      <li><a href="code/lezargus.library.old_stitch.html#lezargus.library.old_stitch.__spectra_rewrapped_interpolation_factory">__spectra_rewrapped_interpolation_factory() (in module lezargus.library.old_stitch)</a>
 </li>
       <li><a href="code/lezargus.container.parent.html#lezargus.container.parent.LezargusContainerArithmetic.__sub__">__sub__() (lezargus.container.parent.LezargusContainerArithmetic method)</a>
 </li>
@@ -323,6 +332,8 @@ document.write(`
       <li><a href="code/lezargus.container.parent.html#lezargus.container.parent.LezargusContainerArithmetic._read_fits_file">_read_fits_file() (lezargus.container.parent.LezargusContainerArithmetic class method)</a>
 </li>
       <li><a href="code/lezargus.container.parent.html#lezargus.container.parent.LezargusContainerArithmetic._write_fits_file">_write_fits_file() (lezargus.container.parent.LezargusContainerArithmetic method)</a>
+</li>
+      <li><a href="code/lezargus.library.data.html#lezargus.library.data._zero_buffer_custom_filters">_zero_buffer_custom_filters() (in module lezargus.library.data)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -337,6 +348,8 @@ document.write(`
       <li><a href="code/lezargus.library.uncertainty.html#lezargus.library.uncertainty.add">add() (in module lezargus.library.uncertainty)</a>
 </li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.add_console_logging_handler">add_console_logging_handler() (in module lezargus.library.logging)</a>
+</li>
+      <li><a href="code/lezargus.library.data.html#lezargus.library.data.add_data_object">add_data_object() (in module lezargus.library.data)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -376,6 +389,8 @@ document.write(`
 </li>
       <li><a href="code/lezargus.library.photometry.html#lezargus.library.photometry.calculate_photometric_correction_factor_vega">calculate_photometric_correction_factor_vega() (in module lezargus.library.photometry)</a>
 </li>
+      <li><a href="code/lezargus.library.array.html#lezargus.library.array.clean_finite_arrays">clean_finite_arrays() (in module lezargus.library.array)</a>
+</li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.ColoredLogFormatter.color_formatting">color_formatting (lezargus.library.logging.ColoredLogFormatter attribute)</a>
 </li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.ColoredLogFormatter">ColoredLogFormatter (class in lezargus.library.logging)</a>
@@ -383,6 +398,8 @@ document.write(`
       <li><a href="code/lezargus.library.flags.html#lezargus.library.flags.combine_flags">combine_flags() (in module lezargus.library.flags)</a>
 </li>
       <li><a href="code/lezargus.library.flags.html#lezargus.library.flags.combine_masks">combine_masks() (in module lezargus.library.flags)</a>
+</li>
+      <li><a href="code/lezargus.library.wrapper.html#lezargus.library.wrapper.combine_overlap_wavelength_array">combine_overlap_wavelength_array() (in module lezargus.library.wrapper)</a>
 </li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.CommandLineError">CommandLineError</a>
 </li>
@@ -406,7 +423,13 @@ document.write(`
 </li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.critical">critical() (in module lezargus.library.logging)</a>
 </li>
-      <li><a href="code/lezargus.library.wrapper.html#lezargus.library.wrapper.cubic_interpolate_1d_function">cubic_interpolate_1d_function() (in module lezargus.library.wrapper)</a>
+      <li><a href="code/lezargus.library.interpolate.html#lezargus.library.interpolate.cubic_1d_interpolate_extrapolate_factory">cubic_1d_interpolate_extrapolate_factory() (in module lezargus.library.interpolate)</a>
+</li>
+      <li><a href="code/lezargus.library.interpolate.html#lezargus.library.interpolate.cubic_1d_interpolate_factory">cubic_1d_interpolate_factory() (in module lezargus.library.interpolate)</a>
+</li>
+      <li><a href="code/lezargus.library.interpolate.html#lezargus.library.interpolate.cubic_1d_interpolate_gap_factory">cubic_1d_interpolate_gap_factory() (in module lezargus.library.interpolate)</a>
+</li>
+      <li><a href="code/lezargus.library.data.html#lezargus.library.data.custom_rectangular_filter">custom_rectangular_filter() (in module lezargus.library.data)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -478,6 +501,8 @@ document.write(`
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="code/lezargus.library.wrapper.html#lezargus.library.wrapper.flatten_list_recursively">flatten_list_recursively() (in module lezargus.library.wrapper)</a>
+</li>
       <li><a href="code/lezargus.container.cube.html#lezargus.container.cube.LezargusCube.flux_unit">flux_unit (lezargus.container.cube.LezargusCube attribute)</a>
 
       <ul>
@@ -540,15 +565,23 @@ document.write(`
 </li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.info">info() (in module lezargus.library.logging)</a>
 </li>
-      <li><a href="code/lezargus.html#lezargus.initialize">initialize() (in module lezargus)</a>
+      <li><a href="code/lezargus.initialize.html#lezargus.initialize.initialize">initialize() (in module lezargus.initialize)</a>
 </li>
-      <li><a href="code/lezargus.library.data.html#lezargus.library.data.initialize_data_files">initialize_data_files() (in module lezargus.library.data)</a>
+      <li><a href="code/lezargus.initialize.html#lezargus.initialize.initialize_configuration">initialize_configuration() (in module lezargus.initialize)</a>
+</li>
+      <li><a href="code/lezargus.initialize.html#lezargus.initialize.initialize_data_all_files">initialize_data_all_files() (in module lezargus.initialize)</a>
+</li>
+      <li><a href="code/lezargus.initialize.html#lezargus.initialize.initialize_data_atmosphere_files">initialize_data_atmosphere_files() (in module lezargus.initialize)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="code/lezargus.library.config.html#lezargus.library.config.initialize_default_configuration">initialize_default_configuration() (in module lezargus.library.config)</a>
+      <li><a href="code/lezargus.initialize.html#lezargus.initialize.initialize_data_filter_files">initialize_data_filter_files() (in module lezargus.initialize)</a>
 </li>
-      <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.initialize_default_logging_outputs">initialize_default_logging_outputs() (in module lezargus.library.logging)</a>
+      <li><a href="code/lezargus.initialize.html#lezargus.initialize.initialize_data_filter_zero_point_values">initialize_data_filter_zero_point_values() (in module lezargus.initialize)</a>
+</li>
+      <li><a href="code/lezargus.initialize.html#lezargus.initialize.initialize_data_star_files">initialize_data_star_files() (in module lezargus.initialize)</a>
+</li>
+      <li><a href="code/lezargus.initialize.html#lezargus.initialize.initialize_logging_outputs">initialize_logging_outputs() (in module lezargus.initialize)</a>
 </li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.InputError">InputError</a>
 </li>
@@ -635,6 +668,13 @@ document.write(`
 </li>
       </ul></li>
       <li>
+    lezargus.initialize
+
+      <ul>
+        <li><a href="code/lezargus.initialize.html#module-lezargus.initialize">module</a>
+</li>
+      </ul></li>
+      <li>
     lezargus.library
 
       <ul>
@@ -669,8 +709,6 @@ document.write(`
         <li><a href="code/lezargus.library.conversion.html#module-lezargus.library.conversion">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     lezargus.library.data
 
@@ -678,6 +716,8 @@ document.write(`
         <li><a href="code/lezargus.library.data.html#module-lezargus.library.data">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     lezargus.library.fits
 
@@ -700,10 +740,24 @@ document.write(`
 </li>
       </ul></li>
       <li>
+    lezargus.library.interpolate
+
+      <ul>
+        <li><a href="code/lezargus.library.interpolate.html#module-lezargus.library.interpolate">module</a>
+</li>
+      </ul></li>
+      <li>
     lezargus.library.logging
 
       <ul>
         <li><a href="code/lezargus.library.logging.html#module-lezargus.library.logging">module</a>
+</li>
+      </ul></li>
+      <li>
+    lezargus.library.old_stitch
+
+      <ul>
+        <li><a href="code/lezargus.library.old_stitch.html#module-lezargus.library.old_stitch">module</a>
 </li>
       </ul></li>
       <li>
@@ -718,6 +772,13 @@ document.write(`
 
       <ul>
         <li><a href="code/lezargus.library.photometry.html#module-lezargus.library.photometry">module</a>
+</li>
+      </ul></li>
+      <li>
+    lezargus.library.stitch
+
+      <ul>
+        <li><a href="code/lezargus.library.stitch.html#module-lezargus.library.stitch">module</a>
 </li>
       </ul></li>
       <li>
@@ -804,6 +865,8 @@ document.write(`
 </li>
         <li><a href="code/lezargus.data.html#module-lezargus.data">lezargus.data</a>
 </li>
+        <li><a href="code/lezargus.initialize.html#module-lezargus.initialize">lezargus.initialize</a>
+</li>
         <li><a href="code/lezargus.library.html#module-lezargus.library">lezargus.library</a>
 </li>
         <li><a href="code/lezargus.library.array.html#module-lezargus.library.array">lezargus.library.array</a>
@@ -822,11 +885,17 @@ document.write(`
 </li>
         <li><a href="code/lezargus.library.hint.html#module-lezargus.library.hint">lezargus.library.hint</a>
 </li>
+        <li><a href="code/lezargus.library.interpolate.html#module-lezargus.library.interpolate">lezargus.library.interpolate</a>
+</li>
         <li><a href="code/lezargus.library.logging.html#module-lezargus.library.logging">lezargus.library.logging</a>
+</li>
+        <li><a href="code/lezargus.library.old_stitch.html#module-lezargus.library.old_stitch">lezargus.library.old_stitch</a>
 </li>
         <li><a href="code/lezargus.library.path.html#module-lezargus.library.path">lezargus.library.path</a>
 </li>
         <li><a href="code/lezargus.library.photometry.html#module-lezargus.library.photometry">lezargus.library.photometry</a>
+</li>
+        <li><a href="code/lezargus.library.stitch.html#module-lezargus.library.stitch">lezargus.library.stitch</a>
 </li>
         <li><a href="code/lezargus.library.uncertainty.html#module-lezargus.library.uncertainty">lezargus.library.uncertainty</a>
 </li>
@@ -843,6 +912,12 @@ document.write(`
 <h2 id="N">N</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="code/lezargus.library.uncertainty.html#lezargus.library.uncertainty.nan_weighted_mean">nan_weighted_mean() (in module lezargus.library.uncertainty)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="code/lezargus.library.interpolate.html#lezargus.library.interpolate.nearest_neighbor_1d_interpolate_factory">nearest_neighbor_1d_interpolate_factory() (in module lezargus.library.interpolate)</a>
+</li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.NotSupportedError">NotSupportedError</a>
 </li>
   </ul></td>
@@ -897,8 +972,14 @@ document.write(`
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/lezargus.library.path.html#lezargus.library.path.split_pathname">split_pathname() (in module lezargus.library.path)</a>
 </li>
+      <li><a href="code/lezargus.container.spectra.html#lezargus.container.spectra.LezargusSpectra.stitch">stitch() (lezargus.container.spectra.LezargusSpectra method)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="code/lezargus.library.old_stitch.html#lezargus.library.old_stitch.stitch_spectra_arrays">stitch_spectra_arrays() (in module lezargus.library.old_stitch)</a>
+</li>
+      <li><a href="code/lezargus.library.stitch.html#lezargus.library.stitch.stitch_spectra_functional">stitch_spectra_functional() (in module lezargus.library.stitch)</a>
+</li>
       <li><a href="code/lezargus.library.uncertainty.html#lezargus.library.uncertainty.subtract">subtract() (in module lezargus.library.uncertainty)</a>
 </li>
   </ul></td>
@@ -911,6 +992,8 @@ document.write(`
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.ToDoError">ToDoError</a>
+</li>
       <li><a href="code/lezargus.library.array.html#lezargus.library.array.translate_image_array">translate_image_array() (in module lezargus.library.array)</a>
 </li>
   </ul></td>
@@ -948,6 +1031,14 @@ document.write(`
   </ul></td>
 </tr></table>
 
+<h2 id="V">V</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="code/lezargus.library.array.html#lezargus.library.array.verify_shape_compatibility">verify_shape_compatibility() (in module lezargus.library.array)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="W">W</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -977,6 +1068,8 @@ document.write(`
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="code/lezargus.library.uncertainty.html#lezargus.library.uncertainty.weighted_mean">weighted_mean() (in module lezargus.library.uncertainty)</a>
+</li>
       <li><a href="code/lezargus.container.cube.html#lezargus.container.cube.LezargusCube.write_fits_file">write_fits_file() (lezargus.container.cube.LezargusCube method)</a>
 
       <ul>

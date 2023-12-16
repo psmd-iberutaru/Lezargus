@@ -45,7 +45,7 @@
     <script>DOCUMENTATION_OPTIONS.pagename = 'code/lezargus.library.photometry';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="lezargus.library.uncertainty module" href="lezargus.library.uncertainty.html" />
+    <link rel="next" title="lezargus.library.stitch module" href="lezargus.library.stitch.html" />
     <link rel="prev" title="lezargus.library.path module" href="lezargus.library.path.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
@@ -151,15 +151,19 @@
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.fits.html">lezargus.library.fits module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.flags.html">lezargus.library.flags module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.hint.html">lezargus.library.hint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.interpolate.html">lezargus.library.interpolate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.logging.html">lezargus.library.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.old_stitch.html">lezargus.library.old_stitch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.path.html">lezargus.library.path module</a></li>
 <li class="toctree-l4 current active"><a class="current reference internal" href="#">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.stitch.html">lezargus.library.stitch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.uncertainty.html">lezargus.library.uncertainty module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="lezargus.__main__.html">lezargus.__main__ module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="lezargus.__version__.html">lezargus.__version__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lezargus.initialize.html">lezargus.initialize module</a></li>
 </ul>
 </li>
 </ul>
@@ -397,7 +401,7 @@ the uncertainty on the value.</p></li>
 
 <dl class="py function">
 <dt class="sig sig-object py" id="lezargus.library.photometry.calculate_photometric_correction_factor_vega">
-<span class="sig-prename descclassname"><span class="pre">lezargus.library.photometry.</span></span><span class="sig-name descname"><span class="pre">calculate_photometric_correction_factor_vega</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">star_spectra</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lezargus.container.spectra.html#lezargus.container.spectra.LezargusSpectra" title="lezargus.container.spectra.LezargusSpectra"><span class="pre">LezargusSpectra</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_spectra</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lezargus.container.spectra.html#lezargus.container.spectra.LezargusSpectra" title="lezargus.container.spectra.LezargusSpectra"><span class="pre">LezargusSpectra</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">star_magnitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_zero_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">star_magnitude_uncertainty</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_zero_point_uncertainty</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/lezargus/library/photometry.html#calculate_photometric_correction_factor_vega"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.photometry.calculate_photometric_correction_factor_vega" title="Permalink to this definition">#</a></dt>
+<span class="sig-prename descclassname"><span class="pre">lezargus.library.photometry.</span></span><span class="sig-name descname"><span class="pre">calculate_photometric_correction_factor_vega</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">star_spectra</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lezargus.container.spectra.html#lezargus.container.spectra.LezargusSpectra" title="lezargus.container.spectra.LezargusSpectra"><span class="pre">LezargusSpectra</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_spectra</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lezargus.container.spectra.html#lezargus.container.spectra.LezargusSpectra" title="lezargus.container.spectra.LezargusSpectra"><span class="pre">LezargusSpectra</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">star_magnitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_zero_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">star_magnitude_uncertainty</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_zero_point_uncertainty</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="../_modules/lezargus/library/photometry.html#calculate_photometric_correction_factor_vega"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.photometry.calculate_photometric_correction_factor_vega" title="Permalink to this definition">#</a></dt>
 <dd><p>Compute photometric correction factors for Vega-based filters.</p>
 <p>We use the definition of the Vega photometric system to try and compute
 the scaling factor to scale the spectra so that it is
@@ -455,11 +459,11 @@ zero uncertainty.</p></li>
       </div>
     </a>
     <a class="right-next"
-       href="lezargus.library.uncertainty.html"
+       href="lezargus.library.stitch.html"
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">lezargus.library.uncertainty module</p>
+        <p class="prev-next-title">lezargus.library.stitch module</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

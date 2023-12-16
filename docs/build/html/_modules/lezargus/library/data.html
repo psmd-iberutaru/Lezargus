@@ -148,15 +148,19 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.fits.html">lezargus.library.fits module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.flags.html">lezargus.library.flags module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.hint.html">lezargus.library.hint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.interpolate.html">lezargus.library.interpolate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.logging.html">lezargus.library.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.old_stitch.html">lezargus.library.old_stitch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.path.html">lezargus.library.path module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.stitch.html">lezargus.library.stitch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.uncertainty.html">lezargus.library.uncertainty module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__main__.html">lezargus.__main__ module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__version__.html">lezargus.__version__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.initialize.html">lezargus.initialize module</a></li>
 </ul>
 </li>
 </ul>
@@ -267,12 +271,19 @@ document.write(`
 <span class="sd">This file deals with the loading in and saving of data files which are in</span>
 <span class="sd">the /data/ directory of Lezargus. Moreover, the contents of the data</span>
 <span class="sd">are accessed using attributes of this module.</span>
+
+<span class="sd">Also, custom functions are provided to make things which are similarly</span>
+<span class="sd">contained in the data directory. You can find all of these functions under the</span>
+<span class="sd">`custom_*` namespace.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">os</span>
 
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
 <span class="kn">import</span> <span class="nn">lezargus</span>
 <span class="kn">from</span> <span class="nn">lezargus</span> <span class="kn">import</span> <span class="n">library</span>
+<span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">hint</span>
 <span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">logging</span>
 
 <span class="c1"># We need to get the actual directory of the data.</span>
@@ -282,235 +293,150 @@ document.write(`
 <span class="p">)</span>
 
 
-<div class="viewcode-block" id="initialize_data_files"><a class="viewcode-back" href="../../../code/lezargus.library.data.html#lezargus.library.data.initialize_data_files">[docs]</a><span class="k">def</span> <span class="nf">initialize_data_files</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create all of the data files and instances of classes.</span>
+<div class="viewcode-block" id="add_data_object"><a class="viewcode-back" href="../../../code/lezargus.library.data.html#lezargus.library.data.add_data_object">[docs]</a><span class="k">def</span> <span class="nf">add_data_object</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span> <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Add a data variable to the library data module.</span>
 
-<span class="sd">    This function creates all of the data objects which represent all of the</span>
-<span class="sd">    data and saves it to this module. This must be done in a function, and</span>
-<span class="sd">    called by the initialization of the module, to avoid import errors and</span>
-<span class="sd">    dependency issues.</span>
+<span class="sd">    If the addition of a new data object with the same name as one already</span>
+<span class="sd">    present, we raise an error as these values are technically constants.</span>
+
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    None</span>
+<span class="sd">    name : str</span>
+<span class="sd">        The name of the data object to be added, it will be coerced to be all</span>
+<span class="sd">        capitalized as it ought to be effectively a constant.</span>
+<span class="sd">    data : object</span>
+<span class="sd">        The data object to be added to the data module.</span>
+<span class="sd">    force : bool</span>
+<span class="sd">        Force the loading of the data object regardless of any critical errors.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># We fix the name.</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+    <span class="c1"># Check the current global namespace for any already-existing data objects.</span>
+    <span class="k">for</span> <span class="n">namedex</span> <span class="ow">in</span> <span class="nb">globals</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="n">namedex</span><span class="p">:</span>
+            <span class="c1"># A name conflict is detected, so, we need to give an error. If</span>
+            <span class="c1"># we are not forcing it to be loaded, we use a critical error</span>
+            <span class="c1"># instead.</span>
+            <span class="k">if</span> <span class="n">force</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                    <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                    <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;Object name </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> already exists in the data module.&quot;</span>
+                        <span class="s2">&quot; We force its overwriting.&quot;</span>
+                    <span class="p">),</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+                    <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                    <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;Object name </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> already exists in the data module.&quot;</span>
+                        <span class="s2">&quot; We cannot assign a name to the data object.&quot;</span>
+                    <span class="p">),</span>
+                <span class="p">)</span>
+    <span class="c1"># We add the name and the object.</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
+        <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;Added </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> to the lezargus.library.data module; it is of type&quot;</span>
+            <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span>
+        <span class="p">),</span>
+    <span class="p">)</span>
+    <span class="nb">globals</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="n">name</span><span class="p">:</span> <span class="n">data</span><span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="_zero_buffer_custom_filters"><a class="viewcode-back" href="../../../code/lezargus.library.data.html#lezargus.library.data._zero_buffer_custom_filters">[docs]</a><span class="k">def</span> <span class="nf">_zero_buffer_custom_filters</span><span class="p">(</span>
+    <span class="n">wavelength</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">transmission</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a zero transmission buffer on either side of the filter.</span>
+
+<span class="sd">    This function is a convenience function for creating tail ends of created</span>
+<span class="sd">    custom filter profiles with zero transmission, as expected.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    wavelength : ndarray</span>
+<span class="sd">        The original wavelength of the filter.</span>
+<span class="sd">    transmission : ndarray</span>
+<span class="sd">        The original transmission wavelength of the filter.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
-<span class="sd">    None</span>
+<span class="sd">    zero_wavelength : ndarray</span>
+<span class="sd">        The wavelength, with added points for the zero section.</span>
+<span class="sd">    zero_transmission : ndarray</span>
+<span class="sd">        The transmission, with added points for the zero section, of zero.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">data_files</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="c1"># The number of buffer points we have to make on each side.</span>
+    <span class="n">n_buffer_points</span> <span class="o">=</span> <span class="mi">5</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="c1"># Creating the buffer points.</span>
+    <span class="n">spacing</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ptp</span><span class="p">(</span><span class="n">wavelength</span><span class="p">)</span> <span class="o">/</span> <span class="n">n_buffer_points</span>
+    <span class="c1"># This helps the profiles be sharp by have a new data point very close to</span>
+    <span class="c1"># the defined ones.</span>
+    <span class="n">delta</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">**</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log10</span><span class="p">(</span><span class="n">spacing</span><span class="p">))</span> <span class="o">*</span> <span class="mf">1e-5</span>
+    <span class="c1"># The actual points.</span>
+    <span class="n">extra_zero_blue_wave</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">wavelength</span><span class="p">)</span> <span class="o">-</span> <span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_buffer_points</span><span class="p">))</span> <span class="o">*</span> <span class="n">spacing</span><span class="p">)</span> <span class="o">-</span> <span class="n">delta</span>
+    <span class="p">)</span>
+    <span class="n">extra_zero_red_wave</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">wavelength</span><span class="p">)</span> <span class="o">+</span> <span class="p">((</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_buffer_points</span><span class="p">))</span> <span class="o">*</span> <span class="n">spacing</span><span class="p">)</span> <span class="o">+</span> <span class="n">delta</span>
+    <span class="p">)</span>
+    <span class="n">extra_zero_wave</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">extra_zero_blue_wave</span><span class="p">,</span> <span class="n">extra_zero_red_wave</span><span class="p">)</span>
+    <span class="n">extra_zero_trans</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">extra_zero_wave</span><span class="p">)</span>
+    <span class="c1"># Now adding them to the original spectra.</span>
+    <span class="n">new_zero_wavelength</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">wavelength</span><span class="p">,</span> <span class="n">extra_zero_wave</span><span class="p">)</span>
+    <span class="n">new_zero_transmission</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">transmission</span><span class="p">,</span> <span class="n">extra_zero_trans</span><span class="p">)</span>
+    <span class="c1"># Sorting as well.</span>
+    <span class="n">sort_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">new_zero_wavelength</span><span class="p">)</span>
+    <span class="n">zero_wavelength</span> <span class="o">=</span> <span class="n">new_zero_wavelength</span><span class="p">[</span><span class="n">sort_index</span><span class="p">]</span>
+    <span class="n">zero_transmission</span> <span class="o">=</span> <span class="n">new_zero_transmission</span><span class="p">[</span><span class="n">sort_index</span><span class="p">]</span>
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">zero_wavelength</span><span class="p">,</span> <span class="n">zero_transmission</span></div>
 
-    <span class="c1"># Loading the stars, often used as standard stars.</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="s2">&quot;Loading standard star data for data initialization.&quot;</span><span class="p">)</span>
-    <span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;STAR_16CYGB&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusSpectra</span><span class="o">.</span><span class="n">read_fits_file</span><span class="p">(</span>
-            <span class="n">filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
-                <span class="n">directory</span><span class="o">=</span><span class="n">MODULE_DATA_DIRECTORY</span><span class="p">,</span>
-                <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;star_spectra_16CygB&quot;</span><span class="p">,</span>
-                <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;fits&quot;</span><span class="p">,</span>
-            <span class="p">),</span>
-        <span class="p">)</span>
-    <span class="p">)</span>
-    <span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;STAR_109VIR&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusSpectra</span><span class="o">.</span><span class="n">read_fits_file</span><span class="p">(</span>
-            <span class="n">filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
-                <span class="n">directory</span><span class="o">=</span><span class="n">MODULE_DATA_DIRECTORY</span><span class="p">,</span>
-                <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;star_spectra_109Vir&quot;</span><span class="p">,</span>
-                <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;fits&quot;</span><span class="p">,</span>
-            <span class="p">),</span>
-        <span class="p">)</span>
-    <span class="p">)</span>
-    <span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;STAR_SUN&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusSpectra</span><span class="o">.</span><span class="n">read_fits_file</span><span class="p">(</span>
-        <span class="n">filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
-            <span class="n">directory</span><span class="o">=</span><span class="n">MODULE_DATA_DIRECTORY</span><span class="p">,</span>
-            <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;star_spectra_Sun&quot;</span><span class="p">,</span>
-            <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;fits&quot;</span><span class="p">,</span>
-        <span class="p">),</span>
-    <span class="p">)</span>
-    <span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;STAR_VEGA&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusSpectra</span><span class="o">.</span><span class="n">read_fits_file</span><span class="p">(</span>
-        <span class="n">filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
-            <span class="n">directory</span><span class="o">=</span><span class="n">MODULE_DATA_DIRECTORY</span><span class="p">,</span>
-            <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;star_spectra_Vega&quot;</span><span class="p">,</span>
-            <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;fits&quot;</span><span class="p">,</span>
-        <span class="p">),</span>
-    <span class="p">)</span>
-    <span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;STAR_A0V&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusSpectra</span><span class="o">.</span><span class="n">read_fits_file</span><span class="p">(</span>
-        <span class="n">filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
-            <span class="n">directory</span><span class="o">=</span><span class="n">MODULE_DATA_DIRECTORY</span><span class="p">,</span>
-            <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;star_spectra_A0V&quot;</span><span class="p">,</span>
-            <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;fits&quot;</span><span class="p">,</span>
-        <span class="p">),</span>
-    <span class="p">)</span>
 
-    <span class="c1"># Loading the filters.</span>
-    <span class="c1"># Johnson...</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-        <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Loading Johnson photometric filters for data initialization.&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;FILTER_JOHNSON_U_PHOTON&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusSpectra</span><span class="o">.</span><span class="n">read_fits_file</span><span class="p">(</span>
-            <span class="n">filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
-                <span class="n">directory</span><span class="o">=</span><span class="n">MODULE_DATA_DIRECTORY</span><span class="p">,</span>
-                <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;filter_Johnson_U_photon&quot;</span><span class="p">,</span>
-                <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;fits&quot;</span><span class="p">,</span>
-            <span class="p">),</span>
-        <span class="p">)</span>
-    <span class="p">)</span>
-    <span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;FILTER_JOHNSON_B_PHOTON&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusSpectra</span><span class="o">.</span><span class="n">read_fits_file</span><span class="p">(</span>
-            <span class="n">filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
-                <span class="n">directory</span><span class="o">=</span><span class="n">MODULE_DATA_DIRECTORY</span><span class="p">,</span>
-                <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;filter_Johnson_B_photon&quot;</span><span class="p">,</span>
-                <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;fits&quot;</span><span class="p">,</span>
-            <span class="p">),</span>
-        <span class="p">)</span>
-    <span class="p">)</span>
-    <span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;FILTER_JOHNSON_V_PHOTON&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusSpectra</span><span class="o">.</span><span class="n">read_fits_file</span><span class="p">(</span>
-            <span class="n">filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
-                <span class="n">directory</span><span class="o">=</span><span class="n">MODULE_DATA_DIRECTORY</span><span class="p">,</span>
-                <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;filter_Johnson_V_photon&quot;</span><span class="p">,</span>
-                <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;fits&quot;</span><span class="p">,</span>
-            <span class="p">),</span>
-        <span class="p">)</span>
-    <span class="p">)</span>
-    <span class="c1"># Gaia...</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-        <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Loading Gaia photometric filters for data initialization.&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;FILTER_GAIA_GG_PHOTON&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusSpectra</span><span class="o">.</span><span class="n">read_fits_file</span><span class="p">(</span>
-            <span class="n">filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
-                <span class="n">directory</span><span class="o">=</span><span class="n">MODULE_DATA_DIRECTORY</span><span class="p">,</span>
-                <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;filter_Gaia_GG_photon&quot;</span><span class="p">,</span>
-                <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;fits&quot;</span><span class="p">,</span>
-            <span class="p">),</span>
-        <span class="p">)</span>
-    <span class="p">)</span>
-    <span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;FILTER_GAIA_GB_PHOTON&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusSpectra</span><span class="o">.</span><span class="n">read_fits_file</span><span class="p">(</span>
-            <span class="n">filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
-                <span class="n">directory</span><span class="o">=</span><span class="n">MODULE_DATA_DIRECTORY</span><span class="p">,</span>
-                <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;filter_Gaia_GB_photon&quot;</span><span class="p">,</span>
-                <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;fits&quot;</span><span class="p">,</span>
-            <span class="p">),</span>
-        <span class="p">)</span>
-    <span class="p">)</span>
-    <span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;FILTER_GAIA_GR_PHOTON&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusSpectra</span><span class="o">.</span><span class="n">read_fits_file</span><span class="p">(</span>
-            <span class="n">filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
-                <span class="n">directory</span><span class="o">=</span><span class="n">MODULE_DATA_DIRECTORY</span><span class="p">,</span>
-                <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;filter_Gaia_GR_photon&quot;</span><span class="p">,</span>
-                <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;fits&quot;</span><span class="p">,</span>
-            <span class="p">),</span>
-        <span class="p">)</span>
-    <span class="p">)</span>
-    <span class="c1"># 2MASS...</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-        <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Loading 2MASS photometric filters for data initialization.&quot;</span><span class="p">,</span>
-    <span class="p">)</span>
-    <span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;FILTER_2MASS_J_PHOTON&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusSpectra</span><span class="o">.</span><span class="n">read_fits_file</span><span class="p">(</span>
-            <span class="n">filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
-                <span class="n">directory</span><span class="o">=</span><span class="n">MODULE_DATA_DIRECTORY</span><span class="p">,</span>
-                <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;filter_2MASS_J_photon&quot;</span><span class="p">,</span>
-                <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;fits&quot;</span><span class="p">,</span>
-            <span class="p">),</span>
-        <span class="p">)</span>
-    <span class="p">)</span>
-    <span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;FILTER_2MASS_H_PHOTON&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusSpectra</span><span class="o">.</span><span class="n">read_fits_file</span><span class="p">(</span>
-            <span class="n">filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
-                <span class="n">directory</span><span class="o">=</span><span class="n">MODULE_DATA_DIRECTORY</span><span class="p">,</span>
-                <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;filter_2MASS_H_photon&quot;</span><span class="p">,</span>
-                <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;fits&quot;</span><span class="p">,</span>
-            <span class="p">),</span>
-        <span class="p">)</span>
-    <span class="p">)</span>
-    <span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;FILTER_2MASS_KS_PHOTON&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusSpectra</span><span class="o">.</span><span class="n">read_fits_file</span><span class="p">(</span>
-            <span class="n">filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
-                <span class="n">directory</span><span class="o">=</span><span class="n">MODULE_DATA_DIRECTORY</span><span class="p">,</span>
-                <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;filter_2MASS_Ks_photon&quot;</span><span class="p">,</span>
-                <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;fits&quot;</span><span class="p">,</span>
-            <span class="p">),</span>
-        <span class="p">)</span>
-    <span class="p">)</span>
+<div class="viewcode-block" id="custom_rectangular_filter"><a class="viewcode-back" href="../../../code/lezargus.library.data.html#lezargus.library.data.custom_rectangular_filter">[docs]</a><span class="k">def</span> <span class="nf">custom_rectangular_filter</span><span class="p">(</span>
+    <span class="n">lower_limit</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">upper_limit</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusSpectra</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Make a custom rectangular filter profile.</span>
 
-    <span class="c1"># We next calculate filter zero points for each filter set.</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span>
-        <span class="n">message</span><span class="o">=</span><span class="p">(</span>
-            <span class="s2">&quot;Calculating photometric filter zero points and errors for data&quot;</span>
-            <span class="s2">&quot; initialization.&quot;</span>
-        <span class="p">),</span>
-    <span class="p">)</span>
-    <span class="c1"># Johnson...</span>
-    <span class="p">(</span>
-        <span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;ZERO_POINT_VEGA_JOHNSON_U&quot;</span><span class="p">],</span>
-        <span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;ZERO_POINT_VEGA_JOHNSON_U_ERROR&quot;</span><span class="p">],</span>
-    <span class="p">)</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">photometry</span><span class="o">.</span><span class="n">calculate_filter_zero_point_vega</span><span class="p">(</span>
-        <span class="n">filter_spectra</span><span class="o">=</span><span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;FILTER_JOHNSON_U_PHOTON&quot;</span><span class="p">],</span>
-        <span class="n">standard_spectra</span><span class="o">=</span><span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;STAR_A0V&quot;</span><span class="p">],</span>
-        <span class="n">standard_filter_magnitude</span><span class="o">=</span><span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;STAR_A0V&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s2">&quot;LZOM_J_U&quot;</span><span class="p">],</span>
-        <span class="n">standard_filter_uncertainty</span><span class="o">=</span><span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;STAR_A0V&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s2">&quot;LZOU_J_U&quot;</span><span class="p">],</span>
-    <span class="p">)</span>
-    <span class="p">(</span>
-        <span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;ZERO_POINT_VEGA_JOHNSON_B&quot;</span><span class="p">],</span>
-        <span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;ZERO_POINT_VEGA_JOHNSON_B_ERROR&quot;</span><span class="p">],</span>
-    <span class="p">)</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">photometry</span><span class="o">.</span><span class="n">calculate_filter_zero_point_vega</span><span class="p">(</span>
-        <span class="n">filter_spectra</span><span class="o">=</span><span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;FILTER_JOHNSON_B_PHOTON&quot;</span><span class="p">],</span>
-        <span class="n">standard_spectra</span><span class="o">=</span><span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;STAR_A0V&quot;</span><span class="p">],</span>
-        <span class="n">standard_filter_magnitude</span><span class="o">=</span><span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;STAR_A0V&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s2">&quot;LZOM_J_B&quot;</span><span class="p">],</span>
-        <span class="n">standard_filter_uncertainty</span><span class="o">=</span><span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;STAR_A0V&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s2">&quot;LZOU_J_B&quot;</span><span class="p">],</span>
-    <span class="p">)</span>
-    <span class="p">(</span>
-        <span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;ZERO_POINT_VEGA_JOHNSON_V&quot;</span><span class="p">],</span>
-        <span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;ZERO_POINT_VEGA_JOHNSON_V_ERROR&quot;</span><span class="p">],</span>
-    <span class="p">)</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">photometry</span><span class="o">.</span><span class="n">calculate_filter_zero_point_vega</span><span class="p">(</span>
-        <span class="n">filter_spectra</span><span class="o">=</span><span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;FILTER_JOHNSON_V_PHOTON&quot;</span><span class="p">],</span>
-        <span class="n">standard_spectra</span><span class="o">=</span><span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;STAR_A0V&quot;</span><span class="p">],</span>
-        <span class="n">standard_filter_magnitude</span><span class="o">=</span><span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;STAR_A0V&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s2">&quot;LZOM_J_V&quot;</span><span class="p">],</span>
-        <span class="n">standard_filter_uncertainty</span><span class="o">=</span><span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;STAR_A0V&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s2">&quot;LZOU_J_V&quot;</span><span class="p">],</span>
-    <span class="p">)</span>
-    <span class="c1"># Gaia...</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    lower_limit : float</span>
+<span class="sd">        The lower limit of the rectangular filter. This value is typically</span>
+<span class="sd">        a wavelength.</span>
+<span class="sd">    upper_limit : float</span>
+<span class="sd">        The upper limit of the rectangular filter. This value is typically</span>
+<span class="sd">        a wavelength.</span>
 
-    <span class="c1"># 2MASS</span>
-    <span class="p">(</span>
-        <span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;ZERO_POINT_VEGA_2MASS_J&quot;</span><span class="p">],</span>
-        <span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;ZERO_POINT_VEGA_2MASS_J_ERROR&quot;</span><span class="p">],</span>
-    <span class="p">)</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">photometry</span><span class="o">.</span><span class="n">calculate_filter_zero_point_vega</span><span class="p">(</span>
-        <span class="n">filter_spectra</span><span class="o">=</span><span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;FILTER_2MASS_J_PHOTON&quot;</span><span class="p">],</span>
-        <span class="n">standard_spectra</span><span class="o">=</span><span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;STAR_A0V&quot;</span><span class="p">],</span>
-        <span class="n">standard_filter_magnitude</span><span class="o">=</span><span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;STAR_A0V&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s2">&quot;LZOM_2_J&quot;</span><span class="p">],</span>
-        <span class="n">standard_filter_uncertainty</span><span class="o">=</span><span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;STAR_A0V&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s2">&quot;LZOU_2_J&quot;</span><span class="p">],</span>
-    <span class="p">)</span>
-    <span class="p">(</span>
-        <span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;ZERO_POINT_VEGA_2MASS_H&quot;</span><span class="p">],</span>
-        <span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;ZERO_POINT_VEGA_2MASS_H_ERROR&quot;</span><span class="p">],</span>
-    <span class="p">)</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">photometry</span><span class="o">.</span><span class="n">calculate_filter_zero_point_vega</span><span class="p">(</span>
-        <span class="n">filter_spectra</span><span class="o">=</span><span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;FILTER_2MASS_H_PHOTON&quot;</span><span class="p">],</span>
-        <span class="n">standard_spectra</span><span class="o">=</span><span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;STAR_A0V&quot;</span><span class="p">],</span>
-        <span class="n">standard_filter_magnitude</span><span class="o">=</span><span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;STAR_A0V&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s2">&quot;LZOM_2_H&quot;</span><span class="p">],</span>
-        <span class="n">standard_filter_uncertainty</span><span class="o">=</span><span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;STAR_A0V&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s2">&quot;LZOU_2_H&quot;</span><span class="p">],</span>
-    <span class="p">)</span>
-    <span class="p">(</span>
-        <span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;ZERO_POINT_VEGA_2MASS_KS&quot;</span><span class="p">],</span>
-        <span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;ZERO_POINT_VEGA_2MASS_KS_ERROR&quot;</span><span class="p">],</span>
-    <span class="p">)</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">photometry</span><span class="o">.</span><span class="n">calculate_filter_zero_point_vega</span><span class="p">(</span>
-        <span class="n">filter_spectra</span><span class="o">=</span><span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;FILTER_2MASS_KS_PHOTON&quot;</span><span class="p">],</span>
-        <span class="n">standard_spectra</span><span class="o">=</span><span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;STAR_A0V&quot;</span><span class="p">],</span>
-        <span class="n">standard_filter_magnitude</span><span class="o">=</span><span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;STAR_A0V&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s2">&quot;LZOM_2KS&quot;</span><span class="p">],</span>
-        <span class="n">standard_filter_uncertainty</span><span class="o">=</span><span class="n">data_files</span><span class="p">[</span><span class="s2">&quot;STAR_A0V&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">header</span><span class="p">[</span><span class="s2">&quot;LZOU_2KS&quot;</span><span class="p">],</span>
-    <span class="p">)</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    rectangular_filter : LezargusSpectra</span>
+<span class="sd">        The filter, as defined.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Wavelength and data. The 100 data points are arbitrary but we think it</span>
+    <span class="c1"># is enough.</span>
+    <span class="n">n_data_points</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">filter_wave</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">lower_limit</span><span class="p">,</span> <span class="n">upper_limit</span><span class="p">,</span> <span class="n">n_data_points</span><span class="p">)</span>
+    <span class="n">filter_trans</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">filter_wave</span><span class="p">)</span>
 
-    <span class="c1"># Finally, applying the data to this module.</span>
-    <span class="nb">globals</span><span class="p">()</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">data_files</span><span class="p">)</span>
-    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
-        <span class="n">message</span><span class="o">=</span><span class="p">(</span>
-            <span class="s2">&quot;Initialized Lezargus data have been loaded into to the data&quot;</span>
-            <span class="s2">&quot; module.&quot;</span>
-        <span class="p">),</span>
-    <span class="p">)</span></div>
+    <span class="c1"># Customarily, filters have a little bit of data outside their band pass</span>
+    <span class="c1"># for zeros.</span>
+    <span class="n">buffer_filter_wave</span><span class="p">,</span> <span class="n">buffer_filter_trans</span> <span class="o">=</span> <span class="n">_zero_buffer_custom_filters</span><span class="p">(</span>
+        <span class="n">wavelength</span><span class="o">=</span><span class="n">filter_wave</span><span class="p">,</span>
+        <span class="n">transmission</span><span class="o">=</span><span class="n">filter_trans</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1"># Now we construct the filter object.</span>
+    <span class="n">rectangular_filter</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusSpectra</span><span class="p">(</span>
+        <span class="n">wavelength</span><span class="o">=</span><span class="n">buffer_filter_wave</span><span class="p">,</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">buffer_filter_trans</span><span class="p">,</span>
+        <span class="n">uncertainty</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">wavelength_unit</span><span class="o">=</span><span class="s2">&quot;um&quot;</span><span class="p">,</span>
+        <span class="n">data_unit</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="n">header</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;LZO_NAME&quot;</span><span class="p">:</span> <span class="s2">&quot;Custom_rect_photon&quot;</span><span class="p">},</span>
+    <span class="p">)</span>
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">rectangular_filter</span></div>
 </pre></div>
 
                 </article>

@@ -91,7 +91,9 @@ class LezargusCube(LezargusContainerArithmetic):
                 message=(
                     "The input data for a LezargusCube instantiation has a"
                     " shape {sh}, which is not the expected three dimensions."
-                    .format(sh=data.shape)
+                    .format(
+                        sh=data.shape,
+                    )
                 ),
             )
         # The wavelength and the flux data must be parallel, and thus the same

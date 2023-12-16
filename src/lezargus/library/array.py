@@ -18,17 +18,17 @@ from lezargus.library import hint
 from lezargus.library import logging
 
 
-def clean_finite_arrays(*arrays:hint.ndarray) -> tuple[hint.ndarray]:
+def clean_finite_arrays(*arrays: hint.ndarray) -> tuple[hint.ndarray]:
     """Return parallel arrays with any non-finite number removed from them.
 
     We remove all parallel-aligned values (aligned with each other) which are
-    not a finite number, such as NaN and infinity. Because we remove data, 
+    not a finite number, such as NaN and infinity. Because we remove data,
     the shape of the output arrays will likely be very different to the input.
 
     Parameters
     ----------
     *arrays : ndarray
-        The arrays, which are all parallel, to remove the non-finite numbers 
+        The arrays, which are all parallel, to remove the non-finite numbers
         from.
 
     Returns
@@ -42,21 +42,37 @@ def clean_finite_arrays(*arrays:hint.ndarray) -> tuple[hint.ndarray]:
     reference_array = arrays[0]
     sized_arrays = []
     for index, arraydex in enumerate(arrays):
-        compatible, compatible_array = verify_shape_compatibility(reference_array=reference_array, test_array=arraydex, return_broadcast=True)
+        compatible, compatible_array = verify_shape_compatibility(
+            reference_array=reference_array,
+            test_array=arraydex,
+            return_broadcast=True,
+        )
         # We skip the non-compatible arrays.
         if compatible:
             sized_arrays.append(compatible_array)
         else:
-            logging.error(error_type=logging.InputError, message="Input array index {i} shape {i_sh} is not compatible with the first array reference shape of {r_sh}. Skipping.".format(i=index, i_sh=arraydex.shape, r_sh=reference_array.shape))
+            logging.error(
+                error_type=logging.InputError,
+                message=(
+                    "Input array index {i} shape {i_sh} is not compatible with"
+                    " the first array reference shape of {r_sh}. Skipping."
+                    .format(
+                        i=index,
+                        i_sh=arraydex.shape,
+                        r_sh=reference_array.shape,
+                    )
+                ),
+            )
 
     # We now find the aligned clean index of all of the arrays.
     clean_index = np.full_like(reference_array, True, dtype=bool)
     for arraydex in sized_arrays:
         clean_index = clean_index & np.isfinite(arraydex, dtype=bool)
-    
-    # Finally, only returning the cleaned arrays. 
+
+    # Finally, only returning the cleaned arrays.
     clean_arrays = tuple(arraydex[clean_index] for arraydex in sized_arrays)
     return clean_arrays
+
 
 def verify_shape_compatibility(
     reference_array: hint.ndarray,
@@ -455,7 +471,10 @@ def convolve_cube_by_image_array(
             message=(
                 "Attempting a layered FFT convolution of a cube with shape"
                 " {csh} with kernel shape {ksh} requires too much memory."
-                .format(csh=cube.shape, ksh=kernel.shape)
+                .format(
+                    csh=cube.shape,
+                    ksh=kernel.shape,
+                )
             ),
         )
         # We use the alternative discrete convolution.

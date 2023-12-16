@@ -148,15 +148,19 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.fits.html">lezargus.library.fits module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.flags.html">lezargus.library.flags module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.hint.html">lezargus.library.hint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.interpolate.html">lezargus.library.interpolate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.logging.html">lezargus.library.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.old_stitch.html">lezargus.library.old_stitch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.path.html">lezargus.library.path module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.stitch.html">lezargus.library.stitch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.uncertainty.html">lezargus.library.uncertainty module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__main__.html">lezargus.__main__ module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__version__.html">lezargus.__version__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.initialize.html">lezargus.initialize module</a></li>
 </ul>
 </li>
 </ul>
@@ -324,7 +328,9 @@ document.write(`
             <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">FileError</span><span class="p">,</span>
             <span class="n">message</span><span class="o">=</span><span class="p">(</span>
                 <span class="s2">&quot;The following configuration filename does not exist: </span><span class="si">{fname}</span><span class="s2">&quot;</span>
-                <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fname</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+                <span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">fname</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
+                <span class="p">)</span>
             <span class="p">),</span>
         <span class="p">)</span>
 
@@ -462,34 +468,6 @@ document.write(`
         <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">,</span>
     <span class="p">)</span>
     <span class="n">shutil</span><span class="o">.</span><span class="n">copyfile</span><span class="p">(</span><span class="n">default_config_path</span><span class="p">,</span> <span class="n">file_destination</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="initialize_default_configuration"><a class="viewcode-back" href="../../../code/lezargus.library.config.html#lezargus.library.config.initialize_default_configuration">[docs]</a><span class="k">def</span> <span class="nf">initialize_default_configuration</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize the default configuration file.</span>
-
-<span class="sd">    This function forces the reading and applying of the default</span>
-<span class="sd">    configuration file. Note, this should not called when a user configuration</span>
-<span class="sd">    file has already been provided.</span>
-
-
-<span class="sd">    Parameters</span>
-<span class="sd">    ----------</span>
-<span class="sd">    None</span>
-
-
-<span class="sd">    Returns</span>
-<span class="sd">    -------</span>
-<span class="sd">    None</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># Load the default configuration parameters. The user&#39;s configurations</span>
-    <span class="c1"># should overwrite these when supplied.</span>
-    <span class="n">load_then_apply_configuration</span><span class="p">(</span>
-        <span class="n">filename</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
-            <span class="n">directory</span><span class="o">=</span><span class="n">MODULE_INSTALLATION_PATH</span><span class="p">,</span>
-            <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;configuration&quot;</span><span class="p">,</span>
-            <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">,</span>
-        <span class="p">),</span>
-    <span class="p">)</span></div>
 
 
 <span class="c1"># Configuration/constant parameters which are otherwise not usually provided</span>

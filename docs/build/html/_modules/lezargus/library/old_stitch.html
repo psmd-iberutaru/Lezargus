@@ -1,0 +1,756 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lezargus.library.old_stitch &#8212; Lezargus  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+    <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/jquery.js"></script>
+    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/lezargus/library/old_stitch';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    <p class="title logo__title">Lezargus  documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../technical/index.html">Technical Manual</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/uncertainty.html">Uncertainty Propagation</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../code/modules.html">lezargus</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../code/lezargus.html">lezargus package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.container.html">lezargus.container package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.cube.html">lezargus.container.cube module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.image.html">lezargus.container.image module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.mosaic.html">lezargus.container.mosaic module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.parent.html">lezargus.container.parent module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.spectra.html">lezargus.container.spectra module</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.library.html">lezargus.library package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.array.html">lezargus.library.array module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.atmosphere.html">lezargus.library.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.config.html">lezargus.library.config module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.conversion.html">lezargus.library.conversion module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.data.html">lezargus.library.data module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.fits.html">lezargus.library.fits module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.flags.html">lezargus.library.flags module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.hint.html">lezargus.library.hint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.interpolate.html">lezargus.library.interpolate module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.logging.html">lezargus.library.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.old_stitch.html">lezargus.library.old_stitch module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.path.html">lezargus.library.path module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.stitch.html">lezargus.library.stitch module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.uncertainty.html">lezargus.library.uncertainty module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__main__.html">lezargus.__main__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__version__.html">lezargus.__version__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.initialize.html">lezargus.initialize module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <h1>Source code for lezargus.library.old_stitch</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Stitch spectra, images, and cubes together.</span>
+
+<span class="sd">Stitching spectra, images, and cubes consistently, while keeping all of the</span>
+<span class="sd">pitfalls in check, is not trivial. We group these three stitching functions,</span>
+<span class="sd">and the required spin-off functions, here.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">lezargus</span> <span class="kn">import</span> <span class="n">library</span>
+<span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">hint</span>
+<span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">logging</span>
+
+
+<div class="viewcode-block" id="stitch_spectra_arrays"><a class="viewcode-back" href="../../../code/lezargus.library.old_stitch.html#lezargus.library.old_stitch.stitch_spectra_arrays">[docs]</a><span class="k">def</span> <span class="nf">stitch_spectra_arrays</span><span class="p">(</span>
+    <span class="n">wavelength</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+    <span class="n">data</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+    <span class="n">uncertainty</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">weight</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">average_function</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Callable</span><span class="p">[</span>
+        <span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+        <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Stitch and average different spectra together using a custom function.</span>
+
+<span class="sd">    This function takes any number of spectra, represented as parallel</span>
+<span class="sd">    arrays of wavelength, spectral flux or data, and (optionally) weights,</span>
+<span class="sd">    and combines them. We stitch them together; the formal method is described</span>
+<span class="sd">    in [[TODO]]. In summary, we interpolate over overlapping regions,</span>
+<span class="sd">    ignoring gaps if needed, and combine the data according to the average</span>
+<span class="sd">    function.</span>
+
+<span class="sd">    Note, the average function provided is re-wrapped to properly handle NaNs.</span>
+<span class="sd">    NaNs in the data are ignored and not used for any stitching. If NaNs are</span>
+<span class="sd">    desired to be preserved and propagated, you will need to re-NaN values</span>
+<span class="sd">    after the stitched spectra; see [[TODO; MAKE NAN PROPAGATE VERSION]].</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    wavelength : list[ndarray]</span>
+<span class="sd">        A list of wavelengths for stitching multiple spectra arrays together.</span>
+<span class="sd">        Each entry in the list must have a corresponding entry in the data list.</span>
+<span class="sd">    data : list[ndarray]</span>
+<span class="sd">        A list of spectra/data for stitching multiple spectra arrays together.</span>
+<span class="sd">        Each entry in the list must have a corresponding entry in the</span>
+<span class="sd">        wavelength list.</span>
+<span class="sd">    uncertainty : list[ndarray], default = None</span>
+<span class="sd">        A list of the uncertainties in the data for stitching. Each entry in</span>
+<span class="sd">        the list must have a corresponding entry in the wavelength and</span>
+<span class="sd">        data list, or None. If the entry (or entire input) is None, we assume</span>
+<span class="sd">        zero uncertainty for the corresponding input spectra arrays.</span>
+<span class="sd">    weight : list[ndarray], default = None</span>
+<span class="sd">        A list of the weights in the data for stitching. Each entry in</span>
+<span class="sd">        the list must have a corresponding entry in the wavelength and</span>
+<span class="sd">        data list, or None. If the entry (or entire input) is None, we assume</span>
+<span class="sd">        uniform weights for the corresponding input spectra arrays.</span>
+<span class="sd">    average_function : Callable, str, default = None</span>
+<span class="sd">        The function used to average all of the spectra together.</span>
+<span class="sd">        It must also be able to accept weights and propagate uncertainties.</span>
+<span class="sd">        If None, we default to the weighted mean. Namely, it must be of the</span>
+<span class="sd">        form f(val, uncert, weight) = avg, uncert.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        This function uses negative infinity internally for calculations as a</span>
+<span class="sd">        flag value. Unexpected behavior might happen if the data contains</span>
+<span class="sd">        negative infinity values for any of the input or as a hard return of</span>
+<span class="sd">        the average function. (We handle inputs of negative infinity.) We</span>
+<span class="sd">        suggest using NaN instead.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    stitch_wavelength : ndarray</span>
+<span class="sd">        The wavelength of the snitched spectra made from the input spectra.</span>
+<span class="sd">    stitch_spectra : ndarray</span>
+<span class="sd">        The spectral data of the stitched spectra made from the input spectra.</span>
+<span class="sd">    stitch_uncertainty : ndarray</span>
+<span class="sd">        The spectral uncertainty of the stitched spectra made from the input</span>
+<span class="sd">        spectra.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># We first need to handle all of the default cases. Simple default cases</span>
+    <span class="c1"># are first. We just replace the Nones with what is documented. We assume</span>
+    <span class="c1"># that the wavelength array is primary.</span>
+    <span class="n">uncertainty</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">wavedex</span><span class="p">)</span> <span class="k">for</span> <span class="n">wavedex</span> <span class="ow">in</span> <span class="n">wavelength</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">uncertainty</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="k">else</span> <span class="n">uncertainty</span>
+    <span class="p">)</span>
+    <span class="n">weight</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">wavedex</span><span class="p">)</span> <span class="k">for</span> <span class="n">wavedex</span> <span class="ow">in</span> <span class="n">wavelength</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">weight</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="k">else</span> <span class="n">weight</span>
+    <span class="p">)</span>
+    <span class="n">average_function</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">library</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">weighted_mean</span>
+        <span class="k">if</span> <span class="n">average_function</span> <span class="ow">is</span> <span class="kc">None</span>
+        <span class="k">else</span> <span class="n">average_function</span>
+    <span class="p">)</span>
+    <span class="c1"># We start with reformatting the wavelength, data, uncertainty, and weights</span>
+    <span class="c1"># into structures with all the same shape. We assume that the wavelength</span>
+    <span class="c1"># list is the primary array to base it all off of.</span>
+    <span class="c1"># We first need to check the parallelism of the arrays.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">wavelength</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">uncertainty</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">weight</span><span class="p">):</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+            <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;The provided lengths of the wavelength, =</span><span class="si">{wv}</span><span class="s2">; data, =</span><span class="si">{da}</span><span class="s2">;&quot;</span>
+                <span class="s2">&quot; uncertainty, =</span><span class="si">{un}</span><span class="s2">; and weight, =</span><span class="si">{wg}</span><span class="s2">, lists are of different&quot;</span>
+                <span class="s2">&quot; sizes and are not parallel.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">wv</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">wavelength</span><span class="p">),</span>
+                    <span class="n">da</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">),</span>
+                    <span class="n">un</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">uncertainty</span><span class="p">),</span>
+                    <span class="n">wg</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">weight</span><span class="p">),</span>
+                <span class="p">)</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+    <span class="c1"># We now might be able to reformat the arrays. We store them as lists. The</span>
+    <span class="c1"># empty list instantiation fanciness done here is to satisfy PLR0915 from</span>
+    <span class="c1"># the linter.</span>
+    <span class="n">full_wavelengths</span><span class="p">,</span> <span class="n">full_data</span><span class="p">,</span> <span class="n">full_uncertainty</span><span class="p">,</span> <span class="n">full_weights</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">[]</span> <span class="k">for</span> <span class="n">__</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">wavedex</span><span class="p">,</span> <span class="n">datadex</span><span class="p">,</span> <span class="n">uncertdex</span><span class="p">,</span> <span class="n">weightdex</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+        <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">wavelength</span><span class="p">)),</span>
+        <span class="n">wavelength</span><span class="p">,</span>
+        <span class="n">data</span><span class="p">,</span>
+        <span class="n">uncertainty</span><span class="p">,</span>
+        <span class="n">weight</span><span class="p">,</span>
+        <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="c1"># If the wavelengths and data are not the same size, then the data</span>
+        <span class="c1"># means nothing to us as it is no longer wave-flux pairs.</span>
+        <span class="n">data_verify</span><span class="p">,</span> <span class="n">using_data</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">verify_shape_compatibility</span><span class="p">(</span>
+            <span class="n">reference_array</span><span class="o">=</span><span class="n">wavedex</span><span class="p">,</span>
+            <span class="n">test_array</span><span class="o">=</span><span class="n">datadex</span><span class="p">,</span>
+            <span class="n">return_broadcast</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">data_verify</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+                <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;The </span><span class="si">{n}</span><span class="s2">-th array input of wavelength and data&quot;</span>
+                    <span class="s2">&quot; lists have differing shapes: </span><span class="si">{wv}</span><span class="s2"> != </span><span class="si">{da}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">n</span><span class="o">=</span><span class="n">index</span><span class="p">,</span>
+                        <span class="n">wv</span><span class="o">=</span><span class="n">wavedex</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+                        <span class="n">da</span><span class="o">=</span><span class="n">datadex</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># We broadcast single value uncertainties, else we check the shapes</span>
+        <span class="c1"># again.</span>
+        <span class="n">uncert_verify</span><span class="p">,</span> <span class="n">using_uncert</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">verify_shape_compatibility</span><span class="p">(</span>
+            <span class="n">reference_array</span><span class="o">=</span><span class="n">wavedex</span><span class="p">,</span>
+            <span class="n">test_array</span><span class="o">=</span><span class="n">uncertdex</span><span class="p">,</span>
+            <span class="n">return_broadcast</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">uncert_verify</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+                <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;The </span><span class="si">{n}</span><span class="s2">-th array input of wavelength and uncertainty&quot;</span>
+                    <span class="s2">&quot; lists have differing shapes: </span><span class="si">{wv}</span><span class="s2"> != </span><span class="si">{un}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">n</span><span class="o">=</span><span class="n">index</span><span class="p">,</span>
+                        <span class="n">wv</span><span class="o">=</span><span class="n">wavedex</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+                        <span class="n">un</span><span class="o">=</span><span class="n">uncertdex</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="c1"># Similarly, we broadcast the weights.</span>
+        <span class="n">weight_verify</span><span class="p">,</span> <span class="n">using_weight</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">verify_shape_compatibility</span><span class="p">(</span>
+            <span class="n">reference_array</span><span class="o">=</span><span class="n">wavedex</span><span class="p">,</span>
+            <span class="n">test_array</span><span class="o">=</span><span class="n">weightdex</span><span class="p">,</span>
+            <span class="n">return_broadcast</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">weight_verify</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+                <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;The </span><span class="si">{n}</span><span class="s2">-th array input of wavelength and weight&quot;</span>
+                    <span class="s2">&quot; lists have differing shapes: </span><span class="si">{wv}</span><span class="s2"> != </span><span class="si">{wg}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">n</span><span class="o">=</span><span class="n">index</span><span class="p">,</span>
+                        <span class="n">wv</span><span class="o">=</span><span class="n">wavedex</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+                        <span class="n">wg</span><span class="o">=</span><span class="n">weightdex</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="c1"># If it passed above, we it has been formatted and cleaned up.</span>
+        <span class="c1"># The wavelength is always considered to be correct.</span>
+        <span class="n">full_wavelengths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">wavedex</span><span class="p">)</span>
+        <span class="n">full_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">using_data</span><span class="p">)</span>
+        <span class="n">full_uncertainty</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">using_uncert</span><span class="p">)</span>
+        <span class="n">full_weights</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">using_weight</span><span class="p">)</span>
+
+    <span class="c1"># We only include spectra/interpolators that are valid. If an</span>
+    <span class="c1"># interpolator fails to build, we do not include any part of its data.</span>
+    <span class="c1"># As such, we compile the interpolators first to determine the valid</span>
+    <span class="c1"># wavelength range, then we compute everything afterwards.</span>
+    <span class="c1"># The empty list instantiation fanciness done here is to satisfy PLR0915</span>
+    <span class="c1"># from the linter.</span>
+    <span class="n">interp_wave</span><span class="p">,</span> <span class="n">interp_data</span><span class="p">,</span> <span class="n">interp_uncertainty</span><span class="p">,</span> <span class="n">interp_weights</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">[]</span> <span class="k">for</span> <span class="n">__</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">wavedex</span><span class="p">,</span> <span class="n">datadex</span><span class="p">,</span> <span class="n">uncertdex</span><span class="p">,</span> <span class="n">weightdex</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+        <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">full_wavelengths</span><span class="p">)),</span>
+        <span class="n">full_wavelengths</span><span class="p">,</span>
+        <span class="n">full_data</span><span class="p">,</span>
+        <span class="n">full_uncertainty</span><span class="p">,</span>
+        <span class="n">full_weights</span><span class="p">,</span>
+        <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># Attempting to build the interpolators.</span>
+            <span class="n">temp_data</span> <span class="o">=</span> <span class="n">__spectra_rewrapped_interpolation_factory</span><span class="p">(</span>
+                <span class="n">base_wave</span><span class="o">=</span><span class="n">wavedex</span><span class="p">,</span>
+                <span class="n">base_data</span><span class="o">=</span><span class="n">datadex</span><span class="p">,</span>
+                <span class="n">interp_factory</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">cubic_1d_interpolate_factory</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">temp_uncertainty</span> <span class="o">=</span> <span class="n">__spectra_rewrapped_interpolation_factory</span><span class="p">(</span>
+                <span class="n">base_wave</span><span class="o">=</span><span class="n">wavedex</span><span class="p">,</span>
+                <span class="n">base_data</span><span class="o">=</span><span class="n">uncertdex</span><span class="p">,</span>
+                <span class="n">interp_factory</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">nearest_neighbor_1d_interpolate_factory</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">temp_weights</span> <span class="o">=</span> <span class="n">__spectra_rewrapped_interpolation_factory</span><span class="p">(</span>
+                <span class="n">base_wave</span><span class="o">=</span><span class="n">wavedex</span><span class="p">,</span>
+                <span class="n">base_data</span><span class="o">=</span><span class="n">weightdex</span><span class="p">,</span>
+                <span class="n">interp_factory</span><span class="o">=</span><span class="n">library</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">nearest_neighbor_1d_interpolate_factory</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="c1"># The interpolation cannot be derived, this is likely because there</span>
+            <span class="c1"># is not enough data in the spectra.</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">AccuracyWarning</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;Interpolation routines cannot be derived from the </span><span class="si">{i}</span><span class="s2">&quot;</span>
+                    <span class="s2">&quot; index spectra; likely not enough valid data. Skipping.&quot;</span>
+                    <span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                        <span class="n">i</span><span class="o">=</span><span class="n">index</span><span class="p">,</span>
+                    <span class="p">)</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+            <span class="k">continue</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Appending them to compile the list.</span>
+            <span class="n">interp_wave</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">wavedex</span><span class="p">)</span>
+            <span class="n">interp_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp_data</span><span class="p">)</span>
+            <span class="n">interp_uncertainty</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp_uncertainty</span><span class="p">)</span>
+            <span class="n">interp_weights</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp_weights</span><span class="p">)</span>
+    <span class="c1"># Finally building the data.</span>
+    <span class="n">total_wavelength</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span>
+        <span class="n">library</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">flatten_list_recursively</span><span class="p">(</span><span class="n">interp_wave</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">total_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">interpdex</span><span class="p">(</span><span class="n">total_wavelength</span><span class="p">)</span> <span class="k">for</span> <span class="n">interpdex</span> <span class="ow">in</span> <span class="n">interp_data</span><span class="p">],</span>
+    <span class="p">)</span>
+    <span class="n">total_uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">interpdex</span><span class="p">(</span><span class="n">total_wavelength</span><span class="p">)</span> <span class="k">for</span> <span class="n">interpdex</span> <span class="ow">in</span> <span class="n">interp_uncertainty</span><span class="p">],</span>
+    <span class="p">)</span>
+    <span class="n">total_weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">interpdex</span><span class="p">(</span><span class="n">total_wavelength</span><span class="p">)</span> <span class="k">for</span> <span class="n">interpdex</span> <span class="ow">in</span> <span class="n">interp_weights</span><span class="p">],</span>
+    <span class="p">)</span>
+
+    <span class="c1"># We now average the spectra together, which is a form of stitching. We</span>
+    <span class="c1"># use the provided averaging function. We redefine the symbols as it is</span>
+    <span class="c1"># a &quot;new paradigm&quot;. We also apply the weights here.</span>
+    <span class="c1"># The empty list instantiation fanciness done here is to satisfy PLR0915</span>
+    <span class="c1"># from the linter.</span>
+    <span class="n">average_wavelength</span><span class="p">,</span> <span class="n">average_data</span><span class="p">,</span> <span class="n">average_uncertainty</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">[]</span> <span class="k">for</span> <span class="n">__</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">wavedex</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">total_wavelength</span><span class="p">):</span>
+        <span class="c1"># We use the averaging function to determine the data. We also</span>
+        <span class="c1"># use the function&#39;s expected uncertainty propagation.</span>
+        <span class="p">(</span>
+            <span class="n">temp_data</span><span class="p">,</span>
+            <span class="n">temp_uncertainty</span><span class="p">,</span>
+        <span class="p">)</span> <span class="o">=</span> <span class="n">__spectra_rewrapped_interpolation_average_function</span><span class="p">(</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">total_data</span><span class="p">[:,</span> <span class="n">index</span><span class="p">],</span>
+            <span class="n">uncertainty</span><span class="o">=</span><span class="n">total_uncertainty</span><span class="p">[:,</span> <span class="n">index</span><span class="p">],</span>
+            <span class="n">weights</span><span class="o">=</span><span class="n">total_weights</span><span class="p">[:,</span> <span class="n">index</span><span class="p">],</span>
+            <span class="n">average_function</span><span class="o">=</span><span class="n">average_function</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">average_wavelength</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">wavedex</span><span class="p">)</span>
+        <span class="n">average_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp_data</span><span class="p">)</span>
+        <span class="n">average_uncertainty</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp_uncertainty</span><span class="p">)</span>
+
+    <span class="c1"># Because this is an average of multiple spectra, there may be duplicate</span>
+    <span class="c1"># entires for a single wavelength value. Interpolation cannot handle this</span>
+    <span class="c1"># so we just take the first-most unique values. We avoid trusting the</span>
+    <span class="c1"># extra sorting of the unique function and just rely on the indexes.</span>
+    <span class="n">__</span><span class="p">,</span> <span class="n">unique_index</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">average_wavelength</span><span class="p">,</span> <span class="n">return_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">unique_wavelength</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">average_wavelength</span><span class="p">)[</span><span class="n">unique_index</span><span class="p">]</span>
+    <span class="n">unique_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">average_data</span><span class="p">)[</span><span class="n">unique_index</span><span class="p">]</span>
+    <span class="n">unique_uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">average_uncertainty</span><span class="p">)[</span><span class="n">unique_index</span><span class="p">]</span>
+
+    <span class="c1"># Building the final wavelength array.</span>
+    <span class="n">stitch_wavelength</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">combine_overlap_wavelength_array</span><span class="p">(</span>
+        <span class="o">*</span><span class="n">wavelength</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1"># Interpolating out the proper data and uncertainty.</span>
+    <span class="n">stitch_data</span> <span class="o">=</span> <span class="n">library</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">cubic_1d_interpolate_factory</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">unique_wavelength</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="n">unique_data</span><span class="p">,</span>
+    <span class="p">)(</span><span class="n">stitch_wavelength</span><span class="p">)</span>
+    <span class="n">stitch_uncertainty</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">library</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">nearest_neighbor_1d_interpolate_factory</span><span class="p">(</span>
+            <span class="n">x</span><span class="o">=</span><span class="n">unique_wavelength</span><span class="p">,</span>
+            <span class="n">y</span><span class="o">=</span><span class="n">unique_uncertainty</span><span class="p">,</span>
+        <span class="p">)(</span><span class="n">stitch_wavelength</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">stitch_wavelength</span><span class="p">,</span> <span class="n">stitch_data</span><span class="p">,</span> <span class="n">stitch_uncertainty</span></div>
+
+
+<div class="viewcode-block" id="__spectra_rewrapped_interpolation_factory"><a class="viewcode-back" href="../../../code/lezargus.library.old_stitch.html#lezargus.library.old_stitch.__spectra_rewrapped_interpolation_factory">[docs]</a><span class="k">def</span> <span class="nf">__spectra_rewrapped_interpolation_factory</span><span class="p">(</span>
+    <span class="n">base_wave</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">base_data</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">interp_factory</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Callable</span><span class="p">[</span>
+        <span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+        <span class="n">hint</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+    <span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate data interpolators for stitching for 1D spectra.</span>
+
+<span class="sd">    This is an internal function and should not be used outside of it.</span>
+<span class="sd">    We have small wrappers around the interpolation functions to suit our</span>
+<span class="sd">    goals. Namely, cubic interpolation with -inf out-of-bounds; maximum</span>
+<span class="sd">    uncertainty, and minimum weight.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    base_wave : ndarray</span>
+<span class="sd">        The base or original wavelength of the data we are interpolating.</span>
+<span class="sd">    base_data : ndarray</span>
+<span class="sd">        The base or original data we are interpolating.</span>
+<span class="sd">    interp_factory : Callable</span>
+<span class="sd">        The interpolation function. Its function call must be of the</span>
+<span class="sd">        form: interp(x, y) = z</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    rewrapped_interpolation : Callable</span>
+<span class="sd">        The wrapped interpolation function, built to handle -inf.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># We create the interpolation function.</span>
+    <span class="n">interpolation</span> <span class="o">=</span> <span class="n">interp_factory</span><span class="p">(</span><span class="n">base_wave</span><span class="p">,</span> <span class="n">base_data</span><span class="p">)</span>
+
+    <span class="c1"># We wrap the interpolation function around special handing for -inf.</span>
+    <span class="k">def</span> <span class="nf">rewrapped_interpolation</span><span class="p">(</span><span class="n">wave</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Wrap the interpolation function.&quot;&quot;&quot;</span>
+        <span class="c1"># We only interpolate over values which are within the original</span>
+        <span class="c1"># base wavelength range.</span>
+        <span class="n">wave_min</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">(</span><span class="n">base_wave</span><span class="p">)</span>
+        <span class="n">wave_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">base_wave</span><span class="p">)</span>
+        <span class="n">interpolating_index</span> <span class="o">=</span> <span class="p">(</span><span class="n">wave_min</span> <span class="o">&lt;=</span> <span class="n">wave</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">wave</span> <span class="o">&lt;=</span> <span class="n">wave_max</span><span class="p">)</span>
+        <span class="c1"># All other values are flagged as -inf.</span>
+        <span class="n">new_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="n">wave</span><span class="p">,</span> <span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>
+        <span class="c1"># Calculating.</span>
+        <span class="n">new_data</span><span class="p">[</span><span class="n">interpolating_index</span><span class="p">]</span> <span class="o">=</span> <span class="n">interpolation</span><span class="p">(</span>
+            <span class="n">wave</span><span class="p">[</span><span class="n">interpolating_index</span><span class="p">],</span>
+        <span class="p">)</span>
+        <span class="c1"># Return the data.</span>
+        <span class="k">return</span> <span class="n">new_data</span>
+
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">rewrapped_interpolation</span></div>
+
+
+<div class="viewcode-block" id="__spectra_rewrapped_interpolation_average_function"><a class="viewcode-back" href="../../../code/lezargus.library.old_stitch.html#lezargus.library.old_stitch.__spectra_rewrapped_interpolation_average_function">[docs]</a><span class="k">def</span> <span class="nf">__spectra_rewrapped_interpolation_average_function</span><span class="p">(</span>
+    <span class="n">data</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">uncertainty</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">weights</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">average_function</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Callable</span><span class="p">[</span>
+        <span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+        <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Average values, per the provided function, handing -inf.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    data : ndarray</span>
+<span class="sd">        The data values which we are going to take an average of.</span>
+<span class="sd">    uncertainty : ndarray</span>
+<span class="sd">        The uncertainty of the data.</span>
+<span class="sd">    weights : ndarray</span>
+<span class="sd">        The weights for the average.</span>
+<span class="sd">    average_function : Callable</span>
+<span class="sd">        The average function we are wrapping around. It must be able to</span>
+<span class="sd">        handle uncertainties and weights. Namely, it must be of the</span>
+<span class="sd">        form f(val, uncert, weight) = avg, uncert.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    average_value : float</span>
+<span class="sd">        The calculated average value.</span>
+<span class="sd">    average_uncertainty : float</span>
+<span class="sd">        The uncertainty in the average value.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># We just do not include any values which are -inf. Normalizing</span>
+    <span class="c1"># the weights.</span>
+    <span class="n">valid</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="p">(</span><span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isneginf</span><span class="p">(</span><span class="n">data</span><span class="p">))</span> <span class="o">&amp;</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">uncertainty</span><span class="p">)</span> <span class="o">&amp;</span> <span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">weights</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">valid_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">valid</span><span class="p">]</span>
+    <span class="n">valid_uncertainty</span> <span class="o">=</span> <span class="n">uncertainty</span><span class="p">[</span><span class="n">valid</span><span class="p">]</span>
+    <span class="n">valid_weights</span> <span class="o">=</span> <span class="n">weights</span><span class="p">[</span><span class="n">valid</span><span class="p">]</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">nansum</span><span class="p">(</span><span class="n">weights</span><span class="p">[</span><span class="n">valid</span><span class="p">])</span>
+    <span class="c1"># Computing the average. We do not use keywords here because we do not</span>
+    <span class="c1"># know the input parameters.</span>
+    <span class="n">average_value</span><span class="p">,</span> <span class="n">average_uncertainty</span> <span class="o">=</span> <span class="n">average_function</span><span class="p">(</span>
+        <span class="n">valid_data</span><span class="p">,</span>
+        <span class="n">valid_uncertainty</span><span class="p">,</span>
+        <span class="n">valid_weights</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">average_value</span><span class="p">,</span> <span class="n">average_uncertainty</span></div>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sparrow
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2023, Sparrow.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
