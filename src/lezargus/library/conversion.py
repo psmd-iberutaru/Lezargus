@@ -48,9 +48,7 @@ def parse_unit_to_astropy_unit(unit_string: str) -> hint.Unit:
             critical_type=logging.InputError,
             message=(
                 "It is likely the unit string provided is not something that"
-                " can be parsed into an Astropy unit:  {us}".format(
-                    us=unit_string,
-                )
+                f" can be parsed into an Astropy unit:  {unit_string}"
             ),
         )
     # All done.
@@ -128,10 +126,7 @@ def convert_to_allowable_fits_header_data_types(
         # as a string. Unfortunately, complex integer numbers are not really
         # supported in Python so transmitting it over is non-trivial. We
         # ignore this use case for now, complex floats should be good enough.
-        return "({rl}, {im})".format(
-            rl=np.real(input_data),
-            im=np.imag(input_data),
-        )
+        return f"({np.real(input_data)}, {np.imag(input_data)})"
 
     # All Python objects can be strings, so we just cast it one to save.
     # However, if the string representation of the object is its __repr__, then

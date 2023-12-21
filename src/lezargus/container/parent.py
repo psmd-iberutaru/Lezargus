@@ -7,6 +7,7 @@ arithmetic operations of spectral classes of different wavelength solutions
 must be explicit. This is to prevent errors from mis-matched spectra being
 operated on.
 """
+
 import copy
 
 import astropy.io.fits

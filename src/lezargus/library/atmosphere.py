@@ -189,9 +189,7 @@ def index_of_refraction_moist_air(
     )
 
     # Calculating the water vapor factor.
-    wv_factor = (
-        -1 * water_pressure * (3.7345 - 0.0401 * wavenumber**2) * 1e-10
-    )
+    wv_factor = -1 * water_pressure * (3.7345 - 0.0401 * wavenumber**2) * 1e-10
 
     # Computing the moist air index of refraction.
     ior_moist_air = ior_dry_air + wv_factor

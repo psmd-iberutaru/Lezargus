@@ -82,9 +82,7 @@ def stitch_wavelengths_discrete(
         # The provided mode does not exist.
         logging.critical(
             critical_type=logging.InputError(),
-            message="The input sample mode {m} does not exist.".format(
-                m=sample_mode,
-            ),
+            message=f"The input sample mode {sample_mode} does not exist.",
         )
 
     # Lastly, we sort as none of the algorithms above ensure a sorted
@@ -97,8 +95,9 @@ def stitch_spectra_functional(
     wavelength_functions: list[hint.Callable[[hint.ndarray], hint.ndarray]],
     data_functions: list[hint.Callable[[hint.ndarray], hint.ndarray]],
     uncertainty_functions: list[hint.Callable[[hint.ndarray], hint.ndarray]],
-    weight_functions: list[hint.Callable[[hint.ndarray], hint.ndarray]]
-    | None = None,
+    weight_functions: (
+        list[hint.Callable[[hint.ndarray], hint.ndarray]] | None
+    ) = None,
     average_routine: hint.Callable[
         [hint.ndarray, hint.ndarray, hint.ndarray],
         tuple[float, float],

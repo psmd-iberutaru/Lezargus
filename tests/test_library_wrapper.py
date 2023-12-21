@@ -1,4 +1,5 @@
 """Tests wrapper functions to ensure that they are behaving normally."""
+
 import sys
 
 import numpy as np

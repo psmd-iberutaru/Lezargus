@@ -10,6 +10,7 @@ Note that all of these functions follow the axes convention of indexing being
 (x, y, lambda). If a cube is not of this shape, then it will likely return
 erroneous results, but, the functions themselves cannot detect this.
 """
+
 import astropy.convolution
 import numpy as np
 import scipy.ndimage
@@ -260,9 +261,7 @@ def bin_image_array(
     if len(image.shape) != image_dimensions:
         logging.error(
             error_type=logging.InputError,
-            message="Binning an image array with shape {sh}.".format(
-                sh=image.shape,
-            ),
+            message=f"Binning an image array with shape {image.shape}.",
         )
     if image.shape[0] % x_bin != 0:
         logging.error(
@@ -302,8 +301,8 @@ def bin_image_array(
         logging.error(
             error_type=logging.InputError,
             message=(
-                "The combining mode {md} is not one of the supported modes:"
-                " add, mean.".format(md=mode)
+                f"The combining mode {mode} is not one of the supported modes:"
+                " add, mean."
             ),
         )
     # All done.
@@ -345,9 +344,7 @@ def bin_cube_array_spatially(
     if len(cube.shape) != cube_dimensions:
         logging.error(
             error_type=logging.InputError,
-            message="Binning a cube array with shape {sh}.".format(
-                sh=cube.shape,
-            ),
+            message=f"Binning a cube array with shape {cube.shape}.",
         )
     if cube.shape[0] % x_bin != 0:
         logging.error(
@@ -393,8 +390,8 @@ def bin_cube_array_spatially(
         logging.error(
             error_type=logging.InputError,
             message=(
-                "The combining mode {md} is not one of the supported modes:"
-                " add, mean.".format(md=mode)
+                f"The combining mode {mode} is not one of the supported modes:"
+                " add, mean."
             ),
         )
     # All done.

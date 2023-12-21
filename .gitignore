@@ -78,6 +78,8 @@ target/
 # IPython
 profile_default/
 ipython_config.py
+# Testing files.
+*.ipynb
 
 # pyenv
 .python-version
@@ -131,3 +133,4 @@ dmypy.json
 
 # Other package data.
 utility/
+
