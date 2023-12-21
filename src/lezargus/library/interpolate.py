@@ -273,7 +273,7 @@ def nearest_neighbor_1d_interpolate_factory(
         x=clean_x,
         y=clean_y,
         kind="nearest",
-        fill_value="extrapolate",
+        fill_value=np.nan,
     )
 
     # Defining the wrapper function.
@@ -298,8 +298,74 @@ def nearest_neighbor_1d_interpolate_factory(
             logging.warning(
                 warning_type=logging.AccuracyWarning,
                 message=(
-                    "Interpolating beyond original input domain, extrapolation"
-                    " is used."
+                    "Interpolating beyond original input domain, NaNs may be "
+                    " returned."
+                ),
+            )
+        # Computing the interpolation.
+        output_data = nearest_neighbor_function(input_data)
+        return output_data
+
+    # All done, return the function itself.
+    return interpolate_wrapper
+
+
+def nearest_neighbor_1d_interpolate_extrapolate_factory(
+    x: hint.ndarray,
+    y: hint.ndarray,
+) -> hint.Callable[[hint.ndarray], hint.ndarray]:
+    """Return a wrapper around Scipy's interp1d interpolation.
+
+    This function exists so that in the event of the removal of Scipy's
+    interp1d function, we only need to fix it once here.
+
+    Parameters
+    ----------
+    x : ndarray
+        The x data to interpolate over.
+    y : ndarray
+        The y data to interpolate over.
+
+    Returns
+    -------
+    interpolate_function : Callable
+        The interpolation function of the data.
+    """
+    # Clean up the data, removing anything that is not usable.
+    clean_x, clean_y = library.array.clean_finite_arrays(x, y)
+    # Create a cubic spline.
+    nearest_neighbor_function = scipy.interpolate.interp1d(
+        x=clean_x,
+        y=clean_y,
+        kind="nearest",
+        bounds_error=False,
+        fill_value=(clean_y[0], clean_y[-1]),
+    )
+
+    # Defining the wrapper function.
+    def interpolate_wrapper(input_data: hint.ndarray) -> hint.ndarray:
+        """Cubic interpolator wrapper.
+
+        Parameters
+        ----------
+        input_data : ndarray
+            The input data.
+
+        Returns
+        -------
+        output_data : ndarray
+            The output data.
+        """
+        # We need to check if there is any interpolation.
+        original_x = nearest_neighbor_function.x
+        if not (
+            (min(original_x) <= input_data) & (input_data <= max(original_x))
+        ).all():
+            logging.warning(
+                warning_type=logging.AccuracyWarning,
+                message=(
+                    "Interpolating beyond original input domain, padding"
+                    " extrapolation is used."
                 ),
             )
         # Computing the interpolation.
