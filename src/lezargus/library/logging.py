@@ -369,7 +369,7 @@ class ColoredLogFormatter(logging.Formatter):
                 warning_type=InputWarning,
                 message=(
                     "The following HEX color code input is not a proper HEX"
-                    " color code: {hx}".format(hx=color_hex)
+                    f" color code: {color_hex}"
                 ),
             )
         # Converting from HEX string to the RGB color code.

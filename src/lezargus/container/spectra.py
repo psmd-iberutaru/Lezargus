@@ -260,7 +260,7 @@ class LezargusSpectra(LezargusContainerArithmetic):
                 message=(
                     "Interpolation is attempted at a wavelength beyond the"
                     " domain of wavelengths of this spectrum. The overlap"
-                    " fraction is {of}.".format(of=overlap)
+                    f" fraction is {overlap}."
                 ),
             )
 

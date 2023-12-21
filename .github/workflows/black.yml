@@ -1,4 +1,4 @@
-name: pylint
+name: black
 
 on: [push]
 
@@ -22,6 +22,6 @@ jobs:
         pip install ruff
         pip install black[jupyter]
         pip install hatch
-    - name: Analyzing the code with pylint via hatchling.
+    - name: Check formatting of the code with black via hatchling.
       run: |
-        hatch run lint
+        hatch run format . --check

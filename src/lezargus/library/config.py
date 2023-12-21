@@ -126,10 +126,7 @@ def load_then_apply_configuration(filename: str) -> None:
                 error_type=logging.ConfigurationError,
                 message=(
                     "The following configuration keys differ on the case"
-                    " transformation: {key} -> {ckey}".format(
-                        key=keydex,
-                        ckey=capital_keydex,
-                    )
+                    f" transformation: {keydex} -> {capital_keydex}"
                 ),
             )
         if keydex != capital_keydex:
@@ -138,16 +135,14 @@ def load_then_apply_configuration(filename: str) -> None:
                 message=(
                     "The keys of configuration parameters should be in all"
                     " capital letters. The following key is inappropriate:"
-                    " {key}".format(key=keydex)
+                    f" {keydex}"
                 ),
             )
     # Applying it to the global space of this module only.
     globals().update(capital_configuration)
     # Notifying that it was applied.
     logging.info(
-        message="Configuration file {fl} was loaded and applied.".format(
-            fl=filename,
-        ),
+        message=f"Configuration file {filename} was loaded and applied.",
     )
 
 
@@ -176,7 +171,7 @@ def generate_configuration_file_copy(
             error_type=logging.FileError,
             message=(
                 "Filename already exists, overwrite is False; file write is"
-                " skipped: {fname}".format(fname=filename)
+                f" skipped: {filename}"
             ),
         )
 

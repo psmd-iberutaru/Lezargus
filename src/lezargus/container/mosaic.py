@@ -6,7 +6,6 @@ does not directly subclass Astropy NDData and instead acts as a collection of
 other reduced spectral cubes and performs operations on it.
 """
 
-
 from lezargus import library
 from lezargus.library import hint
 from lezargus.library import logging

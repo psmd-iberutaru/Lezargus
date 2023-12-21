@@ -1,6 +1,5 @@
 """Functions to deal with the computation of synthetic and real photometry."""
 
-
 from lezargus import library
 from lezargus.library import hint
 from lezargus.library import logging
@@ -59,7 +58,7 @@ def calculate_filter_zero_point_vega(
             message=(
                 "A filter zero point is being computed where the standard"
                 " spectra does not cover the entire filter. The overlap"
-                " fraction is {of}".format(of=overlap)
+                f" fraction is {overlap}"
             ),
         )
 
@@ -175,7 +174,7 @@ def calculate_filter_magnitude_vega(
             message=(
                 "A filter magnitude is being computed where the star"
                 " spectra does not cover the entire filter. The overlap"
-                " fraction is {of}".format(of=overlap)
+                f" fraction is {overlap}"
             ),
         )
 
@@ -300,7 +299,7 @@ def calculate_photometric_correction_factor_vega(
             message=(
                 "A filter magnitude is being computed where the star"
                 " spectra does not cover the entire filter. The overlap"
-                " fraction is {of}".format(of=overlap)
+                f" fraction is {overlap}"
             ),
         )
 

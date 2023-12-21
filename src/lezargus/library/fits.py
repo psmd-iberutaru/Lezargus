@@ -274,8 +274,8 @@ def write_lezargus_fits_file(
             logging.warning(
                 warning_type=logging.FileWarning,
                 message=(
-                    "The FITS file {fl} already exists, overwriting as"
-                    " overwrite is True.".format(fl=filename)
+                    f"The FITS file {filename} already exists, overwriting as"
+                    " overwrite is True."
                 ),
             )
         else:
