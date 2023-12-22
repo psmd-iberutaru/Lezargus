@@ -90,10 +90,8 @@ class LezargusCube(LezargusContainerArithmetic):
                 error_type=logging.InputError,
                 message=(
                     "The input data for a LezargusCube instantiation has a"
-                    " shape {sh}, which is not the expected three dimensions."
-                    .format(
-                        sh=data.shape,
-                    )
+                    f" shape {data.shape}, which is not the expected three"
+                    " dimensions."
                 ),
             )
         # The wavelength and the flux data must be parallel, and thus the same
@@ -104,15 +102,10 @@ class LezargusCube(LezargusContainerArithmetic):
             logging.critical(
                 critical_type=logging.InputError,
                 message=(
-                    "Wavelength array shape: {wv_s}; flux cube array shape:"
-                    " {dt_s}. The cube wavelength dimension length {dt_s_w} is"
-                    " not compatible with the wavelength length {wv_s_w}."
-                    .format(
-                        wv_s=wavelength.shape,
-                        dt_s=data.shape,
-                        dt_s_w=data.shape[2],
-                        wv_s_w=wavelength.shape[2],
-                    )
+                    f"Wavelength array shape: {wavelength.shape}; flux cube"
+                    f" array shape: {data.shape}. The cube wavelength dimension"
+                    f" length {data.shape[2]} is not compatible with the"
+                    f" wavelength length {wavelength.shape[2]}."
                 ),
             )
 

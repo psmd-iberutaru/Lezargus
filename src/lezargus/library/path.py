@@ -68,8 +68,8 @@ def get_most_recent_filename_in_directory(
         logging.critical(
             critical_type=logging.InputError,
             message=(
-                "The directory provided `{d}` does not exist. A most recent"
-                " file cannot be obtained.".format(d=str(directory))
+                f"The directory provided `{directory}` does not exist. A most"
+                " recent file cannot be obtained."
             ),
         )
 
@@ -117,8 +117,8 @@ def get_most_recent_filename_in_directory(
         logging.error(
             error_type=logging.FileError,
             message=(
-                "For some reason, the detected most recent file `{file}` is not"
-                " actually a typical file.".format(file=recent_filename)
+                "For some reason, the detected most recent file"
+                f" `{recent_filename}` is not actually a typical file."
             ),
         )
     return recent_filename

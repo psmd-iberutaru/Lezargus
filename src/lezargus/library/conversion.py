@@ -113,9 +113,9 @@ def convert_to_allowable_fits_header_data_types(
         logging.warning(
             warning_type=logging.DataLossWarning,
             message=(
-                "The header input value {val} is a float type, but is not a"
-                " standard float type understandable by this conversion"
-                " function.".format(val=input_data)
+                f"The header input value {input_data} is a float type, but is"
+                " not a standard float type understandable by this conversion"
+                " function."
             ),
         )
     # We do not expect much use from complex numbers. The FITS standard does
@@ -139,12 +139,9 @@ def convert_to_allowable_fits_header_data_types(
         logging.warning(
             warning_type=logging.DataLossWarning,
             message=(
-                "The input type {ty} cannot be properly cast into a one usable"
-                " with FITS headers; only the __repr__ is used. Its value is:"
-                " {val}.".format(
-                    ty=type(input_data),
-                    val=input_data,
-                )
+                f"The input type {type(input_data)} cannot be properly cast"
+                " into a one usable with FITS headers; only the __repr__ is"
+                f" used. Its value is: {input_data}."
             ),
         )
     # All done.

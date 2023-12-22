@@ -373,11 +373,10 @@ class ColoredLogFormatter(logging.Formatter):
                 ),
             )
         # Converting from HEX string to the RGB color code.
-        color_ansi_escape = "\033[38;2;{r};{g};{b}m".format(
-            r=int(color_hex[1:3], 16),
-            g=int(color_hex[3:5], 16),
-            b=int(color_hex[5:7], 16),
-        )
+        rgb_red = int(color_hex[1:3], 16)
+        rgb_green = int(color_hex[3:5], 16)
+        rgb_blue = int(color_hex[5:7], 16)
+        color_ansi_escape = f"\033[38;2;{rgb_red};{rgb_green};{rgb_blue}m"
         return color_ansi_escape
 
 
@@ -621,8 +620,8 @@ def warning(
         critical(
             critical_type=DevelopmentError,
             message=(
-                "The provided warning type `{ty}` is not a subclass of the"
-                " Lezargus warning type.".format(ty=warning_type)
+                f"The provided warning type `{warning_type}` is not a subclass"
+                " of the Lezargus warning type."
             ),
         )
     # We add the warning type to the message, if the configuration specifies it
@@ -680,8 +679,8 @@ def error(
         critical(
             critical_type=DevelopmentError,
             message=(
-                "The provided error type `{ty}` is not a subclass of the"
-                " Lezargus error type.".format(ty=error_type)
+                "The provided error type `{error_type}` is not a subclass of"
+                " the Lezargus error type."
             ),
         )
     # We add the error type to the message, if the configuration specifies it
@@ -733,8 +732,8 @@ def critical(critical_type: LezargusError, message: str) -> None:
         critical(
             critical_type=DevelopmentError,
             message=(
-                "The provided critical type `{ty}` is not a subclass of the"
-                " Lezargus error type.".format(ty=critical_type)
+                f"The provided critical type `{critical_type}` is not a"
+                " subclass of the Lezargus error type."
             ),
         )
     # We add the critical type to the message, if the configuration specifies it

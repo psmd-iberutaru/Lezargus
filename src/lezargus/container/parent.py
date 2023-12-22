@@ -132,9 +132,9 @@ class LezargusContainerArithmetic:
             logging.critical(
                 critical_type=logging.InputError,
                 message=(
-                    "Data array shape: {dt_s}; uncertainty array shape: {un_s}."
-                    " The arrays need to be the same shape or broadcast-able to"
-                    " such.".format(dt_s=data.shape, un_s=uncertainty.shape)
+                    f"Data array shape: {data.shape}; uncertainty array shape:"
+                    f" {uncertainty.shape}. The arrays need to be the same"
+                    " shape or broadcast-able to such."
                 ),
             )
         # Moreover, the mask and flags must be the same shape as well.
@@ -142,18 +142,18 @@ class LezargusContainerArithmetic:
             logging.critical(
                 critical_type=logging.InputError,
                 message=(
-                    "Data array shape: {dt_s}; mask array shape: {mk_s}. The"
-                    " arrays need to be the same shape or broadcast-able to"
-                    " such.".format(dt_s=data.shape, mk_s=mask.shape)
+                    f"Data array shape: {data.shape}; mask array shape:"
+                    f" {mask.shape}. The arrays need to be the same shape or"
+                    " broadcast-able to such."
                 ),
             )
         if data.shape != flags.shape:
             logging.critical(
                 critical_type=logging.InputError,
                 message=(
-                    "Data array shape: {dt_s}; flag array shape: {fg_s}. The"
-                    " arrays need to be the same shape or broadcast-able to"
-                    " such.".format(dt_s=data.shape, fg_s=flags.shape)
+                    f"Data array shape: {data.shape}; flag array shape:"
+                    f" {flags.shape}. The arrays need to be the same shape or"
+                    " broadcast-able to such."
                 ),
             )
 
@@ -228,11 +228,8 @@ class LezargusContainerArithmetic:
             logging.critical(
                 critical_type=logging.ArithmeticalError,
                 message=(
-                    "Arithmetics with Lezargus type {ltp} and operand type"
-                    " {otp} is not compatible.".format(
-                        ltp=type(self),
-                        otp=type(operand),
-                    )
+                    f"Arithmetics with Lezargus type {type(self)} and operand"
+                    f" type {type(operand)} is not compatible."
                 ),
             )
 
@@ -247,11 +244,9 @@ class LezargusContainerArithmetic:
             logging.critical(
                 critical_type=logging.ArithmeticalError,
                 message=(
-                    "The Lezargus container data shape {lds} is not"
-                    " broadcast-able to the operand data shape {ods}.".format(
-                        lds=self.data.shape,
-                        ods=operand_data.shape,
-                    )
+                    f"The Lezargus container data shape {self.data.shape} is"
+                    " not broadcast-able to the operand data shape"
+                    f" {operand_data.shape}."
                 ),
             )
         else:
@@ -261,13 +256,10 @@ class LezargusContainerArithmetic:
                 logging.critical(
                     critical_type=logging.ArithmeticalError,
                     message=(
-                        "The Lezargus container shape {lds} cannot be changed."
-                        " A broadcast with the operand data shape {ods} would"
-                        " force the container shape to {nlds}.".format(
-                            lds=self.data.shape,
-                            ods=operand_data.shape,
-                            nlds=broadcast_shape,
-                        )
+                        f"The Lezargus container shape {self.data.shape} cannot"
+                        " be changed. A broadcast with the operand data shape"
+                        f" {operand_data.shape} would force the container shape"
+                        f" to {broadcast_shape}."
                     ),
                 )
             else:
@@ -281,12 +273,10 @@ class LezargusContainerArithmetic:
             logging.critical(
                 critical_type=logging.ArithmeticalError,
                 message=(
-                    "The wavelength array shape of the Lezargus container {lw}"
-                    " and the operand container {ow} is not the same."
-                    " Arithmetic cannot be performed.".format(
-                        lw=self.wavelength.shape,
-                        ow=operand.wavelength.shape,
-                    )
+                    "The wavelength array shape of the Lezargus container"
+                    f" {self.wavelength.shape} and the operand container"
+                    f" {operand.wavelength.shape} is not the same. Arithmetic"
+                    " cannot be performed."
                 ),
             )
         if not np.allclose(self.wavelength, operand.wavelength):
@@ -308,22 +298,18 @@ class LezargusContainerArithmetic:
             logging.warning(
                 warning_type=logging.AccuracyWarning,
                 message=(
-                    "The Lezargus container wavelength unit {lwu} is not the"
-                    " same as the operand unit {owu}.".format(
-                        lwu=self.wavelength_unit,
-                        owu=operand.wavelength_unit,
-                    )
+                    "The Lezargus container wavelength unit"
+                    f" {self.wavelength_unit} is not the same as the operand"
+                    f" unit {operand.wavelength_unit}."
                 ),
             )
         if self.data_unit != operand.data_unit:
             logging.warning(
                 warning_type=logging.AccuracyWarning,
                 message=(
-                    "The Lezargus container data/flux unit {lwu} is not the"
-                    " same as the operand unit {owu}.".format(
-                        lwu=self.wavelength_unit,
-                        owu=operand.wavelength_unit,
-                    )
+                    "The Lezargus container data/flux unit"
+                    f" {self.wavelength_unit} is not the same as the operand"
+                    f" unit {operand.wavelength_unit}."
                 ),
             )
 
@@ -618,17 +604,15 @@ class LezargusContainerArithmetic:
             flags,
         ) = library.fits.read_lezargus_fits_file(filename=filename)
         # Check if the FITS file format is correct for the container.
-        if header.get("LZ_FITSF", None) != cls.__name__:
+        lz_fits_encode = header.get("LZ_FITSF", None)
+        if lz_fits_encode != cls.__name__:
+
             logging.error(
                 error_type=logging.FileError,
                 message=(
-                    "The following FITS file {fit} is coded to be a {code} type"
-                    " of FITS file, but it is being loaded with the {ncls}."
-                    .format(
-                        fit=filename,
-                        code=header.get("LZ_FITSF", None),
-                        ncls=cls.__name__,
-                    )
+                    f"The following FITS file {filename} is coded to be a"
+                    f" {lz_fits_encode} type of FITS file, but it"
+                    f" is being loaded with the {cls.__name__}."
                 ),
             )
 
