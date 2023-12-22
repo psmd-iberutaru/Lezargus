@@ -207,8 +207,8 @@ def initialize_logging_outputs(*args: tuple, **kwargs: object) -> None:
             # The deletion can wait.
             library.logging.info(
                 message=(
-                    "The temporary log file {lfl} is currently in-use, we defer"
-                    " deletion until the next load.".format(lfl=filedex)
+                    f"The temporary log file {filedex} is currently in-use, we"
+                    " defer  deletion until the next load."
                 ),
             )
 

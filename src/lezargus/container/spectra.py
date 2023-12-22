@@ -93,10 +93,8 @@ class LezargusSpectra(LezargusContainerArithmetic):
                 error_type=logging.InputError,
                 message=(
                     "The input data for a LezargusSpectra instantiation has a"
-                    " shape {sh}, which is not the expected one dimension."
-                    .format(
-                        sh=data.shape,
-                    )
+                    f" shape {data.shape}, which is not the expected one"
+                    " dimension."
                 ),
             )
         # The wavelength and the data must be parallel, and thus the same
@@ -107,9 +105,9 @@ class LezargusSpectra(LezargusContainerArithmetic):
             logging.critical(
                 critical_type=logging.InputError,
                 message=(
-                    "Wavelength array shape: {wv_s}; data array shape: {dt_s}."
-                    " The arrays need to be the same shape or cast-able to"
-                    " such.".format(wv_s=wavelength.shape, dt_s=data.shape)
+                    f"Wavelength array shape: {wavelength.shape}; data array"
+                    f" shape: {data.shape}. The arrays need to be the same"
+                    " shape or cast-able to such."
                 ),
             )
 
@@ -308,7 +306,7 @@ class LezargusSpectra(LezargusContainerArithmetic):
         self: "LezargusSpectra",
         *spectra: "LezargusSpectra",
         weight: list[hint.ndarray] | str = "uniform",
-        average_function: hint.Callable[
+        average_routine: hint.Callable[
             [hint.ndarray, hint.ndarray, hint.ndarray],
             tuple[float, float],
         ] = None,
@@ -332,7 +330,7 @@ class LezargusSpectra(LezargusContainerArithmetic):
 
                 - `uniform` : Uniform weights.
                 - `invar` : Inverse variance weights.
-        average_function : Callable, str, default = None
+        average_routine : Callable, str, default = None
             The function used to average all of the spectra together.
             It must also be able to accept weights and propagate uncertainties.
             If None, we default to the weighted mean. Namely, it must be of the
@@ -362,8 +360,8 @@ class LezargusSpectra(LezargusContainerArithmetic):
                 logging.critical(
                     critical_type=logging.InputError,
                     message=(
-                        "Input type {spx} is not a LezargusSpectra, we cannot"
-                        " use it to stitch.".format(spx=type(spectradex))
+                        f"Input type {type(spectradex)} is not a"
+                        " LezargusSpectra, we cannot use it to stitch."
                     ),
                 )
             lz_spectra.append(spectradex)
@@ -392,11 +390,8 @@ class LezargusSpectra(LezargusContainerArithmetic):
                 logging.critical(
                     critical_type=logging.InputError,
                     message=(
-                        "The weight shortcut option {opt} is not valid; it must"
-                        " be one of: {acc}".format(
-                            opt=weight,
-                            acc=accepted_options,
-                        )
+                        f"The weight shortcut option {weight} is not valid; it"
+                        f" must be one of: {accepted_options}"
                     ),
                 )
         else:
@@ -407,15 +402,17 @@ class LezargusSpectra(LezargusContainerArithmetic):
             stitch_wavelength,
             stitch_data,
             stitch_uncertainty,
-        ) = library.stitch.stitch_spectra_arrays(
-            wavelength=[spectradex.wavelength for spectradex in spectra],
-            data=[spectradex.data for spectradex in spectra],
-            uncertainty=[spectradex.uncertainty for spectradex in spectra],
-            weight=using_weights,
-            average_function=average_function,
+        ) = library.stitch.stitch_spectra_discrete(
+            wavelength_arrays=[spectradex.wavelength for spectradex in spectra],
+            data_arrays=[spectradex.data for spectradex in spectra],
+            uncertainty_arrays=[
+                spectradex.uncertainty for spectradex in spectra
+            ],
+            weight_arrays=using_weights,
+            average_routine=average_routine,
         )
         # We also stitch together the flags and the mask. They are handled
-        # with a different function. TODO
+        # with a different function.
         logging.error(
             error_type=logging.ToDoError,
             message="Flag and mask stitching not yet supported.",
@@ -423,7 +420,7 @@ class LezargusSpectra(LezargusContainerArithmetic):
         stitch_mask = None
         stitch_flags = None
 
-        # We merge the header. TODO
+        # We merge the header.
         logging.error(
             error_type=logging.ToDoError,
             message="Header stitching not yet supported.",

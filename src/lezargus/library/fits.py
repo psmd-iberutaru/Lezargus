@@ -96,8 +96,8 @@ def read_fits_header(filename: str, extension: int | str = 0) -> hint.Header:
         logging.warning(
             warning_type=logging.DataLossWarning,
             message=(
-                "Non-empty data is detected for the FITS file {f}, only the"
-                " header is being read and processed.".format(f=filename)
+                "Non-empty data is detected for the FITS file {filename}, only"
+                " the header is being read and processed."
             ),
         )
     return header
@@ -155,10 +155,8 @@ def read_lezargus_fits_file(
         logging.critical(
             critical_type=logging.FileError,
             message=(
-                "We cannot read the Lezargus FITS file {fl}, it does not exist."
-                .format(
-                    fl=filename,
-                )
+                f"We cannot read the Lezargus FITS file {filename}, it does not"
+                " exist."
             ),
         )
     else:
@@ -282,10 +280,8 @@ def write_lezargus_fits_file(
             logging.critical(
                 critical_type=logging.FileError,
                 message=(
-                    "The FITS file {fl} already exists. Overwrite is False."
-                    .format(
-                        fl=filename,
-                    )
+                    f"The FITS file {filename} already exists. Overwrite is"
+                    " False."
                 ),
             )
 

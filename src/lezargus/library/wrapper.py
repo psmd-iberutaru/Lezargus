@@ -143,53 +143,15 @@ def wavelength_overlap_fraction(
         logging.error(
             error_type=logging.UndiscoveredError,
             message=(
-                "This cases for the wavelength overlap fraction is not covered."
-                " The domain of the base array is [{bl}, {bu}] and the contain"
-                " array domain is [{cl}, {cu}.".format(
-                    bl=base_min,
-                    bu=base_max,
-                    cl=contain_min,
-                    cu=contain_max,
-                )
+                "This cases for the wavelength overlap fraction is not"
+                f" covered. The domain of the base array is [{base_min},"
+                f" {base_max}] and the contain array domain is [{contain_min},"
+                f" {contain_max}."
             ),
         )
         fraction = 0
 
     return fraction
-
-
-def combine_overlap_wavelength_array(
-    *wavelengths: hint.ndarray,
-) -> hint.ndarray:
-    """Combine overlapping wavelengths, building on earlier bands.
-
-    For more information, see [[TODO]].
-
-    Parameters
-    ----------
-    *wavelengths : ndarray
-        Positional arguments for the wavelength arrays we are combining. We
-        use the first wavelength array provided and add points to it from
-        areas in subsequent wavelength arrays that the original one does not
-        cover.
-
-    Returns
-    -------
-    combine_wavelength : ndarray
-        The combined wavelength.
-    """
-    # We the first wavelength array is where we start from.
-    combine_wavelength = wavelengths[0].tolist()
-    for wavedex in wavelengths[1:]:
-        # We add any points which falls outside of the current combine
-        # wavelength range.
-        min_wave = np.nanmin(combine_wavelength)
-        max_wave = np.nanmax(combine_wavelength)
-        # Adding points which are not within the current combine region.
-        add_index = ~((min_wave <= wavedex) & (wavedex <= max_wave))
-        combine_wavelength = combine_wavelength + wavedex[add_index].tolist()
-    # All done.
-    return np.sort(combine_wavelength)
 
 
 def flatten_list_recursively(

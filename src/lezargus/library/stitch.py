@@ -188,14 +188,11 @@ def stitch_spectra_functional(
         logging.critical(
             critical_type=logging.InputError,
             message=(
-                "The provided lengths of the wavelength, ={wv}; data, ={da};"
-                " uncertainty, ={un}; and weight, ={wg}, function lists are of"
-                " different sizes and are not parallel.".format(
-                    wv=len(wavelength_functions),
-                    da=len(data_functions),
-                    un=len(uncertainty_functions),
-                    wg=len(weight_functions),
-                )
+                "The provided lengths of the wavelength,"
+                f" ={len(wavelength_functions)}; data, ={len(data_functions)};"
+                f" uncertainty, ={len(uncertainty_functions)}; and weight,"
+                f" ={len(weight_functions)}, function lists are of different"
+                " sizes and are not parallel."
             ),
         )
 
@@ -468,13 +465,9 @@ def stitch_spectra_discrete(
             logging.error(
                 error_type=logging.InputError,
                 message=(
-                    "The {n}-th array input of the wavelength and data lists"
-                    " have incompatible broadcasting shapes: {wv} != {da}"
-                    .format(
-                        n=index,
-                        wv=wavedex.shape,
-                        da=datadex.shape,
-                    )
+                    f"The {index}-th array input of the wavelength and data"
+                    " lists have incompatible broadcasting shapes:"
+                    f" {wavedex.shape} != {datadex.shape}"
                 ),
             )
         verify_uncert, temp_uncert = library.array.verify_shape_compatibility(
@@ -486,13 +479,9 @@ def stitch_spectra_discrete(
             logging.error(
                 error_type=logging.InputError,
                 message=(
-                    "The {n}-th array input of wavelength and uncertainty lists"
-                    " have incompatible broadcasting shapes: {wv} != {un}"
-                    .format(
-                        n=index,
-                        wv=wavedex.shape,
-                        un=uncertdex.shape,
-                    )
+                    f"The {index}-th array input of wavelength and uncertainty"
+                    " lists have incompatible broadcasting shapes:"
+                    f" {wavedex.shape} != {uncertdex.shape}"
                 ),
             )
         verify_weight, temp_weight = library.array.verify_shape_compatibility(
@@ -504,12 +493,9 @@ def stitch_spectra_discrete(
             logging.error(
                 error_type=logging.InputError,
                 message=(
-                    "The {n}-th array input of wavelength and weight lists have"
-                    " incompatible broadcasting shapes: {wv} != {wg}".format(
-                        n=index,
-                        wv=wavedex.shape,
-                        wg=weightdex.shape,
-                    )
+                    f"The {index}-th array input of wavelength and weight lists"
+                    " have incompatible broadcasting shapes:"
+                    f" {wavedex.shape} != {weightdex.shape,}"
                 ),
             )
         # We use the broadcasted arrays as the main ones we will use.

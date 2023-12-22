@@ -55,13 +55,9 @@ def clean_finite_arrays(*arrays: hint.ndarray) -> tuple[hint.ndarray]:
             logging.error(
                 error_type=logging.InputError,
                 message=(
-                    "Input array index {i} shape {i_sh} is not compatible with"
-                    " the first array reference shape of {r_sh}. Skipping."
-                    .format(
-                        i=index,
-                        i_sh=arraydex.shape,
-                        r_sh=reference_array.shape,
-                    )
+                    f"Input array index {index} shape {arraydex.shape} is not"
+                    " compatible with the first array reference shape of"
+                    f" {reference_array.shape}. Skipping."
                 ),
             )
 
@@ -163,8 +159,8 @@ def translate_image_array(
         logging.error(
             error_type=logging.InputError,
             message=(
-                "Translating an array with shape {sh} via an image translation"
-                " is not possible.".format(sh=input_array.shape)
+                f"Translating an array with shape {input_array.shape} via an"
+                " image translation is not possible."
             ),
         )
 
@@ -207,8 +203,8 @@ def rotate_image_array(
         logging.error(
             error_type=logging.InputError,
             message=(
-                "Rotating an image array with shape {sh} via an image rotation"
-                " is not possible.".format(sh=input_array.shape)
+                f"Rotating an image array with shape {input_array.shape} via an"
+                " image rotation is not possible."
             ),
         )
 
@@ -267,22 +263,16 @@ def bin_image_array(
         logging.error(
             error_type=logging.InputError,
             message=(
-                "The x-axis dimension has length {xln}, it is not divisible by"
-                " the bin pixel count {bpx}.".format(
-                    xln=image.shape[0],
-                    bpx=x_bin,
-                )
+                f"The x-axis dimension has length {image.shape[0]}, it is not"
+                f" divisible by the bin pixel count {x_bin}."
             ),
         )
     if image.shape[1] % y_bin != 0:
         logging.error(
             error_type=logging.InputError,
             message=(
-                "The y-axis dimension has length {yln}, it is not divisible by"
-                " the bin pixel count {bpx}.".format(
-                    yln=image.shape[1],
-                    bpx=y_bin,
-                )
+                f"The y-axis dimension has length {image.shape[1]}, it is not"
+                f" divisible by the bin pixel count {y_bin}."
             ),
         )
 
@@ -350,22 +340,16 @@ def bin_cube_array_spatially(
         logging.error(
             error_type=logging.InputError,
             message=(
-                "The x-axis dimension has length {xln}, it is not divisible by"
-                " the bin pixel count {bpx}.".format(
-                    xln=cube.shape[0],
-                    bpx=x_bin,
-                )
+                f"The x-axis dimension has length {cube.shape[0]}, it is not"
+                f" divisible by the bin pixel count {x_bin}."
             ),
         )
     if cube.shape[1] % y_bin != 0:
         logging.error(
             error_type=logging.InputError,
             message=(
-                "The y-axis dimension has length {yln}, it is not divisible by"
-                " the bin pixel count {bpx}.".format(
-                    yln=cube.shape[1],
-                    bpx=y_bin,
-                )
+                f"The y-axis dimension has length {cube.shape[1]}, it is not"
+                f" divisible by the bin pixel count {y_bin}."
             ),
         )
 
@@ -424,12 +408,10 @@ def convolve_cube_by_image_array(
     cube_dimensions = 3
     if len(cube.shape) != cube_dimensions:
         logging.warning(
-            error_type=logging.AccuracyWarning,
+            warning_type=logging.AccuracyWarning,
             message=(
-                "The input cube is not actually a cube, shape is {sh}. Applying"
-                " convolution across image slices may fail.".format(
-                    sh=cube.shape,
-                )
+                "The input cube is not actually a cube, shape is {cube.shape}."
+                " Applying convolution across image slices may fail."
             ),
         )
 
@@ -467,11 +449,8 @@ def convolve_cube_by_image_array(
             warning_type=logging.MemoryFullWarning,
             message=(
                 "Attempting a layered FFT convolution of a cube with shape"
-                " {csh} with kernel shape {ksh} requires too much memory."
-                .format(
-                    csh=cube.shape,
-                    ksh=kernel.shape,
-                )
+                f" {cube.shape} with kernel shape {kernel.shape} requires too"
+                " much memory."
             ),
         )
         # We use the alternative discrete convolution.
