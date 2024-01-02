@@ -18,9 +18,9 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install --upgrade opencv-python
-        pip install pylint
+        pip install pytest
         pip install hatch
-    - name: Analyzing the code with pylint via hatchling.
+    - name: Testing the code with pytest on Windows.
       run: |
         hatch run test
 
@@ -39,9 +39,9 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install --upgrade opencv-python
-        pip install pylint
+        pip install pytest
         pip install hatch
-    - name: Analyzing the code with pylint via hatchling.
+    - name: Testing the code with pytest on macOS.
       run: |
         hatch run test
 
@@ -62,8 +62,8 @@ jobs:
         sudo apt install -y python3-opencv libgl1-mesa-dev
         python -m pip install --upgrade pip
         python -m pip install --upgrade opencv-python
-        pip install pylint
+        pip install pytest
         pip install hatch
-    - name: Analyzing the code with pylint via hatchling.
+    - name: Testing the code with pytest on Ubuntu.
       run: |
         hatch run test

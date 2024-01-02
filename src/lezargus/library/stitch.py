@@ -63,7 +63,7 @@ def stitch_wavelengths_discrete(
         for wavedex in wavelengths:
             # We only add points in wave bands that have not already been
             # covered, we use this by checking the history.
-            valid_points = np.full_like(wavedex, True)
+            valid_points = np.full_like(wavedex, True, dtype=bool)
             for mindex, maxdex in zip(min_hist, max_hist, strict=True):
                 # If any of the points were within the historical bounds,
                 # they are invalid.
@@ -81,7 +81,7 @@ def stitch_wavelengths_discrete(
     else:
         # The provided mode does not exist.
         logging.critical(
-            critical_type=logging.InputError(),
+            critical_type=logging.InputError,
             message=f"The input sample mode {sample_mode} does not exist.",
         )
 
@@ -94,13 +94,19 @@ def stitch_wavelengths_discrete(
 def stitch_spectra_functional(
     wavelength_functions: list[hint.Callable[[hint.ndarray], hint.ndarray]],
     data_functions: list[hint.Callable[[hint.ndarray], hint.ndarray]],
-    uncertainty_functions: list[hint.Callable[[hint.ndarray], hint.ndarray]],
+    uncertainty_functions: (
+        list[hint.Callable[[hint.ndarray], hint.ndarray]] | None
+    ) = None,
     weight_functions: (
         list[hint.Callable[[hint.ndarray], hint.ndarray]] | None
     ) = None,
     average_routine: hint.Callable[
         [hint.ndarray, hint.ndarray, hint.ndarray],
         tuple[float, float],
+    ] = None,
+    interpolation_routine: hint.Callable[
+        [hint.ndarray, hint.ndarray],
+        hint.Callable[[hint.ndarray], hint.ndarray],
     ] = None,
     reference_wavelength: hint.ndarray = None,
 ) -> tuple[
@@ -126,7 +132,7 @@ def stitch_spectra_functional(
     data_functions : list[Callable]
         The list of the data function. The inputs to these functions should
         be the wavelength.
-    uncertainty_functions : list[Callable]
+    uncertainty_functions : list[Callable], default = None
         The list of the uncertainty function. The inputs to these functions
         should be the wavelength.
     weight_functions : list[Callable], default = None
@@ -135,9 +141,14 @@ def stitch_spectra_functional(
         equal weights.
     average_routine : Callable, default = None
         The averaging function. It must be able to support the propagation of
-        uncertainties and weights. As such, it should have the form of
-        :math:`f(x, \sigma, w) = \bar{x} \pm \sigma`. If None, we used a
-        standard weighted average.
+        uncertainties and weights. As such, it should have the input form of
+        :math:`\text{avg}(x, \sigma, w) \rightarrow \bar{x} \pm \sigma`.
+        If None, we use a standard weighted average, ignoring NaNs.
+    interpolation_routine : Callable, default = None
+        The interpolation routine factory which we use to interpolate each of
+        the spectra to each other wavelength frame. It should have the input
+        form of :math:`\text{ipr}(x,y) \rightarrow f:x \mapsto y`. If None, we
+        default to a cubic spline, handling gaps.
     reference_wavelength : ndarray, default = None
         The reference points which we are going to evaluate the above functions
         at. The values should be of the same (unit) scale as the input of the
@@ -161,19 +172,52 @@ def stitch_spectra_functional(
         The functional form of the propagated uncertainties.
     """
     # We first determine the defaults.
+    if uncertainty_functions is None:
+        uncertainty_functions = [
+            np.zeros_like for __ in range(len(wavelength_functions))
+        ]
     if weight_functions is None:
         weight_functions = [
             np.ones_like for __ in range(len(wavelength_functions))
         ]
     if average_routine is None:
-        average_routine = library.uncertainty.weighted_mean
+        average_routine = library.uncertainty.nan_weighted_mean
+    if interpolation_routine is None:
+        interpolation_routine_wrapped = (
+            library.interpolate.cubic_1d_interpolate_bounds_gap_factory
+        )
+    else:
+        # If a custom routine is provided, then we need to make sure it
+        # can handle gaps in the data, and the limits of the interpolation.
+        def custom_interpolate_bounds(
+            x: hint.ndarray,
+            y: hint.ndarray,
+        ) -> hint.Callable[[hint.ndarray], hint.ndarray]:
+            return library.interpolate.custom_1d_interpolate_bounds_factory(
+                interpolation=interpolation_routine,
+                x=x,
+                y=y,
+            )
+
+        def interpolation_routine_wrapped(
+            x: hint.ndarray,
+            y: hint.ndarray,
+            gap_size: float,
+        ) -> hint.Callable[[hint.ndarray], hint.ndarray]:
+            return library.interpolate.custom_1d_interpolate_gap_factory(
+                interpolation=custom_interpolate_bounds,
+                x=x,
+                y=y,
+                gap_size=gap_size,
+            )
+
     # And we also determine the reference points, which is vaguely based on
     # the atmospheric optical and infrared windows.
     if reference_wavelength is None:
         reference_wavelength = np.linspace(0.30, 5.50, 1000000)
     else:
         reference_wavelength = np.sort(
-            library.array.clean_finite_arrays(reference_wavelength),
+            *library.array.clean_finite_arrays(reference_wavelength),
         )
 
     # Now, we need to have the lists all be parallel, a quick and dirty check
@@ -273,9 +317,10 @@ def stitch_spectra_functional(
     # We determine the average of all of the points using the provided
     # averaging routine. We do not actually need the reference points at this
     # time.
-    average_wavelength, average_data, average_uncertainty = (
-        [] for __ in range(3)
-    )
+    average_wavelength = []
+    average_data = []
+    average_uncertainty = []
+
     for index, __ in enumerate(reference_wavelength):
         # We determine the average wavelength, for consistency. We do not
         # care for the computed uncertainty in the wavelength; the typical
@@ -300,26 +345,6 @@ def stitch_spectra_functional(
     average_data = np.array(average_data)
     average_uncertainty = np.array(average_uncertainty)
 
-    # A quick check. The wavelengths calculated should be above the same as
-    # the reference points. We don't care about NaNs for this check.
-    (
-        check_reference_wavelength,
-        check_average_wavelength,
-    ) = library.array.clean_finite_arrays(
-        reference_wavelength,
-        average_wavelength,
-    )
-    if not np.all(
-        np.isclose(check_reference_wavelength, check_average_wavelength),
-    ):
-        logging.warning(
-            warning_type=logging.AccuracyWarning,
-            message=(
-                "The reference points and the resulting wavelength points seem"
-                " to differ; double check the inputs."
-            ),
-        )
-
     # We need to compute the new functional form of the wavelength, data,
     # and uncertainty. However, we need to keep in mind of any NaNs which were
     # present before creating the new interpolator. All of the interpolators
@@ -330,26 +355,20 @@ def stitch_spectra_functional(
     )
 
     # Building the interpolators.
-    stitched_wavelength_function = (
-        library.interpolate.cubic_1d_interpolate_gap_factory(
-            x=average_wavelength,
-            y=average_wavelength,
-            gap_size=reference_gap,
-        )
+    stitched_wavelength_function = interpolation_routine_wrapped(
+        x=average_wavelength,
+        y=average_wavelength,
+        gap_size=reference_gap,
     )
-    stitched_data_function = (
-        library.interpolate.cubic_1d_interpolate_gap_factory(
-            x=average_wavelength,
-            y=average_data,
-            gap_size=reference_gap,
-        )
+    stitched_data_function = interpolation_routine_wrapped(
+        x=average_wavelength,
+        y=average_data,
+        gap_size=reference_gap,
     )
-    stitched_uncertainty_function = (
-        library.interpolate.cubic_1d_interpolate_gap_factory(
-            x=average_wavelength,
-            y=average_uncertainty,
-            gap_size=reference_gap,
-        )
+    stitched_uncertainty_function = interpolation_routine_wrapped(
+        x=average_wavelength,
+        y=average_uncertainty,
+        gap_size=reference_gap,
     )
     # All done.
     return (
@@ -362,11 +381,15 @@ def stitch_spectra_functional(
 def stitch_spectra_discrete(
     wavelength_arrays: list[hint.ndarray],
     data_arrays: list[hint.ndarray],
-    uncertainty_arrays: list[hint.ndarray],
-    weight_arrays: list[hint.ndarray],
+    uncertainty_arrays: list[hint.ndarray] | None = None,
+    weight_arrays: list[hint.ndarray] | None = None,
     average_routine: hint.Callable[
         [hint.ndarray, hint.ndarray, hint.ndarray],
         tuple[float, float],
+    ] = None,
+    interpolation_routine: hint.Callable[
+        [hint.ndarray, hint.ndarray],
+        hint.Callable[[hint.ndarray], hint.ndarray],
     ] = None,
     reference_wavelength: hint.ndarray = None,
 ) -> tuple[hint.ndarray, hint.ndarray, hint.ndarray]:
@@ -389,18 +412,23 @@ def stitch_spectra_discrete(
         The list of the wavelength arrays representing each spectra.
     data_arrays : list[ndarray]
         The list of the data arrays representing each spectra.
-    uncertainty_arrays : list[ndarray]
+    uncertainty_arrays : list[ndarray], default = None
         The list of the uncertainty arrays representing the data of each
         spectra. The scale of the data arrays and uncertainty arrays should be
-        the same.
+        the same. If None, we default to no uncertainty.
     weight_arrays : list[ndarray], default = None
         The list of the weight arrays to weight each spectra for the average
         routine. If None, we assume uniform weights.
     average_routine : Callable, default = None
         The averaging function. It must be able to support the propagation of
         uncertainties and weights. As such, it should have the form of
-        :math:`f(x, \sigma, w) = \bar{x} \pm \sigma`. If None, we used a
-        standard weighted average.
+        :math:`\text{avg}(x, \sigma, w) \rightarrow \bar{x} \pm \sigma`.
+        If None, we use a standard weighted average, ignoring NaNs.
+    interpolation_routine : Callable, default = None
+        The interpolation routine factory which we use to interpolate each of
+        the spectra to each other wavelength frame. It should have the input
+        form of :math:`\text{ipr}(x,y) \rightarrow f:x \mapsto y`. If None, we
+        default to a cubic spline, handling gaps.
     reference_wavelength : ndarray, default = None
         The reference wavelength is where the stitched spectra wavelength
         values should be. If None, we attempt to construct it based on the
@@ -417,10 +445,43 @@ def stitch_spectra_discrete(
         The discrete data points of the propagated uncertainties.
     """
     # We first determine the defaults.
+    if uncertainty_arrays is None:
+        uncertainty_arrays = [
+            np.zeros_like(wavedex) for wavedex in wavelength_arrays
+        ]
     if weight_arrays is None:
         weight_arrays = [np.ones_like(wavedex) for wavedex in wavelength_arrays]
     if average_routine is None:
-        average_routine = library.uncertainty.weighted_mean
+        average_routine = library.uncertainty.nan_weighted_mean
+    if interpolation_routine is None:
+        interpolation_routine_wrapped = (
+            library.interpolate.cubic_1d_interpolate_bounds_gap_factory
+        )
+    else:
+        # If a custom routine is provided, then we need to make sure it
+        # can handle gaps in the data, and the limits of the interpolation.
+        def custom_interpolate_bounds(
+            x: hint.ndarray,
+            y: hint.ndarray,
+        ) -> hint.Callable[[hint.ndarray], hint.ndarray]:
+            return library.interpolate.custom_1d_interpolate_bounds_factory(
+                interpolation=interpolation_routine,
+                x=x,
+                y=y,
+            )
+
+        def interpolation_routine_wrapped(
+            x: hint.ndarray,
+            y: hint.ndarray,
+            gap_size: float,
+        ) -> hint.Callable[[hint.ndarray], hint.ndarray]:
+            return library.interpolate.custom_1d_interpolate_gap_factory(
+                interpolation=custom_interpolate_bounds,
+                x=x,
+                y=y,
+                gap_size=gap_size,
+            )
+
     # And we also determine the reference points, which is vaguely based on
     # the atmospheric optical and infrared windows.
     if reference_wavelength is None:
@@ -429,19 +490,17 @@ def stitch_spectra_discrete(
         reference_wavelength = stitch_wavelengths_discrete(*wavelength_arrays)
     # Still sorting it and making sure it is clean.
     reference_wavelength = np.sort(
-        library.array.clean_finite_arrays(reference_wavelength),
+        *library.array.clean_finite_arrays(reference_wavelength),
     )
 
     # We next need to check the shape and the broadcasting of values for all
     # data. This is mostly a check to make sure that the shapes are compatible
     # and to also format them to better broadcasted versions (in the event) of
     # single value entires.
-    (
-        wavelength_broadcasts,
-        data_broadcasts,
-        uncertainty_broadcasts,
-        weight_broadcasts,
-    ) = ([] for __ in range(4))
+    wavelength_broadcasts = []
+    data_broadcasts = []
+    uncertainty_broadcasts = []
+    weight_broadcasts = []
     for index, (wavedex, datadex, uncertdex, weightdex) in enumerate(
         zip(
             wavelength_arrays,
@@ -461,43 +520,28 @@ def stitch_spectra_discrete(
             test_array=datadex,
             return_broadcast=True,
         )
-        if not verify_data:
-            logging.error(
-                error_type=logging.InputError,
-                message=(
-                    f"The {index}-th array input of the wavelength and data"
-                    " lists have incompatible broadcasting shapes:"
-                    f" {wavedex.shape} != {datadex.shape}"
-                ),
-            )
         verify_uncert, temp_uncert = library.array.verify_shape_compatibility(
             reference_array=temp_wave,
             test_array=uncertdex,
             return_broadcast=True,
         )
-        if not verify_uncert:
-            logging.error(
-                error_type=logging.InputError,
-                message=(
-                    f"The {index}-th array input of wavelength and uncertainty"
-                    " lists have incompatible broadcasting shapes:"
-                    f" {wavedex.shape} != {uncertdex.shape}"
-                ),
-            )
         verify_weight, temp_weight = library.array.verify_shape_compatibility(
             reference_array=temp_wave,
             test_array=weightdex,
             return_broadcast=True,
         )
-        if not verify_weight:
+        if not (verify_data and verify_uncert and verify_weight):
             logging.error(
                 error_type=logging.InputError,
                 message=(
-                    f"The {index}-th array input of wavelength and weight lists"
-                    " have incompatible broadcasting shapes:"
-                    f" {wavedex.shape} != {weightdex.shape,}"
+                    f"The {index}-th array input have incompatible shapes with"
+                    f" the wavelength, {wavedex.shape}; data, {datadex.shape};"
+                    f" uncertainty, {uncertdex.shape}; and weight"
+                    f" {weightdex.shape} arrays all having the listed"
+                    " incompatible and unbroadcastable shapes."
                 ),
             )
+
         # We use the broadcasted arrays as the main ones we will use.
         wavelength_broadcasts.append(temp_wave)
         data_broadcasts.append(temp_data)
@@ -509,16 +553,12 @@ def stitch_spectra_discrete(
     # We attempt to find the gaps in the data, assuming that the wavelength
     # arrays are complete.
     gap_guess = [
-        np.max(np.abs(wavedex[1:] - wavedex[:-1]))
+        np.nanmax(np.abs(wavedex[1:] - wavedex[:-1]))
         for wavedex in wavelength_broadcasts
     ]
     # Building the interpolators.
     wavelength_interpolators = [
-        library.interpolate.cubic_1d_interpolate_gap_factory(
-            x=wavedex,
-            y=wavedex,
-            gap_size=gapdex,
-        )
+        interpolation_routine_wrapped(x=wavedex, y=wavedex, gap_size=gapdex)
         for wavedex, gapdex in zip(
             wavelength_broadcasts,
             gap_guess,
@@ -526,11 +566,7 @@ def stitch_spectra_discrete(
         )
     ]
     data_interpolators = [
-        library.interpolate.cubic_1d_interpolate_gap_factory(
-            x=wavedex,
-            y=datadex,
-            gap_size=gapdex,
-        )
+        interpolation_routine_wrapped(x=wavedex, y=datadex, gap_size=gapdex)
         for wavedex, datadex, gapdex in zip(
             wavelength_broadcasts,
             data_broadcasts,
@@ -539,11 +575,7 @@ def stitch_spectra_discrete(
         )
     ]
     uncertainty_interpolators = [
-        library.interpolate.cubic_1d_interpolate_gap_factory(
-            x=wavedex,
-            y=uncertdex,
-            gap_size=gapdex,
-        )
+        interpolation_routine_wrapped(x=wavedex, y=uncertdex, gap_size=gapdex)
         for wavedex, uncertdex, gapdex in zip(
             wavelength_broadcasts,
             uncertainty_broadcasts,
@@ -577,6 +609,7 @@ def stitch_spectra_discrete(
         uncertainty_functions=uncertainty_interpolators,
         weight_functions=weight_interpolators,
         average_routine=average_routine,
+        interpolation_routine=interpolation_routine,
         reference_wavelength=reference_wavelength,
     )
 
