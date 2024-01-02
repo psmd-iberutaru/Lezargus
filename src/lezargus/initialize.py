@@ -25,7 +25,7 @@ def initialize(*args: tuple, **kwargs: object) -> None:
 
     The order of the initialization is important and we take care of it here.
     If you want to want to initialize smaller sections independently, you
-    may use the functions within the :py:mod:`lezargus.initialization` module.
+    may use the functions within the :py:mod:`lezargus.initialize` module.
 
     Parameters
     ----------
