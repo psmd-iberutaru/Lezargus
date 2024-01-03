@@ -556,47 +556,38 @@ def stitch_spectra_discrete(
         np.nanmax(np.abs(wavedex[1:] - wavedex[:-1]))
         for wavedex in wavelength_broadcasts
     ]
-    # Building the interpolators.
-    wavelength_interpolators = [
-        interpolation_routine_wrapped(x=wavedex, y=wavedex, gap_size=gapdex)
-        for wavedex, gapdex in zip(
-            wavelength_broadcasts,
-            gap_guess,
-            strict=True,
+    # Building the interpolators. if there is any array which does not have 
+    # any usable data, where the interpolator cannot be built, we ignore it.
+    wavelength_interpolators = []
+    data_interpolators = []
+    uncertainty_interpolators= []
+    weight_interpolators = []
+    for wavedex, datadex, uncertdex, weightdex, gapdex in zip(wavelength_broadcasts, data_broadcasts,uncertainty_broadcasts, weight_broadcasts, gap_guess, strict=True):
+        # We clean up all of the data, the gap is not included.
+        clean_wave, clean_data, clean_uncert, clean_weight = library.array.clean_finite_arrays(wavedex, datadex, uncertdex, weightdex)
+        # If any of the arrays are lacking enough data points for interpolation
+        # (2), then  we cannot build an interpolator for it.
+        if clean_wave.size < 2 or clean_data.size < 2 or clean_uncert.size < 2:
+            continue
+        # Otherwise, we build the interpolators.
+        wavelength_interpolators.append(
+            interpolation_routine_wrapped(x=wavedex, y=wavedex, gap_size=gapdex)
         )
-    ]
-    data_interpolators = [
-        interpolation_routine_wrapped(x=wavedex, y=datadex, gap_size=gapdex)
-        for wavedex, datadex, gapdex in zip(
-            wavelength_broadcasts,
-            data_broadcasts,
-            gap_guess,
-            strict=True,
+        data_interpolators.append(
+            interpolation_routine_wrapped(x=wavedex, y=datadex, gap_size=gapdex)
         )
-    ]
-    uncertainty_interpolators = [
-        interpolation_routine_wrapped(x=wavedex, y=uncertdex, gap_size=gapdex)
-        for wavedex, uncertdex, gapdex in zip(
-            wavelength_broadcasts,
-            uncertainty_broadcasts,
-            gap_guess,
-            strict=True,
+        uncertainty_interpolators.append(
+            interpolation_routine_wrapped(x=wavedex, y=uncertdex, gap_size=gapdex)
         )
-    ]
-    # The weight interpolator is a little different as we just want the
-    # nearest weight as we assume the weight is a section as opposed to a
-    # function.
-    weight_interpolators = [
-        library.interpolate.nearest_neighbor_1d_interpolate_factory(
-            x=wavedex,
-            y=weightdex,
-        )
-        for wavedex, weightdex in zip(
-            wavelength_broadcasts,
-            weight_broadcasts,
-            strict=True,
-        )
-    ]
+
+        # The weight interpolator is a little different as we just want the
+        # nearest weight as we assume the weight is a section as opposed to a
+        # function.
+        weight_interpolators.append(
+            library.interpolate.nearest_neighbor_1d_interpolate_factory(
+            x=clean_wave,
+            y=clean_weight,
+        ))
 
     # Now we determine the stitched interpolator.
     (
