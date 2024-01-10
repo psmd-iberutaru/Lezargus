@@ -3,7 +3,7 @@
 import numpy as np
 import scipy.integrate
 
-from lezargus import library
+import lezargus
 from lezargus.library import hint
 from lezargus.library import logging
 
@@ -430,7 +430,7 @@ def nan_weighted_mean(
 ) -> tuple[float, float]:
     """Calculate the no-NaN weighted mean and uncertainty.
 
-    This function is similar to :py:func:`library.uncertainty.weighted_mean`,
+    This function is similar to :py:func:`weighted_mean`,
     but we do not include any non-finite values.
 
     See :ref:`technical-uncertainty-weighted-mean` for more
@@ -464,7 +464,11 @@ def nan_weighted_mean(
         clean_values,
         clean_uncertainty,
         clean_weights,
-    ) = library.array.clean_finite_arrays(values, uncertainties, weights)
+    ) = lezargus.library.array.clean_finite_arrays(
+        values,
+        uncertainties,
+        weights,
+    )
 
     # And we just send it to the original function to compute it.
     mean_value, mean_uncertainty = weighted_mean(

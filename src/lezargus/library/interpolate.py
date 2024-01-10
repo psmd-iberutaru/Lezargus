@@ -8,9 +8,43 @@ from a set of base functions.
 import numpy as np
 import scipy.interpolate
 
-from lezargus import library
+import lezargus
 from lezargus.library import hint
 from lezargus.library import logging
+
+
+def get_smallest_gap(wavelength: hint.ndarray) -> float:
+    """Find the smallest possible gap value for a wavelength array.
+
+    Gaps, which are important in gap-based interpolation, are where there is
+    no data. Gaps are primarily a wavelength criterion: should data be missing
+    for enough of a wavelength range, it is determined to be a gap. This
+    function determines the smallest possible gap in the provided wavelength
+    array for which a data-only gap may exist.
+
+    Basically, we find the maximum spacing in the wavelength array and assume
+    that is it perfect and determine a gap from it.
+
+    Parameters
+    ----------
+    wavelength : ndarray
+        The wavelength array which is used to find the small gap.
+
+    Returns
+    -------
+    small_gap : float
+        The wavelength spacing for the small gap, in the same units as the
+        provided wavelength array.
+    """
+    # We just find the largest separation.
+    wavelength = np.asarray(wavelength)
+    small_gap_guess = np.nanmax(wavelength[1:] - wavelength[:-1])
+    # However, we pad it just by some epsilon to ensure that the derived
+    # separation itself is not considered a gap.
+    epsilon = np.nanmax(np.spacing(wavelength))
+    small_gap = small_gap_guess + epsilon
+    # All done.
+    return small_gap
 
 
 def cubic_1d_interpolate_factory(
@@ -36,7 +70,7 @@ def cubic_1d_interpolate_factory(
         The interpolation function of the data.
     """
     # Clean up the data, removing anything that is not usable.
-    clean_x, clean_y = library.array.clean_finite_arrays(x, y)
+    clean_x, clean_y = lezargus.library.array.clean_finite_arrays(x, y)
 
     # Create a cubic spline.
     cubic_interpolate_function = scipy.interpolate.CubicSpline(
@@ -221,7 +255,7 @@ def nearest_neighbor_1d_interpolate_factory(
         The interpolation function of the data.
     """
     # Clean up the data, removing anything that is not usable.
-    clean_x, clean_y = library.array.clean_finite_arrays(x, y)
+    clean_x, clean_y = lezargus.library.array.clean_finite_arrays(x, y)
     # Create a cubic spline.
     nearest_neighbor_function = scipy.interpolate.interp1d(
         x=clean_x,
@@ -345,7 +379,7 @@ def custom_1d_interpolate_gap_factory(
         gap_size = float(gap_size)
 
     # Clean up the data, removing anything that is not usable.
-    clean_x, clean_y = library.array.clean_finite_arrays(x, y)
+    clean_x, clean_y = lezargus.library.array.clean_finite_arrays(x, y)
     sort_index = np.argsort(clean_x)
     sort_x = clean_x[sort_index]
     sort_y = clean_y[sort_index]
@@ -429,7 +463,7 @@ def custom_1d_interpolate_bounds_factory(
         The interpolation function of the data, with the bounds handled.
     """
     # Clean up the data, removing anything that is not usable.
-    clean_x, clean_y = library.array.clean_finite_arrays(x, y)
+    clean_x, clean_y = lezargus.library.array.clean_finite_arrays(x, y)
 
     # Create a cubic spline.
     custom_interpolate_function = interpolation(clean_x, clean_y)

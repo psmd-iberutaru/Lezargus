@@ -10,7 +10,6 @@ import sys
 import uuid
 
 import lezargus
-from lezargus import library
 from lezargus.library import logging
 
 
@@ -67,7 +66,7 @@ def initialize(*args: tuple, **kwargs: object) -> None:
     # All of the initializations below have logging.
 
     # Load all of the data files for Lezargus.
-    initialize_data_all_files(**kwargs)
+    initialize_data_all(**kwargs)
 
 
 def initialize_configuration(*args: tuple, **kwargs: object) -> None:
@@ -113,9 +112,9 @@ def initialize_configuration(*args: tuple, **kwargs: object) -> None:
 
     # Load the default configuration parameters. The user's configurations
     # should overwrite these when supplied.
-    library.config.load_then_apply_configuration(
-        filename=library.path.merge_pathname(
-            directory=library.config.MODULE_INSTALLATION_PATH,
+    lezargus.library.config.load_then_apply_configuration(
+        filename=lezargus.library.path.merge_pathname(
+            directory=lezargus.library.config.MODULE_INSTALLATION_PATH,
             filename="configuration",
             extension="yaml",
         ),
@@ -163,10 +162,10 @@ def initialize_logging_outputs(*args: tuple, **kwargs: object) -> None:
 
     # Construct the default console and file-based logging functions. The file
     # is saved in the package directory.
-    library.logging.add_console_logging_handler(
+    lezargus.library.logging.add_console_logging_handler(
         console=sys.stderr,
-        log_level=library.logging.LOGGING_INFO_LEVEL,
-        use_color=library.config.LOGGING_STREAM_USE_COLOR,
+        log_level=lezargus.library.logging.LOGGING_INFO_LEVEL,
+        use_color=lezargus.library.config.LOGGING_STREAM_USE_COLOR,
     )
     # The default file logging is really a temporary thing (just in case) and
     # should not kept from run to run. Moreover, if there are multiple
@@ -176,21 +175,21 @@ def initialize_logging_outputs(*args: tuple, **kwargs: object) -> None:
     # Adding a new file handler. We add the file handler first only so we can
     # capture the log messages when we try and remove the old logs.
     unique_hex_identifier = uuid.uuid4().hex
-    default_log_file_filename = library.path.merge_pathname(
-        directory=library.config.MODULE_INSTALLATION_PATH,
+    default_log_file_filename = lezargus.library.path.merge_pathname(
+        directory=lezargus.library.config.MODULE_INSTALLATION_PATH,
         filename="lezargus_" + unique_hex_identifier,
         extension="log",
     )
-    library.logging.add_file_logging_handler(
+    lezargus.library.logging.add_file_logging_handler(
         filename=default_log_file_filename,
-        log_level=library.logging.LOGGING_DEBUG_LEVEL,
+        log_level=lezargus.library.logging.LOGGING_DEBUG_LEVEL,
     )
     # We try and remove all of the log files which currently exist, if we can.
     # We make an exception for the one which we are going to use, we do not
     # want to clog the log with it.
     old_log_files = glob.glob(
-        library.path.merge_pathname(
-            directory=library.config.MODULE_INSTALLATION_PATH,
+        lezargus.library.path.merge_pathname(
+            directory=lezargus.library.config.MODULE_INSTALLATION_PATH,
             filename="lezargus_*",
             extension="log",
         ),
@@ -205,7 +204,7 @@ def initialize_logging_outputs(*args: tuple, **kwargs: object) -> None:
         except OSError:
             # The file is likely in use by another logger or Lezargus instance.
             # The deletion can wait.
-            library.logging.info(
+            logging.info(
                 message=(
                     f"The temporary log file {filedex} is currently in-use, we"
                     " defer  deletion until the next load."
@@ -213,7 +212,7 @@ def initialize_logging_outputs(*args: tuple, **kwargs: object) -> None:
             )
 
 
-def initialize_data_all_files(*args: tuple, **kwargs: object) -> None:
+def initialize_data_all(*args: tuple, **kwargs: object) -> None:
     """Initialize the all of the data files.
 
     Load all data files into the library data module.
@@ -301,51 +300,51 @@ def initialize_data_star_files(*args: tuple, **kwargs: object) -> None:
         )
 
     # Loading the stars.
-    library.data.add_data_object(
+    lezargus.library.data.add_data_object(
         name="STAR_16CYGB",
         data=lezargus.container.LezargusSpectra.read_fits_file(
-            filename=library.path.merge_pathname(
-                directory=library.data.MODULE_DATA_DIRECTORY,
+            filename=lezargus.library.path.merge_pathname(
+                directory=lezargus.library.data.MODULE_DATA_DIRECTORY,
                 filename="star_spectra_16CygB",
                 extension="fits",
             ),
         ),
     )
-    library.data.add_data_object(
+    lezargus.library.data.add_data_object(
         name="STAR_109VIR",
         data=lezargus.container.LezargusSpectra.read_fits_file(
-            filename=library.path.merge_pathname(
-                directory=library.data.MODULE_DATA_DIRECTORY,
+            filename=lezargus.library.path.merge_pathname(
+                directory=lezargus.library.data.MODULE_DATA_DIRECTORY,
                 filename="star_spectra_109Vir",
                 extension="fits",
             ),
         ),
     )
-    library.data.add_data_object(
+    lezargus.library.data.add_data_object(
         name="STAR_SUN",
         data=lezargus.container.LezargusSpectra.read_fits_file(
-            filename=library.path.merge_pathname(
-                directory=library.data.MODULE_DATA_DIRECTORY,
+            filename=lezargus.library.path.merge_pathname(
+                directory=lezargus.library.data.MODULE_DATA_DIRECTORY,
                 filename="star_spectra_Sun",
                 extension="fits",
             ),
         ),
     )
-    library.data.add_data_object(
+    lezargus.library.data.add_data_object(
         name="STAR_VEGA",
         data=lezargus.container.LezargusSpectra.read_fits_file(
-            filename=library.path.merge_pathname(
-                directory=library.data.MODULE_DATA_DIRECTORY,
+            filename=lezargus.library.path.merge_pathname(
+                directory=lezargus.library.data.MODULE_DATA_DIRECTORY,
                 filename="star_spectra_Vega",
                 extension="fits",
             ),
         ),
     )
-    library.data.add_data_object(
+    lezargus.library.data.add_data_object(
         name="STAR_A0V",
         data=lezargus.container.LezargusSpectra.read_fits_file(
-            filename=library.path.merge_pathname(
-                directory=library.data.MODULE_DATA_DIRECTORY,
+            filename=lezargus.library.path.merge_pathname(
+                directory=lezargus.library.data.MODULE_DATA_DIRECTORY,
                 filename="star_spectra_A0V",
                 extension="fits",
             ),
@@ -394,31 +393,31 @@ def initialize_data_filter_files(*args: tuple, **kwargs: object) -> None:
     # Loading the photometric filter files.
 
     # Loading Johnson filters.
-    library.data.add_data_object(
+    lezargus.library.data.add_data_object(
         name="FILTER_JOHNSON_U_PHOTON",
         data=lezargus.container.LezargusSpectra.read_fits_file(
-            filename=library.path.merge_pathname(
-                directory=library.data.MODULE_DATA_DIRECTORY,
+            filename=lezargus.library.path.merge_pathname(
+                directory=lezargus.library.data.MODULE_DATA_DIRECTORY,
                 filename="filter_Johnson_U_photon",
                 extension="fits",
             ),
         ),
     )
-    library.data.add_data_object(
+    lezargus.library.data.add_data_object(
         name="FILTER_JOHNSON_B_PHOTON",
         data=lezargus.container.LezargusSpectra.read_fits_file(
-            filename=library.path.merge_pathname(
-                directory=library.data.MODULE_DATA_DIRECTORY,
+            filename=lezargus.library.path.merge_pathname(
+                directory=lezargus.library.data.MODULE_DATA_DIRECTORY,
                 filename="filter_Johnson_B_photon",
                 extension="fits",
             ),
         ),
     )
-    library.data.add_data_object(
+    lezargus.library.data.add_data_object(
         name="FILTER_JOHNSON_V_PHOTON",
         data=lezargus.container.LezargusSpectra.read_fits_file(
-            filename=library.path.merge_pathname(
-                directory=library.data.MODULE_DATA_DIRECTORY,
+            filename=lezargus.library.path.merge_pathname(
+                directory=lezargus.library.data.MODULE_DATA_DIRECTORY,
                 filename="filter_Johnson_V_photon",
                 extension="fits",
             ),
@@ -426,31 +425,31 @@ def initialize_data_filter_files(*args: tuple, **kwargs: object) -> None:
     )
 
     # Loading GAIA filters.
-    library.data.add_data_object(
+    lezargus.library.data.add_data_object(
         name="FILTER_GAIA_GG_PHOTON",
         data=lezargus.container.LezargusSpectra.read_fits_file(
-            filename=library.path.merge_pathname(
-                directory=library.data.MODULE_DATA_DIRECTORY,
+            filename=lezargus.library.path.merge_pathname(
+                directory=lezargus.library.data.MODULE_DATA_DIRECTORY,
                 filename="filter_Gaia_GG_photon",
                 extension="fits",
             ),
         ),
     )
-    library.data.add_data_object(
+    lezargus.library.data.add_data_object(
         name="FILTER_GAIA_GB_PHOTON",
         data=lezargus.container.LezargusSpectra.read_fits_file(
-            filename=library.path.merge_pathname(
-                directory=library.data.MODULE_DATA_DIRECTORY,
+            filename=lezargus.library.path.merge_pathname(
+                directory=lezargus.library.data.MODULE_DATA_DIRECTORY,
                 filename="filter_Gaia_GB_photon",
                 extension="fits",
             ),
         ),
     )
-    library.data.add_data_object(
+    lezargus.library.data.add_data_object(
         name="FILTER_GAIA_GR_PHOTON",
         data=lezargus.container.LezargusSpectra.read_fits_file(
-            filename=library.path.merge_pathname(
-                directory=library.data.MODULE_DATA_DIRECTORY,
+            filename=lezargus.library.path.merge_pathname(
+                directory=lezargus.library.data.MODULE_DATA_DIRECTORY,
                 filename="filter_Gaia_GR_photon",
                 extension="fits",
             ),
@@ -458,31 +457,31 @@ def initialize_data_filter_files(*args: tuple, **kwargs: object) -> None:
     )
 
     # Loading 2MASS filters.
-    library.data.add_data_object(
+    lezargus.library.data.add_data_object(
         name="FILTER_2MASS_J_PHOTON",
         data=lezargus.container.LezargusSpectra.read_fits_file(
-            filename=library.path.merge_pathname(
-                directory=library.data.MODULE_DATA_DIRECTORY,
+            filename=lezargus.library.path.merge_pathname(
+                directory=lezargus.library.data.MODULE_DATA_DIRECTORY,
                 filename="filter_2MASS_J_photon",
                 extension="fits",
             ),
         ),
     )
-    library.data.add_data_object(
+    lezargus.library.data.add_data_object(
         name="FILTER_2MASS_H_PHOTON",
         data=lezargus.container.LezargusSpectra.read_fits_file(
-            filename=library.path.merge_pathname(
-                directory=library.data.MODULE_DATA_DIRECTORY,
+            filename=lezargus.library.path.merge_pathname(
+                directory=lezargus.library.data.MODULE_DATA_DIRECTORY,
                 filename="filter_2MASS_H_photon",
                 extension="fits",
             ),
         ),
     )
-    library.data.add_data_object(
+    lezargus.library.data.add_data_object(
         name="FILTER_2MASS_KS_PHOTON",
         data=lezargus.container.LezargusSpectra.read_fits_file(
-            filename=library.path.merge_pathname(
-                directory=library.data.MODULE_DATA_DIRECTORY,
+            filename=lezargus.library.path.merge_pathname(
+                directory=lezargus.library.data.MODULE_DATA_DIRECTORY,
                 filename="filter_2MASS_Ks_photon",
                 extension="fits",
             ),
@@ -530,41 +529,41 @@ def initialize_data_atmosphere_files(*args: tuple, **kwargs: object) -> None:
         )
 
     # We first load all of the atmospheric transmission files.
-    library.data.add_data_object(
+    lezargus.library.data.add_data_object(
         name="ATM_TRANS_ZA0",
         data=lezargus.container.LezargusSpectra.read_fits_file(
-            filename=library.path.merge_pathname(
-                directory=library.data.MODULE_DATA_DIRECTORY,
+            filename=lezargus.library.path.merge_pathname(
+                directory=lezargus.library.data.MODULE_DATA_DIRECTORY,
                 filename="atm_trans_za0",
                 extension="fits",
             ),
         ),
     )
-    library.data.add_data_object(
+    lezargus.library.data.add_data_object(
         name="ATM_TRANS_ZA30",
         data=lezargus.container.LezargusSpectra.read_fits_file(
-            filename=library.path.merge_pathname(
-                directory=library.data.MODULE_DATA_DIRECTORY,
+            filename=lezargus.library.path.merge_pathname(
+                directory=lezargus.library.data.MODULE_DATA_DIRECTORY,
                 filename="atm_trans_za30",
                 extension="fits",
             ),
         ),
     )
-    library.data.add_data_object(
+    lezargus.library.data.add_data_object(
         name="ATM_TRANS_ZA45",
         data=lezargus.container.LezargusSpectra.read_fits_file(
-            filename=library.path.merge_pathname(
-                directory=library.data.MODULE_DATA_DIRECTORY,
+            filename=lezargus.library.path.merge_pathname(
+                directory=lezargus.library.data.MODULE_DATA_DIRECTORY,
                 filename="atm_trans_za45",
                 extension="fits",
             ),
         ),
     )
-    library.data.add_data_object(
+    lezargus.library.data.add_data_object(
         name="ATM_TRANS_ZA60",
         data=lezargus.container.LezargusSpectra.read_fits_file(
-            filename=library.path.merge_pathname(
-                directory=library.data.MODULE_DATA_DIRECTORY,
+            filename=lezargus.library.path.merge_pathname(
+                directory=lezargus.library.data.MODULE_DATA_DIRECTORY,
                 filename="atm_trans_za60",
                 extension="fits",
             ),
@@ -572,41 +571,41 @@ def initialize_data_atmosphere_files(*args: tuple, **kwargs: object) -> None:
     )
 
     # We next load all of the atmospheric radiance files.
-    library.data.add_data_object(
+    lezargus.library.data.add_data_object(
         name="ATM_RAD_ZA0",
         data=lezargus.container.LezargusSpectra.read_fits_file(
-            filename=library.path.merge_pathname(
-                directory=library.data.MODULE_DATA_DIRECTORY,
+            filename=lezargus.library.path.merge_pathname(
+                directory=lezargus.library.data.MODULE_DATA_DIRECTORY,
                 filename="atm_rad_za0",
                 extension="fits",
             ),
         ),
     )
-    library.data.add_data_object(
+    lezargus.library.data.add_data_object(
         name="ATM_RAD_ZA30",
         data=lezargus.container.LezargusSpectra.read_fits_file(
-            filename=library.path.merge_pathname(
-                directory=library.data.MODULE_DATA_DIRECTORY,
+            filename=lezargus.library.path.merge_pathname(
+                directory=lezargus.library.data.MODULE_DATA_DIRECTORY,
                 filename="atm_rad_za30",
                 extension="fits",
             ),
         ),
     )
-    library.data.add_data_object(
+    lezargus.library.data.add_data_object(
         name="ATM_RAD_ZA45",
         data=lezargus.container.LezargusSpectra.read_fits_file(
-            filename=library.path.merge_pathname(
-                directory=library.data.MODULE_DATA_DIRECTORY,
+            filename=lezargus.library.path.merge_pathname(
+                directory=lezargus.library.data.MODULE_DATA_DIRECTORY,
                 filename="atm_rad_za45",
                 extension="fits",
             ),
         ),
     )
-    library.data.add_data_object(
+    lezargus.library.data.add_data_object(
         name="ATM_RAD_ZA60",
         data=lezargus.container.LezargusSpectra.read_fits_file(
-            filename=library.path.merge_pathname(
-                directory=library.data.MODULE_DATA_DIRECTORY,
+            filename=lezargus.library.path.merge_pathname(
+                directory=lezargus.library.data.MODULE_DATA_DIRECTORY,
                 filename="atm_rad_za60",
                 extension="fits",
             ),
@@ -661,17 +660,21 @@ def initialize_data_filter_zero_point_values(
     (
         johnson_u_zp,
         johnson_u_zpu,
-    ) = library.photometry.calculate_filter_zero_point_vega(
-        filter_spectra=library.data.FILTER_JOHNSON_U_PHOTON,
-        standard_spectra=library.data.STAR_A0V,
-        standard_filter_magnitude=library.data.STAR_A0V.header["LZPM_J_U"],
-        standard_filter_uncertainty=library.data.STAR_A0V.header["LZPU_J_U"],
+    ) = lezargus.library.photometry.calculate_filter_zero_point_vega(
+        filter_spectra=lezargus.library.data.FILTER_JOHNSON_U_PHOTON,
+        standard_spectra=lezargus.library.data.STAR_A0V,
+        standard_filter_magnitude=lezargus.library.data.STAR_A0V.header[
+            "LZPM_J_U"
+        ],
+        standard_filter_uncertainty=lezargus.library.data.STAR_A0V.header[
+            "LZPU_J_U"
+        ],
     )
-    library.data.add_data_object(
+    lezargus.library.data.add_data_object(
         name="ZERO_POINT_VEGA_JOHNSON_U",
         data=johnson_u_zp,
     )
-    library.data.add_data_object(
+    lezargus.library.data.add_data_object(
         name="ZERO_POINT_VEGA_JOHNSON_U_UNCERTAINTY",
         data=johnson_u_zpu,
     )
@@ -679,17 +682,21 @@ def initialize_data_filter_zero_point_values(
     (
         johnson_b_zp,
         johnson_b_zpu,
-    ) = library.photometry.calculate_filter_zero_point_vega(
-        filter_spectra=library.data.FILTER_JOHNSON_B_PHOTON,
-        standard_spectra=library.data.STAR_A0V,
-        standard_filter_magnitude=library.data.STAR_A0V.header["LZPM_J_B"],
-        standard_filter_uncertainty=library.data.STAR_A0V.header["LZPU_J_B"],
+    ) = lezargus.library.photometry.calculate_filter_zero_point_vega(
+        filter_spectra=lezargus.library.data.FILTER_JOHNSON_B_PHOTON,
+        standard_spectra=lezargus.library.data.STAR_A0V,
+        standard_filter_magnitude=lezargus.library.data.STAR_A0V.header[
+            "LZPM_J_B"
+        ],
+        standard_filter_uncertainty=lezargus.library.data.STAR_A0V.header[
+            "LZPU_J_B"
+        ],
     )
-    library.data.add_data_object(
+    lezargus.library.data.add_data_object(
         name="ZERO_POINT_VEGA_JOHNSON_B",
         data=johnson_b_zp,
     )
-    library.data.add_data_object(
+    lezargus.library.data.add_data_object(
         name="ZERO_POINT_VEGA_JOHNSON_B_UNCERTAINTY",
         data=johnson_b_zpu,
     )
@@ -697,17 +704,21 @@ def initialize_data_filter_zero_point_values(
     (
         johnson_v_zp,
         johnson_v_zpu,
-    ) = library.photometry.calculate_filter_zero_point_vega(
-        filter_spectra=library.data.FILTER_JOHNSON_V_PHOTON,
-        standard_spectra=library.data.STAR_A0V,
-        standard_filter_magnitude=library.data.STAR_A0V.header["LZPM_J_V"],
-        standard_filter_uncertainty=library.data.STAR_A0V.header["LZPU_J_V"],
+    ) = lezargus.library.photometry.calculate_filter_zero_point_vega(
+        filter_spectra=lezargus.library.data.FILTER_JOHNSON_V_PHOTON,
+        standard_spectra=lezargus.library.data.STAR_A0V,
+        standard_filter_magnitude=lezargus.library.data.STAR_A0V.header[
+            "LZPM_J_V"
+        ],
+        standard_filter_uncertainty=lezargus.library.data.STAR_A0V.header[
+            "LZPU_J_V"
+        ],
     )
-    library.data.add_data_object(
+    lezargus.library.data.add_data_object(
         name="ZERO_POINT_VEGA_JOHNSON_V",
         data=johnson_v_zp,
     )
-    library.data.add_data_object(
+    lezargus.library.data.add_data_object(
         name="ZERO_POINT_VEGA_JOHNSON_V_UNCERTAINTY",
         data=johnson_v_zpu,
     )
@@ -723,17 +734,21 @@ def initialize_data_filter_zero_point_values(
     (
         mass2_j_zp,
         mass2_j_zpu,
-    ) = library.photometry.calculate_filter_zero_point_vega(
-        filter_spectra=library.data.FILTER_2MASS_J_PHOTON,
-        standard_spectra=library.data.STAR_A0V,
-        standard_filter_magnitude=library.data.STAR_A0V.header["LZPM_2_J"],
-        standard_filter_uncertainty=library.data.STAR_A0V.header["LZPU_2_J"],
+    ) = lezargus.library.photometry.calculate_filter_zero_point_vega(
+        filter_spectra=lezargus.library.data.FILTER_2MASS_J_PHOTON,
+        standard_spectra=lezargus.library.data.STAR_A0V,
+        standard_filter_magnitude=lezargus.library.data.STAR_A0V.header[
+            "LZPM_2_J"
+        ],
+        standard_filter_uncertainty=lezargus.library.data.STAR_A0V.header[
+            "LZPU_2_J"
+        ],
     )
-    library.data.add_data_object(
+    lezargus.library.data.add_data_object(
         name="ZERO_POINT_VEGA_2MASS_J",
         data=mass2_j_zp,
     )
-    library.data.add_data_object(
+    lezargus.library.data.add_data_object(
         name="ZERO_POINT_VEGA_2MASS_J_UNCERTAINTY",
         data=mass2_j_zpu,
     )
@@ -741,17 +756,21 @@ def initialize_data_filter_zero_point_values(
     (
         mass2_h_zp,
         mass2_h_zpu,
-    ) = library.photometry.calculate_filter_zero_point_vega(
-        filter_spectra=library.data.FILTER_2MASS_H_PHOTON,
-        standard_spectra=library.data.STAR_A0V,
-        standard_filter_magnitude=library.data.STAR_A0V.header["LZPM_2_H"],
-        standard_filter_uncertainty=library.data.STAR_A0V.header["LZPU_2_H"],
+    ) = lezargus.library.photometry.calculate_filter_zero_point_vega(
+        filter_spectra=lezargus.library.data.FILTER_2MASS_H_PHOTON,
+        standard_spectra=lezargus.library.data.STAR_A0V,
+        standard_filter_magnitude=lezargus.library.data.STAR_A0V.header[
+            "LZPM_2_H"
+        ],
+        standard_filter_uncertainty=lezargus.library.data.STAR_A0V.header[
+            "LZPU_2_H"
+        ],
     )
-    library.data.add_data_object(
+    lezargus.library.data.add_data_object(
         name="ZERO_POINT_VEGA_2MASS_H",
         data=mass2_h_zp,
     )
-    library.data.add_data_object(
+    lezargus.library.data.add_data_object(
         name="ZERO_POINT_VEGA_2MASS_H_UNCERTAINTY",
         data=mass2_h_zpu,
     )
@@ -759,17 +778,21 @@ def initialize_data_filter_zero_point_values(
     (
         mass2_ks_zp,
         mass2_ks_zpu,
-    ) = library.photometry.calculate_filter_zero_point_vega(
-        filter_spectra=library.data.FILTER_2MASS_KS_PHOTON,
-        standard_spectra=library.data.STAR_A0V,
-        standard_filter_magnitude=library.data.STAR_A0V.header["LZPM_2KS"],
-        standard_filter_uncertainty=library.data.STAR_A0V.header["LZPU_2KS"],
+    ) = lezargus.library.photometry.calculate_filter_zero_point_vega(
+        filter_spectra=lezargus.library.data.FILTER_2MASS_KS_PHOTON,
+        standard_spectra=lezargus.library.data.STAR_A0V,
+        standard_filter_magnitude=lezargus.library.data.STAR_A0V.header[
+            "LZPM_2KS"
+        ],
+        standard_filter_uncertainty=lezargus.library.data.STAR_A0V.header[
+            "LZPU_2KS"
+        ],
     )
-    library.data.add_data_object(
+    lezargus.library.data.add_data_object(
         name="ZERO_POINT_VEGA_2MASS_KS",
         data=mass2_ks_zp,
     )
-    library.data.add_data_object(
+    lezargus.library.data.add_data_object(
         name="ZERO_POINT_VEGA_2MASS_KS_UNCERTAINTY",
         data=mass2_ks_zpu,
     )

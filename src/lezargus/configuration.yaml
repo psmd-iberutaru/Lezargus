@@ -4,6 +4,33 @@
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+#    SPECTRE Simulation Instrument Configuration
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+# The perfect wavelength bounds of the astrophysical object. This is used for 
+# the simulation when building the wavelength array. Per the unit convention,
+# the units here are in micrometers. We use a uniform distribution with the 
+# number of "count" data points. 
+SPECTRE_SIMULATION_WAVELENGTH_MINIMUM : 0.35
+SPECTRE_SIMULATION_WAVELENGTH_MAXIMUM : 4.20
+SPECTRE_SIMULATION_WAVELENGTH_COUNT : 1000000
+
+# The perfect field of view of the astrophysical target. This is used for the 
+# simulation when building the perfect data cube representing the object 
+# itself. Namely, the field of view length across the N-S and E-W axes are 
+# set here. The units here are in arcseconds on the sky. The square resolution
+# of the perfect field of view is based on the "count", data points across for 
+# each axis.
+# Note that because we usually assume point sources, the meridional and zonal 
+# point count should be odd. Although possible with an even count, a warning 
+# is raised due to accuracy concerns.
+SPECTRE_SIMULATION_FOV_MERIDIONAL_LENGTH  : 10
+SPECTRE_SIMULATION_FOV_ZONAL_LENGTH: 10
+SPECTRE_SIMULATION_FOV_MERIDIONAL_COUNT : 1001
+SPECTRE_SIMULATION_FOV_ZONAL_COUNT : 1001
+
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #    Logging Configuration
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
@@ -27,10 +54,29 @@ LOGGING_DATETIME_FORMAT_STRING : "%Y-%m-%dT%H:%M:%S"
 # prefix to the logging error message. Turn to False to disable this.
 LOGGING_INCLUDE_EXCEPTION_TYPE_IN_MESSAGE : True
 
-# And, the HEX colors for the stream logs; if to use color at all.
+# And, the HEX colors for the stream logs. The HEX values must have the 
+# preceding hash/"#" symbol. The HEX values are likely case-insensitive, but
+# upper case is usually nicer.
 LOGGING_STREAM_USE_COLOR : True
 LOGGING_STREAM_DEBUG_COLOR_HEX : "#FFFFFF"
 LOGGING_STREAM_INFO_COLOR_HEX : "#004488"
 LOGGING_STREAM_WARNING_COLOR_HEX : "#FFE100"
 LOGGING_STREAM_ERROR_COLOR_HEX : "#FF7900"
 LOGGING_STREAM_CRITICAL_COLOR_HEX : "#BD2024"
+
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+#    Container Broadcast Configuration
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+# This is the default mode for handling the any mismatch in the wavelength 
+# arrays while broadcasting spectra and images into cubes.
+# The documented options can be found in any function from the 
+# `lezargus.container.broadcast.*` namespace; the most common are "error"
+# "spectra" and "cube".
+CONTAINER_BROADCAST_DEFAULT_WAVELENGTH_MODE : "error"
+
+
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+#    Miscellaneous Configuration
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # #

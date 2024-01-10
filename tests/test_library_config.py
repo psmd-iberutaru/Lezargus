@@ -79,8 +79,8 @@ def test_load_then_apply_configuration() -> None:
         pass
 
 
-def test_generate_configuration_file_copy() -> None:
-    """Test the generate_configuration_file_copy function.
+def test_create_configuration_file_copy() -> None:
+    """Test the create_configuration_file_copy function.
 
     Parameters
     ----------
@@ -95,7 +95,7 @@ def test_generate_configuration_file_copy() -> None:
     same_filename = "config_filename_with_lowercase_keys.yaml"
     same_filename = conftest.fetch_test_filename(basename=same_filename)
     try:
-        __ = lezargus.library.config.generate_configuration_file_copy(
+        __ = lezargus.library.config.create_configuration_file_copy(
             filename=same_filename, overwrite=False
         )
     except lezargus.library.logging.ElevatedError:
@@ -108,10 +108,10 @@ def test_generate_configuration_file_copy() -> None:
     # Fixing the path.
     noext_filename = conftest.fetch_test_filename(basename=noext_filename)
     ext_filename = conftest.fetch_test_filename(basename=ext_filename)
-    __ = lezargus.library.config.generate_configuration_file_copy(
+    __ = lezargus.library.config.create_configuration_file_copy(
         filename=noext_filename, overwrite=True
     )
-    __ = lezargus.library.config.generate_configuration_file_copy(
+    __ = lezargus.library.config.create_configuration_file_copy(
         filename=ext_filename, overwrite=True
     )
     # We don't want both files to actually stay so we can delete them.

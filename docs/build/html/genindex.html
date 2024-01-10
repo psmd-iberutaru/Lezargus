@@ -1,9 +1,8 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="./" >
 
   <head>
     <meta charset="utf-8" />
@@ -18,29 +17,28 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
 
   
-  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=384b581d" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
+  <script src="_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
 
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
-    <script src="_static/doctools.js"></script>
-    <script src="_static/sphinx_highlight.js"></script>
-    <script src="_static/jquery.js"></script>
-    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="_static/doctools.js?v=888ff710"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'genindex';</script>
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" />
@@ -53,7 +51,16 @@
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -87,12 +94,20 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <header>
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <div class="bd-header navbar navbar-expand-lg bd-navbar">
+    </div>
   
+  </header>
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -107,6 +122,7 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="index.html">
@@ -115,23 +131,41 @@
   
   
   
+  
     <p class="title logo__title">Lezargus  documentation</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Manual</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="technical/index.html">Technical Manual</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="user/index.html">User Manual</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="simple">
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="technical/index.html">Technical Manual</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="technical/uncertainty.html">Uncertainty Propagation</a></li>
 </ul>
 </li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="code/modules.html">lezargus</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="code/lezargus.html">lezargus package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l3 has-children"><a class="reference internal" href="code/lezargus.container.html">lezargus.container package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="code/modules.html">lezargus</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="code/lezargus.html">lezargus package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="code/lezargus.container.html">lezargus.container package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.container.cube.html">lezargus.container.cube module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.container.image.html">lezargus.container.image module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.container.mosaic.html">lezargus.container.mosaic module</a></li>
@@ -139,7 +173,7 @@
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.container.spectra.html">lezargus.container.spectra module</a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="code/lezargus.library.html">lezargus.library package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="code/lezargus.library.html">lezargus.library package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.library.array.html">lezargus.library.array module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.library.atmosphere.html">lezargus.library.atmosphere module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.library.config.html">lezargus.library.config module</a></li>
@@ -150,12 +184,15 @@
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.library.hint.html">lezargus.library.hint module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.library.interpolate.html">lezargus.library.interpolate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.library.logging.html">lezargus.library.logging module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="code/lezargus.library.old_stitch.html">lezargus.library.old_stitch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.library.path.html">lezargus.library.path module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.library.stitch.html">lezargus.library.stitch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.library.uncertainty.html">lezargus.library.uncertainty module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="code/lezargus.simulation.html">lezargus.simulation package</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="code/lezargus.simulation.spectre.html">lezargus.simulation.spectre module</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="code/lezargus.__main__.html">lezargus.__main__ module</a></li>
@@ -223,20 +260,22 @@
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
@@ -263,7 +302,7 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
 
 <h1 id="index">Index</h1>
@@ -312,18 +351,16 @@ document.write(`
 </li>
         <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.ColoredLogFormatter.__init__">(lezargus.library.logging.ColoredLogFormatter method)</a>
 </li>
-      </ul></li>
-      <li><a href="code/lezargus.container.parent.html#lezargus.container.parent.LezargusContainerArithmetic.__justify_arithmetic_operation">__justify_arithmetic_operation() (lezargus.container.parent.LezargusContainerArithmetic method)</a>
+        <li><a href="code/lezargus.simulation.spectre.html#lezargus.simulation.spectre.SimulatorSpectre.__init__">(lezargus.simulation.spectre.SimulatorSpectre method)</a>
 </li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="code/lezargus.container.parent.html#lezargus.container.parent.LezargusContainerArithmetic.__justify_arithmetic_operation">__justify_arithmetic_operation() (lezargus.container.parent.LezargusContainerArithmetic method)</a>
+</li>
       <li><a href="code/lezargus.container.parent.html#lezargus.container.parent.LezargusContainerArithmetic.__mul__">__mul__() (lezargus.container.parent.LezargusContainerArithmetic method)</a>
 </li>
       <li><a href="code/lezargus.container.parent.html#lezargus.container.parent.LezargusContainerArithmetic.__pow__">__pow__() (lezargus.container.parent.LezargusContainerArithmetic method)</a>
-</li>
-      <li><a href="code/lezargus.library.old_stitch.html#lezargus.library.old_stitch.__spectra_rewrapped_interpolation_average_function">__spectra_rewrapped_interpolation_average_function() (in module lezargus.library.old_stitch)</a>
-</li>
-      <li><a href="code/lezargus.library.old_stitch.html#lezargus.library.old_stitch.__spectra_rewrapped_interpolation_factory">__spectra_rewrapped_interpolation_factory() (in module lezargus.library.old_stitch)</a>
 </li>
       <li><a href="code/lezargus.container.parent.html#lezargus.container.parent.LezargusContainerArithmetic.__sub__">__sub__() (lezargus.container.parent.LezargusContainerArithmetic method)</a>
 </li>
@@ -363,6 +400,8 @@ document.write(`
 </li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.ArithmeticalError">ArithmeticalError</a>
 </li>
+      <li><a href="code/lezargus.simulation.spectre.html#lezargus.simulation.spectre.SimulatorSpectre.astrophysical_object_spectra">astrophysical_object_spectra (lezargus.simulation.spectre.SimulatorSpectre attribute)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -399,14 +438,10 @@ document.write(`
 </li>
       <li><a href="code/lezargus.library.flags.html#lezargus.library.flags.combine_masks">combine_masks() (in module lezargus.library.flags)</a>
 </li>
-      <li><a href="code/lezargus.library.wrapper.html#lezargus.library.wrapper.combine_overlap_wavelength_array">combine_overlap_wavelength_array() (in module lezargus.library.wrapper)</a>
-</li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.CommandLineError">CommandLineError</a>
 </li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.ConfigurationError">ConfigurationError</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.ConfigurationWarning">ConfigurationWarning</a>
 </li>
       <li><a href="code/lezargus.library.conversion.html#lezargus.library.conversion.convert_to_allowable_fits_header_data_types">convert_to_allowable_fits_header_data_types() (in module lezargus.library.conversion)</a>
@@ -414,6 +449,12 @@ document.write(`
       <li><a href="code/lezargus.library.array.html#lezargus.library.array.convolve_cube_by_image_array">convolve_cube_by_image_array() (in module lezargus.library.array)</a>
 </li>
       <li><a href="code/lezargus.library.uncertainty.html#lezargus.library.uncertainty.covariance">covariance() (in module lezargus.library.uncertainty)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="code/lezargus.simulation.spectre.html#lezargus.simulation.spectre.SimulatorSpectre.create_astrophysical_object_spectra">create_astrophysical_object_spectra() (lezargus.simulation.spectre.SimulatorSpectre method)</a>
+</li>
+      <li><a href="code/lezargus.library.config.html#lezargus.library.config.create_configuration_file_copy">create_configuration_file_copy() (in module lezargus.library.config)</a>
 </li>
       <li><a href="code/lezargus.library.fits.html#lezargus.library.fits.create_fits_header">create_fits_header() (in module lezargus.library.fits)</a>
 </li>
@@ -423,11 +464,19 @@ document.write(`
 </li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.critical">critical() (in module lezargus.library.logging)</a>
 </li>
-      <li><a href="code/lezargus.library.interpolate.html#lezargus.library.interpolate.cubic_1d_interpolate_extrapolate_factory">cubic_1d_interpolate_extrapolate_factory() (in module lezargus.library.interpolate)</a>
+      <li><a href="code/lezargus.library.interpolate.html#lezargus.library.interpolate.cubic_1d_interpolate_bounds_factory">cubic_1d_interpolate_bounds_factory() (in module lezargus.library.interpolate)</a>
+</li>
+      <li><a href="code/lezargus.library.interpolate.html#lezargus.library.interpolate.cubic_1d_interpolate_bounds_gap_factory">cubic_1d_interpolate_bounds_gap_factory() (in module lezargus.library.interpolate)</a>
 </li>
       <li><a href="code/lezargus.library.interpolate.html#lezargus.library.interpolate.cubic_1d_interpolate_factory">cubic_1d_interpolate_factory() (in module lezargus.library.interpolate)</a>
 </li>
       <li><a href="code/lezargus.library.interpolate.html#lezargus.library.interpolate.cubic_1d_interpolate_gap_factory">cubic_1d_interpolate_gap_factory() (in module lezargus.library.interpolate)</a>
+</li>
+      <li><a href="code/lezargus.library.interpolate.html#lezargus.library.interpolate.custom_1d_interpolate_bounds_factory">custom_1d_interpolate_bounds_factory() (in module lezargus.library.interpolate)</a>
+</li>
+      <li><a href="code/lezargus.library.interpolate.html#lezargus.library.interpolate.custom_1d_interpolate_gap_factory">custom_1d_interpolate_gap_factory() (in module lezargus.library.interpolate)</a>
+</li>
+      <li><a href="code/lezargus.simulation.spectre.html#lezargus.simulation.spectre.SimulatorSpectre.custom_astrophysical_object_spectra">custom_astrophysical_object_spectra() (lezargus.simulation.spectre.SimulatorSpectre method)</a>
 </li>
       <li><a href="code/lezargus.library.data.html#lezargus.library.data.custom_rectangular_filter">custom_rectangular_filter() (in module lezargus.library.data)</a>
 </li>
@@ -521,14 +570,12 @@ document.write(`
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/lezargus.library.atmosphere.html#lezargus.library.atmosphere.gaussian_psf_kernel">gaussian_psf_kernel() (in module lezargus.library.atmosphere)</a>
 </li>
-      <li><a href="code/lezargus.library.config.html#lezargus.library.config.generate_configuration_file_copy">generate_configuration_file_copy() (in module lezargus.library.config)</a>
-</li>
       <li><a href="code/lezargus.library.path.html#lezargus.library.path.get_directory">get_directory() (in module lezargus.library.path)</a>
+</li>
+      <li><a href="code/lezargus.library.path.html#lezargus.library.path.get_file_extension">get_file_extension() (in module lezargus.library.path)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="code/lezargus.library.path.html#lezargus.library.path.get_file_extension">get_file_extension() (in module lezargus.library.path)</a>
-</li>
       <li><a href="code/lezargus.library.path.html#lezargus.library.path.get_filename_with_extension">get_filename_with_extension() (in module lezargus.library.path)</a>
 </li>
       <li><a href="code/lezargus.library.path.html#lezargus.library.path.get_filename_without_extension">get_filename_without_extension() (in module lezargus.library.path)</a>
@@ -569,7 +616,7 @@ document.write(`
 </li>
       <li><a href="code/lezargus.initialize.html#lezargus.initialize.initialize_configuration">initialize_configuration() (in module lezargus.initialize)</a>
 </li>
-      <li><a href="code/lezargus.initialize.html#lezargus.initialize.initialize_data_all_files">initialize_data_all_files() (in module lezargus.initialize)</a>
+      <li><a href="code/lezargus.initialize.html#lezargus.initialize.initialize_data_all">initialize_data_all() (in module lezargus.initialize)</a>
 </li>
       <li><a href="code/lezargus.initialize.html#lezargus.initialize.initialize_data_atmosphere_files">initialize_data_atmosphere_files() (in module lezargus.initialize)</a>
 </li>
@@ -661,13 +708,6 @@ document.write(`
 </li>
       </ul></li>
       <li>
-    lezargus.data
-
-      <ul>
-        <li><a href="code/lezargus.data.html#module-lezargus.data">module</a>
-</li>
-      </ul></li>
-      <li>
     lezargus.initialize
 
       <ul>
@@ -716,8 +756,6 @@ document.write(`
         <li><a href="code/lezargus.library.data.html#module-lezargus.library.data">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     lezargus.library.fits
 
@@ -725,6 +763,8 @@ document.write(`
         <li><a href="code/lezargus.library.fits.html#module-lezargus.library.fits">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     lezargus.library.flags
 
@@ -751,13 +791,6 @@ document.write(`
 
       <ul>
         <li><a href="code/lezargus.library.logging.html#module-lezargus.library.logging">module</a>
-</li>
-      </ul></li>
-      <li>
-    lezargus.library.old_stitch
-
-      <ul>
-        <li><a href="code/lezargus.library.old_stitch.html#module-lezargus.library.old_stitch">module</a>
 </li>
       </ul></li>
       <li>
@@ -793,6 +826,20 @@ document.write(`
 
       <ul>
         <li><a href="code/lezargus.library.wrapper.html#module-lezargus.library.wrapper">module</a>
+</li>
+      </ul></li>
+      <li>
+    lezargus.simulation
+
+      <ul>
+        <li><a href="code/lezargus.simulation.html#module-lezargus.simulation">module</a>
+</li>
+      </ul></li>
+      <li>
+    lezargus.simulation.spectre
+
+      <ul>
+        <li><a href="code/lezargus.simulation.spectre.html#module-lezargus.simulation.spectre">module</a>
 </li>
       </ul></li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.LezargusBaseError">LezargusBaseError</a>
@@ -863,8 +910,6 @@ document.write(`
 </li>
         <li><a href="code/lezargus.container.spectra.html#module-lezargus.container.spectra">lezargus.container.spectra</a>
 </li>
-        <li><a href="code/lezargus.data.html#module-lezargus.data">lezargus.data</a>
-</li>
         <li><a href="code/lezargus.initialize.html#module-lezargus.initialize">lezargus.initialize</a>
 </li>
         <li><a href="code/lezargus.library.html#module-lezargus.library">lezargus.library</a>
@@ -889,8 +934,6 @@ document.write(`
 </li>
         <li><a href="code/lezargus.library.logging.html#module-lezargus.library.logging">lezargus.library.logging</a>
 </li>
-        <li><a href="code/lezargus.library.old_stitch.html#module-lezargus.library.old_stitch">lezargus.library.old_stitch</a>
-</li>
         <li><a href="code/lezargus.library.path.html#module-lezargus.library.path">lezargus.library.path</a>
 </li>
         <li><a href="code/lezargus.library.photometry.html#module-lezargus.library.photometry">lezargus.library.photometry</a>
@@ -900,6 +943,10 @@ document.write(`
         <li><a href="code/lezargus.library.uncertainty.html#module-lezargus.library.uncertainty">lezargus.library.uncertainty</a>
 </li>
         <li><a href="code/lezargus.library.wrapper.html#module-lezargus.library.wrapper">lezargus.library.wrapper</a>
+</li>
+        <li><a href="code/lezargus.simulation.html#module-lezargus.simulation">lezargus.simulation</a>
+</li>
+        <li><a href="code/lezargus.simulation.spectre.html#module-lezargus.simulation.spectre">lezargus.simulation.spectre</a>
 </li>
       </ul></li>
   </ul></td>
@@ -913,6 +960,8 @@ document.write(`
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/lezargus.library.uncertainty.html#lezargus.library.uncertainty.nan_weighted_mean">nan_weighted_mean() (in module lezargus.library.uncertainty)</a>
+</li>
+      <li><a href="code/lezargus.library.interpolate.html#lezargus.library.interpolate.nearest_neighbor_1d_interpolate_bounds_factory">nearest_neighbor_1d_interpolate_bounds_factory() (in module lezargus.library.interpolate)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -970,15 +1019,19 @@ document.write(`
 <h2 id="S">S</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="code/lezargus.simulation.spectre.html#lezargus.simulation.spectre.SimulatorSpectre">SimulatorSpectre (class in lezargus.simulation.spectre)</a>
+</li>
       <li><a href="code/lezargus.library.path.html#lezargus.library.path.split_pathname">split_pathname() (in module lezargus.library.path)</a>
 </li>
       <li><a href="code/lezargus.container.spectra.html#lezargus.container.spectra.LezargusSpectra.stitch">stitch() (lezargus.container.spectra.LezargusSpectra method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="code/lezargus.library.old_stitch.html#lezargus.library.old_stitch.stitch_spectra_arrays">stitch_spectra_arrays() (in module lezargus.library.old_stitch)</a>
+      <li><a href="code/lezargus.library.stitch.html#lezargus.library.stitch.stitch_spectra_discrete">stitch_spectra_discrete() (in module lezargus.library.stitch)</a>
 </li>
       <li><a href="code/lezargus.library.stitch.html#lezargus.library.stitch.stitch_spectra_functional">stitch_spectra_functional() (in module lezargus.library.stitch)</a>
+</li>
+      <li><a href="code/lezargus.library.stitch.html#lezargus.library.stitch.stitch_wavelengths_discrete">stitch_wavelengths_discrete() (in module lezargus.library.stitch)</a>
 </li>
       <li><a href="code/lezargus.library.uncertainty.html#lezargus.library.uncertainty.subtract">subtract() (in module lezargus.library.uncertainty)</a>
 </li>
@@ -1090,21 +1143,19 @@ document.write(`
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"></div>
               
             
           </div>
@@ -1122,6 +1173,7 @@ By Sparrow
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2023, Sparrow.
@@ -1148,8 +1200,8 @@ By Sparrow
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
 
   <footer class="bd-footer">
   </footer>

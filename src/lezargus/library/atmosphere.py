@@ -7,7 +7,7 @@ with the atmosphere.
 import astropy.modeling
 import numpy as np
 
-from lezargus import library
+import lezargus
 from lezargus.library import hint
 from lezargus.library import logging
 
@@ -244,7 +244,7 @@ def absolute_atmospheric_refraction_function(
 
     # Creating the function itself.
     abs_atm_refr_func = (
-        library.interpolate.cubic_1d_interpolate_extrapolate_factory(
+        lezargus.library.interpolate.cubic_1d_interpolate_extrapolate_factory(
             x=wavelength,
             y=abs_atm_refr,
         )

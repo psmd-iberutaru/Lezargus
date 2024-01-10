@@ -6,7 +6,7 @@ does not directly subclass Astropy NDData and instead acts as a collection of
 other reduced spectral cubes and performs operations on it.
 """
 
-from lezargus import library
+import lezargus
 from lezargus.library import hint
 from lezargus.library import logging
 
@@ -16,7 +16,7 @@ class LezargusMosaic:
 
     def __init__(self: hint.Self) -> None:
         """Init doc."""
-        __ = library
+        __ = lezargus
         __ = hint
         __ = logging
         raise KeyboardInterrupt

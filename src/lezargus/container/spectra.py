@@ -6,9 +6,8 @@ This module and class primarily deals with spectral data.
 import copy
 
 import numpy as np
-import scipy.interpolate
 
-from lezargus import library
+import lezargus
 from lezargus.container import LezargusContainerArithmetic
 from lezargus.library import hint
 from lezargus.library import logging
@@ -21,13 +20,13 @@ class LezargusSpectra(LezargusContainerArithmetic):
     ----------
     wavelength : ndarray
         The wavelength of the spectra. The unit of wavelength is typically
-        in microns; but, check the `wavelength_unit` value.
+        in microns; but, check the :py:attr:`wavelength_unit` value.
     data : ndarray
         The flux of the spectra. The unit of the flux is typically
-        in flam; but, check the `flux_unit` value.
+        in flam; but, check the :py:attr:`flux_unit` value.
     uncertainty : ndarray
         The uncertainty in the flux of the spectra. The unit of the uncertainty
-        is the same as the flux value; per `uncertainty_unit`.
+        is the same as the flux value; per :py:attr:`uncertainty_unit`.
 
     wavelength_unit : Astropy Unit
         The unit of the wavelength array.
@@ -85,6 +84,10 @@ class LezargusSpectra(LezargusContainerArithmetic):
             this header is written to disk with minimal processing. We highly
             suggest writing of the metadata to conform to the FITS Header
             specification as much as possible.
+
+        Returns
+        -------
+        None
         """
         # The data must be one dimensional.
         container_dimensions = 1
@@ -229,7 +232,7 @@ class LezargusSpectra(LezargusContainerArithmetic):
             clean_wavelength,
             clean_data,
             clean_uncertainty,
-        ) = library.array.clean_finite_arrays(
+        ) = lezargus.library.array.clean_finite_arrays(
             self.wavelength,
             self.data,
             self.uncertainty,
@@ -248,7 +251,7 @@ class LezargusSpectra(LezargusContainerArithmetic):
 
         # As a sanity check, we check if we are trying to interpolate outside
         # of our data range.
-        overlap = library.wrapper.wavelength_overlap_fraction(
+        overlap = lezargus.library.wrapper.wavelength_overlap_fraction(
             base=clean_wavelength,
             contain=wavelength,
         )
@@ -263,16 +266,25 @@ class LezargusSpectra(LezargusContainerArithmetic):
             )
 
         # The interpolated data for both the data itself and uncertainty.
-        interp_data = scipy.interpolate.CubicSpline(
-            clean_wavelength,
-            clean_data,
-            extrapolate=True,
-        )(wavelength)
-        interp_uncertainty = scipy.interpolate.CubicSpline(
-            clean_wavelength,
-            clean_uncertainty,
-            extrapolate=True,
-        )(wavelength)
+        # We use gaps to remove any unwanted data, assuming the cleaned
+        # wavelength is perfect.
+        gap_size = lezargus.library.interpolate.get_smallest_gap(
+            wavelength=clean_wavelength,
+        )
+        interp_data = (
+            lezargus.library.interpolate.cubic_1d_interpolate_gap_factory(
+                x=clean_wavelength,
+                y=clean_data,
+                gap_size=gap_size,
+            )(wavelength)
+        )
+        interp_uncertainty = (
+            lezargus.library.interpolate.cubic_1d_interpolate_gap_factory(
+                x=clean_wavelength,
+                y=clean_uncertainty,
+                gap_size=gap_size,
+            )(wavelength)
+        )
 
         # Checking if we need to compute the interpolation of a mask.
         if skip_mask:
@@ -402,7 +414,7 @@ class LezargusSpectra(LezargusContainerArithmetic):
             stitch_wavelength,
             stitch_data,
             stitch_uncertainty,
-        ) = library.stitch.stitch_spectra_discrete(
+        ) = lezargus.library.stitch.stitch_spectra_discrete(
             wavelength_arrays=[spectradex.wavelength for spectradex in spectra],
             data_arrays=[spectradex.data for spectradex in spectra],
             uncertainty_arrays=[

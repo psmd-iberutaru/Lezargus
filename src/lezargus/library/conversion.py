@@ -55,7 +55,7 @@ def parse_unit_to_astropy_unit(unit_string: str) -> hint.Unit:
     return unit_instance
 
 
-def convert_to_allowable_fits_header_data_types(
+def convert_to_fits_header_types(
     input_data: object,
 ) -> str | int | float | bool | hint.Undefined:
     """Convert any input into something FITS headers allow.

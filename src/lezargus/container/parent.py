@@ -13,7 +13,7 @@ import copy
 import astropy.io.fits
 import numpy as np
 
-from lezargus import library
+import lezargus
 from lezargus.library import hint
 from lezargus.library import logging
 
@@ -30,13 +30,13 @@ class LezargusContainerArithmetic:
     ----------
     wavelength : ndarray
         The wavelength of the spectra. The unit of wavelength is typically
-        in microns; but, check the `wavelength_unit` value.
+        in microns; but, check the :py:attr:`wavelength_unit` value.
     data : ndarray
         The data or flux of the spectra cube. The unit of the flux is typically
-        in flam; but, check the `data_unit` value.
+        in flam; but, check the :py:attr:`data_unit` value.
     uncertainty : ndarray
         The uncertainty in the data. The unit of the uncertainty
-        is the same as the flux value; per `uncertainty_unit`.
+        is the same as the flux value; per :py:attr:`uncertainty_unit`.
     wavelength_unit : Astropy Unit
         The unit of the wavelength array.
     data_unit : Astropy Unit
@@ -70,13 +70,14 @@ class LezargusContainerArithmetic:
         ----------
         wavelength : ndarray
             The wavelength of the spectra. The unit of wavelength is typically
-            in microns; but, check the `wavelength_unit` value.
+            in microns; but, check the :py:attr:`wavelength_unit` value.
         data : ndarray
             The data of the spectra cube. The unit of the flux is typically
-            in flam; but, check the `data_unit` value.
+            in flam; but, check the :py:attr:`data_unit` value.
         uncertainty : ndarray
             The uncertainty in the data of the spectra. The unit of the
-            uncertainty is the same as the data value; per `uncertainty_unit`.
+            uncertainty is the same as the data value; per
+            :py:attr:`uncertainty_unit`.
         wavelength_unit : Astropy Unit
             The unit of the wavelength array.
         data_unit : Astropy Unit
@@ -166,10 +167,12 @@ class LezargusContainerArithmetic:
         self.data = np.asarray(data)
         self.uncertainty = np.asarray(uncertainty)
         # Parsing the units.
-        self.wavelength_unit = library.conversion.parse_unit_to_astropy_unit(
-            unit_string=wavelength_unit,
+        self.wavelength_unit = (
+            lezargus.library.conversion.parse_unit_to_astropy_unit(
+                unit_string=wavelength_unit,
+            )
         )
-        self.data_unit = library.conversion.parse_unit_to_astropy_unit(
+        self.data_unit = lezargus.library.conversion.parse_unit_to_astropy_unit(
             unit_string=data_unit,
         )
         self.uncertainty_unit = self.data_unit
@@ -193,7 +196,7 @@ class LezargusContainerArithmetic:
 
         Parameters
         ----------
-        operand : Self-like or number
+        operand : Self-like or float
             The container object that we have an operation to apply with.
 
         Returns
@@ -358,7 +361,7 @@ class LezargusContainerArithmetic:
         # We do not want to modify our own objects as that goes against the
         # the main idea of operator operations.
         result = copy.deepcopy(self)
-        result.data, result.uncertainty = library.uncertainty.add(
+        result.data, result.uncertainty = lezargus.library.uncertainty.add(
             augend=self.data,
             addend=operand_data,
             augend_uncertainty=self.uncertainty,
@@ -373,7 +376,7 @@ class LezargusContainerArithmetic:
         Parameters
         ----------
         operand : Self-like
-            The container object to add to this.
+            The container object to subtract to this.
 
         Returns
         -------
@@ -412,7 +415,7 @@ class LezargusContainerArithmetic:
         # We do not want to modify our own objects as that goes against the
         # the main idea of operator operations.
         result = copy.deepcopy(self)
-        result.data, result.uncertainty = library.uncertainty.subtract(
+        result.data, result.uncertainty = lezargus.library.uncertainty.subtract(
             minuend=self.data,
             subtrahend=operand_data,
             minuend_uncertainty=self.uncertainty,
@@ -427,7 +430,7 @@ class LezargusContainerArithmetic:
         Parameters
         ----------
         operand : Self-like
-            The container object to add to this.
+            The container object to multiply to this.
 
         Returns
         -------
@@ -462,7 +465,7 @@ class LezargusContainerArithmetic:
         # We do not want to modify our own objects as that goes against the
         # the main idea of operator operations.
         result = copy.deepcopy(self)
-        result.data, result.uncertainty = library.uncertainty.multiply(
+        result.data, result.uncertainty = lezargus.library.uncertainty.multiply(
             multiplier=self.data,
             multiplicand=operand_data,
             multiplier_uncertainty=self.uncertainty,
@@ -477,7 +480,7 @@ class LezargusContainerArithmetic:
         Parameters
         ----------
         operand : Self-like
-            The container object to add to this.
+            The container object to true divide to this.
 
         Returns
         -------
@@ -512,7 +515,7 @@ class LezargusContainerArithmetic:
         # We do not want to modify our own objects as that goes against the
         # the main idea of operator operations.
         result = copy.deepcopy(self)
-        result.data, result.uncertainty = library.uncertainty.divide(
+        result.data, result.uncertainty = lezargus.library.uncertainty.divide(
             numerator=self.data,
             denominator=operand_data,
             numerator_uncertainty=self.uncertainty,
@@ -527,7 +530,7 @@ class LezargusContainerArithmetic:
         Parameters
         ----------
         operand : Self-like
-            The container object to add to this.
+            The container object to exponentiate to this.
 
         Returns
         -------
@@ -562,11 +565,13 @@ class LezargusContainerArithmetic:
         # We do not want to modify our own objects as that goes against the
         # the main idea of operator operations.
         result = copy.deepcopy(self)
-        result.data, result.uncertainty = library.uncertainty.exponentiate(
-            base=self.data,
-            exponent=operand_data,
-            base_uncertainty=self.uncertainty,
-            exponent_uncertainty=operand_uncertainty,
+        result.data, result.uncertainty = (
+            lezargus.library.uncertainty.exponentiate(
+                base=self.data,
+                exponent=operand_data,
+                base_uncertainty=self.uncertainty,
+                exponent_uncertainty=operand_uncertainty,
+            )
         )
         # All done.
         return result
@@ -602,11 +607,10 @@ class LezargusContainerArithmetic:
             data_unit,
             mask,
             flags,
-        ) = library.fits.read_lezargus_fits_file(filename=filename)
+        ) = lezargus.library.fits.read_lezargus_fits_file(filename=filename)
         # Check if the FITS file format is correct for the container.
         lz_fits_encode = header.get("LZ_FITSF", None)
         if lz_fits_encode != cls.__name__:
-
             logging.error(
                 error_type=logging.FileError,
                 message=(
@@ -655,7 +659,7 @@ class LezargusContainerArithmetic:
         # The Lezargus container is the FITS cube format.
         self.header["LZ_FITSF"] = type(self).__name__
         # We send the file to the library function write.
-        library.fits.write_lezargus_fits_file(
+        lezargus.library.fits.write_lezargus_fits_file(
             filename=filename,
             header=self.header,
             wavelength=self.wavelength,
