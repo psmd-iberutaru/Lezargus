@@ -1,9 +1,8 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="../../../" >
 
   <head>
     <meta charset="utf-8" />
@@ -18,29 +17,28 @@
   </script>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link href="../../../_static/styles/theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
 
   
-  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+  <link href="../../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=bd9e20870c6007c4c509" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
 
-    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
-    <link rel="stylesheet" href="../../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
   
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509" />
+  <script src="../../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=bd9e20870c6007c4c509"></script>
 
-    <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
-    <script src="../../../_static/doctools.js"></script>
-    <script src="../../../_static/sphinx_highlight.js"></script>
-    <script src="../../../_static/jquery.js"></script>
-    <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/lezargus/library/logging';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -53,7 +51,16 @@
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
   
   <input type="checkbox"
           class="sidebar-toggle"
@@ -87,12 +94,20 @@
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
 </form></div>
   </div>
+
+  <header>
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <div class="bd-header navbar navbar-expand-lg bd-navbar">
+    </div>
   
+  </header>
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
       
       <div class="bd-sidebar-primary bd-sidebar">
         
@@ -107,6 +122,7 @@
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
   
 
 <a class="navbar-brand logo" href="../../../index.html">
@@ -115,23 +131,41 @@
   
   
   
+  
     <p class="title logo__title">Lezargus  documentation</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
-        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Manual</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../technical/index.html">Technical Manual</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../user/index.html">User Manual</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="simple">
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../technical/index.html">Technical Manual</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../technical/uncertainty.html">Uncertainty Propagation</a></li>
 </ul>
 </li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../code/modules.html">lezargus</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../../code/lezargus.html">lezargus package</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.container.html">lezargus.container package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../code/modules.html">lezargus</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../code/lezargus.html">lezargus package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.container.html">lezargus.container package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.cube.html">lezargus.container.cube module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.image.html">lezargus.container.image module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.mosaic.html">lezargus.container.mosaic module</a></li>
@@ -139,7 +173,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.spectra.html">lezargus.container.spectra module</a></li>
 </ul>
 </li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.library.html">lezargus.library package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.library.html">lezargus.library package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.array.html">lezargus.library.array module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.atmosphere.html">lezargus.library.atmosphere module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.config.html">lezargus.library.config module</a></li>
@@ -150,12 +184,15 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.hint.html">lezargus.library.hint module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.interpolate.html">lezargus.library.interpolate module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.logging.html">lezargus.library.logging module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.old_stitch.html">lezargus.library.old_stitch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.path.html">lezargus.library.path module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.stitch.html">lezargus.library.stitch module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.uncertainty.html">lezargus.library.uncertainty module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.simulation.html">lezargus.simulation package</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.simulation.spectre.html">lezargus.simulation.spectre module</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__main__.html">lezargus.__main__ module</a></li>
@@ -223,20 +260,22 @@
 </button>
 
 
+
 <script>
 document.write(`
-  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
-    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
-    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
   </button>
 `);
 </script>
 
+
 <script>
 document.write(`
   <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
   </button>
 `);
 </script>
@@ -263,7 +302,7 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <h1>Source code for lezargus.library.logging</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Error, warning, and logging functionality pertinent to Lezargus.</span>
@@ -281,7 +320,9 @@ document.write(`
 <span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">hint</span>
 
 
-<div class="viewcode-block" id="LezargusBaseError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.LezargusBaseError">[docs]</a><span class="k">class</span> <span class="nc">LezargusBaseError</span><span class="p">(</span><span class="ne">BaseException</span><span class="p">):</span>
+<div class="viewcode-block" id="LezargusBaseError">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.LezargusBaseError">[docs]</a>
+<span class="k">class</span> <span class="nc">LezargusBaseError</span><span class="p">(</span><span class="ne">BaseException</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The base inheriting class which for all Lezargus errors.</span>
 
 <span class="sd">    This is for exceptions that should never be caught and should bring</span>
@@ -289,7 +330,10 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="DevelopmentError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.DevelopmentError">[docs]</a><span class="k">class</span> <span class="nc">DevelopmentError</span><span class="p">(</span><span class="n">LezargusBaseError</span><span class="p">):</span>
+
+<div class="viewcode-block" id="DevelopmentError">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.DevelopmentError">[docs]</a>
+<span class="k">class</span> <span class="nc">DevelopmentError</span><span class="p">(</span><span class="n">LezargusBaseError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used for a development error.</span>
 
 <span class="sd">    This is an error where the development of Lezargus is not correct and</span>
@@ -298,7 +342,10 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="LogicFlowError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.LogicFlowError">[docs]</a><span class="k">class</span> <span class="nc">LogicFlowError</span><span class="p">(</span><span class="n">LezargusBaseError</span><span class="p">):</span>
+
+<div class="viewcode-block" id="LogicFlowError">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.LogicFlowError">[docs]</a>
+<span class="k">class</span> <span class="nc">LogicFlowError</span><span class="p">(</span><span class="n">LezargusBaseError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used for an error in the flow of program logic.</span>
 
 <span class="sd">    This is an error to ensure that the logic does not flow to a point to a</span>
@@ -307,7 +354,10 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="ExpectedCaughtError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.ExpectedCaughtError">[docs]</a><span class="k">class</span> <span class="nc">ExpectedCaughtError</span><span class="p">(</span><span class="n">LezargusBaseError</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ExpectedCaughtError">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.ExpectedCaughtError">[docs]</a>
+<span class="k">class</span> <span class="nc">ExpectedCaughtError</span><span class="p">(</span><span class="n">LezargusBaseError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used when raising an error to be caught later is needed.</span>
 
 <span class="sd">    This error should only be used when an error is needed to be raised which</span>
@@ -317,7 +367,10 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="NotSupportedError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.NotSupportedError">[docs]</a><span class="k">class</span> <span class="nc">NotSupportedError</span><span class="p">(</span><span class="n">LezargusBaseError</span><span class="p">):</span>
+
+<div class="viewcode-block" id="NotSupportedError">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.NotSupportedError">[docs]</a>
+<span class="k">class</span> <span class="nc">NotSupportedError</span><span class="p">(</span><span class="n">LezargusBaseError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used for something which is beyond the scope of work.</span>
 
 <span class="sd">    This error is to be used when whatever procedure is expected will not be</span>
@@ -329,7 +382,10 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="UndiscoveredError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.UndiscoveredError">[docs]</a><span class="k">class</span> <span class="nc">UndiscoveredError</span><span class="p">(</span><span class="n">LezargusBaseError</span><span class="p">):</span>
+
+<div class="viewcode-block" id="UndiscoveredError">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.UndiscoveredError">[docs]</a>
+<span class="k">class</span> <span class="nc">UndiscoveredError</span><span class="p">(</span><span class="n">LezargusBaseError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used for an unknown error.</span>
 
 <span class="sd">    This is an error used in cases where the source of the error has not</span>
@@ -338,7 +394,10 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="ToDoError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.ToDoError">[docs]</a><span class="k">class</span> <span class="nc">ToDoError</span><span class="p">(</span><span class="n">LezargusBaseError</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ToDoError">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.ToDoError">[docs]</a>
+<span class="k">class</span> <span class="nc">ToDoError</span><span class="p">(</span><span class="n">LezargusBaseError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used for something which is not yet implemented.</span>
 
 <span class="sd">    This is an error to be used when what is trying to be done is not yet</span>
@@ -349,7 +408,10 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="LezargusError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.LezargusError">[docs]</a><span class="k">class</span> <span class="nc">LezargusError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+
+<div class="viewcode-block" id="LezargusError">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.LezargusError">[docs]</a>
+<span class="k">class</span> <span class="nc">LezargusError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The main inheriting class which all Lezargus errors use as their base.</span>
 
 <span class="sd">    This is done for ease of error handling and is something that can and</span>
@@ -357,7 +419,10 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="ArithmeticalError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.ArithmeticalError">[docs]</a><span class="k">class</span> <span class="nc">ArithmeticalError</span><span class="p">(</span><span class="n">LezargusError</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ArithmeticalError">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.ArithmeticalError">[docs]</a>
+<span class="k">class</span> <span class="nc">ArithmeticalError</span><span class="p">(</span><span class="n">LezargusError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;An error to be used when undefined arithmetic operations are attempted.</span>
 
 <span class="sd">    This error is to be used when any arithmetic functions are being attempted</span>
@@ -368,7 +433,10 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="CommandLineError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.CommandLineError">[docs]</a><span class="k">class</span> <span class="nc">CommandLineError</span><span class="p">(</span><span class="n">LezargusError</span><span class="p">):</span>
+
+<div class="viewcode-block" id="CommandLineError">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.CommandLineError">[docs]</a>
+<span class="k">class</span> <span class="nc">CommandLineError</span><span class="p">(</span><span class="n">LezargusError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used for an error with the command-line.</span>
 
 <span class="sd">    This error is used when the entered command-line command or its options</span>
@@ -376,7 +444,10 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="ConfigurationError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.ConfigurationError">[docs]</a><span class="k">class</span> <span class="nc">ConfigurationError</span><span class="p">(</span><span class="n">LezargusError</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ConfigurationError">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.ConfigurationError">[docs]</a>
+<span class="k">class</span> <span class="nc">ConfigurationError</span><span class="p">(</span><span class="n">LezargusError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used for an error with the configuration file.</span>
 
 <span class="sd">    This error is to be used when the configuration file is wrong. There is a</span>
@@ -385,21 +456,30 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="DirectoryError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.DirectoryError">[docs]</a><span class="k">class</span> <span class="nc">DirectoryError</span><span class="p">(</span><span class="n">LezargusError</span><span class="p">):</span>
+
+<div class="viewcode-block" id="DirectoryError">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.DirectoryError">[docs]</a>
+<span class="k">class</span> <span class="nc">DirectoryError</span><span class="p">(</span><span class="n">LezargusError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used for directory issues.</span>
 
 <span class="sd">    If there are issues with directories, use this error.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="ElevatedError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.ElevatedError">[docs]</a><span class="k">class</span> <span class="nc">ElevatedError</span><span class="p">(</span><span class="n">LezargusError</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ElevatedError">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.ElevatedError">[docs]</a>
+<span class="k">class</span> <span class="nc">ElevatedError</span><span class="p">(</span><span class="n">LezargusError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used when elevating warnings or errors to critical level.</span>
 
 <span class="sd">    Only to be used when elevating via the configuration property.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="FileError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.FileError">[docs]</a><span class="k">class</span> <span class="nc">FileError</span><span class="p">(</span><span class="n">LezargusError</span><span class="p">):</span>
+
+<div class="viewcode-block" id="FileError">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.FileError">[docs]</a>
+<span class="k">class</span> <span class="nc">FileError</span><span class="p">(</span><span class="n">LezargusError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used for file issues.</span>
 
 <span class="sd">    If there are issues with files, use this error. This error should not be</span>
@@ -408,7 +488,10 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="InputError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.InputError">[docs]</a><span class="k">class</span> <span class="nc">InputError</span><span class="p">(</span><span class="n">LezargusError</span><span class="p">):</span>
+
+<div class="viewcode-block" id="InputError">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.InputError">[docs]</a>
+<span class="k">class</span> <span class="nc">InputError</span><span class="p">(</span><span class="n">LezargusError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used for issues with input parameters or data.</span>
 
 <span class="sd">    This is the error to be used when the inputs to a function are not valid</span>
@@ -416,7 +499,10 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="ReadOnlyError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.ReadOnlyError">[docs]</a><span class="k">class</span> <span class="nc">ReadOnlyError</span><span class="p">(</span><span class="n">LezargusError</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ReadOnlyError">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.ReadOnlyError">[docs]</a>
+<span class="k">class</span> <span class="nc">ReadOnlyError</span><span class="p">(</span><span class="n">LezargusError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used for problems with read-only files and variables.</span>
 
 <span class="sd">    If the file is read-only and it needs to be read, use FileError. This</span>
@@ -425,7 +511,10 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="OutOfOrderError"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.OutOfOrderError">[docs]</a><span class="k">class</span> <span class="nc">OutOfOrderError</span><span class="p">(</span><span class="n">LezargusError</span><span class="p">):</span>
+
+<div class="viewcode-block" id="OutOfOrderError">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.OutOfOrderError">[docs]</a>
+<span class="k">class</span> <span class="nc">OutOfOrderError</span><span class="p">(</span><span class="n">LezargusError</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used when things are done out-of-order.</span>
 
 <span class="sd">    This error is used when something is happening out of the expected required</span>
@@ -434,7 +523,10 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="LezargusWarning"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.LezargusWarning">[docs]</a><span class="k">class</span> <span class="nc">LezargusWarning</span><span class="p">(</span><span class="ne">UserWarning</span><span class="p">):</span>
+
+<div class="viewcode-block" id="LezargusWarning">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.LezargusWarning">[docs]</a>
+<span class="k">class</span> <span class="nc">LezargusWarning</span><span class="p">(</span><span class="ne">UserWarning</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The main inheriting class which all Lezargus warnings use as their base.</span>
 
 <span class="sd">    The base warning class which all of the other Lezargus warnings</span>
@@ -442,7 +534,10 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="AccuracyWarning"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.AccuracyWarning">[docs]</a><span class="k">class</span> <span class="nc">AccuracyWarning</span><span class="p">(</span><span class="n">LezargusWarning</span><span class="p">):</span>
+
+<div class="viewcode-block" id="AccuracyWarning">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.AccuracyWarning">[docs]</a>
+<span class="k">class</span> <span class="nc">AccuracyWarning</span><span class="p">(</span><span class="n">LezargusWarning</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A warning for inaccurate results.</span>
 
 <span class="sd">    This warning is used when some elements of the simulation or data</span>
@@ -452,7 +547,10 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="AlgorithmWarning"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.AlgorithmWarning">[docs]</a><span class="k">class</span> <span class="nc">AlgorithmWarning</span><span class="p">(</span><span class="n">LezargusWarning</span><span class="p">):</span>
+
+<div class="viewcode-block" id="AlgorithmWarning">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.AlgorithmWarning">[docs]</a>
+<span class="k">class</span> <span class="nc">AlgorithmWarning</span><span class="p">(</span><span class="n">LezargusWarning</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A warning for issues with algorithms or methods.</span>
 
 <span class="sd">    This warning should be used when something went wrong with an algorithm.</span>
@@ -463,7 +561,10 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="ConfigurationWarning"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.ConfigurationWarning">[docs]</a><span class="k">class</span> <span class="nc">ConfigurationWarning</span><span class="p">(</span><span class="n">LezargusWarning</span><span class="p">):</span>
+
+<div class="viewcode-block" id="ConfigurationWarning">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.ConfigurationWarning">[docs]</a>
+<span class="k">class</span> <span class="nc">ConfigurationWarning</span><span class="p">(</span><span class="n">LezargusWarning</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A warning for inappropriate configurations.</span>
 
 <span class="sd">    This warning is to be used when the configuration file is wrong. There is a</span>
@@ -472,7 +573,10 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="DataLossWarning"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.DataLossWarning">[docs]</a><span class="k">class</span> <span class="nc">DataLossWarning</span><span class="p">(</span><span class="n">LezargusWarning</span><span class="p">):</span>
+
+<div class="viewcode-block" id="DataLossWarning">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.DataLossWarning">[docs]</a>
+<span class="k">class</span> <span class="nc">DataLossWarning</span><span class="p">(</span><span class="n">LezargusWarning</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A warning to caution on data loss.</span>
 
 <span class="sd">    This warning is used when something is being done which might result in</span>
@@ -481,7 +585,10 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="FileWarning"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.FileWarning">[docs]</a><span class="k">class</span> <span class="nc">FileWarning</span><span class="p">(</span><span class="n">LezargusWarning</span><span class="p">):</span>
+
+<div class="viewcode-block" id="FileWarning">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.FileWarning">[docs]</a>
+<span class="k">class</span> <span class="nc">FileWarning</span><span class="p">(</span><span class="n">LezargusWarning</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A warning used for file and permission issues which are not fatal.</span>
 
 <span class="sd">    If there are issues with files, use this warning. However, unlike the</span>
@@ -492,7 +599,10 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="InputWarning"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.InputWarning">[docs]</a><span class="k">class</span> <span class="nc">InputWarning</span><span class="p">(</span><span class="n">LezargusWarning</span><span class="p">):</span>
+
+<div class="viewcode-block" id="InputWarning">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.InputWarning">[docs]</a>
+<span class="k">class</span> <span class="nc">InputWarning</span><span class="p">(</span><span class="n">LezargusWarning</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A warning for a weird input.</span>
 
 <span class="sd">    This warning is used when the input of a function or a field is not</span>
@@ -500,7 +610,10 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="MemoryFullWarning"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.MemoryFullWarning">[docs]</a><span class="k">class</span> <span class="nc">MemoryFullWarning</span><span class="p">(</span><span class="n">LezargusWarning</span><span class="p">):</span>
+
+<div class="viewcode-block" id="MemoryFullWarning">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.MemoryFullWarning">[docs]</a>
+<span class="k">class</span> <span class="nc">MemoryFullWarning</span><span class="p">(</span><span class="n">LezargusWarning</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;A warning for when there is not enough volatile memory.</span>
 
 <span class="sd">    This warning is used when the program detects that the machine does not</span>
@@ -509,6 +622,7 @@ document.write(`
 <span class="sd">    MemoryFullWarning to avoid a name collision with MemoryWarning and to be a</span>
 <span class="sd">    little more specific about what the issue is.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
+
 
 
 <span class="c1">###############################################################################</span>
@@ -524,7 +638,9 @@ document.write(`
 <span class="n">__lezargus_logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">LOGGING_DEBUG_LEVEL</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="ColoredLogFormatter"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.ColoredLogFormatter">[docs]</a><span class="k">class</span> <span class="nc">ColoredLogFormatter</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">):</span>
+<div class="viewcode-block" id="ColoredLogFormatter">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.ColoredLogFormatter">[docs]</a>
+<span class="k">class</span> <span class="nc">ColoredLogFormatter</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Use this formatter to have colors.</span>
 
 <span class="sd">    Attributes</span>
@@ -538,7 +654,9 @@ document.write(`
 <span class="sd">        The formatting for the color.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="ColoredLogFormatter.__init__"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.ColoredLogFormatter.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+<div class="viewcode-block" id="ColoredLogFormatter.__init__">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.ColoredLogFormatter.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">:</span> <span class="s2">&quot;ColoredLogFormatter&quot;</span><span class="p">,</span>
         <span class="n">message_format</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">date_format</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
@@ -584,7 +702,10 @@ document.write(`
         <span class="c1"># Flip the Windows color flag compatibility.</span>
         <span class="n">colorama</span><span class="o">.</span><span class="n">just_fix_windows_console</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="ColoredLogFormatter.format"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.ColoredLogFormatter.format">[docs]</a>    <span class="k">def</span> <span class="nf">format</span><span class="p">(</span>  <span class="c1"># noqa: A003</span>
+
+<div class="viewcode-block" id="ColoredLogFormatter.format">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.ColoredLogFormatter.format">[docs]</a>
+    <span class="k">def</span> <span class="nf">format</span><span class="p">(</span>  <span class="c1"># noqa: A003</span>
         <span class="bp">self</span><span class="p">:</span> <span class="s2">&quot;ColoredLogFormatter&quot;</span><span class="p">,</span>
         <span class="n">record</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">LogRecord</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -606,6 +727,7 @@ document.write(`
         <span class="n">log_format</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">color_formatting</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">record</span><span class="o">.</span><span class="n">levelno</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
         <span class="n">formatter</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">Formatter</span><span class="p">(</span><span class="n">fmt</span><span class="o">=</span><span class="n">log_format</span><span class="p">,</span> <span class="n">datefmt</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">date_format</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">formatter</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">record</span><span class="p">)</span></div>
+
 
     <span class="nd">@staticmethod</span>
     <span class="k">def</span> <span class="nf">__convert_color_hex_to_ansi_escape</span><span class="p">(</span><span class="n">color_hex</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -637,19 +759,21 @@ document.write(`
                 <span class="n">warning_type</span><span class="o">=</span><span class="n">InputWarning</span><span class="p">,</span>
                 <span class="n">message</span><span class="o">=</span><span class="p">(</span>
                     <span class="s2">&quot;The following HEX color code input is not a proper HEX&quot;</span>
-                    <span class="s2">&quot; color code: </span><span class="si">{hx}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">hx</span><span class="o">=</span><span class="n">color_hex</span><span class="p">)</span>
+                    <span class="sa">f</span><span class="s2">&quot; color code: </span><span class="si">{</span><span class="n">color_hex</span><span class="si">}</span><span class="s2">&quot;</span>
                 <span class="p">),</span>
             <span class="p">)</span>
         <span class="c1"># Converting from HEX string to the RGB color code.</span>
-        <span class="n">color_ansi_escape</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[38;2;</span><span class="si">{r}</span><span class="s2">;</span><span class="si">{g}</span><span class="s2">;</span><span class="si">{b}</span><span class="s2">m&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
-            <span class="n">r</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">color_hex</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="mi">16</span><span class="p">),</span>
-            <span class="n">g</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">color_hex</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">5</span><span class="p">],</span> <span class="mi">16</span><span class="p">),</span>
-            <span class="n">b</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">color_hex</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="mi">7</span><span class="p">],</span> <span class="mi">16</span><span class="p">),</span>
-        <span class="p">)</span>
+        <span class="n">rgb_red</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">color_hex</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="mi">16</span><span class="p">)</span>
+        <span class="n">rgb_green</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">color_hex</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">5</span><span class="p">],</span> <span class="mi">16</span><span class="p">)</span>
+        <span class="n">rgb_blue</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">color_hex</span><span class="p">[</span><span class="mi">5</span><span class="p">:</span><span class="mi">7</span><span class="p">],</span> <span class="mi">16</span><span class="p">)</span>
+        <span class="n">color_ansi_escape</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[38;2;</span><span class="si">{</span><span class="n">rgb_red</span><span class="si">}</span><span class="s2">;</span><span class="si">{</span><span class="n">rgb_green</span><span class="si">}</span><span class="s2">;</span><span class="si">{</span><span class="n">rgb_blue</span><span class="si">}</span><span class="s2">m&quot;</span>
         <span class="k">return</span> <span class="n">color_ansi_escape</span></div>
 
 
-<div class="viewcode-block" id="add_console_logging_handler"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.add_console_logging_handler">[docs]</a><span class="k">def</span> <span class="nf">add_console_logging_handler</span><span class="p">(</span>
+
+<div class="viewcode-block" id="add_console_logging_handler">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.add_console_logging_handler">[docs]</a>
+<span class="k">def</span> <span class="nf">add_console_logging_handler</span><span class="p">(</span>
     <span class="n">console</span><span class="p">:</span> <span class="nb">object</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span><span class="p">,</span>
     <span class="n">log_level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">LOGGING_DEBUG_LEVEL</span><span class="p">,</span>
     <span class="n">use_color</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
@@ -715,10 +839,13 @@ document.write(`
     <span class="c1"># Adding the logger.</span>
     <span class="n">console_handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">console_formatter</span><span class="p">)</span>
     <span class="n">__lezargus_logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">console_handler</span><span class="p">)</span></div>
+
     <span class="c1"># All done.</span>
 
 
-<div class="viewcode-block" id="add_stream_logging_handler"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.add_stream_logging_handler">[docs]</a><span class="k">def</span> <span class="nf">add_stream_logging_handler</span><span class="p">(</span>
+<div class="viewcode-block" id="add_stream_logging_handler">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.add_stream_logging_handler">[docs]</a>
+<span class="k">def</span> <span class="nf">add_stream_logging_handler</span><span class="p">(</span>
     <span class="n">stream</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
     <span class="n">log_level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">LOGGING_DEBUG_LEVEL</span><span class="p">,</span>
     <span class="n">use_color</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
@@ -767,10 +894,13 @@ document.write(`
     <span class="c1"># Adding the logger.</span>
     <span class="n">stream_handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">stream_formatter</span><span class="p">)</span>
     <span class="n">__lezargus_logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">stream_handler</span><span class="p">)</span></div>
+
     <span class="c1"># All done.</span>
 
 
-<div class="viewcode-block" id="add_file_logging_handler"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.add_file_logging_handler">[docs]</a><span class="k">def</span> <span class="nf">add_file_logging_handler</span><span class="p">(</span>
+<div class="viewcode-block" id="add_file_logging_handler">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.add_file_logging_handler">[docs]</a>
+<span class="k">def</span> <span class="nf">add_file_logging_handler</span><span class="p">(</span>
     <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">log_level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">LOGGING_DEBUG_LEVEL</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
@@ -797,10 +927,13 @@ document.write(`
     <span class="c1"># Adding the logger.</span>
     <span class="n">file_handler</span><span class="o">.</span><span class="n">setFormatter</span><span class="p">(</span><span class="n">file_formatter</span><span class="p">)</span>
     <span class="n">__lezargus_logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">file_handler</span><span class="p">)</span></div>
+
     <span class="c1"># All done.</span>
 
 
-<div class="viewcode-block" id="update_global_minimum_logging_level"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.update_global_minimum_logging_level">[docs]</a><span class="k">def</span> <span class="nf">update_global_minimum_logging_level</span><span class="p">(</span>
+<div class="viewcode-block" id="update_global_minimum_logging_level">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.update_global_minimum_logging_level">[docs]</a>
+<span class="k">def</span> <span class="nf">update_global_minimum_logging_level</span><span class="p">(</span>
     <span class="n">log_level</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">LOGGING_DEBUG_LEVEL</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Update the logging level of this module.</span>
@@ -823,10 +956,13 @@ document.write(`
     <span class="c1"># ...and the level of the handlers.</span>
     <span class="k">for</span> <span class="n">handlerdex</span> <span class="ow">in</span> <span class="n">__lezargus_logger</span><span class="o">.</span><span class="n">handlers</span><span class="p">:</span>
         <span class="n">handlerdex</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">log_level</span><span class="p">)</span></div>
+
     <span class="c1"># All done.</span>
 
 
-<div class="viewcode-block" id="debug"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.debug">[docs]</a><span class="k">def</span> <span class="nf">debug</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<div class="viewcode-block" id="debug">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.debug">[docs]</a>
+<span class="k">def</span> <span class="nf">debug</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Log a debug message.</span>
 
 <span class="sd">    This is a wrapper around the debug function to standardize it for Lezargus.</span>
@@ -843,7 +979,10 @@ document.write(`
     <span class="n">__lezargus_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="info"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.info">[docs]</a><span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="info">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.info">[docs]</a>
+<span class="k">def</span> <span class="nf">info</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Log an informational message.</span>
 
 <span class="sd">    This is a wrapper around the info function to standardize it for Lezargus.</span>
@@ -860,7 +999,10 @@ document.write(`
     <span class="n">__lezargus_logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="warning"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.warning">[docs]</a><span class="k">def</span> <span class="nf">warning</span><span class="p">(</span>
+
+<div class="viewcode-block" id="warning">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.warning">[docs]</a>
+<span class="k">def</span> <span class="nf">warning</span><span class="p">(</span>
     <span class="n">warning_type</span><span class="p">:</span> <span class="n">LezargusWarning</span><span class="p">,</span>
     <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">elevate</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -889,8 +1031,8 @@ document.write(`
         <span class="n">critical</span><span class="p">(</span>
             <span class="n">critical_type</span><span class="o">=</span><span class="n">DevelopmentError</span><span class="p">,</span>
             <span class="n">message</span><span class="o">=</span><span class="p">(</span>
-                <span class="s2">&quot;The provided warning type `</span><span class="si">{ty}</span><span class="s2">` is not a subclass of the&quot;</span>
-                <span class="s2">&quot; Lezargus warning type.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ty</span><span class="o">=</span><span class="n">warning_type</span><span class="p">)</span>
+                <span class="sa">f</span><span class="s2">&quot;The provided warning type `</span><span class="si">{</span><span class="n">warning_type</span><span class="si">}</span><span class="s2">` is not a subclass&quot;</span>
+                <span class="s2">&quot; of the Lezargus warning type.&quot;</span>
             <span class="p">),</span>
         <span class="p">)</span>
     <span class="c1"># We add the warning type to the message, if the configuration specifies it</span>
@@ -917,7 +1059,10 @@ document.write(`
         <span class="n">critical</span><span class="p">(</span><span class="n">critical_type</span><span class="o">=</span><span class="n">ElevatedError</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">elevated_message</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="error"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.error">[docs]</a><span class="k">def</span> <span class="nf">error</span><span class="p">(</span>
+
+<div class="viewcode-block" id="error">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.error">[docs]</a>
+<span class="k">def</span> <span class="nf">error</span><span class="p">(</span>
     <span class="n">error_type</span><span class="p">:</span> <span class="n">LezargusError</span><span class="p">,</span>
     <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">elevate</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
@@ -948,8 +1093,8 @@ document.write(`
         <span class="n">critical</span><span class="p">(</span>
             <span class="n">critical_type</span><span class="o">=</span><span class="n">DevelopmentError</span><span class="p">,</span>
             <span class="n">message</span><span class="o">=</span><span class="p">(</span>
-                <span class="s2">&quot;The provided error type `</span><span class="si">{ty}</span><span class="s2">` is not a subclass of the&quot;</span>
-                <span class="s2">&quot; Lezargus error type.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ty</span><span class="o">=</span><span class="n">error_type</span><span class="p">)</span>
+                <span class="s2">&quot;The provided error type `</span><span class="si">{error_type}</span><span class="s2">` is not a subclass of&quot;</span>
+                <span class="s2">&quot; the Lezargus error type.&quot;</span>
             <span class="p">),</span>
         <span class="p">)</span>
     <span class="c1"># We add the error type to the message, if the configuration specifies it</span>
@@ -973,7 +1118,10 @@ document.write(`
         <span class="n">critical</span><span class="p">(</span><span class="n">critical_type</span><span class="o">=</span><span class="n">ElevatedError</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="n">elevated_message</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="critical"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.critical">[docs]</a><span class="k">def</span> <span class="nf">critical</span><span class="p">(</span><span class="n">critical_type</span><span class="p">:</span> <span class="n">LezargusError</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="critical">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.critical">[docs]</a>
+<span class="k">def</span> <span class="nf">critical</span><span class="p">(</span><span class="n">critical_type</span><span class="p">:</span> <span class="n">LezargusError</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Log a critical error and raise.</span>
 
 <span class="sd">    Use this for issues which are more serious than warnings and should</span>
@@ -1001,8 +1149,8 @@ document.write(`
         <span class="n">critical</span><span class="p">(</span>
             <span class="n">critical_type</span><span class="o">=</span><span class="n">DevelopmentError</span><span class="p">,</span>
             <span class="n">message</span><span class="o">=</span><span class="p">(</span>
-                <span class="s2">&quot;The provided critical type `</span><span class="si">{ty}</span><span class="s2">` is not a subclass of the&quot;</span>
-                <span class="s2">&quot; Lezargus error type.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ty</span><span class="o">=</span><span class="n">critical_type</span><span class="p">)</span>
+                <span class="sa">f</span><span class="s2">&quot;The provided critical type `</span><span class="si">{</span><span class="n">critical_type</span><span class="si">}</span><span class="s2">` is not a&quot;</span>
+                <span class="s2">&quot; subclass of the Lezargus error type.&quot;</span>
             <span class="p">),</span>
         <span class="p">)</span>
     <span class="c1"># We add the critical type to the message, if the configuration specifies it</span>
@@ -1018,7 +1166,10 @@ document.write(`
     <span class="k">raise</span> <span class="n">critical_type</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="terminal"><a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.terminal">[docs]</a><span class="k">def</span> <span class="nf">terminal</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+
+<div class="viewcode-block" id="terminal">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.terminal">[docs]</a>
+<span class="k">def</span> <span class="nf">terminal</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Terminal error function which is used to stop everything.</span>
 
 <span class="sd">    Parameters</span>
@@ -1037,6 +1188,7 @@ document.write(`
     <span class="k">raise</span> <span class="n">LezargusBaseError</span><span class="p">(</span>
         <span class="n">msg</span><span class="p">,</span>
     <span class="p">)</span></div>
+
 </pre></div>
 
                 </article>
@@ -1044,21 +1196,19 @@ document.write(`
 
               
               
-                <footer class="bd-footer-article">
+              
+              
+                <footer class="prev-next-footer">
                   
-<div class="footer-article-items footer-article__inner">
-  
-    <div class="footer-article-item"><!-- Previous / next buttons -->
 <div class="prev-next-area">
-</div></div>
-  
 </div>
-
                 </footer>
               
             </div>
             
             
+              
+                <div class="bd-sidebar-secondary bd-toc"></div>
               
             
           </div>
@@ -1076,6 +1226,7 @@ By Sparrow
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
       © Copyright 2023, Sparrow.
@@ -1102,8 +1253,8 @@ By Sparrow
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+  <script src="../../../_static/scripts/bootstrap.js?digest=bd9e20870c6007c4c509"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=bd9e20870c6007c4c509"></script>
 
   <footer class="bd-footer">
   </footer>

@@ -7,7 +7,7 @@ flags and masks.
 
 import numpy as np
 
-from lezargus import library
+import lezargus
 from lezargus.library import hint
 
 
@@ -85,7 +85,7 @@ def reduce_flags(flag_array: hint.ndarray) -> hint.ndarray:
 
     # If the flag value is wholely divisible by a prime number, then they have
     # that flag and we should record it.
-    for primedex in library.data.PRIME_FLAGS:
+    for primedex in lezargus.library.data.PRIME_FLAGS:
         flag_presence = (flag_array % primedex) == 0
         # For where it is present, we apply the flag.
         lowest_flag_array[flag_presence] *= primedex

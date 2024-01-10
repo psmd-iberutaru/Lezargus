@@ -14,7 +14,7 @@ import shutil
 
 import yaml
 
-from lezargus import library
+import lezargus
 from lezargus.library import logging
 
 
@@ -39,7 +39,7 @@ def load_configuration_file(filename: str) -> dict:
     # Checking the extension is valid, just as a quick sanity check that the
     # configuration file is proper.
     config_extension = ("yaml", "yml")
-    filename_ext = library.path.get_file_extension(pathname=filename)
+    filename_ext = lezargus.library.path.get_file_extension(pathname=filename)
     if filename_ext not in config_extension:
         logging.error(
             error_type=logging.FileError,
@@ -144,11 +144,11 @@ def load_then_apply_configuration(filename: str) -> None:
     )
 
 
-def generate_configuration_file_copy(
+def create_configuration_file_copy(
     filename: str,
     overwrite: bool = False,
 ) -> None:
-    """Generate a copy of the default configuration file to the given location.
+    """Create a copy of the default configuration file to the given location.
 
     Parameters
     ----------
@@ -174,11 +174,11 @@ def generate_configuration_file_copy(
         )
 
     # If the user did not provide a filename with the proper extension, add it.
-    user_ext = library.path.get_file_extension(pathname=filename)
+    user_ext = lezargus.library.path.get_file_extension(pathname=filename)
     yaml_extensions = ("yaml", "yml")
     preferred_yaml_extension = yaml_extensions[0]
     if user_ext not in yaml_extensions:
-        file_destination = library.path.merge_pathname(
+        file_destination = lezargus.library.path.merge_pathname(
             filename=filename,
             extension=preferred_yaml_extension,
         )
@@ -187,8 +187,8 @@ def generate_configuration_file_copy(
         file_destination = filename
 
     # Copy the file over from the default location within this install.
-    default_config_path = library.path.merge_pathname(
-        directory=library.config.MODULE_INSTALLATION_PATH,
+    default_config_path = lezargus.library.path.merge_pathname(
+        directory=lezargus.library.config.MODULE_INSTALLATION_PATH,
         filename="configuration",
         extension="yaml",
     )

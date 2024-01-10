@@ -17,7 +17,6 @@ Submodules
    lezargus.library.hint
    lezargus.library.interpolate
    lezargus.library.logging
-   lezargus.library.old_stitch
    lezargus.library.path
    lezargus.library.photometry
    lezargus.library.stitch

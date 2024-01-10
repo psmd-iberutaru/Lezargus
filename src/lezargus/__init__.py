@@ -16,10 +16,20 @@ from lezargus import library
 
 # isort: split
 
-# The initialization functionality.
-# The data containers.
+# These are library-like functions that are separate from the library.
 from lezargus import container
+
+# The initialization functionality.
 from lezargus import initialize
+
+# isort:split
+# User-based functionality, the actual classes which call the above functions.
+from lezargus import simulation
+
+# isort:split
+# An alias for configuration. We still suggest lezargus.library.config, but,
+# it might be more readable for lezargus.config.
+from lezargus.library import config
 
 # Lastly, the main file. We only do this so that Sphinx correctly builds the
 # documentation. (Though this too could be a misunderstanding.) Functionality

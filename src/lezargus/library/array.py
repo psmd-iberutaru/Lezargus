@@ -244,8 +244,8 @@ def bin_image_array(
     mode : string, default = "add"
         The mode to combine the data.
 
-            * `add` : Add the pixels together.
-            * `mean` : Use the mean of the pixels.
+            - `add` : Add the pixels together.
+            - `mean` : Use the mean of the pixels.
 
     Returns
     -------
@@ -321,8 +321,8 @@ def bin_cube_array_spatially(
     mode : string, default = "add"
         The mode to combine the data.
 
-            * `add` : Add the pixels together.
-            * `mean` : Use the mean of the pixels.
+            - `add` : Add the pixels together.
+            - `mean` : Use the mean of the pixels.
 
     Returns
     -------

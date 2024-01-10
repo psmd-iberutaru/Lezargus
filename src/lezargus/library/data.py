@@ -14,13 +14,12 @@ import os
 import numpy as np
 
 import lezargus
-from lezargus import library
 from lezargus.library import hint
 from lezargus.library import logging
 
 # We need to get the actual directory of the data.
 MODULE_DATA_DIRECTORY = os.path.join(
-    library.config.MODULE_INSTALLATION_PATH,
+    lezargus.library.config.MODULE_INSTALLATION_PATH,
     "data",
 )
 

@@ -16,3 +16,10 @@ from lezargus.container.cube import LezargusCube
 from lezargus.container.image import LezargusImage
 from lezargus.container.mosaic import LezargusMosaic
 from lezargus.container.spectra import LezargusSpectra
+
+# isort: split
+
+# Other inner packages. Although easily accessible by the user, the depth of
+# these packages and functions, compared to the main containers, implies that
+# we should still abstract it away from the end-user.
+from lezargus.container import broadcast

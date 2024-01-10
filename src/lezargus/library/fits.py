@@ -7,7 +7,7 @@ import astropy.io.fits
 import astropy.table
 import numpy as np
 
-from lezargus import library
+import lezargus
 from lezargus.library import hint
 from lezargus.library import logging
 
@@ -375,7 +375,7 @@ def create_fits_header(
         # The header keys are usually capitalized.
         key = str(keydex).upper()
 
-        value = library.conversion.convert_to_allowable_fits_header_data_types(
+        value = lezargus.library.conversion.convert_to_fits_header_types(
             input_data=valuedex,
         )
 
@@ -443,10 +443,8 @@ def create_lezargus_fits_header(
 
         # We type check as FITS header files are picky about the object types
         # they get FITS headers really only support some specific basic types.
-        valuedex = (
-            library.conversion.convert_to_allowable_fits_header_data_types(
-                input_data=valuedex,
-            )
+        valuedex = lezargus.library.conversion.convert_to_fits_header_types(
+            input_data=valuedex,
         )
         lezargus_header[keydex] = (valuedex, commentdex)
 

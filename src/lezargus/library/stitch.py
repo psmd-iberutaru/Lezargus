@@ -7,7 +7,7 @@ and the required spin-off functions, here.
 
 import numpy as np
 
-from lezargus import library
+import lezargus
 from lezargus.library import hint
 from lezargus.library import logging
 
@@ -32,9 +32,9 @@ def stitch_wavelengths_discrete(
         the following modes:
 
         - `merge`: We just combine them as one array, ignoring the sampling
-        of the input wavelength arrays.
+          of the input wavelength arrays.
         - `hierarchy`: We combine each wavelength with those first input taking
-        precedence within their wavelength limits.
+          precedence within their wavelength limits.
 
     Returns
     -------
@@ -48,7 +48,7 @@ def stitch_wavelengths_discrete(
         # We are sampling based on total interlacing, without care. We just
         # merge the arrays.
         # Cleaning the arrays first.
-        wavelengths = library.array.clean_finite_arrays(*wavelengths)
+        wavelengths = lezargus.library.array.clean_finite_arrays(*wavelengths)
         # And just combining them.
         for wavedex in wavelengths:
             stitched_wavelength_points = (
@@ -79,10 +79,13 @@ def stitch_wavelengths_discrete(
             min_hist.append(np.nanmin(wavedex))
             max_hist.append(np.nanmax(wavedex))
     else:
-        # The provided mode does not exist.
+        # The provided mode is not one of the supported ones.
         logging.critical(
             critical_type=logging.InputError,
-            message=f"The input sample mode {sample_mode} does not exist.",
+            message=(
+                f"The input sample mode {sample_mode} is not a supported"
+                " option."
+            ),
         )
 
     # Lastly, we sort as none of the algorithms above ensure a sorted
@@ -181,35 +184,39 @@ def stitch_spectra_functional(
             np.ones_like for __ in range(len(wavelength_functions))
         ]
     if average_routine is None:
-        average_routine = library.uncertainty.nan_weighted_mean
+        average_routine = lezargus.library.uncertainty.nan_weighted_mean
+
+    # If a custom routine is provided, then we need to make sure it
+    # can handle gaps in the data, and the limits of the interpolation.
+    # Otherwise, we just use a default cubic interpolator.
     if interpolation_routine is None:
-        interpolation_routine_wrapped = (
-            library.interpolate.cubic_1d_interpolate_bounds_gap_factory
+        interpolation_routine = (
+            lezargus.library.interpolate.cubic_1d_interpolate_factory
         )
-    else:
-        # If a custom routine is provided, then we need to make sure it
-        # can handle gaps in the data, and the limits of the interpolation.
-        def custom_interpolate_bounds(
-            x: hint.ndarray,
-            y: hint.ndarray,
-        ) -> hint.Callable[[hint.ndarray], hint.ndarray]:
-            return library.interpolate.custom_1d_interpolate_bounds_factory(
+
+    def custom_interpolate_bounds(
+        x: hint.ndarray,
+        y: hint.ndarray,
+    ) -> hint.Callable[[hint.ndarray], hint.ndarray]:
+        return (
+            lezargus.library.interpolate.custom_1d_interpolate_bounds_factory(
                 interpolation=interpolation_routine,
                 x=x,
                 y=y,
             )
+        )
 
-        def interpolation_routine_wrapped(
-            x: hint.ndarray,
-            y: hint.ndarray,
-            gap_size: float,
-        ) -> hint.Callable[[hint.ndarray], hint.ndarray]:
-            return library.interpolate.custom_1d_interpolate_gap_factory(
-                interpolation=custom_interpolate_bounds,
-                x=x,
-                y=y,
-                gap_size=gap_size,
-            )
+    def interpolation_routine_wrapped(
+        x: hint.ndarray,
+        y: hint.ndarray,
+        gap_size: float,
+    ) -> hint.Callable[[hint.ndarray], hint.ndarray]:
+        return lezargus.library.interpolate.custom_1d_interpolate_gap_factory(
+            interpolation=custom_interpolate_bounds,
+            x=x,
+            y=y,
+            gap_size=gap_size,
+        )
 
     # And we also determine the reference points, which is vaguely based on
     # the atmospheric optical and infrared windows.
@@ -217,7 +224,7 @@ def stitch_spectra_functional(
         reference_wavelength = np.linspace(0.30, 5.50, 1000000)
     else:
         reference_wavelength = np.sort(
-            *library.array.clean_finite_arrays(reference_wavelength),
+            *lezargus.library.array.clean_finite_arrays(reference_wavelength),
         )
 
     # Now, we need to have the lists all be parallel, a quick and dirty check
@@ -292,7 +299,11 @@ def stitch_spectra_functional(
         # We clean out the data, this is the primary way to determine if there
         # is usable data or not.
         clean_values, clean_uncertainties, clean_weights = (
-            library.array.clean_finite_arrays(_values, _uncertainty, _weights)
+            lezargus.library.array.clean_finite_arrays(
+                _values,
+                _uncertainty,
+                _weights,
+            )
         )
         # If any of the arrays are blank, there are no clean values to use.
         if (
@@ -350,8 +361,8 @@ def stitch_spectra_functional(
     # present before creating the new interpolator. All of the interpolators
     # remove NaNs and so we reintroduce them by assuming a NaN gap where the
     # data spacing is strictly larger than the largest spacing of data points.
-    reference_gap = (1 + 1e-3) * np.nanmax(
-        reference_wavelength[1:] - reference_wavelength[:-1],
+    reference_gap = lezargus.library.interpolate.get_smallest_gap(
+        wavelength=average_wavelength,
     )
 
     # Building the interpolators.
@@ -401,7 +412,7 @@ def stitch_spectra_discrete(
     same scale, as should the wavelength and reference points.
 
     This function serves as the intended way to stitch spectra, though
-    :py:func:`lezargus.library.stitch.stitch_spectra_functional` is the
+    :py:func:`stitch.stitch_spectra_functional` is the
     work-horse function and more information can be found there. We build
     interpolators for said function using the input data and attempt to
     guess for any gaps.
@@ -452,35 +463,39 @@ def stitch_spectra_discrete(
     if weight_arrays is None:
         weight_arrays = [np.ones_like(wavedex) for wavedex in wavelength_arrays]
     if average_routine is None:
-        average_routine = library.uncertainty.nan_weighted_mean
+        average_routine = lezargus.library.uncertainty.nan_weighted_mean
+
+    # If a custom routine is provided, then we need to make sure it
+    # can handle gaps in the data, and the limits of the interpolation.
+    # Otherwise, we just use a default cubic interpolator.
     if interpolation_routine is None:
-        interpolation_routine_wrapped = (
-            library.interpolate.cubic_1d_interpolate_bounds_gap_factory
+        interpolation_routine = (
+            lezargus.library.interpolate.cubic_1d_interpolate_factory
         )
-    else:
-        # If a custom routine is provided, then we need to make sure it
-        # can handle gaps in the data, and the limits of the interpolation.
-        def custom_interpolate_bounds(
-            x: hint.ndarray,
-            y: hint.ndarray,
-        ) -> hint.Callable[[hint.ndarray], hint.ndarray]:
-            return library.interpolate.custom_1d_interpolate_bounds_factory(
+
+    def custom_interpolate_bounds(
+        x: hint.ndarray,
+        y: hint.ndarray,
+    ) -> hint.Callable[[hint.ndarray], hint.ndarray]:
+        return (
+            lezargus.library.interpolate.custom_1d_interpolate_bounds_factory(
                 interpolation=interpolation_routine,
                 x=x,
                 y=y,
             )
+        )
 
-        def interpolation_routine_wrapped(
-            x: hint.ndarray,
-            y: hint.ndarray,
-            gap_size: float,
-        ) -> hint.Callable[[hint.ndarray], hint.ndarray]:
-            return library.interpolate.custom_1d_interpolate_gap_factory(
-                interpolation=custom_interpolate_bounds,
-                x=x,
-                y=y,
-                gap_size=gap_size,
-            )
+    def interpolation_routine_wrapped(
+        x: hint.ndarray,
+        y: hint.ndarray,
+        gap_size: float,
+    ) -> hint.Callable[[hint.ndarray], hint.ndarray]:
+        return lezargus.library.interpolate.custom_1d_interpolate_gap_factory(
+            interpolation=custom_interpolate_bounds,
+            x=x,
+            y=y,
+            gap_size=gap_size,
+        )
 
     # And we also determine the reference points, which is vaguely based on
     # the atmospheric optical and infrared windows.
@@ -490,7 +505,7 @@ def stitch_spectra_discrete(
         reference_wavelength = stitch_wavelengths_discrete(*wavelength_arrays)
     # Still sorting it and making sure it is clean.
     reference_wavelength = np.sort(
-        *library.array.clean_finite_arrays(reference_wavelength),
+        *lezargus.library.array.clean_finite_arrays(reference_wavelength),
     )
 
     # We next need to check the shape and the broadcasting of values for all
@@ -515,20 +530,26 @@ def stitch_spectra_discrete(
         temp_wave = wavedex
         # We now check for all of the other arrays, checking notating any
         # irregularities. We of course log if there is an issue.
-        verify_data, temp_data = library.array.verify_shape_compatibility(
-            reference_array=temp_wave,
-            test_array=datadex,
-            return_broadcast=True,
+        verify_data, temp_data = (
+            lezargus.library.array.verify_shape_compatibility(
+                reference_array=temp_wave,
+                test_array=datadex,
+                return_broadcast=True,
+            )
         )
-        verify_uncert, temp_uncert = library.array.verify_shape_compatibility(
-            reference_array=temp_wave,
-            test_array=uncertdex,
-            return_broadcast=True,
+        verify_uncert, temp_uncert = (
+            lezargus.library.array.verify_shape_compatibility(
+                reference_array=temp_wave,
+                test_array=uncertdex,
+                return_broadcast=True,
+            )
         )
-        verify_weight, temp_weight = library.array.verify_shape_compatibility(
-            reference_array=temp_wave,
-            test_array=weightdex,
-            return_broadcast=True,
+        verify_weight, temp_weight = (
+            lezargus.library.array.verify_shape_compatibility(
+                reference_array=temp_wave,
+                test_array=weightdex,
+                return_broadcast=True,
+            )
         )
         if not (verify_data and verify_uncert and verify_weight):
             logging.error(
@@ -553,41 +574,73 @@ def stitch_spectra_discrete(
     # We attempt to find the gaps in the data, assuming that the wavelength
     # arrays are complete.
     gap_guess = [
-        np.nanmax(np.abs(wavedex[1:] - wavedex[:-1]))
+        lezargus.library.interpolate.get_smallest_gap(wavelength=wavedex)
         for wavedex in wavelength_broadcasts
     ]
-    # Building the interpolators. if there is any array which does not have 
+    # Building the interpolators. if there is any array which does not have
     # any usable data, where the interpolator cannot be built, we ignore it.
     wavelength_interpolators = []
     data_interpolators = []
-    uncertainty_interpolators= []
+    uncertainty_interpolators = []
     weight_interpolators = []
-    for wavedex, datadex, uncertdex, weightdex, gapdex in zip(wavelength_broadcasts, data_broadcasts,uncertainty_broadcasts, weight_broadcasts, gap_guess, strict=True):
+    for wavedex, datadex, uncertdex, weightdex, gapdex in zip(
+        wavelength_broadcasts,
+        data_broadcasts,
+        uncertainty_broadcasts,
+        weight_broadcasts,
+        gap_guess,
+        strict=True,
+    ):
         # We clean up all of the data, the gap is not included.
-        clean_wave, clean_data, clean_uncert, clean_weight = library.array.clean_finite_arrays(wavedex, datadex, uncertdex, weightdex)
+        clean_wave, clean_data, clean_uncert, clean_weight = (
+            lezargus.library.array.clean_finite_arrays(
+                wavedex,
+                datadex,
+                uncertdex,
+                weightdex,
+            )
+        )
         # If any of the arrays are lacking enough data points for interpolation
         # (2), then  we cannot build an interpolator for it.
-        if clean_wave.size < 2 or clean_data.size < 2 or clean_uncert.size < 2:
+        n_points_req = 2
+        if (
+            clean_wave.size < n_points_req
+            or clean_data.size < n_points_req
+            or clean_uncert.size < n_points_req
+        ):
             continue
         # Otherwise, we build the interpolators.
         wavelength_interpolators.append(
-            interpolation_routine_wrapped(x=wavedex, y=wavedex, gap_size=gapdex)
+            interpolation_routine_wrapped(
+                x=wavedex,
+                y=wavedex,
+                gap_size=gapdex,
+            ),
         )
         data_interpolators.append(
-            interpolation_routine_wrapped(x=wavedex, y=datadex, gap_size=gapdex)
+            interpolation_routine_wrapped(
+                x=wavedex,
+                y=datadex,
+                gap_size=gapdex,
+            ),
         )
         uncertainty_interpolators.append(
-            interpolation_routine_wrapped(x=wavedex, y=uncertdex, gap_size=gapdex)
+            interpolation_routine_wrapped(
+                x=wavedex,
+                y=uncertdex,
+                gap_size=gapdex,
+            ),
         )
 
         # The weight interpolator is a little different as we just want the
         # nearest weight as we assume the weight is a section as opposed to a
         # function.
         weight_interpolators.append(
-            library.interpolate.nearest_neighbor_1d_interpolate_factory(
-            x=clean_wave,
-            y=clean_weight,
-        ))
+            lezargus.library.interpolate.nearest_neighbor_1d_interpolate_factory(
+                x=clean_wave,
+                y=clean_weight,
+            ),
+        )
 
     # Now we determine the stitched interpolator.
     (

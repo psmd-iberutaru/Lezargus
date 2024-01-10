@@ -27,7 +27,6 @@ extensions = [
     "sphinx.ext.viewcode",
     "sphinx.ext.mathjax",
     "sphinx.ext.githubpages",
-    "sphinx_rtd_theme",
 ]
 # Sphinx Napoleon autodoc config.
 napoleon_google_docstring = False
