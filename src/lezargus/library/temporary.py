@@ -1,0 +1,207 @@
+"""Functions to handle the management of a temporary directory for files.
+
+Some of the procedures that are done require the use of a temporary location
+to write, read, and store files. The temporary directory is generally created
+on initialization of this module. The user rarely would need access to this
+function.
+"""
+
+import os
+import shutil
+
+import lezargus
+from lezargus.library import logging
+
+
+def create_temporary_directory(
+    directory: str,
+    flag_filename: str | None = None,
+    overwrite: bool = False,
+) -> None:
+    """Create the temporary directory based on the directory path.
+
+    We attempt to create the temporary directory. We check to make sure that
+    it can be made and it does not already exist with files inside and we
+    also add a file description to notify any passerby.
+
+    Parameters
+    ----------
+    directory : str
+        The directory path to make the temporary directory.
+    flag_filename : str, default = None
+        This is the filename of the file which serves the the description to
+        inform people that the directory is temporary. If None, the file is not
+        written.
+    overwrite : bool, default = None
+        If True, we "overwrite" the temporary directory. We do not actually
+        clear any files, but we do not error when it exists.
+
+    Returns
+    -------
+    None
+    """
+    # We determine the absolute path, just to be clear.
+    absolute_directory = os.path.abspath(directory)
+
+    # Next, we check if the directory exists.
+    if os.path.exists(absolute_directory):
+        # And we also check if it has files within it.
+        files_exist = os.listdir(absolute_directory) != 0
+
+        # If we overwrite the directory, it does not matter if we have files
+        # files or not. However, if there is files, we still warn just in
+        # case it was a mistake.
+        if not files_exist:
+            # The directory exists and there is no files in it. It does not
+            # if it exists or not in reality.
+            temporary_directory = absolute_directory
+        elif overwrite:
+            # The directory exists but still we use it because the overwrite
+            # flag allows us to.
+            logging.warning(
+                warning_type=logging.DataLossWarning,
+                message=(
+                    f"Proposed temporary directory {absolute_directory} is not"
+                    " empty; files within it are not safe."
+                ),
+            )
+            temporary_directory = absolute_directory
+        else:
+            logging.critical(
+                critical_type=logging.InputError,
+                message=(
+                    "The proposed temporary directory"
+                    f" {absolute_directory} exists and is not empty, cannot"
+                    " make one."
+                ),
+            )
+    else:
+        # The directory does not exist so we can just use it after making it.
+        temporary_directory = absolute_directory
+
+    # Now we make the directory. We already made the checks above for an
+    # already existing directory.
+    os.makedirs(temporary_directory, exist_ok=True)
+
+    # We add a file in there just to note that it is a temporary directory.
+    if flag_filename is not None:
+        flag_pathname = lezargus.library.path.merge_pathname(
+            directory=temporary_directory,
+            filename=flag_filename,
+            extension="txt",
+        )
+        write_temporary_directory_file(filename=flag_pathname)
+
+    # All done.
+
+
+def delete_temporary_directory(
+    directory: str,
+    flag_filename: str | None = None,
+    force: bool = False,
+) -> None:
+    """Delete the temporary directory based on the directory path.
+
+    We attempt to delete the temporary directory. We make sure that it is a
+    temporary directory based on the expected presence of the flag file. We
+    stop if the flag file does not exist.
+
+    Parameters
+    ----------
+    directory : str
+        The directory path to make the temporary directory.
+    flag_filename : str, default = None
+        This is the filename of the file which serves the the description to
+        inform people that the directory is temporary. If None, this check is
+        skipped.
+    force : bool, default = None
+        Force the deletion of the directory and its contents regardless of
+        the presence of the flag file.
+
+    Returns
+    -------
+    None
+    """
+    # We determine the absolute path, just to be clear.
+    temporary_directory = os.path.abspath(directory)
+
+    # We do all of the checks here first, then sort through them later. This
+    # is so we can sort through them for both warnings and the force flag.
+    # ...checking if the directory already exists.
+    directory_exists = os.path.isdir(temporary_directory)
+    # ...checking the directory for the temporary directory flag file.
+    if flag_filename is not None:
+        flag_pathname = lezargus.library.path.merge_pathname(
+            directory=temporary_directory,
+            filename=flag_filename,
+            extension="txt",
+        )
+        flag_exists = os.path.exists(flag_pathname)
+    else:
+        # We skip the check.
+        flag_exists = True
+
+    # Grouping the checks as a single flag.
+    clean_delete = directory_exists and flag_exists
+
+    # All of the checks are done computationally, now we just make sure we
+    # can remove the directory. If we are forced to remove the directory, we
+    # will but we will still warn.
+    if clean_delete:
+        # The deletion is considered clean.
+        shutil.rmtree(temporary_directory)
+    elif not clean_delete and force:
+        # The deletion is not going to be clean, there are some issues
+        # present. We still proceed anyways.
+        logging.warning(
+            warning_type=logging.DataLossWarning,
+            message=(
+                f"Temporary directory {temporary_directory} forcibly"
+                " deleted, unclean removal."
+            ),
+        )
+        shutil.rmtree(temporary_directory, ignore_errors=True)
+    else:
+        # The deletion is not clean and without an override we cannot proceed.
+        logging.critical(
+            critical_type=logging.DirectoryError,
+            message=(
+                f"Temporary directory {temporary_directory} cannot be"
+                " cleanly deleted."
+            ),
+        )
+
+    # All done.
+
+
+def write_temporary_directory_file(filename: str) -> None:
+    """Write the information for the temporary directory file.
+
+    We just write a few lines informing the user of the temporary directory.
+    Though we could store the raw text in data, it might complicate
+    initialization so we just have a hard copy here.
+
+    Parameters
+    ----------
+    filename : str
+        The full filename of the temporary directory file which will be
+        written. If the file already exists, we will overwrite it.
+
+    Returns
+    -------
+    None
+    """
+    # The file contents.
+    file_content = [
+        R"This directory is a temporary directory for the Lezargus program.",
+        R"Any manual modifications to this directory may be deleted without",
+        R"warning at any time. To change the temporary directory path, see",
+        R"the `LEZARGUS_TEMPORARY_DIRECTORY` configuration parameter.",
+    ]
+    # The line separators are not added by the write lines, so we add them
+    # here.
+    file_lines = [linedex + "\n" for linedex in file_content]
+    # And writing the file.
+    with open(filename, "w+") as file:
+        file.writelines(file_lines)
+    # All done.

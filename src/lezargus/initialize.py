@@ -65,6 +65,9 @@ def initialize(*args: tuple, **kwargs: object) -> None:
 
     # All of the initializations below have logging.
 
+    # Loading and creating the needed temporary directories.
+    initialize_temporary_directory(**kwargs)
+
     # Load all of the data files for Lezargus.
     initialize_data_all(**kwargs)
 
@@ -176,7 +179,7 @@ def initialize_logging_outputs(*args: tuple, **kwargs: object) -> None:
     # capture the log messages when we try and remove the old logs.
     unique_hex_identifier = uuid.uuid4().hex
     default_log_file_filename = lezargus.library.path.merge_pathname(
-        directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
+        directory=lezargus.library.config.INTERNAL_MODULE_INSTALLATION_PATH,
         filename="lezargus_" + unique_hex_identifier,
         extension="log",
     )
@@ -189,7 +192,7 @@ def initialize_logging_outputs(*args: tuple, **kwargs: object) -> None:
     # want to clog the log with it.
     old_log_files = glob.glob(
         lezargus.library.path.merge_pathname(
-            directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
+            directory=lezargus.library.config.INTERNAL_MODULE_INSTALLATION_PATH,
             filename="lezargus_*",
             extension="log",
         ),
@@ -210,6 +213,77 @@ def initialize_logging_outputs(*args: tuple, **kwargs: object) -> None:
                     " defer  deletion until the next load."
                 ),
             )
+
+
+def initialize_temporary_directory(*args: tuple, **kwargs: object) -> None:
+    """Initialize the temporary directory.
+
+    We create the temporary directory based on the configured paths.
+
+    Parameters
+    ----------
+    *args : tuple
+        Positional arguments. There should be no positional arguments. This
+        serves to catch them.
+    **kwargs : dict
+        A catch-all keyword argument, used to catch arguments which are not
+        relevant or are otherwise passed to other internal functions.
+
+    Returns
+    -------
+    None
+    """
+    # The initialization function cannot have positional arguments as
+    # such positional arguments may get confused for other arguments when
+    # we pass it down.
+    if len(args) != 0:
+        logging.critical(
+            critical_type=logging.InputError,
+            message=(
+                "Initialization cannot have positional arguments, use keyword"
+                " arguments."
+            ),
+        )
+    # This is to "use" the kwarg parameter, nothing much else.
+    if len(kwargs) != 0:
+        logging.debug(
+            message=(
+                "Overriding keyword parameters to data file initialization"
+                " present."
+            ),
+        )
+
+    # We need to get the temporary directory path, if the configurations were
+    # not loaded, we inform the user.
+    try:
+        temporary_directory = (
+            lezargus.library.config.LEZARGUS_TEMPORARY_DIRECTORY
+        )
+        # We also check for the flag filename because the creation of the the
+        # directory includes it.
+        temporary_flag_file = (
+            lezargus.library.config.LEZARGUS_TEMPORARY_DIRECTORY_FLAG_FILENAME
+        )
+        overwrite = (
+            lezargus.library.config.LEZARGUS_TEMPORARY_OVERWRITE_DIRECTORY
+        )
+    except AttributeError:
+        # The configurations were likely not found.
+        logging.critical(
+            critical_type=logging.WrongOrderError,
+            message=(
+                "Configuration not initialized, temporary directory known."
+                " Initialize the configurations or make the directory using"
+                " library functions."
+            ),
+        )
+    else:
+        # We make the files.
+        lezargus.library.temporary.create_temporary_directory(
+            directory=temporary_directory,
+            flag_filename=temporary_flag_file,
+            overwrite=overwrite,
+        )
 
 
 def initialize_data_all(*args: tuple, **kwargs: object) -> None:

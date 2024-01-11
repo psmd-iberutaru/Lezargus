@@ -100,6 +100,16 @@ class SimulatorSpectre:
         # Then we evaluate the blackbody function, of course the scale of which
         # will be wrong but it will be fixed.
         blackbody_flux = blackbody_function(wavelength)
+        blackbody_spectra = lezargus.container.LezargusSpectra(
+            wavelength=wavelength,
+            data=blackbody_flux,
+            uncertainty=None,
+            wavelength_unit="um",
+            data_unit="flam",
+            mask=None,
+            flags=None,
+            header=None,
+        )
 
         # We scale the flux to properly photometric scaling based on the
         # input filter and zero point values. For the purposes of the
@@ -107,7 +117,7 @@ class SimulatorSpectre:
         # propagation as there is no way to communicate it for the output.
         calibration_factor, __ = (
             lezargus.library.photometry.calculate_photometric_correction_factor_vega(
-                star_spectra=blackbody_flux,
+                star_spectra=blackbody_spectra,
                 filter_spectra=filter_spectra,
                 star_magnitude=magnitude,
                 filter_zero_point=filter_zero_point,

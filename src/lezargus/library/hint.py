@@ -35,8 +35,8 @@ from astropy.wcs import WCS
 # Matplotlib imports.
 from matplotlib.backend_bases import MouseEvent
 
-# Arrays. This is done because ArrayLike casts a rather larger union
-# documentation.
+# Arrays. We use ndarray instead as ArrayLike casts a rather larger union
+# in the documentation.
 from numpy import ndarray
 
 # The GUI windows and other imports.
@@ -49,8 +49,12 @@ from PySide6.QtWidgets import QMainWindow
 from PySide6.QtWidgets import QWidget
 
 # Lezargus aliases.
+# Containers...
 from lezargus.container import LezargusContainerArithmetic
 from lezargus.container import LezargusCube
 from lezargus.container import LezargusImage
 from lezargus.container import LezargusMosaic
 from lezargus.container import LezargusSpectra
+
+# Simulators...
+from lezargus.simulation import SimulatorSpectre
