@@ -7,7 +7,7 @@ the internal conversions (such as the flags, mask, wavelength, etc) as well
 based on the input template structure broadcasting to.
 """
 
-# This is a last resort solution to fixing the recursive import of the 
+# This is a last resort solution to fixing the recursive import of the
 # type hints here.
 from __future__ import annotations
 

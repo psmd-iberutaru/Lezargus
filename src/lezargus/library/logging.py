@@ -209,7 +209,8 @@ class DataLossWarning(LezargusWarning):
 
     This warning is used when something is being done which might result in
     a loss of important data, for example, because a file is not saved or
-    only part of a data file is read.
+    only part of a data file is read. This also occurs when possibly external
+    files are trying to be deleted or otherwise modified.
     """
 
 

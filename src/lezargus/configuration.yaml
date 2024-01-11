@@ -2,6 +2,26 @@
 # not be edited by the user unless copied, it acts as a template and defaults.
 # You should pass your own configuration.yaml file when running this software.
 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+#    Lezargus Global Configuration
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+# # # # # # 
+#        Lezargus Temporary Directory Configuration
+# # # # # # # # # # # # # # # # # # # # 
+
+# A temporary directory is needed to store large data during processing. 
+# The path here is the directory which will be created and destroyed as needed
+# as the Lezargus temporary directory. An initial temporary file serves as a 
+# marker flag that a directory is temporary; the extension is automatic.
+LEZARGUS_TEMPORARY_DIRECTORY : "./lz_temp/"
+LEZARGUS_TEMPORARY_DIRECTORY_FLAG_FILENAME : "lezargus_temporary_directory"
+# If set to True, we overwrite the temporary directory regardless of what 
+# is currently inside of it.
+LEZARGUS_TEMPORARY_OVERWRITE_DIRECTORY : False
+# If set to True, on deletion of the temporary directory, we try to force its 
+# deletion no matter what.
+LEZARGUS_TEMPORARY_FORCE_DELETION : False
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 #    SPECTRE Simulation Instrument Configuration
@@ -13,7 +33,7 @@
 # number of "count" data points. 
 SPECTRE_SIMULATION_WAVELENGTH_MINIMUM : 0.35
 SPECTRE_SIMULATION_WAVELENGTH_MAXIMUM : 4.20
-SPECTRE_SIMULATION_WAVELENGTH_COUNT : 1000000
+SPECTRE_SIMULATION_WAVELENGTH_COUNT : 10000
 
 # The perfect field of view of the astrophysical target. This is used for the 
 # simulation when building the perfect data cube representing the object 

@@ -9,7 +9,6 @@ contained in the data directory. You can find all of these functions under the
 `custom_*` namespace.
 """
 
-
 import numpy as np
 
 import lezargus
