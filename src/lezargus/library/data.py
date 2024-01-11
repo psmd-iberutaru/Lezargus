@@ -9,19 +9,12 @@ contained in the data directory. You can find all of these functions under the
 `custom_*` namespace.
 """
 
-import os
 
 import numpy as np
 
 import lezargus
 from lezargus.library import hint
 from lezargus.library import logging
-
-# We need to get the actual directory of the data.
-MODULE_DATA_DIRECTORY = os.path.join(
-    lezargus.library.config.MODULE_INSTALLATION_PATH,
-    "data",
-)
 
 
 def add_data_object(name: str, data: object, force: bool = False) -> None:
