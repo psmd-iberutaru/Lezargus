@@ -188,7 +188,7 @@ def create_configuration_file_copy(
 
     # Copy the file over from the default location within this install.
     default_config_path = lezargus.library.path.merge_pathname(
-        directory=lezargus.library.config.MODULE_INSTALLATION_PATH,
+        directory=lezargus.library.config.INTERNAL_MODULE_INSTALLATION_PATH,
         filename="configuration",
         extension="yaml",
     )
@@ -201,6 +201,12 @@ def create_configuration_file_copy(
 
 # The default path which this module is installed in. It is one higher than
 # this file which is within the library module of the Lezargus install.
-MODULE_INSTALLATION_PATH = os.path.dirname(
+INTERNAL_MODULE_INSTALLATION_PATH = os.path.dirname(
     os.path.realpath(os.path.join(os.path.realpath(__file__), "..")),
+)
+
+# We need to get the actual directory of the data.
+INTERNAL_MODULE_DATA_DIRECTORY = os.path.join(
+    INTERNAL_MODULE_INSTALLATION_PATH,
+    "data",
 )

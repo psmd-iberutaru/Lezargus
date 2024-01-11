@@ -17,6 +17,7 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt update
+        sudo apt upgrade
         sudo apt install -y python3-opencv libgl1-mesa-dev
         python -m pip install --upgrade pip
         pip install ruff

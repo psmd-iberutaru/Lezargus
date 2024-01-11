@@ -49,4 +49,8 @@ from PySide6.QtWidgets import QMainWindow
 from PySide6.QtWidgets import QWidget
 
 # Lezargus aliases.
-from lezargus.container import *
+from lezargus.container import LezargusContainerArithmetic
+from lezargus.container import LezargusCube
+from lezargus.container import LezargusImage
+from lezargus.container import LezargusMosaic
+from lezargus.container import LezargusSpectra

@@ -3,11 +3,6 @@
 # SPDX-FileCopyrightText: 2023-present Sparrow <psmd.iberutaru@gmail.com>
 # SPDX-License-Identifier: MIT
 
-import glob
-import os
-import sys
-import uuid
-
 # The library must be imported first as all other parts depend on it.
 # Otherwise, a circular loop may occur in the imports. So, for autoformatting
 # purposes, we need to tell isort/ruff that the library is a section all
