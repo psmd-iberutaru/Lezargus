@@ -1,7 +1,7 @@
 """Simulation code for simulating SPECTRE observations.
 
 For more information on the simulation of SPECTRE observations, see the
-documentation file: [[TODO:LINK]].
+documentation file: [[TODO]].
 """
 
 import numpy as np
@@ -31,10 +31,31 @@ class SimulatorSpectre:
     astrophysical_object_cube : LezargusCube
         The cube form of the perfect astrophysical object who's observation is
         being modeled.
+    astrophysical_object_cube_atm_trn : LezargusCube
+        The astrophysical object after applying the atmospheric transmission.
+    astrophysical_object_cube_atm_rad : LezargusCube
+        The astrophysical object after applying the atmospheric radiance or
+        emission after transmission.
+    astrophysical_object_cube_atm_see : LezargusCube
+        The astrophysical object after applying the atmospheric seeing
+        convolution; after transmission and radiance.
+    astrophysical_object_cube_atm_ref : LezargusCube
+        The astrophysical object after applying the atmospheric refraction,
+        after transmission, radiance, and seeing. This is actually just an
+        alias for :py:attr:`astronomical_object_cube`.
+    astronomical_object_cube : LezargusCube
+        The astronomical object, obtained from applying atmospheric conditions
+        to the astrophysical object. Noted as "astronomical" as it is
+        considered "as-observed" from the Earth ground.
     """
 
     astrophysical_object_spectra = None
     astrophysical_object_cube = None
+    astrophysical_object_cube_atm_trn = None
+    astrophysical_object_cube_atm_rad = None
+    astrophysical_object_cube_atm_see = None
+    astrophysical_object_cube_atm_ref = None
+    astronomical_object_cube = None
 
     def __init__(self: "SimulatorSpectre") -> None:
         """Instantiate the SPECTRE simulation class.
@@ -195,7 +216,9 @@ class SimulatorSpectre:
         self.astrophysical_object_spectra = custom_spectra
         return self.astrophysical_object_spectra
 
-    def generate_astrophysical_object_cube(self: "SimulatorSpectre") -> None:
+    def generate_astrophysical_object_cube(
+        self: "SimulatorSpectre",
+    ) -> hint.LezargusCube:
         """Use the stored astrophysical spectra to generate a field cube.
 
         This function takes the stored astrophysical object spectra and
@@ -233,8 +256,8 @@ class SimulatorSpectre:
         # defining the cube. We need to define a dummy cube before creating
         # the actual cube by broadcast.
         dummy_data_shape = (
-            lezargus.library.config.SPECTRE_SIMULATION_FOV_ZONAL_COUNT,
-            lezargus.library.config.SPECTRE_SIMULATION_FOV_MERIDIONAL_COUNT,
+            lezargus.library.config.SPECTRE_SIMULATION_FOV_E_W_COUNT,
+            lezargus.library.config.SPECTRE_SIMULATION_FOV_N_S_COUNT,
             self.astrophysical_object_spectra.wavelength.size,
         )
         dummy_data_cube = np.empty(shape=dummy_data_shape)
@@ -265,7 +288,7 @@ class SimulatorSpectre:
     def custom_astrophysical_object_cube(
         self: "SimulatorSpectre",
         custom_cube: hint.LezargusCube,
-    ) -> None:
+    ) -> hint.LezargusCube:
         """Use a provided cube for a custom astrophysical cube.
 
         This function is used to provide a custom cube class to use to
@@ -305,3 +328,88 @@ class SimulatorSpectre:
             )
         self.astrophysical_object_cube = custom_cube
         return self.astrophysical_object_cube
+
+    def apply_atmospheric_transmission(
+        self: "SimulatorSpectre",
+        transmission_spectra: hint.LezargusSpectra,
+    ) -> hint.LezargusCube:
+        """Apply the atmospheric transmission to the object.
+
+        The astrophysical object cube is required to use this function,
+        see :py:meth:`create_astrophysical_object_cube` or
+        :py:meth:`custom_astrophysical_object_cube` to create it.
+
+        Parameters
+        ----------
+        transmission_spectra : LezargusSpectra
+            The atmospheric transmission spectra. The wavelength unit of
+            this spectra should be micrometers.
+
+        Returns
+        -------
+        cube : LezargusCube
+            The cube of the object after atmospheric transmission has been
+            applied.
+        """
+        # We first need to make sure there is the object cube for us to use.
+        if self.astrophysical_object_cube is None:
+            logging.error(
+                error_type=logging.WrongOrderError,
+                message=(
+                    "There is no astrophysical object spectra to generate the"
+                    " cube from, please create or provide one."
+                ),
+            )
+
+        # We also need to make sure the transmission spectra is a
+        # LezargusSpectra.
+        if not isinstance(
+            transmission_spectra,
+            lezargus.container.LezargusSpectra,
+        ):
+            logging.error(
+                error_type=logging.InputError,
+                message=(
+                    "The atmospheric transmission spectra has type"
+                    f" {type(transmission_spectra)}, not the expected"
+                    " LezargusSpectra."
+                ),
+            )
+
+        # We need to align the transmission spectra to the Simulators
+        # wavelength base.
+        trans_wave = self.astrophysical_object_cube.wavelength
+        trans_data, trans_uncert, trans_mask, trans_flags = (
+            transmission_spectra.interpolate(
+                wavelength=trans_wave,
+                skip_flags=True,
+                skip_mask=True,
+            )
+        )
+        # It is convenient to reconstruct a spectra for it.
+        aligned_transmission_spectra = lezargus.container.LezargusSpectra(
+            wavelength=trans_wave,
+            data=trans_data,
+            uncertainty=trans_uncert,
+            wavelength_unit=transmission_spectra.wavelength_unit,
+            data_unit=transmission_spectra.data_unit,
+            mask=trans_mask,
+            flags=trans_flags,
+            header=transmission_spectra.header,
+        )
+
+        # We then pad this spectra out to a cube for us to apply across the
+        # board.
+        aligned_transmission_cube = (
+            lezargus.container.broadcast.broadcast_spectra_to_cube_uniform(
+                input_spectra=aligned_transmission_spectra,
+                template_cube=self.astrophysical_object_cube,
+            )
+        )
+
+        # Applying the transmission is simple multiplication.
+        self.astrophysical_object_cube_atm_trn = (
+            self.astrophysical_object_cube * aligned_transmission_cube
+        )
+        # All done.
+        return self.astrophysical_object_cube_atm_trn

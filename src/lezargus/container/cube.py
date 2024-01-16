@@ -25,7 +25,6 @@ class LezargusCube(LezargusContainerArithmetic):
     uncertainty : ndarray
         The uncertainty in the flux of the spectra. The unit of the uncertainty
         is the same as the flux value; per :py:attr:`uncertainty_unit`.
-
     wavelength_unit : Astropy Unit
         The unit of the wavelength array.
     flux_unit : Astropy Unit
@@ -33,13 +32,11 @@ class LezargusCube(LezargusContainerArithmetic):
     uncertainty_unit : Astropy Unit
         The unit of the uncertainty array. This unit is the same as the flux
         unit.
-
     mask : ndarray
         A mask of the flux data, used to remove problematic areas. Where True,
         the values of the flux is considered mask.
     flags : ndarray
         Flags of the flux data. These flags store metadata about the flux.
-
     header : Header
         The header information, or metadata in general, about the data.
     """
@@ -56,6 +53,8 @@ class LezargusCube(LezargusContainerArithmetic):
         header: hint.Header | None = None,
     ) -> None:
         """Instantiate the spectra class.
+
+        Also see
 
         Parameters
         ----------

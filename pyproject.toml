@@ -168,6 +168,12 @@ ban-relative-imports = "all"
 # So they are used, just not in that file.
 "src/lezargus/**/__init__.py" = ["F401"]
 
+[tool.ruff.lint.mccabe]
+# Flag errors (`C901`) whenever the complexity level exceeds some value.
+# A lot of the functions here exceed the default McCabe complexity value of 10,
+# so we need to raise it. Excessive raising should be avoided.
+max-complexity = 15
+
 [tool.pylint]
 clear-cache-post-run = true
 recursive = true
@@ -187,12 +193,11 @@ extension-pkg-allow-list = [
     "PySide6",
 ]
 generated-members = [
-    # Configuration parameters are generated on-the-fly.
-    # Note: The proper coverage is lezargus.library.config.*, but because of 
-    # alises, we use library.config.* for all of the configurations so that is 
-    # what we filter. Same thing with library.data.*.
-    "library.config.*",
-    "library.data.*",
+    # Configuration and parameters are generated on-the-fly. We need to inform 
+    # pylint that they are okay as it does not do introspection on the fly as 
+    # well.
+    "lezargus.library.config.*",
+    "lezargus.library.data.*",
 ]
 
 [tool.coverage.run]

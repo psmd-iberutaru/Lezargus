@@ -290,7 +290,7 @@ class LezargusSpectra(LezargusContainerArithmetic):
         if skip_mask:
             interp_mask = None
         else:
-            interp_mask = None
+            interp_mask = np.full_like(interp_data, False)
             logging.error(
                 error_type=logging.ToDoError,
                 message=(
@@ -302,7 +302,7 @@ class LezargusSpectra(LezargusContainerArithmetic):
         if skip_flags:
             interp_flags = None
         else:
-            interp_flags = None
+            interp_flags = np.full_like(interp_data, 1)
             logging.error(
                 error_type=logging.ToDoError,
                 message=(

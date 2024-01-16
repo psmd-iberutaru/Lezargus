@@ -32,22 +32,24 @@ LEZARGUS_TEMPORARY_FORCE_DELETION : False
 # the units here are in micrometers. We use a uniform distribution with the 
 # number of "count" data points. 
 SPECTRE_SIMULATION_WAVELENGTH_MINIMUM : 0.35
-SPECTRE_SIMULATION_WAVELENGTH_MAXIMUM : 4.20
-SPECTRE_SIMULATION_WAVELENGTH_COUNT : 10000
+SPECTRE_SIMULATION_WAVELENGTH_MAXIMUM : 4.50
+SPECTRE_SIMULATION_WAVELENGTH_COUNT : 1250
 
 # The perfect field of view of the astrophysical target. This is used for the 
 # simulation when building the perfect data cube representing the object 
 # itself. Namely, the field of view length across the N-S and E-W axes are 
-# set here. The units here are in arcseconds on the sky. The square resolution
-# of the perfect field of view is based on the "count", data points across for 
-# each axis.
+# set here. The length units here are in arcseconds on the sky. The square 
+# resolution of the perfect field of view is based on the "count", data points 
+# across for each axis.
 # Note that because we usually assume point sources, the meridional and zonal 
 # point count should be odd. Although possible with an even count, a warning 
 # is raised due to accuracy concerns.
-SPECTRE_SIMULATION_FOV_MERIDIONAL_LENGTH  : 10
-SPECTRE_SIMULATION_FOV_ZONAL_LENGTH: 10
-SPECTRE_SIMULATION_FOV_MERIDIONAL_COUNT : 1001
-SPECTRE_SIMULATION_FOV_ZONAL_COUNT : 1001
+SPECTRE_SIMULATION_FOV_N_S_LENGTH : 10
+SPECTRE_SIMULATION_FOV_E_W_LENGTH : 10
+SPECTRE_SIMULATION_FOV_N_S_COUNT : 201
+SPECTRE_SIMULATION_FOV_E_W_COUNT : 201
+
+# 
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #

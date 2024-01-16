@@ -327,6 +327,7 @@ def initialize_data_all(*args: tuple, **kwargs: object) -> None:
     # Loading all of the data files.
     initialize_data_star_files(**kwargs)
     initialize_data_filter_files(**kwargs)
+    initialize_data_atmosphere_files(**kwargs)
 
     # Computing the other data values.
     initialize_data_filter_zero_point_values(**kwargs)

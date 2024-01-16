@@ -221,6 +221,13 @@ def stitch_spectra_functional(
     # And we also determine the reference points, which is vaguely based on
     # the atmospheric optical and infrared windows.
     if reference_wavelength is None:
+        logging.error(
+            error_type=logging.ToDoError,
+            message=(
+                "Stitch functional default bounds should be configuration"
+                " filed."
+            ),
+        )
         reference_wavelength = np.linspace(0.30, 5.50, 1000000)
     else:
         reference_wavelength = np.sort(
@@ -497,8 +504,8 @@ def stitch_spectra_discrete(
             gap_size=gap_size,
         )
 
-    # And we also determine the reference points, which is vaguely based on
-    # the atmospheric optical and infrared windows.
+    # We need to determine the reference wavelength, either from the
+    # information provided or a custom inputted value.
     if reference_wavelength is None:
         # We try and parse the reference wavelength; we assume the defaults of
         # this function is good enough.

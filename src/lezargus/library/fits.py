@@ -59,7 +59,7 @@ _LEZARGUS_HEADER_KEYWORDS_DICTIONARY = {
     # Units on the data.
     "LZDWUNIT": (None, "LZ: The wavelength unit."),
     "LZDFUNIT": (None, "LZ: The flux/data unit."),
-    "LZDUUNIT": (None, "LZ: The uncertainty unit."),
+    "LZDUUNIT": (None, "LZ: The uncertainty unit, same as data."),
     # The world coordinate system entries.
     "LZWBEGIN": (False, "LZ: Begin WCS; True if present."),
     "LZW__END": (None, "LZ: End WCS entries."),
@@ -164,10 +164,9 @@ def read_lezargus_fits_file(
             message=f"Reading Lezargus FITS file {filename}.",
         )
 
-    # This is a small wrapper function to make
-
     # Opening the file itself.
     with astropy.io.fits.open(filename) as raw_hdul:
+        # The hdul object.
         hdul = copy.deepcopy(raw_hdul)
         # The header information that we actually care about is in the primary
         # extension.
@@ -177,18 +176,26 @@ def read_lezargus_fits_file(
         # standard.
         wave_table = hdul[header["LZ_WTABN"]]
         wavelength = np.ravel(wave_table.data["WAVELENGTH"])
-        wavelength_unit = header.get("LZ_WUNIT", None)
-        if wavelength_unit is None:
-            wavelength_unit = header.get("CUNIT3", None)
+        wavelength_unit_str = header.get("LZDWUNIT", None)
+        if wavelength_unit_str is None:
+            wavelength_unit_str = header.get("CUNIT3", None)
+        wavelength_unit = (
+            lezargus.library.conversion.parse_unit_to_astropy_unit(
+                unit_string=wavelength_unit_str,
+            )
+        )
         # The data is stored in the primary extension. The Lezargus axis
         # convention and some visualization conventions have the axis reversed;
         # we convert between these.
         # For the data unit, we try Lezargus input first, then FITS
         # standard.
         data = hdul["PRIMARY"].data.T
-        data_unit = header.get("LZ_FUNIT", None)
-        if data_unit is None:
-            data_unit = header.get("BUNIT", None)
+        data_unit_str = header.get("LZDFUNIT", None)
+        if data_unit_str is None:
+            data_unit_str = header.get("BUNIT", None)
+        data_unit = lezargus.library.conversion.parse_unit_to_astropy_unit(
+            unit_string=data_unit_str,
+        )
         # The uncertainty is stored in its own extension, We transform it like
         # the data itself.
         uncertainty = hdul[header["LZ_UIMGN"]].data.T
@@ -286,14 +293,14 @@ def write_lezargus_fits_file(
             )
 
     # We first compile the header. The unit information is kept in the header
-    # as well.
-    header = create_fits_header(input_dict=header)
+    # as well. However, it is best to work on a copy.
+    header = create_fits_header(input_dict=header.copy())
     lezargus_header = create_lezargus_fits_header(
         header=header,
         entries={
-            "LZDWUNIT": wavelength_unit,
-            "LZDFUNIT": data_unit,
-            "LZDUUNIT": uncertainty_unit,
+            "LZDWUNIT": str(wavelength_unit),
+            "LZDFUNIT": str(data_unit),
+            "LZDUUNIT": str(uncertainty_unit),
         },
     )
     # We purge the old header of all Lezargus keys as we will add them back

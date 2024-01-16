@@ -11,7 +11,6 @@ Note that all of these functions follow the axes convention of indexing being
 erroneous results, but, the functions themselves cannot detect this.
 """
 
-import astropy.convolution
 import numpy as np
 import scipy.ndimage
 
@@ -288,8 +287,8 @@ def bin_image_array(
     elif mode == "mean":
         binned_image = new_image.mean(axis=(1, 3))
     else:
-        logging.error(
-            error_type=logging.InputError,
+        logging.critical(
+            critical_type=logging.InputError,
             message=(
                 f"The combining mode {mode} is not one of the supported modes:"
                 " add, mean."
@@ -371,8 +370,8 @@ def bin_cube_array_spatially(
     elif mode == "mean":
         binned_cube = new_cube.mean(axis=(1, 3))
     else:
-        logging.error(
-            error_type=logging.InputError,
+        logging.critical(
+            critical_type=logging.InputError,
             message=(
                 f"The combining mode {mode} is not one of the supported modes:"
                 " add, mean."
@@ -380,98 +379,3 @@ def bin_cube_array_spatially(
         )
     # All done.
     return binned_cube
-
-
-def convolve_cube_by_image_array(
-    cube: hint.ndarray,
-    kernel: hint.ndarray,
-) -> hint.ndarray:
-    """Convolve the image slices of a 3D cube with a 2D image.
-
-    We loop over and convolve image slices of the cube with the provided
-    kernel; we do not try and do an entire 3D convolution of the cube due to
-    memory limitations.
-
-    Parameters
-    ----------
-    cube : ndarray
-        The data cube from which we will convolve.
-    kernel : ndarray
-        The image kernel we are using to convolve.
-
-    Returns
-    -------
-    convolved_cube : ndarray
-        The cube, with the image slices convolved by the provided kernel.
-    """
-    # We need to ensure that the cube is actually a cube.
-    cube_dimensions = 3
-    if len(cube.shape) != cube_dimensions:
-        logging.warning(
-            warning_type=logging.AccuracyWarning,
-            message=(
-                "The input cube is not actually a cube, shape is {cube.shape}."
-                " Applying convolution across image slices may fail."
-            ),
-        )
-
-    # We want to keep the same numerical precision, or rather, as close as
-    # we can to the original data type. We can expand this to 192-bit and
-    # 256-bit, but, it is likely not needed.
-    if cube.dtype.itemsize * 2 <= np.complex64(None).itemsize:
-        complex_data_type = np.complex64
-    elif cube.dtype.itemsize * 2 <= np.complex128(None).itemsize:
-        complex_data_type = np.complex128
-    else:
-        complex_data_type = complex
-
-    # Applying the convolution. For the fill value, the most common value is
-    # likely to be sky noise so we just pad it with sky noise. Moreover, some
-    # of these cubes can be rather large. However, sometimes this process can
-    # be very memory intensive so we need to be able to fallback to a backup.
-    convolved_cube = np.zeros_like(cube)
-    try:
-        # This really is just a repeated process of 2D convolutions.
-        for index in np.arange(cube.shape[2]):
-            convolved_cube[:, :, index] = astropy.convolution.convolve_fft(
-                cube[:, :, index],
-                kernel,
-                boundary="fill",
-                fill_value=np.nanmedian(cube),
-                complex_dtype=complex_data_type,
-                nan_treatment="interpolate",
-                normalize_kernel=True,
-                preserve_nan=True,
-                allow_huge=True,
-            )
-    except MemoryError:
-        logging.warning(
-            warning_type=logging.MemoryFullWarning,
-            message=(
-                "Attempting a layered FFT convolution of a cube with shape"
-                f" {cube.shape} with kernel shape {kernel.shape} requires too"
-                " much memory."
-            ),
-        )
-        # We use the alternative discrete convolution.
-        logging.warning(
-            warning_type=logging.AlgorithmWarning,
-            message=(
-                "Discrete convolution will be attempted as an alternative to"
-                " the FFT convolution due to memory issues."
-            ),
-        )
-        # Again, we try a repeated convolution but instead using the discrete
-        # version.
-        # An extended boundary condition is likely more representative of
-        # sky noise then median.
-        convolved_cube[:, :, index] = astropy.convolution.convolve(
-            cube[:, :, index],
-            kernel,
-            boundary="extend",
-            nan_treatment="interpolate",
-            normalize_kernel=True,
-            preserve_nan=True,
-        )
-    # All done.
-    return convolved_cube

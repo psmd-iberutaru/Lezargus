@@ -201,7 +201,8 @@ def write_temporary_directory_file(filename: str) -> None:
     # The line separators are not added by the write lines, so we add them
     # here.
     file_lines = [linedex + "\n" for linedex in file_content]
-    # And writing the file.
-    with open(filename, "w+") as file:
+    # And writing the file. We default to UTF 8 encoding as it is becoming
+    # more universal and it is ASCII compatible.
+    with open(filename, "w+", encoding="utf_8") as file:
         file.writelines(file_lines)
     # All done.

@@ -58,11 +58,11 @@ class LezargusContainerArithmetic:
         wavelength: hint.ndarray,
         data: hint.ndarray,
         uncertainty: hint.ndarray,
-        wavelength_unit: hint.Unit,
-        data_unit: hint.Unit,
-        mask: hint.ndarray,
-        flags: hint.ndarray,
-        header: dict,
+        wavelength_unit: hint.Unit | None = None,
+        data_unit: hint.Unit | None = None,
+        mask: hint.ndarray | None = None,
+        flags: hint.ndarray | None = None,
+        header: hint.Header | None = None,
     ) -> None:
         """Construct a wavelength-aware NDDataArray for arithmetic.
 
@@ -79,19 +79,22 @@ class LezargusContainerArithmetic:
             uncertainty is the same as the data value; per
             :py:attr:`uncertainty_unit`.
         wavelength_unit : Astropy Unit
-            The unit of the wavelength array.
+            The unit of the wavelength array. If None, we assume unit-less.
         data_unit : Astropy Unit
-            The unit of the data array.
-        mask : ndarray
+            The unit of the data array. If None, we assume unit-less.
+        mask : ndarray, default = None
             A mask of the data, used to remove problematic areas. Where True,
-            the values of the data is considered masked.
-        flags : ndarray
-            Flags of the data. These flags store metadata about the data.
+            the values of the data is considered masked. If None, we assume
+            the mask is all clear.
+        flags : ndarray, default = None
+            Flags of the data. These flags store metadata about the data. If
+            None, we assume that there are no harmful flags.
         header : Header, default = None
             A set of header data describing the data. Note that when saving,
             this header is written to disk with minimal processing. We highly
             suggest writing of the metadata to conform to the FITS Header
-            specification as much as possible.
+            specification as much as possible. If None, we just use an
+            empty header.
 
         Returns
         -------
@@ -177,10 +180,17 @@ class LezargusContainerArithmetic:
         )
         self.uncertainty_unit = self.data_unit
         # Metadata.
-        self.mask = np.asarray(mask)
-        self.flags = np.asarray(flags)
+        self.mask = (
+            np.full_like(self.data, False) if mask is None else np.asarray(mask)
+        )
+        self.flags = (
+            np.full_like(self.data, 1, dtype=int)
+            if flags is None
+            else np.asarray(flags)
+        )
         # We just use a blank header if none has been provided.
-        self.header = header if header is not None else astropy.io.fits.Header()
+        header = {} if header is None else header
+        self.header = astropy.io.fits.Header(header)
         # All done.
 
     def __justify_arithmetic_operation(
@@ -656,12 +666,14 @@ class LezargusContainerArithmetic:
         -------
         None
         """
-        # The Lezargus container is the FITS cube format.
-        self.header["LZ_FITSF"] = type(self).__name__
+        # The Lezargus container is the FITS cube format. However, we do not
+        # want to modify the actual header itself.
+        header_copy = self.header.copy()
+        header_copy["LZ_FITSF"] = type(self).__name__
         # We send the file to the library function write.
         lezargus.library.fits.write_lezargus_fits_file(
             filename=filename,
-            header=self.header,
+            header=header_copy,
             wavelength=self.wavelength,
             data=self.data,
             uncertainty=self.uncertainty,

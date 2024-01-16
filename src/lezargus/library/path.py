@@ -6,6 +6,7 @@ As Lezargus is going to be cross platform, this is a nice abstraction.
 import glob
 import os
 
+import lezargus
 from lezargus.library import hint
 from lezargus.library import logging
 
@@ -29,10 +30,11 @@ def get_directory(pathname: str) -> str:
 
 def get_most_recent_filename_in_directory(
     directory: str,
-    extension: hint.Union[str, list] = None,
+    basename : str | list | None = None,
+    extension: str | list | None = None,
     recursive: bool = False,
     recency_function: hint.Callable[[str], float] = None,
-) -> str:
+) -> str | None:
     """Get the most recent filename from a directory.
 
     Because of issues with different operating systems having differing
@@ -41,8 +43,12 @@ def get_most_recent_filename_in_directory(
 
     Parameters
     ----------
-    directory : str
+    directory : str or list
         The directory by which the most recent file will be derived from.
+    basename : str or list, default = None
+        The basename filter which we will use to weed out the files. Wildcard 
+        expansion is supported. A list may be provided to cover multiple cases
+        to include. If not provided, we default to all files.
     extension : str or list, default = None
         The extension by which to filter for. It is often the case that some
         files are created but the most recent file of some type is desired.
@@ -61,17 +67,19 @@ def get_most_recent_filename_in_directory(
     -------
     recent_filename : str
         The filename of the most recent file, by modification time, in the
-        directory.
+        directory. If no recent file is found, we return None.
     """
     # Check if the directory provided actually exists.
     if not os.path.isdir(directory):
         logging.critical(
             critical_type=logging.InputError,
             message=(
-                f"The directory provided `{directory}` does not exist. A most"
-                " recent file cannot be obtained."
+                f"The provided directory does not exist: {directory}"
             ),
         )
+    # The default basename filter and extension.
+    basename = "*" if basename is None else basename
+    extension = "*" if extension is None else extension
 
     # The default recency function, if not provided, is the modification times
     # of the files themselves.
@@ -79,34 +87,32 @@ def get_most_recent_filename_in_directory(
         os.path.getmtime if recency_function is None else recency_function
     )
 
-    # We need to check all of the files matching the provided extension. If
-    # none was provided, we use all.
-    extension = "*" if extension is None else extension
-    extension_list = (
-        (extension,) if isinstance(extension, str) else tuple(extension)
-    )
+    # We need to get all of the valid pathnames which we can use to glob
+    # to see the available files. We account for all permutations of the 
+    # different cases.
+    # We also need to check if we accept recursive directories.
+    directory = os.path.join([directory, "**"]) if recursive else directory
+    basename_list = [basename,] if isinstance(basename, str) else basename
+    extension_list = [extension,] if isinstance(extension, str) else extension
+    # Finding the permutations.
+    search_pathnames = []
+    for namdex in basename_list:
+        for extdex in extension_list:
+            search_pathnames.append(merge_pathname(directory=directory, filename=namdex, extension=extdex))
+
+    # Now, based on the permutations, we try and find all of the valid
+    # entries.
     matching_filenames = []
-    for extensiondex in extension_list:
-        # If the extension has a leading dot, then we remove it as it
-        # is already assumed.
-        if extensiondex.startswith("."):
-            clean_extension = extensiondex[1:]
-        else:
-            clean_extension = extensiondex
-        # Fetch all of the matching files within the directory. We only want
-        # files within the directory, not above or below unless recursive is
-        # set
-        directory_list = [directory, "**"] if recursive else [directory]
-        pathname_glob_filter = merge_pathname(
-            directory=directory_list,
-            filename="*",
-            extension=clean_extension,
-        )
-        extension_matching_files = glob.glob(
-            pathname_glob_filter,
-            recursive=recursive,
-        )
-        matching_filenames += extension_matching_files
+    for searchdex in search_pathnames:
+        files = glob.glob(pathname=searchdex, recursive=recursive)
+        matching_filenames = matching_filenames + files
+    
+    # We ought to check if there are any files which were even found in the 
+    # first place.
+    if len(matching_filenames) == 0:
+        # No files.
+        logging.warning(warning_type=logging.FileWarning, message=f"No matching files found in directory: {directory}. No recent file found.")
+        return None
 
     # For all of the matching filenames, we need to find the most recent via
     # the modification time. Given that the modification times are a UNIX time,
@@ -121,6 +127,7 @@ def get_most_recent_filename_in_directory(
                 f" `{recent_filename}` is not actually a typical file."
             ),
         )
+    # All done.
     return recent_filename
 
 

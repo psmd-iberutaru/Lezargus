@@ -21,7 +21,7 @@ from lezargus.library import logging
 def broadcast_spectra_to_cube_uniform(
     input_spectra: hint.LezargusSpectra,
     template_cube: hint.LezargusCube,
-    wavelength_mode: str | None = None,
+    wavelength_mode: str = "error",
 ) -> hint.LezargusCube:
     """Make a LezargusCube from a LezargusSpectra via uniform broadcasting.
 
@@ -44,16 +44,17 @@ def broadcast_spectra_to_cube_uniform(
     template_cube : LezargusCube
         The template cube which will serve as a template to determine the
         dimensional properties of the resulting broadcasting cube.
-    wavelength_mode : str, default = None
+    wavelength_mode : str, default = "error"
         The mode to handle possible wavelength array conflicts between the
-        spectra and the cube. If None, we default to the configuration default,
-        which, if unchanged, is "error". The available options are:
+        spectra and the cube. The available options are:
 
             - "spectra" : Prefer the spectra's wavelength array; the cube's
             wavelength is ignored.
             - "cube" : Prefer the cube's wavelength array; the spectra is
             interpolated to align to the new wavelength.
-            - "error" : We log an error and return None.
+            - "error" : We log an error. We still attempt to figure it out, 
+            defaulting to the spectra's wavelength array.
+
 
     Returns
     -------
@@ -102,11 +103,21 @@ def broadcast_spectra_to_cube_uniform(
         broadcast_wavelength = template_cube.wavelength
         broadcast_wavelength_unit = template_cube.wavelength_unit
     elif wavelength_mode == "error":
-        # We log an error for broadcasting and do nothing per the
-        # documentation.
-        broadcast_wavelength = None
-        broadcast_wavelength_unit = None
-        return None
+        # If the wavelengths differ, we raise an error on their mismatch.
+        if not np.all(
+            np.isclose(input_spectra.wavelength, template_cube.wavelength),
+        ):
+            logging.error(
+                error_type=logging.InputError,
+                message=(
+                    "Input spectra and template cube wavelength arrays do not"
+                    " match; wavelength mode is `error`; returning None."
+                ),
+            )
+        # Regardless if the error was logged or not, we use the input spectra
+        # as the broadcast.
+        broadcast_wavelength = input_spectra.wavelength
+        broadcast_wavelength_unit = input_spectra.wavelength_unit
     else:
         # The input parameter is not a given parameter.
         logging.critical(
@@ -181,7 +192,7 @@ def broadcast_spectra_to_cube_uniform(
 def broadcast_spectra_to_cube_center(
     input_spectra: hint.LezargusSpectra,
     template_cube: hint.LezargusCube,
-    wavelength_mode: str | None = None,
+    wavelength_mode: str = "error",
     allow_even_center: bool = True,
 ) -> hint.LezargusCube:
     """Make a LezargusCube from a LezargusSpectra via center broadcasting.
@@ -207,10 +218,9 @@ def broadcast_spectra_to_cube_center(
     template_cube : LezargusCube
         The template cube which will serve as a template to determine the
         dimensional properties of the resulting broadcasting cube.
-    wavelength_mode : str, default = None
+    wavelength_mode : str, default = "error"
         The mode to handle possible wavelength array conflicts between the
-        spectra and the cube. If None, we default to the configuration default,
-        which, if unchanged, is "error". The available options are:
+        spectra and the cube. The available options are:
 
             - "spectra" : Prefer the spectra's wavelength array; the cube's
             wavelength is ignored.
@@ -269,11 +279,23 @@ def broadcast_spectra_to_cube_center(
         broadcast_wavelength = template_cube.wavelength
         broadcast_wavelength_unit = template_cube.wavelength_unit
     elif wavelength_mode == "error":
-        # We log an error for broadcasting and do nothing per the
-        # documentation.
-        broadcast_wavelength = None
-        broadcast_wavelength_unit = None
-        return None
+        # If the wavelengths differ, we raise an error on their mismatch.
+        if not np.all(
+            np.isclose(input_spectra.wavelength, template_cube.wavelength),
+        ):
+            logging.error(
+                error_type=logging.InputError,
+                message=(
+                    "Input spectra and template cube wavelength arrays do not"
+                    " match; wavelength mode is `error`; returning None."
+                ),
+            )
+            broadcast_wavelength = None
+            broadcast_wavelength_unit = None
+            return None
+        # Otherwise, if they do match, we can continue with the broadcasting.
+        broadcast_wavelength = input_spectra.wavelength
+        broadcast_wavelength_unit = input_spectra.wavelength_unit
     else:
         # The input parameter is not a given parameter.
         logging.critical(
@@ -354,7 +376,8 @@ def broadcast_spectra_to_cube_center(
     # just in case.
     spectra_header = input_spectra.header.copy()
     cube_header = template_cube.header.copy()
-    broadcast_header = cube_header.update(spectra_header)
+    cube_header.update(spectra_header)
+    broadcast_header = cube_header
 
     # Building the new broadcasted cube. We use the template's cube's class
     # just in case it has been subclassed or something.
