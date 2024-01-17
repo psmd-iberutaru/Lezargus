@@ -25,7 +25,7 @@
 
 # Development is done both on Linux/MacOS and Windows so we just use LF for 
 # simplicity.
-
+* text=auto eol=lf
 
 # Note: .db, .p, and .pkl files are associated
 # with the python modules ``pickle``, ``dbm.*``,
