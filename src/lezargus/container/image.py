@@ -120,7 +120,7 @@ class LezargusImage(LezargusContainerArithmetic):
 
     @classmethod
     def read_fits_file(
-        cls: hint.Type["LezargusImage"],
+        cls: hint.Type[hint.Self],
         filename: str,
     ) -> hint.Self:
         """Read a Lezargus image FITS file.

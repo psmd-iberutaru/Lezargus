@@ -70,7 +70,7 @@ class SimulatorSpectre:
         """
 
     def create_astrophysical_object_spectra(
-        self: "SimulatorSpectre",
+        self: hint.Self,
         temperature: float,
         magnitude: float,
         filter_spectra: hint.LezargusSpectra,
@@ -169,7 +169,7 @@ class SimulatorSpectre:
         return self.astrophysical_object_spectra
 
     def custom_astrophysical_object_spectra(
-        self: "SimulatorSpectre",
+        self: hint.Self,
         custom_spectra: hint.LezargusSpectra,
     ) -> hint.LezargusSpectra:
         """Use a provided spectra for a custom astrophysical object.
@@ -217,7 +217,7 @@ class SimulatorSpectre:
         return self.astrophysical_object_spectra
 
     def generate_astrophysical_object_cube(
-        self: "SimulatorSpectre",
+        self: hint.Self,
     ) -> hint.LezargusCube:
         """Use the stored astrophysical spectra to generate a field cube.
 
@@ -286,7 +286,7 @@ class SimulatorSpectre:
         return self.astrophysical_object_cube
 
     def custom_astrophysical_object_cube(
-        self: "SimulatorSpectre",
+        self: hint.Self,
         custom_cube: hint.LezargusCube,
     ) -> hint.LezargusCube:
         """Use a provided cube for a custom astrophysical cube.
@@ -329,8 +329,162 @@ class SimulatorSpectre:
         self.astrophysical_object_cube = custom_cube
         return self.astrophysical_object_cube
 
+    @classmethod
+    def prepare_spectra(
+        cls: hint.Type[hint.Self],
+        spectra: hint.LezargusSpectra,
+        *args: object,
+        skip_convolve: bool = False,
+        **kwargs: object,
+    ) -> hint.LezargusSpectra:
+        """Prepare the provided spectra for future steps.
+
+        Any provided spectra (transmission curves, emission curves, etc) must
+        be properly prepared before its application to the simulation data.
+        We do the following steps in order (if not otherwise skipped):
+
+            - Convolve: We match the spectral resolution (or resolving power)
+            to the simulation's. We leverage
+            :py:meth:`_prepare_convolve_atmospheric_transmission`.
+
+        Please see the linked functions in each of the steps for the parameters
+        required for each step of the preparation, if it is not to be skipped.
+        Without the required inputs, the preparation will likely fail; failure
+        will likely be noisy (logged or raised).
+
+        Parameters
+        ----------
+        spectra : LezargusSpectra
+            The input spectra which we will be preparing.
+        skip_convolve : bool, default = False
+            If True, we skip the resolution convolution step. The backend
+            function will not be called.
+        *args : Any
+            The positional arguments. We forbid any positional arguments for
+            informing the backend functions because of its ambiguity.
+        **kwargs : Any
+            The keyword arguments which will be fed into the backend functions.
+
+        Returns
+        -------
+        finished_spectra : LezargusSpectra
+            The finished prepared spectra after all of the steps have been
+            done.
+        """
+        # Type check on the input spectra.
+        if not isinstance(spectra, lezargus.container.LezargusSpectra):
+            logging.error(
+                error_type=logging.InputError,
+                message=(
+                    "Input spectra is not a LezargusSpectra, is instead:"
+                    f" {type(spectra)}"
+                ),
+            )
+
+        # There should be no positional arguments.
+        if len(args) != 0:
+            logging.critical(
+                critical_type=logging.InputError,
+                message=(
+                    "Spectra preparation cannot have positional arguments, use"
+                    " keyword  arguments."
+                ),
+            )
+
+        # Now, we just go down the list making sure that we do all of the
+        # procedures in order, unless the user wants it skipped.
+        # ...convolution...
+        if skip_convolve:
+            convolved_spectra = spectra
+        else:
+            convolved_spectra = cls._prepare_convolve_spectra(
+                spectra=spectra,
+                **kwargs,
+            )
+
+        # All done.
+        finished_spectra = convolved_spectra
+        return finished_spectra
+
+    @classmethod
+    def _prepare_convolve_spectra(
+        cls: hint.Type[hint.Self],
+        spectra: hint.LezargusSpectra,
+        input_resolution: float | None = None,
+        input_resolving: float | None = None,
+        simulation_resolution: float | None = None,
+        simulation_resolving: float | None = None,
+        reference_wavelength: float | None = None,
+        **kwargs: object,
+    ) -> hint.LezargusSpectra:
+        """Convolve the input spectra to make its resolution match.
+
+        Spectra comes in many resolutions. If the resolution of an input
+        spectra is too high for the simulation, its application can give
+        erroneous results. Here, we use a Gaussian kernel to convolve the
+        spectral data to better match the resolution of the input and the
+        simulation.
+
+        We leverage :py:func:`kernel_1d_gaussian_resolution` to make the kernel.
+
+        Parameters
+        ----------
+        spectra : LezargusSpectra
+            The transmission spectra which we will be preparing.
+        input_resolution : float, default = None
+            The spectral resolution of the input spectra. Must be in
+            the same units as the spectra.
+        input_resolving : float, default = None
+            The spectral resolving power of the input spectra, relative
+            to the wavelength `reference_wavelength`.
+        simulation_resolution : float, default = None
+            The spectral resolution of the simulation spectra. Must be in
+            the same units as the simulation spectra.
+        simulation_resolving : float, default = None
+            The spectral resolving power of the simulation spectra, relative
+            to the wavelength `reference_wavelength`.
+        reference_wavelength : float, default = None
+            The reference wavelength for any needed conversion.
+        **kwargs : dict
+            Keyword argument catcher.
+
+        Returns
+        -------
+        convolved_spectra : LezargusSpectra
+            The spectra, after convolution based on the input parameters.
+        """
+        # This is just to catch and use the keyword arguments.
+        __ = kwargs
+
+        # We assume the kernel size based on the wavelength of the input
+        # spectra. Namely, the kernel must be smaller than the number of points.
+        # We assume that we have Nyquist sampling and 1 extra degree of
+        # freedom.
+        reduction_factor = 2 * 2
+        kernel_size = len(spectra.wavelength) / reduction_factor
+        kernel_shape = (kernel_size,)
+
+        # We have the input, we rely on the kernel determination to figure out
+        # the mode.
+        gaussian_kernel = (
+            lezargus.library.convolution.kernel_1d_gaussian_resolution(
+                shape=kernel_shape,
+                base_resolution=input_resolution,
+                target_resolution=simulation_resolution,
+                base_resolving_power=input_resolving,
+                target_resolving_power=simulation_resolving,
+                reference_wavelength=reference_wavelength,
+            )
+        )
+
+        # We then convolve the input spectra.
+        convolved_spectra = spectra.convolve(kernel=gaussian_kernel)
+
+        # All done.
+        return convolved_spectra
+
     def apply_atmospheric_transmission(
-        self: "SimulatorSpectre",
+        self: hint.Self,
         transmission_spectra: hint.LezargusSpectra,
     ) -> hint.LezargusCube:
         """Apply the atmospheric transmission to the object.
@@ -338,6 +492,10 @@ class SimulatorSpectre:
         The astrophysical object cube is required to use this function,
         see :py:meth:`create_astrophysical_object_cube` or
         :py:meth:`custom_astrophysical_object_cube` to create it.
+
+        Moreover, consider using :py:meth:`prepare_atmospheric_transmission`
+        to properly match the resolving power or resolution of the simulation
+        spectra and the transmission spectra.
 
         Parameters
         ----------

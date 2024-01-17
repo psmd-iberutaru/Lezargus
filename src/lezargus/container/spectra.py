@@ -130,7 +130,7 @@ class LezargusSpectra(LezargusContainerArithmetic):
 
     @classmethod
     def read_fits_file(
-        cls: hint.Type["LezargusSpectra"],
+        cls: hint.Type[hint.Self],
         filename: str,
     ) -> hint.Self:
         """Read a Lezargus spectra FITS file.
@@ -180,6 +180,64 @@ class LezargusSpectra(LezargusContainerArithmetic):
         self._write_fits_file(filename=filename, overwrite=overwrite)
         # Any post-processing is done here.
         # All done.
+
+    def convolve(self: hint.Self, kernel: hint.ndarray) -> hint.Self:
+        """Convolve the spectra with a custom kernel.
+
+        We compute the convolution and return a near copy of the spectra after
+        convolution. The wavelength is not affected.
+
+        Parameters
+        ----------
+        kernel : ndarray
+            The kernel which we are using to convolve.
+
+        Returns
+        -------
+        convolved_spectra : ndarray
+            A near copy of the spectra after convolution.
+        """
+        # Using this kernel, we convolve the spectra. We assume that the
+        # uncertainties add in quadrature.
+        convolved_data = (
+            lezargus.library.convolution.convolve_1d_array_by_1d_kernel(
+                array=self.data,
+                kernel=kernel,
+            )
+        )
+        convolved_uncertainty = np.sqrt(
+            lezargus.library.convolution.convolve_1d_array_by_1d_kernel(
+                self.uncertainty**2,
+                kernel=kernel,
+            ),
+        )
+
+        # We also propagate the convolution of the mask and the flags where
+        # needed.
+        logging.error(
+            error_type=logging.ToDoError,
+            message=(
+                "Propagation of mask and flags via convolution is not done."
+            ),
+        )
+        convolved_mask = self.mask
+        convolved_flags = self.flags
+
+        # From the above information, we construct the new spectra.
+        spectra_class = type(self)
+        convolved_spectra = spectra_class(
+            wavelength=self.wavelength,
+            data=convolved_data,
+            uncertainty=convolved_uncertainty,
+            wavelength_unit=self.wavelength_unit,
+            data_unit=self.data_unit,
+            mask=convolved_mask,
+            flags=convolved_flags,
+            header=self.header,
+        )
+
+        # All done.
+        return convolved_spectra
 
     def interpolate(
         self: hint.Self,

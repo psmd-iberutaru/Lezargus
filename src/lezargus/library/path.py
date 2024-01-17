@@ -6,7 +6,6 @@ As Lezargus is going to be cross platform, this is a nice abstraction.
 import glob
 import os
 
-import lezargus
 from lezargus.library import hint
 from lezargus.library import logging
 
@@ -30,7 +29,7 @@ def get_directory(pathname: str) -> str:
 
 def get_most_recent_filename_in_directory(
     directory: str,
-    basename : str | list | None = None,
+    basename: str | list | None = None,
     extension: str | list | None = None,
     recursive: bool = False,
     recency_function: hint.Callable[[str], float] = None,
@@ -39,14 +38,14 @@ def get_most_recent_filename_in_directory(
 
     Because of issues with different operating systems having differing
     issues with storing the creation time of a file, this function sorts based
-    off of modification time.
+    off of modification time unless a custom function is provided.
 
     Parameters
     ----------
     directory : str or list
         The directory by which the most recent file will be derived from.
     basename : str or list, default = None
-        The basename filter which we will use to weed out the files. Wildcard 
+        The basename filter which we will use to weed out the files. Wildcard
         expansion is supported. A list may be provided to cover multiple cases
         to include. If not provided, we default to all files.
     extension : str or list, default = None
@@ -73,9 +72,7 @@ def get_most_recent_filename_in_directory(
     if not os.path.isdir(directory):
         logging.critical(
             critical_type=logging.InputError,
-            message=(
-                f"The provided directory does not exist: {directory}"
-            ),
+            message=f"The provided directory does not exist: {directory}",
         )
     # The default basename filter and extension.
     basename = "*" if basename is None else basename
@@ -88,17 +85,18 @@ def get_most_recent_filename_in_directory(
     )
 
     # We need to get all of the valid pathnames which we can use to glob
-    # to see the available files. We account for all permutations of the 
+    # to see the available files. We account for all permutations of the dial;g
     # different cases.
     # We also need to check if we accept recursive directories.
-    directory = os.path.join([directory, "**"]) if recursive else directory
-    basename_list = [basename,] if isinstance(basename, str) else basename
-    extension_list = [extension,] if isinstance(extension, str) else extension
+    directory = os.path.join(*[directory, "**"]) if recursive else directory
+    basename_list = [basename] if isinstance(basename, str) else basename
+    extension_list = [extension] if isinstance(extension, str) else extension
     # Finding the permutations.
-    search_pathnames = []
-    for namdex in basename_list:
-        for extdex in extension_list:
-            search_pathnames.append(merge_pathname(directory=directory, filename=namdex, extension=extdex))
+    search_pathnames = [
+        merge_pathname(directory=directory, filename=namedex, extension=extdex)
+        for namedex in basename_list
+        for extdex in extension_list
+    ]
 
     # Now, based on the permutations, we try and find all of the valid
     # entries.
@@ -106,12 +104,18 @@ def get_most_recent_filename_in_directory(
     for searchdex in search_pathnames:
         files = glob.glob(pathname=searchdex, recursive=recursive)
         matching_filenames = matching_filenames + files
-    
-    # We ought to check if there are any files which were even found in the 
+
+    # We ought to check if there are any files which were even found in the
     # first place.
     if len(matching_filenames) == 0:
         # No files.
-        logging.warning(warning_type=logging.FileWarning, message=f"No matching files found in directory: {directory}. No recent file found.")
+        logging.warning(
+            warning_type=logging.FileWarning,
+            message=(
+                "No recent file found. No matching files found in directory:"
+                f" {directory}"
+            ),
+        )
         return None
 
     # For all of the matching filenames, we need to find the most recent via

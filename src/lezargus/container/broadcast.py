@@ -52,7 +52,7 @@ def broadcast_spectra_to_cube_uniform(
             wavelength is ignored.
             - "cube" : Prefer the cube's wavelength array; the spectra is
             interpolated to align to the new wavelength.
-            - "error" : We log an error. We still attempt to figure it out, 
+            - "error" : We log an error. We still attempt to figure it out,
             defaulting to the spectra's wavelength array.
 
 
