@@ -317,7 +317,7 @@ class ColoredLogFormatter(logging.Formatter):
         # Flip the Windows color flag compatibility.
         colorama.just_fix_windows_console()
 
-    def format(  # noqa: A003
+    def format(
         self: "ColoredLogFormatter",
         record: hint.LogRecord,
     ) -> str:
