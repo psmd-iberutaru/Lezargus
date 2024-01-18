@@ -68,7 +68,7 @@ def create_temporary_directory(
             temporary_directory = absolute_directory
         else:
             logging.critical(
-                critical_type=logging.InputError,
+                critical_type=logging.DirectoryError,
                 message=(
                     "The proposed temporary directory"
                     f" {absolute_directory} exists and is not empty, cannot"

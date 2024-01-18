@@ -461,7 +461,7 @@ class SimulatorSpectre:
         # We assume that we have Nyquist sampling and 1 extra degree of
         # freedom.
         reduction_factor = 2 * 2
-        kernel_size = len(spectra.wavelength) / reduction_factor
+        kernel_size = int(np.ceil(len(spectra.wavelength) / reduction_factor))
         kernel_shape = (kernel_size,)
 
         # We have the input, we rely on the kernel determination to figure out
@@ -469,6 +469,7 @@ class SimulatorSpectre:
         gaussian_kernel = (
             lezargus.library.convolution.kernel_1d_gaussian_resolution(
                 shape=kernel_shape,
+                template_wavelength=spectra.wavelength,
                 base_resolution=input_resolution,
                 target_resolution=simulation_resolution,
                 base_resolving_power=input_resolving,
