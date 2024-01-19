@@ -605,41 +605,41 @@ def initialize_data_atmosphere_files(*args: tuple, **kwargs: object) -> None:
 
     # We first load all of the atmospheric transmission files.
     lezargus.library.data.add_data_object(
-        name="ATM_TRANS_ZA0",
+        name="PSG_ATM_TRANS_ZA0",
         data=lezargus.container.LezargusSpectra.read_fits_file(
             filename=lezargus.library.path.merge_pathname(
                 directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
-                filename="atm_trans_za0",
+                filename="psg_atm_trans_za0",
                 extension="fits",
             ),
         ),
     )
     lezargus.library.data.add_data_object(
-        name="ATM_TRANS_ZA30",
+        name="PSG_ATM_TRANS_ZA30",
         data=lezargus.container.LezargusSpectra.read_fits_file(
             filename=lezargus.library.path.merge_pathname(
                 directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
-                filename="atm_trans_za30",
+                filename="psg_atm_trans_za30",
                 extension="fits",
             ),
         ),
     )
     lezargus.library.data.add_data_object(
-        name="ATM_TRANS_ZA45",
+        name="PSG_ATM_TRANS_ZA45",
         data=lezargus.container.LezargusSpectra.read_fits_file(
             filename=lezargus.library.path.merge_pathname(
                 directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
-                filename="atm_trans_za45",
+                filename="psg_atm_trans_za45",
                 extension="fits",
             ),
         ),
     )
     lezargus.library.data.add_data_object(
-        name="ATM_TRANS_ZA60",
+        name="PSG_ATM_TRANS_ZA60",
         data=lezargus.container.LezargusSpectra.read_fits_file(
             filename=lezargus.library.path.merge_pathname(
                 directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
-                filename="atm_trans_za60",
+                filename="psg_atm_trans_za60",
                 extension="fits",
             ),
         ),
@@ -647,41 +647,41 @@ def initialize_data_atmosphere_files(*args: tuple, **kwargs: object) -> None:
 
     # We next load all of the atmospheric radiance files.
     lezargus.library.data.add_data_object(
-        name="ATM_RAD_ZA0",
+        name="PSG_ATM_RAD_ZA0",
         data=lezargus.container.LezargusSpectra.read_fits_file(
             filename=lezargus.library.path.merge_pathname(
                 directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
-                filename="atm_rad_za0",
+                filename="psg_atm_rad_za0",
                 extension="fits",
             ),
         ),
     )
     lezargus.library.data.add_data_object(
-        name="ATM_RAD_ZA30",
+        name="PSG_ATM_RAD_ZA30",
         data=lezargus.container.LezargusSpectra.read_fits_file(
             filename=lezargus.library.path.merge_pathname(
                 directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
-                filename="atm_rad_za30",
+                filename="psg_atm_rad_za30",
                 extension="fits",
             ),
         ),
     )
     lezargus.library.data.add_data_object(
-        name="ATM_RAD_ZA45",
+        name="PSG_ATM_RAD_ZA45",
         data=lezargus.container.LezargusSpectra.read_fits_file(
             filename=lezargus.library.path.merge_pathname(
                 directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
-                filename="atm_rad_za45",
+                filename="psg_atm_rad_za45",
                 extension="fits",
             ),
         ),
     )
     lezargus.library.data.add_data_object(
-        name="ATM_RAD_ZA60",
+        name="PSG_ATM_RAD_ZA60",
         data=lezargus.container.LezargusSpectra.read_fits_file(
             filename=lezargus.library.path.merge_pathname(
                 directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
-                filename="atm_rad_za60",
+                filename="psg_atm_rad_za60",
                 extension="fits",
             ),
         ),

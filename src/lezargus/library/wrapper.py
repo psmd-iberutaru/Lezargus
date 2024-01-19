@@ -34,23 +34,20 @@ def blackbody_function(
     Returns
     -------
     blackbody : Callable
-        The blackbody function, the wavelength callable is in microns. The
-        return units are in FLAM/sr.
+        The blackbody function, the wavelength callable is in meters. The
+        return units are in W m^-2 m^-1 sr^-1.
     """
     # The temperature, assigning units to them because that is what Astropy
     # wants.
     temperature_qty = astropy.units.Quantity(temperature, unit="Kelvin")
-    flam_scale = astropy.units.Quantity(
+    si_scale = astropy.units.Quantity(
         1,
-        unit=astropy.units.erg
-        / astropy.units.s
-        / astropy.units.cm**2
-        / astropy.units.AA
-        / astropy.units.sr,
+        unit=astropy.units.Unit("W m^-2 m^-1 sr^-1"),
     )
+
     blackbody_instance = astropy.modeling.models.BlackBody(
         temperature=temperature_qty,
-        scale=flam_scale,
+        scale=si_scale,
     )
 
     def blackbody(wave: hint.ndarray) -> hint.ndarray:
@@ -59,16 +56,17 @@ def blackbody_function(
         Parameters
         ----------
         wave : ndarray
-            The wavelength of the input, in microns.
+            The wavelength of the input, in meters.
 
         Returns
         -------
         flux : ndarray
-            The blackbody flux, as returned by a blackbody, in units of FLAM/sr.
+            The blackbody flux, as returned by a blackbody, in units of
+            W m^-2 m^-1/sr.
         """
-        wave = astropy.units.Quantity(wave, unit="micron")
-        flux = blackbody_instance(wave)
-        return flux.value
+        wave = astropy.units.Quantity(wave, unit="meter")
+        flux = blackbody_instance(wave).value
+        return flux
 
     # All done.
     return blackbody

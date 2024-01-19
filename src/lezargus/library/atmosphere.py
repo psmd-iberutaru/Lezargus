@@ -76,15 +76,17 @@ def index_of_refraction_ideal_air(wavelength: hint.ndarray) -> hint.ndarray:
     ----------
     wavelength : ndarray
         The wavelength that we are calculating the index of refraction over.
-        This must in microns.
+        This must in meters.
 
     Returns
     -------
     ior_ideal_air : ndarray
         The ideal air index of refraction.
     """
+    # The formal equation accepts only micrometers, so we need to convert.
+    wavelength_um = wavelength * 1000000
     # The wave number is actually used more in these equations.
-    wavenumber = 1 / wavelength
+    wavenumber = 1 / wavelength_um
     # Calculating the index of refraction, left hand then right hand side of
     # the equation.
     ior_ideal_air = (
@@ -110,7 +112,7 @@ def index_of_refraction_dry_air(
     ----------
     wavelength : ndarray
         The wavelength that we are calculating the index of refraction over.
-        This must in microns.
+        This must in meters.
     pressure : float
         The pressure of the atmosphere, in Pascals.
     temperature : float
@@ -166,7 +168,7 @@ def index_of_refraction_moist_air(
     ----------
     wavelength : ndarray
         The wavelength that we are calculating the index of refraction over.
-        This must in microns.
+        This must in meters.
     temperature : float
         The temperature of the atmosphere, in Kelvin.
     pressure : float
@@ -213,7 +215,7 @@ def absolute_atmospheric_refraction_function(
     ----------
     wavelength : ndarray
         The wavelength over which the absolute atmospheric refraction is
-        being computed over, in microns.
+        being computed over, in meters.
     zenith_angle : float
         The zenith angle of the sight line, in radians.
     temperature : float
@@ -269,10 +271,10 @@ def relative_atmospheric_refraction_function(
     ----------
     wavelength : ndarray
         The wavelength over which the absolute atmospheric refraction is
-        being computed over, in microns.
+        being computed over, in meters.
     reference_wavelength : float
         The reference wavelength which the relative refraction is computed
-        against, in microns.
+        against, in meters.
     zenith_angle : float
         The zenith angle of the sight line, in radians.
     temperature : float

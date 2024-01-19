@@ -18,10 +18,10 @@ class LezargusCube(LezargusContainerArithmetic):
     ----------
     wavelength : ndarray
         The wavelength of the spectra. The unit of wavelength is typically
-        in microns; but, check the :py:attr:`wavelength_unit` value.
+        in meters; but, check the :py:attr:`wavelength_unit` value.
     data : ndarray
         The flux of the spectra cube. The unit of the flux is typically
-        in flam; but, check the :py:attr:`flux_unit` value.
+        in W m^-2 m^-1; but, check the :py:attr:`flux_unit` value.
     uncertainty : ndarray
         The uncertainty in the flux of the spectra. The unit of the uncertainty
         is the same as the flux value; per :py:attr:`uncertainty_unit`.

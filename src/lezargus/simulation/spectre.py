@@ -4,6 +4,7 @@ For more information on the simulation of SPECTRE observations, see the
 documentation file: [[TODO]].
 """
 
+import astropy.constants
 import numpy as np
 
 import lezargus
@@ -121,12 +122,16 @@ class SimulatorSpectre:
         # Then we evaluate the blackbody function, of course the scale of which
         # will be wrong but it will be fixed.
         blackbody_flux = blackbody_function(wavelength)
+        # We integrate over the solid angle.
+        solid_angle = np.pi
+        integrated_blackbody_flux = blackbody_flux * solid_angle
+        # Packaging the spectra.
         blackbody_spectra = lezargus.container.LezargusSpectra(
             wavelength=wavelength,
-            data=blackbody_flux,
+            data=integrated_blackbody_flux,
             uncertainty=None,
-            wavelength_unit="um",
-            data_unit="flam",
+            wavelength_unit="m",
+            data_unit="W m^-2 m^-1",
             mask=None,
             flags=None,
             header=None,
@@ -148,7 +153,14 @@ class SimulatorSpectre:
         )
 
         # Calibrating the flux.
-        calibrated_flux = blackbody_flux * calibration_factor
+        calibrated_flux = blackbody_spectra.data * calibration_factor
+
+        # We convert the flux to a photon flux, dividing out the photon
+        # energy.
+        photon_energy = (
+            astropy.constants.h * astropy.constants.c
+        ).value / blackbody_spectra.wavelength
+        photon_flux = calibrated_flux / photon_energy
 
         # Although we do not need a fully fledged header, we add some small
         # information where we know.
@@ -157,10 +169,10 @@ class SimulatorSpectre:
         # Compiling the spectra class and storing it.
         self.astrophysical_object_spectra = lezargus.container.LezargusSpectra(
             wavelength=wavelength,
-            data=calibrated_flux,
+            data=photon_flux,
             uncertainty=None,
-            wavelength_unit="um",
-            data_unit="flam",
+            wavelength_unit="m",
+            data_unit="ph s^-1 m^-2 m^-1",
             mask=None,
             flags=None,
             header=header,
@@ -502,7 +514,96 @@ class SimulatorSpectre:
         ----------
         transmission_spectra : LezargusSpectra
             The atmospheric transmission spectra. The wavelength unit of
-            this spectra should be micrometers.
+            this spectra should be meters.
+
+        Returns
+        -------
+        cube : LezargusCube
+            The cube of the object after atmospheric transmission has been
+            applied.
+        """
+        # We first need to make sure there is the object cube for us to use.
+        if self.astrophysical_object_cube is None:
+            logging.error(
+                error_type=logging.WrongOrderError,
+                message=(
+                    "There is no astrophysical object spectra to generate the"
+                    " cube from, please create or provide one."
+                ),
+            )
+
+        # We also need to make sure the transmission spectra is a
+        # LezargusSpectra.
+        if not isinstance(
+            transmission_spectra,
+            lezargus.container.LezargusSpectra,
+        ):
+            logging.error(
+                error_type=logging.InputError,
+                message=(
+                    "The atmospheric transmission spectra has type"
+                    f" {type(transmission_spectra)}, not the expected"
+                    " LezargusSpectra."
+                ),
+            )
+
+        # We need to align the transmission spectra to the Simulators
+        # wavelength base.
+        trans_wave = self.astrophysical_object_cube.wavelength
+        trans_data, trans_uncert, trans_mask, trans_flags = (
+            transmission_spectra.interpolate(
+                wavelength=trans_wave,
+                skip_flags=True,
+                skip_mask=True,
+            )
+        )
+        # It is convenient to reconstruct a spectra for it.
+        aligned_transmission_spectra = lezargus.container.LezargusSpectra(
+            wavelength=trans_wave,
+            data=trans_data,
+            uncertainty=trans_uncert,
+            wavelength_unit=transmission_spectra.wavelength_unit,
+            data_unit=transmission_spectra.data_unit,
+            mask=trans_mask,
+            flags=trans_flags,
+            header=transmission_spectra.header,
+        )
+
+        # We then pad this spectra out to a cube for us to apply across the
+        # board.
+        aligned_transmission_cube = (
+            lezargus.container.broadcast.broadcast_spectra_to_cube_uniform(
+                input_spectra=aligned_transmission_spectra,
+                template_cube=self.astrophysical_object_cube,
+            )
+        )
+
+        # Applying the transmission is simple multiplication.
+        self.astrophysical_object_cube_atm_trn = (
+            self.astrophysical_object_cube * aligned_transmission_cube
+        )
+        # All done.
+        return self.astrophysical_object_cube_atm_trn
+
+    def apply_atmospheric_radiance(
+        self: hint.Self,
+        transmission_spectra: hint.LezargusSpectra,
+    ) -> hint.LezargusCube:
+        """Apply the atmospheric transmission to the object.
+
+        The astrophysical object cube is required to use this function,
+        see :py:meth:`create_astrophysical_object_cube` or
+        :py:meth:`custom_astrophysical_object_cube` to create it.
+
+        Moreover, consider using :py:meth:`prepare_atmospheric_transmission`
+        to properly match the resolving power or resolution of the simulation
+        spectra and the transmission spectra.
+
+        Parameters
+        ----------
+        transmission_spectra : LezargusSpectra
+            The atmospheric transmission spectra. The wavelength unit of
+            this spectra should be meters.
 
         Returns
         -------

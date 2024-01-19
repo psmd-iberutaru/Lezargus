@@ -368,7 +368,10 @@ def kernel_1d_gaussian(
     else:
         logging.error(
             error_type=logging.InputError,
-            message=f"Kernel shape input {shape} type {type(shape)} is not a 1D array shape.",
+            message=(
+                f"Kernel shape input {shape} type {type(shape)} is not a 1D"
+                " array shape."
+            ),
         )
         size = shape
     # Regardless, the center of the array is considered to be the center of
@@ -393,7 +396,7 @@ def kernel_1d_gaussian(
 
 def kernel_1d_gaussian_resolution(
     shape: tuple | int,
-    template_wavelength : hint.ndarray | float,
+    template_wavelength: hint.ndarray | float,
     base_resolution: float | None = None,
     target_resolution: float | None = None,
     base_resolving_power: float | None = None,
@@ -418,7 +421,7 @@ def kernel_1d_gaussian_resolution(
         An example wavelength array which this kernel will be applied to. This
         is required to convert the physical standard deviation value calculated
         from the resolution/resolving power to one of length in pixels/points.
-        If an array, we try and compute the conversion factor. If a float, 
+        If an array, we try and compute the conversion factor. If a float,
         that is the conversion factor of wavelength per pixel.
     base_resolution : float, default = None
         The base resolution that we are converting from. Must be provided
@@ -445,9 +448,6 @@ def kernel_1d_gaussian_resolution(
         The Gaussian kernel with the appropriate parameters to convert from
         the base resolution to the target resolution with a convolution.
     """
-    # This is an important constant for converting between FWHM and stddev.
-    fwhm_std_const = 2 * np.sqrt(2 * np.log(2))
-
     # We support two different modes of computing the kernel. Toggle is based
     # on what parameters are provided. We switch here.
     resolution_mode = (
@@ -459,7 +459,7 @@ def kernel_1d_gaussian_resolution(
         and reference_wavelength is not None
     )
     # Determining which, and based on which, we determine the determine the
-    # standard deviation for the Gaussian. However, the standard deviation 
+    # standard deviation for the Gaussian. However, the standard deviation
     # value determined here is a physical length, not one in pixels/points.
     if resolution_mode and resolving_mode:
         # If we have both modes, the program cannot decide between both.
@@ -471,25 +471,17 @@ def kernel_1d_gaussian_resolution(
                 " provided for kernel determination. Mode cannot be determined."
             ),
         )
-        phys_stddev = fwhm_std_const * np.sqrt(
-            target_resolution**2 - base_resolution**2,
-        )
+        phys_fwhm = np.sqrt(target_resolution**2 - base_resolution**2)
     elif resolution_mode:
         # Resolution mode, we determine the standard deviation from the
         # provided resolutions.
-        phys_stddev = fwhm_std_const * np.sqrt(
-            target_resolution**2 - base_resolution**2,
-        )
+        phys_fwhm = np.sqrt(target_resolution**2 - base_resolution**2)
     elif resolving_mode:
         # Resolving mode, we determine the standard deviation from the
         # provided resolving power and root wavelength.
-        phys_stddev = (
-            reference_wavelength
-            * fwhm_std_const
-            * (
-                (base_resolving_power**2 - target_resolving_power**2)
-                / (base_resolving_power * target_resolving_power)
-            )
+        phys_fwhm = reference_wavelength * (
+            (base_resolving_power**2 - target_resolving_power**2)
+            / (base_resolving_power * target_resolving_power)
         )
     else:
         # No mode could be found usable. The inputs seem to be quite wrong.
@@ -505,14 +497,19 @@ def kernel_1d_gaussian_resolution(
                 f" wavelength, {reference_wavelength}."
             ),
         )
+    # Converting to standard deviation.
+    fwhm_std_const = 2 * np.sqrt(2 * np.log(2))
+    phys_stddev = phys_fwhm / fwhm_std_const
 
-    # We convert the physical standard deviation into a standard deviation of 
+    # We convert the physical standard deviation into a standard deviation of
     # pixels (or points in general). We assume a wavelength spacing
     # based on the average spacing of the provided wavelength.
-    if isinstance(template_wavelength, float|int|np.number):
+    if isinstance(template_wavelength, float | int | np.number):
         convert_factor = template_wavelength
     else:
-        convert_factor = np.nanmean(template_wavelength[1:] - template_wavelength[:-1])
+        convert_factor = np.nanmean(
+            template_wavelength[1:] - template_wavelength[:-1],
+        )
     # Converting
     stddev = phys_stddev / convert_factor
 
@@ -521,7 +518,6 @@ def kernel_1d_gaussian_resolution(
     resolution_kernel = kernel_1d_gaussian(shape=shape, stddev=stddev)
     # All done.
     return resolution_kernel
-
 
 
 def kernel_2d_gaussian(
@@ -586,4 +582,3 @@ def kernel_2d_gaussian(
     )
     gaussian_kernel = gaussian2d(xx, yy)
     return gaussian_kernel
-

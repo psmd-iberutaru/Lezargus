@@ -15,6 +15,7 @@
 # Yaml
 *.yaml   text eol=lf
 # Text.
+*.rst    text eol=lf
 *.txt    text eol=lf
 *.md     text eol=lf
 

@@ -196,6 +196,8 @@ generated-members = [
     # well.
     "lezargus.library.config.*",
     "lezargus.library.data.*",
+    # Astropy Constants seem to also be generated.
+    "astropy.constants.*"
 ]
 
 [tool.coverage.run]

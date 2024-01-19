@@ -30,10 +30,10 @@ class LezargusContainerArithmetic:
     ----------
     wavelength : ndarray
         The wavelength of the spectra. The unit of wavelength is typically
-        in microns; but, check the :py:attr:`wavelength_unit` value.
+        in meters; but, check the :py:attr:`wavelength_unit` value.
     data : ndarray
         The data or flux of the spectra cube. The unit of the flux is typically
-        in flam; but, check the :py:attr:`data_unit` value.
+        in W m^-2 m^-1; but, check the :py:attr:`data_unit` value.
     uncertainty : ndarray
         The uncertainty in the data. The unit of the uncertainty
         is the same as the flux value; per :py:attr:`uncertainty_unit`.
@@ -70,10 +70,10 @@ class LezargusContainerArithmetic:
         ----------
         wavelength : ndarray
             The wavelength of the spectra. The unit of wavelength is typically
-            in microns; but, check the :py:attr:`wavelength_unit` value.
+            in meters; but, check the :py:attr:`wavelength_unit` value.
         data : ndarray
             The data of the spectra cube. The unit of the flux is typically
-            in flam; but, check the :py:attr:`data_unit` value.
+            in W m^-2 m^-1; but, check the :py:attr:`data_unit` value.
         uncertainty : ndarray
             The uncertainty in the data of the spectra. The unit of the
             uncertainty is the same as the data value; per
@@ -316,15 +316,6 @@ class LezargusContainerArithmetic:
                     f" unit {operand.wavelength_unit}."
                 ),
             )
-        if self.data_unit != operand.data_unit:
-            logging.warning(
-                warning_type=logging.AccuracyWarning,
-                message=(
-                    "The Lezargus container data/flux unit"
-                    f" {self.wavelength_unit} is not the same as the operand"
-                    f" unit {operand.wavelength_unit}."
-                ),
-            )
 
         # If it survived all of the tests above, then it should be fine.
         justification = True
@@ -353,6 +344,17 @@ class LezargusContainerArithmetic:
                     "The arithmetic justification check returned False, but it"
                     " really should have raised an error and should not have"
                     " returned here."
+                ),
+            )
+        # Addition and subtraction are unique in that we need to also check
+        # the data units.
+        if self.data_unit != operand.data_unit:
+            logging.error(
+                error_type=logging.ArithmeticalError,
+                message=(
+                    "The Lezargus container data/flux unit"
+                    f" {self.data_unit} is not the same as the operand"
+                    f" unit {operand.data_unit}."
                 ),
             )
 
@@ -403,6 +405,17 @@ class LezargusContainerArithmetic:
                     "The arithmetic justification check returned False, but it"
                     " really should have raised an error and should not have"
                     " returned here."
+                ),
+            )
+        # Addition and subtraction are unique in that we need to also check
+        # the data units.
+        if self.data_unit != operand.data_unit:
+            logging.error(
+                error_type=logging.ArithmeticalError,
+                message=(
+                    "The Lezargus container data/flux unit"
+                    f" {self.data_unit} is not the same as the operand"
+                    f" unit {operand.data_unit}."
                 ),
             )
 
@@ -464,11 +477,17 @@ class LezargusContainerArithmetic:
         # account.
         if isinstance(operand, LezargusContainerArithmetic):
             operand_data = operand.data
+            operand_data_unit = operand.data_unit
             operand_uncertainty = operand.uncertainty
         else:
             # We assume a single value does not have any uncertainty that
             # we really care about.
             operand_data = operand
+            operand_data_unit = (
+                lezargus.library.conversion.parse_unit_to_astropy_unit(
+                    unit_string="",
+                )
+            )
             operand_uncertainty = np.zeros_like(self.uncertainty)
 
         # Now we perform the multiplication.
@@ -481,6 +500,9 @@ class LezargusContainerArithmetic:
             multiplier_uncertainty=self.uncertainty,
             multiplicand_uncertainty=operand_uncertainty,
         )
+        # We also need to propagate the unit.
+
+        result.data_unit = self.data_unit * operand_data_unit
         # All done.
         return result
 
@@ -514,11 +536,17 @@ class LezargusContainerArithmetic:
         # account.
         if isinstance(operand, LezargusContainerArithmetic):
             operand_data = operand.data
+            operand_data_unit = operand.data_unit
             operand_uncertainty = operand.uncertainty
         else:
             # We assume a single value does not have any uncertainty that
             # we really care about.
             operand_data = operand
+            operand_data_unit = (
+                lezargus.library.conversion.parse_unit_to_astropy_unit(
+                    unit_string="",
+                )
+            )
             operand_uncertainty = np.zeros_like(self.uncertainty)
 
         # Now we perform the division.
@@ -531,6 +559,8 @@ class LezargusContainerArithmetic:
             numerator_uncertainty=self.uncertainty,
             denominator_uncertainty=operand_uncertainty,
         )
+        # We also need to propagate the unit.
+        result.data_unit = self.data_unit / operand_data_unit
         # All done.
         return result
 
@@ -562,16 +592,21 @@ class LezargusContainerArithmetic:
 
         # If the operand is a single value, then we need to take that into
         # account.
+        no_unit = lezargus.library.conversion.parse_unit_to_astropy_unit(
+            unit_string="",
+        )
         if isinstance(operand, LezargusContainerArithmetic):
             operand_data = operand.data
+            operand_data_unit = operand.data_unit
             operand_uncertainty = operand.uncertainty
         else:
             # We assume a single value does not have any uncertainty that
             # we really care about.
             operand_data = operand
+            operand_data_unit = no_unit
             operand_uncertainty = np.zeros_like(self.uncertainty)
 
-        # Now we perform the exponentiation..
+        # Now we perform the exponentiation.
         # We do not want to modify our own objects as that goes against the
         # the main idea of operator operations.
         result = copy.deepcopy(self)
@@ -583,6 +618,16 @@ class LezargusContainerArithmetic:
                 exponent_uncertainty=operand_uncertainty,
             )
         )
+        # We propagate the units; however, by general practice, the exponent
+        # should not have a unit.
+        if operand_data_unit != no_unit:
+            logging.error(
+                error_type=logging.ArithmeticalError,
+                message=(
+                    "The exponent should be unitless, it has units:"
+                    f" {operand_data_unit}"
+                ),
+            )
         # All done.
         return result
 

@@ -127,10 +127,10 @@ def custom_rectangular_filter(
     ----------
     lower_limit : float
         The lower limit of the rectangular filter. This value is typically
-        a wavelength.
+        a wavelength, in meters.
     upper_limit : float
         The upper limit of the rectangular filter. This value is typically
-        a wavelength.
+        a wavelength, in meters.
 
     Returns
     -------
@@ -154,7 +154,7 @@ def custom_rectangular_filter(
         wavelength=buffer_filter_wave,
         data=buffer_filter_trans,
         uncertainty=None,
-        wavelength_unit="um",
+        wavelength_unit="m",
         data_unit="",
         header={"LZO_NAME": "Custom_rect_photon"},
     )
