@@ -32,9 +32,9 @@ _LEZARGUS_HEADER_KEYWORDS_DICTIONARY = {
     "LZO_NAME": (None, "LZ: Object name."),
     "LZOPK__X": (None, "LZ: PSF peak X index."),
     "LZOPK__Y": (None, "LZ: PSF peak Y index."),
-    "LZOPK_RA": (None, "LZ: PSF peak RA value, degrees."),
-    "LZOPKDEC": (None, "LZ: PSF peak DEC value, degrees."),
-    "LZO_ROTA": (None, "LZ: Rotation angle, degrees."),
+    "LZOPK_RA": (None, "LZ: PSF peak RA value, deg."),
+    "LZOPKDEC": (None, "LZ: PSF peak DEC value, deg."),
+    "LZO_ROTA": (None, "LZ: Rotation angle, deg."),
     "LZO_AIRM": (None, "LZ: Airmass."),
     # Synthetic photometric magnitudes derived from the spectra. This is a
     # helpful place to put photometry measurements.
@@ -59,6 +59,7 @@ _LEZARGUS_HEADER_KEYWORDS_DICTIONARY = {
     # Units on the data.
     "LZDWUNIT": (None, "LZ: The wavelength unit."),
     "LZDFUNIT": (None, "LZ: The flux/data unit."),
+    "LZDUUNIT": (None, "LZ: The uncertainty unit, same as data."),
     "LZDUUNIT": (None, "LZ: The uncertainty unit, same as data."),
     # The world coordinate system entries.
     "LZWBEGIN": (False, "LZ: Begin WCS; True if present."),

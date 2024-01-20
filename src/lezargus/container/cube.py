@@ -6,6 +6,7 @@ spatial and spectral information.
 
 import numpy as np
 
+import lezargus
 from lezargus.container import LezargusContainerArithmetic
 from lezargus.library import hint
 from lezargus.library import logging
@@ -174,3 +175,121 @@ class LezargusCube(LezargusContainerArithmetic):
         self._write_fits_file(filename=filename, overwrite=overwrite)
         # Any post-processing is done here.
         # All done.
+
+    def convolve_spectra(self: hint.Self, kernel: hint.ndarray) -> hint.Self:
+        """Convolve the cube by a spectral kernel convolving spectra slices.
+
+        Convolving a spectral cube can either be done one of two ways; 
+        convolving by image slices or convolving by spectral slices. We here
+        convolve by spectral slices.
+
+        Parameters
+        ----------
+        kernel : ndarray
+            The spectral kernel which we are using to convolve.
+
+        Returns
+        -------
+        convolved_cube : ndarray
+            A near copy of the data cube after convolution.
+        """
+        # Using this kernel, we convolve the cube. We assume that the
+        # uncertainties add in quadrature.
+        convolved_data = (
+            lezargus.library.convolution.convolve_3d_array_by_1d_kernel(
+                array=self.data,
+                kernel=kernel,
+            )
+        )
+        convolved_uncertainty = np.sqrt(
+            lezargus.library.convolution.convolve_3d_array_by_1d_kernel(
+                self.uncertainty**2,
+                kernel=kernel,
+            ),
+        )
+
+        # We also propagate the convolution of the mask and the flags where
+        # needed.
+        logging.error(
+            error_type=logging.ToDoError,
+            message=(
+                "Propagation of mask and flags via convolution is not done."
+            ),
+        )
+        convolved_mask = self.mask
+        convolved_flags = self.flags
+
+        # From the above information, we construct the new spectra.
+        cube_class = type(self)
+        convolved_cube = cube_class(
+            wavelength=self.wavelength,
+            data=convolved_data,
+            uncertainty=convolved_uncertainty,
+            wavelength_unit=self.wavelength_unit,
+            data_unit=self.data_unit,
+            mask=convolved_mask,
+            flags=convolved_flags,
+            header=self.header,
+        )
+
+        # All done.
+        return convolved_cube
+
+    def convolve_image(self: hint.Self, kernel: hint.ndarray) -> hint.Self:
+        """Convolve the cube by an image kernel convolving image slices.
+
+        Convolving a spectral cube can either be done one of two ways; 
+        convolving by image slices or convolving by spectral slices. We here
+        convolve by image slices.
+
+        Parameters
+        ----------
+        kernel : ndarray
+            The image kernel which we are using to convolve.
+
+        Returns
+        -------
+        convolved_cube : ndarray
+            A near copy of the data cube after convolution.
+        """
+        # Using this kernel, we convolve the cube. We assume that the
+        # uncertainties add in quadrature.
+        convolved_data = (
+            lezargus.library.convolution.convolve_3d_array_by_2d_kernel(
+                array=self.data,
+                kernel=kernel,
+            )
+        )
+        convolved_uncertainty = np.sqrt(
+            lezargus.library.convolution.convolve_3d_array_by_2d_kernel(
+                self.uncertainty**2,
+                kernel=kernel,
+            ),
+        )
+
+        # We also propagate the convolution of the mask and the flags where
+        # needed.
+        logging.error(
+            error_type=logging.ToDoError,
+            message=(
+                "Propagation of mask and flags via convolution is not done."
+            ),
+        )
+        convolved_mask = self.mask
+        convolved_flags = self.flags
+
+        # From the above information, we construct the new spectra.
+        cube_class = type(self)
+        convolved_cube = cube_class(
+            wavelength=self.wavelength,
+            data=convolved_data,
+            uncertainty=convolved_uncertainty,
+            wavelength_unit=self.wavelength_unit,
+            data_unit=self.data_unit,
+            mask=convolved_mask,
+            flags=convolved_flags,
+            header=self.header,
+        )
+
+        # All done.
+        return convolved_cube

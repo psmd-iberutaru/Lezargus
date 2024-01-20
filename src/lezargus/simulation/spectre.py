@@ -306,7 +306,7 @@ class SimulatorSpectre:
         This function is used to provide a custom cube class to use to
         define the astrophysical object field. If it should be derived instead
         from a point-source spectra, then please use
-        :py:meth:`generate_astrophysical_object_cube` instead. The data is
+        :py:meth:`generate_astrophysical_object_cube` instead. The results are
         stored in this class internally as
         :py:attr:`astrophysical_object_cube`.
 
@@ -504,9 +504,11 @@ class SimulatorSpectre:
 
         The astrophysical object cube is required to use this function,
         see :py:meth:`create_astrophysical_object_cube` or
-        :py:meth:`custom_astrophysical_object_cube` to create it.
+        :py:meth:`custom_astrophysical_object_cube` to create it. The results 
+        are stored in this class internally as
+        :py:attr:`astrophysical_object_cube_atm_trn`.
 
-        Moreover, consider using :py:meth:`prepare_atmospheric_transmission`
+        Moreover, consider using :py:meth:`prepare_spectra`
         to properly match the resolving power or resolution of the simulation
         spectra and the transmission spectra.
 
@@ -527,8 +529,7 @@ class SimulatorSpectre:
             logging.error(
                 error_type=logging.WrongOrderError,
                 message=(
-                    "There is no astrophysical object spectra to generate the"
-                    " cube from, please create or provide one."
+                    "There is no astrophysical object cube to apply the atmospheric transmission to."
                 ),
             )
 
@@ -587,89 +588,186 @@ class SimulatorSpectre:
 
     def apply_atmospheric_radiance(
         self: hint.Self,
-        transmission_spectra: hint.LezargusSpectra,
+        radiance_spectra: hint.LezargusSpectra,
     ) -> hint.LezargusCube:
-        """Apply the atmospheric transmission to the object.
+        """Apply atmospheric radiance spectra to the object.
 
-        The astrophysical object cube is required to use this function,
-        see :py:meth:`create_astrophysical_object_cube` or
-        :py:meth:`custom_astrophysical_object_cube` to create it.
+        The astrophysical object cube with transmission is required to use 
+        this function, see :py:meth:`apply_atmospheric_transmission`. The 
+        results are stored in this class internally as
+        :py:attr:`astrophysical_object_cube_atm_rad`.
 
-        Moreover, consider using :py:meth:`prepare_atmospheric_transmission`
+        Moreover, consider using :py:meth:`prepare_spectra`
         to properly match the resolving power or resolution of the simulation
-        spectra and the transmission spectra.
+        spectra and the radiance spectra.
 
         Parameters
         ----------
-        transmission_spectra : LezargusSpectra
-            The atmospheric transmission spectra. The wavelength unit of
+        radiance_spectra : LezargusSpectra
+            The atmospheric radiance spectra. The wavelength unit of
             this spectra should be meters.
 
         Returns
         -------
         cube : LezargusCube
-            The cube of the object after atmospheric transmission has been
-            applied.
+            The cube of the object after atmospheric radiance has been added.
         """
         # We first need to make sure there is the object cube for us to use.
-        if self.astrophysical_object_cube is None:
+        if self.astrophysical_object_cube_atm_trn is None:
             logging.error(
                 error_type=logging.WrongOrderError,
                 message=(
-                    "There is no astrophysical object spectra to generate the"
-                    " cube from, please create or provide one."
+                    "There is no astrophysical object cube with atmospheric transmission to apply the atmospheric radiance to."
                 ),
             )
 
         # We also need to make sure the transmission spectra is a
         # LezargusSpectra.
         if not isinstance(
-            transmission_spectra,
+            radiance_spectra,
             lezargus.container.LezargusSpectra,
         ):
             logging.error(
                 error_type=logging.InputError,
                 message=(
-                    "The atmospheric transmission spectra has type"
-                    f" {type(transmission_spectra)}, not the expected"
-                    " LezargusSpectra."
+                    f"The atmospheric radiance spectra has type {type(radiance_spectra)}, not the expected LezargusSpectra."
                 ),
             )
 
         # We need to align the transmission spectra to the Simulators
         # wavelength base.
-        trans_wave = self.astrophysical_object_cube.wavelength
-        trans_data, trans_uncert, trans_mask, trans_flags = (
-            transmission_spectra.interpolate(
-                wavelength=trans_wave,
+        rad_wave = self.astrophysical_object_cube_atm_trn.wavelength
+        rad_data, rad_uncert, rad_mask, rad_flags = (
+            radiance_spectra.interpolate(
+                wavelength=rad_wave,
                 skip_flags=True,
                 skip_mask=True,
             )
         )
         # It is convenient to reconstruct a spectra for it.
-        aligned_transmission_spectra = lezargus.container.LezargusSpectra(
-            wavelength=trans_wave,
-            data=trans_data,
-            uncertainty=trans_uncert,
-            wavelength_unit=transmission_spectra.wavelength_unit,
-            data_unit=transmission_spectra.data_unit,
-            mask=trans_mask,
-            flags=trans_flags,
-            header=transmission_spectra.header,
+        aligned_radiance_spectra = lezargus.container.LezargusSpectra(
+            wavelength=rad_wave,
+            data=rad_data,
+            uncertainty=rad_uncert,
+            wavelength_unit=radiance_spectra.wavelength_unit,
+            data_unit=radiance_spectra.data_unit,
+            mask=rad_mask,
+            flags=rad_flags,
+            header=radiance_spectra.header,
         )
 
         # We then pad this spectra out to a cube for us to apply across the
         # board.
-        aligned_transmission_cube = (
+        aligned_radiance_cube = (
             lezargus.container.broadcast.broadcast_spectra_to_cube_uniform(
-                input_spectra=aligned_transmission_spectra,
-                template_cube=self.astrophysical_object_cube,
+                input_spectra=aligned_radiance_spectra,
+                template_cube=self.astrophysical_object_cube_atm_trn,
             )
         )
 
-        # Applying the transmission is simple multiplication.
-        self.astrophysical_object_cube_atm_trn = (
-            self.astrophysical_object_cube * aligned_transmission_cube
+        # Adding the sky radiance.
+        self.astrophysical_object_cube_atm_rad = (
+            self.astrophysical_object_cube + aligned_radiance_cube
         )
         # All done.
-        return self.astrophysical_object_cube_atm_trn
+        return self.astrophysical_object_cube_atm_rad
+
+
+
+    def apply_atmospheric_seeing(self, seeing_kernel:hint.ndarray) -> hint.LezargusCube:
+        """Apply atmospheric seeing effects to the object.
+        
+        This functions simulates atmospheric seeing effects using a convolution
+        kernel. The kernel should emulate the seeing function and should be 
+        provided.
+
+        The astrophysical object cube with radiance is required to use 
+        this function, see :py:meth:`apply_atmospheric_radiance`.
+
+        Parameters
+        ----------
+        seeing_kernel : ndarray
+            The seeing kernel which is used to convolve against the data cube.
+
+        Returns
+        -------
+        cube : LezargusCube
+            The results of the seeing convolution.
+        """
+        # We first need to make sure there is the object cube for us to use.
+        if self.astrophysical_object_cube_atm_rad is None:
+            logging.error(
+                error_type=logging.WrongOrderError,
+                message=(
+                    "There is no astrophysical object cube with atmospheric radiance to apply the atmospheric seeing to."
+                ),
+            )
+
+        # To model the seeing, we just convolve by spatially by the image 
+        # kernel.
+        seeing_cube = self.astrophysical_object_cube_atm_rad.convolve_image(kernel=seeing_kernel)
+        self.astrophysical_object_cube_atm_see = seeing_cube
+        return self.astrophysical_object_cube_atm_see
+
+    def apply_atmospheric_refraction(self, reference_wavelength:float, parallactic_angle:float) -> hint.Self:
+        """Apply atmospheric refraction effects to the object.
+        
+        """
+
+
+"""
+am = 3.0
+zn = airmass_to_zenith(am)
+total_refraction = mk_refr_function(vega_wave, zn)(vega_wave)
+total_pixel_refraction = total_refraction * 206265 / (7.2 / spatial_size)
+
+ang_rad = 1
+
+x_refrac = total_pixel_refraction * np.cos(ang_rad)
+y_refrac = total_pixel_refraction * np.sin(ang_rad)
+
+shifted_vega_cube = np.zeros_like(real_vega_cube)
+
+for index in np.arange(len(real_vega_cube[0, 0, :])):
+    shifted_vega_cube[:, :, index] = (
+        lezargus.library.array.translate_image_array(
+            real_vega_cube[:, :, index], x_refrac[index], y_refrac[index]
+        )
+    )
+
+# Trim the cube.
+trimmed_cube = shifted_vega_cube[
+    buffer // 2 : -buffer // 2, buffer // 2 : -buffer // 2, :
+]
+# Bin the cube.
+binned_cube = lezargus.library.array.bin_cube_array_spatially(
+    cube=trimmed_cube, x_bin=2, y_bin=2 * 2, mode="add"
+)
+# Repeat the cube.
+repeat_cube = np.repeat(binned_cube, 2, axis=1)
+"""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

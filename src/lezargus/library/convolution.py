@@ -210,7 +210,7 @@ def convolve_2d_array_by_2d_kernel(
     return convolved_array
 
 
-def convolve_3d_by_1d_kernel(
+def convolve_3d_array_by_1d_kernel(
     array: hint.ndarray,
     kernel: hint.ndarray,
 ) -> hint.ndarray:
@@ -273,7 +273,7 @@ def convolve_3d_by_1d_kernel(
     return convolved_array
 
 
-def convolve_3d_by_2d_kernel(
+def convolve_3d_array_by_2d_kernel(
     array: hint.ndarray,
     kernel: hint.ndarray,
 ) -> hint.ndarray:

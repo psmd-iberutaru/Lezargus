@@ -38,5 +38,6 @@ using Astropy using the list above as common equivalencies.
 
 Of course, we will provide all of the needed conversions without the need for 
 heavy user interactions. Usually these conversions are input via a GUI or 
-configurations.
+configurations. FITS header information also is considered to be 
+post-conversion and so is more easily accessible to other users.
 
