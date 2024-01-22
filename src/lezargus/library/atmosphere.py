@@ -83,18 +83,22 @@ def index_of_refraction_ideal_air(wavelength: hint.ndarray) -> hint.ndarray:
     ior_ideal_air : ndarray
         The ideal air index of refraction.
     """
-    # The formal equation accepts only micrometers, so we need to convert.
-    wavelength_um = wavelength * 1000000
-    # The wave number is actually used more in these equations.
+    # The formal equation accepts only inverse micrometers, so we need to
+    # convert. The wave number is actually used more in these equations.
+    wavelength_um = lezargus.library.conversion.convert_units(
+        value=wavelength,
+        value_unit="m",
+        result_unit="um",
+    )
     wavenumber = 1 / wavelength_um
     # Calculating the index of refraction, left hand then right hand side of
     # the equation.
-    ior_ideal_air = (
+    ior_ideal_air_num = (
         8342.54
         + 2406147 / (130 - wavenumber**2)
         + 15998 / (38.9 - wavenumber**2)
     )
-    ior_ideal_air = ior_ideal_air / 1e8 + 1
+    ior_ideal_air = ior_ideal_air_num / 1e8 + 1
     return ior_ideal_air
 
 
@@ -181,14 +185,21 @@ def index_of_refraction_moist_air(
     ior_moist_air : ndarray
         The moist air index of refraction.
     """
-    # The wave number is actually used more in these equations.
-    wavenumber = 1 / wavelength
     # We need the dry air case first.
     ior_dry_air = index_of_refraction_dry_air(
         wavelength=wavelength,
         pressure=pressure,
         temperature=temperature,
     )
+
+    # The wave number is actually used more in these equations. However, the
+    # wave number must be in inverse micrometers.
+    wavelength_um = lezargus.library.conversion.convert_units(
+        value=wavelength,
+        value_unit="m",
+        result_unit="um",
+    )
+    wavenumber = 1 / wavelength_um
 
     # Calculating the water vapor factor.
     wv_factor = -1 * water_pressure * (3.7345 - 0.0401 * wavenumber**2) * 1e-10
@@ -229,7 +240,8 @@ def absolute_atmospheric_refraction_function(
     -------
     abs_atm_refr_func : Callable
         The absolute atmospheric refraction function, as an actual callable
-        function.
+        function. The input is wavelength in meters and output is refraction in
+        radians.
     """
     # We need to determine the index of refraction for moist air.
     ior_moist_air = index_of_refraction_moist_air(
@@ -288,7 +300,8 @@ def relative_atmospheric_refraction_function(
     -------
     rel_atm_refr_func : Callable
         The absolute atmospheric refraction function, as an actual callable
-        function.
+        function. The input is wavelength in meters and output is refraction in
+        radians.
     """
     # We need the absolute refraction function first.
     abs_atm_refr_func = absolute_atmospheric_refraction_function(
@@ -308,12 +321,12 @@ def relative_atmospheric_refraction_function(
         Parameters
         ----------
         wave : ndarray
-            The input wavelength for computation.
+            The input wavelength for computation, in meters.
 
         Returns
         -------
         rel_atm_refr : ndarray
-            The relative atmospheric refraction.
+            The relative atmospheric refraction, in radians.
         """
         rel_atm_refr = abs_atm_refr_func(wave) - ref_abs_refr
         return rel_atm_refr

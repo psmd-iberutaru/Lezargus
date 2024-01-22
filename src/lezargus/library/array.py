@@ -134,7 +134,7 @@ def translate_image_array(
 ) -> hint.ndarray:
     """Translate a 2D image array array.
 
-    This function is a convient wrapper around scipy's function. The array is
+    This function is a convenient wrapper around scipy's function. The array is
     padded with NaNs so any data outside the original array after translation
     is null.
 

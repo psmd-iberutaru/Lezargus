@@ -13,7 +13,57 @@ from lezargus.library import hint
 from lezargus.library import logging
 
 
-def parse_unit_to_astropy_unit(unit_string: str) -> hint.Unit:
+def convert_units(
+    value: float | hint.ndarray,
+    value_unit: hint.Unit | str,
+    result_unit: hint.Unit | str,
+) -> float | hint.ndarray:
+    """Convert a value from one unit to another unit.
+
+    We convert values using Astropy, however, we only convert raw numbers and
+    so we do not handle Quantity variables. The unit arguments are parsed
+    with :py:func:`parse_astropy_unit` if it is not a unit. This function is
+    vectorized properly, of course, as it is generally just multiplication.
+
+    Parameters
+    ----------
+    value : float or ndarray
+        The value to convert.
+    value_unit : Unit or str
+        The unit of the value we are converting. Parsing is attempted if it
+        is not an Astropy Unit.
+    result_unit : Unit or str
+        The unit that we are converting to. Parsing is attempted if it
+        is not an Astropy Unit.
+
+    Returns
+    -------
+    result : float or ndarray
+        The result after the unit conversion.
+    """
+    # We need to check if the unit is an Astropy unit or needs parsing.
+    if not isinstance(value_unit, astropy.units.UnitBase):
+        value_unit = parse_astropy_unit(unit_string=value_unit)
+    if not isinstance(result_unit, astropy.units.UnitBase):
+        result_unit = parse_astropy_unit(unit_string=result_unit)
+
+    # Determine the conversion factor and convert between the two.
+    try:
+        conversion_factor = value_unit.to(result_unit)
+    except astropy.units.UnitConversionError as error:
+        # The unit failed to convert. Astropy's message is actually pretty
+        # informative so we bootstrap it.
+        astropy_error_message = str(error)
+        logging.critical(
+            critical_type=logging.ArithmeticalError,
+            message=f"Unit conversion failed: {astropy_error_message}",
+        )
+    # Applying the conversion.
+    result = value * conversion_factor
+    return result
+
+
+def parse_astropy_unit(unit_string: str) -> hint.Unit:
     """Parse a unit string to an Astropy Unit class.
 
     Although for most cases, it is easier to use the Unit instantiation class

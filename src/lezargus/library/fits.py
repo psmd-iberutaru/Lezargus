@@ -26,8 +26,6 @@ _LEZARGUS_HEADER_KEYWORDS_DICTIONARY = {
     # Instrument information for whatever data Lezargus is reducing.
     "LZI_INST": (None, "LZ: Specified instrument."),
     "LZIFNAME": (None, "LZ: Initial pathless filename."),
-    "LZI_PXPS": (None, "LZ: Pixel plate scale, deg/pix."),
-    "LZI_SLPS": (None, "LZ: Slice plate scale, deg/slice."),
     # Information about the object itself.
     "LZO_NAME": (None, "LZ: Object name."),
     "LZOPK__X": (None, "LZ: PSF peak X index."),
@@ -56,11 +54,12 @@ _LEZARGUS_HEADER_KEYWORDS_DICTIONARY = {
     "LZPU_2_H": (None, "LZ: 2MASS H uncertainty."),
     "LZPM_2Ks": (None, "LZ: 2MASS Ks magnitude."),
     "LZPU_2Ks": (None, "LZ: 2MASS Ks uncertainty."),
-    # Units on the data.
+    # Units and scales on the data.
     "LZDWUNIT": (None, "LZ: The wavelength unit."),
     "LZDFUNIT": (None, "LZ: The flux/data unit."),
     "LZDUUNIT": (None, "LZ: The uncertainty unit, same as data."),
-    "LZDUUNIT": (None, "LZ: The uncertainty unit, same as data."),
+    "LZDPIXPS": (None, "LZ: Pixel plate scale, arcsec/pixel."),
+    "LZDSLIPS": (None, "LZ: Slice plate scale, arcsec/slice."),
     # The world coordinate system entries.
     "LZWBEGIN": (False, "LZ: Begin WCS; True if present."),
     "LZW__END": (None, "LZ: End WCS entries."),
@@ -113,6 +112,8 @@ def read_lezargus_fits_file(
     hint.ndarray,
     hint.Unit,
     hint.Unit,
+    float,
+    float,
     hint.ndarray,
     hint.ndarray,
 ]:
@@ -146,6 +147,10 @@ def read_lezargus_fits_file(
         The unit of the wavelength array.
     data_unit : Unit
         The unit of the data.
+    pixel_scale : float
+        The plate pixel scale of the FITS file, in SI units.
+    slice_scale : float
+        The slice pixel scale of the FITS file, in SI units.
     mask : ndarray
         The mask of the data.
     flags : ndarray
@@ -180,10 +185,8 @@ def read_lezargus_fits_file(
         wavelength_unit_str = header.get("LZDWUNIT", None)
         if wavelength_unit_str is None:
             wavelength_unit_str = header.get("CUNIT3", None)
-        wavelength_unit = (
-            lezargus.library.conversion.parse_unit_to_astropy_unit(
-                unit_string=wavelength_unit_str,
-            )
+        wavelength_unit = lezargus.library.conversion.parse_astropy_unit(
+            unit_string=wavelength_unit_str,
         )
         # The data is stored in the primary extension. The Lezargus axis
         # convention and some visualization conventions have the axis reversed;
@@ -194,9 +197,26 @@ def read_lezargus_fits_file(
         data_unit_str = header.get("LZDFUNIT", None)
         if data_unit_str is None:
             data_unit_str = header.get("BUNIT", None)
-        data_unit = lezargus.library.conversion.parse_unit_to_astropy_unit(
+        data_unit = lezargus.library.conversion.parse_astropy_unit(
             unit_string=data_unit_str,
         )
+        # We also attempt to get any stored spatial information. Note,
+        # the headers and the input specify different scales so we need to
+        # convert. Header units are arcsec per pixel/slice, we want radians
+        # per pixel/slice.
+        pixel_scale_raw = header.get("LZDPIXPS", None)
+        pixel_scale = lezargus.library.conversion.convert_units(
+            value=pixel_scale_raw,
+            value_unit="arcsec pix^-1",
+            result_unit="rad pix^-1",
+        )
+        slice_scale_raw = header.get("LZDSLIPS", None)
+        slice_scale = lezargus.library.conversion.convert_units(
+            value=slice_scale_raw,
+            value_unit="arcsec pix^-1",
+            result_unit="rad pix^-1",
+        )
+
         # The uncertainty is stored in its own extension, We transform it like
         # the data itself.
         uncertainty = hdul[header["LZ_UIMGN"]].data.T
@@ -215,6 +235,8 @@ def read_lezargus_fits_file(
         uncertainty,
         wavelength_unit,
         data_unit,
+        pixel_scale,
+        slice_scale,
         mask,
         flags,
     )
@@ -228,7 +250,8 @@ def write_lezargus_fits_file(
     uncertainty: hint.ndarray,
     wavelength_unit: hint.Unit,
     data_unit: hint.Unit,
-    uncertainty_unit: hint.Unit,
+    pixel_scale: float,
+    slice_scale: float,
     mask: hint.ndarray,
     flags: hint.ndarray,
     overwrite: bool = False,
@@ -260,8 +283,10 @@ def write_lezargus_fits_file(
         The unit of the wavelength array.
     data_unit : Unit
         The unit of the data.
-    uncertainty_unit : Unit
-        The unit of the uncertainty of the data.
+    pixel_scale : float
+        The plate pixel scale of the FITS file, in SI units.
+    slice_scale : float
+        The slice pixel scale of the FITS file, in SI units.
     mask : ndarray
         The mask of the data.
     flags : ndarray
@@ -293,6 +318,19 @@ def write_lezargus_fits_file(
                 ),
             )
 
+    # We need to convert the pixel/slice scale from the input radian per unit
+    # to the FITS header degree per unit.
+    pixel_scale_arcsec = lezargus.library.conversion.convert_units(
+        value=pixel_scale,
+        value_unit="rad pix^-1",
+        result_unit="arcsec pix^-1",
+    )
+    slice_scale_arcsec = lezargus.library.conversion.convert_units(
+        value=slice_scale,
+        value_unit="rad pix^-1",
+        result_unit="arcsec pix^-1",
+    )
+
     # We first compile the header. The unit information is kept in the header
     # as well. However, it is best to work on a copy.
     header = create_fits_header(input_dict=header.copy())
@@ -301,7 +339,9 @@ def write_lezargus_fits_file(
         entries={
             "LZDWUNIT": str(wavelength_unit),
             "LZDFUNIT": str(data_unit),
-            "LZDUUNIT": str(uncertainty_unit),
+            "LZDUUNIT": str(data_unit),
+            "LZDPIXPS": pixel_scale_arcsec,
+            "LZDSLIPS": slice_scale_arcsec,
         },
     )
     # We purge the old header of all Lezargus keys as we will add them back

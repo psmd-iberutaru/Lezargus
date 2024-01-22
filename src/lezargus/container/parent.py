@@ -44,6 +44,14 @@ class LezargusContainerArithmetic:
     uncertainty_unit : Astropy Unit
         The unit of the uncertainty array. This unit is the same as the data
         unit.
+    pixel_scale : float
+        The pixel plate scale of the image, in radians per pixel. Typically,
+        this is the scale in the E-W or "x" direction. See
+        :py:attr:`slice_scale` for the N-S or "y" direction.
+    slice_scale : float
+        The pixel slice scale of the image, in radians per slice. Typically,
+        this is the scale in the N-S or "y" direction. See
+        :py:attr:`pixel_scale` for the E-W or "x" direction.
     mask : ndarray
         A mask of the data, used to remove problematic areas. Where True,
         the values of the data is considered masked.
@@ -60,19 +68,22 @@ class LezargusContainerArithmetic:
         uncertainty: hint.ndarray,
         wavelength_unit: hint.Unit | None = None,
         data_unit: hint.Unit | None = None,
+        pixel_scale: float | None = None,
+        slice_scale: float | None = None,
         mask: hint.ndarray | None = None,
         flags: hint.ndarray | None = None,
         header: hint.Header | None = None,
     ) -> None:
-        """Construct a wavelength-aware NDDataArray for arithmetic.
+        """Construct a wavelength-aware Lezargus data container.
 
         Parameters
         ----------
         wavelength : ndarray
-            The wavelength of the spectra. The unit of wavelength is typically
-            in meters; but, check the :py:attr:`wavelength_unit` value.
+            The wavelength axis of the spectral component of the data, if any.
+            The unit of wavelength is typically in meters; but, check the
+            :py:attr:`wavelength_unit` value.
         data : ndarray
-            The data of the spectra cube. The unit of the flux is typically
+            The data stored in this container. The unit of the flux is typically
             in W m^-2 m^-1; but, check the :py:attr:`data_unit` value.
         uncertainty : ndarray
             The uncertainty in the data of the spectra. The unit of the
@@ -82,6 +93,14 @@ class LezargusContainerArithmetic:
             The unit of the wavelength array. If None, we assume unit-less.
         data_unit : Astropy Unit
             The unit of the data array. If None, we assume unit-less.
+        pixel_scale : float, default = None
+            The E-W, "x" dimension, pixel plate scale of the spatial component,
+            if any. Must be in radians per pixel. Scale is None if none
+            is provided.
+        slice_scale : float, default = None
+            The N-S, "y" dimension, pixel slice scale of the spatial component,
+            if any. Must be in radians per pixel. Scale is None if none
+            is provided.
         mask : ndarray, default = None
             A mask of the data, used to remove problematic areas. Where True,
             the values of the data is considered masked. If None, we assume
@@ -170,15 +189,17 @@ class LezargusContainerArithmetic:
         self.data = np.asarray(data)
         self.uncertainty = np.asarray(uncertainty)
         # Parsing the units.
-        self.wavelength_unit = (
-            lezargus.library.conversion.parse_unit_to_astropy_unit(
-                unit_string=wavelength_unit,
-            )
+        self.wavelength_unit = lezargus.library.conversion.parse_astropy_unit(
+            unit_string=wavelength_unit,
         )
-        self.data_unit = lezargus.library.conversion.parse_unit_to_astropy_unit(
+        self.data_unit = lezargus.library.conversion.parse_astropy_unit(
             unit_string=data_unit,
         )
-        self.uncertainty_unit = self.data_unit
+
+        # The pixel plate and slice scale.
+        self.pixel_scale = pixel_scale
+        self.slice_scale = slice_scale
+
         # Metadata.
         self.mask = (
             np.full_like(self.data, False) if mask is None else np.asarray(mask)
@@ -192,6 +213,21 @@ class LezargusContainerArithmetic:
         header = {} if header is None else header
         self.header = astropy.io.fits.Header(header)
         # All done.
+
+    @property
+    def uncertainty_unit(self: hint.Self) -> hint.Unit:
+        """Return the uncertainty unit, i.e. the data unit.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        uncertainty_unit : Unit
+            The uncertainty unit.
+        """
+        return self.data_unit
 
     def __justify_arithmetic_operation(
         self: hint.Self,
@@ -234,7 +270,7 @@ class LezargusContainerArithmetic:
             return justification
 
         # If the Lezargus data types are the same.
-        if self.__class__ == operand.__class__:
+        if isinstance(operand, type(self)):
             # All good.
             operand_data = operand.data
         else:
@@ -242,7 +278,7 @@ class LezargusContainerArithmetic:
                 critical_type=logging.ArithmeticalError,
                 message=(
                     f"Arithmetics with Lezargus type {type(self)} and operand"
-                    f" type {type(operand)} is not compatible."
+                    f" type {type(operand)} are not compatible."
                 ),
             )
 
@@ -483,10 +519,8 @@ class LezargusContainerArithmetic:
             # We assume a single value does not have any uncertainty that
             # we really care about.
             operand_data = operand
-            operand_data_unit = (
-                lezargus.library.conversion.parse_unit_to_astropy_unit(
-                    unit_string="",
-                )
+            operand_data_unit = lezargus.library.conversion.parse_astropy_unit(
+                unit_string="",
             )
             operand_uncertainty = np.zeros_like(self.uncertainty)
 
@@ -542,10 +576,8 @@ class LezargusContainerArithmetic:
             # We assume a single value does not have any uncertainty that
             # we really care about.
             operand_data = operand
-            operand_data_unit = (
-                lezargus.library.conversion.parse_unit_to_astropy_unit(
-                    unit_string="",
-                )
+            operand_data_unit = lezargus.library.conversion.parse_astropy_unit(
+                unit_string="",
             )
             operand_uncertainty = np.zeros_like(self.uncertainty)
 
@@ -592,7 +624,7 @@ class LezargusContainerArithmetic:
 
         # If the operand is a single value, then we need to take that into
         # account.
-        no_unit = lezargus.library.conversion.parse_unit_to_astropy_unit(
+        no_unit = lezargus.library.conversion.parse_astropy_unit(
             unit_string="",
         )
         if isinstance(operand, LezargusContainerArithmetic):
@@ -660,6 +692,8 @@ class LezargusContainerArithmetic:
             uncertainty,
             wavelength_unit,
             data_unit,
+            pixel_scale,
+            slice_scale,
             mask,
             flags,
         ) = lezargus.library.fits.read_lezargus_fits_file(filename=filename)
@@ -683,6 +717,8 @@ class LezargusContainerArithmetic:
             uncertainty=uncertainty,
             wavelength_unit=wavelength_unit,
             data_unit=data_unit,
+            pixel_scale=pixel_scale,
+            slice_scale=slice_scale,
             mask=mask,
             flags=flags,
         )
@@ -724,7 +760,8 @@ class LezargusContainerArithmetic:
             uncertainty=self.uncertainty,
             wavelength_unit=self.wavelength_unit,
             data_unit=self.data_unit,
-            uncertainty_unit=self.uncertainty_unit,
+            pixel_scale=self.pixel_scale,
+            slice_scale=self.slice_scale,
             mask=self.mask,
             flags=self.flags,
             overwrite=overwrite,

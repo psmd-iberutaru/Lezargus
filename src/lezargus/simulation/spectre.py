@@ -42,8 +42,8 @@ class SimulatorSpectre:
         convolution; after transmission and radiance.
     astrophysical_object_cube_atm_ref : LezargusCube
         The astrophysical object after applying the atmospheric refraction,
-        after transmission, radiance, and seeing. This is actually just an
-        alias for :py:attr:`astronomical_object_cube`.
+        after transmission, radiance, and seeing. This is actually just a
+        read-only alias for :py:attr:`astronomical_object_cube`.
     astronomical_object_cube : LezargusCube
         The astronomical object, obtained from applying atmospheric conditions
         to the astrophysical object. Noted as "astronomical" as it is
@@ -55,7 +55,7 @@ class SimulatorSpectre:
     astrophysical_object_cube_atm_trn = None
     astrophysical_object_cube_atm_rad = None
     astrophysical_object_cube_atm_see = None
-    astrophysical_object_cube_atm_ref = None
+    # astrophysical_object_cube_atm_ref; present to note its existence.
     astronomical_object_cube = None
 
     def __init__(self: "SimulatorSpectre") -> None:
@@ -132,6 +132,8 @@ class SimulatorSpectre:
             uncertainty=None,
             wavelength_unit="m",
             data_unit="W m^-2 m^-1",
+            pixel_scale=None,
+            slice_scale=None,
             mask=None,
             flags=None,
             header=None,
@@ -173,6 +175,8 @@ class SimulatorSpectre:
             uncertainty=None,
             wavelength_unit="m",
             data_unit="ph s^-1 m^-2 m^-1",
+            pixel_scale=None,
+            slice_scale=None,
             mask=None,
             flags=None,
             header=header,
@@ -273,12 +277,36 @@ class SimulatorSpectre:
             self.astrophysical_object_spectra.wavelength.size,
         )
         dummy_data_cube = np.empty(shape=dummy_data_shape)
+        # We also use the configured size to determine both the pixel and
+        # slice scales. The configuration lengths are in arcseconds so
+        # conversion is needed.
+        e_w_length = lezargus.library.conversion.convert_units(
+            value=lezargus.library.config.SPECTRE_SIMULATION_FOV_E_W_LENGTH,
+            value_unit="arcsec",
+            result_unit="rad",
+        )
+        pixel_scale = (
+            e_w_length
+            / lezargus.library.config.SPECTRE_SIMULATION_FOV_E_W_COUNT
+        )
+        n_s_length = lezargus.library.conversion.convert_units(
+            value=lezargus.library.config.SPECTRE_SIMULATION_FOV_N_S_LENGTH,
+            value_unit="arcsec",
+            result_unit="rad",
+        )
+        slice_scale = (
+            n_s_length
+            / lezargus.library.config.SPECTRE_SIMULATION_FOV_N_S_COUNT
+        )
+
         template_cube = lezargus.container.LezargusCube(
             wavelength=self.astrophysical_object_spectra.wavelength,
             data=dummy_data_cube,
             uncertainty=dummy_data_cube,
             wavelength_unit=self.astrophysical_object_spectra.wavelength_unit,
             data_unit=self.astrophysical_object_spectra.data_unit,
+            pixel_scale=pixel_scale,
+            slice_scale=slice_scale,
             mask=None,
             flags=None,
             header=None,
@@ -341,9 +369,8 @@ class SimulatorSpectre:
         self.astrophysical_object_cube = custom_cube
         return self.astrophysical_object_cube
 
-    @classmethod
     def prepare_spectra(
-        cls: hint.Type[hint.Self],
+        self: hint.Self,
         spectra: hint.LezargusSpectra,
         *args: object,
         skip_convolve: bool = False,
@@ -409,7 +436,7 @@ class SimulatorSpectre:
         if skip_convolve:
             convolved_spectra = spectra
         else:
-            convolved_spectra = cls._prepare_convolve_spectra(
+            convolved_spectra = self._prepare_spectra_convolve(
                 spectra=spectra,
                 **kwargs,
             )
@@ -418,9 +445,8 @@ class SimulatorSpectre:
         finished_spectra = convolved_spectra
         return finished_spectra
 
-    @classmethod
-    def _prepare_convolve_spectra(
-        cls: hint.Type[hint.Self],
+    def _prepare_spectra_convolve(
+        self: hint.Self,
         spectra: hint.LezargusSpectra,
         input_resolution: float | None = None,
         input_resolving: float | None = None,
@@ -504,7 +530,7 @@ class SimulatorSpectre:
 
         The astrophysical object cube is required to use this function,
         see :py:meth:`create_astrophysical_object_cube` or
-        :py:meth:`custom_astrophysical_object_cube` to create it. The results 
+        :py:meth:`custom_astrophysical_object_cube` to create it. The results
         are stored in this class internally as
         :py:attr:`astrophysical_object_cube_atm_trn`.
 
@@ -529,7 +555,8 @@ class SimulatorSpectre:
             logging.error(
                 error_type=logging.WrongOrderError,
                 message=(
-                    "There is no astrophysical object cube to apply the atmospheric transmission to."
+                    "There is no astrophysical object cube to apply the"
+                    " atmospheric transmission to."
                 ),
             )
 
@@ -592,8 +619,8 @@ class SimulatorSpectre:
     ) -> hint.LezargusCube:
         """Apply atmospheric radiance spectra to the object.
 
-        The astrophysical object cube with transmission is required to use 
-        this function, see :py:meth:`apply_atmospheric_transmission`. The 
+        The astrophysical object cube with transmission is required to use
+        this function, see :py:meth:`apply_atmospheric_transmission`. The
         results are stored in this class internally as
         :py:attr:`astrophysical_object_cube_atm_rad`.
 
@@ -617,7 +644,8 @@ class SimulatorSpectre:
             logging.error(
                 error_type=logging.WrongOrderError,
                 message=(
-                    "There is no astrophysical object cube with atmospheric transmission to apply the atmospheric radiance to."
+                    "There is no astrophysical object cube with atmospheric"
+                    " transmission to apply the atmospheric radiance to."
                 ),
             )
 
@@ -630,7 +658,9 @@ class SimulatorSpectre:
             logging.error(
                 error_type=logging.InputError,
                 message=(
-                    f"The atmospheric radiance spectra has type {type(radiance_spectra)}, not the expected LezargusSpectra."
+                    "The atmospheric radiance spectra has type"
+                    f" {type(radiance_spectra)}, not the expected"
+                    " LezargusSpectra."
                 ),
             )
 
@@ -672,16 +702,81 @@ class SimulatorSpectre:
         # All done.
         return self.astrophysical_object_cube_atm_rad
 
+    def prepare_atmospheric_seeing_kernel(
+        self: hint.Self,
+        seeing: float,
+    ) -> hint.ndarray:
+        """Create an atmospheric seeing kernel based on the seeing.
 
+        We create an atmospheric seeing kernel provided some seeing value.
+        This function exists to assist in the transition between different
+        more accurate point spread functions or speckle profile as future
+        kernels are implemented.
 
-    def apply_atmospheric_seeing(self, seeing_kernel:hint.ndarray) -> hint.LezargusCube:
+        Currently, the best implemented model we have a simple Gaussian kernel.
+
+        Parameters
+        ----------
+        seeing : float
+            The atmospheric seeing, in radians.
+
+        Returns
+        -------
+        seeing_kernel : ndarray
+            The atmospheric seeing kernel.
+        """
+        # First, we need to convert the seeing from the angle measurement to
+        # pixels, as that is what convolution is built on. We require the
+        # cube to tell us the plate scales.
+        if self.astrophysical_object_cube_atm_rad is None:
+            logging.error(
+                error_type=logging.WrongOrderError,
+                message=(
+                    "There is no astrophysical object cube with atmospheric"
+                    " radiance to derive the pixel and slice scale from."
+                ),
+            )
+
+        # We then convert the seeing into the pixel based dimensions. However,
+        # the pixel plate scale and the slice plate scale might be different.
+        pixel_scale = self.astrophysical_object_cube_atm_rad.pixel_scale
+        slice_scale = self.astrophysical_object_cube_atm_rad.slice_scale
+        seeing_pixel_scale = seeing / pixel_scale
+        seeing_slice_scale = seeing / slice_scale
+
+        # The kernel shape is generally determined by the seeing dimensions,
+        # as opposed to based on the cube image slice size to reduce edge
+        # artifacts. Assuming the seeing scale lengths are similar to a
+        # standard deviation of a Gaussian-approximating kernel.
+        n_sigma = 5
+        kernel_length = np.multiply(
+            [seeing_pixel_scale, seeing_slice_scale],
+            n_sigma,
+        ).max()
+        kernel_shape = (kernel_length, kernel_length)
+
+        # We derive the kernel using the best implemented model we have.
+        seeing_kernel = lezargus.library.convolution.kernel_2d_gaussian(
+            shape=kernel_shape,
+            x_stddev=seeing_pixel_scale,
+            y_stddev=seeing_slice_scale,
+            rotation=0,
+        )
+
+        # All done.
+        return seeing_kernel
+
+    def apply_atmospheric_seeing(
+        self: hint.Self,
+        seeing_kernel: hint.ndarray,
+    ) -> hint.LezargusCube:
         """Apply atmospheric seeing effects to the object.
-        
+
         This functions simulates atmospheric seeing effects using a convolution
-        kernel. The kernel should emulate the seeing function and should be 
+        kernel. The kernel should emulate the seeing function and should be
         provided.
 
-        The astrophysical object cube with radiance is required to use 
+        The astrophysical object cube with radiance is required to use
         this function, see :py:meth:`apply_atmospheric_radiance`.
 
         Parameters
@@ -699,75 +794,157 @@ class SimulatorSpectre:
             logging.error(
                 error_type=logging.WrongOrderError,
                 message=(
-                    "There is no astrophysical object cube with atmospheric radiance to apply the atmospheric seeing to."
+                    "There is no astrophysical object cube with atmospheric"
+                    " radiance to apply the atmospheric seeing to."
                 ),
             )
 
-        # To model the seeing, we just convolve by spatially by the image 
+        # To model the seeing, we just convolve by spatially by the image
         # kernel.
-        seeing_cube = self.astrophysical_object_cube_atm_rad.convolve_image(kernel=seeing_kernel)
+        seeing_cube = self.astrophysical_object_cube_atm_rad.convolve_image(
+            kernel=seeing_kernel,
+        )
         self.astrophysical_object_cube_atm_see = seeing_cube
         return self.astrophysical_object_cube_atm_see
 
-    def apply_atmospheric_refraction(self, reference_wavelength:float, parallactic_angle:float) -> hint.Self:
+    def apply_atmospheric_refraction(
+        self: hint.Self,
+        zenith_angle: float,
+        reference_wavelength: float,
+        parallactic_angle: float,
+    ) -> hint.Self:
         """Apply atmospheric refraction effects to the object.
-        
+
+        We apply the effects of atmospheric refraction as described in
+        :py:func:`relative_atmospheric_refraction_function`. The used
+        atmospheric conditions are specified by the configurations in the
+        configuration file.
+
+        Note that NaNs are introduced into the cube because of the edge of
+        translations.
+
+        Parameters
+        ----------
+        zenith_angle : float
+            The zenith angle of the observation, in radians.
+        reference_wavelength: float
+            The reference wavelength where the relative atmospheric refraction
+            is zero; must be in the same units as the cube's wavelength,
+            typically meters.
+        parallactic_angle : float
+            The parallactic angle of the observation, used to derive the
+            translation vector.
+
+        Returns
+        -------
+        cube : LezargusCube
+            The resulting cube after the effects of atmospheric refraction.
         """
+        # We first need to make sure there is the object cube for us to use.
+        if self.astrophysical_object_cube_atm_see is None:
+            logging.error(
+                error_type=logging.WrongOrderError,
+                message=(
+                    "There is no astrophysical object cube with atmospheric"
+                    " seeing to apply the atmospheric refraction skew."
+                ),
+            )
 
-
-"""
-am = 3.0
-zn = airmass_to_zenith(am)
-total_refraction = mk_refr_function(vega_wave, zn)(vega_wave)
-total_pixel_refraction = total_refraction * 206265 / (7.2 / spatial_size)
-
-ang_rad = 1
-
-x_refrac = total_pixel_refraction * np.cos(ang_rad)
-y_refrac = total_pixel_refraction * np.sin(ang_rad)
-
-shifted_vega_cube = np.zeros_like(real_vega_cube)
-
-for index in np.arange(len(real_vega_cube[0, 0, :])):
-    shifted_vega_cube[:, :, index] = (
-        lezargus.library.array.translate_image_array(
-            real_vega_cube[:, :, index], x_refrac[index], y_refrac[index]
+        # The atmosphere environment, derived from the configuration
+        # parameters.
+        atm_temp = lezargus.library.config.OBSERVATORY_ATMOSPHERE_TEMPERATURE
+        atm_pres = lezargus.library.config.OBSERVATORY_ATMOSPHERE_PRESSURE
+        atm_ph2o = (
+            lezargus.library.config.OBSERVATORY_ATMOSPHERE_PARTIAL_PRESSURE_WATER
         )
-    )
 
-# Trim the cube.
-trimmed_cube = shifted_vega_cube[
-    buffer // 2 : -buffer // 2, buffer // 2 : -buffer // 2, :
-]
-# Bin the cube.
-binned_cube = lezargus.library.array.bin_cube_array_spatially(
-    cube=trimmed_cube, x_bin=2, y_bin=2 * 2, mode="add"
-)
-# Repeat the cube.
-repeat_cube = np.repeat(binned_cube, 2, axis=1)
-"""
+        # We calculate the relative atmospheric refraction.
+        lib_rel_atm_refr_func = (
+            lezargus.library.atmosphere.relative_atmospheric_refraction_function
+        )
+        relative_refraction_function = lib_rel_atm_refr_func(
+            wavelength=self.astrophysical_object_cube_atm_see.wavelength,
+            reference_wavelength=reference_wavelength,
+            zenith_angle=zenith_angle,
+            temperature=atm_temp,
+            pressure=atm_pres,
+            water_pressure=atm_ph2o,
+        )
+        relative_refraction = relative_refraction_function(
+            self.astrophysical_object_cube_atm_see.wavelength,
+        )
 
+        # The atmospheric refraction is the total, we break it into the
+        # two orthogonal directions to properly deal with the parallactic
+        # angle.
+        x_refraction = relative_refraction * np.cos(parallactic_angle)
+        y_refraction = relative_refraction * np.sin(parallactic_angle)
 
+        # We alias out this to make for nicer lines, and for easy access.
+        seeing_cube = self.astrophysical_object_cube_atm_see
+        # We model the refraction by small translations of the image slices.
+        refracted_data = np.zeros_like(seeing_cube.data)
+        refracted_uncertainty = np.zeros_like(seeing_cube.uncertainty)
+        refracted_mask = np.zeros_like(seeing_cube.mask)
+        refracted_flags = np.zeros_like(seeing_cube.flags)
+        for index in np.arange(len(seeing_cube.wavelength)):
+            # Applying the translation on the data.
+            refracted_data[:, :, index] = (
+                lezargus.library.array.translate_image_array(
+                    input_array=seeing_cube.data[:, :, index],
+                    x_shift=x_refraction[index],
+                    y_shift=y_refraction[index],
+                )
+            )
+            refracted_uncertainty[:, :, index] = (
+                lezargus.library.array.translate_image_array(
+                    input_array=seeing_cube.uncertainty[:, :, index],
+                    x_shift=x_refraction[index],
+                    y_shift=y_refraction[index],
+                )
+            )
+            # Applying the translation on the mask and flags. We assume more
+            # integer translations for this, combining the result of both
+            # translations.
+            # Mask translation is not done...
+            # Flag translation is not done...
+            refracted_mask[:, :, index] = seeing_cube.mask[:, :, index]
+            refracted_flags[:, :, index] = seeing_cube.flags[:, :, index]
+        # The handling of the masks and flags need to be done.
+        logging.error(
+            error_type=logging.ToDoError,
+            message=(
+                "Refraction handling of masks and flags need to be handled."
+            ),
+        )
 
+        # We have the translations applied, we can now reassemble the cube.
+        self.astronomical_object_cube = lezargus.container.LezargusCube(
+            wavelength=seeing_cube.wavelength,
+            data=refracted_data,
+            uncertainty=refracted_uncertainty,
+            wavelength_unit=seeing_cube.wavelength_unit,
+            data_unit=seeing_cube.data_unit,
+            pixel_scale=seeing_cube.pixel_scale,
+            slice_scale=seeing_cube.slice_scale,
+            mask=refracted_mask,
+            flags=refracted_flags,
+            header=seeing_cube.header,
+        )
+        # All done.
+        return self.astronomical_object_cube
 
+    @property
+    def astrophysical_object_cube_atm_ref(self: hint.Self) -> hint.LezargusCube:
+        """Read-only alias for :py:attr:`astronomical_object_cube`.
 
+        Parameters
+        ----------
+        None
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        Returns
+        -------
+        cube : LezargusCube
+            The :py:attr:`astronomical_object_cube` object as an alias.
+        """
+        return self.astronomical_object_cube

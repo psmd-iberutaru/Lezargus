@@ -16,33 +16,7 @@ class LezargusImage(LezargusContainerArithmetic):
 
     Attributes
     ----------
-    wavelength : float
-        The wavelength of the image. The unit of wavelength is typically
-        in meters; but, check the :py:attr:`wavelength_unit` value. If none has
-        been provided, this value is an array of None.
-    data : ndarray
-        The flux of the spectra cube. The unit of the flux is typically
-        in W m^-2 m^-1; but, check the :py:attr:`flux_unit` value.
-    uncertainty : ndarray
-        The uncertainty in the flux of the spectra. The unit of the uncertainty
-        is the same as the flux value; per :py:attr:`uncertainty_unit`.
-
-    wavelength_unit : Astropy Unit
-        The unit of the wavelength array.
-    flux_unit : Astropy Unit
-        The unit of the flux array.
-    uncertainty_unit : Astropy Unit
-        The unit of the uncertainty array. This unit is the same as the flux
-        unit.
-
-    mask : ndarray
-        A mask of the flux data, used to remove problematic areas. Where True,
-        the values of the flux is considered mask.
-    flags : ndarray
-        Flags of the flux data. These flags store metadata about the flux.
-
-    header : Header
-        The header information, or metadata in general, about the data.
+    For all available attributes, see :py:class:`LezargusContainerArithmetic`.
     """
 
     def __init__(
@@ -52,6 +26,8 @@ class LezargusImage(LezargusContainerArithmetic):
         wavelength: float | None = None,
         wavelength_unit: str | hint.Unit = None,
         data_unit: str | hint.Unit | None = None,
+        pixel_scale: float | None = None,
+        slice_scale: float | None = None,
         mask: hint.ndarray | None = None,
         flags: hint.ndarray | None = None,
         header: hint.Header | None = None,
@@ -60,30 +36,42 @@ class LezargusImage(LezargusContainerArithmetic):
 
         Parameters
         ----------
+        wavelength : ndarray
+            The wavelength axis of the spectral component of the data, if any.
+            The unit of wavelength is typically in meters; but, check the
+            :py:attr:`wavelength_unit` value.
         data : ndarray
-            The flux of the spectra.
-        uncertainty : ndarray, default = None
-            The uncertainty of the spectra. By default, it is None and the
-            uncertainty value is 0.
-        wavelength : ndarray, default = None
-            The wavelength of the image. If this is not provided, it defaults
-            to 0, otherwise, it is an array of a single value.
-        wavelength_unit : Astropy-Unit like, default = None
-            The wavelength unit of the spectra. It must be interpretable by
-            the Astropy Units package. If None, the the unit is dimensionless.
-        data_unit : Astropy-Unit like, default = None
-            The data unit of the spectra. It must be interpretable by
-            the Astropy Units package. If None, the the unit is dimensionless.
+            The data stored in this container. The unit of the flux is typically
+            in W m^-2 m^-1; but, check the :py:attr:`data_unit` value.
+        uncertainty : ndarray
+            The uncertainty in the data of the spectra. The unit of the
+            uncertainty is the same as the data value; per
+            :py:attr:`uncertainty_unit`.
+        wavelength_unit : Astropy Unit
+            The unit of the wavelength array. If None, we assume unit-less.
+        data_unit : Astropy Unit
+            The unit of the data array. If None, we assume unit-less.
+        pixel_scale : float, default = None
+            The E-W, "x" dimension, pixel plate scale of the spatial component,
+            if any. Must be in radians per pixel. Scale is None if none
+            is provided.
+        slice_scale : float, default = None
+            The N-S, "y" dimension, pixel slice scale of the spatial component,
+            if any. Must be in radians per slice-pixel. Scale is None if none
+            is provided.
         mask : ndarray, default = None
-            A mask which should be applied to the spectra, if needed.
+            A mask of the data, used to remove problematic areas. Where True,
+            the values of the data is considered masked. If None, we assume
+            the mask is all clear.
         flags : ndarray, default = None
-            A set of flags which describe specific points of data in the
-            spectra.
+            Flags of the data. These flags store metadata about the data. If
+            None, we assume that there are no harmful flags.
         header : Header, default = None
             A set of header data describing the data. Note that when saving,
             this header is written to disk with minimal processing. We highly
             suggest writing of the metadata to conform to the FITS Header
-            specification as much as possible.
+            specification as much as possible. If None, we just use an
+            empty header.
         """
         # The data must be two dimensional.
         container_dimensions = 2
@@ -113,6 +101,8 @@ class LezargusImage(LezargusContainerArithmetic):
             uncertainty=uncertainty,
             wavelength_unit=wavelength_unit,
             data_unit=data_unit,
+            pixel_scale=pixel_scale,
+            slice_scale=slice_scale,
             mask=mask,
             flags=flags,
             header=header,

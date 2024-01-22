@@ -166,6 +166,11 @@ def broadcast_spectra_to_cube_uniform(
         shape=(x_dim, y_dim, wave_dim),
     )
 
+    # The pixel and slice scale of the broadcasted cube is based on the
+    # template cube as that is where the shape is derived from.
+    pixel_scale = template_cube.pixel_scale
+    slice_scale = template_cube.slice_scale
+
     # Finally, we reconstruct the cube. We work on copies of the headers
     # just in case.
     spectra_header = input_spectra.header.copy()
@@ -181,6 +186,8 @@ def broadcast_spectra_to_cube_uniform(
         uncertainty=broadcast_uncertainty,
         wavelength_unit=broadcast_wavelength_unit,
         data_unit=broadcast_data_unit,
+        pixel_scale=pixel_scale,
+        slice_scale=slice_scale,
         mask=broadcast_mask,
         flags=broadcast_flags,
         header=broadcast_header,
@@ -372,6 +379,11 @@ def broadcast_spectra_to_cube_center(
     broadcast_flags = np.full((x_dim, y_dim, wave_dim), 0, dtype=int)
     broadcast_flags[center_x, center_y, :] = interpolated_flags
 
+    # The pixel and slice scale of the broadcasted cube is based on the
+    # template cube as that is where the shape is derived from.
+    pixel_scale = template_cube.pixel_scale
+    slice_scale = template_cube.slice_scale
+
     # Finally, we reconstruct the cube. We work on copies of the headers
     # just in case.
     spectra_header = input_spectra.header.copy()
@@ -388,6 +400,8 @@ def broadcast_spectra_to_cube_center(
         uncertainty=broadcast_uncertainty,
         wavelength_unit=broadcast_wavelength_unit,
         data_unit=broadcast_data_unit,
+        pixel_scale=pixel_scale,
+        slice_scale=slice_scale,
         mask=broadcast_mask,
         flags=broadcast_flags,
         header=broadcast_header,
