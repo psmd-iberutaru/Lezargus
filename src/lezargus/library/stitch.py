@@ -12,6 +12,162 @@ from lezargus.library import hint
 from lezargus.library import logging
 
 
+def get_spectra_scale_factor(
+    base_wavelength: hint.ndarray,
+    base_data: hint.ndarray,
+    input_wavelength: hint.ndarray,
+    input_data: hint.ndarray,
+    base_uncertainty: hint.ndarray = None,
+    input_uncertainty: hint.ndarray = None,
+    bounds: tuple[float, float] = (-np.inf, +np.inf),
+) -> float:
+    """Find the scale factor to scale one overlapping spectra to another.
+
+    We determine what scale factor would properly match some input spectra
+    data to some base data, provided that they have some wavelength overlap.
+    An additional bounds may be set in addition to the wavelength overlap.
+    The method provided is described in [[TODO]].
+
+    Parameter
+    ---------
+    base_wavelength : ndarray
+        The wavelength array of the base spectra data. Must be the same unit
+        as the input wavelength.
+    base_data : ndarray
+        The spectral data of the base, which the scale factor would scale the
+        input to.
+    input_wavelength : ndarray
+        The wavelength array of the input spectra data. Must be the same unit
+        as the base wavelength.
+    input_data : ndarray
+        The spectral data of the input, what the scale factor is for.
+    base_uncertainty : ndarray, default = None
+        The uncertainty on the base data. If None, we default to no
+        uncertainty.
+    input_uncertainty : ndarray, default = None
+        The uncertainty on the input data. If None, we default to no
+        uncertainty.
+    bounds : tuple, default = (-np.inf, +np.inf)
+        An additional set of wavelength bounds to specify the limits of the
+        overlap which we use to determine the scale factor. Format is
+        (minimum, maximum). Must be in the same units as the base and input
+        wavelengths.
+
+    Returns
+    -------
+    scale_factor : float
+        The scale factor to scale the input data to match the base data.
+    """
+    # The uncertainty defaults.
+    base_uncertainty = (
+        np.zeros_like(base_wavelength)
+        if base_uncertainty is None
+        else base_uncertainty
+    )
+    input_uncertainty = (
+        np.zeros_like(input_wavelength)
+        if input_uncertainty is None
+        else input_uncertainty
+    )
+    # We rebase both spectra to some common wavelength.
+    common_wavelength = np.append(base_wavelength, input_wavelength)
+    common_base_data = (
+        lezargus.library.interpolate.spline_1d_interpolate_bounds_factory(
+            x=base_wavelength,
+            y=base_data,
+        )(common_wavelength)
+    )
+    common_base_uncertainty = (
+        lezargus.library.interpolate.spline_1d_interpolate_bounds_factory(
+            x=base_wavelength,
+            y=base_uncertainty,
+        )(common_wavelength)
+    )
+    common_input_data = (
+        lezargus.library.interpolate.spline_1d_interpolate_bounds_factory(
+            x=input_wavelength,
+            y=input_data,
+        )(common_wavelength)
+    )
+    common_input_uncertainty = (
+        lezargus.library.interpolate.spline_1d_interpolate_bounds_factory(
+            x=input_wavelength,
+            y=input_uncertainty,
+        )(common_wavelength)
+    )
+
+    # And, we only use the data where there is proper overlap between both
+    # spectra; and within the bounds where provided.
+    overlap_index = (
+        (
+            (base_wavelength.min() <= common_wavelength)
+            & (common_wavelength <= base_wavelength.max())
+        )
+        & (
+            (input_wavelength.min() <= common_wavelength)
+            & (common_wavelength <= input_wavelength.max())
+        )
+        & (
+            (min(bounds) <= common_wavelength)
+            & (common_wavelength <= max(bounds))
+        )
+    )
+    overlap_wavelength = common_wavelength[overlap_index]
+    overlap_base_data = common_base_data[overlap_index]
+    overlap_base_uncertainty = common_base_uncertainty[overlap_index]
+    overlap_input_data = common_input_data[overlap_index]
+    overlap_input_uncertainty = common_input_uncertainty[overlap_index]
+
+    # We do not want to include any NaNs or non-numbers.
+    (
+        __,
+        clean_base_data,
+        clean_base_uncertainty,
+        clean_input_data,
+        clean_input_uncertainty,
+    ) = lezargus.library.array.clean_finite_arrays(
+        overlap_wavelength,
+        overlap_base_data,
+        overlap_base_uncertainty,
+        overlap_input_data,
+        overlap_input_uncertainty,
+    )
+
+    # We determine the scale factor; though we initially apply a guess so that
+    # we can better leverage the precision of the weighted average.
+    guess_scale_factor = np.nanmedian(clean_base_data / clean_input_data)
+    guess_input_data, guess_input_uncertainty = lezargus.library.math.multiply(
+        multiplier=clean_input_data,
+        multiplicand=guess_scale_factor,
+        multiplier_uncertainty=clean_input_uncertainty,
+        multiplicand_uncertainty=0,
+    )
+
+    # We then figure out the fine tuned scale factor using the weighted
+    # average, allowing us to use the uncertainty properly.
+    base_input_ratio, base_input_ratio_uncertainty = (
+        lezargus.library.math.divide(
+            numerator=clean_base_data,
+            denominator=guess_input_data,
+            numerator_uncertainty=clean_base_uncertainty,
+            denominator_uncertainty=guess_input_uncertainty,
+        )
+    )
+    # Finding the average ratio.
+    weights = 1 / base_input_ratio_uncertainty**2
+    quantile_cut_ratio = 0.05
+    adjust_scale_factor, __ = lezargus.library.math.weighted_quantile_mean(
+        values=base_input_ratio,
+        uncertainties=base_input_ratio_uncertainty,
+        weights=weights,
+        quantile=quantile_cut_ratio,
+    )
+
+    # We don't really care for passing the uncertainty.
+    scale_factor = guess_scale_factor * adjust_scale_factor
+    return scale_factor
+
+
 def stitch_wavelengths_discrete(
     *wavelengths: hint.ndarray,
     sample_mode: str = "hierarchy",
@@ -151,7 +307,7 @@ def stitch_spectra_functional(
         The interpolation routine factory which we use to interpolate each of
         the spectra to each other wavelength frame. It should have the input
         form of :math:`\text{ipr}(x,y) \rightarrow f:x \mapsto y`. If None, we
-        default to a cubic spline, handling gaps.
+        default to a spline, handling gaps.
     reference_wavelength : ndarray, default = None
         The reference points which we are going to evaluate the above functions
         at. The values should be of the same (unit) scale as the input of the
@@ -184,14 +340,14 @@ def stitch_spectra_functional(
             np.ones_like for __ in range(len(wavelength_functions))
         ]
     if average_routine is None:
-        average_routine = lezargus.library.uncertainty.nan_weighted_mean
+        average_routine = lezargus.library.math.nan_weighted_mean
 
     # If a custom routine is provided, then we need to make sure it
     # can handle gaps in the data, and the limits of the interpolation.
-    # Otherwise, we just use a default cubic interpolator.
+    # Otherwise, we just use a default spline interpolator.
     if interpolation_routine is None:
         interpolation_routine = (
-            lezargus.library.interpolate.cubic_1d_interpolate_factory
+            lezargus.library.interpolate.spline_1d_interpolate_factory
         )
 
     def custom_interpolate_bounds(
@@ -446,7 +602,7 @@ def stitch_spectra_discrete(
         The interpolation routine factory which we use to interpolate each of
         the spectra to each other wavelength frame. It should have the input
         form of :math:`\text{ipr}(x,y) \rightarrow f:x \mapsto y`. If None, we
-        default to a cubic spline, handling gaps.
+        default to a spline, handling gaps.
     reference_wavelength : ndarray, default = None
         The reference wavelength is where the stitched spectra wavelength
         values should be. If None, we attempt to construct it based on the
@@ -470,14 +626,14 @@ def stitch_spectra_discrete(
     if weight_arrays is None:
         weight_arrays = [np.ones_like(wavedex) for wavedex in wavelength_arrays]
     if average_routine is None:
-        average_routine = lezargus.library.uncertainty.nan_weighted_mean
+        average_routine = lezargus.library.math.nan_weighted_mean
 
     # If a custom routine is provided, then we need to make sure it
     # can handle gaps in the data, and the limits of the interpolation.
-    # Otherwise, we just use a default cubic interpolator.
+    # Otherwise, we just use a default spline interpolator.
     if interpolation_routine is None:
         interpolation_routine = (
-            lezargus.library.interpolate.cubic_1d_interpolate_factory
+            lezargus.library.interpolate.spline_1d_interpolate_factory
         )
 
     def custom_interpolate_bounds(

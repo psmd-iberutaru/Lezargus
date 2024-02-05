@@ -409,7 +409,7 @@ class LezargusContainerArithmetic:
         # We do not want to modify our own objects as that goes against the
         # the main idea of operator operations.
         result = copy.deepcopy(self)
-        result.data, result.uncertainty = lezargus.library.uncertainty.add(
+        result.data, result.uncertainty = lezargus.library.math.add(
             augend=self.data,
             addend=operand_data,
             augend_uncertainty=self.uncertainty,
@@ -474,7 +474,7 @@ class LezargusContainerArithmetic:
         # We do not want to modify our own objects as that goes against the
         # the main idea of operator operations.
         result = copy.deepcopy(self)
-        result.data, result.uncertainty = lezargus.library.uncertainty.subtract(
+        result.data, result.uncertainty = lezargus.library.math.subtract(
             minuend=self.data,
             subtrahend=operand_data,
             minuend_uncertainty=self.uncertainty,
@@ -528,7 +528,7 @@ class LezargusContainerArithmetic:
         # We do not want to modify our own objects as that goes against the
         # the main idea of operator operations.
         result = copy.deepcopy(self)
-        result.data, result.uncertainty = lezargus.library.uncertainty.multiply(
+        result.data, result.uncertainty = lezargus.library.math.multiply(
             multiplier=self.data,
             multiplicand=operand_data,
             multiplier_uncertainty=self.uncertainty,
@@ -585,7 +585,7 @@ class LezargusContainerArithmetic:
         # We do not want to modify our own objects as that goes against the
         # the main idea of operator operations.
         result = copy.deepcopy(self)
-        result.data, result.uncertainty = lezargus.library.uncertainty.divide(
+        result.data, result.uncertainty = lezargus.library.math.divide(
             numerator=self.data,
             denominator=operand_data,
             numerator_uncertainty=self.uncertainty,
@@ -642,13 +642,11 @@ class LezargusContainerArithmetic:
         # We do not want to modify our own objects as that goes against the
         # the main idea of operator operations.
         result = copy.deepcopy(self)
-        result.data, result.uncertainty = (
-            lezargus.library.uncertainty.exponentiate(
-                base=self.data,
-                exponent=operand_data,
-                base_uncertainty=self.uncertainty,
-                exponent_uncertainty=operand_uncertainty,
-            )
+        result.data, result.uncertainty = lezargus.library.math.exponentiate(
+            base=self.data,
+            exponent=operand_data,
+            base_uncertainty=self.uncertainty,
+            exponent_uncertainty=operand_uncertainty,
         )
         # We propagate the units; however, by general practice, the exponent
         # should not have a unit.

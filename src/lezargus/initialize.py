@@ -115,7 +115,7 @@ def initialize_configuration(*args: tuple, **kwargs: object) -> None:
 
     # Load the default configuration parameters. The user's configurations
     # should overwrite these when supplied.
-    lezargus.library.config.load_then_apply_configuration(
+    lezargus.library.config.load_configuration_file(
         filename=lezargus.library.path.merge_pathname(
             directory=lezargus.library.config.INTERNAL_MODULE_INSTALLATION_PATH,
             filename="configuration",

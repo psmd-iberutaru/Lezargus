@@ -209,19 +209,19 @@ def read_lezargus_fits_file(
             pixel_scale = None
         else:
             pixel_scale = lezargus.library.conversion.convert_units(
-            value=pixel_scale_raw,
-            value_unit="arcsec pix^-1",
-            result_unit="rad pix^-1",
-        )
+                value=pixel_scale_raw,
+                value_unit="arcsec pix^-1",
+                result_unit="rad pix^-1",
+            )
         slice_scale_raw = header.get("LZDSLIPS", None)
-        if slice_scale_raw  is None:
+        if slice_scale_raw is None:
             slice_scale = None
         else:
             slice_scale = lezargus.library.conversion.convert_units(
-            value=slice_scale_raw,
-            value_unit="arcsec pix^-1",
-            result_unit="rad pix^-1",
-        )
+                value=slice_scale_raw,
+                value_unit="arcsec pix^-1",
+                result_unit="rad pix^-1",
+            )
 
         # The uncertainty is stored in its own extension, We transform it like
         # the data itself.

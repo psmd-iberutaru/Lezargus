@@ -72,7 +72,7 @@ def calculate_filter_zero_point_vega(
     (
         star_filter_flux,
         star_filter_flux_uncertainty,
-    ) = lezargus.library.uncertainty.multiply(
+    ) = lezargus.library.math.multiply(
         multiplier=star_flux,
         multiplicand=filter_spectra.data,
         multiplier_uncertainty=star_uncertainty,
@@ -81,7 +81,7 @@ def calculate_filter_zero_point_vega(
     (
         star_filter_integral,
         star_filter_integral_uncertainty,
-    ) = lezargus.library.uncertainty.integrate_discrete(
+    ) = lezargus.library.math.integrate_discrete(
         variable=filter_spectra.wavelength,
         integrand=star_filter_flux,
         integrand_uncertainty=star_filter_flux_uncertainty,
@@ -89,32 +89,32 @@ def calculate_filter_zero_point_vega(
     (
         filter_integral,
         filter_integral_uncertainty,
-    ) = lezargus.library.uncertainty.integrate_discrete(
+    ) = lezargus.library.math.integrate_discrete(
         variable=filter_spectra.wavelength,
         integrand=filter_spectra.data,
         integrand_uncertainty=filter_spectra.uncertainty,
     )
 
     # The zero point itself. Going through the equation with propagation.
-    _frac, _frac_uncert = lezargus.library.uncertainty.divide(
+    _frac, _frac_uncert = lezargus.library.math.divide(
         numerator=star_filter_integral,
         denominator=filter_integral,
         numerator_uncertainty=star_filter_integral_uncertainty,
         denominator_uncertainty=filter_integral_uncertainty,
     )
-    _log, _log_uncert = lezargus.library.uncertainty.logarithm(
+    _log, _log_uncert = lezargus.library.math.logarithm(
         antilogarithm=_frac,
         base=10,
         antilogarithm_uncertainty=_frac_uncert,
     )
-    _mul, _mul_uncert = lezargus.library.uncertainty.multiply(
+    _mul, _mul_uncert = lezargus.library.math.multiply(
         multiplier=2.5,
         multiplicand=_log,
         multiplier_uncertainty=0,
         multiplicand_uncertainty=_log_uncert,
     )
     # Finally, the zero point itself.
-    zero_point, zero_point_uncertainty = lezargus.library.uncertainty.add(
+    zero_point, zero_point_uncertainty = lezargus.library.math.add(
         augend=standard_filter_magnitude,
         addend=_mul,
         augend_uncertainty=standard_filter_uncertainty,
@@ -188,7 +188,7 @@ def calculate_filter_magnitude_vega(
     (
         star_filter_flux,
         star_filter_flux_uncertainty,
-    ) = lezargus.library.uncertainty.multiply(
+    ) = lezargus.library.math.multiply(
         multiplier=star_flux,
         multiplicand=filter_spectra.data,
         multiplier_uncertainty=star_uncertainty,
@@ -197,7 +197,7 @@ def calculate_filter_magnitude_vega(
     (
         star_filter_integral,
         star_filter_integral_uncertainty,
-    ) = lezargus.library.uncertainty.integrate_discrete(
+    ) = lezargus.library.math.integrate_discrete(
         variable=filter_spectra.wavelength,
         integrand=star_filter_flux,
         integrand_uncertainty=star_filter_flux_uncertainty,
@@ -205,24 +205,24 @@ def calculate_filter_magnitude_vega(
     (
         filter_integral,
         filter_integral_uncertainty,
-    ) = lezargus.library.uncertainty.integrate_discrete(
+    ) = lezargus.library.math.integrate_discrete(
         variable=filter_spectra.wavelength,
         integrand=filter_spectra.data,
         integrand_uncertainty=filter_spectra.uncertainty,
     )
     # Going through the equation via propagation.
-    _frac, _frac_uncert = lezargus.library.uncertainty.divide(
+    _frac, _frac_uncert = lezargus.library.math.divide(
         numerator=star_filter_integral,
         denominator=filter_integral,
         numerator_uncertainty=star_filter_integral_uncertainty,
         denominator_uncertainty=filter_integral_uncertainty,
     )
-    _log, _log_uncert = lezargus.library.uncertainty.logarithm(
+    _log, _log_uncert = lezargus.library.math.logarithm(
         antilogarithm=_frac,
         base=10,
         antilogarithm_uncertainty=_frac_uncert,
     )
-    _mul, _mul_uncert = lezargus.library.uncertainty.multiply(
+    _mul, _mul_uncert = lezargus.library.math.multiply(
         multiplier=-2.5,
         multiplicand=_log,
         multiplier_uncertainty=0,
@@ -230,7 +230,7 @@ def calculate_filter_magnitude_vega(
     )
 
     # Finally, the magnitude after the zero point correction.
-    magnitude, uncertainty = lezargus.library.uncertainty.add(
+    magnitude, uncertainty = lezargus.library.math.add(
         augend=_mul,
         addend=filter_zero_point,
         augend_uncertainty=_mul_uncert,
@@ -313,7 +313,7 @@ def calculate_photometric_correction_factor_vega(
     (
         star_filter_flux,
         star_filter_flux_uncertainty,
-    ) = lezargus.library.uncertainty.multiply(
+    ) = lezargus.library.math.multiply(
         multiplier=star_flux,
         multiplicand=filter_spectra.data,
         multiplier_uncertainty=star_uncertainty,
@@ -323,7 +323,7 @@ def calculate_photometric_correction_factor_vega(
     (
         star_filter_integral,
         star_filter_integral_uncertainty,
-    ) = lezargus.library.uncertainty.integrate_discrete(
+    ) = lezargus.library.math.integrate_discrete(
         variable=filter_spectra.wavelength,
         integrand=star_filter_flux,
         integrand_uncertainty=star_filter_flux_uncertainty,
@@ -331,14 +331,14 @@ def calculate_photometric_correction_factor_vega(
     (
         filter_integral,
         filter_integral_uncertainty,
-    ) = lezargus.library.uncertainty.integrate_discrete(
+    ) = lezargus.library.math.integrate_discrete(
         variable=filter_spectra.wavelength,
         integrand=filter_spectra.data,
         integrand_uncertainty=filter_spectra.uncertainty,
     )
 
     # The inverted fraction section of the calculation.
-    fraction, fraction_uncertainty = lezargus.library.uncertainty.divide(
+    fraction, fraction_uncertainty = lezargus.library.math.divide(
         numerator=filter_integral,
         denominator=star_filter_integral,
         numerator_uncertainty=filter_integral_uncertainty,
@@ -346,19 +346,19 @@ def calculate_photometric_correction_factor_vega(
     )
 
     # The exponential term.
-    _sub, _sub_uncert = lezargus.library.uncertainty.subtract(
+    _sub, _sub_uncert = lezargus.library.math.subtract(
         minuend=filter_zero_point,
         subtrahend=star_magnitude,
         minuend_uncertainty=filter_zero_point_uncertainty,
         subtrahend_uncertainty=star_magnitude_uncertainty,
     )
-    _div, _div_uncert = lezargus.library.uncertainty.divide(
+    _div, _div_uncert = lezargus.library.math.divide(
         numerator=_sub,
         denominator=2.5,
         numerator_uncertainty=_sub_uncert,
         denominator_uncertainty=0,
     )
-    exponent, exponent_uncertainty = lezargus.library.uncertainty.exponentiate(
+    exponent, exponent_uncertainty = lezargus.library.math.exponentiate(
         base=10,
         exponent=_div,
         base_uncertainty=0,
@@ -369,7 +369,7 @@ def calculate_photometric_correction_factor_vega(
     (
         correction_factor,
         correction_factor_uncertainty,
-    ) = lezargus.library.uncertainty.multiply(
+    ) = lezargus.library.math.multiply(
         multiplier=exponent,
         multiplicand=fraction,
         multiplier_uncertainty=exponent_uncertainty,

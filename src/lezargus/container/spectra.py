@@ -322,14 +322,14 @@ class LezargusSpectra(LezargusContainerArithmetic):
             wavelength=clean_wavelength,
         )
         interp_data = (
-            lezargus.library.interpolate.cubic_1d_interpolate_gap_factory(
+            lezargus.library.interpolate.spline_1d_interpolate_gap_factory(
                 x=clean_wavelength,
                 y=clean_data,
                 gap_size=gap_size,
             )(wavelength)
         )
         interp_uncertainty = (
-            lezargus.library.interpolate.cubic_1d_interpolate_gap_factory(
+            lezargus.library.interpolate.spline_1d_interpolate_gap_factory(
                 x=clean_wavelength,
                 y=clean_uncertainty,
                 gap_size=gap_size,

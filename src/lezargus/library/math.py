@@ -1,4 +1,9 @@
-"""Different mathematical operations which we also propagate uncertainty."""
+"""Different mathematical operations which we also propagate uncertainty.
+
+Many mathematical operations are needed, and the uncertainties of these
+operations need to be propagated. We gather these functions so that they
+can easily be reused or better default methods used in place.
+"""
 
 import numpy as np
 import scipy.integrate
@@ -476,4 +481,77 @@ def nan_weighted_mean(
         uncertainties=clean_uncertainty,
         weights=clean_weights,
     )
+    return mean_value, mean_uncertainty
+
+
+def weighted_quantile_mean(
+    values: hint.ndarray,
+    uncertainties: hint.ndarray = None,
+    weights: hint.ndarray = None,
+    quantile: float | tuple[float, float] = (0, 1),
+) -> tuple[float, float]:
+    """Calculate the no-NaN weighted harmonic mean and uncertainty.
+
+    See :ref:`technical-uncertainty-weighted-harmonic-mean` for more
+    information.
+
+    Parameters
+    ----------
+    values : ndarray
+        The values which we will compute the weighted quantile mean of.
+    uncertainties : ndarray, default = None
+        The uncertainties in the values. If None, we default to no uncertainty.
+    weights : ndarray, default = None
+        The weights for the given values for the weighted quantile mean. If
+        None, we assume equal weights.
+    quantile : float or tuple, default = (0, 1)
+        A single quantile value to cut off each end; or the minimum and
+        maximum quantile to cut from the entire array before taking the
+        average. Must be between 0 and 1.
+
+    Returns
+    -------
+    mean_value : float
+        The calculated mean.
+    mean_uncertainty : float
+        The calculated uncertainty in the mean.
+    """
+    # We determine the defaults for the uncertainty and the weights.
+    uncertainties = (
+        np.zeros_like(values) if uncertainties is None else uncertainties
+    )
+    weights = np.ones_like(values) if weights is None else weights
+
+    # We also need to convert the quantile if they just provided a single
+    # number.
+    if isinstance(quantile, int | float | np.number):
+        # Sanity check.
+        half_quantile = 0.5
+        if quantile >= half_quantile:
+            logging.error(
+                error_type=logging.InputError,
+                message=(
+                    f"Single value quantile {quantile} is greater than half."
+                    " All data may be cut."
+                ),
+            )
+        quantile = (quantile, 1 - quantile)
+    else:
+        quantile = tuple(quantile)
+
+    # We need to obtain only the values within the quartile before computing
+    # the average.
+    lower_limit, upper_limit = np.nanquantile(values, quantile)
+    valid_index = (lower_limit <= values) & (values <= upper_limit)
+    valid_values = values[valid_index]
+    valid_uncertainties = uncertainties[valid_index]
+    valid_weights = weights[valid_index]
+
+    # After the cut, the rest is just a normal weighted average.
+    mean_value, mean_uncertainty = weighted_mean(
+        values=valid_values,
+        uncertainties=valid_uncertainties,
+        weights=valid_weights,
+    )
+    # All done.
     return mean_value, mean_uncertainty

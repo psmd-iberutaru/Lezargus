@@ -47,11 +47,11 @@ def get_smallest_gap(wavelength: hint.ndarray) -> float:
     return small_gap
 
 
-def cubic_1d_interpolate_factory(
+def spline_1d_interpolate_factory(
     x: hint.ndarray,
     y: hint.ndarray,
 ) -> hint.Callable[[hint.ndarray], hint.ndarray]:
-    """Return a wrapper function around Scipy's Cubic interpolation.
+    """Return a wrapper function around Scipy's spline interpolation.
 
     We ignore NaN values for interpolation. Moreover, this function allows
     for extrapolation outside of the normal domain, though we still log it
@@ -72,17 +72,16 @@ def cubic_1d_interpolate_factory(
     # Clean up the data, removing anything that is not usable.
     clean_x, clean_y = lezargus.library.array.clean_finite_arrays(x, y)
 
-    # Create a cubic spline.
-    cubic_interpolate_function = scipy.interpolate.CubicSpline(
+    # Create a spline.
+    spline_interpolate_function = scipy.interpolate.PchipInterpolator(
         x=clean_x,
         y=clean_y,
-        bc_type="not-a-knot",
         extrapolate=True,
     )
 
     # Defining the wrapper function.
     def interpolate_wrapper(input_data: hint.ndarray) -> hint.ndarray:
-        """Cubic interpolator wrapper.
+        """Spline interpolator wrapper.
 
         Parameters
         ----------
@@ -95,29 +94,29 @@ def cubic_1d_interpolate_factory(
             The output data.
         """
         # We need to check if there is any extrapolation and just log it.
-        original_x = cubic_interpolate_function.x
+        original_x = spline_interpolate_function.x
         if not (
             (min(original_x) <= input_data) & (input_data <= max(original_x))
         ).all():
             logging.debug(
                 message=(
-                    "Extrapolation of a cubic interpolator extrapolation"
+                    "Extrapolation of a spline interpolator extrapolation"
                     " function attempted."
                 ),
             )
         # Computing the interpolation.
-        output_data = cubic_interpolate_function(input_data, nu=0)
+        output_data = spline_interpolate_function(input_data, nu=0)
         return output_data
 
     # All done, return the function itself.
     return interpolate_wrapper
 
 
-def cubic_1d_interpolate_bounds_factory(
+def spline_1d_interpolate_bounds_factory(
     x: hint.ndarray,
     y: hint.ndarray,
 ) -> hint.Callable[[hint.ndarray], hint.ndarray]:
-    """Return a wrapper function around Scipy's Cubic interpolation.
+    """Return a wrapper function around Scipy's spline interpolations.
 
     We ignore NaN values for interpolation.
 
@@ -133,9 +132,9 @@ def cubic_1d_interpolate_bounds_factory(
     interpolate_function : Callable
         The interpolation function of the data.
     """
-    # We use the custom implementation, returning the cubic form of it.
+    # We use the custom implementation, returning the spline form of it.
     interpolate_function = custom_1d_interpolate_bounds_factory(
-        interpolation=cubic_1d_interpolate_factory,
+        interpolation=spline_1d_interpolate_factory,
         x=x,
         y=y,
     )
@@ -144,12 +143,12 @@ def cubic_1d_interpolate_bounds_factory(
     return interpolate_function
 
 
-def cubic_1d_interpolate_gap_factory(
+def spline_1d_interpolate_gap_factory(
     x: hint.ndarray,
     y: hint.ndarray,
     gap_size: float | None = None,
 ) -> hint.Callable[[hint.ndarray], hint.ndarray]:
-    """Wrap around Scipy's Cubic interpolation, accounting for gaps.
+    """Wrap around Scipy's spline interpolation, accounting for gaps.
 
     Regions which are considered to have a gap are not interpolated. Should a
     request for data within a gap region be called, we return NaN.
@@ -171,9 +170,9 @@ def cubic_1d_interpolate_gap_factory(
     interpolate_function : Callable
         The interpolation function of the data.
     """
-    # We use the custom implementation, returning the cubic form of it.
+    # We use the custom implementation, returning the spline form of it.
     interpolate_wrapper = custom_1d_interpolate_gap_factory(
-        interpolation=cubic_1d_interpolate_factory,
+        interpolation=spline_1d_interpolate_factory,
         x=x,
         y=y,
         gap_size=gap_size,
@@ -183,12 +182,12 @@ def cubic_1d_interpolate_gap_factory(
     return interpolate_wrapper
 
 
-def cubic_1d_interpolate_bounds_gap_factory(
+def spline_1d_interpolate_bounds_gap_factory(
     x: hint.ndarray,
     y: hint.ndarray,
     gap_size: float | None = None,
 ) -> hint.Callable[[hint.ndarray], hint.ndarray]:
-    """Wrap around Scipy's Cubic interpolation, accounting for gaps, bounds.
+    """Wrap around Scipy's spline interpolation, accounting for gaps, bounds.
 
     Regions which are considered to have a gap are not interpolated. Should
     a request for data be outside of the input domain, we return NaN.
@@ -212,11 +211,11 @@ def cubic_1d_interpolate_bounds_gap_factory(
         The interpolation function of the data.
     """
 
-    # We use the custom implementation, returning the cubic form of it.
+    # We use the custom implementation, returning the spline form of it.
     # First the bounds wrapper, which we will need to wrap later.
     def bounds_wrapper(x: hint.ndarray, y: hint.ndarray) -> hint.ndarray:
         return custom_1d_interpolate_bounds_factory(
-            interpolation=cubic_1d_interpolate_factory,
+            interpolation=spline_1d_interpolate_factory,
             x=x,
             y=y,
         )
@@ -256,7 +255,7 @@ def nearest_neighbor_1d_interpolate_factory(
     """
     # Clean up the data, removing anything that is not usable.
     clean_x, clean_y = lezargus.library.array.clean_finite_arrays(x, y)
-    # Create a cubic spline.
+    # Create a spline.
     nearest_neighbor_function = scipy.interpolate.interp1d(
         x=clean_x,
         y=clean_y,
@@ -267,7 +266,7 @@ def nearest_neighbor_1d_interpolate_factory(
 
     # Defining the wrapper function.
     def interpolate_wrapper(input_data: hint.ndarray) -> hint.ndarray:
-        """Cubic interpolator wrapper.
+        """Spline interpolator wrapper.
 
         Parameters
         ----------
@@ -392,7 +391,7 @@ def custom_1d_interpolate_gap_factory(
     upper_gap = sort_x[1:][is_gap]
     lower_gap = clean_x[:-1][is_gap]
 
-    # The basic cubic interpolator function.
+    # The basic custom interpolator function.
     custom_interpolate_function = interpolation(sort_x, sort_y)
     # And we attach the gap limits to it so it can carry it. We use our
     # module name to avoid name conflicts with anything the Scipy project may
@@ -402,7 +401,7 @@ def custom_1d_interpolate_gap_factory(
 
     # Defining the wrapper function.
     def interpolate_wrapper(input_data: hint.ndarray) -> hint.ndarray:
-        """Cubic gap interpolator wrapper.
+        """Spline gap interpolator wrapper.
 
         Parameters
         ----------
@@ -465,7 +464,7 @@ def custom_1d_interpolate_bounds_factory(
     # Clean up the data, removing anything that is not usable.
     clean_x, clean_y = lezargus.library.array.clean_finite_arrays(x, y)
 
-    # Create a cubic spline.
+    # Create a custom interpolation.
     custom_interpolate_function = interpolation(clean_x, clean_y)
     # The limits of the actual domain of the data, attached to the function.
     custom_interpolate_function.lezargus_lower_domain = np.nanmin(clean_x)
@@ -473,7 +472,7 @@ def custom_1d_interpolate_bounds_factory(
 
     # Defining the wrapper function.
     def interpolate_wrapper(input_data: hint.ndarray) -> hint.ndarray:
-        """Cubic interpolator wrapper.
+        """Spline interpolator wrapper.
 
         Parameters
         ----------

@@ -111,9 +111,9 @@ class CommandLineError(LezargusError):
 class ConfigurationError(LezargusError):
     """An error used for an error with the configuration file.
 
-    This error is to be used when the configuration file is wrong. There is a
-    specific expectation for how configuration files and configuration
-    parameters are structures are defined.
+    This error is to be used when the configuration file or parameters are
+    wrong. There is a specific expectation for how configuration files and
+    configuration parameters are structures are defined.
     """
 
 

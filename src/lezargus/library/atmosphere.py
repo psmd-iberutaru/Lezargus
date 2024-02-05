@@ -258,7 +258,7 @@ def absolute_atmospheric_refraction_function(
 
     # Creating the function itself.
     abs_atm_refr_func = (
-        lezargus.library.interpolate.cubic_1d_interpolate_factory(
+        lezargus.library.interpolate.spline_1d_interpolate_factory(
             x=wavelength,
             y=abs_atm_refr,
         )
