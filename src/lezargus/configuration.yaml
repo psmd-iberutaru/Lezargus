@@ -83,7 +83,7 @@ OBSERVATORY_ATMOSPHERE_PARTIAL_PRESSURE_WATER : 0
 # the wavelength units here are in meters. We use a uniform distribution with 
 # the number of "count" data points. 
 SPECTRE_SIMULATION_WAVELENGTH_MINIMUM : 0.35e-6
-SPECTRE_SIMULATION_WAVELENGTH_MAXIMUM : 4.50e-6
+SPECTRE_SIMULATION_WAVELENGTH_MAXIMUM : 4.20e-6
 SPECTRE_SIMULATION_WAVELENGTH_COUNT : 2000
 
 # The perfect field of view of the astrophysical target. This is used for the 
