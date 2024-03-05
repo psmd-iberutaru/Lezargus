@@ -39,6 +39,7 @@ def create_temporary_directory(
     Returns
     -------
     None
+
     """
     # We determine the absolute path, just to be clear.
     absolute_directory = os.path.abspath(directory)
@@ -121,6 +122,7 @@ def delete_temporary_directory(
     Returns
     -------
     None
+
     """
     # We determine the absolute path, just to be clear.
     temporary_directory = os.path.abspath(directory)
@@ -190,6 +192,7 @@ def write_temporary_directory_file(filename: str) -> None:
     Returns
     -------
     None
+
     """
     # The file contents.
     file_content = [

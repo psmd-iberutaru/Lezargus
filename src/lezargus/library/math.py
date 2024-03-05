@@ -29,6 +29,7 @@ def covariance(param_1: hint.ndarray, param_2: hint.ndarray) -> float:
     -------
     covar : float
         The covariance.
+
     """
     # Preparing the parameters.
     param_1 = np.array(param_1)
@@ -78,6 +79,7 @@ def add(
         The result of the addition operation.
     uncertainty : ndarray
         The propagated uncertainty.
+
     """
     # If the uncertainties are not provided, then we assume zero.
     augend_uncertainty = 0 if augend_uncertainty is None else augend_uncertainty
@@ -120,6 +122,7 @@ def subtract(
         The result of the subtraction operation.
     uncertainty : ndarray
         The propagated uncertainty.
+
     """
     # If the uncertainties are not provided, we assume they are 0.
     minuend_uncertainty = (
@@ -173,6 +176,7 @@ def multiply(
         The result of the multiplication operation.
     uncertainty : ndarray
         The propagated uncertainty.
+
     """
     # If the uncertainties are not provided, then we assume zero.
     multiplier_uncertainty = (
@@ -232,6 +236,7 @@ def divide(
         The result of the division operation.
     uncertainty : ndarray
         The propagated uncertainty.
+
     """
     # If the uncertainties are not provided, then we assume zero.
     numerator_uncertainty = (
@@ -283,6 +288,7 @@ def exponentiate(
         The result of the exponentiation operation.
     uncertainty : ndarray
         The propagated uncertainty.
+
     """
     # If the uncertainties are not provided, then we assume zero.
     base_uncertainty = 0 if base_uncertainty is None else base_uncertainty
@@ -324,6 +330,7 @@ def logarithm(
         The result of the exponentiation operation.
     uncertainty : ndarray
         The propagated uncertainty.
+
     """
     # If the uncertainties are not provided, then we assume zero.
     antilogarithm_uncertainty = (
@@ -361,6 +368,7 @@ def integrate_discrete(
         The result the integration.
     uncertainty : float
         The uncertainty on the integration.
+
     """
     # The result of the integral.
     result = scipy.integrate.trapezoid(
@@ -409,6 +417,7 @@ def weighted_mean(
         The calculated mean.
     mean_uncertainty : float
         The calculated uncertainty in the mean.
+
     """
     # We determine the defaults for the uncertainty and the weights.
     uncertainties = (
@@ -457,6 +466,7 @@ def nan_weighted_mean(
         The calculated mean.
     mean_uncertainty : float
         The calculated uncertainty in the mean.
+
     """
     # We determine the defaults for the uncertainty and the weights.
     uncertainties = (
@@ -515,6 +525,7 @@ def weighted_quantile_mean(
         The calculated mean.
     mean_uncertainty : float
         The calculated uncertainty in the mean.
+
     """
     # We determine the defaults for the uncertainty and the weights.
     uncertainties = (

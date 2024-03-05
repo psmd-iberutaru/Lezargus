@@ -30,6 +30,7 @@ def convolve_1d_array_by_1d_kernel(
     -------
     convolved_array : ndarray
         The convolved 1D array data.
+
     """
     # We need to ensure that the convolution array and kernel are the proper
     # dimensions.
@@ -128,6 +129,7 @@ def convolve_2d_array_by_2d_kernel(
     -------
     convolved_array : ndarray
         The convolved 2D array data.
+
     """
     # We need to ensure that the convolution array and kernel are the proper
     # dimensions.
@@ -232,6 +234,7 @@ def convolve_3d_array_by_1d_kernel(
     -------
     convolved_array : ndarray
         The convolved 3D array data.
+
     """
     # We need to ensure that the convolution array and kernel are the proper
     # dimensions.
@@ -294,6 +297,7 @@ def convolve_3d_array_by_2d_kernel(
     -------
     convolved_array : ndarray
         The convolved 3D array data.
+
     """
     # We need to ensure that the convolution array and kernel are the proper
     # dimensions.
@@ -356,6 +360,7 @@ def kernel_1d_gaussian(
     -------
     gaussian_kernel : ndarray
         The discrete kernel array.
+
     """
     # We need to determine the shape. If it is a single value we attempt to
     # interpret it. Granted, we only need a size, but we keep a shape as the
@@ -447,6 +452,7 @@ def kernel_1d_gaussian_resolution(
     resolution_kernel : ndarray
         The Gaussian kernel with the appropriate parameters to convert from
         the base resolution to the target resolution with a convolution.
+
     """
     # We support two different modes of computing the kernel. Toggle is based
     # on what parameters are provided. We switch here.
@@ -549,6 +555,7 @@ def kernel_2d_gaussian(
     -------
     gaussian_kernel : ndarray
         The discrete kernel array.
+
     """
     # The center of the array given by the shape is defined as just the center
     # of it. However, we need to take into account off-by-one errors.

@@ -59,6 +59,7 @@ class LezargusContainerArithmetic:
         Flags of the data. These flags store metadata about the data.
     header : Header
         The header information, or metadata in general, about the data.
+
     """
 
     def __init__(
@@ -118,6 +119,7 @@ class LezargusContainerArithmetic:
         Returns
         -------
         None
+
         """
         # The data is taken by reference, we don't want any side effects
         # so we just copy it.
@@ -226,6 +228,7 @@ class LezargusContainerArithmetic:
         -------
         uncertainty_unit : Unit
             The uncertainty unit.
+
         """
         return self.data_unit
 
@@ -255,6 +258,7 @@ class LezargusContainerArithmetic:
             This function will also raise exceptions upon discovery of
             incompatible objects. Therefore, the False return case is not
             really that impactful.
+
         """
         # We assume that the two objects are incompatible, until proven
         # otherwise.
@@ -369,6 +373,7 @@ class LezargusContainerArithmetic:
         -------
         result : Self-like
             A copy of this object with the resultant calculations done.
+
         """
         # We need to check the applicability of the operand and the operation
         # being attempted. The actual return is likely not needed, but we
@@ -430,6 +435,7 @@ class LezargusContainerArithmetic:
         -------
         result : Self-like
             A copy of this object with the resultant calculations done.
+
         """
         # We need to check the applicability of the operand and the operation
         # being attempted. The actual return is likely not needed, but we
@@ -495,6 +501,7 @@ class LezargusContainerArithmetic:
         -------
         result : Self-like
             A copy of this object with the resultant calculations done.
+
         """
         # We need to check the applicability of the operand and the operation
         # being attempted. The actual return is likely not needed, but we
@@ -552,6 +559,7 @@ class LezargusContainerArithmetic:
         -------
         result : Self-like
             A copy of this object with the resultant calculations done.
+
         """
         # We need to check the applicability of the operand and the operation
         # being attempted. The actual return is likely not needed, but we
@@ -608,6 +616,7 @@ class LezargusContainerArithmetic:
         -------
         result : Self-like
             A copy of this object with the resultant calculations done.
+
         """
         # We need to check the applicability of the operand and the operation
         # being attempted. The actual return is likely not needed, but we
@@ -681,6 +690,7 @@ class LezargusContainerArithmetic:
         -------
         container : Self-like
             The Lezargus container which was read into the file.
+
         """
         # Read in the FITS file.
         (
@@ -744,6 +754,7 @@ class LezargusContainerArithmetic:
         Returns
         -------
         None
+
         """
         # The Lezargus container is the FITS cube format. However, we do not
         # want to modify the actual header itself.

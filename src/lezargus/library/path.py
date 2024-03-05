@@ -22,6 +22,7 @@ def get_directory(pathname: str) -> str:
     -------
     directory : str
         The directory which belongs to the pathname.
+
     """
     directory = os.path.dirname(pathname)
     return directory
@@ -67,6 +68,7 @@ def get_most_recent_filename_in_directory(
     recent_filename : str
         The filename of the most recent file, by modification time, in the
         directory. If no recent file is found, we return None.
+
     """
     # Check if the directory provided actually exists.
     if not os.path.isdir(directory):
@@ -147,6 +149,7 @@ def get_filename_without_extension(pathname: str) -> str:
     -------
     filename : str
         The filename without the file extension.
+
     """
     # In the event that there are more than one period in the full filename.
     # We only remove last one as is the conventions for extensions.
@@ -167,6 +170,7 @@ def get_filename_with_extension(pathname: str) -> str:
     -------
     filename : str
         The filename with the file extension.
+
     """
     return os.path.basename(pathname)
 
@@ -183,6 +187,7 @@ def get_file_extension(pathname: str) -> str:
     -------
     extension : str
         The file extension only.
+
     """
     extension = os.path.basename(pathname).split(".")[-1]
     return extension
@@ -209,6 +214,7 @@ def merge_pathname(
     -------
     pathname : str
         The combined pathname.
+
     """
     # Combine the directories if it is a list.
     directory = directory if directory is not None else ""
@@ -249,6 +255,7 @@ def split_pathname(pathname: str) -> tuple[str, str, str]:
         The filename which was split from the pathname.
     extension : str
         The filename extension which was split from the pathname.
+
     """
     directory = get_directory(pathname=pathname)
     filename = get_filename_without_extension(pathname=pathname)

@@ -35,6 +35,7 @@ def get_smallest_gap(wavelength: hint.ndarray) -> float:
     small_gap : float
         The wavelength spacing for the small gap, in the same units as the
         provided wavelength array.
+
     """
     # We just find the largest separation.
     wavelength = np.asarray(wavelength)
@@ -68,6 +69,7 @@ def spline_1d_interpolate_factory(
     -------
     interpolate_function : Callable
         The interpolation function of the data.
+
     """
     # Clean up the data, removing anything that is not usable.
     clean_x, clean_y = lezargus.library.array.clean_finite_arrays(x, y)
@@ -92,6 +94,7 @@ def spline_1d_interpolate_factory(
         -------
         output_data : ndarray
             The output data.
+
         """
         # We need to check if there is any extrapolation and just log it.
         original_x = spline_interpolate_function.x
@@ -131,6 +134,7 @@ def spline_1d_interpolate_bounds_factory(
     -------
     interpolate_function : Callable
         The interpolation function of the data.
+
     """
     # We use the custom implementation, returning the spline form of it.
     interpolate_function = custom_1d_interpolate_bounds_factory(
@@ -169,6 +173,7 @@ def spline_1d_interpolate_gap_factory(
     -------
     interpolate_function : Callable
         The interpolation function of the data.
+
     """
     # We use the custom implementation, returning the spline form of it.
     interpolate_wrapper = custom_1d_interpolate_gap_factory(
@@ -209,6 +214,7 @@ def spline_1d_interpolate_bounds_gap_factory(
     -------
     interpolate_function : Callable
         The interpolation function of the data.
+
     """
 
     # We use the custom implementation, returning the spline form of it.
@@ -252,6 +258,7 @@ def nearest_neighbor_1d_interpolate_factory(
     -------
     interpolate_function : Callable
         The interpolation function of the data.
+
     """
     # Clean up the data, removing anything that is not usable.
     clean_x, clean_y = lezargus.library.array.clean_finite_arrays(x, y)
@@ -277,6 +284,7 @@ def nearest_neighbor_1d_interpolate_factory(
         -------
         output_data : ndarray
             The output data.
+
         """
         # We need to check if there is any interpolation.
         original_x = nearest_neighbor_function.x
@@ -318,6 +326,7 @@ def nearest_neighbor_1d_interpolate_bounds_factory(
     -------
     interpolate_function : Callable
         The interpolation function of the data.
+
     """
     # We use the custom implementation, returning the nearest neighbor form.
     interpolate_wrapper = custom_1d_interpolate_bounds_factory(
@@ -362,6 +371,7 @@ def custom_1d_interpolate_gap_factory(
     -------
     interpolate_function : Callable
         The interpolation function of the data.
+
     """
     # Defaults for the gap spacing limit. Note, if no gap is provided, there
     # really is no reason to be using this function.
@@ -412,6 +422,7 @@ def custom_1d_interpolate_gap_factory(
         -------
         output_data : ndarray
             The output data.
+
         """
         # We first interpolate the data.
         output_data = custom_interpolate_function(input_data)
@@ -460,6 +471,7 @@ def custom_1d_interpolate_bounds_factory(
     -------
     interpolate_function : Callable
         The interpolation function of the data, with the bounds handled.
+
     """
     # Clean up the data, removing anything that is not usable.
     clean_x, clean_y = lezargus.library.array.clean_finite_arrays(x, y)
@@ -483,6 +495,7 @@ def custom_1d_interpolate_bounds_factory(
         -------
         output_data : ndarray
             The output data.
+
         """
         # We need to check if where any of the input data exceeds the domain.
         min_domain = custom_interpolate_function.lezargus_lower_domain

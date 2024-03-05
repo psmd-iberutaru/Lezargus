@@ -57,6 +57,7 @@ def get_spectra_scale_factor(
     -------
     scale_factor : float
         The scale factor to scale the input data to match the base data.
+
     """
     # The uncertainty defaults.
     base_uncertainty = (
@@ -196,6 +197,7 @@ def stitch_wavelengths_discrete(
     -------
     stitched_wavelength_points : ndarray
         The combined wavelength.
+
     """
     # We need to determine the sampling mode for combining the wavelengths.
     sample_mode = sample_mode.casefold()
@@ -329,6 +331,7 @@ def stitch_spectra_functional(
         The functional form of the average data.
     stitched_uncertainty_function : Callable
         The functional form of the propagated uncertainties.
+
     """
     # We first determine the defaults.
     if uncertainty_functions is None:
@@ -458,6 +461,7 @@ def stitch_spectra_functional(
             The average.
         uncertainty_value : float
             The uncertainty on the average as propagated.
+
         """
         # We clean out the data, this is the primary way to determine if there
         # is usable data or not.
@@ -617,6 +621,7 @@ def stitch_spectra_discrete(
         The discrete data points of the average data.
     stitched_uncertainty_points : ndarray
         The discrete data points of the propagated uncertainties.
+
     """
     # We first determine the defaults.
     if uncertainty_arrays is None:

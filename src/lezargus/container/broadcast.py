@@ -61,6 +61,7 @@ def broadcast_spectra_to_cube_uniform(
     broadcast_cube : LezargusCube
         The LezargusCube after the spectra was uniformly broadcast spatially.
         Any header information came from first the spectra then the cube.
+
     """
     # First thing is first, type check the input.
     if not (
@@ -244,6 +245,7 @@ def broadcast_spectra_to_cube_center(
     broadcast_cube : LezargusCube
         The LezargusCube after the spectra was center broadcast spatially.
         Any header information came from first the spectra then the cube.
+
     """
     # First thing is first, type check the input.
     if not (

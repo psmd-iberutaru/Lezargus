@@ -269,6 +269,7 @@ class ColoredLogFormatter(logging.Formatter):
         The date format, passed directly to the logger formatter.
     color_formatting : dict
         The formatting for the color.
+
     """
 
     def __init__(
@@ -294,6 +295,7 @@ class ColoredLogFormatter(logging.Formatter):
         Returns
         -------
         None
+
         """
         super().__init__()
         # The default.
@@ -335,6 +337,7 @@ class ColoredLogFormatter(logging.Formatter):
         -------
         formatted_record : str
             The formatted string.
+
         """
         log_format = self.color_formatting.get(record.levelno, None)
         formatter = logging.Formatter(fmt=log_format, datefmt=self.date_format)
@@ -353,6 +356,7 @@ class ColoredLogFormatter(logging.Formatter):
         -------
         color_ansi_escape : str
             The ANSI escape code for the color.
+
         """
         # If the color code is not a hex, give a warning.
         color_hex = color_hex.upper()
@@ -406,6 +410,7 @@ def add_console_logging_handler(
     Returns
     -------
     None
+
     """
     # We first check if there already exists a console handler.
     __lhn = lezargus.library.config.LOGGING_SPECIFIC_CONSOLE_HANDLER_FLAG_NAME
@@ -478,6 +483,7 @@ def add_stream_logging_handler(
     Returns
     -------
     None
+
     """
     stream_handler = logging.StreamHandler(stream)
     stream_handler.setLevel(log_level)
@@ -532,6 +538,7 @@ def add_file_logging_handler(
     Returns
     -------
     None
+
     """
     file_handler = logging.FileHandler(filename, "a")
     file_handler.setLevel(log_level)
@@ -563,6 +570,7 @@ def update_global_minimum_logging_level(
     Returns
     -------
     None
+
     """
     # Setting the log level.
     __lezargus_logger.setLevel(log_level)
@@ -585,6 +593,7 @@ def debug(message: str) -> None:
     Returns
     -------
     None
+
     """
     __lezargus_logger.debug(message)
 
@@ -602,6 +611,7 @@ def info(message: str) -> None:
     Returns
     -------
     None
+
     """
     __lezargus_logger.info(message)
 
@@ -629,6 +639,7 @@ def warning(
     Returns
     -------
     None
+
     """
     # Check if the warning type provided is a Lezargus type.
     if not issubclass(warning_type, LezargusWarning):
@@ -688,6 +699,7 @@ def error(
     Returns
     -------
     None
+
     """
     # Check if the warning type provided is a Lezargus type.
     if not issubclass(error_type, LezargusError | LezargusBaseError):
@@ -741,6 +753,7 @@ def critical(critical_type: LezargusError, message: str) -> None:
     Returns
     -------
     None
+
     """
     # Check if the warning type provided is a Lezargus type.
     if not issubclass(critical_type, LezargusError | LezargusBaseError):
@@ -774,6 +787,7 @@ def terminal() -> None:
     Returns
     -------
     None
+
     """
     # Raise.
     msg = (

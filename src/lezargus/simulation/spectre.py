@@ -48,6 +48,7 @@ class SimulatorSpectre:
         The astronomical object, obtained from applying atmospheric conditions
         to the astrophysical object. Noted as "astronomical" as it is
         considered "as-observed" from the Earth ground.
+
     """
 
     astrophysical_object_spectra = None
@@ -68,6 +69,7 @@ class SimulatorSpectre:
         Returns
         -------
         None
+
         """
 
     def create_astrophysical_object_spectra(
@@ -105,6 +107,7 @@ class SimulatorSpectre:
         spectra : LezargusSpectra
             The astrophysical object spectra; it is returned as a courtesy as
             the result is stored in this class.
+
         """
         # We need to construct our own wavelength base line, we rely on the
         # limits of SPECTRE itself.
@@ -218,6 +221,7 @@ class SimulatorSpectre:
             The astrophysical object spectra; it is returned as a courtesy as
             the result is stored in this class. This is the same as the input
             spectra and the return is for consistency.
+
         """
         # We really just use it as is, aside from a simple check to make sure
         # the input is not going to screw things up down the line.
@@ -257,6 +261,7 @@ class SimulatorSpectre:
         cube : LezargusCube
             The astrophysical object cube; it is returned as a courtesy as
             the result is stored in this class.
+
         """
         # We first need to make sure there is a spectra for us to use.
         if self.astrophysical_object_spectra is None:
@@ -355,6 +360,7 @@ class SimulatorSpectre:
             The astrophysical object cube; it is returned as a courtesy as
             the result is stored in this class. This is the same as the input
             spectra and the return is for consistency.
+
         """
         # We really just use it as is, aside from a simple check to make sure
         # the input is not going to screw things up down the line.
@@ -409,6 +415,7 @@ class SimulatorSpectre:
         finished_spectra : LezargusSpectra
             The finished prepared spectra after all of the steps have been
             done.
+
         """
         # Type check on the input spectra.
         if not isinstance(spectra, lezargus.container.LezargusSpectra):
@@ -490,6 +497,7 @@ class SimulatorSpectre:
         -------
         convolved_spectra : LezargusSpectra
             The spectra, after convolution based on the input parameters.
+
         """
         # This is just to catch and use the keyword arguments.
         __ = kwargs
@@ -549,6 +557,7 @@ class SimulatorSpectre:
         cube : LezargusCube
             The cube of the object after atmospheric transmission has been
             applied.
+
         """
         # We first need to make sure there is the object cube for us to use.
         if self.astrophysical_object_cube is None:
@@ -638,6 +647,7 @@ class SimulatorSpectre:
         -------
         cube : LezargusCube
             The cube of the object after atmospheric radiance has been added.
+
         """
         # We first need to make sure there is the object cube for us to use.
         if self.astrophysical_object_cube_atm_trn is None:
@@ -724,6 +734,7 @@ class SimulatorSpectre:
         -------
         seeing_kernel : ndarray
             The atmospheric seeing kernel.
+
         """
         # First, we need to convert the seeing from the angle measurement to
         # pixels, as that is what convolution is built on. We require the
@@ -788,6 +799,7 @@ class SimulatorSpectre:
         -------
         cube : LezargusCube
             The results of the seeing convolution.
+
         """
         # We first need to make sure there is the object cube for us to use.
         if self.astrophysical_object_cube_atm_rad is None:
@@ -839,6 +851,7 @@ class SimulatorSpectre:
         -------
         cube : LezargusCube
             The resulting cube after the effects of atmospheric refraction.
+
         """
         # We first need to make sure there is the object cube for us to use.
         if self.astrophysical_object_cube_atm_see is None:
@@ -946,5 +959,6 @@ class SimulatorSpectre:
         -------
         cube : LezargusCube
             The :py:attr:`astronomical_object_cube` object as an alias.
+
         """
         return self.astronomical_object_cube

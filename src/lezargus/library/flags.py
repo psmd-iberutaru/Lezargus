@@ -26,6 +26,7 @@ def combine_masks(*masks: hint.ndarray) -> hint.ndarray:
     -------
     combined_mask : ndarray
         The combined mask.
+
     """
     # We assume the shape of the first mask.
     combined_mask = np.zeros_like(masks[0], dtype=bool)
@@ -51,6 +52,7 @@ def combine_flags(*flags: hint.ndarray) -> hint.ndarray:
     -------
     combined_flags : ndarray
         The combined mask.
+
     """
     # We assume the shape of the first mask.
     combined_flags = np.zeros_like(flags[0], dtype=np.uint)
@@ -79,6 +81,7 @@ def reduce_flags(flag_array: hint.ndarray) -> hint.ndarray:
     -------
     lowest_flag_array : ndarray
         The flags, reduced to the lowest value.
+
     """
     # The lowest flag array.
     lowest_flag_array = np.ones_like(flag_array, dtype=np.uint)

@@ -37,6 +37,7 @@ def sanitize_configuration(configuration: dict) -> dict:
     -------
     sanitized_configuration : dict
         The configuration, after sanitization.
+
     """
     # We need to entry by entry in sanitization.
     sanitized_configuration = {}
@@ -69,6 +70,7 @@ def sanitize_configuration_key(key: str) -> str:
     -------
     sanitized_key : str
         The key, sanitized.
+
     """
     # We replace common text demarcations with underscores. Also,
     # only single underscores so we need to remove subsequent underscores.
@@ -130,6 +132,7 @@ def sanitize_configuration_value(value: object) -> int | float | str:
     -------
     sanitized_value : int, float, or str
         The value, sanitized.
+
     """
     # We need to make sure it is not a dictionary, else, that is likely nested
     # configurations.
@@ -193,6 +196,7 @@ def apply_configuration(configuration: dict) -> None:
     Returns
     -------
     None
+
     """
     # Constants typically are all capitalized in their variable naming.
     capital_configuration = {
@@ -242,6 +246,7 @@ def read_configuration_file(filename: str) -> dict:
     configuration : dict
         The dictionary which contains all of the configuration parameters
         within it.
+
     """
     # Checking the extension is valid, just as a quick sanity check that the
     # configuration file is proper.
@@ -315,6 +320,7 @@ def write_configuration_file(
     Returns
     -------
     None
+
     """
     # We need to sanitize the input configuration first.
     configuration = sanitize_configuration(configuration=configuration)
@@ -430,6 +436,7 @@ def load_configuration_file(filename: str) -> None:
     Returns
     -------
     None
+
     """
     # Loading a configuration is simply just reading the file, then applying
     # the configuration.
@@ -459,6 +466,7 @@ def create_configuration_file(
     Returns
     -------
     None
+
     """
     # Check if the filename is already taken by something.
     if os.path.isfile(filename) and (not overwrite):
@@ -524,6 +532,7 @@ def update_configuration_file(
     Returns
     -------
     None
+
     """
     # Defaults.
     configuration = {} if configuration is None else configuration

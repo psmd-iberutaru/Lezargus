@@ -36,6 +36,7 @@ def clean_finite_arrays(*arrays: hint.ndarray) -> tuple[hint.ndarray]:
     clean_arrays : tuple
         The cleaned arrays, arranged in a tuple, in the exact order they were
         input in as `arrays`.
+
     """
     # We need to make sure each array is compatible with themselves. We assume
     # the first array is the reference array for size and shape comparison.
@@ -98,6 +99,7 @@ def verify_shape_compatibility(
     broadcast : ndarray, optional
         The broadcast, we only return this if `return_broadcast` was provided.
         If verify is False, then this is None.
+
     """
     # We need to make them like arrays.
     reference_array = np.array(reference_array)
@@ -151,6 +153,7 @@ def translate_image_array(
     -------
     shifted_array : ndarray
         The shifted array/image.
+
     """
     # We ensure that the array is 2D, or rather, image like.
     image_dimensions = 2
@@ -195,6 +198,7 @@ def rotate_image_array(
     -------
     rotated_array : ndarray
         The rotated array/image.
+
     """
     # We ensure that the array is 2D, or rather, image like.
     image_dimensions = 2
@@ -250,6 +254,7 @@ def bin_image_array(
     -------
     binned_image : ndarray
         The image/array after binning.
+
     """
     # We need to check if the shape is compatible with the binning count.
     image_dimensions = 2
@@ -327,6 +332,7 @@ def bin_cube_array_spatially(
     -------
     binned_image : ndarray
         The data cube after binning.
+
     """
     # We need to check if the shape is compatible with the binning count.\
     cube_dimensions = 3

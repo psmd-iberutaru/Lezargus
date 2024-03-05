@@ -44,6 +44,7 @@ def calculate_filter_zero_point_vega(
         The uncertainty on the zero point. If the standard star provided has
         some uncertainty, or if the filter does, then we attempt to calculate
         the uncertainty on the value.
+
     """
     # We assume that the standard star has data covering the entire filter
     # range as otherwise, you cannot really calculate an accurate zero point.
@@ -160,6 +161,7 @@ def calculate_filter_magnitude_vega(
         The computed synthetic magnitude.
     uncertainty : float
         The uncertainty in the computed synthetic magnitude.
+
     """
     # We assume that the target star has data covering the entire filter
     # range as otherwise, you cannot really calculate an accurate magnitude.
@@ -285,6 +287,7 @@ def calculate_photometric_correction_factor_vega(
         The correction factor calculated using synthetic photometry.
     correction_factor_uncertainty : float
         The uncertainty on the correction factor.
+
     """
     # We assume that the target star has data covering the entire filter
     # range as otherwise, you cannot really calculate an accurate magnitude.

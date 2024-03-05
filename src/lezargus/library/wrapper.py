@@ -36,6 +36,7 @@ def blackbody_function(
     blackbody : Callable
         The blackbody function, the wavelength callable is in meters. The
         return units are in W m^-2 m^-1 sr^-1.
+
     """
     # The temperature, assigning units to them because that is what Astropy
     # wants.
@@ -63,6 +64,7 @@ def blackbody_function(
         flux : ndarray
             The blackbody flux, as returned by a blackbody, in units of
             W m^-2 m^-1/sr.
+
         """
         wave = astropy.units.Quantity(wave, unit="meter")
         flux = blackbody_instance(wave).value
@@ -96,6 +98,7 @@ def wavelength_overlap_fraction(
     fraction : float
         The fraction percent the two wavelength regions overlap with each
         other. This value may be larger than 1 for large overlaps.
+
     """
     # Getting the endpoints of the arrays.
     base_min = base.min()
@@ -166,6 +169,7 @@ def flatten_list_recursively(
     -------
     flattened_list : list
         The list object, flattened.
+
     """
     # We do this recursively because how else to implement it is not really
     # known to Sparrow.

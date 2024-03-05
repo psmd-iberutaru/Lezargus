@@ -18,6 +18,7 @@ class LezargusCube(LezargusContainerArithmetic):
     Attributes
     ----------
     For all available attributes, see :py:class:`LezargusContainerArithmetic`.
+
     """
 
     def __init__(
@@ -73,6 +74,7 @@ class LezargusCube(LezargusContainerArithmetic):
             suggest writing of the metadata to conform to the FITS Header
             specification as much as possible. If None, we just use an
             empty header.
+
         """
         # The data must be three dimensional.
         container_dimensions = 3
@@ -135,6 +137,7 @@ class LezargusCube(LezargusContainerArithmetic):
         -------
         cube : Self-like
             The LezargusCube class instance.
+
         """
         # Any pre-processing is done here.
         # Loading the file.
@@ -162,6 +165,7 @@ class LezargusCube(LezargusContainerArithmetic):
         Returns
         -------
         None
+
         """
         # Any pre-processing is done here.
         # Saving the file.
@@ -185,6 +189,7 @@ class LezargusCube(LezargusContainerArithmetic):
         -------
         convolved_cube : ndarray
             A near copy of the data cube after convolution.
+
         """
         # Using this kernel, we convolve the cube. We assume that the
         # uncertainties add in quadrature.
@@ -244,6 +249,7 @@ class LezargusCube(LezargusContainerArithmetic):
         -------
         convolved_cube : ndarray
             A near copy of the data cube after convolution.
+
         """
         # Using this kernel, we convolve the cube. We assume that the
         # uncertainties add in quadrature.

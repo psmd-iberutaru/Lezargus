@@ -40,6 +40,7 @@ def convert_units(
     -------
     result : float or ndarray
         The result after the unit conversion.
+
     """
     # We need to check if the unit is an Astropy unit or needs parsing.
     if not isinstance(value_unit, astropy.units.UnitBase):
@@ -81,6 +82,7 @@ def parse_astropy_unit(unit_string: str) -> hint.Unit:
     -------
     unit_instance : Unit
         The unit instance after parsing.
+
     """
     # We check for a few input cases which Astropy does not natively know
     # but we do.
@@ -130,6 +132,7 @@ def convert_to_fits_header_types(
     header_output : str, int, float, bool, or None
         The output after conversion. Note the None is not actually a None
         type itself, but Astropy's header None/Undefined type.
+
     """
     # If it is None, then we assume a blank record.
     if input_data is None or isinstance(

@@ -32,6 +32,7 @@ def add_data_object(name: str, data: object, force: bool = False) -> None:
         The data object to be added to the data module.
     force : bool
         Force the loading of the data object regardless of any critical errors.
+
     """
     # We fix the name.
     name = name.upper()
@@ -89,6 +90,7 @@ def _zero_buffer_custom_filters(
         The wavelength, with added points for the zero section.
     zero_transmission : ndarray
         The transmission, with added points for the zero section, of zero.
+
     """
     # The number of buffer points we have to make on each side.
     n_buffer_points = 5 + 1
@@ -136,6 +138,7 @@ def custom_rectangular_filter(
     -------
     rectangular_filter : LezargusSpectra
         The filter, as defined.
+
     """
     # Wavelength and data. The 100 data points are arbitrary but we think it
     # is enough.

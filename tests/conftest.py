@@ -28,10 +28,9 @@ def pytest_sessionstart(session: pytest.Session) -> None:
         filename="test_configuration_overrides",
         extension="yaml",
     )
-    test_configuration = lezargus.library.config.load_configuration_file(
+    lezargus.library.config.load_configuration_file(
         filename=test_configuration_file
     )
-    lezargus.library.config.apply_configuration(configuration=test_configuration)
 
 
 # Here and below are some convenience functions.

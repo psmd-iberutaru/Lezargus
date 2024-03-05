@@ -37,6 +37,7 @@ def initialize(*args: tuple, **kwargs: object) -> None:
     Returns
     -------
     None
+
     """
     # The initialization function cannot have positional arguments as
     # such positional arguments may get confused for other arguments when
@@ -92,6 +93,7 @@ def initialize_configuration(*args: tuple, **kwargs: object) -> None:
     Returns
     -------
     None
+
     """
     # The initialization function cannot have positional arguments as
     # such positional arguments may get confused for other arguments when
@@ -142,6 +144,7 @@ def initialize_logging_outputs(*args: tuple, **kwargs: object) -> None:
     Returns
     -------
     None
+
     """
     # The initialization function cannot have positional arguments as
     # such positional arguments may get confused for other arguments when
@@ -232,6 +235,7 @@ def initialize_temporary_directory(*args: tuple, **kwargs: object) -> None:
     Returns
     -------
     None
+
     """
     # The initialization function cannot have positional arguments as
     # such positional arguments may get confused for other arguments when
@@ -303,6 +307,7 @@ def initialize_data_all(*args: tuple, **kwargs: object) -> None:
     Returns
     -------
     None
+
     """
     # The initialization function cannot have positional arguments as
     # such positional arguments may get confused for other arguments when
@@ -353,6 +358,7 @@ def initialize_data_star_files(*args: tuple, **kwargs: object) -> None:
     Returns
     -------
     None
+
     """
     # The initialization function cannot have positional arguments as
     # such positional arguments may get confused for other arguments when
@@ -444,6 +450,7 @@ def initialize_data_filter_files(*args: tuple, **kwargs: object) -> None:
     Returns
     -------
     None
+
     """
     # The initialization function cannot have positional arguments as
     # such positional arguments may get confused for other arguments when
@@ -582,6 +589,7 @@ def initialize_data_atmosphere_files(*args: tuple, **kwargs: object) -> None:
     Returns
     -------
     None
+
     """
     # The initialization function cannot have positional arguments as
     # such positional arguments may get confused for other arguments when
@@ -709,6 +717,7 @@ def initialize_data_filter_zero_point_values(
     Returns
     -------
     None
+
     """
     # The initialization function cannot have positional arguments as
     # such positional arguments may get confused for other arguments when

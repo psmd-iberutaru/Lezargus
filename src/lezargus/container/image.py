@@ -17,6 +17,7 @@ class LezargusImage(LezargusContainerArithmetic):
     Attributes
     ----------
     For all available attributes, see :py:class:`LezargusContainerArithmetic`.
+
     """
 
     def __init__(
@@ -72,6 +73,7 @@ class LezargusImage(LezargusContainerArithmetic):
             suggest writing of the metadata to conform to the FITS Header
             specification as much as possible. If None, we just use an
             empty header.
+
         """
         # The data must be two dimensional.
         container_dimensions = 2
@@ -127,6 +129,7 @@ class LezargusImage(LezargusContainerArithmetic):
         -------
         cube : Self-like
             The LezargusImage class instance.
+
         """
         # Any pre-processing is done here.
         # Loading the file.
@@ -154,6 +157,7 @@ class LezargusImage(LezargusContainerArithmetic):
         Returns
         -------
         None
+
         """
         # Any pre-processing is done here.
         # Saving the file.

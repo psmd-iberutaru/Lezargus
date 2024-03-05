@@ -31,6 +31,7 @@ def airmass(zenith_angle: float | hint.ndarray) -> float | hint.ndarray:
     -------
     airmass_value : float or ndarray
         The airmass. The variable name is to avoid name conflicts.
+
     """
     # The bounds of the spline region.
     low_spline_deg = 75
@@ -82,6 +83,7 @@ def index_of_refraction_ideal_air(wavelength: hint.ndarray) -> hint.ndarray:
     -------
     ior_ideal_air : ndarray
         The ideal air index of refraction.
+
     """
     # The formal equation accepts only inverse micrometers, so we need to
     # convert. The wave number is actually used more in these equations.
@@ -126,6 +128,7 @@ def index_of_refraction_dry_air(
     -------
     ior_dry_air : ndarray
         The dry air index of refraction.
+
     """
     # We need the ideal air case first.
     ior_ideal_air = index_of_refraction_ideal_air(wavelength=wavelength)
@@ -184,6 +187,7 @@ def index_of_refraction_moist_air(
     -------
     ior_moist_air : ndarray
         The moist air index of refraction.
+
     """
     # We need the dry air case first.
     ior_dry_air = index_of_refraction_dry_air(
@@ -242,6 +246,7 @@ def absolute_atmospheric_refraction_function(
         The absolute atmospheric refraction function, as an actual callable
         function. The input is wavelength in meters and output is refraction in
         radians.
+
     """
     # We need to determine the index of refraction for moist air.
     ior_moist_air = index_of_refraction_moist_air(
@@ -302,6 +307,7 @@ def relative_atmospheric_refraction_function(
         The absolute atmospheric refraction function, as an actual callable
         function. The input is wavelength in meters and output is refraction in
         radians.
+
     """
     # We need the absolute refraction function first.
     abs_atm_refr_func = absolute_atmospheric_refraction_function(
@@ -327,6 +333,7 @@ def relative_atmospheric_refraction_function(
         -------
         rel_atm_refr : ndarray
             The relative atmospheric refraction, in radians.
+
         """
         rel_atm_refr = abs_atm_refr_func(wave) - ref_abs_refr
         return rel_atm_refr

@@ -19,6 +19,7 @@ class LezargusSpectra(LezargusContainerArithmetic):
     Attributes
     ----------
     For all available attributes, see :py:class:`LezargusContainerArithmetic`.
+
     """
 
     def __init__(
@@ -78,6 +79,7 @@ class LezargusSpectra(LezargusContainerArithmetic):
         Returns
         -------
         None
+
         """
         # The data must be one dimensional.
         container_dimensions = 1
@@ -139,6 +141,7 @@ class LezargusSpectra(LezargusContainerArithmetic):
         -------
         spectra : Self-like
             The LezargusSpectra class instance.
+
         """
         # Any pre-processing is done here.
         # Loading the file.
@@ -166,6 +169,7 @@ class LezargusSpectra(LezargusContainerArithmetic):
         Returns
         -------
         None
+
         """
         # Any pre-processing is done here.
         # Saving the file.
@@ -188,6 +192,7 @@ class LezargusSpectra(LezargusContainerArithmetic):
         -------
         convolved_spectra : ndarray
             A near copy of the spectra after convolution.
+
         """
         # Using this kernel, we convolve the spectra. We assume that the
         # uncertainties add in quadrature.
@@ -275,6 +280,7 @@ class LezargusSpectra(LezargusContainerArithmetic):
             A best guess attempt at finding the appropriate flags for the
             interpolated data. If skip_flags=True, then we skip the computation
             and return None instead.
+
         """
         # Interpolation cannot deal with NaNs, so we exclude any set of data
         # which includes them.
@@ -402,6 +408,7 @@ class LezargusSpectra(LezargusContainerArithmetic):
         -------
         stitch_spectra : LezargusSpectra
             The spectra after stitching.
+
         """
         # If there are no spectra to stitch, then we do nothing.
         if len(spectra) == 0:

@@ -86,6 +86,7 @@ def read_fits_header(filename: str, extension: int | str = 0) -> hint.Header:
     -------
     header : Astropy Header
         The header of the fits file.
+
     """
     with astropy.io.fits.open(filename) as hdul:
         hdu = hdul[extension].copy()
@@ -155,6 +156,7 @@ def read_lezargus_fits_file(
         The mask of the data.
     flags : ndarray
         The noted flags for each of the data points.
+
     """
     # We first need to check if the file even exists to read.
     if not os.path.isfile(filename):
@@ -303,6 +305,7 @@ def write_lezargus_fits_file(
     Returns
     -------
     None
+
     """
     # We test if the file already exists.
     filename = os.path.abspath(filename)
@@ -416,6 +419,7 @@ def create_fits_header(
     -------
     output_header : Astropy Header
         The header made from the input.
+
     """
     # If it is a header, there is nothing to do.
     if isinstance(input_dict, astropy.io.fits.Header):
@@ -470,6 +474,7 @@ def create_lezargus_fits_header(
     lezargus_header : Astropy Header
         The header which Lezargus entries have been be added to. The order
         of the entries are specified.
+
     """
     # Working on a copy of the header just in case.
     header_copy = copy.deepcopy(header)
@@ -553,6 +558,7 @@ def create_wcs_header_from_lezargus_header(header: hint.Header) -> hint.Header:
     -------
     wcs_header : Header
         The WCS header.
+
     """
     # If the header provided is not a Lezargus header, we cannot extract
     # the WCS information from it.
