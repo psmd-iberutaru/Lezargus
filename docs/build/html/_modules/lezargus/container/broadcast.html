@@ -1,0 +1,793 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lezargus.container.broadcast &#8212; Lezargus  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/lezargus/container/broadcast';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Lezargus  documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../user/index.html">User Manual</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="simple">
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../technical/index.html">Technical Manual</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/contributing.html">Contributor Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/convention.html">Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/photometry.html">Photometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/uncertainty.html">Uncertainty Propagation</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../code/modules.html">lezargus</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../code/lezargus.html">lezargus package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.container.html">lezargus.container package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.broadcast.html">lezargus.container.broadcast module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.cube.html">lezargus.container.cube module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.image.html">lezargus.container.image module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.mosaic.html">lezargus.container.mosaic module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.parent.html">lezargus.container.parent module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.spectra.html">lezargus.container.spectra module</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.library.html">lezargus.library package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.array.html">lezargus.library.array module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.atmosphere.html">lezargus.library.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.config.html">lezargus.library.config module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.conversion.html">lezargus.library.conversion module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.convolution.html">lezargus.library.convolution module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.data.html">lezargus.library.data module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.fits.html">lezargus.library.fits module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.flags.html">lezargus.library.flags module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.hint.html">lezargus.library.hint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.interpolate.html">lezargus.library.interpolate module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.logging.html">lezargus.library.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.math.html">lezargus.library.math module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.path.html">lezargus.library.path module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.stitch.html">lezargus.library.stitch module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.temporary.html">lezargus.library.temporary module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.simulation.html">lezargus.simulation package</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.simulation.spectre.html">lezargus.simulation.spectre module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__main__.html">lezargus.__main__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__version__.html">lezargus.__version__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.initialize.html">lezargus.initialize module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <h1>Source code for lezargus.container.broadcast</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Functions to properly broadcast one Lezargus container into another.</span>
+
+<span class="sd">Sometimes operations are needed to be performed between two dimensions of</span>
+<span class="sd">data structures. We have functions here which serve to convert from one</span>
+<span class="sd">structure to another based on some broadcasting pattern. We properly handle</span>
+<span class="sd">the internal conversions (such as the flags, mask, wavelength, etc) as well</span>
+<span class="sd">based on the input template structure broadcasting to.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># This is a last resort solution to fixing the recursive import of the</span>
+<span class="c1"># type hints here.</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">lezargus</span>
+<span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">hint</span>
+<span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">logging</span>
+
+
+<div class="viewcode-block" id="broadcast_spectra_to_cube_uniform">
+<a class="viewcode-back" href="../../../code/lezargus.container.broadcast.html#lezargus.container.broadcast.broadcast_spectra_to_cube_uniform">[docs]</a>
+<span class="k">def</span> <span class="nf">broadcast_spectra_to_cube_uniform</span><span class="p">(</span>
+    <span class="n">input_spectra</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusSpectra</span><span class="p">,</span>
+    <span class="n">template_cube</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusCube</span><span class="p">,</span>
+    <span class="n">wavelength_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusCube</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Make a LezargusCube from a LezargusSpectra via uniform broadcasting.</span>
+
+<span class="sd">    We make a LezargusCube, from a provided template, using uniform</span>
+<span class="sd">    broadcasting. Uniform broadcasting is where all spectral slices, within</span>
+<span class="sd">    the cube, are all the same for a uniform spatial distribution of the</span>
+<span class="sd">    spectra, which is in this case the provided input spectra.</span>
+
+<span class="sd">    In the case of both the input spectra and provided template cube having</span>
+<span class="sd">    different wavelength arrays, we follow the provided mode to handle the</span>
+<span class="sd">    different cases. The input template cube only provides the array shapes and</span>
+<span class="sd">    the wavelength axis (dependant on the mode); the rest comes from the</span>
+<span class="sd">    input spectra.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    input_spectra : LezargusSpectra</span>
+<span class="sd">        The input spectra which will be broadcasted to fit the input template</span>
+<span class="sd">        cube.</span>
+<span class="sd">    template_cube : LezargusCube</span>
+<span class="sd">        The template cube which will serve as a template to determine the</span>
+<span class="sd">        dimensional properties of the resulting broadcasting cube.</span>
+<span class="sd">    wavelength_mode : str, default = &quot;error&quot;</span>
+<span class="sd">        The mode to handle possible wavelength array conflicts between the</span>
+<span class="sd">        spectra and the cube. The available options are:</span>
+
+<span class="sd">            - &quot;spectra&quot; : Prefer the spectra&#39;s wavelength array; the cube&#39;s</span>
+<span class="sd">              wavelength is ignored.</span>
+<span class="sd">            - &quot;cube&quot; : Prefer the cube&#39;s wavelength array; the spectra is</span>
+<span class="sd">              interpolated to align to the new wavelength.</span>
+<span class="sd">            - &quot;error&quot; : We log an error. We still attempt to figure it out,</span>
+<span class="sd">              defaulting to the spectra&#39;s wavelength array.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    broadcast_cube : LezargusCube</span>
+<span class="sd">        The LezargusCube after the spectra was uniformly broadcast spatially.</span>
+<span class="sd">        Any header information came from first the spectra then the cube.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># First thing is first, type check the input.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span>
+        <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_spectra</span><span class="p">,</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusSpectra</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">template_cube</span><span class="p">,</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusCube</span><span class="p">)</span>
+    <span class="p">):</span>
+        <span class="c1"># The objects are not the proper type so broadcasting them might go</span>
+        <span class="c1"># really wrong.</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;The input spectra type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">input_spectra</span><span class="p">)</span><span class="si">}</span><span class="s2"> and template&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; cube type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">template_cube</span><span class="p">)</span><span class="si">}</span><span class="s2"> are not instances of the&quot;</span>
+                <span class="s2">&quot; expected LezargusSpectra and LezargusCube types&quot;</span>
+                <span class="s2">&quot; respectively. Broadcasting may fail.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Now, we need to determine the definitive wavelength array based on the</span>
+    <span class="c1"># provided wavelength mode. However, the two wavelength units might be</span>
+    <span class="c1"># different, this is problem that we ought to warn.</span>
+    <span class="k">if</span> <span class="n">input_spectra</span><span class="o">.</span><span class="n">wavelength_unit</span> <span class="o">!=</span> <span class="n">template_cube</span><span class="o">.</span><span class="n">wavelength_unit</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">AccuracyWarning</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;The input spectra wavelength unit is&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">input_spectra</span><span class="o">.</span><span class="n">wavelength_unit</span><span class="si">}</span><span class="s2">, different from the template&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; cube wavelength unit </span><span class="si">{</span><span class="n">template_cube</span><span class="o">.</span><span class="n">wavelength_unit</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+    <span class="c1"># Regardless of the unit situation, we try our best to determine the</span>
+    <span class="c1"># the preferred wavelength.</span>
+    <span class="n">wavelength_mode</span> <span class="o">=</span> <span class="n">wavelength_mode</span><span class="o">.</span><span class="n">casefold</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">wavelength_mode</span> <span class="o">==</span> <span class="s2">&quot;spectra&quot;</span><span class="p">:</span>
+        <span class="c1"># We rely on the spectra&#39;s wavelength.</span>
+        <span class="n">broadcast_wavelength</span> <span class="o">=</span> <span class="n">input_spectra</span><span class="o">.</span><span class="n">wavelength</span>
+        <span class="n">broadcast_wavelength_unit</span> <span class="o">=</span> <span class="n">input_spectra</span><span class="o">.</span><span class="n">wavelength_unit</span>
+    <span class="k">elif</span> <span class="n">wavelength_mode</span> <span class="o">==</span> <span class="s2">&quot;cube&quot;</span><span class="p">:</span>
+        <span class="c1"># We rely on the cube&#39;s wavelength.</span>
+        <span class="n">broadcast_wavelength</span> <span class="o">=</span> <span class="n">template_cube</span><span class="o">.</span><span class="n">wavelength</span>
+        <span class="n">broadcast_wavelength_unit</span> <span class="o">=</span> <span class="n">template_cube</span><span class="o">.</span><span class="n">wavelength_unit</span>
+    <span class="k">elif</span> <span class="n">wavelength_mode</span> <span class="o">==</span> <span class="s2">&quot;error&quot;</span><span class="p">:</span>
+        <span class="c1"># If the wavelengths differ, we raise an error on their mismatch.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">input_spectra</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span> <span class="n">template_cube</span><span class="o">.</span><span class="n">wavelength</span><span class="p">),</span>
+        <span class="p">):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;Input spectra and template cube wavelength arrays do not&quot;</span>
+                    <span class="s2">&quot; match; wavelength mode is `error`; returning None.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="c1"># Regardless if the error was logged or not, we use the input spectra</span>
+        <span class="c1"># as the broadcast.</span>
+        <span class="n">broadcast_wavelength</span> <span class="o">=</span> <span class="n">input_spectra</span><span class="o">.</span><span class="n">wavelength</span>
+        <span class="n">broadcast_wavelength_unit</span> <span class="o">=</span> <span class="n">input_spectra</span><span class="o">.</span><span class="n">wavelength_unit</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># The input parameter is not a given parameter.</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+            <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;The input wavelength mode </span><span class="si">{</span><span class="n">wavelength_mode</span><span class="si">}</span><span class="s2"> is not a&quot;</span>
+                <span class="s2">&quot; supported option.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Finally, we determine the appropriate data based on the spectra and</span>
+    <span class="c1"># the preferred wavelength array.</span>
+    <span class="p">(</span>
+        <span class="n">interpolated_data</span><span class="p">,</span>
+        <span class="n">interpolated_uncertainty</span><span class="p">,</span>
+        <span class="n">interpolated_mask</span><span class="p">,</span>
+        <span class="n">interpolated_flags</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">=</span> <span class="n">input_spectra</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span>
+        <span class="n">wavelength</span><span class="o">=</span><span class="n">broadcast_wavelength</span><span class="p">,</span>
+        <span class="n">skip_mask</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">skip_flags</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1"># The data unit for the data and the like.</span>
+    <span class="n">broadcast_data_unit</span> <span class="o">=</span> <span class="n">input_spectra</span><span class="o">.</span><span class="n">data_unit</span>
+
+    <span class="c1"># Now, we assemble the cube. We only need the spatial coverage of the cube</span>
+    <span class="c1"># and broadcast our 1D spectra to the spatial dimensions. We do not</span>
+    <span class="c1"># really care for the wavelength shape of the cube.</span>
+    <span class="n">x_dim</span><span class="p">,</span> <span class="n">y_dim</span><span class="p">,</span> <span class="n">__</span> <span class="o">=</span> <span class="n">template_cube</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">wave_dim</span> <span class="o">=</span> <span class="n">broadcast_wavelength</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1"># Building the cubes.</span>
+    <span class="n">broadcast_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span>
+        <span class="n">interpolated_data</span><span class="p">,</span>
+        <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">x_dim</span><span class="p">,</span> <span class="n">y_dim</span><span class="p">,</span> <span class="n">wave_dim</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">broadcast_uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span>
+        <span class="n">interpolated_uncertainty</span><span class="p">,</span>
+        <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">x_dim</span><span class="p">,</span> <span class="n">y_dim</span><span class="p">,</span> <span class="n">wave_dim</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">broadcast_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span>
+        <span class="n">interpolated_mask</span><span class="p">,</span>
+        <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">x_dim</span><span class="p">,</span> <span class="n">y_dim</span><span class="p">,</span> <span class="n">wave_dim</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">broadcast_flags</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">broadcast_to</span><span class="p">(</span>
+        <span class="n">interpolated_flags</span><span class="p">,</span>
+        <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">x_dim</span><span class="p">,</span> <span class="n">y_dim</span><span class="p">,</span> <span class="n">wave_dim</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="c1"># The pixel and slice scale of the broadcasted cube is based on the</span>
+    <span class="c1"># template cube as that is where the shape is derived from.</span>
+    <span class="n">pixel_scale</span> <span class="o">=</span> <span class="n">template_cube</span><span class="o">.</span><span class="n">pixel_scale</span>
+    <span class="n">slice_scale</span> <span class="o">=</span> <span class="n">template_cube</span><span class="o">.</span><span class="n">slice_scale</span>
+
+    <span class="c1"># Finally, we reconstruct the cube. We work on copies of the headers</span>
+    <span class="c1"># just in case.</span>
+    <span class="n">spectra_header</span> <span class="o">=</span> <span class="n">input_spectra</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">cube_header</span> <span class="o">=</span> <span class="n">template_cube</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">broadcast_header</span> <span class="o">=</span> <span class="n">cube_header</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">spectra_header</span><span class="p">)</span>
+
+    <span class="c1"># Building the new broadcasted cube. We use the template&#39;s cube&#39;s class</span>
+    <span class="c1"># just in case it has been subclassed or something.</span>
+    <span class="n">template_cube_class</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">template_cube</span><span class="p">)</span>
+    <span class="n">broadcast_cube</span> <span class="o">=</span> <span class="n">template_cube_class</span><span class="p">(</span>
+        <span class="n">wavelength</span><span class="o">=</span><span class="n">broadcast_wavelength</span><span class="p">,</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">broadcast_data</span><span class="p">,</span>
+        <span class="n">uncertainty</span><span class="o">=</span><span class="n">broadcast_uncertainty</span><span class="p">,</span>
+        <span class="n">wavelength_unit</span><span class="o">=</span><span class="n">broadcast_wavelength_unit</span><span class="p">,</span>
+        <span class="n">data_unit</span><span class="o">=</span><span class="n">broadcast_data_unit</span><span class="p">,</span>
+        <span class="n">pixel_scale</span><span class="o">=</span><span class="n">pixel_scale</span><span class="p">,</span>
+        <span class="n">slice_scale</span><span class="o">=</span><span class="n">slice_scale</span><span class="p">,</span>
+        <span class="n">mask</span><span class="o">=</span><span class="n">broadcast_mask</span><span class="p">,</span>
+        <span class="n">flags</span><span class="o">=</span><span class="n">broadcast_flags</span><span class="p">,</span>
+        <span class="n">header</span><span class="o">=</span><span class="n">broadcast_header</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">broadcast_cube</span></div>
+
+
+
+<div class="viewcode-block" id="broadcast_spectra_to_cube_center">
+<a class="viewcode-back" href="../../../code/lezargus.container.broadcast.html#lezargus.container.broadcast.broadcast_spectra_to_cube_center">[docs]</a>
+<span class="k">def</span> <span class="nf">broadcast_spectra_to_cube_center</span><span class="p">(</span>
+    <span class="n">input_spectra</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusSpectra</span><span class="p">,</span>
+    <span class="n">template_cube</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusCube</span><span class="p">,</span>
+    <span class="n">wavelength_mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;error&quot;</span><span class="p">,</span>
+    <span class="n">allow_even_center</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusCube</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Make a LezargusCube from a LezargusSpectra via center broadcasting.</span>
+
+<span class="sd">    We make a LezargusCube, from a provided template, using center</span>
+<span class="sd">    broadcasting. Center broadcasting is the provided spectral slice is</span>
+<span class="sd">    centered in the cube; all other values are zero (or the blank equivalent</span>
+<span class="sd">    for masks and flags). If any side of an image slice of the template cube</span>
+<span class="sd">    is even, we can still try to place the image in the center, biasing it</span>
+<span class="sd">    towards the lower value corner.</span>
+
+<span class="sd">    In the case of both the input spectra and provided template cube having</span>
+<span class="sd">    different wavelength arrays, we follow the provided mode to handle the</span>
+<span class="sd">    different cases. The input template cube only provides the array shapes and</span>
+<span class="sd">    the wavelength axis (dependant on the mode); the rest comes from the</span>
+<span class="sd">    input spectra.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    input_spectra : LezargusSpectra</span>
+<span class="sd">        The input spectra which will be broadcasted to fit the input template</span>
+<span class="sd">        cube.</span>
+<span class="sd">    template_cube : LezargusCube</span>
+<span class="sd">        The template cube which will serve as a template to determine the</span>
+<span class="sd">        dimensional properties of the resulting broadcasting cube.</span>
+<span class="sd">    wavelength_mode : str, default = &quot;error&quot;</span>
+<span class="sd">        The mode to handle possible wavelength array conflicts between the</span>
+<span class="sd">        spectra and the cube. The available options are:</span>
+
+<span class="sd">            - &quot;spectra&quot; : Prefer the spectra&#39;s wavelength array; the cube&#39;s</span>
+<span class="sd">              wavelength is ignored.</span>
+<span class="sd">            - &quot;cube&quot; : Prefer the cube&#39;s wavelength array; the spectra is</span>
+<span class="sd">              interpolated to align to the new wavelength.</span>
+<span class="sd">            - &quot;error&quot; : We log an error and return None.</span>
+<span class="sd">            </span>
+<span class="sd">    allow_even_center : bool, default = True</span>
+<span class="sd">        If True, and if any axis of an image slice is even, a warning is</span>
+<span class="sd">        logged and the spectra is put it as close to the center as possible.</span>
+<span class="sd">        If False, instead, an exception is raised.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    broadcast_cube : LezargusCube</span>
+<span class="sd">        The LezargusCube after the spectra was center broadcast spatially.</span>
+<span class="sd">        Any header information came from first the spectra then the cube.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># First thing is first, type check the input.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span>
+        <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_spectra</span><span class="p">,</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusSpectra</span><span class="p">)</span>
+        <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">template_cube</span><span class="p">,</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusCube</span><span class="p">)</span>
+    <span class="p">):</span>
+        <span class="c1"># The objects are not the proper type so broadcasting them might go</span>
+        <span class="c1"># really wrong.</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;The input spectra type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">input_spectra</span><span class="p">)</span><span class="si">}</span><span class="s2"> and template&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; cube type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">template_cube</span><span class="p">)</span><span class="si">}</span><span class="s2"> are not instances of the&quot;</span>
+                <span class="s2">&quot; expected LezargusSpectra and LezargusCube types&quot;</span>
+                <span class="s2">&quot; respectively. Broadcasting may fail.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Now, we need to determine the definitive wavelength array based on the</span>
+    <span class="c1"># provided wavelength mode. However, the two wavelength units might be</span>
+    <span class="c1"># different, this is problem that we ought to warn.</span>
+    <span class="k">if</span> <span class="n">input_spectra</span><span class="o">.</span><span class="n">wavelength_unit</span> <span class="o">!=</span> <span class="n">template_cube</span><span class="o">.</span><span class="n">wavelength_unit</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">AccuracyWarning</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;The input spectra wavelength unit is&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">input_spectra</span><span class="o">.</span><span class="n">wavelength_unit</span><span class="si">}</span><span class="s2">, different from the template&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; cube wavelength unit </span><span class="si">{</span><span class="n">template_cube</span><span class="o">.</span><span class="n">wavelength_unit</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+    <span class="c1"># Regardless of the unit situation, we try our best to determine the</span>
+    <span class="c1"># the preferred wavelength.</span>
+    <span class="n">wavelength_mode</span> <span class="o">=</span> <span class="n">wavelength_mode</span><span class="o">.</span><span class="n">casefold</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">wavelength_mode</span> <span class="o">==</span> <span class="s2">&quot;spectra&quot;</span><span class="p">:</span>
+        <span class="c1"># We rely on the spectra&#39;s wavelength.</span>
+        <span class="n">broadcast_wavelength</span> <span class="o">=</span> <span class="n">input_spectra</span><span class="o">.</span><span class="n">wavelength</span>
+        <span class="n">broadcast_wavelength_unit</span> <span class="o">=</span> <span class="n">input_spectra</span><span class="o">.</span><span class="n">wavelength_unit</span>
+    <span class="k">elif</span> <span class="n">wavelength_mode</span> <span class="o">==</span> <span class="s2">&quot;cube&quot;</span><span class="p">:</span>
+        <span class="c1"># We rely on the cube&#39;s wavelength.</span>
+        <span class="n">broadcast_wavelength</span> <span class="o">=</span> <span class="n">template_cube</span><span class="o">.</span><span class="n">wavelength</span>
+        <span class="n">broadcast_wavelength_unit</span> <span class="o">=</span> <span class="n">template_cube</span><span class="o">.</span><span class="n">wavelength_unit</span>
+    <span class="k">elif</span> <span class="n">wavelength_mode</span> <span class="o">==</span> <span class="s2">&quot;error&quot;</span><span class="p">:</span>
+        <span class="c1"># If the wavelengths differ, we raise an error on their mismatch.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">isclose</span><span class="p">(</span><span class="n">input_spectra</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span> <span class="n">template_cube</span><span class="o">.</span><span class="n">wavelength</span><span class="p">),</span>
+        <span class="p">):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;Input spectra and template cube wavelength arrays do not&quot;</span>
+                    <span class="s2">&quot; match; wavelength mode is `error`; returning None.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">broadcast_wavelength</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">broadcast_wavelength_unit</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="k">return</span> <span class="kc">None</span>
+        <span class="c1"># Otherwise, if they do match, we can continue with the broadcasting.</span>
+        <span class="n">broadcast_wavelength</span> <span class="o">=</span> <span class="n">input_spectra</span><span class="o">.</span><span class="n">wavelength</span>
+        <span class="n">broadcast_wavelength_unit</span> <span class="o">=</span> <span class="n">input_spectra</span><span class="o">.</span><span class="n">wavelength_unit</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># The input parameter is not a given parameter.</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+            <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;The input wavelength mode </span><span class="si">{</span><span class="n">wavelength_mode</span><span class="si">}</span><span class="s2"> is not a&quot;</span>
+                <span class="s2">&quot; supported option.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Finally, we determine the appropriate data based on the spectra and</span>
+    <span class="c1"># the preferred wavelength array.</span>
+    <span class="p">(</span>
+        <span class="n">interpolated_data</span><span class="p">,</span>
+        <span class="n">interpolated_uncertainty</span><span class="p">,</span>
+        <span class="n">interpolated_mask</span><span class="p">,</span>
+        <span class="n">interpolated_flags</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">=</span> <span class="n">input_spectra</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span>
+        <span class="n">wavelength</span><span class="o">=</span><span class="n">broadcast_wavelength</span><span class="p">,</span>
+        <span class="n">skip_mask</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+        <span class="n">skip_flags</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1"># The data unit for the data and the like.</span>
+    <span class="n">broadcast_data_unit</span> <span class="o">=</span> <span class="n">input_spectra</span><span class="o">.</span><span class="n">data_unit</span>
+
+    <span class="c1"># Now, we assemble the cube. We only need the spatial coverage of the cube</span>
+    <span class="c1"># and broadcast our 1D spectra to the spatial dimensions. We do not</span>
+    <span class="c1"># really care for the wavelength shape of the cube.</span>
+    <span class="n">x_dim</span><span class="p">,</span> <span class="n">y_dim</span><span class="p">,</span> <span class="n">__</span> <span class="o">=</span> <span class="n">template_cube</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">wave_dim</span> <span class="o">=</span> <span class="n">broadcast_wavelength</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="c1"># If either the x or y dimension size is even, the center pixel is not</span>
+    <span class="c1"># defined. Although we still attempt to put it in the center.</span>
+    <span class="k">if</span> <span class="n">x_dim</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">y_dim</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># The image is even on one axis. We handle it according to the input</span>
+        <span class="c1"># flag.</span>
+        <span class="k">if</span> <span class="n">allow_even_center</span><span class="p">:</span>
+            <span class="c1"># We attempt to find the center.</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">AccuracyWarning</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;The image slice of the template cube is even: (</span><span class="si">{</span><span class="n">x_dim</span><span class="si">}</span><span class="s2">,&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">y_dim</span><span class="si">}</span><span class="s2">). A best attempt at putting the spectra in the&quot;</span>
+                    <span class="s2">&quot; center is attempted.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># We do not allow an even center, and so we raise.</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+                <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;The image slice of the template cube is (</span><span class="si">{</span><span class="n">x_dim</span><span class="si">}</span><span class="s2">,&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">y_dim</span><span class="si">}</span><span class="s2">). The image size must be odd for a defined&quot;</span>
+                    <span class="s2">&quot; center.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+    <span class="c1"># The center pixel is calculated similarly for both even and odd images.</span>
+    <span class="c1"># Even images are just slightly off-centered.</span>
+    <span class="n">center_x</span> <span class="o">=</span> <span class="n">x_dim</span> <span class="o">//</span> <span class="mi">2</span>
+    <span class="n">center_y</span> <span class="o">=</span> <span class="n">y_dim</span> <span class="o">//</span> <span class="mi">2</span>
+
+    <span class="c1"># We build the cube, using zero cube based on the provided shape to create</span>
+    <span class="c1"># the broadcasts. We assign the appropriate location the data.</span>
+    <span class="c1"># Data...</span>
+    <span class="n">broadcast_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">x_dim</span><span class="p">,</span> <span class="n">y_dim</span><span class="p">,</span> <span class="n">wave_dim</span><span class="p">))</span>
+    <span class="n">broadcast_data</span><span class="p">[</span><span class="n">center_x</span><span class="p">,</span> <span class="n">center_y</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">interpolated_data</span>
+    <span class="c1"># Uncertainty...</span>
+    <span class="n">broadcast_uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">x_dim</span><span class="p">,</span> <span class="n">y_dim</span><span class="p">,</span> <span class="n">wave_dim</span><span class="p">))</span>
+    <span class="n">broadcast_uncertainty</span><span class="p">[</span><span class="n">center_x</span><span class="p">,</span> <span class="n">center_y</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">interpolated_uncertainty</span>
+    <span class="c1"># Mask...</span>
+    <span class="n">broadcast_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">x_dim</span><span class="p">,</span> <span class="n">y_dim</span><span class="p">,</span> <span class="n">wave_dim</span><span class="p">),</span> <span class="kc">False</span><span class="p">)</span>
+    <span class="n">broadcast_mask</span><span class="p">[</span><span class="n">center_x</span><span class="p">,</span> <span class="n">center_y</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">interpolated_mask</span>
+    <span class="c1"># Flags...</span>
+    <span class="n">broadcast_flags</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">x_dim</span><span class="p">,</span> <span class="n">y_dim</span><span class="p">,</span> <span class="n">wave_dim</span><span class="p">),</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+    <span class="n">broadcast_flags</span><span class="p">[</span><span class="n">center_x</span><span class="p">,</span> <span class="n">center_y</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">interpolated_flags</span>
+
+    <span class="c1"># The pixel and slice scale of the broadcasted cube is based on the</span>
+    <span class="c1"># template cube as that is where the shape is derived from.</span>
+    <span class="n">pixel_scale</span> <span class="o">=</span> <span class="n">template_cube</span><span class="o">.</span><span class="n">pixel_scale</span>
+    <span class="n">slice_scale</span> <span class="o">=</span> <span class="n">template_cube</span><span class="o">.</span><span class="n">slice_scale</span>
+
+    <span class="c1"># Finally, we reconstruct the cube. We work on copies of the headers</span>
+    <span class="c1"># just in case.</span>
+    <span class="n">spectra_header</span> <span class="o">=</span> <span class="n">input_spectra</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">cube_header</span> <span class="o">=</span> <span class="n">template_cube</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="n">cube_header</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">spectra_header</span><span class="p">)</span>
+    <span class="n">broadcast_header</span> <span class="o">=</span> <span class="n">cube_header</span>
+
+    <span class="c1"># Building the new broadcasted cube. We use the template&#39;s cube&#39;s class</span>
+    <span class="c1"># just in case it has been subclassed or something.</span>
+    <span class="n">template_cube_class</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">template_cube</span><span class="p">)</span>
+    <span class="n">broadcast_cube</span> <span class="o">=</span> <span class="n">template_cube_class</span><span class="p">(</span>
+        <span class="n">wavelength</span><span class="o">=</span><span class="n">broadcast_wavelength</span><span class="p">,</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">broadcast_data</span><span class="p">,</span>
+        <span class="n">uncertainty</span><span class="o">=</span><span class="n">broadcast_uncertainty</span><span class="p">,</span>
+        <span class="n">wavelength_unit</span><span class="o">=</span><span class="n">broadcast_wavelength_unit</span><span class="p">,</span>
+        <span class="n">data_unit</span><span class="o">=</span><span class="n">broadcast_data_unit</span><span class="p">,</span>
+        <span class="n">pixel_scale</span><span class="o">=</span><span class="n">pixel_scale</span><span class="p">,</span>
+        <span class="n">slice_scale</span><span class="o">=</span><span class="n">slice_scale</span><span class="p">,</span>
+        <span class="n">mask</span><span class="o">=</span><span class="n">broadcast_mask</span><span class="p">,</span>
+        <span class="n">flags</span><span class="o">=</span><span class="n">broadcast_flags</span><span class="p">,</span>
+        <span class="n">header</span><span class="o">=</span><span class="n">broadcast_header</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">broadcast_cube</span></div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sparrow
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023, Sparrow.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

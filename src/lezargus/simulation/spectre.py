@@ -51,14 +51,6 @@ class SimulatorSpectre:
 
     """
 
-    astrophysical_object_spectra = None
-    astrophysical_object_cube = None
-    astrophysical_object_cube_atm_trn = None
-    astrophysical_object_cube_atm_rad = None
-    astrophysical_object_cube_atm_see = None
-    # astrophysical_object_cube_atm_ref; present to note its existence.
-    astronomical_object_cube = None
-
     def __init__(self: "SimulatorSpectre") -> None:
         """Instantiate the SPECTRE simulation class.
 
@@ -71,6 +63,31 @@ class SimulatorSpectre:
         None
 
         """
+        # All of the variables which store the results of the simulation as
+        # we run it.
+        self.astrophysical_object_spectra = None
+        self.astrophysical_object_cube = None
+        self.astrophysical_object_cube_atm_trn = None
+        self.astrophysical_object_cube_atm_rad = None
+        self.astrophysical_object_cube_atm_see = None
+        # astrophysical_object_cube_atm_ref; present to note its existence.
+        self.astronomical_object_cube = None
+
+    @property
+    def astrophysical_object_cube_atm_ref(self: hint.Self) -> hint.LezargusCube:
+        """Read-only alias for :py:attr:`astronomical_object_cube`.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        cube : LezargusCube
+            The :py:attr:`astronomical_object_cube` object as an alias.
+
+        """
+        return self.astronomical_object_cube
 
     def create_astrophysical_object_spectra(
         self: hint.Self,
@@ -389,8 +406,8 @@ class SimulatorSpectre:
         We do the following steps in order (if not otherwise skipped):
 
             - Convolve: We match the spectral resolution (or resolving power)
-            to the simulation's. We leverage
-            :py:meth:`_prepare_convolve_atmospheric_transmission`.
+              to the simulation's. We leverage
+              :py:meth:`_prepare_convolve_atmospheric_transmission`.
 
         Please see the linked functions in each of the steps for the parameters
         required for each step of the preparation, if it is not to be skipped.
@@ -945,20 +962,4 @@ class SimulatorSpectre:
             header=seeing_cube.header,
         )
         # All done.
-        return self.astronomical_object_cube
-
-    @property
-    def astrophysical_object_cube_atm_ref(self: hint.Self) -> hint.LezargusCube:
-        """Read-only alias for :py:attr:`astronomical_object_cube`.
-
-        Parameters
-        ----------
-        None
-
-        Returns
-        -------
-        cube : LezargusCube
-            The :py:attr:`astronomical_object_cube` object as an alias.
-
-        """
         return self.astronomical_object_cube

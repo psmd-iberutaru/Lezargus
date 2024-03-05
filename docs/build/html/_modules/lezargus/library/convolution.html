@@ -1,0 +1,984 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lezargus.library.convolution &#8212; Lezargus  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/lezargus/library/convolution';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Lezargus  documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../user/index.html">User Manual</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="simple">
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../technical/index.html">Technical Manual</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/convention.html">Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/uncertainty.html">Uncertainty Propagation</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../code/modules.html">lezargus</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../code/lezargus.html">lezargus package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.container.html">lezargus.container package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.broadcast.html">lezargus.container.broadcast module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.cube.html">lezargus.container.cube module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.image.html">lezargus.container.image module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.mosaic.html">lezargus.container.mosaic module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.parent.html">lezargus.container.parent module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.spectra.html">lezargus.container.spectra module</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.library.html">lezargus.library package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.array.html">lezargus.library.array module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.atmosphere.html">lezargus.library.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.config.html">lezargus.library.config module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.conversion.html">lezargus.library.conversion module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.convolution.html">lezargus.library.convolution module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.data.html">lezargus.library.data module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.fits.html">lezargus.library.fits module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.flags.html">lezargus.library.flags module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.hint.html">lezargus.library.hint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.interpolate.html">lezargus.library.interpolate module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.logging.html">lezargus.library.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.math.html">lezargus.library.math module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.path.html">lezargus.library.path module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.stitch.html">lezargus.library.stitch module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.temporary.html">lezargus.library.temporary module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.simulation.html">lezargus.simulation package</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.simulation.spectre.html">lezargus.simulation.spectre module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__main__.html">lezargus.__main__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__version__.html">lezargus.__version__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.initialize.html">lezargus.initialize module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <h1>Source code for lezargus.library.convolution</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Convolution functions and kernel producing functions.</span>
+
+<span class="sd">Here, we group all convolution functions and kernel functions. A lot of the</span>
+<span class="sd">convolution functions are brief wrappers around Astropy&#39;s convolution.</span>
+<span class="sd">All three dimensionalities are covered.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">astropy.convolution</span>
+<span class="kn">import</span> <span class="nn">astropy.modeling</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">hint</span>
+<span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">logging</span>
+
+
+<div class="viewcode-block" id="convolve_1d_array_by_1d_kernel">
+<a class="viewcode-back" href="../../../code/lezargus.library.convolution.html#lezargus.library.convolution.convolve_1d_array_by_1d_kernel">[docs]</a>
+<span class="k">def</span> <span class="nf">convolve_1d_array_by_1d_kernel</span><span class="p">(</span>
+    <span class="n">array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">kernel</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convolve a 1D array using a 1D kernel.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    array : ndarray</span>
+<span class="sd">        The 1D array data which we will convolve.</span>
+<span class="sd">    kernel : ndarray</span>
+<span class="sd">        The 1D kernel that we are using to convolve.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    convolved_array : ndarray</span>
+<span class="sd">        The convolved 1D array data.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># We need to ensure that the convolution array and kernel are the proper</span>
+    <span class="c1"># dimensions.</span>
+    <span class="n">array_dimensions</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">kernel_dimensions</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">!=</span> <span class="n">array_dimensions</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">AlgorithmWarning</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;The input array is not actually a 1D array, shape is&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">. Applying convolution with a </span><span class="si">{</span><span class="n">kernel</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="s2">&quot; kernel shape may fail.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">kernel</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">!=</span> <span class="n">kernel_dimensions</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">AlgorithmWarning</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;The input kernel is not actually a 1D array, shape is&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">kernel</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">. Applying convolution with a </span><span class="si">{</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="s2">&quot; array may fail.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="c1"># We want to keep the same numerical precision, or rather, as close as</span>
+    <span class="c1"># we can to the original data type. We can expand this to 192-bit and</span>
+    <span class="c1"># 256-bit, but, it is likely not needed.</span>
+    <span class="k">if</span> <span class="n">array</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">itemsize</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">&lt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">complex64</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">itemsize</span><span class="p">:</span>
+        <span class="n">complex_data_type</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">complex64</span>
+    <span class="k">elif</span> <span class="n">array</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">itemsize</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">&lt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">itemsize</span><span class="p">:</span>
+        <span class="n">complex_data_type</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">complex128</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">complex_data_type</span> <span class="o">=</span> <span class="nb">complex</span>
+
+    <span class="c1"># We don&#39;t really expect a 1D spectra convolution to run into memory</span>
+    <span class="c1"># issues, but we still need to anticipate it. We try FFT convolution first,</span>
+    <span class="c1"># then we go to a discrete convolution if it fails.</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">convolved_array</span> <span class="o">=</span> <span class="n">astropy</span><span class="o">.</span><span class="n">convolution</span><span class="o">.</span><span class="n">convolve_fft</span><span class="p">(</span>
+            <span class="n">array</span><span class="p">,</span>
+            <span class="n">kernel</span><span class="o">=</span><span class="n">kernel</span><span class="p">,</span>
+            <span class="n">boundary</span><span class="o">=</span><span class="s2">&quot;fill&quot;</span><span class="p">,</span>
+            <span class="n">fill_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">array</span><span class="p">),</span>
+            <span class="n">complex_dtype</span><span class="o">=</span><span class="n">complex_data_type</span><span class="p">,</span>
+            <span class="n">nan_treatment</span><span class="o">=</span><span class="s2">&quot;interpolate&quot;</span><span class="p">,</span>
+            <span class="n">normalize_kernel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">preserve_nan</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">allow_huge</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">except</span> <span class="ne">MemoryError</span><span class="p">:</span>
+        <span class="c1"># There is not enough memory for an FFT version, using discrete</span>
+        <span class="c1"># instead.</span>
+        <span class="c1"># We give some warning first.</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">MemoryFullWarning</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;Attempting a FFT convolution of a spectra with shape&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> with kernel shape </span><span class="si">{</span><span class="n">kernel</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> requires&quot;</span>
+                <span class="s2">&quot; too much memory.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">AlgorithmWarning</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;Discrete convolution will be attempted as an alternative to&quot;</span>
+                <span class="s2">&quot; the FFT convolution due to memory issues.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+        <span class="c1"># Discrete convolution.</span>
+        <span class="n">convolved_array</span> <span class="o">=</span> <span class="n">astropy</span><span class="o">.</span><span class="n">convolution</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span>
+            <span class="n">array</span><span class="p">,</span>
+            <span class="n">kernel</span><span class="o">=</span><span class="n">kernel</span><span class="p">,</span>
+            <span class="n">boundary</span><span class="o">=</span><span class="s2">&quot;extend&quot;</span><span class="p">,</span>
+            <span class="n">nan_treatment</span><span class="o">=</span><span class="s2">&quot;interpolate&quot;</span><span class="p">,</span>
+            <span class="n">normalize_kernel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">preserve_nan</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">convolved_array</span></div>
+
+
+
+<div class="viewcode-block" id="convolve_2d_array_by_2d_kernel">
+<a class="viewcode-back" href="../../../code/lezargus.library.convolution.html#lezargus.library.convolution.convolve_2d_array_by_2d_kernel">[docs]</a>
+<span class="k">def</span> <span class="nf">convolve_2d_array_by_2d_kernel</span><span class="p">(</span>
+    <span class="n">array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">kernel</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convolve a 2D array using a 2D kernel.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    array : ndarray</span>
+<span class="sd">        The 2D array data which we will convolve.</span>
+<span class="sd">    kernel : ndarray</span>
+<span class="sd">        The 2D kernel that we are using to convolve.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    convolved_array : ndarray</span>
+<span class="sd">        The convolved 2D array data.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># We need to ensure that the convolution array and kernel are the proper</span>
+    <span class="c1"># dimensions.</span>
+    <span class="n">array_dimensions</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="n">kernel_dimensions</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">!=</span> <span class="n">array_dimensions</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">AlgorithmWarning</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;The input array is not actually a 2D array, shape is&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">. Applying convolution with a </span><span class="si">{</span><span class="n">kernel</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="s2">&quot; kernel shape may fail.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">kernel</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">!=</span> <span class="n">kernel_dimensions</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">AlgorithmWarning</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;The input kernel is not actually a 2D array, shape is&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">kernel</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">. Applying convolution with a </span><span class="si">{</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="s2">&quot; array may fail.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="c1"># We want to keep the same numerical precision, or rather, as close as</span>
+    <span class="c1"># we can to the original data type. We can expand this to 192-bit and</span>
+    <span class="c1"># 256-bit, but, it is likely not needed.</span>
+    <span class="k">if</span> <span class="n">array</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">itemsize</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">&lt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">complex64</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">itemsize</span><span class="p">:</span>
+        <span class="n">complex_data_type</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">complex64</span>
+    <span class="k">elif</span> <span class="n">array</span><span class="o">.</span><span class="n">dtype</span><span class="o">.</span><span class="n">itemsize</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">&lt;=</span> <span class="n">np</span><span class="o">.</span><span class="n">complex128</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span><span class="o">.</span><span class="n">itemsize</span><span class="p">:</span>
+        <span class="n">complex_data_type</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">complex128</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">complex_data_type</span> <span class="o">=</span> <span class="nb">complex</span>
+
+    <span class="c1"># We attempt to do the 2D convolution using FFT. However, FFT can be</span>
+    <span class="c1"># memory intensive so we default back to the standard discrete version</span>
+    <span class="c1"># if there is not enough memory.  For the fill value, the most common</span>
+    <span class="c1"># value is likely to be sky noise so we just pad it with sky noise.</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">convolved_array</span> <span class="o">=</span> <span class="n">astropy</span><span class="o">.</span><span class="n">convolution</span><span class="o">.</span><span class="n">convolve_fft</span><span class="p">(</span>
+            <span class="n">array</span><span class="p">,</span>
+            <span class="n">kernel</span><span class="o">=</span><span class="n">kernel</span><span class="p">,</span>
+            <span class="n">boundary</span><span class="o">=</span><span class="s2">&quot;fill&quot;</span><span class="p">,</span>
+            <span class="n">fill_value</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nanmedian</span><span class="p">(</span><span class="n">array</span><span class="p">),</span>
+            <span class="n">complex_dtype</span><span class="o">=</span><span class="n">complex_data_type</span><span class="p">,</span>
+            <span class="n">nan_treatment</span><span class="o">=</span><span class="s2">&quot;interpolate&quot;</span><span class="p">,</span>
+            <span class="n">normalize_kernel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">preserve_nan</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">allow_huge</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">except</span> <span class="ne">MemoryError</span><span class="p">:</span>
+        <span class="c1"># There is not enough memory for an FFT version, using discrete</span>
+        <span class="c1"># instead.</span>
+        <span class="c1"># We give some warning first.</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">MemoryFullWarning</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;Attempting a FFT convolution of an image with shape&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> with kernel shape </span><span class="si">{</span><span class="n">kernel</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> requires too&quot;</span>
+                <span class="s2">&quot; much memory.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">AlgorithmWarning</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;Discrete convolution will be attempted as an alternative to&quot;</span>
+                <span class="s2">&quot; the FFT convolution due to memory issues.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+        <span class="c1"># Discrete convolution.</span>
+        <span class="n">convolved_array</span> <span class="o">=</span> <span class="n">astropy</span><span class="o">.</span><span class="n">convolution</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span>
+            <span class="n">array</span><span class="p">,</span>
+            <span class="n">kernel</span><span class="o">=</span><span class="n">kernel</span><span class="p">,</span>
+            <span class="n">boundary</span><span class="o">=</span><span class="s2">&quot;extend&quot;</span><span class="p">,</span>
+            <span class="n">nan_treatment</span><span class="o">=</span><span class="s2">&quot;interpolate&quot;</span><span class="p">,</span>
+            <span class="n">normalize_kernel</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="n">preserve_nan</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="c1"># All done,</span>
+    <span class="k">return</span> <span class="n">convolved_array</span></div>
+
+
+
+<div class="viewcode-block" id="convolve_3d_array_by_1d_kernel">
+<a class="viewcode-back" href="../../../code/lezargus.library.convolution.html#lezargus.library.convolution.convolve_3d_array_by_1d_kernel">[docs]</a>
+<span class="k">def</span> <span class="nf">convolve_3d_array_by_1d_kernel</span><span class="p">(</span>
+    <span class="n">array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">kernel</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convolve a 3D array using a 1D kernel, looping 2 dimensions.</span>
+
+<span class="sd">    This convolution convolves 1D slices of the 3D array. The convolution</span>
+<span class="sd">    itself then is a 1D array being convolved with a 1D kernel. We take slices</span>
+<span class="sd">    of the last dimension, iterating over the 1st and 2nd dimension. A full</span>
+<span class="sd">    3D array and 3D kernel convolution is not done here.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    array : ndarray</span>
+<span class="sd">        The 3D array data which we will convolve.</span>
+<span class="sd">    kernel : ndarray</span>
+<span class="sd">        The 1D kernel that we are using to convolve.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    convolved_array : ndarray</span>
+<span class="sd">        The convolved 3D array data.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># We need to ensure that the convolution array and kernel are the proper</span>
+    <span class="c1"># dimensions.</span>
+    <span class="n">array_dimensions</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">kernel_dimensions</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">!=</span> <span class="n">array_dimensions</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">AlgorithmWarning</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;The input array is not actually a 3D array, shape is&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">. Applying slice convolution with a&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">kernel</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> kernel shape may fail.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">kernel</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">!=</span> <span class="n">kernel_dimensions</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">AlgorithmWarning</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;The input kernel is not actually a 1D array, shape is&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">kernel</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">. Applying slice convolution with a&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> array may fail.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Applying the convolution. For the fill value, the most common value is</span>
+    <span class="c1"># likely to be sky noise so we just pad it with sky noise. Moreover, some</span>
+    <span class="c1"># of these cubes can be rather large. However, sometimes this process can</span>
+    <span class="c1"># be very memory intensive so we need to be able to fallback to a backup.</span>
+    <span class="n">convolved_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
+
+    <span class="c1"># This really is just a repeated process of 2D convolutions.</span>
+    <span class="k">for</span> <span class="n">coldex</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="k">for</span> <span class="n">rowdex</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="n">convolved_array</span><span class="p">[</span><span class="n">coldex</span><span class="p">,</span> <span class="n">rowdex</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">convolve_1d_array_by_1d_kernel</span><span class="p">(</span>
+                <span class="n">array</span><span class="o">=</span><span class="n">array</span><span class="p">[</span><span class="n">coldex</span><span class="p">,</span> <span class="n">rowdex</span><span class="p">,</span> <span class="p">:],</span>
+                <span class="n">kernel</span><span class="o">=</span><span class="n">kernel</span><span class="p">,</span>
+            <span class="p">)</span>
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">convolved_array</span></div>
+
+
+
+<div class="viewcode-block" id="convolve_3d_array_by_2d_kernel">
+<a class="viewcode-back" href="../../../code/lezargus.library.convolution.html#lezargus.library.convolution.convolve_3d_array_by_2d_kernel">[docs]</a>
+<span class="k">def</span> <span class="nf">convolve_3d_array_by_2d_kernel</span><span class="p">(</span>
+    <span class="n">array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="n">kernel</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convolve a 3D array using a 2D kernel, looping over the 3rd dimension.</span>
+
+<span class="sd">    This convolution convolves 2D slices of the 3D array. The convolution</span>
+<span class="sd">    itself then is a 2D array being convolved with a 3D kernel. A full</span>
+<span class="sd">    3D array and 3D kernel convolution is not done here.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    array : ndarray</span>
+<span class="sd">        The 3D array data which we will convolve.</span>
+<span class="sd">    kernel : ndarray</span>
+<span class="sd">        The 2D kernel that we are using to convolve.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    convolved_array : ndarray</span>
+<span class="sd">        The convolved 3D array data.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># We need to ensure that the convolution array and kernel are the proper</span>
+    <span class="c1"># dimensions.</span>
+    <span class="n">array_dimensions</span> <span class="o">=</span> <span class="mi">3</span>
+    <span class="n">kernel_dimensions</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">!=</span> <span class="n">array_dimensions</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">AlgorithmWarning</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;The input array is not actually a 3D array, shape is&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">. Applying slice convolution with a&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">kernel</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> kernel shape may fail.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">kernel</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">!=</span> <span class="n">kernel_dimensions</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">AlgorithmWarning</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;The input kernel is not actually a 2D array, shape is&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">kernel</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">. Applying slice convolution with a&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> array may fail.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Applying the convolution. For the fill value, the most common value is</span>
+    <span class="c1"># likely to be sky noise so we just pad it with sky noise. Moreover, some</span>
+    <span class="c1"># of these cubes can be rather large. However, sometimes this process can</span>
+    <span class="c1"># be very memory intensive so we need to be able to fallback to a backup.</span>
+    <span class="n">convolved_array</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
+
+    <span class="c1"># This really is just a repeated process of 2D convolutions.</span>
+    <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">]):</span>
+        <span class="n">convolved_array</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">convolve_2d_array_by_2d_kernel</span><span class="p">(</span>
+            <span class="n">array</span><span class="o">=</span><span class="n">array</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">index</span><span class="p">],</span>
+            <span class="n">kernel</span><span class="o">=</span><span class="n">kernel</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">convolved_array</span></div>
+
+
+
+<div class="viewcode-block" id="kernel_1d_gaussian">
+<a class="viewcode-back" href="../../../code/lezargus.library.convolution.html#lezargus.library.convolution.kernel_1d_gaussian">[docs]</a>
+<span class="k">def</span> <span class="nf">kernel_1d_gaussian</span><span class="p">(</span>
+    <span class="n">shape</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">|</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">stddev</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a 1D Gaussian convolution kernel.</span>
+
+<span class="sd">    We normalize the kernel via the amplitude of the Gaussian</span>
+<span class="sd">    function as a whole for maximal precision: volume = 1. The `stddev` must</span>
+<span class="sd">    be expressed in pixels.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    shape : tuple | int</span>
+<span class="sd">        The shape of the 1D kernel, in pixels. If a single value (i.e. a size</span>
+<span class="sd">        value instead), we attempt convert it to a shape-like value.</span>
+<span class="sd">    stddev : float</span>
+<span class="sd">        The standard deviation of the Gaussian, in pixels.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    gaussian_kernel : ndarray</span>
+<span class="sd">        The discrete kernel array.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># We need to determine the shape. If it is a single value we attempt to</span>
+    <span class="c1"># interpret it. Granted, we only need a size, but we keep a shape as the</span>
+    <span class="c1"># input to align it better with the 2D kernel functions.</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="nb">list</span> <span class="o">|</span> <span class="nb">tuple</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="c1"># All good.</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">):</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="n">shape</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Kernel shape input </span><span class="si">{</span><span class="n">shape</span><span class="si">}</span><span class="s2"> type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span><span class="si">}</span><span class="s2"> is not a 1D&quot;</span>
+                <span class="s2">&quot; array shape.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">size</span> <span class="o">=</span> <span class="n">shape</span>
+    <span class="c1"># Regardless, the center of the array is considered to be the center of</span>
+    <span class="c1"># the Gaussian function.</span>
+    <span class="n">center</span> <span class="o">=</span> <span class="p">(</span><span class="n">size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="c1"># The actual input array to the Gaussian function.</span>
+    <span class="n">input_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+
+    <span class="c1"># The normalization constant is really just the area of the Gaussian.</span>
+    <span class="n">norm_constant</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">stddev</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span>
+
+    <span class="c1"># Deriving the kernel and computing it.</span>
+    <span class="n">gaussian1d</span> <span class="o">=</span> <span class="n">astropy</span><span class="o">.</span><span class="n">modeling</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Gaussian1D</span><span class="p">(</span>
+        <span class="n">amplitude</span><span class="o">=</span><span class="n">norm_constant</span><span class="p">,</span>
+        <span class="n">mean</span><span class="o">=</span><span class="n">center</span><span class="p">,</span>
+        <span class="n">stddev</span><span class="o">=</span><span class="n">stddev</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">gaussian_kernel</span> <span class="o">=</span> <span class="n">gaussian1d</span><span class="p">(</span><span class="n">input_</span><span class="p">)</span>
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">gaussian_kernel</span></div>
+
+
+
+<div class="viewcode-block" id="kernel_1d_gaussian_resolution">
+<a class="viewcode-back" href="../../../code/lezargus.library.convolution.html#lezargus.library.convolution.kernel_1d_gaussian_resolution">[docs]</a>
+<span class="k">def</span> <span class="nf">kernel_1d_gaussian_resolution</span><span class="p">(</span>
+    <span class="n">shape</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">|</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">template_wavelength</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">base_resolution</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">target_resolution</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">base_resolving_power</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">target_resolving_power</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">reference_wavelength</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Gaussian 1D kernel adapted for resolution convolution conversions.</span>
+
+<span class="sd">    This function is a wrapper around a normal 1D Gaussian kernel. Instead</span>
+<span class="sd">    of specifying the standard deviation, we calculate the approximate</span>
+<span class="sd">    required standard deviation needed to down-sample a base resolution to</span>
+<span class="sd">    some target resolution. We accept both resolution values or resolving</span>
+<span class="sd">    power values for the calculation; but we default to resolution based</span>
+<span class="sd">    determination if possible.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    shape : tuple | int</span>
+<span class="sd">        The shape of the 1D kernel, in pixels. If a single value (i.e. a size</span>
+<span class="sd">        value instead), we attempt convert it to a shape-like value.</span>
+<span class="sd">    template_wavelength : ndarray or float</span>
+<span class="sd">        An example wavelength array which this kernel will be applied to. This</span>
+<span class="sd">        is required to convert the physical standard deviation value calculated</span>
+<span class="sd">        from the resolution/resolving power to one of length in pixels/points.</span>
+<span class="sd">        If an array, we try and compute the conversion factor. If a float,</span>
+<span class="sd">        that is the conversion factor of wavelength per pixel.</span>
+<span class="sd">    base_resolution : float, default = None</span>
+<span class="sd">        The base resolution that we are converting from. Must be provided</span>
+<span class="sd">        along with `target_resolution` for the resolution mode.</span>
+<span class="sd">    target_resolution : float, default = None</span>
+<span class="sd">        The target resolution we are converting to. Must be provided</span>
+<span class="sd">        along with `base_resolution` for the resolution mode.</span>
+<span class="sd">    base_resolving_power : float, default = None</span>
+<span class="sd">        The base resolving power that we are converting from. Must be provided</span>
+<span class="sd">        along with `target_resolving_power` and `reference_wavelength` for the</span>
+<span class="sd">        resolving power mode.</span>
+<span class="sd">    target_resolving_power : float, default = None</span>
+<span class="sd">        The target resolving power that we are converting from. Must be</span>
+<span class="sd">        provided along with `base_resolving_power` and `reference_wavelength`</span>
+<span class="sd">        for the resolving power mode.</span>
+<span class="sd">    reference_wavelength : float, default = None</span>
+<span class="sd">        The reference wavelength used to convert from resolving power to</span>
+<span class="sd">        resolution. Must be provided along with `base_resolving_power` and</span>
+<span class="sd">        `target_resolving_power` for the resolving power mode.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    resolution_kernel : ndarray</span>
+<span class="sd">        The Gaussian kernel with the appropriate parameters to convert from</span>
+<span class="sd">        the base resolution to the target resolution with a convolution.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># We support two different modes of computing the kernel. Toggle is based</span>
+    <span class="c1"># on what parameters are provided. We switch here.</span>
+    <span class="n">resolution_mode</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">base_resolution</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">target_resolution</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="p">)</span>
+    <span class="n">resolving_mode</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">base_resolving_power</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="ow">and</span> <span class="n">target_resolving_power</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="ow">and</span> <span class="n">reference_wavelength</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="p">)</span>
+    <span class="c1"># Determining which, and based on which, we determine the determine the</span>
+    <span class="c1"># standard deviation for the Gaussian. However, the standard deviation</span>
+    <span class="c1"># value determined here is a physical length, not one in pixels/points.</span>
+    <span class="k">if</span> <span class="n">resolution_mode</span> <span class="ow">and</span> <span class="n">resolving_mode</span><span class="p">:</span>
+        <span class="c1"># If we have both modes, the program cannot decide between both.</span>
+        <span class="c1"># Though we default to resolution based modes, it is still problematic.</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;Both resolution mode and resolving mode information was&quot;</span>
+                <span class="s2">&quot; provided for kernel determination. Mode cannot be determined.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">phys_fwhm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">target_resolution</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">base_resolution</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">resolution_mode</span><span class="p">:</span>
+        <span class="c1"># Resolution mode, we determine the standard deviation from the</span>
+        <span class="c1"># provided resolutions.</span>
+        <span class="n">phys_fwhm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">target_resolution</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">base_resolution</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">resolving_mode</span><span class="p">:</span>
+        <span class="c1"># Resolving mode, we determine the standard deviation from the</span>
+        <span class="c1"># provided resolving power and root wavelength.</span>
+        <span class="n">phys_fwhm</span> <span class="o">=</span> <span class="n">reference_wavelength</span> <span class="o">*</span> <span class="p">(</span>
+            <span class="p">(</span><span class="n">base_resolving_power</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">target_resolving_power</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+            <span class="o">/</span> <span class="p">(</span><span class="n">base_resolving_power</span> <span class="o">*</span> <span class="n">target_resolving_power</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># No mode could be found usable. The inputs seem to be quite wrong.</span>
+        <span class="c1"># This is equivalent to TypeError missing argument, hence a critical</span>
+        <span class="c1"># failure.</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+            <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;Kernel calculation mode could not be determined. Resolution&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; mode values: base, </span><span class="si">{</span><span class="n">base_resolution</span><span class="si">}</span><span class="s2">; target:&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">target_resolution</span><span class="si">}</span><span class="s2">. Resolving mode values: base,&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">base_resolving_power</span><span class="si">}</span><span class="s2">; target, </span><span class="si">{</span><span class="n">target_resolving_power</span><span class="si">}</span><span class="s2">;&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; wavelength, </span><span class="si">{</span><span class="n">reference_wavelength</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+    <span class="c1"># Converting to standard deviation.</span>
+    <span class="n">fwhm_std_const</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">phys_stddev</span> <span class="o">=</span> <span class="n">phys_fwhm</span> <span class="o">/</span> <span class="n">fwhm_std_const</span>
+
+    <span class="c1"># We convert the physical standard deviation into a standard deviation of</span>
+    <span class="c1"># pixels (or points in general). We assume a wavelength spacing</span>
+    <span class="c1"># based on the average spacing of the provided wavelength.</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">template_wavelength</span><span class="p">,</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">int</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">):</span>
+        <span class="n">convert_factor</span> <span class="o">=</span> <span class="n">template_wavelength</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">convert_factor</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span>
+            <span class="n">template_wavelength</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">template_wavelength</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+        <span class="p">)</span>
+    <span class="c1"># Converting</span>
+    <span class="n">stddev</span> <span class="o">=</span> <span class="n">phys_stddev</span> <span class="o">/</span> <span class="n">convert_factor</span>
+
+    <span class="c1"># With the standard deviation known, we can compute the kernel using the</span>
+    <span class="c1"># Gaussian kernel creator.</span>
+    <span class="n">resolution_kernel</span> <span class="o">=</span> <span class="n">kernel_1d_gaussian</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">shape</span><span class="p">,</span> <span class="n">stddev</span><span class="o">=</span><span class="n">stddev</span><span class="p">)</span>
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">resolution_kernel</span></div>
+
+
+
+<div class="viewcode-block" id="kernel_2d_gaussian">
+<a class="viewcode-back" href="../../../code/lezargus.library.convolution.html#lezargus.library.convolution.kernel_2d_gaussian">[docs]</a>
+<span class="k">def</span> <span class="nf">kernel_2d_gaussian</span><span class="p">(</span>
+    <span class="n">shape</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span>
+    <span class="n">x_stddev</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">y_stddev</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">rotation</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return a 2D Gaussian convolution kernel.</span>
+
+<span class="sd">    We normalize the kernel via the amplitude of the Gaussian</span>
+<span class="sd">    function as a whole for maximal precision: volume = 1. We require the</span>
+<span class="sd">    input of the shape of the kernel to allow for `x_stddev` and `y_stddev`</span>
+<span class="sd">    to be expressed in pixels to keep it general. By definition, the center</span>
+<span class="sd">    of the Gaussian kernel is in the center of the array.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    shape : tuple</span>
+<span class="sd">        The shape of the 2D kernel, in pixels.</span>
+<span class="sd">    x_stddev : float</span>
+<span class="sd">        The standard deviation of the Gaussian in the x direction, in pixels.</span>
+<span class="sd">    y_stddev : float</span>
+<span class="sd">        The standard deviation of the Gaussian in the y direction, in pixels.</span>
+<span class="sd">    rotation : float</span>
+<span class="sd">        The rotation angle, increasing counterclockwise, in radians.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    gaussian_kernel : ndarray</span>
+<span class="sd">        The discrete kernel array.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># The center of the array given by the shape is defined as just the center</span>
+    <span class="c1"># of it. However, we need to take into account off-by-one errors.</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">nrow</span><span class="p">,</span> <span class="n">ncol</span> <span class="o">=</span> <span class="n">shape</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+            <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;The 2D kernel shape cannot be determined from input shape:&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+    <span class="n">cen_row</span> <span class="o">=</span> <span class="p">(</span><span class="n">nrow</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="n">cen_col</span> <span class="o">=</span> <span class="p">(</span><span class="n">ncol</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+
+    <span class="c1"># The normalization constant is provided as volume itself.</span>
+    <span class="n">norm_constant</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="n">x_stddev</span> <span class="o">*</span> <span class="n">y_stddev</span><span class="p">)</span>
+
+    <span class="c1"># The mesh grid used to evaluate the Gaussian function to derive the kernel.</span>
+    <span class="n">xx</span><span class="p">,</span> <span class="n">yy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">ncol</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">nrow</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">))</span>
+
+    <span class="c1"># Deriving the kernel and computing it.</span>
+    <span class="n">gaussian2d</span> <span class="o">=</span> <span class="n">astropy</span><span class="o">.</span><span class="n">modeling</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">Gaussian2D</span><span class="p">(</span>
+        <span class="n">amplitude</span><span class="o">=</span><span class="n">norm_constant</span><span class="p">,</span>
+        <span class="n">x_mean</span><span class="o">=</span><span class="n">cen_col</span><span class="p">,</span>
+        <span class="n">y_mean</span><span class="o">=</span><span class="n">cen_row</span><span class="p">,</span>
+        <span class="n">x_stddev</span><span class="o">=</span><span class="n">x_stddev</span><span class="p">,</span>
+        <span class="n">y_stddev</span><span class="o">=</span><span class="n">y_stddev</span><span class="p">,</span>
+        <span class="n">theta</span><span class="o">=</span><span class="n">rotation</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">gaussian_kernel</span> <span class="o">=</span> <span class="n">gaussian2d</span><span class="p">(</span><span class="n">xx</span><span class="p">,</span> <span class="n">yy</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">gaussian_kernel</span></div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sparrow
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023, Sparrow.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

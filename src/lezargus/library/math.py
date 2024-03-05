@@ -500,10 +500,11 @@ def weighted_quantile_mean(
     weights: hint.ndarray = None,
     quantile: float | tuple[float, float] = (0, 1),
 ) -> tuple[float, float]:
-    """Calculate the no-NaN weighted harmonic mean and uncertainty.
+    """Calculate the no-NaN weighted quantile mean and uncertainty.
 
-    See :ref:`technical-uncertainty-weighted-harmonic-mean` for more
-    information.
+    See :ref:`technical-uncertainty-weighted-mean` for more
+    information on the general weighted mean; the quantile functionality only
+    reduces the input space.
 
     Parameters
     ----------

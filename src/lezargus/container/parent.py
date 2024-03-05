@@ -41,9 +41,6 @@ class LezargusContainerArithmetic:
         The unit of the wavelength array.
     data_unit : Astropy Unit
         The unit of the data array.
-    uncertainty_unit : Astropy Unit
-        The unit of the uncertainty array. This unit is the same as the data
-        unit.
     pixel_scale : float
         The pixel plate scale of the image, in radians per pixel. Typically,
         this is the scale in the E-W or "x" direction. See

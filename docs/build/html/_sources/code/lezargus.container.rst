@@ -7,6 +7,7 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
+   lezargus.container.broadcast
    lezargus.container.cube
    lezargus.container.image
    lezargus.container.mosaic

@@ -12,5 +12,7 @@ TODO
     :hidden:
     :caption: Technical Manual
 
+    contributing
     convention
+    photometry
     uncertainty

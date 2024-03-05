@@ -49,12 +49,11 @@ def broadcast_spectra_to_cube_uniform(
         spectra and the cube. The available options are:
 
             - "spectra" : Prefer the spectra's wavelength array; the cube's
-            wavelength is ignored.
+              wavelength is ignored.
             - "cube" : Prefer the cube's wavelength array; the spectra is
-            interpolated to align to the new wavelength.
+              interpolated to align to the new wavelength.
             - "error" : We log an error. We still attempt to figure it out,
-            defaulting to the spectra's wavelength array.
-
+              defaulting to the spectra's wavelength array.
 
     Returns
     -------
@@ -231,10 +230,11 @@ def broadcast_spectra_to_cube_center(
         spectra and the cube. The available options are:
 
             - "spectra" : Prefer the spectra's wavelength array; the cube's
-            wavelength is ignored.
+              wavelength is ignored.
             - "cube" : Prefer the cube's wavelength array; the spectra is
-            interpolated to align to the new wavelength.
+              interpolated to align to the new wavelength.
             - "error" : We log an error and return None.
+
     allow_even_center : bool, default = True
         If True, and if any axis of an image slice is even, a warning is
         logged and the spectra is put it as close to the center as possible.

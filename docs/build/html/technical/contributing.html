@@ -1,0 +1,809 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Contributor Guide &#8212; Lezargus  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'technical/contributing';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Conventions" href="convention.html" />
+    <link rel="prev" title="Technical Manual" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Lezargus  documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../user/index.html">User Manual</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="simple">
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="index.html">Technical Manual</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">Contributor Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="convention.html">Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="photometry.html">Photometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="uncertainty.html">Uncertainty Propagation</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../code/modules.html">lezargus</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../code/lezargus.html">lezargus package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../code/lezargus.container.html">lezargus.container package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../code/lezargus.container.broadcast.html">lezargus.container.broadcast module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../code/lezargus.container.cube.html">lezargus.container.cube module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../code/lezargus.container.image.html">lezargus.container.image module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../code/lezargus.container.mosaic.html">lezargus.container.mosaic module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../code/lezargus.container.parent.html">lezargus.container.parent module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../code/lezargus.container.spectra.html">lezargus.container.spectra module</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../code/lezargus.library.html">lezargus.library package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../code/lezargus.library.array.html">lezargus.library.array module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../code/lezargus.library.atmosphere.html">lezargus.library.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../code/lezargus.library.config.html">lezargus.library.config module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../code/lezargus.library.conversion.html">lezargus.library.conversion module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../code/lezargus.library.convolution.html">lezargus.library.convolution module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../code/lezargus.library.data.html">lezargus.library.data module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../code/lezargus.library.fits.html">lezargus.library.fits module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../code/lezargus.library.flags.html">lezargus.library.flags module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../code/lezargus.library.hint.html">lezargus.library.hint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../code/lezargus.library.interpolate.html">lezargus.library.interpolate module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../code/lezargus.library.logging.html">lezargus.library.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../code/lezargus.library.math.html">lezargus.library.math module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../code/lezargus.library.path.html">lezargus.library.path module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../code/lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../code/lezargus.library.stitch.html">lezargus.library.stitch module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../code/lezargus.library.temporary.html">lezargus.library.temporary module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../code/lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../code/lezargus.simulation.html">lezargus.simulation package</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../code/lezargus.simulation.spectre.html">lezargus.simulation.spectre module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../code/lezargus.__main__.html">lezargus.__main__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../code/lezargus.__version__.html">lezargus.__version__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../code/lezargus.initialize.html">lezargus.initialize module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/technical/contributing.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Contributor Guide</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clone-fork-repository">Clone/Fork Repository</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#developing">Developing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-branch">Create a Branch</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-feature">Implement Feature</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-feature">Check Feature</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submit-pull-request">Submit Pull Request</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documenting">Documenting</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="contributor-guide">
+<h1>Contributor Guide<a class="headerlink" href="#contributor-guide" title="Link to this heading">#</a></h1>
+<p>First, thank you for considering contributing to this project.</p>
+<p>In this guide, we go over the basics of setting up a typical development
+environment for Lezargus, a few of the conventions, development procedures,
+and tooling available. If you find that something may be confusing, outdated,
+or missing in this guide, please submit an issue or let a developer know.</p>
+<section id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Link to this heading">#</a></h2>
+<section id="prerequisites">
+<h3>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">#</a></h3>
+<p>This guide (and development in general) requires the following:</p>
+<ol class="arabic simple">
+<li><p>Install Git for your operating system.
+See <a class="reference external" href="https://git-scm.com/downloads/">https://git-scm.com/downloads/</a></p></li>
+<li><p>Install Python 3.11+. The most recent version is recommended.
+See <a class="reference external" href="https://www.python.org/downloads/">https://www.python.org/downloads/</a></p></li>
+<li><p>Create (or have) a GitHub account.
+See <a class="reference external" href="https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github">https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github</a></p></li>
+<li><p>(Optional) Install a full install of (La)TeX, usually a TeXLive install is
+good enough. We only recommend this if you are the main developer of this
+package. See <a class="reference external" href="https://tug.org/texlive/">https://tug.org/texlive/</a></p></li>
+</ol>
+<p>After Python has been installed, you can install other Python packages using
+<code class="docutils literal notranslate"><span class="pre">pip</span></code> via:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>&lt;package&gt;
+</pre></div>
+</div>
+<p>Please ensure that you have the following minimum packages for development:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">pip</span></code></p>
+<blockquote>
+<div><ul class="simple">
+<li><p>This should be installed by default. As <code class="docutils literal notranslate"><span class="pre">pip</span></code> is used to install all
+other packages its installation is more involved.</p></li>
+<li><p>Try: Using <code class="docutils literal notranslate"><span class="pre">ensurepip</span></code> you can bootstrap the installation:
+see <a class="reference external" href="https://docs.python.org/3/library/ensurepip.html">https://docs.python.org/3/library/ensurepip.html</a></p></li>
+<li><p>Try: On Linux, you may also try and install <code class="docutils literal notranslate"><span class="pre">pip</span></code> via your package
+manager.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">hatch</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">wheel</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ruff</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">black</span></code></p></li>
+</ul>
+<p>Other dependencies (for both Lezargus itself and the development thereof
+will be installed on-the-fly).</p>
+</section>
+<section id="clone-fork-repository">
+<h3>Clone/Fork Repository<a class="headerlink" href="#clone-fork-repository" title="Link to this heading">#</a></h3>
+<p>To contribute, you need to either clone or fork the Lezargus repository. If
+you have been granted write access to the repository you only need to clone
+the repository, otherwise you will need to fork the repository first. You may
+contact the developers to gain write access to the main Lezargus repository;
+we discourage but do not disallow opening an issue for such a request.</p>
+<p>For more information on forking a repository for the sake of contributing to
+it, please see the
+<a class="reference external" href="https://docs.github.com/en/get-started/exploring-projects-on-github/contributing-to-a-project">GitHub documentation</a>
+on the matter. A great resource on Git can be found in
+<a class="reference external" href="https://githubtraining.github.io/training-manual">GitHub’s Training Kit</a>;
+a full tutorial on Git(Hub) itself is a little beyond this guide.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you are a staff member of IRTF or similarly related, by convention, we
+will/must give you write access to the main Lezargus repository. Please
+contact the main developers for such permission.</p>
+</div>
+<p>There are many ways to clone a repository, but the easiest way is via HTTPS:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/psmd-iberutaru/Lezargus.git
+</pre></div>
+</div>
+<p>This will clone the Lezargus repository to a directory called <code class="docutils literal notranslate"><span class="pre">./Lezargus/</span></code>.
+We will refer to files from this “root” repository <code class="docutils literal notranslate"><span class="pre">Lezargus/</span></code> for
+convenience. Please enter the repository (i.e. <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">Lezargus</span></code>). Moreover,
+all commands (<code class="docutils literal notranslate"><span class="pre">git</span></code>, <code class="docutils literal notranslate"><span class="pre">hatch</span></code>, and other shell commands) should be run
+with <code class="docutils literal notranslate"><span class="pre">Lezargus/</span></code> being the present working directory.</p>
+</section>
+</section>
+<section id="developing">
+<h2>Developing<a class="headerlink" href="#developing" title="Link to this heading">#</a></h2>
+<p>To properly develop, you will need to create a Git branch for your feature,
+implement the feature, ensure it passes testing, linting, and formatting
+checks, then submit a pull request to have your feature reviewed before adding.</p>
+<section id="create-a-branch">
+<h3>Create a Branch<a class="headerlink" href="#create-a-branch" title="Link to this heading">#</a></h3>
+<p>The following command creates a branch with a given name. We suggest simple
+names relevant to the feature; use hyphens “-” as the word separator if needed.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>branch<span class="w"> </span>&lt;name&gt;
+</pre></div>
+</div>
+<p>Then enter the created branch to begin developing your feature:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>switch<span class="w"> </span>&lt;name&gt;
+</pre></div>
+</div>
+<p>From within this branch, you can start developing your feature.</p>
+</section>
+<section id="implement-feature">
+<span id="technical-contributing-implement-feature"></span><h3>Implement Feature<a class="headerlink" href="#implement-feature" title="Link to this heading">#</a></h3>
+<p>It is beyond this guide to tell you how to implement the feature you are
+adding to Lezargus. However, please keep the following in mind.</p>
+<ul>
+<li><p>Lezargus has a few coding and development conventions which we ask that you
+follow.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>See <a class="reference internal" href="convention.html#technical-conventions"><span class="std std-ref">Conventions</span></a>.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Please utilize the Lezargus library as much as possible. We list below some
+helpful modules which you will most likely need.</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Logging and exception handling: <code class="docutils literal notranslate"><span class="pre">lezargus.library.logging</span></code>, usually
+aliased to <code class="docutils literal notranslate"><span class="pre">logging</span></code>.</p></li>
+<li><p>Math and uncertainty propagation: <code class="docutils literal notranslate"><span class="pre">lezargus.library.math</span></code>.</p></li>
+<li><p>Configuration: <code class="docutils literal notranslate"><span class="pre">lezargus.library.config</span></code> and the file
+<code class="docutils literal notranslate"><span class="pre">Lezargus/src/lezargus/configuration.yaml</span></code>.</p></li>
+<li><p>Extra data files: <code class="docutils literal notranslate"><span class="pre">lezargus.library.data</span></code>.</p></li>
+<li><p>Container structures for spectra, images, and cubes: <code class="docutils literal notranslate"><span class="pre">lezargus.container</span></code>.</p></li>
+<li><p>Type hinting: <code class="docutils literal notranslate"><span class="pre">lezargus.library.hint</span></code> usually aliased to <code class="docutils literal notranslate"><span class="pre">hint</span></code>.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Formatting, linting, and basic code cleanliness conventions are all handled
+by automatic tools (described later). Therefore, there is no need to stress
+about it, but consider the following:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Python source files are better as one word.</p></li>
+<li><p>Please have proper docstrings for all your files, functions, and classes.
+We require this but sometimes the automatic tools don’t catch very case.
+We (generally) follow the
+<a class="reference external" href="https://numpydoc.readthedocs.io/en/latest/format.html">Google/numpydoc</a>
+style guide. (Note if you find a violation of the guide in our
+documentation, feel free to fix it if it is minor or reach out and
+submit an issue.)</p></li>
+<li><p>Please use Python type hint decorations in your code.</p></li>
+<li><p>If you are adding a completely new feature, please implement tests where
+appropriate. This can nevertheless be deferred for a very important feature/bug.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>We recommend implementing small portions of your feature as described in
+<a class="reference internal" href="#technical-contributing-implement-feature"><span class="std std-ref">Implement Feature</span></a> and committing it, checking it,
+and testing it as described <a class="reference internal" href="#technical-contributing-check-feature"><span class="std std-ref">Check Feature</span></a>.
+Iterating like this encourages smaller changes which are easier to review.
+We also suggest that you add your changes and commit your changes often so
+you can take full advantage of version control:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>add<span class="w"> </span>&lt;files/pattern&gt;
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;&lt;commit message&gt;&quot;</span>
+</pre></div>
+</div>
+<p>You can also push your commits to your created branch on the remote repository
+to ensure you do not lose your work:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>push
+</pre></div>
+</div>
+<p>It may be helpful to also merge your feature branch with an up-to-date master
+branch…</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>pull
+</pre></div>
+</div>
+<p>… or another feature branch.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>merge<span class="w"> </span>&lt;other-branch&gt;
+</pre></div>
+</div>
+<p>If you have any questions with the development process, please feel free to
+contact your fellow developers.</p>
+</section>
+<section id="check-feature">
+<span id="technical-contributing-check-feature"></span><h3>Check Feature<a class="headerlink" href="#check-feature" title="Link to this heading">#</a></h3>
+<p>To make sure the added feature works as intended, we suggest going through the
+development checks before opening a pull request.</p>
+<ol class="arabic simple">
+<li><p>The biggest check is to make sure the code builds into a package. You can
+attempt to build the package using <code class="docutils literal notranslate"><span class="pre">hatch</span></code>. We need to advance the version
+to a new development version each time you build. The path to the wheel file
+will be spat out after the build command. (We provide the convenience script
+<code class="docutils literal notranslate"><span class="pre">Lezargus/rebuild.ps1</span></code> which does this as well.)</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>hatch<span class="w"> </span>version<span class="w"> </span>dev
+hatch<span class="w"> </span>build
+pip<span class="w"> </span>install<span class="w"> </span>&lt;path/to/wheel&gt;
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>We follow the Python <a class="reference external" href="https://black.readthedocs.io/en/stable/">Black code style</a>.
+You can auto format your code (and all other code in the repository)
+using the hatch job:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>hatch<span class="w"> </span>run<span class="w"> </span>format
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Python linting is done by another job: <code class="docutils literal notranslate"><span class="pre">lint</span></code>. We use
+<a class="reference external" href="https://docs.astral.sh/ruff/">Ruff</a> and
+<a class="reference external" href="https://pylint.readthedocs.io/en/latest/">Pylint</a> for linting. When you
+get linting errors, consult their documentation for more information. Ruff
+can sometimes fix some of the linting problems that it catches, to utilize
+this functionality use the <code class="docutils literal notranslate"><span class="pre">lintfix</span></code> job instead (however, this skips
+Pylint).</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>hatch<span class="w"> </span>run<span class="w"> </span>lint<span class="w">    </span><span class="o">(</span>or<span class="w"> </span>lintfix<span class="o">)</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>You can test your code (or all of the repository code in general) against
+our test suite using the <code class="docutils literal notranslate"><span class="pre">test</span></code> job. This leverages
+<a class="reference external" href="https://docs.pytest.org/en/">pytest</a>. Note that this only covers areas
+where the test cases have been built; for the coverage see the next part.</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>hatch<span class="w"> </span>run<span class="w"> </span><span class="nb">test</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Code coverage (for test cases) is checked and generated by the hatch job: <code class="docutils literal notranslate"><span class="pre">cover</span></code>.
+This job should not fail per-say, but it does give you information about
+which parts of your feature code are checked in the currently implemented
+test cases. (Note, you don’t need 100% coverage, just something good
+enough.)</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>hatch<span class="w"> </span>run<span class="w"> </span>cover
+</pre></div>
+</div>
+<ol class="arabic simple" start="6">
+<li><p>Manually test the functions to make sure they work as intended. We
+recommend adding the suite you use to the provided tests in general, but it
+is still helpful for you to test your feature manually just in case.</p></li>
+<li><p>(Optional) You can also build the documentation using the hatch job <code class="docutils literal notranslate"><span class="pre">docs</span></code>,
+though this is generally not advised until the end. For more information on
+how to document your feature and build the documentation, see
+<a class="reference internal" href="#technical-contributing-documenting"><span class="std std-ref">Documenting</span></a>.</p></li>
+</ol>
+<p>The hatch job <code class="docutils literal notranslate"><span class="pre">aux</span></code> or <code class="docutils literal notranslate"><span class="pre">auxiliary</span></code> does all of the non-build/install
+steps (i.e. 2 through 7).</p>
+</section>
+<section id="submit-pull-request">
+<span id="technical-contributing-submit-pull-request"></span><h3>Submit Pull Request<a class="headerlink" href="#submit-pull-request" title="Link to this heading">#</a></h3>
+<p>To have your feature added to the master branch of the Lezargus repository,
+you will need to
+<a class="reference external" href="https://github.com/psmd-iberutaru/Lezargus/pulls">open a pull request</a>
+on the Lezargus GitHub page. A lot of information is present in the
+<a class="reference external" href="https://docs.github.com/en/pull-requests">GitHub pull requests documentation</a>.
+We summarize it here.</p>
+<p>You need to push your local changes to the remote branch on the remote
+repository, adding the files and creating one last commit:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>add<span class="w"> </span>&lt;file/pattern&gt;
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Message&quot;</span>
+git<span class="w"> </span>push
+</pre></div>
+</div>
+<p>Once pushed, on the Lezargus GitHub page, create a new pull request. Select
+the “base” branch as <code class="docutils literal notranslate"><span class="pre">master</span></code> (or your specific upstream branch of your
+feature) and the “compare” branch to be your feature branch. Then create the
+pull request and describe your changes using the template (if available).</p>
+<p>You typically will not be able to merge the changes on your own until the
+automatic checks are passed (like those found in
+<a class="reference internal" href="#technical-contributing-check-feature"><span class="std std-ref">Check Feature</span></a>) and your changes have been
+reviewed. Once the checks are passed and the featured reviewed, it can be
+merged into the master branch. Congratulations!</p>
+</section>
+</section>
+<section id="documenting">
+<span id="technical-contributing-documenting"></span><h2>Documenting<a class="headerlink" href="#documenting" title="Link to this heading">#</a></h2>
+<p>It is important to document your changes. As briefly touched on, we use
+Python docstrings to document our Python files, functions, modules, and
+classes. However, docstrings only document the code. We have three manuals
+for the three different types of people who interact with the Lezargus package.
+None of the manuals should really duplicate the information, they should
+instead cross reference each other.</p>
+<p>Please document all your contributions in all three manuals where appropriate:</p>
+<ul class="simple">
+<li><p>For changes to the non-development user experience, please add your changes
+to the User Manual: <code class="docutils literal notranslate"><span class="pre">Lezargus/docs/source/user/</span></code>.</p></li>
+<li><p>For changes applicable to developers or advanced users of Lezargus, please
+add your changes to the Technical Manual: <code class="docutils literal notranslate"><span class="pre">Lezargus/docs/source/technical/</span></code>.</p></li>
+<li><p>All Python docstring documentation is automatically built and placed in the
+Code Manual: <code class="docutils literal notranslate"><span class="pre">Lezargus/docs/source/code/</span></code>. The generated files should not be
+edited manually.</p></li>
+</ul>
+<p>We use <a class="reference external" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> to build our
+documentation. Apart from a few Markdown files relevant to GitHub
+repository documentation, we use
+<a class="reference external" href="https://docutils.sourceforge.io/rst.html">reStructuredText</a> to markup the
+documentation. Sphinx provides a good
+<a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html">primer to reStructuredText</a>.
+We suggest looking at that and some existing documentation files to get a
+handle on the reStructuredText markup.</p>
+<p>The documentation files are built as described earlier, explained in more
+detail here. You can build the HTML version of the documentation files using
+the hatch job:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>hatch<span class="w"> </span>run<span class="w"> </span>docs
+</pre></div>
+</div>
+<p>If you want to also build the LaTeX version of the documentation, you will
+need to have an installation of LaTeX and you will also need to uncomment out
+the LaTeX build line of the job in the <code class="docutils literal notranslate"><span class="pre">Lezargus/pyproject.toml</span></code> file.</p>
+<p>Please make sure that your documentation properly builds without any errors or
+warnings before submitting it via a pull request.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>We strongly advise against combining your feature changes with
+documentation changes in the same commit. We suggest doing it at the very
+end when opening a pull request or waiting until a new numbered release.
+Running the documentation build job changes a lot of files and clutters the
+Git history. You may build the documentation on your own machine to ensure
+it builds properly and then reset it (or, at the very least, delete the
+<code class="docutils literal notranslate"><span class="pre">Lezargus/docs/build/</span></code> and <code class="docutils literal notranslate"><span class="pre">Lezargus/docs/source/code/</span></code> directories
+locally).</p>
+<p>In general, building documentation files via the hatch job should be
+after the feature has been committed and pushed to remote per
+<a class="reference internal" href="#technical-contributing-submit-pull-request"><span class="std std-ref">Submit Pull Request</span></a>.</p>
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Technical Manual</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="convention.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Conventions</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#setup">Setup</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">Prerequisites</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#clone-fork-repository">Clone/Fork Repository</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#developing">Developing</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#create-a-branch">Create a Branch</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#implement-feature">Implement Feature</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-feature">Check Feature</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#submit-pull-request">Submit Pull Request</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#documenting">Documenting</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sparrow
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023, Sparrow.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

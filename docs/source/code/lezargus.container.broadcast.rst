@@ -1,7 +1,7 @@
-lezargus.library.uncertainty module
+lezargus.container.broadcast module
 ===================================
 
-.. automodule:: lezargus.library.uncertainty
+.. automodule:: lezargus.container.broadcast
    :members:
    :undoc-members:
    :show-inheritance:
