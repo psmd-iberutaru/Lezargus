@@ -76,12 +76,12 @@ cover = [
     "coverage erase",
 ]
 lint = [
-    "ruff {args:src}",
+    "ruff check {args:src}",
     "pylint {args:src}",
 ]
 lintfix = [
     "format",
-    "ruff {args:src} --fix",
+    "ruff check {args:src} --fix",
     "format",
 ]
 docs = [
@@ -100,7 +100,6 @@ auxiliary = [
     "cover",
     "format",
     "docs",
-    "version",
 ]
 aux = "auxiliary"
 
@@ -124,6 +123,8 @@ preview = true
 [tool.ruff]
 target-version = "py311"
 line-length = 80
+
+[tool.ruff.lint]
 select = [
     "ALL",
 ]
@@ -149,14 +150,14 @@ ignore = [
 unfixable = [
 ]
 
-[tool.ruff.isort]
+[tool.ruff.lint.isort]
 known-first-party = ["lezargus"]
 force-single-line = true
 
-[tool.ruff.flake8-tidy-imports]
+[tool.ruff.lint.flake8-tidy-imports]
 ban-relative-imports = "all"
 
-[tool.ruff.per-file-ignores]
+[tool.ruff.lint.per-file-ignores]
 # Tests can use magic values, assertions, and relative imports
 "tests/**/*" = ["PLR2004", "S101", "TID252"]
 # The hint module can have unused imports because it is part of its job to 

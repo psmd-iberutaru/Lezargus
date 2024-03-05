@@ -1,6 +1,6 @@
 # Lezargus
 
-[!![GitHub Pages Status](https://img.shields.io/github/actions/workflow/status/psmd-iberutaru/Lezargus/pages%2Fpages-build-deployment?branch=master&logo=github&label=Github%20Pages)](https://psmd-iberutaru.github.io/Lezargus/)
+[![GitHub Pages Status](https://img.shields.io/github/actions/workflow/status/psmd-iberutaru/Lezargus/pages%2Fpages-build-deployment?branch=master&logo=github&label=Github%20Pages)](https://psmd-iberutaru.github.io/Lezargus/)
 [![CodeQL Status](https://img.shields.io/github/actions/workflow/status/psmd-iberutaru/Lezargus/github-code-scanning%2Fcodeql?branch=master&logo=github&label=CodeQL)](https://github.com/psmd-iberutaru/Lezargus/actions/workflows/github-code-scanning/codeql)
 [![Formatting Status](https://img.shields.io/github/actions/workflow/status/psmd-iberutaru/Lezargus/format.yaml?branch=master&label=Formatting)](https://github.com/psmd-iberutaru/Lezargus/actions/workflows/format.yaml)
 [![Linting Status](https://img.shields.io/github/actions/workflow/status/psmd-iberutaru/Lezargus/lint.yaml?branch=master&label=Linting)](https://github.com/psmd-iberutaru/Lezargus/actions/workflows/lint.yaml)

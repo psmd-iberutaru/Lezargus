@@ -1,6 +1,8 @@
-==========
-Convention
-==========
+.. _technical-conventions:
+
+===========
+Conventions
+===========
 
 
 Units
