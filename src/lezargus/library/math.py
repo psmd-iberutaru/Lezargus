@@ -425,14 +425,15 @@ def weighted_mean(
     )
     weights = np.ones_like(values) if weights is None else weights
 
+    # Normalize the weights.
+    norm_weights = weights / np.nansum(weights)
+
     # Finally, calculating the mean.
-    mean_value = np.average(values, weights=weights)
+    mean_value = np.average(values, weights=norm_weights)
     # The error propagation, done as prescribed. We assume next to no
     # covariance and in general we calculate it via variance propagation of
     # the definition of the weighted mean.
-    mean_uncertainty = (
-        np.sqrt(np.sum((uncertainties * weights) ** 2)) / values.size
-    )
+    mean_uncertainty = np.sqrt(np.sum((uncertainties * norm_weights) ** 2))
     # All done.
     return mean_value, mean_uncertainty
 
@@ -447,8 +448,7 @@ def nan_weighted_mean(
     This function is similar to :py:func:`weighted_mean`,
     but we do not include any non-finite values.
 
-    See :ref:`technical-uncertainty-weighted-mean` for more
-    information.
+    See :ref:`technical-uncertainty-weighted-mean` for more information.
 
     Parameters
     ----------
@@ -567,3 +567,107 @@ def weighted_quantile_mean(
     )
     # All done.
     return mean_value, mean_uncertainty
+
+
+def median(
+    values: hint.ndarray,
+    uncertainties: hint.ndarray = None,
+    weights: hint.ndarray = None,
+) -> tuple[float, float]:
+    """Calculate the median and uncertainty.
+
+    See :ref:`technical-uncertainty-median` for more information on the
+    general median.
+
+    Parameters
+    ----------
+    values : ndarray
+        The values which we will compute the median of.
+    uncertainties : ndarray, default = None
+        The uncertainties in the values. If None, we default to no uncertainty.
+    weights : ndarray, default = None
+        The weights for the given values for the median of. If None, we
+        assume equal weights. This is only used for uncertainty propagation.
+
+    Returns
+    -------
+    median_value : float
+        The calculated median.
+    median_uncertainty : float
+        The calculated uncertainty in the median.
+
+    """
+    # We determine the defaults for the uncertainty and the weights.
+    uncertainties = (
+        np.zeros_like(values) if uncertainties is None else uncertainties
+    )
+    weights = np.ones_like(values) if weights is None else weights
+
+    # Calculating the median.
+    median_value = np.median(values)
+
+    # The uncertainty propagation on the median.
+    logging.error(
+        error_type=logging.ToDoError,
+        message="Uncertainty propagation on medians.",
+    )
+    median_uncertainty = 0
+
+    # All done.
+    return median_value, median_uncertainty
+
+
+def nan_median(
+    values: hint.ndarray,
+    uncertainties: hint.ndarray = None,
+    weights: hint.ndarray = None,
+) -> tuple[float, float]:
+    """Calculate the no-NaN median and uncertainty.
+
+    This function is similar to :py:func:`median`,
+    but we do not include any non-finite values.
+
+    See :ref:`technical-uncertainty-median` for more information.
+
+    Parameters
+    ----------
+    values : ndarray
+        The values which we will compute the median of.
+    uncertainties : ndarray, default = None
+        The uncertainties in the values. If None, we default to no uncertainty.
+    weights : ndarray, default = None
+        The weights for the given values for the median of. If None, we
+        assume equal weights. This is only used for uncertainty propagation.
+
+    Returns
+    -------
+    median_value : float
+        The calculated median.
+    median_uncertainty : float
+        The calculated uncertainty in the median.
+
+    """
+    # We determine the defaults for the uncertainty and the weights.
+    uncertainties = (
+        np.zeros_like(values) if uncertainties is None else uncertainties
+    )
+    weights = np.ones_like(values) if weights is None else weights
+
+    # We also do not include any values which are not actual numbers.
+    (
+        clean_values,
+        clean_uncertainty,
+        clean_weights,
+    ) = lezargus.library.array.clean_finite_arrays(
+        values,
+        uncertainties,
+        weights,
+    )
+
+    # And we just send it to the original function to compute it.
+    median_value, median_uncertainty = median(
+        values=clean_values,
+        uncertainties=clean_uncertainty,
+        weights=clean_weights,
+    )
+    return median_value, median_uncertainty

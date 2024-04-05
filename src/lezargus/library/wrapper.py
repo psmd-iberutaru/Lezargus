@@ -17,6 +17,32 @@ from lezargus.library import hint
 from lezargus.library import logging
 
 
+def do_nothing(*args: hint.Any, **kwargs: hint.Any) -> None:
+    """Do nothing, accepts arguments to prevent unused argument lint error.
+
+    This function is just a fancy way of doing absolutely nothing. It serves
+    as a way to "use" arguments for stub functions, templates, etc., so that
+    the linter does not complain about such semantics.
+
+    Parameters
+    ----------
+    *args : Any
+        Positional arguments, which nothing will be done to them.
+    **kwargs : Any
+        The keyword arguments, which nothing will be done to them.
+
+    Returns
+    -------
+    None
+
+    """
+    # We just do nothing.
+    args = None
+    kwargs = None
+    __ = type(args)()
+    __ = type(kwargs)()
+
+
 def blackbody_function(
     temperature: float,
 ) -> hint.Callable[[hint.ndarray], hint.ndarray]:

@@ -20,7 +20,7 @@ def get_spectra_scale_factor(
     base_uncertainty: hint.ndarray = None,
     input_uncertainty: hint.ndarray = None,
     bounds: tuple[float, float] = (-np.inf, +np.inf),
-) -> float:
+) -> tuple[float, float]:
     """Find the scale factor to scale one overlapping spectra to another.
 
     We determine what scale factor would properly match some input spectra
@@ -57,6 +57,8 @@ def get_spectra_scale_factor(
     -------
     scale_factor : float
         The scale factor to scale the input data to match the base data.
+    scale_uncertainty : float
+        The uncertainty in the scale factor. This is usually not relevant.
 
     """
     # The uncertainty defaults.
@@ -71,42 +73,38 @@ def get_spectra_scale_factor(
         else input_uncertainty
     )
     # We rebase both spectra to some common wavelength.
+    interpolator = (
+        lezargus.library.interpolate.Spline1DInterpolate.template_class(
+            extrapolate=False,
+            gap=+np.inf,
+        )
+    )
     common_wavelength = np.append(base_wavelength, input_wavelength)
-    common_base_data = (
-        lezargus.library.interpolate.spline_1d_interpolate_bounds_factory(
-            x=base_wavelength,
-            y=base_data,
-        )(common_wavelength)
+    common_base_data = interpolator(x=base_wavelength, v=base_data)(
+        common_wavelength,
     )
-    common_base_uncertainty = (
-        lezargus.library.interpolate.spline_1d_interpolate_bounds_factory(
-            x=base_wavelength,
-            y=base_uncertainty,
-        )(common_wavelength)
+    common_base_uncertainty = interpolator(
+        x=base_wavelength,
+        v=base_uncertainty,
+    )(common_wavelength)
+    common_input_data = interpolator(x=input_wavelength, v=input_data)(
+        common_wavelength,
     )
-    common_input_data = (
-        lezargus.library.interpolate.spline_1d_interpolate_bounds_factory(
-            x=input_wavelength,
-            y=input_data,
-        )(common_wavelength)
-    )
-    common_input_uncertainty = (
-        lezargus.library.interpolate.spline_1d_interpolate_bounds_factory(
-            x=input_wavelength,
-            y=input_uncertainty,
-        )(common_wavelength)
-    )
+    common_input_uncertainty = interpolator(
+        x=input_wavelength,
+        v=input_uncertainty,
+    )(common_wavelength)
 
     # And, we only use the data where there is proper overlap between both
     # spectra; and within the bounds where provided.
     overlap_index = (
         (
-            (base_wavelength.min() <= common_wavelength)
-            & (common_wavelength <= base_wavelength.max())
+            (np.nanmin(base_wavelength) <= common_wavelength)
+            & (common_wavelength <= np.nanmax(base_wavelength))
         )
         & (
-            (input_wavelength.min() <= common_wavelength)
-            & (common_wavelength <= input_wavelength.max())
+            (np.nanmin(input_wavelength) <= common_wavelength)
+            & (common_wavelength <= np.nanmax(input_wavelength))
         )
         & (
             (min(bounds) <= common_wavelength)
@@ -134,6 +132,18 @@ def get_spectra_scale_factor(
         overlap_input_uncertainty,
     )
 
+    # If there is no remaining data, the bounds likely do not cover any
+    # region with spectra.
+    if overlap_base_data.size == 0 or overlap_input_data.size == 0:
+        logging.warning(
+            warning_type=logging.DataLossWarning,
+            message=(
+                "No valid data remaining within the provided bounds; NaN scale"
+                " factor returned."
+            ),
+        )
+        return np.nan, np.nan
+
     # We determine the scale factor; though we initially apply a guess so that
     # we can better leverage the precision of the weighted average.
     guess_scale_factor = np.nanmedian(clean_base_data / clean_input_data)
@@ -157,16 +167,21 @@ def get_spectra_scale_factor(
     # Finding the average ratio.
     weights = 1 / base_input_ratio_uncertainty**2
     quantile_cut_ratio = 0.05
-    adjust_scale_factor, __ = lezargus.library.math.weighted_quantile_mean(
-        values=base_input_ratio,
-        uncertainties=base_input_ratio_uncertainty,
-        weights=weights,
-        quantile=quantile_cut_ratio,
+    adjust_scale_factor, adjust_scale_uncertainty = (
+        lezargus.library.math.weighted_quantile_mean(
+            values=base_input_ratio,
+            uncertainties=base_input_ratio_uncertainty,
+            weights=weights,
+            quantile=quantile_cut_ratio,
+        )
     )
 
-    # We don't really care for passing the uncertainty.
+    # The uncertainty is not fully propagated from the median as it is a firm
+    # guess. The actual mean should contain all of the uncertainty needed.
     scale_factor = guess_scale_factor * adjust_scale_factor
-    return scale_factor
+    scale_uncertainty = guess_scale_factor * adjust_scale_uncertainty
+
+    return scale_factor, scale_uncertainty
 
 
 def stitch_wavelengths_discrete(
@@ -265,10 +280,7 @@ def stitch_spectra_functional(
         [hint.ndarray, hint.ndarray, hint.ndarray],
         tuple[float, float],
     ] = None,
-    interpolation_routine: hint.Callable[
-        [hint.ndarray, hint.ndarray],
-        hint.Callable[[hint.ndarray], hint.ndarray],
-    ] = None,
+    interpolate_routine: hint.Type[hint.Generic1DInterpolate] | None = None,
     reference_wavelength: hint.ndarray = None,
 ) -> tuple[
     hint.Callable[[hint.ndarray], hint.ndarray],
@@ -305,11 +317,8 @@ def stitch_spectra_functional(
         uncertainties and weights. As such, it should have the input form of
         :math:`\text{avg}(x, \sigma, w) \rightarrow \bar{x} \pm \sigma`.
         If None, we use a standard weighted average, ignoring NaNs.
-    interpolation_routine : Callable, default = None
-        The interpolation routine factory which we use to interpolate each of
-        the spectra to each other wavelength frame. It should have the input
-        form of :math:`\text{ipr}(x,y) \rightarrow f:x \mapsto y`. If None, we
-        default to a spline, handling gaps.
+    interpolate_routine : Generic1DInterpolate, default = None
+        The 1D interpolation class used to handle interpolation.
     reference_wavelength : ndarray, default = None
         The reference points which we are going to evaluate the above functions
         at. The values should be of the same (unit) scale as the input of the
@@ -345,36 +354,23 @@ def stitch_spectra_functional(
     if average_routine is None:
         average_routine = lezargus.library.math.nan_weighted_mean
 
-    # If a custom routine is provided, then we need to make sure it
-    # can handle gaps in the data, and the limits of the interpolation.
-    # Otherwise, we just use a default spline interpolator.
-    if interpolation_routine is None:
-        interpolation_routine = (
-            lezargus.library.interpolate.spline_1d_interpolate_factory
-        )
-
-    def custom_interpolate_bounds(
-        x: hint.ndarray,
-        y: hint.ndarray,
-    ) -> hint.Callable[[hint.ndarray], hint.ndarray]:
-        return (
-            lezargus.library.interpolate.custom_1d_interpolate_bounds_factory(
-                interpolation=interpolation_routine,
-                x=x,
-                y=y,
-            )
-        )
-
-    def interpolation_routine_wrapped(
-        x: hint.ndarray,
-        y: hint.ndarray,
-        gap_size: float,
-    ) -> hint.Callable[[hint.ndarray], hint.ndarray]:
-        return lezargus.library.interpolate.custom_1d_interpolate_gap_factory(
-            interpolation=custom_interpolate_bounds,
-            x=x,
-            y=y,
-            gap_size=gap_size,
+    # If a custom routine is provided, we need to make sure it is the right
+    # type. Otherwise, we just use a default spline interpolator.
+    interpolate_routine = (
+        lezargus.library.interpolate.Spline1DInterpolate
+        if interpolate_routine is None
+        else interpolate_routine
+    )
+    if not issubclass(
+        interpolate_routine,
+        lezargus.library.interpolate.Generic1DInterpolate,
+    ):
+        logging.error(
+            error_type=logging.InputError,
+            message=(
+                "Interpolation routine class not of the expected type"
+                f" Generic1DInterpolate, instead is {interpolate_routine}"
+            ),
         )
 
     # And we also determine the reference points, which is vaguely based on
@@ -533,21 +529,24 @@ def stitch_spectra_functional(
     )
 
     # Building the interpolators.
-    stitched_wavelength_function = interpolation_routine_wrapped(
-        x=average_wavelength,
-        y=average_wavelength,
-        gap_size=reference_gap,
-    )
-    stitched_data_function = interpolation_routine_wrapped(
-        x=average_wavelength,
-        y=average_data,
-        gap_size=reference_gap,
-    )
-    stitched_uncertainty_function = interpolation_routine_wrapped(
-        x=average_wavelength,
-        y=average_uncertainty,
-        gap_size=reference_gap,
-    )
+    stitched_wavelength_function = interpolate_routine.template_class(
+        extrapolate=False,
+        extrapolate_fill=np.nan,
+        gap=reference_gap,
+    )(x=average_wavelength, v=average_wavelength)
+
+    stitched_data_function = interpolate_routine.template_class(
+        extrapolate=False,
+        extrapolate_fill=np.nan,
+        gap=reference_gap,
+    )(x=average_wavelength, v=average_data)
+
+    stitched_uncertainty_function = interpolate_routine.template_class(
+        extrapolate=False,
+        extrapolate_fill=np.nan,
+        gap=reference_gap,
+    )(x=average_wavelength, v=average_uncertainty)
+
     # All done.
     return (
         stitched_wavelength_function,
@@ -565,10 +564,7 @@ def stitch_spectra_discrete(
         [hint.ndarray, hint.ndarray, hint.ndarray],
         tuple[float, float],
     ] = None,
-    interpolation_routine: hint.Callable[
-        [hint.ndarray, hint.ndarray],
-        hint.Callable[[hint.ndarray], hint.ndarray],
-    ] = None,
+    interpolate_routine: hint.Generic1DInterpolate | None = None,
     reference_wavelength: hint.ndarray = None,
 ) -> tuple[hint.ndarray, hint.ndarray, hint.ndarray]:
     R"""Stitch spectra data arrays together.
@@ -602,11 +598,8 @@ def stitch_spectra_discrete(
         uncertainties and weights. As such, it should have the form of
         :math:`\text{avg}(x, \sigma, w) \rightarrow \bar{x} \pm \sigma`.
         If None, we use a standard weighted average, ignoring NaNs.
-    interpolation_routine : Callable, default = None
-        The interpolation routine factory which we use to interpolate each of
-        the spectra to each other wavelength frame. It should have the input
-        form of :math:`\text{ipr}(x,y) \rightarrow f:x \mapsto y`. If None, we
-        default to a spline, handling gaps.
+    interpolate_routine : Generic1DInterpolate, default = None
+        The 1D interpolation routine class used to handle interpolation.
     reference_wavelength : ndarray, default = None
         The reference wavelength is where the stitched spectra wavelength
         values should be. If None, we attempt to construct it based on the
@@ -633,36 +626,23 @@ def stitch_spectra_discrete(
     if average_routine is None:
         average_routine = lezargus.library.math.nan_weighted_mean
 
-    # If a custom routine is provided, then we need to make sure it
-    # can handle gaps in the data, and the limits of the interpolation.
-    # Otherwise, we just use a default spline interpolator.
-    if interpolation_routine is None:
-        interpolation_routine = (
-            lezargus.library.interpolate.spline_1d_interpolate_factory
-        )
-
-    def custom_interpolate_bounds(
-        x: hint.ndarray,
-        y: hint.ndarray,
-    ) -> hint.Callable[[hint.ndarray], hint.ndarray]:
-        return (
-            lezargus.library.interpolate.custom_1d_interpolate_bounds_factory(
-                interpolation=interpolation_routine,
-                x=x,
-                y=y,
-            )
-        )
-
-    def interpolation_routine_wrapped(
-        x: hint.ndarray,
-        y: hint.ndarray,
-        gap_size: float,
-    ) -> hint.Callable[[hint.ndarray], hint.ndarray]:
-        return lezargus.library.interpolate.custom_1d_interpolate_gap_factory(
-            interpolation=custom_interpolate_bounds,
-            x=x,
-            y=y,
-            gap_size=gap_size,
+    # If a custom routine is provided, we need to make sure it is the right
+    # type. Otherwise, we just use a default spline interpolator.
+    interpolate_routine = (
+        lezargus.library.interpolate.Spline1DInterpolate
+        if interpolate_routine is None
+        else interpolate_routine
+    )
+    if not issubclass(
+        interpolate_routine,
+        lezargus.library.interpolate.Generic1DInterpolate,
+    ):
+        logging.error(
+            error_type=logging.InputError,
+            message=(
+                "Interpolation class not of the expected type"
+                f" Generic1DInterpolate, instead is {interpolate_routine}"
+            ),
         )
 
     # We need to determine the reference wavelength, either from the
@@ -779,34 +759,35 @@ def stitch_spectra_discrete(
             continue
         # Otherwise, we build the interpolators.
         wavelength_interpolators.append(
-            interpolation_routine_wrapped(
-                x=wavedex,
-                y=wavedex,
-                gap_size=gapdex,
-            ),
+            interpolate_routine.template_class(
+                extrapolate=False,
+                extrapolate_fill=np.nan,
+                gap=gapdex,
+            )(x=wavedex, v=wavedex),
         )
         data_interpolators.append(
-            interpolation_routine_wrapped(
-                x=wavedex,
-                y=datadex,
-                gap_size=gapdex,
-            ),
+            interpolate_routine.template_class(
+                extrapolate=False,
+                extrapolate_fill=np.nan,
+                gap=gapdex,
+            )(x=wavedex, v=datadex),
         )
         uncertainty_interpolators.append(
-            interpolation_routine_wrapped(
-                x=wavedex,
-                y=uncertdex,
-                gap_size=gapdex,
-            ),
+            interpolate_routine.template_class(
+                extrapolate=False,
+                extrapolate_fill=np.nan,
+                gap=gapdex,
+            )(x=wavedex, v=uncertdex),
         )
 
         # The weight interpolator is a little different as we just want the
         # nearest weight as we assume the weight is a section as opposed to a
         # function.
         weight_interpolators.append(
-            lezargus.library.interpolate.nearest_neighbor_1d_interpolate_factory(
+            lezargus.library.interpolate.Nearest1DInterpolate(
                 x=clean_wave,
-                y=clean_weight,
+                v=clean_weight,
+                extrapolate=True,
             ),
         )
 
@@ -821,7 +802,7 @@ def stitch_spectra_discrete(
         uncertainty_functions=uncertainty_interpolators,
         weight_functions=weight_interpolators,
         average_routine=average_routine,
-        interpolation_routine=interpolation_routine,
+        interpolate_routine=interpolate_routine,
         reference_wavelength=reference_wavelength,
     )
 

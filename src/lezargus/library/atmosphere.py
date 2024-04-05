@@ -15,12 +15,9 @@ from lezargus.library import logging
 def airmass(zenith_angle: float | hint.ndarray) -> float | hint.ndarray:
     """Calculate the airmass from the zenith angle.
 
-    This function calculates the airmass provided a zenith angle. For most
-    cases the plane-parallel atmosphere method works, and it is what this
-    function uses. However, we also use a more accurate formula for airmass at
-    higher zenith angles (>80 degree), namely from DOI:10.1364/AO.28.004735.
-    We use a weighted average between 75 < z < 80 degrees to allow for a
-    smooth transition.
+    This function calculates the airmass provided a zenith angle. We use a
+    hybrid plane-parallel model and Young et. al. 1989 model to cover
+    higher zenith angles. See [[TODO]] for more information.
 
     Parameters
     ----------
@@ -71,7 +68,7 @@ def index_of_refraction_ideal_air(wavelength: hint.ndarray) -> hint.ndarray:
     """Calculate the ideal refraction of air over wavelength.
 
     The index of refraction of air depends slightly on wavelength, we use
-    the updated Edlen equations found in DOI: 10.1088/0026-1394/30/3/004.
+    the updated Edlen equations; see [[TODO]].
 
     Parameters
     ----------
@@ -112,7 +109,7 @@ def index_of_refraction_dry_air(
     """Calculate the refraction of air of pressured warm dry air.
 
     The index of refraction depends on wavelength, pressure and temperature, we
-    use the updated Edlén equations found in DOI: 10.1088/0026-1394/30/3/004.
+    use the updated Edlén equations; see [[TODO]].
 
     Parameters
     ----------
@@ -167,9 +164,9 @@ def index_of_refraction_moist_air(
     """Calculate the refraction of air of pressured warm moist air.
 
     The index of refraction depends on wavelength, pressure, temperature, and
-    humidity, we use the updated Edlen equations found in
-    DOI: 10.1088/0026-1394/30/3/004. We use the partial pressure of water in
-    the atmosphere as opposed to actual humidity.
+    humidity, we use the updated Edlen equations ; see [[TODO]].
+    We use the partial pressure of water in the atmosphere as opposed to
+    actual humidity.
 
     Parameters
     ----------
@@ -340,3 +337,59 @@ def relative_atmospheric_refraction_function(
 
     # All done.
     return rel_atm_refr_func
+
+
+def seeing(
+    wavelength: hint.ndarray,
+    zenith_angle: float,
+    reference_seeing: float,
+    reference_wavelength: float,
+    reference_zenith_angle: float = 0,
+) -> hint.ndarray:
+    """Compute seeing as a function of wavelength.
+
+    The seeing, as a function of wavelength, is computed from wavelength and
+    airmass ratios from some provided base reference seeing value. See
+    [[TODO]] for more information.
+
+    Parameters
+    ----------
+    wavelength : ndarray
+        The wavelengths that we are calculating the seeing at, typically in
+        meters.
+    zenith_angle : float
+        The zenith angle where we are calculating the seeing from, in radians.
+    reference_seeing : float
+        The provided reference seeing at the `reference_wavelength` and the
+        `reference_zenith_angle`, in radians.
+    reference_wavelength : float
+        The reference wavelength where the reference seeing measurement
+        `reference_seeing` is taken at. Must be in the same units as
+        the `wavelength` parameter, typically meters.
+    reference_zenith_angle : float, default = 0
+        The reference zenith angle where the reference seeing measurement
+        `reference_seeing` is taken at, in radians.
+
+    Returns
+    -------
+    seeing_ : ndarray
+        The seeing values as a function of wavelength, in the same units as
+        the provided `reference_seeing`.
+
+    """
+    # The seeing ratios use airmass, not zenith angle. So we compute the
+    # airmass from them.
+    input_airmass = airmass(zenith_angle=zenith_angle)
+    reference_airmass = airmass(zenith_angle=reference_zenith_angle)
+
+    # First the relationship for wavelength.
+    wavelength_relationship = (wavelength / reference_wavelength) ** (-1 / 5)
+
+    # Second, the airmass relationship.
+    airmass_relationship = (input_airmass / reference_airmass) ** (3 / 5)
+
+    # Applying the ratio relationships.
+    seeing_ = reference_seeing * wavelength_relationship * airmass_relationship
+
+    # All done.
+    return seeing_

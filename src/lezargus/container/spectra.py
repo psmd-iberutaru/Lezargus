@@ -239,6 +239,7 @@ class LezargusSpectra(LezargusContainerArithmetic):
     def interpolate(
         self: hint.Self,
         wavelength: hint.ndarray,
+        extrapolate: bool = False,
         skip_mask: bool = True,
         skip_flags: bool = True,
     ) -> tuple[
@@ -257,6 +258,8 @@ class LezargusSpectra(LezargusContainerArithmetic):
             The wavelength values which we are going to interpolate to. The
             units of the data of this array should be the same as the
             wavelength unit stored.
+        extrapolate : bool, default = False
+            If True, we extrapolate. Otherwise, the edges are NaNs.
         skip_mask : bool, default = True
             If provided, the propagation of data mask through the
             interpolation is skipped. It is computationally a little expensive
@@ -327,20 +330,20 @@ class LezargusSpectra(LezargusContainerArithmetic):
         gap_size = lezargus.library.interpolate.get_smallest_gap(
             wavelength=clean_wavelength,
         )
-        interp_data = (
-            lezargus.library.interpolate.spline_1d_interpolate_gap_factory(
-                x=clean_wavelength,
-                y=clean_data,
-                gap_size=gap_size,
-            )(wavelength)
-        )
-        interp_uncertainty = (
-            lezargus.library.interpolate.spline_1d_interpolate_gap_factory(
-                x=clean_wavelength,
-                y=clean_uncertainty,
-                gap_size=gap_size,
-            )(wavelength)
-        )
+        interp_data = lezargus.library.interpolate.Spline1DInterpolate(
+            x=clean_wavelength,
+            v=clean_data,
+            extrapolate=extrapolate,
+            extrapolate_fill=np.nan,
+            gap=gap_size,
+        )(wavelength)
+        interp_uncertainty = lezargus.library.interpolate.Spline1DInterpolate(
+            x=clean_wavelength,
+            v=clean_uncertainty,
+            extrapolate=extrapolate,
+            extrapolate_fill=np.nan,
+            gap=gap_size,
+        )(wavelength)
 
         # Checking if we need to compute the interpolation of a mask.
         if skip_mask:
@@ -445,13 +448,13 @@ class LezargusSpectra(LezargusContainerArithmetic):
                 # We compute uniform weights.
                 using_weights = [
                     np.ones_like(spectradex.wavelength)
-                    for spectradex in spectra
+                    for spectradex in lz_spectra
                 ]
             elif weight == "invar":
                 # We compute weights which are the inverse of the variance
                 # in the data.
                 using_weights = [
-                    1 / spectradex.uncertainty**2 for spectradex in spectra
+                    1 / spectradex.uncertainty**2 for spectradex in lz_spectra
                 ]
             else:
                 # A valid shortcut string has not been provided.
@@ -472,13 +475,16 @@ class LezargusSpectra(LezargusContainerArithmetic):
             stitch_data,
             stitch_uncertainty,
         ) = lezargus.library.stitch.stitch_spectra_discrete(
-            wavelength_arrays=[spectradex.wavelength for spectradex in spectra],
-            data_arrays=[spectradex.data for spectradex in spectra],
+            wavelength_arrays=[
+                spectradex.wavelength for spectradex in lz_spectra
+            ],
+            data_arrays=[spectradex.data for spectradex in lz_spectra],
             uncertainty_arrays=[
-                spectradex.uncertainty for spectradex in spectra
+                spectradex.uncertainty for spectradex in lz_spectra
             ],
             weight_arrays=using_weights,
             average_routine=average_routine,
+            interpolate_routine=None,
         )
         # We also stitch together the flags and the mask. They are handled
         # with a different function.
@@ -503,7 +509,7 @@ class LezargusSpectra(LezargusContainerArithmetic):
             data=stitch_data,
             uncertainty=stitch_uncertainty,
             wavelength_unit=self.wavelength_unit,
-            data_unit=self.wavelength_unit,
+            data_unit=self.data_unit,
             mask=stitch_mask,
             flags=stitch_flags,
             header=stitch_header,

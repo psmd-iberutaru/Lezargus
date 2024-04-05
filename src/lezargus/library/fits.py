@@ -329,16 +329,22 @@ def write_lezargus_fits_file(
 
     # We need to convert the pixel/slice scale from the input radian per unit
     # to the FITS header degree per unit.
-    pixel_scale_arcsec = lezargus.library.conversion.convert_units(
-        value=pixel_scale,
-        value_unit="rad pix^-1",
-        result_unit="arcsec pix^-1",
-    )
-    slice_scale_arcsec = lezargus.library.conversion.convert_units(
-        value=slice_scale,
-        value_unit="rad pix^-1",
-        result_unit="arcsec pix^-1",
-    )
+    if pixel_scale is None:
+        pixel_scale_arcsec = None
+    else:
+        pixel_scale_arcsec = lezargus.library.conversion.convert_units(
+            value=pixel_scale,
+            value_unit="rad pix^-1",
+            result_unit="arcsec pix^-1",
+        )
+    if slice_scale is None:
+        slice_scale_arcsec = None
+    else:
+        slice_scale_arcsec = lezargus.library.conversion.convert_units(
+            value=slice_scale,
+            value_unit="rad pix^-1",
+            result_unit="arcsec pix^-1",
+        )
 
     # We first compile the header. The unit information is kept in the header
     # as well. However, it is best to work on a copy.

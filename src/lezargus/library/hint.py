@@ -48,13 +48,16 @@ from PySide6 import QtWidgets
 from PySide6.QtWidgets import QMainWindow
 from PySide6.QtWidgets import QWidget
 
-# Lezargus aliases.
 # Containers...
 from lezargus.container import LezargusContainerArithmetic
 from lezargus.container import LezargusCube
 from lezargus.container import LezargusImage
 from lezargus.container import LezargusMosaic
 from lezargus.container import LezargusSpectra
+
+# Lezargus aliases.
+# Library things.
+from lezargus.library.interpolate import Generic1DInterpolate
 
 # Simulators...
 from lezargus.simulation import SimulatorSpectre
