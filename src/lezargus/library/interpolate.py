@@ -902,9 +902,10 @@ class RepeatNDInterpolate:
             # If the slice value is None, we do not interpolate this slice.
             if valuedex is None:
                 continue
+            # Otherwise, we reduce along the slice value.
             reduced_data = self._interpolate_reduce_dimension(
                 data=reduced_data,
-                x=domaindex,
+                single_domain=domaindex,
                 point=valuedex,
                 template=self.interpolator_template,
                 axis=axisdex,
