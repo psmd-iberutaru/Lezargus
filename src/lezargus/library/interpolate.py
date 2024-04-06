@@ -270,20 +270,22 @@ class Generic1DInterpolate:
             applied.
 
         """
-        # We make a small copy of the output data that we will need to
-        # modify.
-        output = interp_v.copy()
+        # For the values which are outside, we fill them in if we are not
+        # supposed to extrapolate.
+        if self.extrapolate:
+            # We were supposed to extrapolate, no change.
+            return interp_v
+
         # By definition, any values which would have been extrapolated falls
         # outside of the original domain.
         x_min = np.nanmin(self.x)
         x_max = np.nanmax(self.x)
         is_outside = ~((x_min <= interp_x) & (interp_x <= x_max))
 
-        # For the values which are outside, we fill them in if we are not
-        # supposed to extrapolate.
-        if self.extrapolate:
-            # We were supposed to extrapolate, no change.
-            return interp_v
+        # We make a small copy of the output data that we will need to
+        # modify. We adapt to the type of the extrapolation fill value.
+        output_type = np.result_type(interp_v, self.extrapolate_fill)
+        output = np.asarray(interp_v, dtype=output_type)
 
         # Filling them in.
         output[is_outside] = self.extrapolate_fill
@@ -315,14 +317,16 @@ class Generic1DInterpolate:
             applied.
 
         """
-        # We make a small copy of the output data that we will need to
-        # modify.
-        output = interp_v.copy()
         # We first check if we were to even find and exclude gaps in the first
         # place.
         if not self.gap:
             # No, the gap flag is false, no gaps. So, no change.
             return interp_v
+
+        # We make a small copy of the output data that we will need to
+        # modify. We use floats as NaNs don't work with any other type.
+        output_type = np.result_type(interp_v, np.nan)
+        output = np.asarray(interp_v, dtype=output_type)
 
         # We already computed where the gaps are. All that is left is
         # checking if they are within them.
@@ -973,12 +977,12 @@ class Repeat2DInterpolate(RepeatNDInterpolate):
 
         """
         # We make sure that the axes provided properly match the array.
-        if v.shape != (y.size, x.size):
+        if v.shape != (x.size, y.size):
             logging.error(
                 error_type=logging.InputError,
                 message=(
                     f"The shape of the data is {v.shape} which does not match"
-                    f" the provided axes (y, x): {(y.size, x.size)}."
+                    f" the provided axes (x, y): {(x.size, y.size)}."
                 ),
             )
 
@@ -1143,12 +1147,12 @@ class Repeat3DInterpolate(RepeatNDInterpolate):
 
         """
         # We make sure that the axes provided properly match the array.
-        if v.shape != (z.size, y.size, x.size):
+        if v.shape != (x.size, y.size, z.size):
             logging.error(
                 error_type=logging.InputError,
                 message=(
                     f"The shape of the data is {v.shape} which does not match"
-                    f" the provided axes (z, y, x): {(z.size, y.size, x.size)}."
+                    f" the provided axes (x, y, z): {(x.size, y.size, z.size)}."
                 ),
             )
 
