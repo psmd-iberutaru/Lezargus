@@ -565,13 +565,12 @@ class Spline1DInterpolate(Generic1DInterpolate):
         # The Akima1D interpolator. The modified version is the better one to
         # use considering its advantages. Namely the higher dimensionality and
         # better handling of flat data.
-        if False:
-            interpolator = scipy.interpolate.Akima1DInterpolator(
-                x,
-                v,
-                method="makima",
-                extrapolate=True,
-            )
+        # Akima  interpolator = scipy.interpolate.Akima1DInterpolator(
+        # Akima      x,
+        # Akima      v,
+        # Akima      method="makima",
+        # Akima      extrapolate=True,
+        # Akima  )
 
         # Super temporary; REMOVE when makima is proper.
         interpolator = scipy.interpolate.PchipInterpolator(
@@ -636,14 +635,15 @@ class RepeatNDInterpolate:
 
         """
         # We check that the shape provided by the domain matches the data
-        # shape.
+        # shape. The domain order provided above is actually the reverse of
+        # the Numpy convention.
         domain_shape = tuple(domaindex.size for domaindex in domain)
-        if domain_shape != v.shape:
+        if reversed(domain_shape) != v.shape:
             logging.error(
                 error_type=logging.InputError,
                 message=(
-                    f"The shape of the data is {v.shape} which does not match"
-                    " the expected shape from the provided domain"
+                    f"The shape of the data is {v.shape} which does not "
+                    " match the expected shape from the provided domain"
                     f" {domain_shape}."
                 ),
             )
@@ -977,12 +977,15 @@ class Repeat2DInterpolate(RepeatNDInterpolate):
 
         """
         # We make sure that the axes provided properly match the array.
-        if v.shape != (x.size, y.size):
+        # The domain order provided above is actually the reverse of
+        # the Numpy convention.
+        domain_shape = (x.size, y.size)
+        if v.shape != reversed(domain_shape):
             logging.error(
                 error_type=logging.InputError,
                 message=(
-                    f"The shape of the data is {v.shape} which does not match"
-                    f" the provided axes (x, y): {(x.size, y.size)}."
+                    f"The shape of the data is {v.shape} which does not"
+                    f" match the provided axes (x, y): {domain_shape}."
                 ),
             )
 
@@ -1147,12 +1150,16 @@ class Repeat3DInterpolate(RepeatNDInterpolate):
 
         """
         # We make sure that the axes provided properly match the array.
-        if v.shape != (x.size, y.size, z.size):
+        # The domain order provided above is actually the reverse of
+        # the Numpy convention.
+        domain_shape = (x.size, y.size, z.size)
+        if v.shape != reversed(domain_shape):
             logging.error(
                 error_type=logging.InputError,
                 message=(
-                    f"The shape of the data is {v.shape} which does not match"
-                    f" the provided axes (x, y, z): {(x.size, y.size, z.size)}."
+                    f"The shape of the data is {v.shape} which does not "
+                    " match the provided axes (x, y, z):"
+                    f" {domain_shape}."
                 ),
             )
 
@@ -1279,5 +1286,3 @@ class Repeat3DInterpolate(RepeatNDInterpolate):
 
     # A quick alias so that we can compute the interpolation as a simple call.
     __call__ = interpolate
-
-
