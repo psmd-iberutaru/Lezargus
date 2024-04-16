@@ -1,7 +1,5 @@
 """Tests wrapper functions to ensure that they are behaving normally."""
 
-import sys
-
 import numpy as np
 
 import lezargus
@@ -17,6 +15,7 @@ def test_wavelength_overlap_fraction() -> None:
     Returns
     -------
     None
+
     """
     # We first check the obvious cases, where two different arrays overlap
     # or do not.
@@ -32,27 +31,28 @@ def test_wavelength_overlap_fraction() -> None:
     # Testing them...
     # An overlapping array overlaps with itself perfectly.
     self_fraction = lezargus.library.wrapper.wavelength_overlap_fraction(
-        base=main_array, contain=main_array
+        base=main_array,
+        contain=main_array,
     )
     assert_message = (
-        "Overlap fraction for itself is expected to be 1, not {fr}".format(
-            fr=self_fraction
-        )
+        f"Overlap fraction for itself is expected to be 1, not {self_fraction}"
     )
     assert self_fraction == 1, assert_message
     # Then the expected overlap one.
     overlap_fraction = lezargus.library.wrapper.wavelength_overlap_fraction(
-        base=main_array, contain=overlap_array
+        base=main_array,
+        contain=overlap_array,
     )
     assert_message = (
         "Overlap fraction for the overlapping array is expected to be 1,"
-        " not {fr}".format(fr=overlap_fraction)
+        f" not {overlap_fraction}"
     )
     # And one where the contain array is much bigger. We expect this to
     # throw a warning.
     try:
         __ = lezargus.library.wrapper.wavelength_overlap_fraction(
-            base=main_array, contain=super_overlap_array
+            base=main_array,
+            contain=super_overlap_array,
         )
     except lezargus.library.logging.ElevatedError:
         # This error is expected.
@@ -65,35 +65,39 @@ def test_wavelength_overlap_fraction() -> None:
         assert False, assert_message
     # Now we test the two arrays which are not overlapping at all.
     lower_fraction = lezargus.library.wrapper.wavelength_overlap_fraction(
-        base=main_array, contain=lower_outside_array
+        base=main_array,
+        contain=lower_outside_array,
     )
     assert_message = (
         "Overlap fraction for the lower non-overlapping array is expected to be"
-        " 0, not {fr}".format(fr=lower_fraction)
+        f" 0, not {lower_fraction}"
     )
     assert lower_fraction == 0, assert_message
     upper_fraction = lezargus.library.wrapper.wavelength_overlap_fraction(
-        base=main_array, contain=upper_outside_array
+        base=main_array,
+        contain=upper_outside_array,
     )
     assert_message = (
         "Overlap fraction for the upper non-overlapping array is expected to be"
-        " 0, not {fr}".format(fr=upper_fraction)
+        f" 0, not {upper_fraction}"
     )
     assert upper_fraction == 0, assert_message
     # And then the partial overlaps.
     lower_part_fraction = lezargus.library.wrapper.wavelength_overlap_fraction(
-        base=main_array, contain=lower_partial_array
+        base=main_array,
+        contain=lower_partial_array,
     )
     assert_message = (
         "Overlap fraction for the lower partial overlapping array is expected"
-        " to be between 0 and 1, not {fr}".format(fr=lower_part_fraction)
+        f" to be between 0 and 1, not {lower_part_fraction}"
     )
     assert 0 < lower_part_fraction < 1, assert_message
     upper_part_fraction = lezargus.library.wrapper.wavelength_overlap_fraction(
-        base=main_array, contain=upper_partial_array
+        base=main_array,
+        contain=upper_partial_array,
     )
     assert_message = (
         "Overlap fraction for the upper partial overlapping array is expected"
-        " to be between 0 and 1, not {fr}".format(fr=upper_part_fraction)
+        f" to be between 0 and 1, not {upper_part_fraction}"
     )
     assert 0 < upper_part_fraction < 1, assert_message

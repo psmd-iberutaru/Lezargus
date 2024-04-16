@@ -2,8 +2,6 @@
 
 import lezargus
 
-import conftest
-
 
 def test_update_global_minimum_logging_level() -> None:
     """Test the update_global_minimum_logging_level function.
@@ -15,10 +13,11 @@ def test_update_global_minimum_logging_level() -> None:
     Returns
     -------
     None
+
     """
     # We just run the logging again to test it.
     __ = lezargus.library.logging.update_global_minimum_logging_level(
-        log_level=lezargus.library.logging.LOGGING_DEBUG_LEVEL
+        log_level=lezargus.library.logging.LOGGING_DEBUG_LEVEL,
     )
 
 
@@ -32,6 +31,7 @@ def test_debug() -> None:
     Returns
     -------
     None
+
     """
     lezargus.library.logging.debug(message="Debug test.")
 
@@ -46,6 +46,7 @@ def test_info() -> None:
     Returns
     -------
     None
+
     """
     lezargus.library.logging.info(message="Info test.")
 
@@ -60,6 +61,7 @@ def test_warning() -> None:
     Returns
     -------
     None
+
     """
     # We try to send a warning with a non-Lezargus warning type.
     try:
@@ -100,6 +102,7 @@ def test_error() -> None:
     Returns
     -------
     None
+
     """
     # We try to send a warning with a non-Lezargus error type.
     try:
@@ -140,6 +143,7 @@ def test_critical() -> None:
     Returns
     -------
     None
+
     """
     # We try to send a warning with a non-Lezargus error/critical type.
     try:
@@ -172,6 +176,7 @@ def test_terminal() -> None:
     Returns
     -------
     None
+
     """
     try:
         lezargus.library.logging.terminal()

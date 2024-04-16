@@ -1,14 +1,14 @@
 """We set up a few things for the testing environment."""
 
-import pytest
 import os
+
+import pytest
 
 import lezargus
 
 
 def pytest_sessionstart(session: pytest.Session) -> None:
-    """
-    Called after the Session object has been created and
+    """Called after the Session object has been created and
     before performing collection and entering the run test loop.
 
     Parameters
@@ -18,6 +18,7 @@ def pytest_sessionstart(session: pytest.Session) -> None:
     Returns
     -------
     None
+
     """
     # We need to load the new configuration file.
     test_directory = os.path.dirname(
@@ -29,7 +30,7 @@ def pytest_sessionstart(session: pytest.Session) -> None:
         extension="yaml",
     )
     lezargus.library.config.load_configuration_file(
-        filename=test_configuration_file
+        filename=test_configuration_file,
     )
 
 
@@ -48,6 +49,7 @@ def fetch_test_filename(basename: str) -> str:
     -------
     test_filename : str
         The test filename.
+
     """
     # We need to load the new configuration file.
     test_directory = os.path.dirname(

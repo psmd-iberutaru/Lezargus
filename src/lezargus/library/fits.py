@@ -34,7 +34,7 @@ _LEZARGUS_HEADER_KEYWORDS_DICTIONARY = {
     "LZOPKDEC": (None, "LZ: PSF peak DEC value, deg."),
     "LZO_ROTA": (None, "LZ: Rotation angle, deg."),
     "LZO_AIRM": (None, "LZ: Airmass."),
-    # Synthetic photometric magnitudes derived from the spectra. This is a
+    # Synthetic photometric magnitudes derived from the spectrum. This is a
     # helpful place to put photometry measurements.
     "LZPM_J_U": (None, "LZ: Johnson U magnitude."),
     "LZPU_J_U": (None, "LZ: Johnson U uncertainty."),

@@ -26,7 +26,7 @@ class SimulatorSpectre:
 
     Attributes
     ----------
-    astrophysical_object_spectra : LezargusSpectra
+    astrophysical_object_spectra : LezargusSpectrum
         The "perfect" spectra of the astrophysical object who's observation is
         being modeled.
     astrophysical_object_cube : LezargusCube
@@ -93,9 +93,9 @@ class SimulatorSpectre:
         self: hint.Self,
         temperature: float,
         magnitude: float,
-        filter_spectra: hint.LezargusSpectra,
+        filter_spectra: hint.LezargusSpectrum,
         filter_zero_point: float,
-    ) -> hint.LezargusSpectra:
+    ) -> hint.LezargusSpectrum:
         """Create the astrophysical object from first principles.
 
         This function creates and stores the astrophysical object spectra
@@ -112,8 +112,8 @@ class SimulatorSpectre:
         magnitude : float
             The magnitude of the object in the photometric filter system
             provided.
-        filter_spectra : LezargusSpectra
-            The filter transmission profile, packaged as a LezargusSpectra. It
+        filter_spectra : LezargusSpectrum
+            The filter transmission profile, packaged as a LezargusSpectrum. It
             does not need to have any header data. We assume a Vega-based
             photometric system.
         filter_zero_point : float
@@ -121,7 +121,7 @@ class SimulatorSpectre:
 
         Returns
         -------
-        spectra : LezargusSpectra
+        spectra : LezargusSpectrum
             The astrophysical object spectra; it is returned as a courtesy as
             the result is stored in this class.
 
@@ -146,7 +146,7 @@ class SimulatorSpectre:
         solid_angle = np.pi
         integrated_blackbody_flux = blackbody_flux * solid_angle
         # Packaging the spectra.
-        blackbody_spectra = lezargus.container.LezargusSpectra(
+        blackbody_spectra = lezargus.container.LezargusSpectrum(
             wavelength=wavelength,
             data=integrated_blackbody_flux,
             uncertainty=None,
@@ -189,7 +189,7 @@ class SimulatorSpectre:
         header = {"LZI_INST": "SPECTRE", "LZO_NAME": "Simulation"}
 
         # Compiling the spectra class and storing it.
-        self.astrophysical_object_spectra = lezargus.container.LezargusSpectra(
+        self.astrophysical_object_spectra = lezargus.container.LezargusSpectrum(
             wavelength=wavelength,
             data=photon_flux,
             uncertainty=None,
@@ -206,8 +206,8 @@ class SimulatorSpectre:
 
     def custom_astrophysical_object_spectra(
         self: hint.Self,
-        custom_spectra: hint.LezargusSpectra,
-    ) -> hint.LezargusSpectra:
+        custom_spectra: hint.LezargusSpectrum,
+    ) -> hint.LezargusSpectrum:
         """Use a provided spectra for a custom astrophysical object.
 
         This function is used to provide a custom spectra class to use to
@@ -228,13 +228,13 @@ class SimulatorSpectre:
 
         Parameters
         ----------
-        custom_spectra : LezargusSpectra
+        custom_spectra : LezargusSpectrum
             The custom provided spectral object to use for the custom
             astrophysical object.
 
         Returns
         -------
-        spectra : LezargusSpectra
+        spectra : LezargusSpectrum
             The astrophysical object spectra; it is returned as a courtesy as
             the result is stored in this class. This is the same as the input
             spectra and the return is for consistency.
@@ -242,11 +242,11 @@ class SimulatorSpectre:
         """
         # We really just use it as is, aside from a simple check to make sure
         # the input is not going to screw things up down the line.
-        if not isinstance(custom_spectra, lezargus.container.LezargusSpectra):
+        if not isinstance(custom_spectra, lezargus.container.LezargusSpectrum):
             logging.error(
                 error_type=logging.InputError,
                 message=(
-                    "The custom input spectra is not a LezargusSpectra"
+                    "The custom input spectra is not a LezargusSpectrum"
                     f" instance but is instead has type {type(custom_spectra)}."
                 ),
             )
@@ -367,7 +367,7 @@ class SimulatorSpectre:
 
         Parameters
         ----------
-        custom_cube : LezargusSpectra
+        custom_cube : LezargusSpectrum
             The custom provided spectral cube object to use for the custom
             astrophysical object field.
 
@@ -394,11 +394,11 @@ class SimulatorSpectre:
 
     def prepare_spectra(
         self: hint.Self,
-        spectra: hint.LezargusSpectra,
+        spectra: hint.LezargusSpectrum,
         *args: object,
         skip_convolve: bool = False,
         **kwargs: object,
-    ) -> hint.LezargusSpectra:
+    ) -> hint.LezargusSpectrum:
         """Prepare the provided spectra for future steps.
 
         Any provided spectra (transmission curves, emission curves, etc) must
@@ -416,7 +416,7 @@ class SimulatorSpectre:
 
         Parameters
         ----------
-        spectra : LezargusSpectra
+        spectra : LezargusSpectrum
             The input spectra which we will be preparing.
         skip_convolve : bool, default = False
             If True, we skip the resolution convolution step. The backend
@@ -429,17 +429,17 @@ class SimulatorSpectre:
 
         Returns
         -------
-        finished_spectra : LezargusSpectra
+        finished_spectra : LezargusSpectrum
             The finished prepared spectra after all of the steps have been
             done.
 
         """
         # Type check on the input spectra.
-        if not isinstance(spectra, lezargus.container.LezargusSpectra):
+        if not isinstance(spectra, lezargus.container.LezargusSpectrum):
             logging.error(
                 error_type=logging.InputError,
                 message=(
-                    "Input spectra is not a LezargusSpectra, is instead:"
+                    "Input spectra is not a LezargusSpectrum, is instead:"
                     f" {type(spectra)}"
                 ),
             )
@@ -471,14 +471,14 @@ class SimulatorSpectre:
 
     def _prepare_spectra_convolve(
         self: hint.Self,
-        spectra: hint.LezargusSpectra,
+        spectra: hint.LezargusSpectrum,
         input_resolution: float | None = None,
         input_resolving: float | None = None,
         simulation_resolution: float | None = None,
         simulation_resolving: float | None = None,
         reference_wavelength: float | None = None,
         **kwargs: object,
-    ) -> hint.LezargusSpectra:
+    ) -> hint.LezargusSpectrum:
         """Convolve the input spectra to make its resolution match.
 
         Spectra comes in many resolutions. If the resolution of an input
@@ -491,7 +491,7 @@ class SimulatorSpectre:
 
         Parameters
         ----------
-        spectra : LezargusSpectra
+        spectra : LezargusSpectrum
             The transmission spectra which we will be preparing.
         input_resolution : float, default = None
             The spectral resolution of the input spectra. Must be in
@@ -512,7 +512,7 @@ class SimulatorSpectre:
 
         Returns
         -------
-        convolved_spectra : LezargusSpectra
+        convolved_spectra : LezargusSpectrum
             The spectra, after convolution based on the input parameters.
 
         """
@@ -549,7 +549,7 @@ class SimulatorSpectre:
 
     def apply_atmospheric_transmission(
         self: hint.Self,
-        transmission_spectra: hint.LezargusSpectra,
+        transmission_spectra: hint.LezargusSpectrum,
     ) -> hint.LezargusCube:
         """Apply the atmospheric transmission to the object.
 
@@ -565,7 +565,7 @@ class SimulatorSpectre:
 
         Parameters
         ----------
-        transmission_spectra : LezargusSpectra
+        transmission_spectra : LezargusSpectrum
             The atmospheric transmission spectra. The wavelength unit of
             this spectra should be meters.
 
@@ -587,17 +587,17 @@ class SimulatorSpectre:
             )
 
         # We also need to make sure the transmission spectra is a
-        # LezargusSpectra.
+        # LezargusSpectrum.
         if not isinstance(
             transmission_spectra,
-            lezargus.container.LezargusSpectra,
+            lezargus.container.LezargusSpectrum,
         ):
             logging.error(
                 error_type=logging.InputError,
                 message=(
                     "The atmospheric transmission spectra has type"
                     f" {type(transmission_spectra)}, not the expected"
-                    " LezargusSpectra."
+                    " LezargusSpectrum."
                 ),
             )
 
@@ -612,7 +612,7 @@ class SimulatorSpectre:
             )
         )
         # It is convenient to reconstruct a spectra for it.
-        aligned_transmission_spectra = lezargus.container.LezargusSpectra(
+        aligned_transmission_spectra = lezargus.container.LezargusSpectrum(
             wavelength=trans_wave,
             data=trans_data,
             uncertainty=trans_uncert,
@@ -641,7 +641,7 @@ class SimulatorSpectre:
 
     def apply_atmospheric_radiance(
         self: hint.Self,
-        radiance_spectra: hint.LezargusSpectra,
+        radiance_spectra: hint.LezargusSpectrum,
     ) -> hint.LezargusCube:
         """Apply atmospheric radiance spectra to the object.
 
@@ -656,7 +656,7 @@ class SimulatorSpectre:
 
         Parameters
         ----------
-        radiance_spectra : LezargusSpectra
+        radiance_spectra : LezargusSpectrum
             The atmospheric radiance spectra. The wavelength unit of
             this spectra should be meters.
 
@@ -677,17 +677,17 @@ class SimulatorSpectre:
             )
 
         # We also need to make sure the transmission spectra is a
-        # LezargusSpectra.
+        # LezargusSpectrum.
         if not isinstance(
             radiance_spectra,
-            lezargus.container.LezargusSpectra,
+            lezargus.container.LezargusSpectrum,
         ):
             logging.error(
                 error_type=logging.InputError,
                 message=(
                     "The atmospheric radiance spectra has type"
                     f" {type(radiance_spectra)}, not the expected"
-                    " LezargusSpectra."
+                    " LezargusSpectrum."
                 ),
             )
 
@@ -702,7 +702,7 @@ class SimulatorSpectre:
             )
         )
         # It is convenient to reconstruct a spectra for it.
-        aligned_radiance_spectra = lezargus.container.LezargusSpectra(
+        aligned_radiance_spectra = lezargus.container.LezargusSpectrum(
             wavelength=rad_wave,
             data=rad_data,
             uncertainty=rad_uncert,

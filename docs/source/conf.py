@@ -5,7 +5,6 @@
 
 import os
 import sys
-import sphinx_book_theme
 
 # For the Python code itself.
 sys.path.insert(0, os.path.abspath(os.path.join("..", "..", "src")))

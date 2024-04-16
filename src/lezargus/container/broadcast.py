@@ -18,53 +18,53 @@ from lezargus.library import hint
 from lezargus.library import logging
 
 
-def broadcast_spectra_to_cube_uniform(
-    input_spectra: hint.LezargusSpectra,
+def broadcast_spectrum_to_cube_uniform(
+    input_spectrum: hint.LezargusSpectrum,
     template_cube: hint.LezargusCube,
     wavelength_mode: str = "error",
 ) -> hint.LezargusCube:
-    """Make a LezargusCube from a LezargusSpectra via uniform broadcasting.
+    """Make a LezargusCube from a LezargusSpectrum via uniform broadcasting.
 
     We make a LezargusCube, from a provided template, using uniform
     broadcasting. Uniform broadcasting is where all spectral slices, within
     the cube, are all the same for a uniform spatial distribution of the
-    spectra, which is in this case the provided input spectra.
+    spectrum, which is in this case the provided input spectrum.
 
-    In the case of both the input spectra and provided template cube having
+    In the case of both the input spectrum and provided template cube having
     different wavelength arrays, we follow the provided mode to handle the
     different cases. The input template cube only provides the array shapes and
     the wavelength axis (dependant on the mode); the rest comes from the
-    input spectra.
+    input spectrum.
 
     Parameters
     ----------
-    input_spectra : LezargusSpectra
-        The input spectra which will be broadcasted to fit the input template
+    input_spectrum : LezargusSpectrum
+        The input spectrum which will be broadcasted to fit the input template
         cube.
     template_cube : LezargusCube
         The template cube which will serve as a template to determine the
         dimensional properties of the resulting broadcasting cube.
     wavelength_mode : str, default = "error"
         The mode to handle possible wavelength array conflicts between the
-        spectra and the cube. The available options are:
+        spectrum and the cube. The available options are:
 
-            - "spectra" : Prefer the spectra's wavelength array; the cube's
+            - "spectrum" : Prefer the spectrum's wavelength array; the cube's
               wavelength is ignored.
-            - "cube" : Prefer the cube's wavelength array; the spectra is
+            - "cube" : Prefer the cube's wavelength array; the spectrum is
               interpolated to align to the new wavelength.
             - "error" : We log an error. We still attempt to figure it out,
-              defaulting to the spectra's wavelength array.
+              defaulting to the spectrum's wavelength array.
 
     Returns
     -------
     broadcast_cube : LezargusCube
-        The LezargusCube after the spectra was uniformly broadcast spatially.
-        Any header information came from first the spectra then the cube.
+        The LezargusCube after the spectrum was uniformly broadcast spatially.
+        Any header information came from first the spectrum then the cube.
 
     """
     # First thing is first, type check the input.
     if not (
-        isinstance(input_spectra, lezargus.container.LezargusSpectra)
+        isinstance(input_spectrum, lezargus.container.LezargusSpectrum)
         and isinstance(template_cube, lezargus.container.LezargusCube)
     ):
         # The objects are not the proper type so broadcasting them might go
@@ -72,9 +72,9 @@ def broadcast_spectra_to_cube_uniform(
         logging.error(
             error_type=logging.InputError,
             message=(
-                f"The input spectra type {type(input_spectra)} and template"
+                f"The input spectrum type {type(input_spectrum)} and template"
                 f" cube type {type(template_cube)} are not instances of the"
-                " expected LezargusSpectra and LezargusCube types"
+                " expected LezargusSpectrum and LezargusCube types"
                 " respectively. Broadcasting may fail."
             ),
         )
@@ -82,22 +82,23 @@ def broadcast_spectra_to_cube_uniform(
     # Now, we need to determine the definitive wavelength array based on the
     # provided wavelength mode. However, the two wavelength units might be
     # different, this is problem that we ought to warn.
-    if input_spectra.wavelength_unit != template_cube.wavelength_unit:
+    if input_spectrum.wavelength_unit != template_cube.wavelength_unit:
         logging.warning(
             warning_type=logging.AccuracyWarning,
             message=(
-                "The input spectra wavelength unit is"
-                f" {input_spectra.wavelength_unit}, different from the template"
-                f" cube wavelength unit {template_cube.wavelength_unit}"
+                "The input spectrum wavelength unit is"
+                f" {input_spectrum.wavelength_unit}, different from the "
+                " template cube wavelength unit "
+                f" {template_cube.wavelength_unit}"
             ),
         )
     # Regardless of the unit situation, we try our best to determine the
     # the preferred wavelength.
     wavelength_mode = wavelength_mode.casefold()
-    if wavelength_mode == "spectra":
-        # We rely on the spectra's wavelength.
-        broadcast_wavelength = input_spectra.wavelength
-        broadcast_wavelength_unit = input_spectra.wavelength_unit
+    if wavelength_mode == "spectrum":
+        # We rely on the spectrum's wavelength.
+        broadcast_wavelength = input_spectrum.wavelength
+        broadcast_wavelength_unit = input_spectrum.wavelength_unit
     elif wavelength_mode == "cube":
         # We rely on the cube's wavelength.
         broadcast_wavelength = template_cube.wavelength
@@ -105,19 +106,19 @@ def broadcast_spectra_to_cube_uniform(
     elif wavelength_mode == "error":
         # If the wavelengths differ, we raise an error on their mismatch.
         if not np.all(
-            np.isclose(input_spectra.wavelength, template_cube.wavelength),
+            np.isclose(input_spectrum.wavelength, template_cube.wavelength),
         ):
             logging.error(
                 error_type=logging.InputError,
                 message=(
-                    "Input spectra and template cube wavelength arrays do not"
+                    "Input spectrum and template cube wavelength arrays do not"
                     " match; wavelength mode is `error`; returning None."
                 ),
             )
-        # Regardless if the error was logged or not, we use the input spectra
+        # Regardless if the error was logged or not, we use the input spectrum
         # as the broadcast.
-        broadcast_wavelength = input_spectra.wavelength
-        broadcast_wavelength_unit = input_spectra.wavelength_unit
+        broadcast_wavelength = input_spectrum.wavelength
+        broadcast_wavelength_unit = input_spectrum.wavelength_unit
     else:
         # The input parameter is not a given parameter.
         logging.critical(
@@ -128,23 +129,23 @@ def broadcast_spectra_to_cube_uniform(
             ),
         )
 
-    # Finally, we determine the appropriate data based on the spectra and
+    # Finally, we determine the appropriate data based on the spectrum and
     # the preferred wavelength array.
     (
         interpolated_data,
         interpolated_uncertainty,
         interpolated_mask,
         interpolated_flags,
-    ) = input_spectra.interpolate(
+    ) = input_spectrum.interpolate(
         wavelength=broadcast_wavelength,
         skip_mask=False,
         skip_flags=False,
     )
     # The data unit for the data and the like.
-    broadcast_data_unit = input_spectra.data_unit
+    broadcast_data_unit = input_spectrum.data_unit
 
     # Now, we assemble the cube. We only need the spatial coverage of the cube
-    # and broadcast our 1D spectra to the spatial dimensions. We do not
+    # and broadcast our 1D spectrum to the spatial dimensions. We do not
     # really care for the wavelength shape of the cube.
     x_dim, y_dim, __ = template_cube.data.shape
     wave_dim = broadcast_wavelength.shape[0]
@@ -173,9 +174,9 @@ def broadcast_spectra_to_cube_uniform(
 
     # Finally, we reconstruct the cube. We work on copies of the headers
     # just in case.
-    spectra_header = input_spectra.header.copy()
+    spectrum_header = input_spectrum.header.copy()
     cube_header = template_cube.header.copy()
-    broadcast_header = cube_header.update(spectra_header)
+    broadcast_header = cube_header.update(spectrum_header)
 
     # Building the new broadcasted cube. We use the template's cube's class
     # just in case it has been subclassed or something.
@@ -196,13 +197,13 @@ def broadcast_spectra_to_cube_uniform(
     return broadcast_cube
 
 
-def broadcast_spectra_to_cube_center(
-    input_spectra: hint.LezargusSpectra,
+def broadcast_spectrum_to_cube_center(
+    input_spectrum: hint.LezargusSpectrum,
     template_cube: hint.LezargusCube,
     wavelength_mode: str = "error",
     allow_even_center: bool = True,
 ) -> hint.LezargusCube:
-    """Make a LezargusCube from a LezargusSpectra via center broadcasting.
+    """Make a LezargusCube from a LezargusSpectrum via center broadcasting.
 
     We make a LezargusCube, from a provided template, using center
     broadcasting. Center broadcasting is the provided spectral slice is
@@ -211,45 +212,45 @@ def broadcast_spectra_to_cube_center(
     is even, we can still try to place the image in the center, biasing it
     towards the lower value corner.
 
-    In the case of both the input spectra and provided template cube having
+    In the case of both the input spectrum and provided template cube having
     different wavelength arrays, we follow the provided mode to handle the
     different cases. The input template cube only provides the array shapes and
     the wavelength axis (dependant on the mode); the rest comes from the
-    input spectra.
+    input spectrum.
 
     Parameters
     ----------
-    input_spectra : LezargusSpectra
-        The input spectra which will be broadcasted to fit the input template
+    input_spectrum : LezargusSpectrum
+        The input spectrum which will be broadcasted to fit the input template
         cube.
     template_cube : LezargusCube
         The template cube which will serve as a template to determine the
         dimensional properties of the resulting broadcasting cube.
     wavelength_mode : str, default = "error"
         The mode to handle possible wavelength array conflicts between the
-        spectra and the cube. The available options are:
+        spectrum and the cube. The available options are:
 
-            - "spectra" : Prefer the spectra's wavelength array; the cube's
+            - "spectrum" : Prefer the spectrum's wavelength array; the cube's
               wavelength is ignored.
-            - "cube" : Prefer the cube's wavelength array; the spectra is
+            - "cube" : Prefer the cube's wavelength array; the spectrum is
               interpolated to align to the new wavelength.
             - "error" : We log an error and return None.
 
     allow_even_center : bool, default = True
         If True, and if any axis of an image slice is even, a warning is
-        logged and the spectra is put it as close to the center as possible.
+        logged and the spectrum is put it as close to the center as possible.
         If False, instead, an exception is raised.
 
     Returns
     -------
     broadcast_cube : LezargusCube
-        The LezargusCube after the spectra was center broadcast spatially.
-        Any header information came from first the spectra then the cube.
+        The LezargusCube after the spectrum was center broadcast spatially.
+        Any header information came from first the spectrum then the cube.
 
     """
     # First thing is first, type check the input.
     if not (
-        isinstance(input_spectra, lezargus.container.LezargusSpectra)
+        isinstance(input_spectrum, lezargus.container.LezargusSpectrum)
         and isinstance(template_cube, lezargus.container.LezargusCube)
     ):
         # The objects are not the proper type so broadcasting them might go
@@ -257,9 +258,9 @@ def broadcast_spectra_to_cube_center(
         logging.error(
             error_type=logging.InputError,
             message=(
-                f"The input spectra type {type(input_spectra)} and template"
+                f"The input spectrum type {type(input_spectrum)} and template"
                 f" cube type {type(template_cube)} are not instances of the"
-                " expected LezargusSpectra and LezargusCube types"
+                " expected LezargusSpectrum and LezargusCube types"
                 " respectively. Broadcasting may fail."
             ),
         )
@@ -267,22 +268,23 @@ def broadcast_spectra_to_cube_center(
     # Now, we need to determine the definitive wavelength array based on the
     # provided wavelength mode. However, the two wavelength units might be
     # different, this is problem that we ought to warn.
-    if input_spectra.wavelength_unit != template_cube.wavelength_unit:
+    if input_spectrum.wavelength_unit != template_cube.wavelength_unit:
         logging.warning(
             warning_type=logging.AccuracyWarning,
             message=(
-                "The input spectra wavelength unit is"
-                f" {input_spectra.wavelength_unit}, different from the template"
-                f" cube wavelength unit {template_cube.wavelength_unit}"
+                "The input spectrum wavelength unit is"
+                f" {input_spectrum.wavelength_unit}, different from the "
+                " template cube wavelength unit "
+                f" {template_cube.wavelength_unit}"
             ),
         )
     # Regardless of the unit situation, we try our best to determine the
     # the preferred wavelength.
     wavelength_mode = wavelength_mode.casefold()
-    if wavelength_mode == "spectra":
-        # We rely on the spectra's wavelength.
-        broadcast_wavelength = input_spectra.wavelength
-        broadcast_wavelength_unit = input_spectra.wavelength_unit
+    if wavelength_mode == "spectrum":
+        # We rely on the spectrum's wavelength.
+        broadcast_wavelength = input_spectrum.wavelength
+        broadcast_wavelength_unit = input_spectrum.wavelength_unit
     elif wavelength_mode == "cube":
         # We rely on the cube's wavelength.
         broadcast_wavelength = template_cube.wavelength
@@ -290,12 +292,12 @@ def broadcast_spectra_to_cube_center(
     elif wavelength_mode == "error":
         # If the wavelengths differ, we raise an error on their mismatch.
         if not np.all(
-            np.isclose(input_spectra.wavelength, template_cube.wavelength),
+            np.isclose(input_spectrum.wavelength, template_cube.wavelength),
         ):
             logging.error(
                 error_type=logging.InputError,
                 message=(
-                    "Input spectra and template cube wavelength arrays do not"
+                    "Input spectrum and template cube wavelength arrays do not"
                     " match; wavelength mode is `error`; returning None."
                 ),
             )
@@ -303,8 +305,8 @@ def broadcast_spectra_to_cube_center(
             broadcast_wavelength_unit = None
             return None
         # Otherwise, if they do match, we can continue with the broadcasting.
-        broadcast_wavelength = input_spectra.wavelength
-        broadcast_wavelength_unit = input_spectra.wavelength_unit
+        broadcast_wavelength = input_spectrum.wavelength
+        broadcast_wavelength_unit = input_spectrum.wavelength_unit
     else:
         # The input parameter is not a given parameter.
         logging.critical(
@@ -315,23 +317,23 @@ def broadcast_spectra_to_cube_center(
             ),
         )
 
-    # Finally, we determine the appropriate data based on the spectra and
+    # Finally, we determine the appropriate data based on the spectrum and
     # the preferred wavelength array.
     (
         interpolated_data,
         interpolated_uncertainty,
         interpolated_mask,
         interpolated_flags,
-    ) = input_spectra.interpolate(
+    ) = input_spectrum.interpolate(
         wavelength=broadcast_wavelength,
         skip_mask=False,
         skip_flags=False,
     )
     # The data unit for the data and the like.
-    broadcast_data_unit = input_spectra.data_unit
+    broadcast_data_unit = input_spectrum.data_unit
 
     # Now, we assemble the cube. We only need the spatial coverage of the cube
-    # and broadcast our 1D spectra to the spatial dimensions. We do not
+    # and broadcast our 1D spectrum to the spatial dimensions. We do not
     # really care for the wavelength shape of the cube.
     x_dim, y_dim, __ = template_cube.data.shape
     wave_dim = broadcast_wavelength.shape[0]
@@ -347,7 +349,7 @@ def broadcast_spectra_to_cube_center(
                 warning_type=logging.AccuracyWarning,
                 message=(
                     f"The image slice of the template cube is even: ({x_dim},"
-                    f" {y_dim}). A best attempt at putting the spectra in the"
+                    f" {y_dim}). A best attempt at putting the spectrum in the"
                     " center is attempted."
                 ),
             )
@@ -388,9 +390,9 @@ def broadcast_spectra_to_cube_center(
 
     # Finally, we reconstruct the cube. We work on copies of the headers
     # just in case.
-    spectra_header = input_spectra.header.copy()
+    spectrum_header = input_spectrum.header.copy()
     cube_header = template_cube.header.copy()
-    cube_header.update(spectra_header)
+    cube_header.update(spectrum_header)
     broadcast_header = cube_header
 
     # Building the new broadcasted cube. We use the template's cube's class

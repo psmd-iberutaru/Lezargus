@@ -21,9 +21,9 @@ def get_spectra_scale_factor(
     input_uncertainty: hint.ndarray = None,
     bounds: tuple[float, float] = (-np.inf, +np.inf),
 ) -> tuple[float, float]:
-    """Find the scale factor to scale one overlapping spectra to another.
+    """Find the scale factor to scale one overlapping spectrum to another.
 
-    We determine what scale factor would properly match some input spectra
+    We determine what scale factor would properly match some input spectrum
     data to some base data, provided that they have some wavelength overlap.
     An additional bounds may be set in addition to the wavelength overlap.
     The method provided is described in [[TODO]].
@@ -31,13 +31,13 @@ def get_spectra_scale_factor(
     Parameter
     ---------
     base_wavelength : ndarray
-        The wavelength array of the base spectra data. Must be the same unit
+        The wavelength array of the base spectrum data. Must be the same unit
         as the input wavelength.
     base_data : ndarray
         The spectral data of the base, which the scale factor would scale the
         input to.
     input_wavelength : ndarray
-        The wavelength array of the input spectra data. Must be the same unit
+        The wavelength array of the input spectrum data. Must be the same unit
         as the base wavelength.
     input_data : ndarray
         The spectral data of the input, what the scale factor is for.
@@ -229,7 +229,7 @@ def stitch_wavelengths_discrete(
             )
     elif sample_mode == "hierarchy":
         # We combine the spectra hierarchically, taking into account the
-        # minimum and maximum bounds of the higher level spectra. We first
+        # minimum and maximum bounds of the higher level spectrum. We first
         # start with a case that is always true.
         min_hist = [+np.inf]
         max_hist = [-np.inf]
@@ -248,7 +248,7 @@ def stitch_wavelengths_discrete(
                 stitched_wavelength_points + wavedex[valid_points].tolist()
             )
             # And we also update the minimum and maximum history to establish
-            # this spectra for the provided region.
+            # this spectrum for the provided region.
             min_hist.append(np.nanmin(wavedex))
             max_hist.append(np.nanmax(wavedex))
     else:
@@ -290,7 +290,7 @@ def stitch_spectra_functional(
     R"""Stitch spectra functions together.
 
     We take functional forms of the wavelength, data, uncertainty, and weight
-    (in the form of f(wave) = result), and determine the average spectra.
+    (in the form of f(wave) = result), and determine the average spectrum.
     We assume that the all of the functional forms properly handle any bounds,
     gaps, and interpolative limits. The input lists of functions should be
     parallel and all of them should be of the same (unit) scale.
@@ -571,7 +571,7 @@ def stitch_spectra_discrete(
 
     We take the discrete point data of spectra (wavelength, data, and
     uncertainty), along with weights, to stitch together and determine the
-    average spectra. The scale of the data and uncertainty should be of the
+    average spectrum. The scale of the data and uncertainty should be of the
     same scale, as should the wavelength and reference points.
 
     This function serves as the intended way to stitch spectra, though
@@ -583,15 +583,15 @@ def stitch_spectra_discrete(
     Parameters
     ----------
     wavelength_arrays : list[ndarray]
-        The list of the wavelength arrays representing each spectra.
+        The list of the wavelength arrays representing each spectrum.
     data_arrays : list[ndarray]
-        The list of the data arrays representing each spectra.
+        The list of the data arrays representing each spectrum.
     uncertainty_arrays : list[ndarray], default = None
         The list of the uncertainty arrays representing the data of each
-        spectra. The scale of the data arrays and uncertainty arrays should be
+        spectrum. The scale of the data arrays and uncertainty arrays should be
         the same. If None, we default to no uncertainty.
     weight_arrays : list[ndarray], default = None
-        The list of the weight arrays to weight each spectra for the average
+        The list of the weight arrays to weight each spectrum for the average
         routine. If None, we assume uniform weights.
     average_routine : Callable, default = None
         The averaging function. It must be able to support the propagation of
@@ -601,7 +601,7 @@ def stitch_spectra_discrete(
     interpolate_routine : Generic1DInterpolate, default = None
         The 1D interpolation routine class used to handle interpolation.
     reference_wavelength : ndarray, default = None
-        The reference wavelength is where the stitched spectra wavelength
+        The reference wavelength is where the stitched spectrum wavelength
         values should be. If None, we attempt to construct it based on the
         overlap and ordering of the input wavelength arrays. We do not accept
         NaNs in either cases and remove them.
@@ -717,7 +717,7 @@ def stitch_spectra_discrete(
         uncertainty_broadcasts.append(temp_uncert)
         weight_broadcasts.append(temp_weight)
 
-    # We need to build the interpolators for each section of the spectra, as
+    # We need to build the interpolators for each section of the spectrum, as
     # it is what we will input.
     # We attempt to find the gaps in the data, assuming that the wavelength
     # arrays are complete.

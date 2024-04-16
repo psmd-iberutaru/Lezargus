@@ -122,7 +122,7 @@ def _zero_buffer_custom_filters(
 def custom_rectangular_filter(
     lower_limit: float,
     upper_limit: float,
-) -> hint.LezargusSpectra:
+) -> hint.LezargusSpectrum:
     """Make a custom rectangular filter profile.
 
     Parameters
@@ -136,7 +136,7 @@ def custom_rectangular_filter(
 
     Returns
     -------
-    rectangular_filter : LezargusSpectra
+    rectangular_filter : LezargusSpectrum
         The filter, as defined.
 
     """
@@ -153,7 +153,7 @@ def custom_rectangular_filter(
         transmission=filter_trans,
     )
     # Now we construct the filter object.
-    rectangular_filter = lezargus.container.LezargusSpectra(
+    rectangular_filter = lezargus.container.LezargusSpectrum(
         wavelength=buffer_filter_wave,
         data=buffer_filter_trans,
         uncertainty=None,

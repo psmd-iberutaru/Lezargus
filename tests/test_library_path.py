@@ -21,6 +21,7 @@ def test_get_directory() -> None:
     Returns
     -------
     None
+
     """
     if IS_OPERATING_SYSTEM_WINDOWS:
         # Example of a Windows OS pathname with spaces and other interesting
@@ -31,7 +32,7 @@ def test_get_directory() -> None:
         )
         # Getting the directory.
         directory = lezargus.library.path.get_directory(
-            pathname=example_windows_pathname
+            pathname=example_windows_pathname,
         )
         expected_dir = (
             R"A:\Kalos\Music\Pokémon\Official Tracks\Mystery Dungeon\PMD"
@@ -50,14 +51,12 @@ def test_get_directory() -> None:
         )
         # Getting the directory.
         directory = lezargus.library.path.get_directory(
-            pathname=example_linux_pathname
+            pathname=example_linux_pathname,
         )
         expected_dir = R"/home/sparrow/Kirby"
         # Asserting.
         assert_message = "Linux based pathnames fail."
         assert directory == expected_dir, assert_message
-
-    return None
 
 
 def test_get_most_recent_filename_in_directory() -> None:
@@ -70,12 +69,13 @@ def test_get_most_recent_filename_in_directory() -> None:
     Returns
     -------
     None
+
     """
     # First we test if we provide an invalid directory.
     try:
         no_directory = "/this/is/a/directory/which/really/should/not/exist/"
         __ = lezargus.library.path.get_most_recent_filename_in_directory(
-            directory=no_directory
+            directory=no_directory,
         )
     except lezargus.library.logging.InputError:
         # The error is expected.
@@ -85,10 +85,14 @@ def test_get_most_recent_filename_in_directory() -> None:
     # different extensions.
     recent_directory = conftest.fetch_test_filename(basename="")
     __ = lezargus.library.path.get_most_recent_filename_in_directory(
-        directory=recent_directory, extension=None, recursive=True
+        directory=recent_directory,
+        extension=None,
+        recursive=True,
     )
     __ = lezargus.library.path.get_most_recent_filename_in_directory(
-        directory=recent_directory, extension=["yaml", ".fits"], recursive=True
+        directory=recent_directory,
+        extension=["yaml", ".fits"],
+        recursive=True,
     )
 
 
@@ -102,6 +106,7 @@ def test_get_filename_without_extension() -> None:
     Returns
     -------
     None
+
     """
     if IS_OPERATING_SYSTEM_WINDOWS:
         # Example of a Windows OS pathname with spaces and other interesting
@@ -112,7 +117,7 @@ def test_get_filename_without_extension() -> None:
         )
         # Getting the directory.
         filename = lezargus.library.path.get_filename_without_extension(
-            pathname=example_windows_pathname
+            pathname=example_windows_pathname,
         )
         expected_filename = R"Dialga's Fight to the Finish!"
         # Asserting.
@@ -128,7 +133,7 @@ def test_get_filename_without_extension() -> None:
         )
         # Getting the directory.
         filename = lezargus.library.path.get_filename_without_extension(
-            pathname=example_linux_pathname
+            pathname=example_linux_pathname,
         )
         expected_filename = (
             R"星のカービィ (Hoshi no Kaabii) (2001) - Episode 1 - Kirby - Right"
@@ -138,7 +143,6 @@ def test_get_filename_without_extension() -> None:
         # Asserting.
         assert_message = "Linux based pathnames fail."
         assert filename == expected_filename, assert_message
-    return None
 
 
 def test_get_filename_with_extension() -> None:
@@ -151,6 +155,7 @@ def test_get_filename_with_extension() -> None:
     Returns
     -------
     None
+
     """
     if IS_OPERATING_SYSTEM_WINDOWS:
         # Example of a Windows OS pathname with spaces and other interesting
@@ -161,7 +166,7 @@ def test_get_filename_with_extension() -> None:
         )
         # Getting the directory.
         filename = lezargus.library.path.get_filename_with_extension(
-            pathname=example_windows_pathname
+            pathname=example_windows_pathname,
         )
         expected_filename = R"Dialga's Fight to the Finish!.flac"
         # Asserting.
@@ -177,7 +182,7 @@ def test_get_filename_with_extension() -> None:
         )
         # Getting the directory.
         filename = lezargus.library.path.get_filename_with_extension(
-            pathname=example_linux_pathname
+            pathname=example_linux_pathname,
         )
         expected_filename = (
             R"星のカービィ (Hoshi no Kaabii) (2001) - Episode 1 - Kirby - Right"
@@ -187,7 +192,6 @@ def test_get_filename_with_extension() -> None:
         # Asserting.
         assert_message = "Linux based pathnames fail."
         assert filename == expected_filename, assert_message
-    return None
 
 
 def test_get_file_extension() -> None:
@@ -200,6 +204,7 @@ def test_get_file_extension() -> None:
     Returns
     -------
     None
+
     """
     if IS_OPERATING_SYSTEM_WINDOWS:
         # Example of a Windows OS pathname with spaces and other interesting
@@ -210,7 +215,7 @@ def test_get_file_extension() -> None:
         )
         # Getting the directory.
         extension = lezargus.library.path.get_file_extension(
-            pathname=example_windows_pathname
+            pathname=example_windows_pathname,
         )
         expected_extension = R"flac"
         # Asserting.
@@ -226,13 +231,12 @@ def test_get_file_extension() -> None:
         )
         # Getting the directory.
         extension = lezargus.library.path.get_file_extension(
-            pathname=example_linux_pathname
+            pathname=example_linux_pathname,
         )
         expected_extension = R"mkv"
         # Asserting.
         assert_message = "Linux based pathnames fail."
         assert extension == expected_extension, assert_message
-    return None
 
 
 def test_merge_pathname() -> None:
@@ -245,6 +249,7 @@ def test_merge_pathname() -> None:
     Returns
     -------
     None
+
     """
     if IS_OPERATING_SYSTEM_WINDOWS:
         # For Windows based pathnames.
@@ -307,8 +312,6 @@ def test_merge_pathname() -> None:
         )
         assert linux_pathname == linux_expected_pathname, assert_message
 
-    return None
-
 
 def test_split_pathname() -> None:
     """Test the ability to split a pathname.
@@ -320,6 +323,7 @@ def test_split_pathname() -> None:
     Returns
     -------
     None
+
     """
     if IS_OPERATING_SYSTEM_WINDOWS:
         # For Windows based pathnames.
@@ -364,4 +368,3 @@ def test_split_pathname() -> None:
             and linux_filename == expected_linux_filename
             and linux_extension == expected_linux_extension
         ), assert_message
-    return None

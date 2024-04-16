@@ -6,8 +6,8 @@ from lezargus.library import logging
 
 
 def calculate_filter_zero_point_vega(
-    filter_spectra: hint.LezargusSpectra,
-    standard_spectra: hint.LezargusSpectra,
+    filter_spectra: hint.LezargusSpectrum,
+    standard_spectra: hint.LezargusSpectrum,
     standard_filter_magnitude: float,
     standard_filter_uncertainty: float | None = None,
 ) -> tuple[float, float | None]:
@@ -20,13 +20,13 @@ def calculate_filter_zero_point_vega(
 
     Parameters
     ----------
-    filter_spectra : LezargusSpectra
+    filter_spectra : LezargusSpectrum
         The filter transmission, saved as a spectra container instance. The
         filter provided must be in the photon counting form. We assume that
         the wavelength term has already been multiplied through. The
         variable name is chosen to prevent a name clash with the Python
         built-in.
-    standard_spectra : LezargusSpectra
+    standard_spectra : LezargusSpectrum
         The standard star, as saved by a spectra container instance.
     standard_filter_magnitude : float
         The magnitude of the standard star in that filter.
@@ -127,8 +127,8 @@ def calculate_filter_zero_point_vega(
 
 
 def calculate_filter_magnitude_vega(
-    star_spectra: hint.LezargusSpectra,
-    filter_spectra: hint.LezargusSpectra,
+    star_spectra: hint.LezargusSpectrum,
+    filter_spectra: hint.LezargusSpectrum,
     filter_zero_point: float,
     filter_zero_point_uncertainty: float | None = None,
 ) -> tuple[float, float]:
@@ -141,9 +141,9 @@ def calculate_filter_magnitude_vega(
 
     Parameters
     ----------
-    star_spectra : LezargusSpectra
+    star_spectra : LezargusSpectrum
         The target star that we will compute the synthetic filter magnitude of.
-    filter_spectra : LezargusSpectra
+    filter_spectra : LezargusSpectrum
         The filter transmission, saved as a spectra container instance. The
         filter provided must be in the photon counting form. We assume that
         the wavelength term has already been multiplied through. The
@@ -244,8 +244,8 @@ def calculate_filter_magnitude_vega(
 
 
 def calculate_photometric_correction_factor_vega(
-    star_spectra: hint.LezargusSpectra,
-    filter_spectra: hint.LezargusSpectra,
+    star_spectra: hint.LezargusSpectrum,
+    filter_spectra: hint.LezargusSpectrum,
     star_magnitude: float,
     filter_zero_point: float,
     star_magnitude_uncertainty: float | None = None,
@@ -261,9 +261,9 @@ def calculate_photometric_correction_factor_vega(
 
     Parameters
     ----------
-    star_spectra : LezargusSpectra
+    star_spectra : LezargusSpectrum
         The target star that we will compute the synthetic filter magnitude of.
-    filter_spectra : LezargusSpectra
+    filter_spectra : LezargusSpectrum
         The filter transmission, saved as a spectra container instance. The
         filter provided must be in the photon counting form. We assume that
         the wavelength term has already been multiplied through. The

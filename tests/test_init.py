@@ -1,13 +1,11 @@
 """This file contains tests which are global to the project as a whole."""
 
-import os
-
 import lezargus
 
 lezargus.library.logging.info(
     message=(
         "We are testing; the log messages within this file are often expected."
-    )
+    ),
 )
 
 
@@ -22,8 +20,8 @@ def test_true() -> None:
     Returns
     -------
     None
+
     """
     # Always true test.
     assert_message = "This test should always pass."
     assert True, assert_message
-    return None

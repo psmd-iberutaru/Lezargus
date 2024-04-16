@@ -1,4 +1,4 @@
-"""Spectra data container.
+"""Spectrum data container, holding spectral data.
 
 This module and class primarily deals with spectral data.
 """
@@ -13,7 +13,7 @@ from lezargus.library import hint
 from lezargus.library import logging
 
 
-class LezargusSpectra(LezargusContainerArithmetic):
+class LezargusSpectrum(LezargusContainerArithmetic):
     """Container to hold spectral data and perform operations on it.
 
     Attributes
@@ -23,7 +23,7 @@ class LezargusSpectra(LezargusContainerArithmetic):
     """
 
     def __init__(
-        self: "LezargusSpectra",
+        self: "LezargusSpectrum",
         wavelength: hint.ndarray,
         data: hint.ndarray,
         uncertainty: hint.ndarray | None = None,
@@ -35,7 +35,7 @@ class LezargusSpectra(LezargusContainerArithmetic):
         flags: hint.ndarray | None = None,
         header: hint.Header | None = None,
     ) -> None:
-        """Instantiate the spectra class.
+        """Instantiate the spectrum class.
 
         Parameters
         ----------
@@ -47,7 +47,7 @@ class LezargusSpectra(LezargusContainerArithmetic):
             The data stored in this container. The unit of the flux is typically
             in W m^-2 m^-1; but, check the :py:attr:`data_unit` value.
         uncertainty : ndarray
-            The uncertainty in the data of the spectra. The unit of the
+            The uncertainty in the data of the spectrum. The unit of the
             uncertainty is the same as the data value; per
             :py:attr:`uncertainty_unit`.
         wavelength_unit : Astropy Unit
@@ -87,7 +87,7 @@ class LezargusSpectra(LezargusContainerArithmetic):
             logging.error(
                 error_type=logging.InputError,
                 message=(
-                    "The input data for a LezargusSpectra instantiation has a"
+                    "The input data for a LezargusSpectrum instantiation has a"
                     f" shape {data.shape}, which is not the expected one"
                     " dimension."
                 ),
@@ -127,10 +127,10 @@ class LezargusSpectra(LezargusContainerArithmetic):
         cls: hint.Type[hint.Self],
         filename: str,
     ) -> hint.Self:
-        """Read a Lezargus spectra FITS file.
+        """Read a Lezargus spectrum FITS file.
 
         We load a Lezargus FITS file from disk. Note that this should only
-        be used for 1-D spectra files.
+        be used for a 1-D spectrum file.
 
         Parameters
         ----------
@@ -139,23 +139,23 @@ class LezargusSpectra(LezargusContainerArithmetic):
 
         Returns
         -------
-        spectra : Self-like
-            The LezargusSpectra class instance.
+        spectrum : Self-like
+            The LezargusSpectrum class instance.
 
         """
         # Any pre-processing is done here.
         # Loading the file.
-        spectra = cls._read_fits_file(filename=filename)
+        spectrum = cls._read_fits_file(filename=filename)
         # Any post-processing is done here.
         # All done.
-        return spectra
+        return spectrum
 
     def write_fits_file(
         self: hint.Self,
         filename: str,
         overwrite: bool = False,
     ) -> hint.Self:
-        """Write a Lezargus spectra FITS file.
+        """Write a Lezargus spectrum FITS file.
 
         We write a Lezargus FITS file to disk.
 
@@ -178,9 +178,9 @@ class LezargusSpectra(LezargusContainerArithmetic):
         # All done.
 
     def convolve(self: hint.Self, kernel: hint.ndarray) -> hint.Self:
-        """Convolve the spectra with a custom kernel.
+        """Convolve the spectrum with a custom kernel.
 
-        We compute the convolution and return a near copy of the spectra after
+        We compute the convolution and return a near copy of the spectrum after
         convolution. The wavelength is not affected.
 
         Parameters
@@ -190,11 +190,11 @@ class LezargusSpectra(LezargusContainerArithmetic):
 
         Returns
         -------
-        convolved_spectra : ndarray
-            A near copy of the spectra after convolution.
+        convolved_spectrum : ndarray
+            A near copy of the spectrum after convolution.
 
         """
-        # Using this kernel, we convolve the spectra. We assume that the
+        # Using this kernel, we convolve the spectrum. We assume that the
         # uncertainties add in quadrature.
         convolved_data = (
             lezargus.library.convolution.convolve_1d_array_by_1d_kernel(
@@ -220,9 +220,9 @@ class LezargusSpectra(LezargusContainerArithmetic):
         convolved_mask = self.mask
         convolved_flags = self.flags
 
-        # From the above information, we construct the new spectra.
-        spectra_class = type(self)
-        convolved_spectra = spectra_class(
+        # From the above information, we construct the new spectrum.
+        spectrum_class = type(self)
+        convolved_spectrum = spectrum_class(
             wavelength=self.wavelength,
             data=convolved_data,
             uncertainty=convolved_uncertainty,
@@ -234,7 +234,7 @@ class LezargusSpectra(LezargusContainerArithmetic):
         )
 
         # All done.
-        return convolved_spectra
+        return convolved_spectrum
 
     def interpolate(
         self: hint.Self,
@@ -248,7 +248,7 @@ class LezargusSpectra(LezargusContainerArithmetic):
         hint.ndarray | None,
         hint.ndarray | None,
     ]:
-        """Interpolation calling function for spectra.
+        """Interpolation calling function for spectrum.
 
         Each entry is considered a single point to interpolate over.
 
@@ -353,7 +353,7 @@ class LezargusSpectra(LezargusContainerArithmetic):
             logging.error(
                 error_type=logging.ToDoError,
                 message=(
-                    "The interpolation of a mask for spectra is not yet"
+                    "The interpolation of a mask for a spectrum is not yet"
                     " implemented."
                 ),
             )
@@ -365,7 +365,7 @@ class LezargusSpectra(LezargusContainerArithmetic):
             logging.error(
                 error_type=logging.ToDoError,
                 message=(
-                    "The interpolation of flags for spectra is not yet"
+                    "The interpolation of flags for a spectrum is not yet"
                     " implemented."
                 ),
             )
@@ -374,24 +374,24 @@ class LezargusSpectra(LezargusContainerArithmetic):
         return interp_data, interp_uncertainty, interp_mask, interp_flags
 
     def stitch(
-        self: "LezargusSpectra",
-        *spectra: "LezargusSpectra",
+        self: hint.Self,
+        *spectra: hint.LezargusSpectrum,
         weight: list[hint.ndarray] | str = "uniform",
         average_routine: hint.Callable[
             [hint.ndarray, hint.ndarray, hint.ndarray],
             tuple[float, float],
         ] = None,
     ) -> hint.Self:
-        """Stitch together different spectra; we do not scaling.
+        """Stitch together different spectrum; we do not scaling.
 
-        We stitch this spectra with input spectra. If the spectra are not
+        We stitch this spectrum with input spectrum. If the spectrum are not
         already to the same scale however, this will result in wildly incorrect
         results. The header information is preserved, though we take what we
         can from the other objects.
 
         Parameters
         ----------
-        *spectra : LezargusSpectra
+        *spectra : LezargusSpectrum
             A set of Lezargus spectra which we will stitch to this one.
         weight : list[ndarray] or str, default = None
             A list of the weights in the data for stitching. Each entry in
@@ -409,8 +409,8 @@ class LezargusSpectra(LezargusContainerArithmetic):
 
         Returns
         -------
-        stitch_spectra : LezargusSpectra
-            The spectra after stitching.
+        stitch_spectrum : LezargusSpectrum
+            The spectrum after stitching.
 
         """
         # If there are no spectra to stitch, then we do nothing.
@@ -425,18 +425,18 @@ class LezargusSpectra(LezargusContainerArithmetic):
             )
             return self
 
-        # We need to make sure these are all Lezargus spectra.
+        # We need to make sure these are all Lezargus spectrum.
         lz_spectra = []
-        for spectradex in spectra:
-            if not isinstance(spectradex, LezargusSpectra):
+        for spectrumdex in spectra:
+            if not isinstance(spectrumdex, LezargusSpectrum):
                 logging.critical(
                     critical_type=logging.InputError,
                     message=(
-                        f"Input type {type(spectradex)} is not a"
-                        " LezargusSpectra, we cannot use it to stitch."
+                        f"Input type {type(spectrumdex)} is not a"
+                        " LezargusSpectrum, we cannot use it to stitch."
                     ),
                 )
-            lz_spectra.append(spectradex)
+            lz_spectra.append(spectrumdex)
         # We finally append ourselves. Working on a copy is probably for the
         # best.
         lz_spectra.append(copy.deepcopy(self))
@@ -447,14 +447,14 @@ class LezargusSpectra(LezargusContainerArithmetic):
             if weight == "uniform":
                 # We compute uniform weights.
                 using_weights = [
-                    np.ones_like(spectradex.wavelength)
-                    for spectradex in lz_spectra
+                    np.ones_like(spectrumdex.wavelength)
+                    for spectrumdex in lz_spectra
                 ]
             elif weight == "invar":
                 # We compute weights which are the inverse of the variance
                 # in the data.
                 using_weights = [
-                    1 / spectradex.uncertainty**2 for spectradex in lz_spectra
+                    1 / spectrumdex.uncertainty**2 for spectrumdex in lz_spectra
                 ]
             else:
                 # A valid shortcut string has not been provided.
@@ -469,18 +469,18 @@ class LezargusSpectra(LezargusContainerArithmetic):
         else:
             using_weights = weight
 
-        # Next, we stitch together the data for the spectra.
+        # Next, we stitch together the data for the spectrum.
         (
             stitch_wavelength,
             stitch_data,
             stitch_uncertainty,
         ) = lezargus.library.stitch.stitch_spectra_discrete(
             wavelength_arrays=[
-                spectradex.wavelength for spectradex in lz_spectra
+                spectrumdex.wavelength for spectrumdex in lz_spectra
             ],
-            data_arrays=[spectradex.data for spectradex in lz_spectra],
+            data_arrays=[spectrumdex.data for spectrumdex in lz_spectra],
             uncertainty_arrays=[
-                spectradex.uncertainty for spectradex in lz_spectra
+                spectrumdex.uncertainty for spectrumdex in lz_spectra
             ],
             weight_arrays=using_weights,
             average_routine=average_routine,
@@ -502,9 +502,9 @@ class LezargusSpectra(LezargusContainerArithmetic):
         )
         stitch_header = None
 
-        # We compile the new Spectra. We do not expect a subclass but we
+        # We compile the new spectrum. We do not expect a subclass but we
         # try and allow it.
-        stitch_spectra = self.__class__(
+        stitch_spectrum = self.__class__(
             wavelength=stitch_wavelength,
             data=stitch_data,
             uncertainty=stitch_uncertainty,
@@ -515,4 +515,4 @@ class LezargusSpectra(LezargusContainerArithmetic):
             header=stitch_header,
         )
         # All done.
-        return stitch_spectra
+        return stitch_spectrum
