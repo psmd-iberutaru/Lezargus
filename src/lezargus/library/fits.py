@@ -439,7 +439,7 @@ def create_fits_header(
         # The header keys are usually capitalized.
         key = str(keydex).upper()
 
-        value = lezargus.library.conversion.convert_to_fits_header_types(
+        value = lezargus.library.sanitize.fix_fits_header_value(
             input_data=valuedex,
         )
 
@@ -508,7 +508,7 @@ def create_lezargus_fits_header(
 
         # We type check as FITS header files are picky about the object types
         # they get FITS headers really only support some specific basic types.
-        valuedex = lezargus.library.conversion.convert_to_fits_header_types(
+        valuedex = lezargus.library.sanitize.fix_fits_header_value(
             input_data=valuedex,
         )
         lezargus_header[keydex] = (valuedex, commentdex)

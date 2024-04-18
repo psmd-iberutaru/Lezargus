@@ -124,7 +124,7 @@ class Generic1DInterpolate:
         # We first sanitize the raw data so that the used interpolations
         # do not really complain. We also sort the arrays, interpolation on
         # unsorted arrays don't make any sense.
-        clean_x, clean_v = lezargus.library.array.clean_finite_arrays(x, v)
+        clean_x, clean_v = lezargus.library.sanitize.clean_finite_arrays(x, v)
         sort_index = np.argsort(clean_x)
         self.x = clean_x[sort_index]
         self.v = clean_v[sort_index]

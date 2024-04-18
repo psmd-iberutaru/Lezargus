@@ -159,6 +159,145 @@ class LezargusSpectrum(LezargusContainerArithmetic):
         # All done.
         return spectrum
 
+    @classmethod
+    def stitch(
+        cls: hint.Type[hint.Self],
+        *spectra: hint.LezargusSpectrum,
+        weights: list[hint.ndarray] | str = "uniform",
+        average_routine: hint.Callable[
+            [hint.ndarray, hint.ndarray, hint.ndarray],
+            tuple[float, float],
+        ] = None,
+    ) -> hint.Self:
+        """Stitch spectra together to make a single spectrum.
+
+        We stitch all of the input spectra. If the spectrum are not already
+        to the same scale however, this will result in wildly incorrect
+        results. The header information is preserved, though we take what we
+        can from the other objects.
+
+        Parameters
+        ----------
+        *spectra : LezargusSpectrum
+            The set of Lezargus spectra which we will stitch together.
+        weights : list[ndarray] or str, default = None
+            A list of the weights in the data for stitching. Each entry in
+            the list must have a corresponding entry in the wavelength and
+            data list, or None. For convenience, we provide short-cut inputs
+            for the following:
+
+                - `uniform` : Uniform weights.
+                - `invar` : Inverse variance weights.
+        average_routine : Callable, str, default = None
+            The function used to average all of the spectra together.
+            It must also be able to accept weights and propagate uncertainties.
+            If None, we default to the weighted mean. Namely, it must be of the
+            form f(val, uncert, weight) = avg, uncert.
+
+        Returns
+        -------
+        stitch_spectrum : LezargusSpectrum
+            The spectrum after stitching.
+
+        """
+        # If there are no spectra to stitch, then we do nothing.
+        if len(spectra) == 0:
+            # We still warn just in case.
+            logging.warning(
+                warning_type=logging.InputWarning,
+                message=("No spectra supplied to stitch."),
+            )
+            return spectra
+
+        # We need to make sure these are all Lezargus spectrum.
+        lz_spectra = []
+        for spectrumdex in spectra:
+            if not isinstance(spectrumdex, LezargusSpectrum):
+                logging.critical(
+                    critical_type=logging.InputError,
+                    message=(
+                        f"Input type {type(spectrumdex)} is not a"
+                        " LezargusSpectrum, we cannot use it to stitch."
+                    ),
+                )
+            lz_spectra.append(spectrumdex)
+
+        # We need to translate the weight input.
+        if isinstance(weights, str):
+            weights = weights.casefold()
+            if weights == "uniform":
+                # We compute uniform weights.
+                using_weights = [
+                    np.ones_like(spectrumdex.wavelength)
+                    for spectrumdex in lz_spectra
+                ]
+            elif weights == "invar":
+                # We compute weights which are the inverse of the variance
+                # in the data.
+                using_weights = [
+                    1 / spectrumdex.uncertainty**2 for spectrumdex in lz_spectra
+                ]
+            else:
+                # A valid shortcut string has not been provided.
+                accepted_options = ["uniform", "invar"]
+                logging.critical(
+                    critical_type=logging.InputError,
+                    message=(
+                        f"The weight shortcut option {weights} is not valid; it"
+                        f" must be one of: {accepted_options}"
+                    ),
+                )
+        else:
+            using_weights = weights
+
+        # Next, we stitch together the data for the spectrum.
+        (
+            stitch_wavelength,
+            stitch_data,
+            stitch_uncertainty,
+        ) = lezargus.library.stitch.stitch_spectra_discrete(
+            wavelength_arrays=[
+                spectrumdex.wavelength for spectrumdex in lz_spectra
+            ],
+            data_arrays=[spectrumdex.data for spectrumdex in lz_spectra],
+            uncertainty_arrays=[
+                spectrumdex.uncertainty for spectrumdex in lz_spectra
+            ],
+            weight_arrays=using_weights,
+            average_routine=average_routine,
+            interpolate_routine=None,
+        )
+        # We also stitch together the flags and the mask. They are handled
+        # with a different function.
+        logging.error(
+            error_type=logging.ToDoError,
+            message="Flag and mask stitching not yet supported.",
+        )
+        stitch_mask = None
+        stitch_flags = None
+
+        # We merge the header.
+        logging.error(
+            error_type=logging.ToDoError,
+            message="Header stitching not yet supported.",
+        )
+        stitch_header = None
+
+        # We compile the new spectrum. We do not expect a subclass but we
+        # try and allow it.
+        stitch_spectrum = cls(
+            wavelength=stitch_wavelength,
+            data=stitch_data,
+            uncertainty=stitch_uncertainty,
+            wavelength_unit=lz_spectra[0].wavelength_unit,
+            data_unit=lz_spectra[0].data_unit,
+            mask=stitch_mask,
+            flags=stitch_flags,
+            header=stitch_header,
+        )
+        # All done.
+        return stitch_spectrum
+
     def write_fits_file(
         self: hint.Self,
         filename: str,
@@ -300,7 +439,7 @@ class LezargusSpectrum(LezargusContainerArithmetic):
             clean_wavelength,
             clean_data,
             clean_uncertainty,
-        ) = lezargus.library.array.clean_finite_arrays(
+        ) = lezargus.library.sanitize.clean_finite_arrays(
             self.wavelength,
             self.data,
             self.uncertainty,
@@ -382,39 +521,22 @@ class LezargusSpectrum(LezargusContainerArithmetic):
         # All done.
         return interp_data, interp_uncertainty, interp_mask, interp_flags
 
-    def stitch(
+    def stitch_on(
         self: hint.Self,
         *spectra: hint.LezargusSpectrum,
-        weight: list[hint.ndarray] | str = "uniform",
-        average_routine: hint.Callable[
-            [hint.ndarray, hint.ndarray, hint.ndarray],
-            tuple[float, float],
-        ] = None,
+        **kwargs: object,
     ) -> hint.Self:
-        """Stitch together different spectrum; we do not scaling.
+        """Stitch this spectrum with other input spectra.
 
-        We stitch this spectrum with input spectrum. If the spectrum are not
-        already to the same scale however, this will result in wildly incorrect
-        results. The header information is preserved, though we take what we
-        can from the other objects.
+        We stitch spectra onto this spectra. This function is basically
+        a compatibility wrapper around the class method :py:meth:`stitch`.
 
         Parameters
         ----------
         *spectra : LezargusSpectrum
             A set of Lezargus spectra which we will stitch to this one.
-        weight : list[ndarray] or str, default = None
-            A list of the weights in the data for stitching. Each entry in
-            the list must have a corresponding entry in the wavelength and
-            data list, or None. For convenience, we provide short-cut inputs
-            for the following:
-
-                - `uniform` : Uniform weights.
-                - `invar` : Inverse variance weights.
-        average_routine : Callable, str, default = None
-            The function used to average all of the spectra together.
-            It must also be able to accept weights and propagate uncertainties.
-            If None, we default to the weighted mean. Namely, it must be of the
-            form f(val, uncert, weight) = avg, uncert.
+        **kwargs : object
+            Arguments passed to :py:meth:`stitch`.
 
         Returns
         -------
@@ -422,106 +544,7 @@ class LezargusSpectrum(LezargusContainerArithmetic):
             The spectrum after stitching.
 
         """
-        # If there are no spectra to stitch, then we do nothing.
-        if len(spectra) == 0:
-            # We still warn just in case.
-            logging.warning(
-                warning_type=logging.InputWarning,
-                message=(
-                    "No additional spectra objects were submitted to stitch, no"
-                    " stitching applied."
-                ),
-            )
-            return self
-
-        # We need to make sure these are all Lezargus spectrum.
-        lz_spectra = []
-        for spectrumdex in spectra:
-            if not isinstance(spectrumdex, LezargusSpectrum):
-                logging.critical(
-                    critical_type=logging.InputError,
-                    message=(
-                        f"Input type {type(spectrumdex)} is not a"
-                        " LezargusSpectrum, we cannot use it to stitch."
-                    ),
-                )
-            lz_spectra.append(spectrumdex)
-        # We finally append ourselves. Working on a copy is probably for the
-        # best.
-        lz_spectra.append(copy.deepcopy(self))
-
-        # We need to translate the weight input.
-        if isinstance(weight, str):
-            weight = weight.casefold()
-            if weight == "uniform":
-                # We compute uniform weights.
-                using_weights = [
-                    np.ones_like(spectrumdex.wavelength)
-                    for spectrumdex in lz_spectra
-                ]
-            elif weight == "invar":
-                # We compute weights which are the inverse of the variance
-                # in the data.
-                using_weights = [
-                    1 / spectrumdex.uncertainty**2 for spectrumdex in lz_spectra
-                ]
-            else:
-                # A valid shortcut string has not been provided.
-                accepted_options = ["uniform", "invar"]
-                logging.critical(
-                    critical_type=logging.InputError,
-                    message=(
-                        f"The weight shortcut option {weight} is not valid; it"
-                        f" must be one of: {accepted_options}"
-                    ),
-                )
-        else:
-            using_weights = weight
-
-        # Next, we stitch together the data for the spectrum.
-        (
-            stitch_wavelength,
-            stitch_data,
-            stitch_uncertainty,
-        ) = lezargus.library.stitch.stitch_spectra_discrete(
-            wavelength_arrays=[
-                spectrumdex.wavelength for spectrumdex in lz_spectra
-            ],
-            data_arrays=[spectrumdex.data for spectrumdex in lz_spectra],
-            uncertainty_arrays=[
-                spectrumdex.uncertainty for spectrumdex in lz_spectra
-            ],
-            weight_arrays=using_weights,
-            average_routine=average_routine,
-            interpolate_routine=None,
-        )
-        # We also stitch together the flags and the mask. They are handled
-        # with a different function.
-        logging.error(
-            error_type=logging.ToDoError,
-            message="Flag and mask stitching not yet supported.",
-        )
-        stitch_mask = None
-        stitch_flags = None
-
-        # We merge the header.
-        logging.error(
-            error_type=logging.ToDoError,
-            message="Header stitching not yet supported.",
-        )
-        stitch_header = None
-
-        # We compile the new spectrum. We do not expect a subclass but we
-        # try and allow it.
-        stitch_spectrum = self.__class__(
-            wavelength=stitch_wavelength,
-            data=stitch_data,
-            uncertainty=stitch_uncertainty,
-            wavelength_unit=self.wavelength_unit,
-            data_unit=self.data_unit,
-            mask=stitch_mask,
-            flags=stitch_flags,
-            header=stitch_header,
-        )
-        # All done.
-        return stitch_spectrum
+        # We just add ourselves to the rest of the spectra to stitch together.
+        self_copy = copy.deepcopy(self)
+        all_spectra = [self_copy, *spectra]
+        return self.stitch(*all_spectra, **kwargs)

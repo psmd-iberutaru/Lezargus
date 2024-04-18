@@ -338,7 +338,7 @@ class SimulatorSpectre:
         # simulate a point source target.
         self.astrophysical_object_cube = (
             lezargus.container.broadcast.broadcast_spectrum_to_cube_center(
-                input_spectra=self.astrophysical_object_spectra,
+                input_spectrum=self.astrophysical_object_spectra,
                 template_cube=template_cube,
                 wavelength_mode="error",
                 allow_even_center=True,
@@ -626,7 +626,7 @@ class SimulatorSpectre:
         # We then pad this spectra out to a cube for us to apply across the
         # board.
         aligned_transmission_cube = (
-            lezargus.container.broadcast.broadcast_spectra_to_cube_uniform(
+            lezargus.container.broadcast.broadcast_spectrum_to_cube_uniform(
                 input_spectra=aligned_transmission_spectra,
                 template_cube=self.astrophysical_object_cube,
             )
@@ -716,7 +716,7 @@ class SimulatorSpectre:
         # We then pad this spectra out to a cube for us to apply across the
         # board.
         aligned_radiance_cube = (
-            lezargus.container.broadcast.broadcast_spectra_to_cube_uniform(
+            lezargus.container.broadcast.broadcast_spectrum_to_cube_uniform(
                 input_spectra=aligned_radiance_spectra,
                 template_cube=self.astrophysical_object_cube_atm_trn,
             )

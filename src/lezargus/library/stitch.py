@@ -124,7 +124,7 @@ def get_spectra_scale_factor(
         clean_base_uncertainty,
         clean_input_data,
         clean_input_uncertainty,
-    ) = lezargus.library.array.clean_finite_arrays(
+    ) = lezargus.library.sanitize.clean_finite_arrays(
         overlap_wavelength,
         overlap_base_data,
         overlap_base_uncertainty,
@@ -230,7 +230,9 @@ def stitch_wavelengths_discrete(
         # We are sampling based on total interlacing, without care. We just
         # merge the arrays.
         # Cleaning the arrays first.
-        wavelengths = lezargus.library.array.clean_finite_arrays(*wavelengths)
+        wavelengths = lezargus.library.sanitize.clean_finite_arrays(
+            *wavelengths,
+        )
         # And just combining them.
         for wavedex in wavelengths:
             stitched_wavelength_points = (
@@ -395,7 +397,9 @@ def stitch_spectra_functional(
         reference_wavelength = np.linspace(0.30, 5.50, 1000000)
     else:
         reference_wavelength = np.sort(
-            *lezargus.library.array.clean_finite_arrays(reference_wavelength),
+            *lezargus.library.sanitize.clean_finite_arrays(
+                reference_wavelength,
+            ),
         )
 
     # Now, we need to have the lists all be parallel, a quick and dirty check
@@ -471,7 +475,7 @@ def stitch_spectra_functional(
         # We clean out the data, this is the primary way to determine if there
         # is usable data or not.
         clean_values, clean_uncertainties, clean_weights = (
-            lezargus.library.array.clean_finite_arrays(
+            lezargus.library.sanitize.clean_finite_arrays(
                 _values,
                 _uncertainty,
                 _weights,
@@ -635,6 +639,12 @@ def stitch_spectra_discrete(
     if average_routine is None:
         average_routine = lezargus.library.math.nan_weighted_mean
 
+    # The weights should be normalized.
+    weight_arrays = [
+        lezargus.library.math.normalize_weights(weights=weightdex)
+        for weightdex in weight_arrays
+    ]
+
     # If a custom routine is provided, we need to make sure it is the right
     # type. Otherwise, we just use a default spline interpolator.
     interpolate_routine = (
@@ -662,7 +672,7 @@ def stitch_spectra_discrete(
         reference_wavelength = stitch_wavelengths_discrete(*wavelength_arrays)
     # Still sorting it and making sure it is clean.
     reference_wavelength = np.sort(
-        *lezargus.library.array.clean_finite_arrays(reference_wavelength),
+        *lezargus.library.sanitize.clean_finite_arrays(reference_wavelength),
     )
 
     # We next need to check the shape and the broadcasting of values for all
@@ -688,21 +698,21 @@ def stitch_spectra_discrete(
         # We now check for all of the other arrays, checking notating any
         # irregularities. We of course log if there is an issue.
         verify_data, temp_data = (
-            lezargus.library.array.verify_shape_compatibility(
+            lezargus.library.sanitize.verify_broadcastability(
                 reference_array=temp_wave,
                 test_array=datadex,
                 return_broadcast=True,
             )
         )
         verify_uncert, temp_uncert = (
-            lezargus.library.array.verify_shape_compatibility(
+            lezargus.library.sanitize.verify_broadcastability(
                 reference_array=temp_wave,
                 test_array=uncertdex,
                 return_broadcast=True,
             )
         )
         verify_weight, temp_weight = (
-            lezargus.library.array.verify_shape_compatibility(
+            lezargus.library.sanitize.verify_broadcastability(
                 reference_array=temp_wave,
                 test_array=weightdex,
                 return_broadcast=True,
@@ -750,7 +760,7 @@ def stitch_spectra_discrete(
     ):
         # We clean up all of the data, the gap is not included.
         clean_wave, clean_data, clean_uncert, clean_weight = (
-            lezargus.library.array.clean_finite_arrays(
+            lezargus.library.sanitize.clean_finite_arrays(
                 wavedex,
                 datadex,
                 uncertdex,

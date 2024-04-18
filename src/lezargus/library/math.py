@@ -521,7 +521,7 @@ def nan_weighted_mean(
         clean_values,
         clean_uncertainty,
         clean_weights,
-    ) = lezargus.library.array.clean_finite_arrays(
+    ) = lezargus.library.sanitize.clean_finite_arrays(
         values,
         uncertainties,
         weights,
@@ -700,7 +700,7 @@ def nan_median(
         clean_values,
         clean_uncertainty,
         clean_weights,
-    ) = lezargus.library.array.clean_finite_arrays(
+    ) = lezargus.library.sanitize.clean_finite_arrays(
         values,
         uncertainties,
         weights,
