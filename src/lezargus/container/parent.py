@@ -19,12 +19,10 @@ from lezargus.library import logging
 
 
 class LezargusContainerArithmetic:
-    """Lezargus wavelength-aware arithmetic.
+    """Lezargus wavelength-aware arithmetic for the major containers.
 
     This is the class which allows for the arithmetic behind the scenes to
-    work with wavelength knowledge. All we do is overwrite the NDDataArray
-    arithmetic functions to perform wavelength checks and pass it through
-    without wavelength issues.
+    work with wavelength knowledge.
 
     Attributes
     ----------

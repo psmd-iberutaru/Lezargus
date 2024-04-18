@@ -57,8 +57,8 @@ exclude = [
 dependencies = [
     "pyinstaller",
     "coverage[toml]>=7.3.4",
-    "pytest>=7.4.0",
-    "black[jupyter]>=23.12.0",
+    "pytest>=8.1.0",
+    "black[jupyter]>=24.4.0",
     "pylint[spelling]>=3.1.0",
     "ruff>=0.3.7",
     "sphinx>=7.2.6",
@@ -183,12 +183,13 @@ good-names-rgxs = [
 ]
 disable = [
     "R0801", # (duplicate-code)
+    "R0401", # (cyclic-import)
     "R0902", # (too-many-instance-attributes)
     "R0903", # (too-few-public-methods)
     "R0913", # (too-many-arguments)
     "R0914", # (too-many-locals)
-    "R0401", # (cyclic-import)
     "C0302", # (too-many-lines)
+    "C0413", # (wrong-import-position) - Let Ruff and isort handle imports.
 ]
 extension-pkg-allow-list = [
     "PySide6",

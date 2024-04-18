@@ -337,7 +337,7 @@ class SimulatorSpectre:
         # We use this template cube to broadcast it to a center-pixel to
         # simulate a point source target.
         self.astrophysical_object_cube = (
-            lezargus.container.broadcast.broadcast_spectra_to_cube_center(
+            lezargus.container.broadcast.broadcast_spectrum_to_cube_center(
                 input_spectra=self.astrophysical_object_spectra,
                 template_cube=template_cube,
                 wavelength_mode="error",

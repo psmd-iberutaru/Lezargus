@@ -51,12 +51,7 @@ def initialize(*args: tuple, **kwargs: object) -> None:
             ),
         )
     # This is to "use" the kwarg parameter, nothing much else.
-    if len(kwargs) != 0:
-        logging.debug(
-            message=(
-                "Overriding keyword parameters to full initialization present."
-            ),
-        )
+    lezargus.library.wrapper.do_nothing(**kwargs)
 
     # Load in the default configuration file.
     initialize_configuration(**kwargs)
@@ -107,13 +102,7 @@ def initialize_configuration(*args: tuple, **kwargs: object) -> None:
             ),
         )
     # This is to "use" the kwarg parameter, nothing much else.
-    if len(kwargs) != 0:
-        logging.debug(
-            message=(
-                "Overriding keyword parameters to configuration initialization"
-                " present."
-            ),
-        )
+    lezargus.library.wrapper.do_nothing(**kwargs)
 
     # Load the default configuration parameters. The user's configurations
     # should overwrite these when supplied.
@@ -158,13 +147,7 @@ def initialize_logging_outputs(*args: tuple, **kwargs: object) -> None:
             ),
         )
     # This is to "use" the kwarg parameter, nothing much else.
-    if len(kwargs) != 0:
-        logging.debug(
-            message=(
-                "Overriding keyword parameters to logging initialization"
-                " present."
-            ),
-        )
+    lezargus.library.wrapper.do_nothing(**kwargs)
 
     # Construct the default console and file-based logging functions. The file
     # is saved in the package directory.
@@ -249,13 +232,7 @@ def initialize_temporary_directory(*args: tuple, **kwargs: object) -> None:
             ),
         )
     # This is to "use" the kwarg parameter, nothing much else.
-    if len(kwargs) != 0:
-        logging.debug(
-            message=(
-                "Overriding keyword parameters to data file initialization"
-                " present."
-            ),
-        )
+    lezargus.library.wrapper.do_nothing(**kwargs)
 
     # We need to get the temporary directory path, if the configurations were
     # not loaded, we inform the user.
@@ -321,13 +298,7 @@ def initialize_data_all(*args: tuple, **kwargs: object) -> None:
             ),
         )
     # This is to "use" the kwarg parameter, nothing much else.
-    if len(kwargs) != 0:
-        logging.debug(
-            message=(
-                "Overriding keyword parameters to data file initialization"
-                " present."
-            ),
-        )
+    lezargus.library.wrapper.do_nothing(**kwargs)
 
     # Loading all of the data files.
     initialize_data_star_files(**kwargs)
@@ -372,13 +343,7 @@ def initialize_data_star_files(*args: tuple, **kwargs: object) -> None:
             ),
         )
     # This is to "use" the kwarg parameter, nothing much else.
-    if len(kwargs) != 0:
-        logging.debug(
-            message=(
-                "Overriding keyword parameters to data star file initialization"
-                " present."
-            ),
-        )
+    lezargus.library.wrapper.do_nothing(**kwargs)
 
     # Loading the stars.
     lezargus.library.data.add_data_object(
@@ -464,13 +429,7 @@ def initialize_data_filter_files(*args: tuple, **kwargs: object) -> None:
             ),
         )
     # This is to "use" the kwarg parameter, nothing much else.
-    if len(kwargs) != 0:
-        logging.debug(
-            message=(
-                "Overriding keyword parameters to data photometric filter file"
-                " initialization present."
-            ),
-        )
+    lezargus.library.wrapper.do_nothing(**kwargs)
 
     # Loading the photometric filter files.
 
@@ -603,97 +562,16 @@ def initialize_data_atmosphere_files(*args: tuple, **kwargs: object) -> None:
             ),
         )
     # This is to "use" the kwarg parameter, nothing much else.
-    if len(kwargs) != 0:
-        logging.debug(
-            message=(
-                "Overriding keyword parameters to data atmospheric file"
-                " initialization present."
-            ),
-        )
+    lezargus.library.wrapper.do_nothing(**kwargs)
 
-    # We first load all of the atmospheric transmission files.
-    lezargus.library.data.add_data_object(
-        name="PSG_ATM_TRANS_ZA0",
-        data=lezargus.container.LezargusSpectrum.read_fits_file(
-            filename=lezargus.library.path.merge_pathname(
-                directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
-                filename="psg_atm_trans_za0",
-                extension="fits",
-            ),
-        ),
-    )
-    lezargus.library.data.add_data_object(
-        name="PSG_ATM_TRANS_ZA30",
-        data=lezargus.container.LezargusSpectrum.read_fits_file(
-            filename=lezargus.library.path.merge_pathname(
-                directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
-                filename="psg_atm_trans_za30",
-                extension="fits",
-            ),
-        ),
-    )
-    lezargus.library.data.add_data_object(
-        name="PSG_ATM_TRANS_ZA45",
-        data=lezargus.container.LezargusSpectrum.read_fits_file(
-            filename=lezargus.library.path.merge_pathname(
-                directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
-                filename="psg_atm_trans_za45",
-                extension="fits",
-            ),
-        ),
-    )
-    lezargus.library.data.add_data_object(
-        name="PSG_ATM_TRANS_ZA60",
-        data=lezargus.container.LezargusSpectrum.read_fits_file(
-            filename=lezargus.library.path.merge_pathname(
-                directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
-                filename="psg_atm_trans_za60",
-                extension="fits",
-            ),
-        ),
-    )
+    # The PSG atmospheric files are generated outside of this package and so
+    # the defined zenith angles and precipitable water vapor values are known
+    # before hand. The units here are defined based on the filenames.
+    zenith_angles = [0, 30, 45, 60]
+    pwv_values = [0.5, 1.0, 2.0, 3.0]
 
-    # We next load all of the atmospheric radiance files.
-    lezargus.library.data.add_data_object(
-        name="PSG_ATM_RAD_ZA0",
-        data=lezargus.container.LezargusSpectrum.read_fits_file(
-            filename=lezargus.library.path.merge_pathname(
-                directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
-                filename="psg_atm_rad_za0",
-                extension="fits",
-            ),
-        ),
-    )
-    lezargus.library.data.add_data_object(
-        name="PSG_ATM_RAD_ZA30",
-        data=lezargus.container.LezargusSpectrum.read_fits_file(
-            filename=lezargus.library.path.merge_pathname(
-                directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
-                filename="psg_atm_rad_za30",
-                extension="fits",
-            ),
-        ),
-    )
-    lezargus.library.data.add_data_object(
-        name="PSG_ATM_RAD_ZA45",
-        data=lezargus.container.LezargusSpectrum.read_fits_file(
-            filename=lezargus.library.path.merge_pathname(
-                directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
-                filename="psg_atm_rad_za45",
-                extension="fits",
-            ),
-        ),
-    )
-    lezargus.library.data.add_data_object(
-        name="PSG_ATM_RAD_ZA60",
-        data=lezargus.container.LezargusSpectrum.read_fits_file(
-            filename=lezargus.library.path.merge_pathname(
-                directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
-                filename="psg_atm_rad_za60",
-                extension="fits",
-            ),
-        ),
-    )
+    lezargus.library.wrapper.do_nothing(zenith_angles, pwv_values)
+    logging.error(error_type=logging.ToDoError, message="Data atmosphere files")
 
 
 def initialize_data_filter_zero_point_values(
@@ -731,13 +609,7 @@ def initialize_data_filter_zero_point_values(
             ),
         )
     # This is to "use" the kwarg parameter, nothing much else.
-    if len(kwargs) != 0:
-        logging.debug(
-            message=(
-                "Overriding keyword parameters to data zero point value"
-                " initialization present."
-            ),
-        )
+    lezargus.library.wrapper.do_nothing(**kwargs)
 
     # Calculating Johnson filters zero point values.
     # Johnson U band.

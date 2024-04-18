@@ -14,6 +14,7 @@ from lezargus.library import logging
 from lezargus.library import math
 from lezargus.library import path
 from lezargus.library import photometry
+from lezargus.library import sanitize
 from lezargus.library import stitch
 from lezargus.library import temporary
 from lezargus.library import wrapper

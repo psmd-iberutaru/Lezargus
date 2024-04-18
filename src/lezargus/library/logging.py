@@ -117,6 +117,15 @@ class ConfigurationError(LezargusError):
     """
 
 
+class DeprecationError(LezargusError):
+    """An error used to note that something is deprecated with a replacement.
+
+    This error should be used to note that is a function is deprecated and to
+    use the documented replacement. There must always be a replacement for
+    the deprecated functionality except for extraneous circumstances.
+    """
+
+
 class DirectoryError(LezargusError):
     """An error used for directory issues.
 

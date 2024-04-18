@@ -597,13 +597,14 @@ class RepeatNDInterpolate:
     see :py:class:`Generic1DInterpolate` and its subclasses.
     For higher dimensions,  we suggest using this class.
 
-    Parameters
+    Attributes
     ----------
     domain : list
         A list of the domain axes values which define the multidimensional
         data.
     v : ndarray
-        The multi-dimensional data who's axes are defined.
+        The multi-dimensional data who's axes are defined. This data is the
+        data interpolated.
     interpolator_template : Callable
         The template function for the 1D interpolations.
 
@@ -778,8 +779,8 @@ class RepeatNDInterpolate:
         Parameters
         ----------
         *domain : ndarray
-            The domain axes which we are interpolating at, given in order as
-            the axes domain of this class.
+            The domain value axes which we are interpolating at, given in
+            order as the axes domain of this class.
 
         Returns
         -------
@@ -791,7 +792,7 @@ class RepeatNDInterpolate:
         domain = [np.asarray(domaindex) for domaindex in domain]
 
         # The shape of all the the input must be the same shape. Defaulting
-        # to have the first element be the primo.
+        # to have the first element be the primary.
         input_shape = domain[0].shape
         for domaindex in domain:
             if domaindex.shape != input_shape:
@@ -1286,3 +1287,188 @@ class Repeat3DInterpolate(RepeatNDInterpolate):
 
     # A quick alias so that we can compute the interpolation as a simple call.
     __call__ = interpolate
+
+
+class RegularNDInterpolate(scipy.interpolate.RegularGridInterpolator):
+    """Wrapper for Scipy's regular grid interpolator.
+
+    This interpolator is more reliable than the :py:class:`RepeatNDInterpolate`
+    for cases where the regular grid is strictly preserved and no extrapolation
+    is needed. This interpolation is strictly cubic interpolation.
+
+    Note, we do not document attributes for the parent class. See
+    :py:class:`scipy.interpolate.RegularGridInterpolator` for more information.
+
+    Attributes
+    ----------
+    domain : list
+        A list of the domain axes values which define the multidimensional
+        data.
+    v : ndarray
+        The multi-dimensional data who's axes are defined. This data is the
+        data interpolated.
+
+    """
+
+    def __init__(
+        self: "RegularNDInterpolate",
+        domain: list[hint.ndarray],
+        v: hint.ndarray,
+    ) -> None:
+        """Create the interpolator, using the Scipy interpolator as a base.
+
+        Parameters
+        ----------
+        domain : list
+            The list of domain axis values of the multi-dimensional data.
+        v : ndarray
+            The data itself, the dimensions must match the provided axes.
+
+        Returns
+        -------
+        None
+
+        """
+        # We check that the shape provided by the domain matches the data
+        # shape. The domain order provided above is actually the reverse of
+        # the Numpy convention.
+        domain_shape = tuple(domaindex.size for domaindex in domain)
+        if reversed(domain_shape) != v.shape:
+            logging.error(
+                error_type=logging.InputError,
+                message=(
+                    f"The shape of the data is {v.shape} which does not "
+                    " match the expected shape from the provided domain"
+                    f" {domain_shape}."
+                ),
+            )
+
+        # Assigning the class attributes; we do not document any of the
+        # parent class attributes.
+        self.domain = domain
+        self.v = v
+
+        # Calling the parent class for the implementation.
+        super().__init__(
+            points=self.domain,
+            values=self.v,
+            method="cubic",
+            bounds_error=False,
+            fill_value=None,
+        )
+
+    def interpolate(self: hint.Self, *domain: hint.ndarray) -> hint.ndarray:
+        """Interpolate the data points provided their axis values.
+
+        Parameters
+        ----------
+        *domain : ndarray
+            The domain value axes which we are interpolating at, given in
+            order as the axes domain of this class.
+
+        Returns
+        -------
+        v : ndarray
+            The interpolated values.
+
+        """
+        # We only want to work with arrays.
+        domain = [np.asarray(domaindex) for domaindex in domain]
+
+        # The shape of all the the input must be the same shape. Defaulting
+        # to have the first element be the primary.
+        input_shape = domain[0].shape
+        for domaindex in domain:
+            if domaindex.shape != input_shape:
+                logging.error(
+                    logging.InputError,
+                    message="Not all input domain axes have the same shape.",
+                )
+
+        # We work with flat arrays, evaluating the interpolation points then
+        # repackage them back into the proper shape later.
+        flat_domain = [np.ravel(domaindex) for domaindex in domain]
+        # The points to interpolate at. Scipy can handle input of multiple
+        # points.
+        points = list(zip(*flat_domain, strict=True))
+        flat_result = self(points)
+
+        # Repackaging.
+        v = np.reshape(flat_result, input_shape)
+        # All done.
+        return v
+
+    def interpolate_point(self: hint.Self, *point: float) -> float:
+        """Interpolate a single point.
+
+        Parameters
+        ----------
+        *point : float
+            The point that we are interpolating to. The order of the float
+            values in this point should match the interpolation order of the
+            axes; similar to a Cartesian grid point.
+
+        Returns
+        -------
+        v : float
+            The interpolated output value.
+
+        """
+        # Need to make sure there is enough data points.
+        if len(point) != len(self.domain):
+            logging.error(
+                error_type=logging.InputError,
+                message=(
+                    f"Defined point has {len(point)} values, incompatible with"
+                    f" {len(self.domain)} dimensions."
+                ),
+            )
+
+        # We continuously reduce the dimensions, evaluating based on the
+        # input point.
+        v = self(point)
+        return v
+
+    def interpolate_slice(
+        self: hint.Self,
+        *slice_: float | None,
+    ) -> hint.ndarray:
+        """Interpolate a single slice of the data.
+
+        A "slice" is provided by specifying the values of specific points
+        to interpolate the given axis at. Specifying None keeps that dimension
+        part of the slice.
+
+        Parameters
+        ----------
+        slice_ : float | None
+            The slice specification to interpolate at. The order of the
+            parameters corresponds to the axis order. Specifying None
+            means the axis is part of the slice and is not interpolated.
+
+        Returns
+        -------
+        v : float
+            The interpolated output value.
+
+        """
+        # Need to make sure there is enough data points.
+        if len(slice_) != len(self.domain):
+            logging.error(
+                error_type=logging.InputError,
+                message=(
+                    f"Point has {len(slice_)} values, incompatible with"
+                    f" {len(self.domain)} dimensions."
+                ),
+            )
+
+        logging.critical(
+            critical_type=logging.ToDoError,
+            message=(
+                "Slice not figured out for Scipy regular grid interpolation."
+            ),
+        )
+
+        # All done.
+        v = None
+        return v

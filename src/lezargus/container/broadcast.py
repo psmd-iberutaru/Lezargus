@@ -7,14 +7,20 @@ the internal conversions (such as the flags, mask, wavelength, etc) as well
 based on the input template structure broadcasting to.
 """
 
-# This is a last resort solution to fixing the recursive import of the
-# type hints here.
+# isort: split
+# Import required to remove circular dependencies from type checking.
 from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from lezargus.library import hint
+# isort: split
+
 
 import numpy as np
 
 import lezargus
-from lezargus.library import hint
 from lezargus.library import logging
 
 

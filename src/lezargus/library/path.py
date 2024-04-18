@@ -194,7 +194,7 @@ def get_file_extension(pathname: str) -> str:
 
 
 def merge_pathname(
-    directory: hint.Union[str, list] = None,
+    directory: hint.Union[str, list] | None = None,
     filename: str | None = None,
     extension: str | None = None,
 ) -> str:

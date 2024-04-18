@@ -386,6 +386,48 @@ def integrate_discrete(
     return result, uncertainty
 
 
+def normalize_weights(weights: hint.ndarray) -> hint.ndarray:
+    """Normalize weights, handling NaNs so they don't screw things up.
+
+    We do not include NaNs in the normalization of the weights, however we
+    still keep them as weights to allow for its proper propagation when needed.
+
+    Parameters
+    ----------
+    weights : ndarray
+        The weights to normalize.
+
+    Returns
+    -------
+    normalized : ndarray
+        The weights normalized.
+
+    """
+    # It is easiest to deal with arrays.
+    weights = np.asarray(weights, dtype=float)
+
+    # Weights only make sense if they are real and finite. We clean up the
+    # weights to get a finite subset to calculate the normalization factor.
+    real_weights = lezargus.library.sanitize.clean_finite_arrays(weights)
+
+    # If there is no left over data to calculate the normalization factor,
+    # we use uniform weights...
+    if len(real_weights) == 0 or np.count_nonzero(real_weights) == 0:
+        using_weights = np.ones_like(real_weights)
+    # ...otherwise, we just use the real weights.
+    else:
+        using_weights = real_weights
+
+    # Computing the normalization summation.
+    weight_sum = np.nansum(using_weights)
+
+    # Normalizing the weights. We just ignore the parts with NaN and pass them
+    # on.
+    normalized = weights / weight_sum
+
+    return normalized
+
+
 def weighted_mean(
     values: hint.ndarray,
     uncertainties: hint.ndarray = None,
@@ -426,7 +468,7 @@ def weighted_mean(
     weights = np.ones_like(values) if weights is None else weights
 
     # Normalize the weights.
-    norm_weights = weights / np.nansum(weights)
+    norm_weights = normalize_weights(weights=weights)
 
     # Finally, calculating the mean.
     mean_value = np.average(values, weights=norm_weights)

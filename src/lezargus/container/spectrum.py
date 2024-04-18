@@ -3,13 +3,22 @@
 This module and class primarily deals with spectral data.
 """
 
+# isort: split
+# Import required to remove circular dependencies from type checking.
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from lezargus.library import hint
+# isort: split
+
 import copy
 
 import numpy as np
 
 import lezargus
 from lezargus.container import LezargusContainerArithmetic
-from lezargus.library import hint
 from lezargus.library import logging
 
 
@@ -23,7 +32,7 @@ class LezargusSpectrum(LezargusContainerArithmetic):
     """
 
     def __init__(
-        self: "LezargusSpectrum",
+        self: LezargusSpectrum,
         wavelength: hint.ndarray,
         data: hint.ndarray,
         uncertainty: hint.ndarray | None = None,

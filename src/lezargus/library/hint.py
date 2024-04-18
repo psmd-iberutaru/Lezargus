@@ -53,7 +53,7 @@ from lezargus.container import LezargusContainerArithmetic
 from lezargus.container import LezargusCube
 from lezargus.container import LezargusImage
 from lezargus.container import LezargusMosaic
-from lezargus.container import Lezargusspectrum
+from lezargus.container import LezargusSpectrum
 
 # Lezargus aliases.
 # Library things.

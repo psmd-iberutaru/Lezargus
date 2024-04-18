@@ -164,8 +164,17 @@ def get_spectra_scale_factor(
             denominator_uncertainty=guess_input_uncertainty,
         )
     )
+    # Using inverse squared weights. We NaN out any zero uncertainty values
+    # as they are likely not real.
+    using_uncertainty = np.where(
+        base_input_ratio_uncertainty == 0,
+        np.nan,
+        base_input_ratio_uncertainty,
+    )
+    weights = 1 / using_uncertainty**2
+    weights = lezargus.library.math.normalize_weights(weights=weights)
+
     # Finding the average ratio.
-    weights = 1 / base_input_ratio_uncertainty**2
     quantile_cut_ratio = 0.05
     adjust_scale_factor, adjust_scale_uncertainty = (
         lezargus.library.math.weighted_quantile_mean(
