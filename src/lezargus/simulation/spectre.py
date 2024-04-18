@@ -627,7 +627,7 @@ class SimulatorSpectre:
         # board.
         aligned_transmission_cube = (
             lezargus.container.broadcast.broadcast_spectrum_to_cube_uniform(
-                input_spectra=aligned_transmission_spectra,
+                input_spectrum=aligned_transmission_spectra,
                 template_cube=self.astrophysical_object_cube,
             )
         )
@@ -717,7 +717,7 @@ class SimulatorSpectre:
         # board.
         aligned_radiance_cube = (
             lezargus.container.broadcast.broadcast_spectrum_to_cube_uniform(
-                input_spectra=aligned_radiance_spectra,
+                input_spectrum=aligned_radiance_spectra,
                 template_cube=self.astrophysical_object_cube_atm_trn,
             )
         )
