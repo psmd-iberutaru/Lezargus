@@ -48,6 +48,9 @@ from PySide6 import QtWidgets
 from PySide6.QtWidgets import QMainWindow
 from PySide6.QtWidgets import QWidget
 
+# Other containers...
+from lezargus.container import AtmosphereSpectrumGenerator
+
 # Containers...
 from lezargus.container import LezargusContainerArithmetic
 from lezargus.container import LezargusCube

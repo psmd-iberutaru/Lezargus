@@ -1330,10 +1330,9 @@ class RegularNDInterpolate(scipy.interpolate.RegularGridInterpolator):
 
         """
         # We check that the shape provided by the domain matches the data
-        # shape. The domain order provided above is actually the reverse of
-        # the Numpy convention.
+        # shape.
         domain_shape = tuple(domaindex.size for domaindex in domain)
-        if reversed(domain_shape) != v.shape:
+        if domain_shape != v.shape:
             logging.error(
                 error_type=logging.InputError,
                 message=(
@@ -1348,11 +1347,23 @@ class RegularNDInterpolate(scipy.interpolate.RegularGridInterpolator):
         self.domain = domain
         self.v = v
 
+        # We determine the method by the shape of the data. By default we use
+        # cubic, but we reduce to lower order methods if there are not
+        # enough points.
+        slinear_minimum = 2
+        cubic_minimum = 4
+        if np.all(np.asarray(self.v.shape) >= cubic_minimum):
+            method = "cubic"
+        elif np.all(np.asarray(self.v.shape) >= slinear_minimum):
+            method = "slinear"
+        else:
+            method = "nearest"
+
         # Calling the parent class for the implementation.
         super().__init__(
             points=self.domain,
             values=self.v,
-            method="cubic",
+            method=method,
             bounds_error=False,
             fill_value=None,
         )

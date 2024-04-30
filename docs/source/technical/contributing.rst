@@ -144,7 +144,7 @@ adding to Lezargus. However, please keep the following in mind.
 
     - Python source files are better as one word.
     - Please have proper docstrings for all your files, functions, and classes. 
-      We require this but sometimes the automatic tools don't catch very case. 
+      We require this but sometimes the automatic tools don't catch every case. 
       We (generally) follow the 
       `Google/numpydoc <https://numpydoc.readthedocs.io/en/latest/format.html>`_ 
       style guide. (Note if you find a violation of the guide in our 

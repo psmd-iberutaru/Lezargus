@@ -9,6 +9,9 @@ import os
 import sys
 import uuid
 
+import astropy.table
+import numpy as np
+
 import lezargus
 from lezargus.library import logging
 
@@ -534,7 +537,7 @@ def initialize_data_atmosphere_files(*args: tuple, **kwargs: object) -> None:
     """Initialize the PSG atmospheric data files.
 
     Load all of atmospheric transmission and emission data files into the
-    library data module.
+    library data module. We produce an atmospheric spectrum generator.
 
     Parameters
     ----------
@@ -566,12 +569,89 @@ def initialize_data_atmosphere_files(*args: tuple, **kwargs: object) -> None:
 
     # The PSG atmospheric files are generated outside of this package and so
     # the defined zenith angles and precipitable water vapor values are known
-    # before hand. The units here are defined based on the filenames.
-    zenith_angles = [0, 30, 45, 60]
-    pwv_values = [0.5, 1.0, 2.0, 3.0]
+    # before hand. The values here are defined based on the filenames and
+    # should be valid for both transmission and radiance.
+    zenith_angle_domain = np.array([0, 30, 45, 60])
+    pwv_domain = np.array([0.5, 1.0, 2.0, 3.0])
 
-    lezargus.library.wrapper.do_nothing(zenith_angles, pwv_values)
-    logging.error(error_type=logging.ToDoError, message="Data atmosphere files")
+    # First, transmission. We load the data produced.
+    transmission_filename = lezargus.library.path.merge_pathname(
+        directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
+        filename="psg_telluric_transmission",
+        extension="dat",
+    )
+    transmission_table = astropy.table.Table.read(
+        transmission_filename,
+        format="ascii.mrt",
+    )
+    # The domain is the zenith angles, PWV, and wavelength. The filenames use
+    # angular degrees while the generator uses radians.
+    transmission_wavelength = transmission_table["wavelength"]
+    zenith_angle_radians = np.deg2rad(zenith_angle_domain)
+    # We package the transmission data so that it matches what the generator
+    # expects.
+    transmission_shape = (
+        transmission_wavelength.size,
+        len(zenith_angle_domain),
+        len(pwv_domain),
+    )
+    transmission_array = np.empty(transmission_shape)
+    for zindex, zenithdex in enumerate(zenith_angle_domain):
+        for pindex, pwvdex in enumerate(pwv_domain):
+            column_name = f"za{zenithdex}_pwv{pwvdex}"
+            transmission_array[:, zindex, pindex] = transmission_table[
+                column_name
+            ]
+    # Creating the atmospheric transmission generator. We then add it to the
+    # data module.
+    transmission_generator = lezargus.container.AtmosphereSpectrumGenerator(
+        wavelength=transmission_wavelength,
+        zenith_angle=zenith_angle_radians,
+        pwv=pwv_domain,
+        data=transmission_array,
+    )
+    lezargus.library.data.add_data_object(
+        name="ATM_TRANS_GEN",
+        data=transmission_generator,
+    )
+
+    # Second, we repeat for radiance. We load the data produced.
+    radiance_filename = lezargus.library.path.merge_pathname(
+        directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
+        filename="psg_telluric_radiance",
+        extension="dat",
+    )
+    radiance_table = astropy.table.Table.read(
+        radiance_filename,
+        format="ascii.mrt",
+    )
+    # The domain is the zenith angles, PWV, and wavelength. We reuse the
+    # zenith angle variable.
+    radiance_wavelength = radiance_table["wavelength"]
+    # We package the radiance data so that it matches what the generator
+    # expects.
+    radiance_shape = (
+        radiance_wavelength.size,
+        len(zenith_angle_domain),
+        len(pwv_domain),
+    )
+    radiance_array = np.empty(radiance_shape)
+    for zindex, zenithdex in enumerate(zenith_angle_domain):
+        for pindex, pwvdex in enumerate(pwv_domain):
+            column_name = f"za{zenithdex}_pwv{pwvdex}"
+            radiance_array[:, zindex, pindex] = radiance_table[column_name]
+    # Creating the atmospheric radiance generator. We then add it to the
+    # data module.
+    radiance_generator = lezargus.container.AtmosphereSpectrumGenerator(
+        wavelength=radiance_wavelength,
+        zenith_angle=zenith_angle_radians,
+        pwv=pwv_domain,
+        data=radiance_array,
+    )
+    lezargus.library.data.add_data_object(
+        name="ATM_RADIANCE_GEN",
+        data=radiance_generator,
+    )
 
 
 def initialize_data_filter_zero_point_values(

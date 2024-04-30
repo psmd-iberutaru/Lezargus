@@ -24,7 +24,9 @@ from lezargus.container.spectrum import LezargusSpectrum
 
 # The minor classes for dimensional data, with a very specific implementation
 # details.
+from lezargus.container.atmosphere import AtmosphereSpectrumGenerator
 
+# isort: split
 
 # Other inner packages. Although easily accessible by the user, the depth of
 # these packages and functions, compared to the main containers, implies that
