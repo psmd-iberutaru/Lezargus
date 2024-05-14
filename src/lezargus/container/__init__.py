@@ -28,7 +28,6 @@ from lezargus.container.atmosphere import AtmosphereSpectrumGenerator
 
 # isort: split
 
-# Other inner packages. Although easily accessible by the user, the depth of
-# these packages and functions, compared to the main containers, implies that
-# we should still abstract it away from the end-user.
-from lezargus.container import broadcast
+# Extra and utility functions which operate on containers. Though user facing,
+# it is more likely the user would not directly use these functions.
+from lezargus.container import function

@@ -210,6 +210,56 @@ def index_of_refraction_moist_air(
     return ior_moist_air
 
 
+def absolute_atmospheric_refraction(
+    wavelength: hint.ndarray,
+    zenith_angle: float,
+    temperature: float,
+    pressure: float,
+    water_pressure: float,
+) -> hint.ndarray:
+    """Compute the absolute atmospheric refraction.
+
+    The absolute atmospheric refraction is not as useful as the relative
+    atmospheric refraction function. To calculate how the atmosphere refracts
+    one's object, use that function: py:func:`relative_atmospheric_refraction`.
+
+    Parameters
+    ----------
+    wavelength : ndarray
+        The wavelength over which the absolute atmospheric refraction is
+        being computed over, in meters.
+    zenith_angle : float
+        The zenith angle of the sight line, in radians.
+    temperature : float
+        The temperature of the atmosphere, in Kelvin.
+    pressure : float
+        The pressure of the atmosphere, in Pascals.
+    water_pressure : float
+        The partial pressure of water in the atmosphere, Pascals.
+
+    Returns
+    -------
+    absolute_refraction : ndarray
+        The computed absolute refraction at the input wavelengths, in radians.
+
+    """
+    # We need to determine the index of refraction for moist air.
+    index_of_refraction = index_of_refraction_moist_air(
+        wavelength=wavelength,
+        pressure=pressure,
+        temperature=temperature,
+        water_pressure=water_pressure,
+    )
+
+    # The constant of refraction.
+    constant_of_refraction = (index_of_refraction**2 - 1) / (
+        2 * index_of_refraction**2
+    )
+    # Incorporating the zenith angle.
+    absolute_refraction = constant_of_refraction * np.tan(zenith_angle)
+    return absolute_refraction
+
+
 def absolute_atmospheric_refraction_function(
     wavelength: hint.ndarray,
     zenith_angle: float,
@@ -239,33 +289,87 @@ def absolute_atmospheric_refraction_function(
 
     Returns
     -------
-    abs_atm_refr_func : Callable
+    refraction_function : Callable
         The absolute atmospheric refraction function, as an actual callable
         function. The input is wavelength in meters and output is refraction in
         radians.
 
     """
-    # We need to determine the index of refraction for moist air.
-    ior_moist_air = index_of_refraction_moist_air(
+    # We compute the absolute refraction which we build an interpolating
+    # function for.
+    absolute_refraction = absolute_atmospheric_refraction(
         wavelength=wavelength,
+        zenith_angle=zenith_angle,
+        temperature=temperature,
+        pressure=pressure,
+        water_pressure=water_pressure,
+    )
+
+    # Creating the function itself.
+    refraction_function = lezargus.library.interpolate.Spline1DInterpolate(
+        x=wavelength,
+        v=absolute_refraction,
+        extrapolate=True,
+    )
+
+    return refraction_function
+
+
+def relative_atmospheric_refraction(
+    wavelength: hint.ndarray,
+    reference_wavelength: float,
+    zenith_angle: float,
+    temperature: float,
+    pressure: float,
+    water_pressure: float,
+) -> hint.ndarray:
+    """Compute the relative atmospheric refraction.
+
+    The relative atmospheric refraction is computed similarly to the
+    absolute refraction, but is measured relative to the absolute refraction
+    at the reference wavelength.
+
+    Parameters
+    ----------
+    wavelength : ndarray
+        The wavelength over which the absolute atmospheric refraction is
+        being computed over, in meters.
+    reference_wavelength : float
+        The reference wavelength which the relative refraction is computed
+        against, in meters.
+    zenith_angle : float
+        The zenith angle of the sight line, in radians.
+    temperature : float
+        The temperature of the atmosphere, in Kelvin.
+    pressure : float
+        The pressure of the atmosphere, in Pascals.
+    water_pressure : float
+        The partial pressure of water in the atmosphere, Pascals.
+
+    Returns
+    -------
+    relative_refraction : ndarray
+        The computed relative refraction at the input wavelengths, in radians.
+
+    """
+    # We need the absolute refraction function first. We use the functional
+    # form so that we can determine a more accurate absolute refraction at the
+    # provided wavelength.
+    absolute_refraction_function = absolute_atmospheric_refraction_function(
+        wavelength=wavelength,
+        zenith_angle=zenith_angle,
         pressure=pressure,
         temperature=temperature,
         water_pressure=water_pressure,
     )
 
-    # The constant of refraction.
-    const_of_refr = (ior_moist_air**2 - 1) / (2 * ior_moist_air**2)
-    # Incorporating the zenith angle.
-    abs_atm_refr = const_of_refr * np.tan(zenith_angle)
+    # The absolute refraction, and the refraction at the reference wavelength.
+    absolute_refraction = absolute_refraction_function(wavelength)
+    reference_refraction = absolute_refraction_function(reference_wavelength)
 
-    # Creating the function itself.
-    abs_atm_refr_func = lezargus.library.interpolate.Spline1DInterpolate(
-        x=wavelength,
-        v=abs_atm_refr,
-        extrapolate=True,
-    )
-
-    return abs_atm_refr_func
+    # Computing the refraction relative to the reference.
+    relative_refraction = absolute_refraction - reference_refraction
+    return relative_refraction
 
 
 def relative_atmospheric_refraction_function(
@@ -300,43 +404,31 @@ def relative_atmospheric_refraction_function(
 
     Returns
     -------
-    rel_atm_refr_func : Callable
-        The absolute atmospheric refraction function, as an actual callable
+    refraction_function : Callable
+        The relative atmospheric refraction function, as an actual callable
         function. The input is wavelength in meters and output is refraction in
         radians.
 
     """
-    # We need the absolute refraction function first.
-    abs_atm_refr_func = absolute_atmospheric_refraction_function(
+    # We compute the relative refraction which we build an interpolating
+    # function for.
+    relative_refraction = relative_atmospheric_refraction(
         wavelength=wavelength,
+        reference_wavelength=reference_wavelength,
         zenith_angle=zenith_angle,
-        pressure=pressure,
         temperature=temperature,
+        pressure=pressure,
         water_pressure=water_pressure,
     )
 
-    # The refraction at the reference wavelength.
-    ref_abs_refr = abs_atm_refr_func(reference_wavelength)
+    # Creating the function itself.
+    refraction_function = lezargus.library.interpolate.Spline1DInterpolate(
+        x=wavelength,
+        v=relative_refraction,
+        extrapolate=True,
+    )
 
-    def rel_atm_refr_func(wave: hint.ndarray) -> hint.ndarray:
-        """Relative refraction function.
-
-        Parameters
-        ----------
-        wave : ndarray
-            The input wavelength for computation, in meters.
-
-        Returns
-        -------
-        rel_atm_refr : ndarray
-            The relative atmospheric refraction, in radians.
-
-        """
-        rel_atm_refr = abs_atm_refr_func(wave) - ref_abs_refr
-        return rel_atm_refr
-
-    # All done.
-    return rel_atm_refr_func
+    return refraction_function
 
 
 def seeing(

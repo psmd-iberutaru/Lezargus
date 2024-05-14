@@ -19,7 +19,7 @@ from lezargus import initialize
 
 # isort:split
 # User-based functionality, the actual classes which call the above functions.
-from lezargus import simulation
+from lezargus import simulator
 
 # Lastly, the main file. We only do this so that Sphinx correctly builds the
 # documentation. (Though this too could be a misunderstanding.) Functionality

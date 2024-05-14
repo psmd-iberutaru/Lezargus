@@ -63,4 +63,5 @@ from lezargus.container import LezargusSpectrum
 from lezargus.library.interpolate import Generic1DInterpolate
 
 # Simulators...
-from lezargus.simulation import SimulatorSpectre
+from lezargus.simulator import AtmosphereSimulator
+from lezargus.simulator import TargetSimulator

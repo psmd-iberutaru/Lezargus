@@ -43,6 +43,12 @@ class AtmosphereSpectrumGenerator:
     data : ndarray
         The data grid, usually transmission or radiance. The axes are defined
         by the other attributes.
+    wavelength_unit : Unit
+        The wavelength unit of the wavelength array provided, if provided.
+    data_unit : Unit
+        The data unit of the data provided, if provided.
+    spectral_scale : float
+        The spectral resolution (scale) of the computed grid, if provided.
     _data_interpolator : RegularNDInterpolator
         The interpolator class for the data which we use as the backbone of
         this generator. This should not be called directly.
@@ -55,6 +61,9 @@ class AtmosphereSpectrumGenerator:
         zenith_angle: hint.ndarray,
         pwv: hint.ndarray,
         data: hint.ndarray,
+        wavelength_unit: hint.Unit | str = "m",
+        data_unit: hint.Unit | str = "",
+        spectral_scale: float | None = None,
     ) -> None:
         """Initialize the atmospheric transmission and radiance container.
 
@@ -73,6 +82,14 @@ class AtmosphereSpectrumGenerator:
             The atmospheric data for the generator to "generate" via
             interpolation. The shape of the data should match that created
             by the domain of the previous attributes.
+        wavelength_unit : Unit or str, default = "m"
+            The wavelength unit of the wavelength provided. By default and by
+            convention, this should be in meters.
+        data_unit : Unit or str
+            The data unit of the data provided. By default, we assume a
+            dimensionless spectrum.
+        spectral_scale : float, default = 0
+            The spectral (scale) resolution of the simulation.
 
         """
         # Interpolation using airmass over zenith angle makes more sense as
@@ -85,6 +102,15 @@ class AtmosphereSpectrumGenerator:
         self.airmass = airmass
         self.pwv = pwv
         self.data = data
+
+        # Meta data information.
+        self.wavelength_unit = lezargus.library.conversion.parse_astropy_unit(
+            unit_string=wavelength_unit,
+        )
+        self.data_unit = lezargus.library.conversion.parse_astropy_unit(
+            unit_string=data_unit,
+        )
+        self.spectral_scale = spectral_scale
 
         # Building the interpolators.
         domain = (wavelength, airmass, pwv)
@@ -151,7 +177,8 @@ class AtmosphereSpectrumGenerator:
         """Generate a atmospheric LezargusSpectrum, through interpolation.
 
         This function really is a wrapper around the usual interpolator,
-        repackaging the results as a LezargusSpectrum.
+        repackaging the results as a LezargusSpectrum. Note, most of the
+        meta data parameters are wrong and need to be fixed manually.
 
         Parameters
         ----------
@@ -184,8 +211,8 @@ class AtmosphereSpectrumGenerator:
             wavelength=wavelength,
             data=generated_data,
             uncertainty=None,
-            wavelength_unit=None,
-            data_unit=None,
+            wavelength_unit=self.wavelength_unit,
+            data_unit=self.data_unit,
             header=None,
         )
         return generated_spectrum

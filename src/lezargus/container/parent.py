@@ -771,3 +771,64 @@ class LezargusContainerArithmetic:
             overwrite=overwrite,
         )
         # All done.
+
+    def to_unit(
+        self: hint.Self,
+        data_unit: str | hint.Unit | None = None,
+        wavelength_unit: str | hint.Unit | None = None,
+    ) -> hint.Self:
+        """Convert the units of the current data to the new set of units.
+
+        This function only does simple unit conversion. Any equivalency
+        conversion is not handled.
+
+        Parameters
+        ----------
+        data_unit : str | Unit
+            The unit we will be converting to. If the unit is not compatible,
+            we raise an exception. If None, we default to no data unit
+            conversion.
+        wavelength_unit : str | Unit | None, default = None
+            A new wavelength unit to convert to. If the unit is not compatible,
+            we raise an exception. If None, we default to no wavelength unit
+            conversion.
+
+        Returns
+        -------
+        converted : Self-like
+            The converted container, after the unit conversion.
+
+        """
+        # We need to handle the default cases where no unit conversion is
+        # wanted.
+        do_wavelength = wavelength_unit is not None
+        do_data = data_unit is not None
+
+        # It is easiest to work on a copy.
+        converted = copy.deepcopy(self)
+
+        # Wavelength conversion, if specified.
+        if do_wavelength:
+            converted.wavelength = lezargus.library.conversion.convert_units(
+                value=self.wavelength,
+                value_unit=self.wavelength_unit,
+                result_unit=wavelength_unit,
+            )
+            converted.wavelength_unit = wavelength_unit
+
+        # Data and uncertainty conversion, if specified.
+        if do_data:
+            converted.data = lezargus.library.conversion.convert_units(
+                value=self.data,
+                value_unit=self.data_unit,
+                result_unit=data_unit,
+            )
+            converted.uncertainty = lezargus.library.conversion.convert_units(
+                value=self.uncertainty,
+                value_unit=self.uncertainty_unit,
+                result_unit=data_unit,
+            )
+            converted.data_unit = data_unit
+
+        # All done.
+        return converted

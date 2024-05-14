@@ -165,8 +165,8 @@ ban-relative-imports = "all"
 # provide hints.
 "src/lezargus/library/hint.py" = ["F401", "F403"]
 # The __init__ files often provide the imports to other files. 
-# So they are used, just not in that file.
-"src/lezargus/**/__init__.py" = ["F401"]
+# So they are used, just not in that file. 
+"src/lezargus/**/__init__.py" = ["F401",]
 
 [tool.ruff.lint.mccabe]
 # Flag errors (`C901`) whenever the complexity level exceeds some value.

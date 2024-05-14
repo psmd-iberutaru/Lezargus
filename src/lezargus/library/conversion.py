@@ -41,11 +41,9 @@ def convert_units(
         The result after the unit conversion.
 
     """
-    # We need to check if the unit is an Astropy unit or needs parsing.
-    if not isinstance(value_unit, astropy.units.UnitBase):
-        value_unit = parse_astropy_unit(unit_string=value_unit)
-    if not isinstance(result_unit, astropy.units.UnitBase):
-        result_unit = parse_astropy_unit(unit_string=result_unit)
+    # We parse the units so we can use Astropy to do the unit conversions.
+    value_unit = parse_astropy_unit(unit_string=value_unit)
+    result_unit = parse_astropy_unit(unit_string=result_unit)
 
     # Determine the conversion factor and convert between the two.
     try:
@@ -102,8 +100,8 @@ def parse_astropy_unit(unit_string: str | hint.Unit) -> hint.Unit:
         logging.critical(
             critical_type=logging.InputError,
             message=(
-                "It is likely the unit string provided is not something that"
-                f" can be parsed into an Astropy unit:  {unit_string}"
+                "Input unit string cannot be parsed to an Astropy unit"
+                f" {unit_string}."
             ),
         )
     # All done.

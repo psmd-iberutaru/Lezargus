@@ -587,6 +587,7 @@ def initialize_data_atmosphere_files(*args: tuple, **kwargs: object) -> None:
     # The domain is the zenith angles, PWV, and wavelength. The filenames use
     # angular degrees while the generator uses radians.
     transmission_wavelength = transmission_table["wavelength"]
+    transmission_wavelength_unit = "m"
     zenith_angle_radians = np.deg2rad(zenith_angle_domain)
     # We package the transmission data so that it matches what the generator
     # expects.
@@ -596,6 +597,7 @@ def initialize_data_atmosphere_files(*args: tuple, **kwargs: object) -> None:
         len(pwv_domain),
     )
     transmission_array = np.empty(transmission_shape)
+    transmission_array_unit = ""
     for zindex, zenithdex in enumerate(zenith_angle_domain):
         for pindex, pwvdex in enumerate(pwv_domain):
             column_name = f"za{zenithdex}_pwv{pwvdex}"
@@ -609,6 +611,9 @@ def initialize_data_atmosphere_files(*args: tuple, **kwargs: object) -> None:
         zenith_angle=zenith_angle_radians,
         pwv=pwv_domain,
         data=transmission_array,
+        wavelength_unit=transmission_wavelength_unit,
+        data_unit=transmission_array_unit,
+        spectral_scale=None,
     )
     lezargus.library.data.add_data_object(
         name="ATM_TRANS_GEN",
@@ -628,6 +633,7 @@ def initialize_data_atmosphere_files(*args: tuple, **kwargs: object) -> None:
     # The domain is the zenith angles, PWV, and wavelength. We reuse the
     # zenith angle variable.
     radiance_wavelength = radiance_table["wavelength"]
+    radiance_wavelength_unit = "m"
     # We package the radiance data so that it matches what the generator
     # expects.
     radiance_shape = (
@@ -636,6 +642,7 @@ def initialize_data_atmosphere_files(*args: tuple, **kwargs: object) -> None:
         len(pwv_domain),
     )
     radiance_array = np.empty(radiance_shape)
+    radiance_array_unit = "W m^-2 sr^-1 m^-1"
     for zindex, zenithdex in enumerate(zenith_angle_domain):
         for pindex, pwvdex in enumerate(pwv_domain):
             column_name = f"za{zenithdex}_pwv{pwvdex}"
@@ -647,6 +654,9 @@ def initialize_data_atmosphere_files(*args: tuple, **kwargs: object) -> None:
         zenith_angle=zenith_angle_radians,
         pwv=pwv_domain,
         data=radiance_array,
+        wavelength_unit=radiance_wavelength_unit,
+        data_unit=radiance_array_unit,
+        spectral_scale=None,
     )
     lezargus.library.data.add_data_object(
         name="ATM_RADIANCE_GEN",

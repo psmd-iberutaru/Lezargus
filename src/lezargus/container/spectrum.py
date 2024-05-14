@@ -205,7 +205,7 @@ class LezargusSpectrum(LezargusContainerArithmetic):
             # We still warn just in case.
             logging.warning(
                 warning_type=logging.InputWarning,
-                message=("No spectra supplied to stitch."),
+                message="No spectra supplied to stitch.",
             )
             return spectra
 
