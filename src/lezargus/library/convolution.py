@@ -13,51 +13,207 @@ from lezargus.library import hint
 from lezargus.library import logging
 
 
-def convolve_1d_array_by_1d_kernel(
-    array: hint.ndarray,
-    kernel: hint.ndarray,
-) -> hint.ndarray:
-    """Convolve a 1D array using a 1D kernel.
+def _check_array_dimensionality(array: hint.ndarray, dimensions: int) -> bool:
+    """Check if the array has the expected number of dimensions.
+
+    This function checks if the array has the correction number of
+    dimensions. Of course, the expected dimensions are different so this
+    function is more a wrapper around the logging message and it
+    serves as a basic check.
 
     Parameters
     ----------
     array : ndarray
-        The 1D array data which we will convolve.
-    kernel : ndarray
-        The 1D kernel that we are using to convolve.
+        The array that we are testing if it has the same number of
+        dimensions.
+    dimensions : int
+        The number of expected dimensions the array should have.
 
     Returns
     -------
-    convolved_array : ndarray
-        The convolved 1D array data.
+    valid_dimensionality : bool
+        If True, the array has the expected dimensionality, as input.
 
     """
-    # We need to ensure that the convolution array and kernel are the proper
-    # dimensions.
-    array_dimensions = 1
-    kernel_dimensions = 1
-    if len(array.shape) != array_dimensions:
-        logging.warning(
-            warning_type=logging.AlgorithmWarning,
+    # We just use Numpy shape and the like, type conversion.
+    array = np.asarray(array)
+    dimensions = int(dimensions)
+
+    # Checking.
+    valid_dimensionality = len(array.shape) == dimensions
+    if not valid_dimensionality:
+        logging.error(
+            error_type=logging.InputError,
             message=(
-                "The input array is not actually a 1D array, shape is"
-                f" {array.shape}. Applying convolution with a {kernel.shape}"
-                " kernel shape may fail."
+                f"Input array has wrong dimensions, shape {array.shape};"
+                f" expected dimensionality {dimensions}."
             ),
         )
-    if len(kernel.shape) != kernel_dimensions:
-        logging.warning(
-            warning_type=logging.AlgorithmWarning,
+    return valid_dimensionality
+
+
+def _check_kernel_dimensionality(kernel: hint.ndarray, dimensions: int) -> bool:
+    """Check if the kernel has the expected number of dimensions.
+
+    Same function as :py:meth:`_check_array_dimensionality`, just different
+    error message.
+
+    Parameters
+    ----------
+    kernel : ndarray
+        The kernel that we are testing if it has the same number of
+        dimensions.
+    dimensions : int
+        The number of expected dimensions the kernel should have.
+
+    Returns
+    -------
+    valid_dimensionality : bool
+        If True, the kernel has the expected dimensionality, as input.
+
+    """
+    # We just use Numpy shape and the like, type conversion.
+    kernel = np.asarray(kernel)
+    dimensions = int(dimensions)
+
+    # Checking.
+    valid_dimensionality = len(kernel.shape) == dimensions
+    if not valid_dimensionality:
+        logging.error(
+            error_type=logging.InputError,
             message=(
-                "The input kernel is not actually a 1D array, shape is"
-                f" {kernel.shape}. Applying convolution with a {array.shape}"
-                " array may fail."
+                f"Input kernel has wrong dimensions, shape {kernel.shape};"
+                f" expected dimensionality {dimensions}."
+            ),
+        )
+    return valid_dimensionality
+
+
+def _check_array_kernel_variable_stack(
+    array: hint.ndarray,
+    kernel_stack: hint.ndarray,
+    axis: int | tuple[int],
+) -> bool:
+    """Check if the kernel stack and array have the exact slice count.
+
+    For variable kernels, we need to make sure that there are enough kernels
+    in the kernel stack for each slice of the array which are being convolved.
+    The axes which are variable (and not dynamic, i.e. changing with
+    the convolution axis) are checked to be the same size in the array and
+    the kernel stack.
+
+    Parameters
+    ----------
+    array : ndarray
+        The array which would be convolved and which we are checking is
+        compatible with the kernel stack.
+    kernel_stack : ndarray
+        The kernel stack which holds all of the kernels that are being used.
+        We are checking if it is compatible with the kernel stack.
+    axis : int, tuple[int]
+        Either a single axis index, or a tuple of axis indexes which the
+        kernel is variable. The axis or axes should not be the same as the
+        convolution axis or axes.
+
+    Returns
+    -------
+    valid_stack : bool
+        If True, the kernel stack has the correct amount of kernels for the
+        array, for the axes which are variable.
+
+    """
+    # We repackage the axis, if it is a single value, it is the same as just
+    # checking one so the code below can be the same.
+    if isinstance(axis, int):
+        check_axes = (axis,)
+    elif isinstance(axis, list | tuple | np.ndarray):
+        # It is already a tuple-like.
+        check_axes = tuple(int(axisdex) for axisdex in axis)
+    else:
+        logging.error(
+            error_type=logging.InputError,
+            message=(
+                f"Cannot parse axis input {axis} to a list of axis indexes to"
+                " check."
             ),
         )
 
-    # We want to keep the same numerical precision, or rather, as close as
-    # we can to the original data type. We can expand this to 192-bit and
-    # 256-bit, but, it is likely not needed.
+    # Just loop over each of the axes, checking if they have the same size.
+    # We assume a good stack at first.
+    valid_stack = True
+    mismatched_axes = []
+    for axisdex in check_axes:
+        # We need to make sure that there is enough kernels in the stack for
+        # each of the array slices.
+        array_stack_count = array.shape[axisdex]
+        kernel_stack_count = kernel_stack.shape[axisdex]
+        if array_stack_count != kernel_stack_count:
+            # The axes are mismatched, we record the mismatch here to report
+            # later.
+            valid_stack = False
+            mismatched_axes.append(axisdex)
+
+    # Is the stack still good?
+    if not valid_stack:
+        # Nope, we report the invalid stack. There is no one to one relation
+        # for the array and kernel.
+        logging.error(
+            error_type=logging.InputError,
+            message=(
+                f"Array shape {array.shape} incompatible with kernel stack"
+                f" {kernel_stack.shape}. Mismatch in {mismatched_axes} indexed"
+                " axes."
+            ),
+        )
+    # All done.
+    return valid_stack
+
+
+def _static_astropy_convolve(
+    array: hint.ndarray,
+    kernel: hint.ndarray,
+) -> hint.ndarray:
+    """Use Astropy to convolve the array provided the kernel.
+
+    The Astropy convolve function only can convolve up to 3D, and they
+    determine it based on the array and kernel dimensionality. We attempt
+    to do an FFT convolution, but, should it fail, we fall back to
+    discrete convolution.
+
+    Parameters
+    ----------
+    array : ndarray
+        The array we are convolving by the kernel.
+    kernel : ndarray
+        The kernel we are using to convolve.
+
+    Returns
+    -------
+    convolved : ndarray
+        The result of the convolution.
+
+    """
+    # The array and kernel should have the same dimensionality, and it
+    # cannot be more than 3. We base it on the array as that is the more
+    # fundamental part.
+    dimensionality = len(array.shape)
+    _check_array_dimensionality(array=array, dimensions=dimensionality)
+    _check_kernel_dimensionality(kernel=kernel, dimensions=dimensionality)
+
+    # Checking if Astropy's convolve function can handle it.
+    max_astropy_convolve_dimensionality = 3
+    if dimensionality > max_astropy_convolve_dimensionality:
+        logging.critical(
+            critical_type=logging.NotSupportedError,
+            message=(
+                "Astropy convolve only supports up to 3D arrays, input"
+                f" dimensionality is {dimensionality}."
+            ),
+        )
+
+    # FFT convolution uses complex numbers. We want to keep the same
+    # numerical precision as the input type. We can expand this to 192-bit
+    # and 256-bit, but, it is likely not needed.
     if array.dtype.itemsize * 2 <= np.complex64(None).itemsize:
         complex_data_type = np.complex64
     elif array.dtype.itemsize * 2 <= np.complex128(None).itemsize:
@@ -65,15 +221,14 @@ def convolve_1d_array_by_1d_kernel(
     else:
         complex_data_type = complex
 
-    # We don't really expect a 1D spectra convolution to run into memory
-    # issues, but we still need to anticipate it. We try FFT convolution first,
-    # then we go to a discrete convolution if it fails.
+    # There are two ways that the convolution can happen, either via FFT
+    # or via discrete convolution. It is always faster to do it via FFT
+    # but we fall back to discrete convolution if we run out of memory.
     try:
-        convolved_array = astropy.convolution.convolve_fft(
+        convolved = astropy.convolution.convolve_fft(
             array,
             kernel=kernel,
-            boundary="fill",
-            fill_value=np.nanmedian(array),
+            boundary="wrap",
             complex_dtype=complex_data_type,
             nan_treatment="interpolate",
             normalize_kernel=True,
@@ -95,12 +250,12 @@ def convolve_1d_array_by_1d_kernel(
         logging.warning(
             warning_type=logging.AlgorithmWarning,
             message=(
-                "Discrete convolution will be attempted as an alternative to"
-                " the FFT convolution due to memory issues."
+                "Discrete convolution attempted as an alternative to FFT"
+                " convolution due to memory issues; expect long execution time."
             ),
         )
         # Discrete convolution.
-        convolved_array = astropy.convolution.convolve(
+        convolved = astropy.convolution.convolve(
             array,
             kernel=kernel,
             boundary="extend",
@@ -109,14 +264,51 @@ def convolve_1d_array_by_1d_kernel(
             preserve_nan=True,
         )
     # All done.
-    return convolved_array
+    return convolved
 
 
-def convolve_2d_array_by_2d_kernel(
+def static_1d_with_1d(
     array: hint.ndarray,
     kernel: hint.ndarray,
 ) -> hint.ndarray:
-    """Convolve a 2D array using a 2D kernel.
+    """Convolve a 1D array using a static 1D kernel.
+
+    Parameters
+    ----------
+    array : ndarray
+        The 1D array data which we will convolve.
+    kernel : ndarray
+        The 1D kernel that we are using to convolve.
+
+    Returns
+    -------
+    convolved : ndarray
+        The convolved 1D array data.
+
+    """
+    # We check that both the array and the kernel has the proper
+    # dimensionality.
+    array_dimensionality = 1
+    kernel_dimensionality = 1
+    _check_array_dimensionality(
+        array=array,
+        dimensions=array_dimensionality,
+    )
+    _check_kernel_dimensionality(
+        kernel=kernel,
+        dimensions=kernel_dimensionality,
+    )
+
+    # We do the convolution.
+    convolved = _static_astropy_convolve(array=array, kernel=kernel)
+    return convolved
+
+
+def static_2d_with_2d(
+    array: hint.ndarray,
+    kernel: hint.ndarray,
+) -> hint.ndarray:
+    """Convolve a 2D array using a static 2D kernel.
 
     Parameters
     ----------
@@ -127,160 +319,84 @@ def convolve_2d_array_by_2d_kernel(
 
     Returns
     -------
-    convolved_array : ndarray
+    convolved : ndarray
         The convolved 2D array data.
 
     """
-    # We need to ensure that the convolution array and kernel are the proper
-    # dimensions.
-    array_dimensions = 2
-    kernel_dimensions = 2
-    if len(array.shape) != array_dimensions:
-        logging.warning(
-            warning_type=logging.AlgorithmWarning,
-            message=(
-                "The input array is not actually a 2D array, shape is"
-                f" {array.shape}. Applying convolution with a {kernel.shape}"
-                " kernel shape may fail."
-            ),
-        )
-    if len(kernel.shape) != kernel_dimensions:
-        logging.warning(
-            warning_type=logging.AlgorithmWarning,
-            message=(
-                "The input kernel is not actually a 2D array, shape is"
-                f" {kernel.shape}. Applying convolution with a {array.shape}"
-                " array may fail."
-            ),
-        )
+    # We check that both the array and the kernel has the proper
+    # dimensionality.
+    array_dimensionality = 2
+    kernel_dimensionality = 2
+    _check_array_dimensionality(
+        array=array,
+        dimensions=array_dimensionality,
+    )
+    _check_kernel_dimensionality(
+        kernel=kernel,
+        dimensions=kernel_dimensionality,
+    )
 
-    # We want to keep the same numerical precision, or rather, as close as
-    # we can to the original data type. We can expand this to 192-bit and
-    # 256-bit, but, it is likely not needed.
-    if array.dtype.itemsize * 2 <= np.complex64(None).itemsize:
-        complex_data_type = np.complex64
-    elif array.dtype.itemsize * 2 <= np.complex128(None).itemsize:
-        complex_data_type = np.complex128
-    else:
-        complex_data_type = complex
-
-    # We attempt to do the 2D convolution using FFT. However, FFT can be
-    # memory intensive so we default back to the standard discrete version
-    # if there is not enough memory.  For the fill value, the most common
-    # value is likely to be sky noise so we just pad it with sky noise.
-    try:
-        convolved_array = astropy.convolution.convolve_fft(
-            array,
-            kernel=kernel,
-            boundary="fill",
-            fill_value=np.nanmedian(array),
-            complex_dtype=complex_data_type,
-            nan_treatment="interpolate",
-            normalize_kernel=True,
-            preserve_nan=True,
-            allow_huge=True,
-        )
-    except MemoryError:
-        # There is not enough memory for an FFT version, using discrete
-        # instead.
-        # We give some warning first.
-        logging.warning(
-            warning_type=logging.MemoryFullWarning,
-            message=(
-                "Attempting a FFT convolution of an image with shape"
-                f" {array.shape} with kernel shape {kernel.shape} requires too"
-                " much memory."
-            ),
-        )
-        logging.warning(
-            warning_type=logging.AlgorithmWarning,
-            message=(
-                "Discrete convolution will be attempted as an alternative to"
-                " the FFT convolution due to memory issues."
-            ),
-        )
-        # Discrete convolution.
-        convolved_array = astropy.convolution.convolve(
-            array,
-            kernel=kernel,
-            boundary="extend",
-            nan_treatment="interpolate",
-            normalize_kernel=True,
-            preserve_nan=True,
-        )
-    # All done,
-    return convolved_array
+    # We do the convolution.
+    convolved = _static_astropy_convolve(array=array, kernel=kernel)
+    return convolved
 
 
-def convolve_3d_array_by_1d_kernel(
+def static_3d_with_1d_over_z(
     array: hint.ndarray,
     kernel: hint.ndarray,
 ) -> hint.ndarray:
-    """Convolve a 3D array using a 1D kernel, looping 2 dimensions.
+    """Convolve a 3D array using a 1D kernel, over the z dimension.
 
     This convolution convolves 1D slices of the 3D array. The convolution
     itself then is a 1D array being convolved with a 1D kernel. We take slices
-    of the last dimension, iterating over the 1st and 2nd dimension. A full
-    3D array and 3D kernel convolution is not done here.
+    of the last dimension (z), iterating over the 1st and 2nd dimension.
 
     Parameters
     ----------
     array : ndarray
         The 3D array data which we will convolve.
     kernel : ndarray
-        The 1D kernel that we are using to convolve.
+        The 1D kernel that we are using to convolve over the z axis of the
+        array.
 
     Returns
     -------
-    convolved_array : ndarray
+    convolved : ndarray
         The convolved 3D array data.
 
     """
-    # We need to ensure that the convolution array and kernel are the proper
-    # dimensions.
-    array_dimensions = 3
-    kernel_dimensions = 1
-    if len(array.shape) != array_dimensions:
-        logging.warning(
-            warning_type=logging.AlgorithmWarning,
-            message=(
-                "The input array is not actually a 3D array, shape is"
-                f" {array.shape}. Applying slice convolution with a"
-                f" {kernel.shape} kernel shape may fail."
-            ),
-        )
-    if len(kernel.shape) != kernel_dimensions:
-        logging.warning(
-            warning_type=logging.AlgorithmWarning,
-            message=(
-                "The input kernel is not actually a 1D array, shape is"
-                f" {kernel.shape}. Applying slice convolution with a"
-                f" {array.shape} array may fail."
-            ),
-        )
+    # We check that both the array and the kernel has the proper
+    # dimensionality.
+    array_dimensionality = 3
+    kernel_dimensionality = 1
+    _check_array_dimensionality(
+        array=array,
+        dimensions=array_dimensionality,
+    )
+    _check_kernel_dimensionality(
+        kernel=kernel,
+        dimensions=kernel_dimensionality,
+    )
 
-    # Applying the convolution. For the fill value, the most common value is
-    # likely to be sky noise so we just pad it with sky noise. Moreover, some
-    # of these cubes can be rather large. However, sometimes this process can
-    # be very memory intensive so we need to be able to fallback to a backup.
-    convolved_array = np.zeros_like(array)
-
-    # This really is just a repeated process of 2D convolutions.
+    # Applying the convolution. This really is just a repeated process of
+    # 1D convolutions across both other axes. We create the resulting
+    # array and fill it in with the results of the convolutions.
+    convolved = np.empty_like(array)
     for coldex in np.arange(array.shape[0]):
         for rowdex in np.arange(array.shape[1]):
-            convolved_array[coldex, rowdex, :] = convolve_1d_array_by_1d_kernel(
+            convolved[coldex, rowdex, :] = static_1d_with_1d(
                 array=array[coldex, rowdex, :],
                 kernel=kernel,
             )
     # All done.
-    return convolved_array
+    return convolved
 
 
-def convolve_3d_array_by_2d_kernel(
+def static_3d_with_2d_over_xy(
     array: hint.ndarray,
     kernel: hint.ndarray,
 ) -> hint.ndarray:
-    """Convolve a 3D array using a 2D kernel, looping over the 3rd dimension.
+    """Convolve a 3D array using a 2D kernel, over the x-y plane.
 
     This convolution convolves 2D slices of the 3D array. The convolution
     itself then is a 2D array being convolved with a 3D kernel. A full
@@ -291,51 +407,109 @@ def convolve_3d_array_by_2d_kernel(
     array : ndarray
         The 3D array data which we will convolve.
     kernel : ndarray
-        The 2D kernel that we are using to convolve.
+        The 2D kernel that we are using to convolve over the x-y plane
+        of the array.
 
     Returns
     -------
-    convolved_array : ndarray
+    convolved : ndarray
         The convolved 3D array data.
 
     """
-    # We need to ensure that the convolution array and kernel are the proper
-    # dimensions.
-    array_dimensions = 3
-    kernel_dimensions = 2
-    if len(array.shape) != array_dimensions:
-        logging.warning(
-            warning_type=logging.AlgorithmWarning,
-            message=(
-                "The input array is not actually a 3D array, shape is"
-                f" {array.shape}. Applying slice convolution with a"
-                f" {kernel.shape} kernel shape may fail."
-            ),
-        )
-    if len(kernel.shape) != kernel_dimensions:
-        logging.warning(
-            warning_type=logging.AlgorithmWarning,
-            message=(
-                "The input kernel is not actually a 2D array, shape is"
-                f" {kernel.shape}. Applying slice convolution with a"
-                f" {array.shape} array may fail."
-            ),
-        )
+    # We check that both the array and the kernel has the proper
+    # dimensionality.
+    array_dimensionality = 3
+    kernel_dimensionality = 2
+    _check_array_dimensionality(
+        array=array,
+        dimensions=array_dimensionality,
+    )
+    _check_kernel_dimensionality(
+        kernel=kernel,
+        dimensions=kernel_dimensionality,
+    )
 
-    # Applying the convolution. For the fill value, the most common value is
-    # likely to be sky noise so we just pad it with sky noise. Moreover, some
-    # of these cubes can be rather large. However, sometimes this process can
-    # be very memory intensive so we need to be able to fallback to a backup.
-    convolved_array = np.zeros_like(array)
-
-    # This really is just a repeated process of 2D convolutions.
+    # Applying the convolution. This really is just a repeated process of
+    # 2D convolutions across the x-y plane. We create the resulting
+    # array and fill it in with the results of the convolutions.
+    convolved = np.empty_like(array)
     for index in np.arange(array.shape[2]):
-        convolved_array[:, :, index] = convolve_2d_array_by_2d_kernel(
+        convolved[:, :, index] = static_2d_with_2d(
             array=array[:, :, index],
             kernel=kernel,
         )
     # All done.
-    return convolved_array
+    return convolved
+
+
+def variable_3d_with_2d_over_xy(
+    array: hint.ndarray,
+    kernel_stack: hint.ndarray,
+) -> hint.ndarray:
+    """Convolve a 3D array using a variable 2D kernel, over the x-y plane.
+
+    Like py:func:`static_3d_with_2d_over_xy`, this convolution convolves
+    2D slices of the 3D array. However, the kernel here is variable in
+    in the z dimension.
+
+    Parameters
+    ----------
+    array : ndarray
+        The 3D array data which we will convolve.
+    kernel_stack : ndarray
+        The 2D kernel stack that we are using to convolve over the x-y
+        plane of the array. Each slice of the stack should correspond to
+        the kernel for the slice of the array.
+
+    Returns
+    -------
+    convolved : ndarray
+        The convolved 3D array data.
+
+    """
+    # It is best to work with arrays.
+    kernel_stack = np.asarray(kernel_stack)
+
+    # We check that both the array and the kernel has the proper
+    # dimensionality. The kernel stack is extra by one because of the
+    # stack axis.
+    array_dimensionality = 3
+    kernel_dimensionality = 3
+    _check_array_dimensionality(array=array, dimensions=array_dimensionality)
+    _check_kernel_dimensionality(
+        kernel=kernel_stack,
+        dimensions=kernel_dimensionality,
+    )
+
+    # We also check if the array and kernel stack is compatible for variable
+    # convolution along the varying axis.
+    varying_axis = 2
+    is_valid_stack = _check_array_kernel_variable_stack(
+        array=array,
+        kernel_stack=kernel_stack,
+        axis=varying_axis,
+    )
+    if not is_valid_stack:
+        logging.warning(
+            warning_type=logging.AlgorithmWarning,
+            message=(
+                "Kernel stack mismatch,"
+                f" {kernel_stack.shape[varying_axis]} kernels for"
+                f" {array.shape[varying_axis]} array slices."
+            ),
+        )
+
+    # Applying the convolution. This really is just a repeated process of
+    # 2D convolutions across the x-y plane, except we also iterate the
+    # kernel stack.
+    convolved = np.empty_like(array)
+    for index in np.arange(array.shape[2]):
+        convolved[:, :, index] = static_2d_with_2d(
+            array=array[:, :, index],
+            kernel=kernel_stack[:, :, index],
+        )
+    # All done.
+    return convolved
 
 
 def kernel_1d_gaussian(
@@ -362,6 +536,22 @@ def kernel_1d_gaussian(
         The discrete kernel array.
 
     """
+    # We need to make sure we can handle odd inputs of the standard
+    # deviation, just in case.
+    if stddev < 0:
+        logging.error(
+            error_type=logging.InputError,
+            message=f"Gaussian stddev {stddev}is negative, not physical.",
+        )
+    elif np.isclose(stddev, 0):
+        logging.warning(
+            warning_type=logging.AlgorithmWarning,
+            message=(
+                f"Gaussian stddev is {stddev}, about zero; kernel is basically"
+                " a delta-function."
+            ),
+        )
+
     # We need to determine the shape. If it is a single value we attempt to
     # interpret it. Granted, we only need a size, but we keep a shape as the
     # input to align it better with the 2D kernel functions.
@@ -464,6 +654,7 @@ def kernel_1d_gaussian_resolution(
         and target_resolving_power is not None
         and reference_wavelength is not None
     )
+
     # Determining which, and based on which, we determine the determine the
     # standard deviation for the Gaussian. However, the standard deviation
     # value determined here is a physical length, not one in pixels/points.
@@ -503,6 +694,36 @@ def kernel_1d_gaussian_resolution(
                 f" wavelength, {reference_wavelength}."
             ),
         )
+
+    # Before we continue, we need to make sure that the FWHM is reasonable.
+    # If it is not reasonable, we try and find potential problems to warn
+    # about.
+    if phys_fwhm <= 0:
+        # If the resolutions are the same, it basically leads to a
+        # delta function.
+        if resolution_mode and np.isclose(target_resolution, base_resolution):
+            logging.warning(
+                warning_type=logging.AlgorithmWarning,
+                message=(
+                    f"Target resolution {target_resolution} and base resolution"
+                    f" {base_resolution} is the same. Possible delta kernel."
+                ),
+            )
+        # Similar, if the resolving powers are the same, it basically leads to a
+        # delta function.
+        if resolving_mode and np.isclose(
+            target_resolving_power,
+            base_resolving_power,
+        ):
+            logging.warning(
+                warning_type=logging.AlgorithmWarning,
+                message=(
+                    f"Target resolving power {target_resolving_power} and base"
+                    f" resolving power {base_resolving_power} is the same."
+                    " Possible delta kernel."
+                ),
+            )
+
     # Converting to standard deviation.
     fwhm_std_const = 2 * np.sqrt(2 * np.log(2))
     phys_stddev = phys_fwhm / fwhm_std_const

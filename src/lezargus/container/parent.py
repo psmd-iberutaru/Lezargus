@@ -39,6 +39,10 @@ class LezargusContainerArithmetic:
         The unit of the wavelength array.
     data_unit : Astropy Unit
         The unit of the data array.
+    spectral_scale : float
+        The spectral scale of the image, as a resolution, in wavelength
+        separation per pixel. The point spacing on the wavelength axis is not
+        always the spectral resolution.
     pixel_scale : float
         The pixel plate scale of the image, in radians per pixel. Typically,
         this is the scale in the E-W or "x" direction. See
@@ -64,6 +68,7 @@ class LezargusContainerArithmetic:
         uncertainty: hint.ndarray,
         wavelength_unit: hint.Unit | None = None,
         data_unit: hint.Unit | None = None,
+        spectral_scale: float | None = None,
         pixel_scale: float | None = None,
         slice_scale: float | None = None,
         mask: hint.ndarray | None = None,
@@ -89,6 +94,10 @@ class LezargusContainerArithmetic:
             The unit of the wavelength array. If None, we assume unit-less.
         data_unit : Astropy Unit
             The unit of the data array. If None, we assume unit-less.
+        spectral_scale : float, default = None
+            The spectral scale, or spectral resolution, of the spectral
+            component, if any. Must be in meters per pixel. Scale is None if
+            none is provided.
         pixel_scale : float, default = None
             The E-W, "x" dimension, pixel plate scale of the spatial component,
             if any. Must be in radians per pixel. Scale is None if none
@@ -193,7 +202,8 @@ class LezargusContainerArithmetic:
             unit_string=data_unit,
         )
 
-        # The pixel plate and slice scale.
+        # The spectral, pixel, and slice scale.
+        self.spectral_scale = spectral_scale
         self.pixel_scale = pixel_scale
         self.slice_scale = slice_scale
 
@@ -695,6 +705,7 @@ class LezargusContainerArithmetic:
             uncertainty,
             wavelength_unit,
             data_unit,
+            spectral_scale,
             pixel_scale,
             slice_scale,
             mask,
@@ -719,6 +730,7 @@ class LezargusContainerArithmetic:
             data=data,
             uncertainty=uncertainty,
             wavelength_unit=wavelength_unit,
+            spectral_scale=spectral_scale,
             data_unit=data_unit,
             pixel_scale=pixel_scale,
             slice_scale=slice_scale,
@@ -764,6 +776,7 @@ class LezargusContainerArithmetic:
             uncertainty=self.uncertainty,
             wavelength_unit=self.wavelength_unit,
             data_unit=self.data_unit,
+            spectral_scale=self.spectral_scale,
             pixel_scale=self.pixel_scale,
             slice_scale=self.slice_scale,
             mask=self.mask,
@@ -803,6 +816,14 @@ class LezargusContainerArithmetic:
         # wanted.
         do_wavelength = wavelength_unit is not None
         do_data = data_unit is not None
+
+        # Parsing the units, in the event that they are strings.
+        wavelength_unit = lezargus.library.conversion.parse_astropy_unit(
+            unit_string=wavelength_unit,
+        )
+        data_unit = lezargus.library.conversion.parse_astropy_unit(
+            unit_string=data_unit,
+        )
 
         # It is easiest to work on a copy.
         converted = copy.deepcopy(self)

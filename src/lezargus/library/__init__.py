@@ -17,4 +17,5 @@ from lezargus.library import photometry
 from lezargus.library import sanitize
 from lezargus.library import stitch
 from lezargus.library import temporary
+from lezargus.library import transform
 from lezargus.library import wrapper

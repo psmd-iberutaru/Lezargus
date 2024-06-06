@@ -211,6 +211,7 @@ class AtmosphereSpectrumGenerator:
             wavelength=wavelength,
             data=generated_data,
             uncertainty=None,
+            spectral_scale=self.spectral_scale,
             wavelength_unit=self.wavelength_unit,
             data_unit=self.data_unit,
             header=None,

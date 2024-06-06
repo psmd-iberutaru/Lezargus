@@ -6,6 +6,7 @@ which represents it on sky.
 We name this file "target.py" to prematurely avoid name conflicts with the
 Python built-in "object".
 """
+
 # isort: split
 # Import required to remove circular dependencies from type checking.
 from __future__ import annotations
@@ -53,7 +54,11 @@ class TargetSimulator:
         The atmosphere simulator which describes and simulates atmospheric
         effects. If not provided by py:meth:`apply_atmosphere`, this
         defaults to None.
-    use_cache : bool
+    observed : LezargusCube
+        The target, represented as a LezargusCube, after the application of
+        atmospheric effects. Derived from the input `target` and the input
+        `atmosphere.
+    use_cache : bool, default = True
         If True, we cache calculated values so that they do not need to be
         calculated every time when not needed. If False, caches are never
         returned and instead everything is always recomputed.
@@ -69,9 +74,11 @@ class TargetSimulator:
     _cache_target_photon = None
     _cache_transmission = None
     _cache_radiance = None
+    _cache_seeing = None
+    _cache_refraction = None
 
     def __init__(
-        self: "TargetSimulator",
+        self: TargetSimulator,
         *args: hint.Any,
         _cube: hint.LezargusCube,
         **kwargs: hint.Any,
@@ -118,6 +125,7 @@ class TargetSimulator:
         filter_profile: hint.LezargusSpectrum,
         filter_zero_point: float,
         spatial_shape: tuple,
+        spectral_scale: float,
         **kwargs: hint.Any,
     ) -> hint.Self:
         """Create a target simulation object from a point source blackbody.
@@ -139,14 +147,19 @@ class TargetSimulator:
         filter_profile : LezargusSpectrum
             The filter transmission profile, packaged as a LezargusSpectrum. It
             does not need to have any header data. We assume a Vega-based
-            photometric system.
+            photometric system. The filter transmission curve should be energy
+            based.
         filter_zero_point : float
-            The zero point value of the filter.
+            The zero point value of the filter. The curve should be energy
+            based.
         spatial_shape : tuple
             The shape of the spatial component of the target; namely, how big
             a region of the sky will be simulated. The units of this are pixels
             and should relate to the real sky dimensions based on the pixel
             scales provided by the input spectrum.
+        spectral_scale : float
+            The spectral scale of the simulated spectra, as a resolution,
+            in wavelength separation per pixel.
         **kwargs : Any
             Additional keyword arguments passed to the py:meth:`from_spectrum`
             function which does the heavy lifting.
@@ -174,6 +187,7 @@ class TargetSimulator:
             uncertainty=None,
             wavelength_unit="m",
             data_unit="W m^-2 m^-1",
+            spectral_scale=spectral_scale,
             pixel_scale=None,
             slice_scale=None,
             mask=None,
@@ -331,7 +345,8 @@ class TargetSimulator:
             for keydex in self_attributes
             if keydex.startswith(cache_prefix)
         ]
-        # Removing the cache values by setting them to None.
+        # Removing the cache values by removing their reference and then
+        # setting them to None as the default.
         for keydex in cache_attributes:
             setattr(self, keydex, None)
         # All done.
@@ -390,22 +405,19 @@ class TargetSimulator:
         si_container.uncertainty = (
             si_container.uncertainty / broadcast_conversion
         )
-        # We also propagate the units. We do another conversion so the
-        # unit is actually correct, just in case there was some funny unit
-        # conversions.
-        new_unit = si_container.data_unit / photon_energy_unit
-        photon_container = si_container.to_unit(
-            data_unit=new_unit,
-            wavelength_unit=None,
-        )
+        si_container.data_unit = si_container.data_unit / photon_energy_unit
 
         # As the actual "photon" unit was implicit this entire time, we add it
         # to be explicit.
         photon_unit = lezargus.library.conversion.parse_astropy_unit(
             unit_string="photon",
         )
-        photon_container.data_unit *= photon_unit
+        si_container.data_unit = (
+            si_container.data_unit * photon_unit
+        ).decompose()
 
+        # Aliasing.
+        photon_container = si_container
         # All done.
         return photon_container
 
@@ -525,8 +537,8 @@ class TargetSimulator:
         Returns
         -------
         current_state : LezargusCube
-            The state of the transmission after applying the atmospheric
-            transmission function.
+            The state of the simulation after applying the effects of
+            atmospheric transmission.
 
         """
         # We use a cached value if there exists one.
@@ -537,7 +549,10 @@ class TargetSimulator:
         previous_state = self.at_target_photon
 
         # We actually need an atmosphere specified to simulate the atmosphere.
-        if isinstance(self.atmosphere, lezargus.simulator.AtmosphereSimulator):
+        if not isinstance(
+            self.atmosphere,
+            lezargus.simulator.AtmosphereSimulator,
+        ):
             logging.error(
                 error_type=logging.WrongOrderError,
                 message=(
@@ -552,7 +567,7 @@ class TargetSimulator:
             template=previous_state,
         )
         transmission_cube = (
-            lezargus.library.container.function.broadcast_spectrum_to_cube(
+            lezargus.container.function.broadcast_spectrum_to_cube(
                 input_spectrum=transmission_spectrum,
                 shape=previous_state.data.shape,
                 location="full",
@@ -581,8 +596,8 @@ class TargetSimulator:
         Returns
         -------
         current_state : LezargusCube
-            The state of the transmission after applying the atmospheric
-            radiance function.
+            The state of the simulation after applying the effects of
+            atmospheric radiance.
 
         """
         # We use a cached value if there exists one.
@@ -593,7 +608,10 @@ class TargetSimulator:
         previous_state = self.at_transmission
 
         # We actually need an atmosphere specified to simulate the atmosphere.
-        if isinstance(self.atmosphere, lezargus.simulator.AtmosphereSimulator):
+        if not isinstance(
+            self.atmosphere,
+            lezargus.simulator.AtmosphereSimulator,
+        ):
             logging.error(
                 error_type=logging.WrongOrderError,
                 message="No atmosphere applied, cannot apply radiance effects.",
@@ -605,21 +623,156 @@ class TargetSimulator:
         radiance_spectrum = self.atmosphere.generate_radiance(
             template=previous_state,
         )
-        radiance_cube = (
-            lezargus.library.container.function.broadcast_spectrum_to_cube(
-                input_spectrum=radiance_spectrum,
-                shape=previous_state.data.shape,
-                location="full",
-                fill_value=0,
-                fill_uncertainty=0,
-            )
+        radiance_cube = lezargus.container.function.broadcast_spectrum_to_cube(
+            input_spectrum=radiance_spectrum,
+            shape=previous_state.data.shape,
+            location="full",
+            fill_value=0,
+            fill_uncertainty=0,
         )
+
+        # We integrate the radiance to provide a proper photon spectral
+        # irradiance which can be added.
+        solid_angle = np.pi
+        solid_angle_unit = lezargus.library.conversion.parse_astropy_unit("sr")
+        irradiance_cube = radiance_cube * solid_angle
+        irradiance_cube.data_unit = radiance_cube.data_unit * solid_angle_unit
+
+        # The radiance provided by the atmosphere is in energy units, while
+        # we are working in photon units.
+        irradiance_photon_cube = self._convert_to_photon(
+            container=irradiance_cube,
+        )
+
+        # The data units ought to be the same, else adding them together
+        # becomes problematic.
+        if irradiance_photon_cube.data_unit != previous_state.data_unit:
+            logging.error(
+                error_type=logging.DevelopmentError,
+                message=(
+                    "Irradiance photon cube unit"
+                    f" {irradiance_photon_cube.data_unit} not the same as the"
+                    f" previous state {previous_state.data_unit}."
+                ),
+            )
 
         # Applying the transmission via simple multiplication of the
         # efficiencies.
-        current_state = previous_state + radiance_cube
+        current_state = previous_state + irradiance_photon_cube
 
         # Saving the result later in the cache.
         if self.use_cache:
             self._cache_radiance = current_state
         return current_state
+
+    @property
+    def at_seeing(self: hint.Self) -> hint.LezargusCube:
+        """State of simulation after atmospheric seeing.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        current_state : LezargusCube
+            The state of the simulation after applying the effects of
+            atmospheric seeing.
+
+        """
+        # We use a cached value if there exists one.
+        if self._cache_seeing is not None and self.use_cache:
+            return self._cache_seeing
+
+        # No cached value, we calculate it from the previous state.
+        previous_state = self.at_radiance
+
+        # We actually need an atmosphere specified to simulate the atmosphere.
+        if not isinstance(
+            self.atmosphere,
+            lezargus.simulator.AtmosphereSimulator,
+        ):
+            logging.error(
+                error_type=logging.WrongOrderError,
+                message="No atmosphere applied, cannot apply radiance effects.",
+            )
+            return previous_state
+
+        # We use the atmosphere to derive our atmospheric seeing kernels.
+        # There are multiple kernels because seeing changes with wavelength.
+        seeing_kernels = self.atmosphere.generate_seeing_kernels(
+            template=previous_state,
+        )
+
+        # Applying the seeing effects via convolution.
+        current_state = previous_state.convolve_image(
+            kernel_stack=seeing_kernels,
+        )
+
+        # Saving the result later in the cache.
+        if self.use_cache:
+            self._cache_seeing = current_state
+        return current_state
+
+    @property
+    def at_refraction(self: hint.Self) -> hint.LezargusCube:
+        """State of simulation after atmospheric refraction.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        current_state : LezargusCube
+            The state of the simulation after applying the effects of
+            atmospheric refraction.
+
+        """
+        # We use a cached value if there exists one.
+        if self._cache_refraction is not None and self.use_cache:
+            return self._cache_refraction
+
+        # No cached value, we calculate it from the previous state.
+        previous_state = self.at_seeing
+
+        # We actually need an atmosphere specified to simulate the atmosphere.
+        if not isinstance(
+            self.atmosphere,
+            lezargus.simulator.AtmosphereSimulator,
+        ):
+            logging.error(
+                error_type=logging.WrongOrderError,
+                message=(
+                    "No atmosphere applied, cannot apply refraction effects."
+                ),
+            )
+            return previous_state
+
+        # We use the atmosphere to derive our refraction vectors. We
+        # rearrange the data to break the vectors into their components.
+        refraction_vectors = self.atmosphere.generate_refraction_vectors(
+            template=previous_state,
+        )
+        refraction_x = refraction_vectors[:, 0]
+        refraction_y = refraction_vectors[:, 1]
+
+        # Applying the refraction, modeling it as a shear transformation
+        # along the spectral axis (parallel to the spatial axes).
+        # We assume that it is only just more "uniform" sky everywhere else.
+        current_state = (
+            lezargus.container.function.transform_shear_cube_spectral(
+                cube=previous_state,
+                x_shifts=refraction_x,
+                y_shifts=refraction_y,
+                mode="nearest",
+                constant=np.nan,
+            )
+        )
+
+        # Saving the result later in the cache.
+        if self.use_cache:
+            self._cache_refraction = current_state
+        return current_state
+
+    observed = at_refraction

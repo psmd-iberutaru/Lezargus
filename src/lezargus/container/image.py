@@ -27,6 +27,7 @@ class LezargusImage(LezargusContainerArithmetic):
         wavelength: float | None = None,
         wavelength_unit: str | hint.Unit = None,
         data_unit: str | hint.Unit | None = None,
+        spectral_scale: float | None = None,
         pixel_scale: float | None = None,
         slice_scale: float | None = None,
         mask: hint.ndarray | None = None,
@@ -52,6 +53,10 @@ class LezargusImage(LezargusContainerArithmetic):
             The unit of the wavelength array. If None, we assume unit-less.
         data_unit : Astropy Unit
             The unit of the data array. If None, we assume unit-less.
+        spectral_scale : float, default = None
+            The spectral scale, or spectral resolution, of the spectral
+            component, if any. Must be in meters per pixel. Scale is None if
+            none is provided.
         pixel_scale : float, default = None
             The E-W, "x" dimension, pixel plate scale of the spatial component,
             if any. Must be in radians per pixel. Scale is None if none
@@ -103,6 +108,7 @@ class LezargusImage(LezargusContainerArithmetic):
             uncertainty=uncertainty,
             wavelength_unit=wavelength_unit,
             data_unit=data_unit,
+            spectral_scale=spectral_scale,
             pixel_scale=pixel_scale,
             slice_scale=slice_scale,
             mask=mask,

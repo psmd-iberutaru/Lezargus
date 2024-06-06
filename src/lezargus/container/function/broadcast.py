@@ -146,10 +146,17 @@ def broadcast_spectrum_to_cube(
             ),
         )
 
+    # We don't want to lose data resolution.
+    input_dtype = input_spectrum.data.dtype
+
     # With the spatial map, and the spectrum, we can compute the data and
     # uncertainty cube broadcasts. We propagate the flags and masks as well.
-    data_cube = np.full(cube_shape, fill_value=fill_value)
-    uncertainty_cube = np.full(cube_shape, fill_value=fill_uncertainty)
+    data_cube = np.full(cube_shape, fill_value=fill_value, dtype=input_dtype)
+    uncertainty_cube = np.full(
+        cube_shape,
+        fill_value=fill_uncertainty,
+        dtype=input_dtype,
+    )
     mask_cube = np.zeros(cube_shape, dtype=bool)
     flags_cube = np.zeros(cube_shape, dtype=bool)
     # Applying the spectrum to where the spatial map specifies.
@@ -165,6 +172,7 @@ def broadcast_spectrum_to_cube(
         uncertainty=uncertainty_cube,
         wavelength_unit=input_spectrum.wavelength_unit,
         data_unit=input_spectrum.data_unit,
+        spectral_scale=input_spectrum.spectral_scale,
         pixel_scale=input_spectrum.pixel_scale,
         slice_scale=input_spectrum.slice_scale,
         mask=mask_cube,

@@ -208,7 +208,7 @@ class AtmosphereSimulator:
         # spectra. Namely, the kernel must be smaller than the number of points.
         # We assume that we have Nyquist sampling and 1 extra degree of
         # freedom.
-        reduction_factor = 2 * 2
+        reduction_factor = 1
         kernel_size = int(np.ceil(len(spectrum.wavelength) / reduction_factor))
         kernel_shape = (kernel_size,)
 
@@ -278,23 +278,27 @@ class AtmosphereSimulator:
                     " convolution."
                 ),
             )
-            return raw_transmission_spectrum
-        # Convolving, the raw transmission spectrum should have its input
-        # spectral resolution.
-        template_resolution = template.spectral_scale
-        transmission_spectrum = self._convolve_atmospheric_spectrum(
-            spectrum=raw_transmission_spectrum,
-            output_resolution=template_resolution,
-            output_resolving=None,
-            reference_wavelength=self.reference_wavelength,
-            input_resolution=None,
-            input_resolving=None,
-        )
+            transmission_spectrum = raw_transmission_spectrum
+        else:
+            # Convolving, the raw transmission spectrum should have its input
+            # spectral resolution.
+            template_resolution = template.spectral_scale
+            transmission_spectrum = self._convolve_atmospheric_spectrum(
+                spectrum=raw_transmission_spectrum,
+                output_resolution=template_resolution,
+                output_resolving=None,
+                reference_wavelength=self.reference_wavelength,
+                input_resolution=None,
+                input_resolving=None,
+            )
 
         # Sometimes the convolution creates negative transmission values, it
         # should just be zero instead.
         is_zero = transmission_spectrum.data <= 0
         transmission_spectrum.data[is_zero] = 0
+        # It is extremely unlikely, but transmission above 1 is unphysical.
+        is_one = transmission_spectrum.data >= 1
+        transmission_spectrum.data[is_one] = 1
 
         # All done.
         return transmission_spectrum
@@ -343,18 +347,19 @@ class AtmosphereSimulator:
                     " convolution."
                 ),
             )
-            return raw_radiance_spectrum
-        # Convolving, the raw radiance container should have its input
-        # spectral resolution.
-        template_resolution = template.spectral_scale
-        radiance_spectrum = self._convolve_atmospheric_spectrum(
-            spectrum=raw_radiance_spectrum,
-            output_resolution=template_resolution,
-            output_resolving=None,
-            reference_wavelength=self.reference_wavelength,
-            input_resolution=None,
-            input_resolving=None,
-        )
+            radiance_spectrum = raw_radiance_spectrum
+        else:
+            # Convolving, the raw radiance container should have its input
+            # spectral resolution.
+            template_resolution = template.spectral_scale
+            radiance_spectrum = self._convolve_atmospheric_spectrum(
+                spectrum=raw_radiance_spectrum,
+                output_resolution=template_resolution,
+                output_resolving=None,
+                reference_wavelength=self.reference_wavelength,
+                input_resolution=None,
+                input_resolving=None,
+            )
         # All done.
         return radiance_spectrum
 
@@ -448,30 +453,40 @@ class AtmosphereSimulator:
         ):
             kernel_shape_guide = template.data.shape[0], template.data.shape[1]
         else:
+            logging.error(
+                error_type=logging.InputError,
+                message=(
+                    "Template data is neither an image nor cube, cannot"
+                    " determine kernel shape."
+                ),
+            )
             # Approximating it based on the 68-95-99.7 rule; everything ought
             # to be within 5-sigma.
             sigma_multiple = 5
             longest_edge = max([pixel_seeing, slice_seeing]) * sigma_multiple
             kernel_shape_guide = longest_edge, longest_edge
-        # The guide is likely too large though in the first place. Cutting it
-        # to be half-sized on both axes.
-        kernel_shape = tuple(valdex // 2 for valdex in kernel_shape_guide)
+        # We also want to make sure the kernel has odd edges, just in case
+        # discrete convolution is needed.
+        kernel_shape = tuple(
+            (valdex + 1 if valdex % 2 == 0 else valdex)
+            for valdex in kernel_shape_guide
+        )
 
         # We build the kernel layer by layer.
-        seeing_kernels = []
-        for pix_seedex, sli_seedex in zip(
+        seeing_kernels_list = []
+        for pix_see_dex, sli_see_dex in zip(
             pixel_seeing,
             slice_seeing,
             strict=True,
         ):
             kernel_layer = lezargus.library.convolution.kernel_2d_gaussian(
                 shape=kernel_shape,
-                x_stddev=pix_seedex,
-                y_stddev=sli_seedex,
+                x_stddev=pix_see_dex,
+                y_stddev=sli_see_dex,
                 rotation=self.parallactic_angle,
             )
-            seeing_kernels.append(kernel_layer)
-        seeing_kernels = np.asarray(seeing_kernels)
+            seeing_kernels_list.append(kernel_layer)
+        seeing_kernels = np.stack(seeing_kernels_list, axis=-1)
 
         # All done.
         return seeing_kernels

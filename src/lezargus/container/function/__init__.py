@@ -15,3 +15,5 @@ the files so it is easier to navigate however.
 # ruff: noqa: F403
 
 from lezargus.container.function.broadcast import *
+from lezargus.container.function.convolution import *
+from lezargus.container.function.transform import *

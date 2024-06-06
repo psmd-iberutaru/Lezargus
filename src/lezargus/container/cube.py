@@ -28,6 +28,7 @@ class LezargusCube(LezargusContainerArithmetic):
         uncertainty: hint.ndarray = None,
         wavelength_unit: str | hint.Unit | None = None,
         data_unit: str | hint.Unit | None = None,
+        spectral_scale: float | None = None,
         pixel_scale: float | None = None,
         slice_scale: float | None = None,
         mask: hint.ndarray | None = None,
@@ -53,6 +54,10 @@ class LezargusCube(LezargusContainerArithmetic):
             The unit of the wavelength array. If None, we assume unit-less.
         data_unit : Astropy Unit
             The unit of the data array. If None, we assume unit-less.
+        spectral_scale : float, default = None
+            The spectral scale, or spectral resolution, of the spectral
+            component, if any. Must be in meters per pixel. Scale is None if
+            none is provided.
         pixel_scale : float, default = None
             The E-W, "x" dimension, pixel plate scale of the spatial component,
             if any. Must be in radians per pixel. Scale is None if none
@@ -111,6 +116,7 @@ class LezargusCube(LezargusContainerArithmetic):
             uncertainty=uncertainty,
             wavelength_unit=wavelength_unit,
             data_unit=data_unit,
+            spectral_scale=spectral_scale,
             pixel_scale=pixel_scale,
             slice_scale=slice_scale,
             mask=mask,
@@ -173,17 +179,24 @@ class LezargusCube(LezargusContainerArithmetic):
         # Any post-processing is done here.
         # All done.
 
-    def convolve_spectra(self: hint.Self, kernel: hint.ndarray) -> hint.Self:
+    def convolve_spectra(
+        self: hint.Self,
+        kernel: hint.ndarray | None = None,
+        kernel_stack: hint.ndarray | None = None,
+        kernel_function: hint.Callable | None = None,
+    ) -> hint.Self:
         """Convolve the cube by a spectral kernel convolving spectra slices.
 
-        Convolving a spectral cube can either be done one of two ways;
-        convolving by image slices or convolving by spectral slices. We here
-        convolve by spectral slices.
+        See py:func:`convolve_cube_by_spectral_kernel` for full documentation.
 
         Parameters
         ----------
-        kernel : ndarray
-            The spectral kernel which we are using to convolve.
+        kernel : ndarray, default = None
+            The static 1D kernel.
+        kernel_stack : ndarray, default = None
+            The variable 1D kernel stack.
+        kernel_function : Callable, default = None
+            The dynamic 1D kernel function.
 
         Returns
         -------
@@ -191,59 +204,31 @@ class LezargusCube(LezargusContainerArithmetic):
             A near copy of the data cube after convolution.
 
         """
-        # Using this kernel, we convolve the cube. We assume that the
-        # uncertainties add in quadrature.
-        convolved_data = (
-            lezargus.library.convolution.convolve_3d_array_by_1d_kernel(
-                array=self.data,
-                kernel=kernel,
-            )
-        )
-        convolved_uncertainty = np.sqrt(
-            lezargus.library.convolution.convolve_3d_array_by_1d_kernel(
-                self.uncertainty**2,
-                kernel=kernel,
-            ),
+        return lezargus.container.function.convolve_cube_by_spectral_kernel(
+            cube=self,
+            kernel=kernel,
+            kernel_stack=kernel_stack,
+            kernel_function=kernel_function,
         )
 
-        # We also propagate the convolution of the mask and the flags where
-        # needed.
-        logging.error(
-            error_type=logging.ToDoError,
-            message=(
-                "Propagation of mask and flags via convolution is not done."
-            ),
-        )
-        convolved_mask = self.mask
-        convolved_flags = self.flags
-
-        # From the above information, we construct the new spectra.
-        cube_class = type(self)
-        convolved_cube = cube_class(
-            wavelength=self.wavelength,
-            data=convolved_data,
-            uncertainty=convolved_uncertainty,
-            wavelength_unit=self.wavelength_unit,
-            data_unit=self.data_unit,
-            mask=convolved_mask,
-            flags=convolved_flags,
-            header=self.header,
-        )
-
-        # All done.
-        return convolved_cube
-
-    def convolve_image(self: hint.Self, kernel: hint.ndarray) -> hint.Self:
+    def convolve_image(
+        self: hint.Self,
+        kernel: hint.ndarray | None = None,
+        kernel_stack: hint.ndarray | None = None,
+        kernel_function: hint.Callable | None = None,
+    ) -> hint.Self:
         """Convolve the cube by an image kernel convolving image slices.
 
-        Convolving a spectral cube can either be done one of two ways;
-        convolving by image slices or convolving by spectral slices. We here
-        convolve by image slices.
+        See py:func:`convolve_cube_by_image_kernel` for full documentation.
 
         Parameters
         ----------
-        kernel : ndarray
-            The image kernel which we are using to convolve.
+        kernel : ndarray, default = None
+            The static 2D kernel.
+        kernel_stack : ndarray, default = None
+            The variable 2D kernel stack.
+        kernel_function : Callable, default = None
+            The dynamic 2D kernel function.
 
         Returns
         -------
@@ -251,44 +236,9 @@ class LezargusCube(LezargusContainerArithmetic):
             A near copy of the data cube after convolution.
 
         """
-        # Using this kernel, we convolve the cube. We assume that the
-        # uncertainties add in quadrature.
-        convolved_data = (
-            lezargus.library.convolution.convolve_3d_array_by_2d_kernel(
-                array=self.data,
-                kernel=kernel,
-            )
+        return lezargus.container.function.convolve_cube_by_image_kernel(
+            cube=self,
+            kernel=kernel,
+            kernel_stack=kernel_stack,
+            kernel_function=kernel_function,
         )
-        convolved_uncertainty = np.sqrt(
-            lezargus.library.convolution.convolve_3d_array_by_2d_kernel(
-                self.uncertainty**2,
-                kernel=kernel,
-            ),
-        )
-
-        # We also propagate the convolution of the mask and the flags where
-        # needed.
-        logging.error(
-            error_type=logging.ToDoError,
-            message=(
-                "Propagation of mask and flags via convolution is not done."
-            ),
-        )
-        convolved_mask = self.mask
-        convolved_flags = self.flags
-
-        # From the above information, we construct the new spectra.
-        cube_class = type(self)
-        convolved_cube = cube_class(
-            wavelength=self.wavelength,
-            data=convolved_data,
-            uncertainty=convolved_uncertainty,
-            wavelength_unit=self.wavelength_unit,
-            data_unit=self.data_unit,
-            mask=convolved_mask,
-            flags=convolved_flags,
-            header=self.header,
-        )
-
-        # All done.
-        return convolved_cube

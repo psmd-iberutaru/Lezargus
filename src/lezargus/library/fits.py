@@ -58,6 +58,7 @@ _LEZARGUS_HEADER_KEYWORDS_DICTIONARY = {
     "LZDWUNIT": (None, "LZ: The wavelength unit."),
     "LZDFUNIT": (None, "LZ: The flux/data unit."),
     "LZDUUNIT": (None, "LZ: The uncertainty unit, same as data."),
+    "LZDSPECS": (None, "LZ: Spectral resolution, angstrom/pixel."),
     "LZDPIXPS": (None, "LZ: Pixel plate scale, arcsec/pixel."),
     "LZDSLIPS": (None, "LZ: Slice plate scale, arcsec/slice."),
     # The world coordinate system entries.
@@ -148,6 +149,8 @@ def read_lezargus_fits_file(
         The unit of the wavelength array.
     data_unit : Unit
         The unit of the data.
+    spectral_scale : float
+        The spectral scale of the FITS file, in SI units.
     pixel_scale : float
         The plate pixel scale of the FITS file, in SI units.
     slice_scale : float
@@ -202,10 +205,19 @@ def read_lezargus_fits_file(
         data_unit = lezargus.library.conversion.parse_astropy_unit(
             unit_string=data_unit_str,
         )
-        # We also attempt to get any stored spatial information. Note,
-        # the headers and the input specify different scales so we need to
-        # convert. Header units are arcsec per pixel/slice, we want radians
+        # We also attempt to get any stored spectral and spatial information.
+        # Note, the headers and the input specify different scales so we need
+        # to convert. Header units are arcsec per pixel/slice, we want radians
         # per pixel/slice.
+        spectral_scale_raw = header.get("LZDSPECS", None)
+        if spectral_scale_raw is None:
+            spectral_scale = None
+        else:
+            spectral_scale = lezargus.library.conversion.convert_units(
+                value=spectral_scale_raw,
+                value_unit="angstrom pix^-1",
+                result_unit="meter pix^-1",
+            )
         pixel_scale_raw = header.get("LZDPIXPS", None)
         if pixel_scale_raw is None:
             pixel_scale = None
@@ -243,6 +255,7 @@ def read_lezargus_fits_file(
         uncertainty,
         wavelength_unit,
         data_unit,
+        spectral_scale,
         pixel_scale,
         slice_scale,
         mask,
@@ -258,6 +271,7 @@ def write_lezargus_fits_file(
     uncertainty: hint.ndarray,
     wavelength_unit: hint.Unit,
     data_unit: hint.Unit,
+    spectral_scale: float,
     pixel_scale: float,
     slice_scale: float,
     mask: hint.ndarray,
@@ -291,6 +305,8 @@ def write_lezargus_fits_file(
         The unit of the wavelength array.
     data_unit : Unit
         The unit of the data.
+    spectral_scale : float
+        The spectral resolution scale of the FITS file, in SI units.
     pixel_scale : float
         The plate pixel scale of the FITS file, in SI units.
     slice_scale : float
@@ -329,6 +345,14 @@ def write_lezargus_fits_file(
 
     # We need to convert the pixel/slice scale from the input radian per unit
     # to the FITS header degree per unit.
+    if spectral_scale is None:
+        spectral_scale_angstrom = None
+    else:
+        spectral_scale_angstrom = lezargus.library.conversion.convert_units(
+            value=spectral_scale,
+            value_unit="meter pix^-1",
+            result_unit="angstrom pix^-1",
+        )
     if pixel_scale is None:
         pixel_scale_arcsec = None
     else:
@@ -355,6 +379,7 @@ def write_lezargus_fits_file(
             "LZDWUNIT": str(wavelength_unit),
             "LZDFUNIT": str(data_unit),
             "LZDUUNIT": str(data_unit),
+            "LZDSPECS": spectral_scale_angstrom,
             "LZDPIXPS": pixel_scale_arcsec,
             "LZDSLIPS": slice_scale_arcsec,
         },

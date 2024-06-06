@@ -38,6 +38,7 @@ class LezargusSpectrum(LezargusContainerArithmetic):
         uncertainty: hint.ndarray | None = None,
         wavelength_unit: str | hint.Unit | None = None,
         data_unit: str | hint.Unit | None = None,
+        spectral_scale: float | None = None,
         pixel_scale: float | None = None,
         slice_scale: float | None = None,
         mask: hint.ndarray | None = None,
@@ -63,6 +64,10 @@ class LezargusSpectrum(LezargusContainerArithmetic):
             The unit of the wavelength array. If None, we assume unit-less.
         data_unit : Astropy Unit
             The unit of the data array. If None, we assume unit-less.
+        spectral_scale : float, default = None
+            The spectral scale, or spectral resolution, of the spectral
+            component, if any. Must be in meters per pixel. Scale is None if
+            none is provided.
         pixel_scale : float, default = None
             The E-W, "x" dimension, pixel plate scale of the spatial component,
             if any. Must be in radians per pixel. Scale is None if none
@@ -124,6 +129,7 @@ class LezargusSpectrum(LezargusContainerArithmetic):
             uncertainty=uncertainty,
             wavelength_unit=wavelength_unit,
             data_unit=data_unit,
+            spectral_scale=spectral_scale,
             pixel_scale=pixel_scale,
             slice_scale=slice_scale,
             mask=mask,
@@ -325,64 +331,38 @@ class LezargusSpectrum(LezargusContainerArithmetic):
         # Any post-processing is done here.
         # All done.
 
-    def convolve(self: hint.Self, kernel: hint.ndarray) -> hint.Self:
-        """Convolve the spectrum with a custom kernel.
+    def convolve(
+        self: hint.Self,
+        kernel: hint.ndarray | None = None,
+        kernel_stack: hint.ndarray | None = None,
+        kernel_function: hint.Callable | None = None,
+    ) -> hint.Self:
+        """Convolve the spectrum with a spectral kernel.
 
-        We compute the convolution and return a near copy of the spectrum after
-        convolution. The wavelength is not affected.
+        See py:func:`convolve_spectrum_by_spectral_kernel` for full
+        documentation.
 
         Parameters
         ----------
-        kernel : ndarray
-            The kernel which we are using to convolve.
+        kernel : ndarray, default = None
+            The static 2D kernel.
+        kernel_stack : ndarray, default = None
+            The variable 2D kernel stack.
+        kernel_function : Callable, default = None
+            The dynamic 2D kernel function.
 
         Returns
         -------
-        convolved_spectrum : ndarray
-            A near copy of the spectrum after convolution.
+        convolved_cube : ndarray
+            A near copy of the data cube after convolution.
 
         """
-        # Using this kernel, we convolve the spectrum. We assume that the
-        # uncertainties add in quadrature.
-        convolved_data = (
-            lezargus.library.convolution.convolve_1d_array_by_1d_kernel(
-                array=self.data,
-                kernel=kernel,
-            )
+        return lezargus.container.function.convolve_spectrum_by_spectral_kernel(
+            spectrum=self,
+            kernel=kernel,
+            kernel_stack=kernel_stack,
+            kernel_function=kernel_function,
         )
-        convolved_uncertainty = np.sqrt(
-            lezargus.library.convolution.convolve_1d_array_by_1d_kernel(
-                self.uncertainty**2,
-                kernel=kernel,
-            ),
-        )
-
-        # We also propagate the convolution of the mask and the flags where
-        # needed.
-        logging.error(
-            error_type=logging.ToDoError,
-            message=(
-                "Propagation of mask and flags via convolution is not done."
-            ),
-        )
-        convolved_mask = self.mask
-        convolved_flags = self.flags
-
-        # From the above information, we construct the new spectrum.
-        spectrum_class = type(self)
-        convolved_spectrum = spectrum_class(
-            wavelength=self.wavelength,
-            data=convolved_data,
-            uncertainty=convolved_uncertainty,
-            wavelength_unit=self.wavelength_unit,
-            data_unit=self.data_unit,
-            mask=convolved_mask,
-            flags=convolved_flags,
-            header=self.header,
-        )
-
-        # All done.
-        return convolved_spectrum
 
     def interpolate(
         self: hint.Self,

@@ -574,6 +574,9 @@ def initialize_data_atmosphere_files(*args: tuple, **kwargs: object) -> None:
     zenith_angle_domain = np.array([0, 30, 45, 60])
     pwv_domain = np.array([0.5, 1.0, 2.0, 3.0])
 
+    # They have a common estimated spectral resolution.
+    psg_spectral_scale = 1e-9
+
     # First, transmission. We load the data produced.
     transmission_filename = lezargus.library.path.merge_pathname(
         directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
@@ -613,7 +616,7 @@ def initialize_data_atmosphere_files(*args: tuple, **kwargs: object) -> None:
         data=transmission_array,
         wavelength_unit=transmission_wavelength_unit,
         data_unit=transmission_array_unit,
-        spectral_scale=None,
+        spectral_scale=psg_spectral_scale,
     )
     lezargus.library.data.add_data_object(
         name="ATM_TRANS_GEN",
@@ -656,7 +659,7 @@ def initialize_data_atmosphere_files(*args: tuple, **kwargs: object) -> None:
         data=radiance_array,
         wavelength_unit=radiance_wavelength_unit,
         data_unit=radiance_array_unit,
-        spectral_scale=None,
+        spectral_scale=psg_spectral_scale,
     )
     lezargus.library.data.add_data_object(
         name="ATM_RADIANCE_GEN",
