@@ -1,0 +1,970 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lezargus.simulator.atmosphere &#8212; Lezargus  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/lezargus/simulator/atmosphere';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Lezargus  documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../user/index.html">User Manual</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="simple">
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../technical/index.html">Technical Manual</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/contributing.html">Contributor Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/convention.html">Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/photometry.html">Photometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/uncertainty.html">Uncertainty Propagation</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../code/modules.html">lezargus</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../code/lezargus.html">lezargus package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.container.html">lezargus.container package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.function.html">lezargus.container.function package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.atmosphere.html">lezargus.container.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.cube.html">lezargus.container.cube module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.image.html">lezargus.container.image module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.mosaic.html">lezargus.container.mosaic module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.parent.html">lezargus.container.parent module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.spectrum.html">lezargus.container.spectrum module</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.library.html">lezargus.library package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.array.html">lezargus.library.array module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.atmosphere.html">lezargus.library.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.config.html">lezargus.library.config module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.conversion.html">lezargus.library.conversion module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.convolution.html">lezargus.library.convolution module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.data.html">lezargus.library.data module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.fits.html">lezargus.library.fits module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.flags.html">lezargus.library.flags module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.hint.html">lezargus.library.hint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.interpolate.html">lezargus.library.interpolate module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.logging.html">lezargus.library.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.math.html">lezargus.library.math module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.path.html">lezargus.library.path module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.sanitize.html">lezargus.library.sanitize module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.stitch.html">lezargus.library.stitch module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.temporary.html">lezargus.library.temporary module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.transform.html">lezargus.library.transform module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.simulator.html">lezargus.simulator package</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.simulator.atmosphere.html">lezargus.simulator.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.simulator.spectre.html">lezargus.simulator.spectre module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.simulator.target.html">lezargus.simulator.target module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__main__.html">lezargus.__main__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__version__.html">lezargus.__version__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.initialize.html">lezargus.initialize module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for lezargus.simulator.atmosphere</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Simulator class for emulating atmospheric effects and properties.</span>
+
+<span class="sd">Any and all simulating functions which the atmosphere deals with is handled</span>
+<span class="sd">here. Namely, the main four functions are the atmospheric transmission,</span>
+<span class="sd">radiance, seeing, and diffraction.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">copy</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">lezargus</span>
+<span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">hint</span>
+<span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">logging</span>
+
+
+<div class="viewcode-block" id="AtmosphereSimulator">
+<a class="viewcode-back" href="../../../code/lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator">[docs]</a>
+<span class="k">class</span> <span class="nc">AtmosphereSimulator</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The atmospheric simulation class.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    temperature : float</span>
+<span class="sd">        The temperature of the atmosphere, in Kelvin.</span>
+<span class="sd">    pressure : float</span>
+<span class="sd">        The pressure of the atmosphere, in Pascals.</span>
+<span class="sd">    ppw : float</span>
+<span class="sd">        The partial pressure of water in the atmosphere, in Pascals.</span>
+<span class="sd">    pwv : float</span>
+<span class="sd">        The precipitable water vapor, in millimeters.</span>
+<span class="sd">    seeing : float</span>
+<span class="sd">        The atmospheric seeing parameter, in radians. Measured at the</span>
+<span class="sd">        reference zenith angle (0) and the reference wavelength.</span>
+<span class="sd">    zenith_angle : float</span>
+<span class="sd">        The zenith angle of the observation, in radians. Namely, the direct</span>
+<span class="sd">        observable for airmass.</span>
+<span class="sd">    parallactic_angle : float</span>
+<span class="sd">        The parallactic angle of the observation, in radians. Used to determine</span>
+<span class="sd">        the rotations of the properties in the atmosphere.</span>
+<span class="sd">    reference_wavelength : float</span>
+<span class="sd">        The reference wavelength which form the basis for the atmospheric</span>
+<span class="sd">        refraction and the seeing, typically in meters.</span>
+<span class="sd">    reference_zenith_angle : float</span>
+<span class="sd">        The reference zenith angle which form the basis for the atmospheric</span>
+<span class="sd">        refraction and the seeing, in radians. This should always be 0.</span>
+<span class="sd">    transmission_generator : AtmosphereSpectrumGenerator</span>
+<span class="sd">        The transmission spectrum generator used to generate the</span>
+<span class="sd">        specific transmission spectra.</span>
+<span class="sd">    radiance_generator : AtmosphereSpectrumGenerator</span>
+<span class="sd">        The transmission spectrum generator used to generate the</span>
+<span class="sd">        specific transmission spectra.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="AtmosphereSimulator.__init__">
+<a class="viewcode-back" href="../../../code/lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="s2">&quot;AtmosphereSimulator&quot;</span><span class="p">,</span>
+        <span class="n">temperature</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">pressure</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">ppw</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">pwv</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">seeing</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">zenith_angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">parallactic_angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">reference_wavelength</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span>
+        <span class="n">transmission_generator</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">AtmosphereSpectrumGenerator</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">radiance_generator</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">AtmosphereSpectrumGenerator</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create the atmospheric simulator, provided atmospheric properties.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        temperature : float</span>
+<span class="sd">            The temperature of the atmosphere, in Kelvin.</span>
+<span class="sd">        pressure : float</span>
+<span class="sd">            The pressure of the atmosphere, in Pascals.</span>
+<span class="sd">        ppw : float</span>
+<span class="sd">            The partial pressure of water in the atmosphere, in Pascals.</span>
+<span class="sd">        pwv : float</span>
+<span class="sd">            The precipitable water vapor, in millimeters.</span>
+<span class="sd">        seeing : float</span>
+<span class="sd">            The atmospheric seeing parameter, in radians.</span>
+<span class="sd">        zenith_angle : float</span>
+<span class="sd">            The zenith angle of the observation, in radians.</span>
+<span class="sd">        parallactic_angle : float</span>
+<span class="sd">            The parallactic angle of the observation, in radians.</span>
+<span class="sd">        reference_wavelength : float</span>
+<span class="sd">            The reference wavelength at which seeing is measured at and where</span>
+<span class="sd">            relative refraction is 0.</span>
+<span class="sd">        *args : Any</span>
+<span class="sd">            A catch to ensure that non-basic atmospheric parameters are to be</span>
+<span class="sd">            keywords only.</span>
+<span class="sd">        transmission_generator : AtmosphereSpectrumGenerator, default = None</span>
+<span class="sd">            The transmission spectrum generator used to generate the</span>
+<span class="sd">            specific transmission spectra. If invalid, we use the built-in.</span>
+<span class="sd">        radiance_generator : AtmosphereSpectrumGenerator</span>
+<span class="sd">            The transmission spectrum generator used to generate the</span>
+<span class="sd">            specific transmission spectra. If invalid, we use the built-in.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We just assign the main primary values, the rest will be calculated.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">temperature</span> <span class="o">=</span> <span class="n">temperature</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pressure</span> <span class="o">=</span> <span class="n">pressure</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ppw</span> <span class="o">=</span> <span class="n">ppw</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pwv</span> <span class="o">=</span> <span class="n">pwv</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">seeing</span> <span class="o">=</span> <span class="n">seeing</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">zenith_angle</span> <span class="o">=</span> <span class="n">zenith_angle</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">parallactic_angle</span> <span class="o">=</span> <span class="n">parallactic_angle</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reference_wavelength</span> <span class="o">=</span> <span class="n">reference_wavelength</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reference_zenith_angle</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># We catch all other atmospheric parameters which are not key-based</span>
+        <span class="c1"># parameters.</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Extra (+</span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span><span class="si">}</span><span class="s2">),atmospheric parameters provided.&quot;</span>
+                    <span class="s2">&quot; Non-basic parameters need to be keyword parameters.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Handling the defaults, if we use the basic generators.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span>
+            <span class="n">transmission_generator</span><span class="p">,</span>
+            <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">AtmosphereSpectrumGenerator</span><span class="p">,</span>
+        <span class="p">):</span>
+            <span class="n">transmission_generator</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">ATM_TRANS_GEN</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">transmission_generator</span> <span class="o">=</span> <span class="n">transmission_generator</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span>
+            <span class="n">radiance_generator</span><span class="p">,</span>
+            <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">AtmosphereSpectrumGenerator</span><span class="p">,</span>
+        <span class="p">):</span>
+            <span class="n">radiance_generator</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">ATM_RADIANCE_GEN</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radiance_generator</span> <span class="o">=</span> <span class="n">radiance_generator</span></div>
+
+
+        <span class="c1"># All done.</span>
+
+<div class="viewcode-block" id="AtmosphereSimulator._convolve_atmospheric_spectrum">
+<a class="viewcode-back" href="../../../code/lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator._convolve_atmospheric_spectrum">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">_convolve_atmospheric_spectrum</span><span class="p">(</span>
+        <span class="n">spectrum</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">,</span>
+        <span class="n">output_resolution</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">output_resolving</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">reference_wavelength</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">input_resolution</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">input_resolving</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convolve the input spectrum match its resolution with the output.</span>
+
+<span class="sd">        Nominally, we do this to convolve down the transmission and radiance</span>
+<span class="sd">        spectra to better match the resolution of the spectrum we will be</span>
+<span class="sd">        applying it to. If they did not match otherwise, it would give</span>
+<span class="sd">        erroneous results.</span>
+
+<span class="sd">        We leverage :py:func:`kernel_1d_gaussian_resolution` to make the kernel.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        spectrum : LezargusSpectrum</span>
+<span class="sd">            The input spectrum which we will be preparing. This spectrum should</span>
+<span class="sd">            also have its current resolution. A different value is used if</span>
+<span class="sd">            overridden if an explicit resolving power is input.</span>
+<span class="sd">        output_resolution : float, default = None</span>
+<span class="sd">            The spectral resolution of the simulation spectra. Must be in</span>
+<span class="sd">            the same units as the simulation spectra.</span>
+<span class="sd">        output_resolving : float, default = None</span>
+<span class="sd">            The spectral resolving power of the simulation spectra, relative</span>
+<span class="sd">            to the wavelength `reference_wavelength`.</span>
+<span class="sd">        reference_wavelength : float, default = None</span>
+<span class="sd">            The reference wavelength for any needed conversion.</span>
+<span class="sd">        input_resolution : float, default = None</span>
+<span class="sd">            The spectral resolution of the input spectra. Must be in</span>
+<span class="sd">            the same units as the spectra. Overrides any inherent values from</span>
+<span class="sd">            the input spectrum.</span>
+<span class="sd">        input_resolving : float, default = None</span>
+<span class="sd">            The spectral resolving power of the input spectra, relative</span>
+<span class="sd">            to the wavelength `reference_wavelength`. Overrides any inherent</span>
+<span class="sd">            values from the input spectrum.</span>
+<span class="sd">        **kwargs : dict</span>
+<span class="sd">            Keyword argument catcher.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        convolved_spectra : LezargusSpectrum</span>
+<span class="sd">            The spectra, after convolution based on the input parameters.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We need to determine the input resolution. Namely, if any input</span>
+        <span class="c1"># values were provided to override the spectrum&#39;s.</span>
+        <span class="k">if</span> <span class="n">input_resolution</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">input_resolving</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">using_resolution</span> <span class="o">=</span> <span class="n">input_resolution</span>
+            <span class="n">using_resolving</span> <span class="o">=</span> <span class="n">input_resolving</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">using_resolution</span> <span class="o">=</span> <span class="n">spectrum</span><span class="o">.</span><span class="n">spectral_scale</span>
+            <span class="n">using_resolving</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="c1"># Double checking that we have a valid input resolution or resolving</span>
+        <span class="c1"># power.</span>
+        <span class="k">if</span> <span class="n">using_resolution</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">using_resolving</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;No input resolution/resolving power is found in the&quot;</span>
+                    <span class="s2">&quot; spectrum or manually provided.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># We assume the kernel size based on the wavelength of the input</span>
+        <span class="c1"># spectra. Namely, the kernel must be smaller than the number of points.</span>
+        <span class="c1"># We assume that we have Nyquist sampling and 1 extra degree of</span>
+        <span class="c1"># freedom.</span>
+        <span class="n">reduction_factor</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">kernel_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">spectrum</span><span class="o">.</span><span class="n">wavelength</span><span class="p">)</span> <span class="o">/</span> <span class="n">reduction_factor</span><span class="p">))</span>
+        <span class="n">kernel_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">kernel_size</span><span class="p">,)</span>
+
+        <span class="c1"># We have the input, we rely on the kernel determination to figure out</span>
+        <span class="c1"># the mode.</span>
+        <span class="n">gaussian_kernel</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">convolution</span><span class="o">.</span><span class="n">kernel_1d_gaussian_resolution</span><span class="p">(</span>
+                <span class="n">shape</span><span class="o">=</span><span class="n">kernel_shape</span><span class="p">,</span>
+                <span class="n">template_wavelength</span><span class="o">=</span><span class="n">spectrum</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+                <span class="n">base_resolution</span><span class="o">=</span><span class="n">using_resolution</span><span class="p">,</span>
+                <span class="n">target_resolution</span><span class="o">=</span><span class="n">output_resolution</span><span class="p">,</span>
+                <span class="n">base_resolving_power</span><span class="o">=</span><span class="n">using_resolving</span><span class="p">,</span>
+                <span class="n">target_resolving_power</span><span class="o">=</span><span class="n">output_resolving</span><span class="p">,</span>
+                <span class="n">reference_wavelength</span><span class="o">=</span><span class="n">reference_wavelength</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># We then convolve the input spectra.</span>
+        <span class="n">convolved_spectra</span> <span class="o">=</span> <span class="n">spectrum</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="n">gaussian_kernel</span><span class="p">)</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">convolved_spectra</span></div>
+
+
+<div class="viewcode-block" id="AtmosphereSimulator.generate_transmission">
+<a class="viewcode-back" href="../../../code/lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.generate_transmission">[docs]</a>
+    <span class="k">def</span> <span class="nf">generate_transmission</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">template</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusContainerArithmetic</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate a transmission spectrum applicable to the template.</span>
+
+<span class="sd">        This function generates a transmission spectrum with the internal</span>
+<span class="sd">        atmospheric parameters. The provided template spectrum is the</span>
+<span class="sd">        spectrum class the transmission function is generated for, so the</span>
+<span class="sd">        wavelength and resolutions properly match.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        template : LezargusContainerArithmetic</span>
+<span class="sd">            The template container which is used to define the proper format</span>
+<span class="sd">            of the output spectrum. The template container is not affected.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        transmission_spectrum : LezargusSpectrum</span>
+<span class="sd">            The transmission spectrum.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># To ensure we do not touch the template spectrum, we work on a copy.</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">template</span><span class="p">)</span>
+
+        <span class="c1"># We determine the transmission spectrum from our current atmospheric</span>
+        <span class="c1"># parameters, using the template wavelength as the basis.</span>
+        <span class="n">raw_transmission_spectrum</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">transmission_generator</span><span class="o">.</span><span class="n">interpolate_spectrum</span><span class="p">(</span>
+                <span class="n">wavelength</span><span class="o">=</span><span class="n">template</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+                <span class="n">zenith_angle</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">zenith_angle</span><span class="p">,</span>
+                <span class="n">pwv</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pwv</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># The transmission spectrum needs to be convolved to properly match</span>
+        <span class="c1"># the template spectrum&#39;s resolution.</span>
+        <span class="k">if</span> <span class="n">template</span><span class="o">.</span><span class="n">spectral_scale</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">AccuracyWarning</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;Template container has no spectral resolution scale, no&quot;</span>
+                    <span class="s2">&quot; convolution.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">transmission_spectrum</span> <span class="o">=</span> <span class="n">raw_transmission_spectrum</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Convolving, the raw transmission spectrum should have its input</span>
+            <span class="c1"># spectral resolution.</span>
+            <span class="n">template_resolution</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">spectral_scale</span>
+            <span class="n">transmission_spectrum</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convolve_atmospheric_spectrum</span><span class="p">(</span>
+                <span class="n">spectrum</span><span class="o">=</span><span class="n">raw_transmission_spectrum</span><span class="p">,</span>
+                <span class="n">output_resolution</span><span class="o">=</span><span class="n">template_resolution</span><span class="p">,</span>
+                <span class="n">output_resolving</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">reference_wavelength</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reference_wavelength</span><span class="p">,</span>
+                <span class="n">input_resolution</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">input_resolving</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Sometimes the convolution creates negative transmission values, it</span>
+        <span class="c1"># should just be zero instead.</span>
+        <span class="n">is_zero</span> <span class="o">=</span> <span class="n">transmission_spectrum</span><span class="o">.</span><span class="n">data</span> <span class="o">&lt;=</span> <span class="mi">0</span>
+        <span class="n">transmission_spectrum</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">is_zero</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># It is extremely unlikely, but transmission above 1 is unphysical.</span>
+        <span class="n">is_one</span> <span class="o">=</span> <span class="n">transmission_spectrum</span><span class="o">.</span><span class="n">data</span> <span class="o">&gt;=</span> <span class="mi">1</span>
+        <span class="n">transmission_spectrum</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">is_one</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">transmission_spectrum</span></div>
+
+
+<div class="viewcode-block" id="AtmosphereSimulator.generate_radiance">
+<a class="viewcode-back" href="../../../code/lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.generate_radiance">[docs]</a>
+    <span class="k">def</span> <span class="nf">generate_radiance</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">template</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusContainerArithmetic</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate a radiance spectrum applicable to the template.</span>
+
+<span class="sd">        This function generates a radiance spectrum with the internal</span>
+<span class="sd">        atmospheric parameters. The provided template container is the</span>
+<span class="sd">        container class the radiance function is generated for, so the</span>
+<span class="sd">        wavelength and container properly match.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        template : LezargusContainerArithmetic</span>
+<span class="sd">            The template container which is used to define the proper format</span>
+<span class="sd">            of the output spectrum. The template container is not affected.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        radiance_spectrum : LezargusSpectrum</span>
+<span class="sd">            The radiance spectrum.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># To ensure we do not touch the template container, we work on a copy.</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">template</span><span class="p">)</span>
+
+        <span class="c1"># We determine the radiance spectrum from our current atmospheric</span>
+        <span class="c1"># parameters, using the template wavelength as the basis.</span>
+        <span class="n">raw_radiance_spectrum</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">radiance_generator</span><span class="o">.</span><span class="n">interpolate_spectrum</span><span class="p">(</span>
+            <span class="n">wavelength</span><span class="o">=</span><span class="n">template</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+            <span class="n">zenith_angle</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">zenith_angle</span><span class="p">,</span>
+            <span class="n">pwv</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pwv</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># The radiance container needs to be convolved to properly match</span>
+        <span class="c1"># the template container&#39;s resolution.</span>
+        <span class="k">if</span> <span class="n">template</span><span class="o">.</span><span class="n">spectral_scale</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">AccuracyWarning</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;Template container has no spectral resolution scale, no&quot;</span>
+                    <span class="s2">&quot; convolution.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">radiance_spectrum</span> <span class="o">=</span> <span class="n">raw_radiance_spectrum</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Convolving, the raw radiance container should have its input</span>
+            <span class="c1"># spectral resolution.</span>
+            <span class="n">template_resolution</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">spectral_scale</span>
+            <span class="n">radiance_spectrum</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convolve_atmospheric_spectrum</span><span class="p">(</span>
+                <span class="n">spectrum</span><span class="o">=</span><span class="n">raw_radiance_spectrum</span><span class="p">,</span>
+                <span class="n">output_resolution</span><span class="o">=</span><span class="n">template_resolution</span><span class="p">,</span>
+                <span class="n">output_resolving</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">reference_wavelength</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reference_wavelength</span><span class="p">,</span>
+                <span class="n">input_resolution</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">input_resolving</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">radiance_spectrum</span></div>
+
+
+<div class="viewcode-block" id="AtmosphereSimulator.seeing_function">
+<a class="viewcode-back" href="../../../code/lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.seeing_function">[docs]</a>
+    <span class="k">def</span> <span class="nf">seeing_function</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">wavelength</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Seeing function over wavelength for the current atmosphere.</span>
+
+<span class="sd">        This function primarily takes the proportionality relationships of</span>
+<span class="sd">        seeing with regards to zenith angle and wavelength, using the input</span>
+<span class="sd">        seeing parameter as the base.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        wavelength : ndaraay</span>
+<span class="sd">            The wavelength to evaluate the seeing at. Should be in the same</span>
+<span class="sd">            unit as the reference wavelength.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        seeing : ndarray</span>
+<span class="sd">            The computed seeing, based on the ratios.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># The library function handles the work for us, we just give it our</span>
+        <span class="c1"># current conditions.</span>
+        <span class="n">seeing</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">atmosphere</span><span class="o">.</span><span class="n">seeing</span><span class="p">(</span>
+            <span class="n">wavelength</span><span class="o">=</span><span class="n">wavelength</span><span class="p">,</span>
+            <span class="n">zenith_angle</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">zenith_angle</span><span class="p">,</span>
+            <span class="n">reference_seeing</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">seeing</span><span class="p">,</span>
+            <span class="n">reference_wavelength</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reference_wavelength</span><span class="p">,</span>
+            <span class="n">reference_zenith_angle</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reference_zenith_angle</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">seeing</span></div>
+
+
+<div class="viewcode-block" id="AtmosphereSimulator.generate_seeing_kernels">
+<a class="viewcode-back" href="../../../code/lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.generate_seeing_kernels">[docs]</a>
+    <span class="k">def</span> <span class="nf">generate_seeing_kernels</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">template</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusContainerArithmetic</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate a seeing kernel, accounting for wavelength variations.</span>
+
+<span class="sd">        We create a seeing kernel for convolution. We take into account the</span>
+<span class="sd">        seeing variations as a function of wavelength when creating the</span>
+<span class="sd">        seeing kernels. By default, we create a stacked 2D set of kernels</span>
+<span class="sd">        per the template container&#39;s wavelength.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        template : LezargusContainerArithmetic</span>
+<span class="sd">            The template container which is used to define the proper format</span>
+<span class="sd">            of the output kernels. The template container is not affected.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        seeing_kernels : ndarray</span>
+<span class="sd">            The seeing kernel(s).</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># To ensure we do not touch the template container, we work on a copy.</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">template</span><span class="p">)</span>
+
+        <span class="c1"># We determine the seeing.</span>
+        <span class="n">seeing</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">seeing_function</span><span class="p">(</span><span class="n">wavelength</span><span class="o">=</span><span class="n">template</span><span class="o">.</span><span class="n">wavelength</span><span class="p">)</span>
+        <span class="c1"># The seeing values are in angles, we convert it to pixels via the</span>
+        <span class="c1"># pixel scales.</span>
+        <span class="k">if</span> <span class="n">template</span><span class="o">.</span><span class="n">pixel_scale</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">template</span><span class="o">.</span><span class="n">slice_scale</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;No pixel or slice scale exists on the template, cannot&quot;</span>
+                    <span class="s2">&quot; determine seeing angle to pixel conversion.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">pixel_scale</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="n">slice_scale</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pixel_scale</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">pixel_scale</span>
+            <span class="n">slice_scale</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">slice_scale</span>
+        <span class="n">pixel_seeing</span> <span class="o">=</span> <span class="n">seeing</span> <span class="o">/</span> <span class="n">pixel_scale</span>
+        <span class="n">slice_seeing</span> <span class="o">=</span> <span class="n">seeing</span> <span class="o">/</span> <span class="n">slice_scale</span>
+
+        <span class="c1"># We need to determine the size of the kernels. If the template can</span>
+        <span class="c1"># provide a guide for the spatial shape of the kernels, we use that,</span>
+        <span class="c1"># else we guess based on the seeing values.</span>
+        <span class="n">image_shape_len</span> <span class="o">=</span> <span class="mi">2</span>
+        <span class="n">cube_shape_len</span> <span class="o">=</span> <span class="mi">3</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="nb">len</span><span class="p">(</span><span class="n">template</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="n">image_shape_len</span>
+            <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">template</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="n">cube_shape_len</span>
+        <span class="p">):</span>
+            <span class="n">kernel_shape_guide</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">template</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;Template data is neither an image nor cube, cannot&quot;</span>
+                    <span class="s2">&quot; determine kernel shape.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+            <span class="c1"># Approximating it based on the 68-95-99.7 rule; everything ought</span>
+            <span class="c1"># to be within 5-sigma.</span>
+            <span class="n">sigma_multiple</span> <span class="o">=</span> <span class="mi">5</span>
+            <span class="n">longest_edge</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="n">pixel_seeing</span><span class="p">,</span> <span class="n">slice_seeing</span><span class="p">])</span> <span class="o">*</span> <span class="n">sigma_multiple</span>
+            <span class="n">kernel_shape_guide</span> <span class="o">=</span> <span class="n">longest_edge</span><span class="p">,</span> <span class="n">longest_edge</span>
+        <span class="c1"># We also want to make sure the kernel has odd edges, just in case</span>
+        <span class="c1"># discrete convolution is needed.</span>
+        <span class="n">kernel_shape</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+            <span class="p">(</span><span class="n">valdex</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">valdex</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">valdex</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">valdex</span> <span class="ow">in</span> <span class="n">kernel_shape_guide</span>
+        <span class="p">)</span>
+
+        <span class="c1"># We build the kernel layer by layer.</span>
+        <span class="n">seeing_kernels_list</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">pix_see_dex</span><span class="p">,</span> <span class="n">sli_see_dex</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+            <span class="n">pixel_seeing</span><span class="p">,</span>
+            <span class="n">slice_seeing</span><span class="p">,</span>
+            <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">):</span>
+            <span class="n">kernel_layer</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">convolution</span><span class="o">.</span><span class="n">kernel_2d_gaussian</span><span class="p">(</span>
+                <span class="n">shape</span><span class="o">=</span><span class="n">kernel_shape</span><span class="p">,</span>
+                <span class="n">x_stddev</span><span class="o">=</span><span class="n">pix_see_dex</span><span class="p">,</span>
+                <span class="n">y_stddev</span><span class="o">=</span><span class="n">sli_see_dex</span><span class="p">,</span>
+                <span class="n">rotation</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parallactic_angle</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">seeing_kernels_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">kernel_layer</span><span class="p">)</span>
+        <span class="n">seeing_kernels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="n">seeing_kernels_list</span><span class="p">,</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">seeing_kernels</span></div>
+
+
+<div class="viewcode-block" id="AtmosphereSimulator.generate_refraction_vectors">
+<a class="viewcode-back" href="../../../code/lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.generate_refraction_vectors">[docs]</a>
+    <span class="k">def</span> <span class="nf">generate_refraction_vectors</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">template</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusContainerArithmetic</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate a set of translation vectors mimicking refraction.</span>
+
+<span class="sd">        We create a set of translation vectors which simulate fraction for</span>
+<span class="sd">        cube-like data. Namely different wavelengths of light are refracted</span>
+<span class="sd">        differently (different magnitudes), so they apply a sheer-like</span>
+<span class="sd">        translation transformation across the wavelength axis. The vectors</span>
+<span class="sd">        generated describe the translation per wavelength.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        template : LezargusContainerArithmetic</span>
+<span class="sd">            The template container which is used to define the proper format</span>
+<span class="sd">            of the output vectors. The template container is not affected.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        refraction_vectors : ndarray</span>
+<span class="sd">            The refraction vectors as an ND array of (x, y) pairs per</span>
+<span class="sd">            wavelength describing the translation.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># To ensure we do not touch the template container, we work on a copy.</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">template</span><span class="p">)</span>
+
+        <span class="c1"># We calculate the relative atmospheric refraction.</span>
+        <span class="n">relative_refraction</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">atmosphere</span><span class="o">.</span><span class="n">relative_atmospheric_refraction</span><span class="p">(</span>
+                <span class="n">wavelength</span><span class="o">=</span><span class="n">template</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+                <span class="n">reference_wavelength</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">reference_wavelength</span><span class="p">,</span>
+                <span class="n">zenith_angle</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">zenith_angle</span><span class="p">,</span>
+                <span class="n">temperature</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">temperature</span><span class="p">,</span>
+                <span class="n">pressure</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pressure</span><span class="p">,</span>
+                <span class="n">water_pressure</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ppw</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># The relative refraction is the magnitude of the vector. The</span>
+        <span class="c1"># direction of refraction is provided by the parallactic angle. We</span>
+        <span class="c1"># use it to determine our vectors.</span>
+        <span class="n">x_refraction</span> <span class="o">=</span> <span class="n">relative_refraction</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parallactic_angle</span><span class="p">)</span>
+        <span class="n">y_refraction</span> <span class="o">=</span> <span class="n">relative_refraction</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">parallactic_angle</span><span class="p">)</span>
+
+        <span class="c1"># The refraction values are in angles, we convert it to pixels via the</span>
+        <span class="c1"># pixel scales.</span>
+        <span class="k">if</span> <span class="n">template</span><span class="o">.</span><span class="n">pixel_scale</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">template</span><span class="o">.</span><span class="n">slice_scale</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;No pixel or slice scale exists on the template, cannot&quot;</span>
+                    <span class="s2">&quot; determine refraction angle to pixel conversion.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">pixel_scale</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="n">slice_scale</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pixel_scale</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">pixel_scale</span>
+            <span class="n">slice_scale</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">slice_scale</span>
+        <span class="n">x_pixel_refraction</span> <span class="o">=</span> <span class="n">x_refraction</span> <span class="o">/</span> <span class="n">pixel_scale</span>
+        <span class="n">y_pixel_refraction</span> <span class="o">=</span> <span class="n">y_refraction</span> <span class="o">/</span> <span class="n">slice_scale</span>
+
+        <span class="c1"># We pair up the components of the refraction vector.</span>
+        <span class="n">refraction_vectors</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">x_pixel_refraction</span><span class="p">,</span> <span class="n">y_pixel_refraction</span><span class="p">],</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">T</span>
+        <span class="k">return</span> <span class="n">refraction_vectors</span></div>
+</div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sparrow
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023, Sparrow.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

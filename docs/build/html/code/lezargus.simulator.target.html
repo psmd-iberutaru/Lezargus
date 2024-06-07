@@ -1,0 +1,939 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>lezargus.simulator.target module &#8212; Lezargus  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'code/lezargus.simulator.target';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="lezargus.__main__ module" href="lezargus.__main__.html" />
+    <link rel="prev" title="lezargus.simulator.spectre module" href="lezargus.simulator.spectre.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Lezargus  documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../user/index.html">User Manual</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="simple">
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../technical/index.html">Technical Manual</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../technical/atmosphere.html">Atmospheric Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/contributing.html">Contributor Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/convention.html">Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/photometry.html">Photometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/uncertainty.html">Uncertainty Propagation</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="modules.html">lezargus</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="lezargus.html">lezargus package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l3 has-children"><a class="reference internal" href="lezargus.container.html">lezargus.container package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.container.function.html">lezargus.container.function package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.container.atmosphere.html">lezargus.container.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.container.cube.html">lezargus.container.cube module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.container.image.html">lezargus.container.image module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.container.mosaic.html">lezargus.container.mosaic module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.container.parent.html">lezargus.container.parent module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.container.spectrum.html">lezargus.container.spectrum module</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="lezargus.library.html">lezargus.library package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.array.html">lezargus.library.array module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.atmosphere.html">lezargus.library.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.config.html">lezargus.library.config module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.conversion.html">lezargus.library.conversion module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.convolution.html">lezargus.library.convolution module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.data.html">lezargus.library.data module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.fits.html">lezargus.library.fits module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.flags.html">lezargus.library.flags module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.hint.html">lezargus.library.hint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.interpolate.html">lezargus.library.interpolate module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.logging.html">lezargus.library.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.math.html">lezargus.library.math module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.path.html">lezargus.library.path module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.sanitize.html">lezargus.library.sanitize module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.stitch.html">lezargus.library.stitch module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.temporary.html">lezargus.library.temporary module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.transform.html">lezargus.library.transform module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
+</ul>
+</li>
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="lezargus.simulator.html">lezargus.simulator package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="lezargus.simulator.atmosphere.html">lezargus.simulator.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.simulator.spectre.html">lezargus.simulator.spectre module</a></li>
+<li class="toctree-l4 current active"><a class="current reference internal" href="#">lezargus.simulator.target module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lezargus.__main__.html">lezargus.__main__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lezargus.__version__.html">lezargus.__version__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lezargus.initialize.html">lezargus.initialize module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/code/lezargus.simulator.target.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>lezargus.simulator.target module</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator"><code class="docutils literal notranslate"><span class="pre">TargetSimulator</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator.__init__"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator._cache_radiance"><code class="docutils literal notranslate"><span class="pre">TargetSimulator._cache_radiance</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator._cache_refraction"><code class="docutils literal notranslate"><span class="pre">TargetSimulator._cache_refraction</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator._cache_seeing"><code class="docutils literal notranslate"><span class="pre">TargetSimulator._cache_seeing</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator._cache_target_photon"><code class="docutils literal notranslate"><span class="pre">TargetSimulator._cache_target_photon</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator._cache_transmission"><code class="docutils literal notranslate"><span class="pre">TargetSimulator._cache_transmission</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator._convert_to_photon"><code class="docutils literal notranslate"><span class="pre">TargetSimulator._convert_to_photon()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator.apply_atmosphere"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.apply_atmosphere()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator.at_radiance"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.at_radiance</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator.at_refraction"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.at_refraction</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator.at_seeing"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.at_seeing</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator.at_target"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.at_target</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator.at_target_photon"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.at_target_photon</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator.at_target_spectrum"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.at_target_spectrum</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator.at_transmission"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.at_transmission</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator.atmosphere"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.atmosphere</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator.clear_cache"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.clear_cache()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator.from_blackbody"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.from_blackbody()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator.from_cube"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.from_cube()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator.from_spectrum"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.from_spectrum()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator.observed"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.observed</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator.target"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.target</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator.target_spectrum"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.target_spectrum</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator.use_cache"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.use_cache</span></code></a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-lezargus.simulator.target">
+<span id="lezargus-simulator-target-module"></span><h1>lezargus.simulator.target module<a class="headerlink" href="#module-lezargus.simulator.target" title="Link to this heading">#</a></h1>
+<p>Simulation code to simulate an astrophysical object or target.</p>
+<p>This code simulates an astrophysical target, creating the theoretical cube
+which represents it on sky.</p>
+<p>We name this file “target.py” to prematurely avoid name conflicts with the
+Python built-in “object”.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="lezargus.simulator.target.TargetSimulator">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lezargus.simulator.target.</span></span><span class="sig-name descname"><span class="pre">TargetSimulator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_cube</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lezargus.container.cube.html#lezargus.container.cube.LezargusCube" title="lezargus.container.cube.LezargusCube"><span class="pre">LezargusCube</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lezargus/simulator/target.html#TargetSimulator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.simulator.target.TargetSimulator" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Simulate an astrophysical target.</p>
+<p>This class is a bit of a wrapper, acting as an effective means of
+generating the simulation of an astrophysical field. However, this class
+nevertheless acts as a nice point of abstraction for the instruments
+simulators.</p>
+<p>Other property attributes exist but are not documented here as they have
+their own docstrings. In order to reduce the amount of repeat computing,
+every important computed property likely has a cache variant which stores
+the most recently calculated result as a cache and uses it instead of
+recomputing things. This is generally an internal application.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.simulator.target.TargetSimulator.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_cube</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lezargus.container.cube.html#lezargus.container.cube.LezargusCube" title="lezargus.container.cube.LezargusCube"><span class="pre">LezargusCube</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lezargus/simulator/target.html#TargetSimulator.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.simulator.target.TargetSimulator.__init__" title="Link to this definition">#</a></dt>
+<dd><p>Create the target simulator.</p>
+<p>This class should not be called directly, but the helper class
+functions should be used instead to create the simulator. Internal
+options are provided and documented but their use is discouraged.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>*args</strong> (<em>Any</em>) – Arguments we catch. If there are any arguments, we give an error.</p></li>
+<li><p><strong>_cube</strong> (<em>hint.LezargusCube</em>) – The main target cube. It should be the same as py:attr:<cite>target</cite>.</p></li>
+<li><p><strong>**kwargs</strong> (<em>Any</em>) – Extra keyword arguments we catch. If there are any, we give an
+error.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.simulator.target.TargetSimulator._cache_radiance">
+<span class="sig-name descname"><span class="pre">_cache_radiance</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#lezargus.simulator.target.TargetSimulator._cache_radiance" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.simulator.target.TargetSimulator._cache_refraction">
+<span class="sig-name descname"><span class="pre">_cache_refraction</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#lezargus.simulator.target.TargetSimulator._cache_refraction" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.simulator.target.TargetSimulator._cache_seeing">
+<span class="sig-name descname"><span class="pre">_cache_seeing</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#lezargus.simulator.target.TargetSimulator._cache_seeing" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.simulator.target.TargetSimulator._cache_target_photon">
+<span class="sig-name descname"><span class="pre">_cache_target_photon</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#lezargus.simulator.target.TargetSimulator._cache_target_photon" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.simulator.target.TargetSimulator._cache_transmission">
+<span class="sig-name descname"><span class="pre">_cache_transmission</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#lezargus.simulator.target.TargetSimulator._cache_transmission" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.simulator.target.TargetSimulator._convert_to_photon">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_convert_to_photon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">container</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lezargus.container.parent.html#lezargus.container.parent.LezargusContainerArithmetic" title="lezargus.container.parent.LezargusContainerArithmetic"><span class="pre">LezargusContainerArithmetic</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="lezargus.container.parent.html#lezargus.container.parent.LezargusContainerArithmetic" title="lezargus.container.parent.LezargusContainerArithmetic"><span class="pre">LezargusContainerArithmetic</span></a></span></span><a class="reference internal" href="../_modules/lezargus/simulator/target.html#TargetSimulator._convert_to_photon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.simulator.target.TargetSimulator._convert_to_photon" title="Link to this definition">#</a></dt>
+<dd><p>Convert Lezargus spectral flux density to photon flux density.</p>
+<p>This function is a convenience function to convert the spectral flux
+density of any container to a photon flux density. Please note that
+the units may change in unexpected ways because of unit conversions
+related to the constants and unit decomposition.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>container</strong> (<a class="reference internal" href="lezargus.container.parent.html#lezargus.container.parent.LezargusContainerArithmetic" title="lezargus.container.parent.LezargusContainerArithmetic"><em>LezargusContainerArithmetic</em></a>) – The container we are converting, or more accurately, a subclass
+of the container.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>photon_container</strong> – The converted container as a photon flux instead of an energy flux.
+However, please note that the units may change in unexpected ways.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="lezargus.container.parent.html#lezargus.container.parent.LezargusContainerArithmetic" title="lezargus.container.parent.LezargusContainerArithmetic">LezargusContainerArithmetic</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.simulator.target.TargetSimulator.apply_atmosphere">
+<span class="sig-name descname"><span class="pre">apply_atmosphere</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atmosphere</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator" title="lezargus.simulator.atmosphere.AtmosphereSimulator"><span class="pre">AtmosphereSimulator</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lezargus/simulator/target.html#TargetSimulator.apply_atmosphere"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.simulator.target.TargetSimulator.apply_atmosphere" title="Link to this definition">#</a></dt>
+<dd><p>Apply an atmosphere simulator to simulate the atmospheric effects.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>atmosphere</strong> (<a class="reference internal" href="lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator" title="lezargus.simulator.atmosphere.AtmosphereSimulator"><em>AtmosphereSimulator</em></a>) – The atmosphere simulator to add to this target simulator to
+allow it to simulate different effects of the atmosphere.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lezargus.simulator.target.TargetSimulator.at_radiance">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">at_radiance</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="lezargus.container.cube.html#lezargus.container.cube.LezargusCube" title="lezargus.container.cube.LezargusCube"><span class="pre">LezargusCube</span></a></em><a class="headerlink" href="#lezargus.simulator.target.TargetSimulator.at_radiance" title="Link to this definition">#</a></dt>
+<dd><p>State of simulation after atmospheric radiance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>current_state</strong> – The state of the simulation after applying the effects of
+atmospheric radiance.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="lezargus.container.cube.html#lezargus.container.cube.LezargusCube" title="lezargus.container.cube.LezargusCube">LezargusCube</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lezargus.simulator.target.TargetSimulator.at_refraction">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">at_refraction</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="lezargus.container.cube.html#lezargus.container.cube.LezargusCube" title="lezargus.container.cube.LezargusCube"><span class="pre">LezargusCube</span></a></em><a class="headerlink" href="#lezargus.simulator.target.TargetSimulator.at_refraction" title="Link to this definition">#</a></dt>
+<dd><p>State of simulation after atmospheric refraction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>current_state</strong> – The state of the simulation after applying the effects of
+atmospheric refraction.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="lezargus.container.cube.html#lezargus.container.cube.LezargusCube" title="lezargus.container.cube.LezargusCube">LezargusCube</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lezargus.simulator.target.TargetSimulator.at_seeing">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">at_seeing</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="lezargus.container.cube.html#lezargus.container.cube.LezargusCube" title="lezargus.container.cube.LezargusCube"><span class="pre">LezargusCube</span></a></em><a class="headerlink" href="#lezargus.simulator.target.TargetSimulator.at_seeing" title="Link to this definition">#</a></dt>
+<dd><p>State of simulation after atmospheric seeing.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>current_state</strong> – The state of the simulation after applying the effects of
+atmospheric seeing.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="lezargus.container.cube.html#lezargus.container.cube.LezargusCube" title="lezargus.container.cube.LezargusCube">LezargusCube</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lezargus.simulator.target.TargetSimulator.at_target">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">at_target</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="lezargus.container.cube.html#lezargus.container.cube.LezargusCube" title="lezargus.container.cube.LezargusCube"><span class="pre">LezargusCube</span></a></em><a class="headerlink" href="#lezargus.simulator.target.TargetSimulator.at_target" title="Link to this definition">#</a></dt>
+<dd><p>Alias for py:attr:<cite>target</cite> to match naming convention.</p>
+<p>By self-imposed convention, the attributes are generally named as
+<cite>at_[stage]</cite> where the result is the simulated result right after
+simulating whichever stage is named.</p>
+<p>This may be a read-only alias, for for most cases, that is fine.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lezargus.simulator.target.TargetSimulator.at_target_photon">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">at_target_photon</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="lezargus.container.cube.html#lezargus.container.cube.LezargusCube" title="lezargus.container.cube.LezargusCube"><span class="pre">LezargusCube</span></a></em><a class="headerlink" href="#lezargus.simulator.target.TargetSimulator.at_target_photon" title="Link to this definition">#</a></dt>
+<dd><p>Target photon flux, calculated from target spectral energy density.</p>
+<p>Please note that the units may change in unexpected ways because of
+unit conversions related to the constants and unit decomposition.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>target_photon</strong> – Exactly the same as the target, except the data (flux) is a photon
+flux and not an energy based flux.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="lezargus.container.cube.html#lezargus.container.cube.LezargusCube" title="lezargus.container.cube.LezargusCube">LezargusCube</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lezargus.simulator.target.TargetSimulator.at_target_spectrum">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">at_target_spectrum</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="lezargus.container.cube.html#lezargus.container.cube.LezargusCube" title="lezargus.container.cube.LezargusCube"><span class="pre">LezargusCube</span></a></em><a class="headerlink" href="#lezargus.simulator.target.TargetSimulator.at_target_spectrum" title="Link to this definition">#</a></dt>
+<dd><p>Alias for py:attr:<cite>target_spectrum</cite> to match naming convention.</p>
+<p>By self-imposed convention, the attributes are generally named as
+<cite>at_[stage]</cite> where the result is the simulated result right after
+simulating whichever stage is named.</p>
+<p>This may be a read-only alias, for for most cases, that is fine.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lezargus.simulator.target.TargetSimulator.at_transmission">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">at_transmission</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="lezargus.container.cube.html#lezargus.container.cube.LezargusCube" title="lezargus.container.cube.LezargusCube"><span class="pre">LezargusCube</span></a></em><a class="headerlink" href="#lezargus.simulator.target.TargetSimulator.at_transmission" title="Link to this definition">#</a></dt>
+<dd><p>State of simulation after atmospheric transmission.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>current_state</strong> – The state of the simulation after applying the effects of
+atmospheric transmission.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="lezargus.container.cube.html#lezargus.container.cube.LezargusCube" title="lezargus.container.cube.LezargusCube">LezargusCube</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.simulator.target.TargetSimulator.atmosphere">
+<span class="sig-name descname"><span class="pre">atmosphere</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#lezargus.simulator.target.TargetSimulator.atmosphere" title="Link to this definition">#</a></dt>
+<dd><p>The atmosphere simulator which describes and
+simulates atmospheric effects. If not provided by
+py:meth:<cite>apply_atmosphere</cite>, this defaults to None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator" title="lezargus.simulator.atmosphere.AtmosphereSimulator">AtmosphereSimulator</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.simulator.target.TargetSimulator.clear_cache">
+<span class="sig-name descname"><span class="pre">clear_cache</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lezargus/simulator/target.html#TargetSimulator.clear_cache"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.simulator.target.TargetSimulator.clear_cache" title="Link to this definition">#</a></dt>
+<dd><p>Clear the cache of computed result objects.</p>
+<p>This function clears the cache of computed results, allowing for
+updated values to properly be utilized in future calculations and
+simulations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.simulator.target.TargetSimulator.from_blackbody">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_blackbody</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wavelength</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.26)"><span class="pre">ndarray</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">magnitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_profile</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lezargus.container.spectrum.html#lezargus.container.spectrum.LezargusSpectrum" title="lezargus.container.spectrum.LezargusSpectrum"><span class="pre">LezargusSpectrum</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">filter_zero_point</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spatial_shape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spectral_scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="reference internal" href="../_modules/lezargus/simulator/target.html#TargetSimulator.from_blackbody"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.simulator.target.TargetSimulator.from_blackbody" title="Link to this definition">#</a></dt>
+<dd><p>Create a target simulation object from a point source blackbody.</p>
+<p>This is a convenience wrapper around the <a class="reference internal" href="#lezargus.simulator.target.TargetSimulator.from_spectrum" title="lezargus.simulator.target.TargetSimulator.from_spectrum"><code class="xref py py-meth docutils literal notranslate"><span class="pre">from_spectrum()</span></code></a>
+function. Some required parameters for that function are needed and
+not otherwise described here. See the documentation for that
+function to properly use this wrapper.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wavelength</strong> (<em>ndarray</em>) – The wavelength sampling that we will sample the black body at.</p></li>
+<li><p><strong>temperature</strong> (<em>float</em>) – The temperature of the black body spectrum.</p></li>
+<li><p><strong>magnitude</strong> (<em>float</em>) – The magnitude of the object in the photometric filter system
+provided.</p></li>
+<li><p><strong>filter_profile</strong> (<a class="reference internal" href="lezargus.container.spectrum.html#lezargus.container.spectrum.LezargusSpectrum" title="lezargus.container.spectrum.LezargusSpectrum"><em>LezargusSpectrum</em></a>) – The filter transmission profile, packaged as a LezargusSpectrum. It
+does not need to have any header data. We assume a Vega-based
+photometric system. The filter transmission curve should be energy
+based.</p></li>
+<li><p><strong>filter_zero_point</strong> (<em>float</em>) – The zero point value of the filter. The curve should be energy
+based.</p></li>
+<li><p><strong>spatial_shape</strong> (<em>tuple</em>) – The shape of the spatial component of the target; namely, how big
+a region of the sky will be simulated. The units of this are pixels
+and should relate to the real sky dimensions based on the pixel
+scales provided by the input spectrum.</p></li>
+<li><p><strong>spectral_scale</strong> (<em>float</em>) – The spectral scale of the simulated spectra, as a resolution,
+in wavelength separation per pixel.</p></li>
+<li><p><strong>**kwargs</strong> (<em>Any</em>) – Additional keyword arguments passed to the py:meth:<cite>from_spectrum</cite>
+function which does the heavy lifting.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>target_instance</strong> – The target simulator instance derived from the input parameters.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="lezargus.container.cube.html#lezargus.container.cube.LezargusCube" title="lezargus.container.cube.LezargusCube">LezargusCube</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.simulator.target.TargetSimulator.from_cube">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_cube</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cube</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lezargus.container.cube.html#lezargus.container.cube.LezargusCube" title="lezargus.container.cube.LezargusCube"><span class="pre">LezargusCube</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="reference internal" href="../_modules/lezargus/simulator/target.html#TargetSimulator.from_cube"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.simulator.target.TargetSimulator.from_cube" title="Link to this definition">#</a></dt>
+<dd><p>Create a target simulation object from a provided cube.</p>
+<p>This function is just a formality. Usually if a cube has already been
+defined and provided, the cube itself is the data of the simulated
+target. Nevertheless, we allow for the specification of a target
+based on a cube to provide this common interface.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>cube</strong> (<a class="reference internal" href="lezargus.container.cube.html#lezargus.container.cube.LezargusCube" title="lezargus.container.cube.LezargusCube"><em>LezargusCube</em></a>) – The target cube which define the object we are simulating.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>target_instance</strong> – The target simulator instance derived from the input parameters.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="lezargus.container.cube.html#lezargus.container.cube.LezargusCube" title="lezargus.container.cube.LezargusCube">LezargusCube</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.simulator.target.TargetSimulator.from_spectrum">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_spectrum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spectrum</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="lezargus.container.spectrum.html#lezargus.container.spectrum.LezargusSpectrum" title="lezargus.container.spectrum.LezargusSpectrum"><span class="pre">LezargusSpectrum</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">spatial_shape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'center'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Self</span></span></span><a class="reference internal" href="../_modules/lezargus/simulator/target.html#TargetSimulator.from_spectrum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.simulator.target.TargetSimulator.from_spectrum" title="Link to this definition">#</a></dt>
+<dd><p>Create a target simulation object from a point source spectrum.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spectrum</strong> (<a class="reference internal" href="lezargus.container.spectrum.html#lezargus.container.spectrum.LezargusSpectrum" title="lezargus.container.spectrum.LezargusSpectrum"><em>LezargusSpectrum</em></a>) – The point source spectrum which we will use as the target to make
+the target cube of. The spectrum should be an energy-based
+spectrum.</p></li>
+<li><p><strong>spatial_shape</strong> (<em>tuple</em>) – The shape of the spatial component of the target; namely, how big
+a region of the sky will be simulated. The units of this are pixels
+and should relate to the real sky dimensions based on the pixel
+scales provided by the input spectrum.</p></li>
+<li><p><strong>location</strong> (<em>tuple</em><em> or </em><em>str</em><em>, </em><em>default = &quot;center&quot;</em>) – <p>Where the spectra, as a point source, be placed spatially. If a
+string, we compute the location from the instruction:</p>
+<blockquote>
+<div><ul>
+<li><p><cite>center</cite> : It is placed in the center, or close to it,
+rounded down, for even valued shapes.</p></li>
+</ul>
+</div></blockquote>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>target_instance</strong> – The target simulator instance derived from the input parameters.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="lezargus.container.cube.html#lezargus.container.cube.LezargusCube" title="lezargus.container.cube.LezargusCube">LezargusCube</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lezargus.simulator.target.TargetSimulator.observed">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">observed</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="lezargus.container.cube.html#lezargus.container.cube.LezargusCube" title="lezargus.container.cube.LezargusCube"><span class="pre">LezargusCube</span></a></em><a class="headerlink" href="#lezargus.simulator.target.TargetSimulator.observed" title="Link to this definition">#</a></dt>
+<dd><p>The target, represented as a LezargusCube, after the
+application of atmospheric effects. An alias for <a class="reference internal" href="#lezargus.simulator.target.TargetSimulator.at_refraction" title="lezargus.simulator.target.TargetSimulator.at_refraction"><code class="xref py py-attr docutils literal notranslate"><span class="pre">at_refraction</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="lezargus.container.cube.html#lezargus.container.cube.LezargusCube" title="lezargus.container.cube.LezargusCube">LezargusCube</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.simulator.target.TargetSimulator.target">
+<span class="sig-name descname"><span class="pre">target</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#lezargus.simulator.target.TargetSimulator.target" title="Link to this definition">#</a></dt>
+<dd><p>The target, represented as a LezargusCube. The exact
+properties of the cube are determined from how the simulator was created.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="lezargus.container.cube.html#lezargus.container.cube.LezargusCube" title="lezargus.container.cube.LezargusCube">LezargusCube</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.simulator.target.TargetSimulator.target_spectrum">
+<span class="sig-name descname"><span class="pre">target_spectrum</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#lezargus.simulator.target.TargetSimulator.target_spectrum" title="Link to this definition">#</a></dt>
+<dd><p>The spectrum of the target. This is only made if the
+target cube was made by extending a point source, making the cube from a
+Spectrum; otherwise, this is None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="lezargus.container.spectrum.html#lezargus.container.spectrum.LezargusSpectrum" title="lezargus.container.spectrum.LezargusSpectrum">LezargusSpectrum</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.simulator.target.TargetSimulator.use_cache">
+<span class="sig-name descname"><span class="pre">use_cache</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#lezargus.simulator.target.TargetSimulator.use_cache" title="Link to this definition">#</a></dt>
+<dd><p>If True, we cache calculated values so that they do not need to
+be calculated every time when not needed. If False, caches are never
+returned and instead everything is always recomputed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="lezargus.simulator.spectre.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">lezargus.simulator.spectre module</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="lezargus.__main__.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">lezargus.__main__ module</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator"><code class="docutils literal notranslate"><span class="pre">TargetSimulator</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator.__init__"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator._cache_radiance"><code class="docutils literal notranslate"><span class="pre">TargetSimulator._cache_radiance</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator._cache_refraction"><code class="docutils literal notranslate"><span class="pre">TargetSimulator._cache_refraction</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator._cache_seeing"><code class="docutils literal notranslate"><span class="pre">TargetSimulator._cache_seeing</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator._cache_target_photon"><code class="docutils literal notranslate"><span class="pre">TargetSimulator._cache_target_photon</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator._cache_transmission"><code class="docutils literal notranslate"><span class="pre">TargetSimulator._cache_transmission</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator._convert_to_photon"><code class="docutils literal notranslate"><span class="pre">TargetSimulator._convert_to_photon()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator.apply_atmosphere"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.apply_atmosphere()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator.at_radiance"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.at_radiance</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator.at_refraction"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.at_refraction</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator.at_seeing"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.at_seeing</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator.at_target"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.at_target</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator.at_target_photon"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.at_target_photon</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator.at_target_spectrum"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.at_target_spectrum</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator.at_transmission"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.at_transmission</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator.atmosphere"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.atmosphere</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator.clear_cache"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.clear_cache()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator.from_blackbody"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.from_blackbody()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator.from_cube"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.from_cube()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator.from_spectrum"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.from_spectrum()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator.observed"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.observed</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator.target"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.target</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator.target_spectrum"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.target_spectrum</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.target.TargetSimulator.use_cache"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.use_cache</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sparrow
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023, Sparrow.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -31,8 +31,14 @@ look weird.
 - Solid angle: ``sr``
 - Information: ``bit``
 
-This is beneficial in that we do not need to deal with unit clashes. We 
-also allow Astropy to handle quite a few unit conversions behind the scene.
+We however have the following exceptions. This is a complete list, any 
+deviation from SI units not in the exception list is considered a bug.
+
+- Atmospheric precipitable water vapor: ``mm``.
+
+
+Using SI-only is beneficial in that we do not need to deal with unit clashes. 
+We also allow Astropy to handle quite a few unit conversions behind the scene.
 However, as developing Lezargus, care must still be taken into account. The 
 ultimate idea being that units within Lezargus are all self-consistent, with 
 conversions happening at input and output. Unit conversions are easily done 

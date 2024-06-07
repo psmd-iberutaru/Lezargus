@@ -1,0 +1,940 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lezargus.container.spectrum &#8212; Lezargus  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/lezargus/container/spectrum';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Lezargus  documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../user/index.html">User Manual</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="simple">
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../technical/index.html">Technical Manual</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/contributing.html">Contributor Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/convention.html">Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/photometry.html">Photometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/uncertainty.html">Uncertainty Propagation</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../code/modules.html">lezargus</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../code/lezargus.html">lezargus package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.container.html">lezargus.container package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.function.html">lezargus.container.function package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.atmosphere.html">lezargus.container.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.cube.html">lezargus.container.cube module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.image.html">lezargus.container.image module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.mosaic.html">lezargus.container.mosaic module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.parent.html">lezargus.container.parent module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.spectrum.html">lezargus.container.spectrum module</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.library.html">lezargus.library package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.array.html">lezargus.library.array module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.atmosphere.html">lezargus.library.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.config.html">lezargus.library.config module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.conversion.html">lezargus.library.conversion module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.convolution.html">lezargus.library.convolution module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.data.html">lezargus.library.data module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.fits.html">lezargus.library.fits module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.flags.html">lezargus.library.flags module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.hint.html">lezargus.library.hint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.interpolate.html">lezargus.library.interpolate module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.logging.html">lezargus.library.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.math.html">lezargus.library.math module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.path.html">lezargus.library.path module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.sanitize.html">lezargus.library.sanitize module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.stitch.html">lezargus.library.stitch module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.temporary.html">lezargus.library.temporary module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.transform.html">lezargus.library.transform module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.simulator.html">lezargus.simulator package</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.simulator.atmosphere.html">lezargus.simulator.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.simulator.spectre.html">lezargus.simulator.spectre module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.simulator.target.html">lezargus.simulator.target module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__main__.html">lezargus.__main__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__version__.html">lezargus.__version__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.initialize.html">lezargus.initialize module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for lezargus.container.spectrum</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Spectrum data container, holding spectral data.</span>
+
+<span class="sd">This module and class primarily deals with spectral data.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># isort: split</span>
+<span class="c1"># Import required to remove circular dependencies from type checking.</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">hint</span>
+<span class="c1"># isort: split</span>
+
+<span class="kn">import</span> <span class="nn">copy</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">lezargus</span>
+<span class="kn">from</span> <span class="nn">lezargus.container</span> <span class="kn">import</span> <span class="n">LezargusContainerArithmetic</span>
+<span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">logging</span>
+
+
+<div class="viewcode-block" id="LezargusSpectrum">
+<a class="viewcode-back" href="../../../code/lezargus.container.spectrum.html#lezargus.container.spectrum.LezargusSpectrum">[docs]</a>
+<span class="k">class</span> <span class="nc">LezargusSpectrum</span><span class="p">(</span><span class="n">LezargusContainerArithmetic</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Container to hold spectral data and perform operations on it.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    For all available attributes, see :py:class:`LezargusContainerArithmetic`.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="LezargusSpectrum.__init__">
+<a class="viewcode-back" href="../../../code/lezargus.container.spectrum.html#lezargus.container.spectrum.LezargusSpectrum.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">LezargusSpectrum</span><span class="p">,</span>
+        <span class="n">wavelength</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">data</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">uncertainty</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">wavelength_unit</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">hint</span><span class="o">.</span><span class="n">Unit</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">data_unit</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">hint</span><span class="o">.</span><span class="n">Unit</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">spectral_scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">pixel_scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">slice_scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">mask</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">flags</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">header</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Header</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Instantiate the spectrum class.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        wavelength : ndarray</span>
+<span class="sd">            The wavelength axis of the spectral component of the data, if any.</span>
+<span class="sd">            The unit of wavelength is typically in meters; but, check the</span>
+<span class="sd">            :py:attr:`wavelength_unit` value.</span>
+<span class="sd">        data : ndarray</span>
+<span class="sd">            The data stored in this container. The unit of the flux is typically</span>
+<span class="sd">            in W m^-2 m^-1; but, check the :py:attr:`data_unit` value.</span>
+<span class="sd">        uncertainty : ndarray</span>
+<span class="sd">            The uncertainty in the data of the spectrum. The unit of the</span>
+<span class="sd">            uncertainty is the same as the data value; per</span>
+<span class="sd">            :py:attr:`uncertainty_unit`.</span>
+<span class="sd">        wavelength_unit : Astropy Unit</span>
+<span class="sd">            The unit of the wavelength array. If None, we assume unit-less.</span>
+<span class="sd">        data_unit : Astropy Unit</span>
+<span class="sd">            The unit of the data array. If None, we assume unit-less.</span>
+<span class="sd">        spectral_scale : float, default = None</span>
+<span class="sd">            The spectral scale, or spectral resolution, of the spectral</span>
+<span class="sd">            component, if any. Must be in meters per pixel. Scale is None if</span>
+<span class="sd">            none is provided.</span>
+<span class="sd">        pixel_scale : float, default = None</span>
+<span class="sd">            The E-W, &quot;x&quot; dimension, pixel plate scale of the spatial component,</span>
+<span class="sd">            if any. Must be in radians per pixel. Scale is None if none</span>
+<span class="sd">            is provided.</span>
+<span class="sd">        slice_scale : float, default = None</span>
+<span class="sd">            The N-S, &quot;y&quot; dimension, pixel slice scale of the spatial component,</span>
+<span class="sd">            if any. Must be in radians per slice/pixel. Scale is None if none</span>
+<span class="sd">            is provided.</span>
+<span class="sd">        mask : ndarray, default = None</span>
+<span class="sd">            A mask of the data, used to remove problematic areas. Where True,</span>
+<span class="sd">            the values of the data is considered masked. If None, we assume</span>
+<span class="sd">            the mask is all clear.</span>
+<span class="sd">        flags : ndarray, default = None</span>
+<span class="sd">            Flags of the data. These flags store metadata about the data. If</span>
+<span class="sd">            None, we assume that there are no harmful flags.</span>
+<span class="sd">        header : Header, default = None</span>
+<span class="sd">            A set of header data describing the data. Note that when saving,</span>
+<span class="sd">            this header is written to disk with minimal processing. We highly</span>
+<span class="sd">            suggest writing of the metadata to conform to the FITS Header</span>
+<span class="sd">            specification as much as possible. If None, we just use an</span>
+<span class="sd">            empty header.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># The data must be one dimensional.</span>
+        <span class="n">container_dimensions</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">!=</span> <span class="n">container_dimensions</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;The input data for a LezargusSpectrum instantiation has a&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; shape </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">, which is not the expected one&quot;</span>
+                    <span class="s2">&quot; dimension.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="c1"># The wavelength and the data must be parallel, and thus the same</span>
+        <span class="c1"># shape.</span>
+        <span class="n">wavelength</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">wavelength</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">wavelength</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+                <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Wavelength array shape: </span><span class="si">{</span><span class="n">wavelength</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">; data array&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; shape: </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">. The arrays need to be the same&quot;</span>
+                    <span class="s2">&quot; shape or cast-able to such.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Constructing the original class. We do not deal with WCS here because</span>
+        <span class="c1"># the base class does not support it. We do not involve units here as</span>
+        <span class="c1"># well for speed concerns. Both are handled during reading and writing.</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">wavelength</span><span class="o">=</span><span class="n">wavelength</span><span class="p">,</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">uncertainty</span><span class="o">=</span><span class="n">uncertainty</span><span class="p">,</span>
+            <span class="n">wavelength_unit</span><span class="o">=</span><span class="n">wavelength_unit</span><span class="p">,</span>
+            <span class="n">data_unit</span><span class="o">=</span><span class="n">data_unit</span><span class="p">,</span>
+            <span class="n">spectral_scale</span><span class="o">=</span><span class="n">spectral_scale</span><span class="p">,</span>
+            <span class="n">pixel_scale</span><span class="o">=</span><span class="n">pixel_scale</span><span class="p">,</span>
+            <span class="n">slice_scale</span><span class="o">=</span><span class="n">slice_scale</span><span class="p">,</span>
+            <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span>
+            <span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">,</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">header</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="LezargusSpectrum.read_fits_file">
+<a class="viewcode-back" href="../../../code/lezargus.container.spectrum.html#lezargus.container.spectrum.LezargusSpectrum.read_fits_file">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">read_fits_file</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Type</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">],</span>
+        <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Read a Lezargus spectrum FITS file.</span>
+
+<span class="sd">        We load a Lezargus FITS file from disk. Note that this should only</span>
+<span class="sd">        be used for a 1-D spectrum file.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        filename : str</span>
+<span class="sd">            The filename to load.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        spectrum : Self-like</span>
+<span class="sd">            The LezargusSpectrum class instance.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Any pre-processing is done here.</span>
+        <span class="c1"># Loading the file.</span>
+        <span class="n">spectrum</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">_read_fits_file</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+        <span class="c1"># Any post-processing is done here.</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">spectrum</span></div>
+
+
+<div class="viewcode-block" id="LezargusSpectrum.stitch">
+<a class="viewcode-back" href="../../../code/lezargus.container.spectrum.html#lezargus.container.spectrum.LezargusSpectrum.stitch">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">stitch</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Type</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">],</span>
+        <span class="o">*</span><span class="n">spectra</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">,</span>
+        <span class="n">weights</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;uniform&quot;</span><span class="p">,</span>
+        <span class="n">average_routine</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Callable</span><span class="p">[</span>
+            <span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span>
+            <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">],</span>
+        <span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Stitch spectra together to make a single spectrum.</span>
+
+<span class="sd">        We stitch all of the input spectra. If the spectrum are not already</span>
+<span class="sd">        to the same scale however, this will result in wildly incorrect</span>
+<span class="sd">        results. The header information is preserved, though we take what we</span>
+<span class="sd">        can from the other objects.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        *spectra : LezargusSpectrum</span>
+<span class="sd">            The set of Lezargus spectra which we will stitch together.</span>
+<span class="sd">        weights : list[ndarray] or str, default = None</span>
+<span class="sd">            A list of the weights in the data for stitching. Each entry in</span>
+<span class="sd">            the list must have a corresponding entry in the wavelength and</span>
+<span class="sd">            data list, or None. For convenience, we provide short-cut inputs</span>
+<span class="sd">            for the following:</span>
+
+<span class="sd">                - `uniform` : Uniform weights.</span>
+<span class="sd">                - `invar` : Inverse variance weights.</span>
+<span class="sd">        average_routine : Callable, str, default = None</span>
+<span class="sd">            The function used to average all of the spectra together.</span>
+<span class="sd">            It must also be able to accept weights and propagate uncertainties.</span>
+<span class="sd">            If None, we default to the weighted mean. Namely, it must be of the</span>
+<span class="sd">            form f(val, uncert, weight) = avg, uncert.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        stitch_spectrum : LezargusSpectrum</span>
+<span class="sd">            The spectrum after stitching.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If there are no spectra to stitch, then we do nothing.</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">spectra</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># We still warn just in case.</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputWarning</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="s2">&quot;No spectra supplied to stitch.&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="k">return</span> <span class="n">spectra</span>
+
+        <span class="c1"># We need to make sure these are all Lezargus spectrum.</span>
+        <span class="n">lz_spectra</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">spectrumdex</span> <span class="ow">in</span> <span class="n">spectra</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spectrumdex</span><span class="p">,</span> <span class="n">LezargusSpectrum</span><span class="p">):</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+                    <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                    <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;Input type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">spectrumdex</span><span class="p">)</span><span class="si">}</span><span class="s2"> is not a&quot;</span>
+                        <span class="s2">&quot; LezargusSpectrum, we cannot use it to stitch.&quot;</span>
+                    <span class="p">),</span>
+                <span class="p">)</span>
+            <span class="n">lz_spectra</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">spectrumdex</span><span class="p">)</span>
+
+        <span class="c1"># We need to translate the weight input.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">weights</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">weights</span> <span class="o">=</span> <span class="n">weights</span><span class="o">.</span><span class="n">casefold</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">weights</span> <span class="o">==</span> <span class="s2">&quot;uniform&quot;</span><span class="p">:</span>
+                <span class="c1"># We compute uniform weights.</span>
+                <span class="n">using_weights</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">spectrumdex</span><span class="o">.</span><span class="n">wavelength</span><span class="p">)</span>
+                    <span class="k">for</span> <span class="n">spectrumdex</span> <span class="ow">in</span> <span class="n">lz_spectra</span>
+                <span class="p">]</span>
+            <span class="k">elif</span> <span class="n">weights</span> <span class="o">==</span> <span class="s2">&quot;invar&quot;</span><span class="p">:</span>
+                <span class="c1"># We compute weights which are the inverse of the variance</span>
+                <span class="c1"># in the data.</span>
+                <span class="n">using_weights</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="mi">1</span> <span class="o">/</span> <span class="n">spectrumdex</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">spectrumdex</span> <span class="ow">in</span> <span class="n">lz_spectra</span>
+                <span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">using_weights</span> <span class="o">=</span> <span class="kc">None</span>
+                <span class="c1"># A valid shortcut string has not been provided.</span>
+                <span class="n">accepted_options</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;uniform&quot;</span><span class="p">,</span> <span class="s2">&quot;invar&quot;</span><span class="p">]</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+                    <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                    <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;The weight shortcut option </span><span class="si">{</span><span class="n">weights</span><span class="si">}</span><span class="s2"> is not valid; it&quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot; must be one of: </span><span class="si">{</span><span class="n">accepted_options</span><span class="si">}</span><span class="s2">&quot;</span>
+                    <span class="p">),</span>
+                <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">using_weights</span> <span class="o">=</span> <span class="n">weights</span>
+
+        <span class="c1"># Next, we stitch together the data for the spectrum.</span>
+        <span class="p">(</span>
+            <span class="n">stitch_wavelength</span><span class="p">,</span>
+            <span class="n">stitch_data</span><span class="p">,</span>
+            <span class="n">stitch_uncertainty</span><span class="p">,</span>
+        <span class="p">)</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">stitch</span><span class="o">.</span><span class="n">stitch_spectra_discrete</span><span class="p">(</span>
+            <span class="n">wavelength_arrays</span><span class="o">=</span><span class="p">[</span>
+                <span class="n">spectrumdex</span><span class="o">.</span><span class="n">wavelength</span> <span class="k">for</span> <span class="n">spectrumdex</span> <span class="ow">in</span> <span class="n">lz_spectra</span>
+            <span class="p">],</span>
+            <span class="n">data_arrays</span><span class="o">=</span><span class="p">[</span><span class="n">spectrumdex</span><span class="o">.</span><span class="n">data</span> <span class="k">for</span> <span class="n">spectrumdex</span> <span class="ow">in</span> <span class="n">lz_spectra</span><span class="p">],</span>
+            <span class="n">uncertainty_arrays</span><span class="o">=</span><span class="p">[</span>
+                <span class="n">spectrumdex</span><span class="o">.</span><span class="n">uncertainty</span> <span class="k">for</span> <span class="n">spectrumdex</span> <span class="ow">in</span> <span class="n">lz_spectra</span>
+            <span class="p">],</span>
+            <span class="n">weight_arrays</span><span class="o">=</span><span class="n">using_weights</span><span class="p">,</span>
+            <span class="n">average_routine</span><span class="o">=</span><span class="n">average_routine</span><span class="p">,</span>
+            <span class="n">interpolate_routine</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># We also stitch together the flags and the mask. They are handled</span>
+        <span class="c1"># with a different function.</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ToDoError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Flag and mask stitching not yet supported.&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">stitch_mask</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">stitch_flags</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># We merge the header.</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ToDoError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Header stitching not yet supported.&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">stitch_header</span> <span class="o">=</span> <span class="kc">None</span>
+
+        <span class="c1"># We compile the new spectrum. We do not expect a subclass but we</span>
+        <span class="c1"># try and allow it.</span>
+        <span class="n">stitch_spectrum</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">wavelength</span><span class="o">=</span><span class="n">stitch_wavelength</span><span class="p">,</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">stitch_data</span><span class="p">,</span>
+            <span class="n">uncertainty</span><span class="o">=</span><span class="n">stitch_uncertainty</span><span class="p">,</span>
+            <span class="n">wavelength_unit</span><span class="o">=</span><span class="n">lz_spectra</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">wavelength_unit</span><span class="p">,</span>
+            <span class="n">data_unit</span><span class="o">=</span><span class="n">lz_spectra</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data_unit</span><span class="p">,</span>
+            <span class="n">mask</span><span class="o">=</span><span class="n">stitch_mask</span><span class="p">,</span>
+            <span class="n">flags</span><span class="o">=</span><span class="n">stitch_flags</span><span class="p">,</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">stitch_header</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">stitch_spectrum</span></div>
+
+
+<div class="viewcode-block" id="LezargusSpectrum.write_fits_file">
+<a class="viewcode-back" href="../../../code/lezargus.container.spectrum.html#lezargus.container.spectrum.LezargusSpectrum.write_fits_file">[docs]</a>
+    <span class="k">def</span> <span class="nf">write_fits_file</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Write a Lezargus spectrum FITS file.</span>
+
+<span class="sd">        We write a Lezargus FITS file to disk.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        filename : str</span>
+<span class="sd">            The filename to write to.</span>
+<span class="sd">        overwrite : bool, default = False</span>
+<span class="sd">            If True, overwrite file conflicts.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Any pre-processing is done here.</span>
+        <span class="c1"># Saving the file.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_write_fits_file</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="n">overwrite</span><span class="p">)</span></div>
+
+        <span class="c1"># Any post-processing is done here.</span>
+        <span class="c1"># All done.</span>
+
+<div class="viewcode-block" id="LezargusSpectrum.convolve">
+<a class="viewcode-back" href="../../../code/lezargus.container.spectrum.html#lezargus.container.spectrum.LezargusSpectrum.convolve">[docs]</a>
+    <span class="k">def</span> <span class="nf">convolve</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">kernel</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">kernel_stack</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">kernel_function</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Callable</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convolve the spectrum with a spectral kernel.</span>
+
+<span class="sd">        See py:func:`convolve_spectrum_by_spectral_kernel` for full</span>
+<span class="sd">        documentation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        kernel : ndarray, default = None</span>
+<span class="sd">            The static 2D kernel.</span>
+<span class="sd">        kernel_stack : ndarray, default = None</span>
+<span class="sd">            The variable 2D kernel stack.</span>
+<span class="sd">        kernel_function : Callable, default = None</span>
+<span class="sd">            The dynamic 2D kernel function.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        convolved_cube : ndarray</span>
+<span class="sd">            A near copy of the data cube after convolution.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">convolve_spectrum_by_spectral_kernel</span><span class="p">(</span>
+            <span class="n">spectrum</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span>
+            <span class="n">kernel</span><span class="o">=</span><span class="n">kernel</span><span class="p">,</span>
+            <span class="n">kernel_stack</span><span class="o">=</span><span class="n">kernel_stack</span><span class="p">,</span>
+            <span class="n">kernel_function</span><span class="o">=</span><span class="n">kernel_function</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="LezargusSpectrum.interpolate">
+<a class="viewcode-back" href="../../../code/lezargus.container.spectrum.html#lezargus.container.spectrum.LezargusSpectrum.interpolate">[docs]</a>
+    <span class="k">def</span> <span class="nf">interpolate</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">wavelength</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">extrapolate</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="n">skip_mask</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="n">skip_flags</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span>
+        <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Interpolation calling function for spectrum.</span>
+
+<span class="sd">        Each entry is considered a single point to interpolate over.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        wavelength : ndarray</span>
+<span class="sd">            The wavelength values which we are going to interpolate to. The</span>
+<span class="sd">            units of the data of this array should be the same as the</span>
+<span class="sd">            wavelength unit stored.</span>
+<span class="sd">        extrapolate : bool, default = False</span>
+<span class="sd">            If True, we extrapolate. Otherwise, the edges are NaNs.</span>
+<span class="sd">        skip_mask : bool, default = True</span>
+<span class="sd">            If provided, the propagation of data mask through the</span>
+<span class="sd">            interpolation is skipped. It is computationally a little expensive</span>
+<span class="sd">            otherwise.</span>
+<span class="sd">        skip_flags : bool, default = True</span>
+<span class="sd">            If provided, the propagation of data flags through the</span>
+<span class="sd">            interpolation is skipped. It is computationally a little expensive</span>
+<span class="sd">            otherwise.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        interp_data : ndarray</span>
+<span class="sd">            The interpolated data.</span>
+<span class="sd">        interp_uncertainty : ndarray</span>
+<span class="sd">            The interpolated uncertainty.</span>
+<span class="sd">        interp_mask : ndarray or None</span>
+<span class="sd">            A best guess attempt at finding the appropriate mask for the</span>
+<span class="sd">            interpolated data. If skip_mask=True, then we skip the computation</span>
+<span class="sd">            and return None instead.</span>
+<span class="sd">        interp_flags : ndarray or None</span>
+<span class="sd">            A best guess attempt at finding the appropriate flags for the</span>
+<span class="sd">            interpolated data. If skip_flags=True, then we skip the computation</span>
+<span class="sd">            and return None instead.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Interpolation cannot deal with NaNs, so we exclude any set of data</span>
+        <span class="c1"># which includes them.</span>
+        <span class="p">(</span>
+            <span class="n">clean_wavelength</span><span class="p">,</span>
+            <span class="n">clean_data</span><span class="p">,</span>
+            <span class="n">clean_uncertainty</span><span class="p">,</span>
+        <span class="p">)</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">sanitize</span><span class="o">.</span><span class="n">clean_finite_arrays</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># If the wavelengths we are using to interpolate to are not all</span>
+        <span class="c1"># numbers, it is a good idea to warn. It is not a good idea to change</span>
+        <span class="c1"># the input the user provided.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isfinite</span><span class="p">(</span><span class="n">wavelength</span><span class="p">)):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">AccuracyWarning</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;The input wavelength for interpolation are not all finite.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># As a sanity check, we check if we are trying to interpolate outside</span>
+        <span class="c1"># of our data range.</span>
+        <span class="n">overlap</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">wavelength_overlap_fraction</span><span class="p">(</span>
+            <span class="n">base</span><span class="o">=</span><span class="n">clean_wavelength</span><span class="p">,</span>
+            <span class="n">contain</span><span class="o">=</span><span class="n">wavelength</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">overlap</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">AccuracyWarning</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;Interpolation is attempted at a wavelength beyond the&quot;</span>
+                    <span class="s2">&quot; domain of wavelengths of this spectrum. The overlap&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; fraction is </span><span class="si">{</span><span class="n">overlap</span><span class="si">}</span><span class="s2">.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># The interpolated data for both the data itself and uncertainty.</span>
+        <span class="c1"># We use gaps to remove any unwanted data, assuming the cleaned</span>
+        <span class="c1"># wavelength is perfect.</span>
+        <span class="n">gap_size</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">interpolate</span><span class="o">.</span><span class="n">get_smallest_gap</span><span class="p">(</span>
+            <span class="n">wavelength</span><span class="o">=</span><span class="n">clean_wavelength</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">interp_data</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">interpolate</span><span class="o">.</span><span class="n">Spline1DInterpolate</span><span class="p">(</span>
+            <span class="n">x</span><span class="o">=</span><span class="n">clean_wavelength</span><span class="p">,</span>
+            <span class="n">v</span><span class="o">=</span><span class="n">clean_data</span><span class="p">,</span>
+            <span class="n">extrapolate</span><span class="o">=</span><span class="n">extrapolate</span><span class="p">,</span>
+            <span class="n">extrapolate_fill</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+            <span class="n">gap</span><span class="o">=</span><span class="n">gap_size</span><span class="p">,</span>
+        <span class="p">)(</span><span class="n">wavelength</span><span class="p">)</span>
+        <span class="n">interp_uncertainty</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">interpolate</span><span class="o">.</span><span class="n">Spline1DInterpolate</span><span class="p">(</span>
+            <span class="n">x</span><span class="o">=</span><span class="n">clean_wavelength</span><span class="p">,</span>
+            <span class="n">v</span><span class="o">=</span><span class="n">clean_uncertainty</span><span class="p">,</span>
+            <span class="n">extrapolate</span><span class="o">=</span><span class="n">extrapolate</span><span class="p">,</span>
+            <span class="n">extrapolate_fill</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
+            <span class="n">gap</span><span class="o">=</span><span class="n">gap_size</span><span class="p">,</span>
+        <span class="p">)(</span><span class="n">wavelength</span><span class="p">)</span>
+
+        <span class="c1"># Checking if we need to compute the interpolation of a mask.</span>
+        <span class="k">if</span> <span class="n">skip_mask</span><span class="p">:</span>
+            <span class="n">interp_mask</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">interp_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="n">interp_data</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ToDoError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;The interpolation of a mask for a spectrum is not yet&quot;</span>
+                    <span class="s2">&quot; implemented.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="c1"># Checking if we need to compute the interpolation of flag array.</span>
+        <span class="k">if</span> <span class="n">skip_flags</span><span class="p">:</span>
+            <span class="n">interp_flags</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">interp_flags</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="n">interp_data</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ToDoError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;The interpolation of flags for a spectrum is not yet&quot;</span>
+                    <span class="s2">&quot; implemented.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">interp_data</span><span class="p">,</span> <span class="n">interp_uncertainty</span><span class="p">,</span> <span class="n">interp_mask</span><span class="p">,</span> <span class="n">interp_flags</span></div>
+
+
+<div class="viewcode-block" id="LezargusSpectrum.stitch_on">
+<a class="viewcode-back" href="../../../code/lezargus.container.spectrum.html#lezargus.container.spectrum.LezargusSpectrum.stitch_on">[docs]</a>
+    <span class="k">def</span> <span class="nf">stitch_on</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">spectra</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Stitch this spectrum with other input spectra.</span>
+
+<span class="sd">        We stitch spectra onto this spectra. This function is basically</span>
+<span class="sd">        a compatibility wrapper around the class method :py:meth:`stitch`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        *spectra : LezargusSpectrum</span>
+<span class="sd">            A set of Lezargus spectra which we will stitch to this one.</span>
+<span class="sd">        **kwargs : object</span>
+<span class="sd">            Arguments passed to :py:meth:`stitch`.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        stitch_spectrum : LezargusSpectrum</span>
+<span class="sd">            The spectrum after stitching.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We just add ourselves to the rest of the spectra to stitch together.</span>
+        <span class="n">self_copy</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">all_spectra</span> <span class="o">=</span> <span class="p">[</span><span class="n">self_copy</span><span class="p">,</span> <span class="o">*</span><span class="n">spectra</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">stitch</span><span class="p">(</span><span class="o">*</span><span class="n">all_spectra</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+</div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sparrow
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023, Sparrow.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

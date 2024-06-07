@@ -42,43 +42,37 @@ def create_temporary_directory(
 
     """
     # We determine the absolute path, just to be clear.
-    absolute_directory = os.path.abspath(directory)
+    temporary_directory = os.path.abspath(directory)
 
-    # Next, we check if the directory exists.
-    if os.path.exists(absolute_directory):
-        # And we also check if it has files within it.
-        files_exist = os.listdir(absolute_directory) != 0
-
-        # If we overwrite the directory, it does not matter if we have files
-        # files or not. However, if there is files, we still warn just in
-        # case it was a mistake.
-        if not files_exist:
-            # The directory exists and there is no files in it. It does not
-            # if it exists or not in reality.
-            temporary_directory = absolute_directory
-        elif overwrite:
-            # The directory exists but still we use it because the overwrite
-            # flag allows us to.
+    # Next, we check if the directory exists. If there are any files, then
+    # we warn about them not being safe.
+    directory_exists = os.path.exists(temporary_directory)
+    files_exist = (
+        os.listdir(temporary_directory) != 0 if directory_exists else False
+    )
+    # We now work with the validity of the directories. If there are files
+    # the temporary directory is not safe.
+    if directory_exists and files_exist:
+        if overwrite:
+            # The user allows us to overwrite it, but we still give a warning.
             logging.warning(
                 warning_type=logging.DataLossWarning,
                 message=(
-                    f"Proposed temporary directory {absolute_directory} is not"
+                    f"Proposed temporary directory {temporary_directory} is not"
                     " empty; files within it are not safe."
                 ),
             )
-            temporary_directory = absolute_directory
         else:
+            # Temporary directory has files and no instruction to overwrite,
+            # continuing is a no-go to preserve the directory.
             logging.critical(
                 critical_type=logging.DirectoryError,
                 message=(
                     "The proposed temporary directory"
-                    f" {absolute_directory} exists and is not empty, cannot"
+                    f" {temporary_directory} exists and is not empty, cannot"
                     " make one."
                 ),
             )
-    else:
-        # The directory does not exist so we can just use it after making it.
-        temporary_directory = absolute_directory
 
     # Now we make the directory. We already made the checks above for an
     # already existing directory.

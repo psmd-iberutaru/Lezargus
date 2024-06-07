@@ -130,6 +130,7 @@ def _check_array_kernel_variable_stack(
         # It is already a tuple-like.
         check_axes = tuple(int(axisdex) for axisdex in axis)
     else:
+        check_axes = axis
         logging.error(
             error_type=logging.InputError,
             message=(
@@ -658,6 +659,7 @@ def kernel_1d_gaussian_resolution(
     # Determining which, and based on which, we determine the determine the
     # standard deviation for the Gaussian. However, the standard deviation
     # value determined here is a physical length, not one in pixels/points.
+    phys_fwhm = -1
     if resolution_mode and resolving_mode:
         # If we have both modes, the program cannot decide between both.
         # Though we default to resolution based modes, it is still problematic.

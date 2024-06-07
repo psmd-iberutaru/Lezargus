@@ -20,13 +20,13 @@ This guide (and development in general) requires the following:
 
 1. Install Git for your operating system. 
    See `<https://git-scm.com/downloads/>`_
-2. Install Python 3.11+. The most recent version is recommended. 
+2. Install Python 3.10+. The most recent version is recommended. 
    See `<https://www.python.org/downloads/>`_
 3. Create (or have) a GitHub account. 
    See `<https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github>`_
 4. (Optional) Install a full install of (La)TeX, usually a TeXLive install is 
    good enough. We only recommend this if you are the main developer of this 
-   package. See `<https://tug.org/texlive/>`_
+   package. See `<https://tug.org/texlive/>`_.
 
 After Python has been installed, you can install other Python packages using 
 ``pip`` via:
@@ -144,7 +144,7 @@ adding to Lezargus. However, please keep the following in mind.
 
     - Python source files are better as one word.
     - Please have proper docstrings for all your files, functions, and classes. 
-      We require this but sometimes the automatic tools don't catch very case. 
+      We require this but sometimes the automatic tools don't catch every case. 
       We (generally) follow the 
       `Google/numpydoc <https://numpydoc.readthedocs.io/en/latest/format.html>`_ 
       style guide. (Note if you find a violation of the guide in our 

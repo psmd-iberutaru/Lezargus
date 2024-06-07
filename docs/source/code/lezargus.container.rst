@@ -1,18 +1,26 @@
 lezargus.container package
 ==========================
 
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   lezargus.container.function
+
 Submodules
 ----------
 
 .. toctree::
    :maxdepth: 4
 
-   lezargus.container.broadcast
+   lezargus.container.atmosphere
    lezargus.container.cube
    lezargus.container.image
    lezargus.container.mosaic
    lezargus.container.parent
-   lezargus.container.spectra
+   lezargus.container.spectrum
 
 Module contents
 ---------------

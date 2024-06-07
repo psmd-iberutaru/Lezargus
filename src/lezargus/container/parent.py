@@ -283,6 +283,7 @@ class LezargusContainerArithmetic:
             # All good.
             operand_data = operand.data
         else:
+            operand_data = None
             logging.critical(
                 critical_type=logging.ArithmeticalError,
                 message=(

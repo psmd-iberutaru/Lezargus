@@ -82,6 +82,7 @@ def bin_image_array(
     elif mode == "mean":
         binned_image = new_image.mean(axis=(1, 3))
     else:
+        binned_image = None
         logging.critical(
             critical_type=logging.InputError,
             message=(
@@ -166,6 +167,7 @@ def bin_cube_array_spatially(
     elif mode == "mean":
         binned_cube = new_cube.mean(axis=(1, 3))
     else:
+        binned_cube = None
         logging.critical(
             critical_type=logging.InputError,
             message=(

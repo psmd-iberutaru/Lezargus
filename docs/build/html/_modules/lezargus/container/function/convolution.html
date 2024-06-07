@@ -1,0 +1,800 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lezargus.container.function.convolution &#8212; Lezargus  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../../../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/lezargus/container/function/convolution';</script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Lezargus  documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../user/index.html">User Manual</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="simple">
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../technical/index.html">Technical Manual</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../technical/contributing.html">Contributor Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../technical/convention.html">Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../technical/photometry.html">Photometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../technical/uncertainty.html">Uncertainty Propagation</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../code/modules.html">lezargus</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../code/lezargus.html">lezargus package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../code/lezargus.container.html">lezargus.container package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.container.function.html">lezargus.container.function package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.container.atmosphere.html">lezargus.container.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.container.cube.html">lezargus.container.cube module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.container.image.html">lezargus.container.image module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.container.mosaic.html">lezargus.container.mosaic module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.container.parent.html">lezargus.container.parent module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.container.spectrum.html">lezargus.container.spectrum module</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../code/lezargus.library.html">lezargus.library package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.array.html">lezargus.library.array module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.atmosphere.html">lezargus.library.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.config.html">lezargus.library.config module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.conversion.html">lezargus.library.conversion module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.convolution.html">lezargus.library.convolution module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.data.html">lezargus.library.data module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.fits.html">lezargus.library.fits module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.flags.html">lezargus.library.flags module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.hint.html">lezargus.library.hint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.interpolate.html">lezargus.library.interpolate module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.logging.html">lezargus.library.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.math.html">lezargus.library.math module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.path.html">lezargus.library.path module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.sanitize.html">lezargus.library.sanitize module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.stitch.html">lezargus.library.stitch module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.temporary.html">lezargus.library.temporary module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.transform.html">lezargus.library.transform module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../code/lezargus.simulator.html">lezargus.simulator package</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.simulator.atmosphere.html">lezargus.simulator.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.simulator.spectre.html">lezargus.simulator.spectre module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.simulator.target.html">lezargus.simulator.target module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../code/lezargus.__main__.html">lezargus.__main__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../code/lezargus.__version__.html">lezargus.__version__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../code/lezargus.initialize.html">lezargus.initialize module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for lezargus.container.function.convolution</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Convolution functions specifically tailored to Lezargus containers.</span>
+
+<span class="sd">We seperate the logic for containers into functions which make it a little</span>
+<span class="sd">easier to understand. Moreover, these functions can also be used separately.</span>
+<span class="sd">The logic is similar to Numpy&#39;s functions like py:func:`numpy.mean` and</span>
+<span class="sd">`numpy.ndarray.mean`; and other modules in</span>
+<span class="sd">:py:mod:`lezargus.container.function`.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># isort: split</span>
+<span class="c1"># Import required to remove circular dependencies from type checking.</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">hint</span>
+<span class="c1"># isort: split</span>
+
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">lezargus</span>
+<span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">logging</span>
+
+
+<div class="viewcode-block" id="convolve_spectrum_by_spectral_kernel">
+<a class="viewcode-back" href="../../../../code/lezargus.container.function.convolution.html#lezargus.container.function.convolution.convolve_spectrum_by_spectral_kernel">[docs]</a>
+<span class="k">def</span> <span class="nf">convolve_spectrum_by_spectral_kernel</span><span class="p">(</span>
+    <span class="n">spectrum</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">,</span>
+    <span class="n">kernel</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">kernel_stack</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">kernel_function</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Callable</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convolve the spectrum with a spectral kernel.</span>
+
+<span class="sd">    We compute the convolution and return a near copy of the spectrum after</span>
+<span class="sd">    convolution. The wavelength is not affected.</span>
+
+<span class="sd">    As spectrum are 1D, there is no dimension to have a variable kernel,</span>
+<span class="sd">    as variable kernels need a non-convolution axis to vary on. There can</span>
+<span class="sd">    only be a static or dynamic kernel.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    spectrum : LezargusCube</span>
+<span class="sd">        The spectrum we are convolving.</span>
+<span class="sd">    kernel : ndarray, default = None</span>
+<span class="sd">        A static 1D spectral kernel. If provided, we use this static kernel</span>
+<span class="sd">        to convolve the spectrum by. Exclusive with other kernel options.</span>
+<span class="sd">    kernel_stack : ndarray, default = None</span>
+<span class="sd">        A variable 1D spectral kernel stack. If provided, we use the</span>
+<span class="sd">        variable kernel stack to convolve the spectrum by. Exclusive with</span>
+<span class="sd">        other kernel options.</span>
+<span class="sd">    kernel_function : Callable, default = None</span>
+<span class="sd">        A dynamic 1D kernel function. If provided, we use the dynamic kernel</span>
+<span class="sd">        function to convolve the spectrum by. Exclusive with other kernel</span>
+<span class="sd">        options.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    convolved_spectrum : ndarray</span>
+<span class="sd">        A near copy of the spectrum after convolution.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Determine the kernel used, and the convolution function being used.</span>
+    <span class="n">is_static</span> <span class="o">=</span> <span class="n">kernel</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="n">is_variable</span> <span class="o">=</span> <span class="n">kernel_stack</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="n">is_dynamic</span> <span class="o">=</span> <span class="n">kernel_function</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="nb">sum</span><span class="p">((</span><span class="n">is_static</span><span class="p">,</span> <span class="n">is_variable</span><span class="p">,</span> <span class="n">is_dynamic</span><span class="p">))</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Only one kernel type allowed: static, </span><span class="si">{</span><span class="n">is_static</span><span class="si">}</span><span class="s2">;&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; variable, </span><span class="si">{</span><span class="n">is_variable</span><span class="si">}</span><span class="s2">; dynamic, </span><span class="si">{</span><span class="n">is_dynamic</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="c1"># We assume that variances add; thus uncertainties add in quadrature.</span>
+    <span class="n">variance</span> <span class="o">=</span> <span class="n">spectrum</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">**</span><span class="mi">2</span>
+
+    <span class="c1"># We convolve based on the method of convolution as specified.</span>
+    <span class="k">if</span> <span class="n">is_static</span><span class="p">:</span>
+        <span class="c1"># Static convolution.</span>
+        <span class="n">convolved_data</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">convolution</span><span class="o">.</span><span class="n">static_1d_with_1d</span><span class="p">(</span>
+            <span class="n">array</span><span class="o">=</span><span class="n">spectrum</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">kernel</span><span class="o">=</span><span class="n">kernel</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">convolved_variance</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">convolution</span><span class="o">.</span><span class="n">static_1d_with_1d</span><span class="p">(</span>
+            <span class="n">array</span><span class="o">=</span><span class="n">variance</span><span class="p">,</span>
+            <span class="n">kernel</span><span class="o">=</span><span class="n">kernel</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">is_variable</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">AlgorithmWarning</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;Variable kernel convolution with a Spectrum undefined, no&quot;</span>
+                <span class="s2">&quot; non-convolution axis. Assuming static kernel.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+        <span class="c1"># We still try static convolution. Will likely fail.</span>
+        <span class="n">convolved_data</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">convolution</span><span class="o">.</span><span class="n">static_1d_with_1d</span><span class="p">(</span>
+            <span class="n">array</span><span class="o">=</span><span class="n">spectrum</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">kernel</span><span class="o">=</span><span class="n">kernel</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">convolved_variance</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">convolution</span><span class="o">.</span><span class="n">static_1d_with_1d</span><span class="p">(</span>
+            <span class="n">array</span><span class="o">=</span><span class="n">variance</span><span class="p">,</span>
+            <span class="n">kernel</span><span class="o">=</span><span class="n">kernel</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">is_dynamic</span><span class="p">:</span>
+        <span class="c1"># Dynamic convolution.</span>
+        <span class="n">convolved_data</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">convolved_variance</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+            <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ToDoError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="s2">&quot;No cube dynamic convolution.&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># One of the above convolutions should have triggered.</span>
+        <span class="n">convolved_data</span> <span class="o">=</span> <span class="n">spectrum</span><span class="o">.</span><span class="n">data</span>
+        <span class="n">convolved_variance</span> <span class="o">=</span> <span class="n">variance</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">LogicFlowError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Unknown convolution mode: static, </span><span class="si">{</span><span class="n">is_static</span><span class="si">}</span><span class="s2">; variable,&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">is_variable</span><span class="si">}</span><span class="s2">; dynamic, </span><span class="si">{</span><span class="n">is_dynamic</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="c1"># We also propagate the convolution of the mask and the flags where</span>
+    <span class="c1"># needed.</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+        <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ToDoError</span><span class="p">,</span>
+        <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Propagation of mask and flags via convolution is not done.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">convolved_mask</span> <span class="o">=</span> <span class="n">spectrum</span><span class="o">.</span><span class="n">mask</span>
+    <span class="n">convolved_flags</span> <span class="o">=</span> <span class="n">spectrum</span><span class="o">.</span><span class="n">flags</span>
+
+    <span class="c1"># Converting back to uncertainty.</span>
+    <span class="n">convolved_uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">convolved_variance</span><span class="p">)</span>
+
+    <span class="c1"># From the above information, we construct the new spectrum.</span>
+    <span class="n">spectrum_class</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">spectrum</span><span class="p">)</span>
+    <span class="n">convolved_spectrum</span> <span class="o">=</span> <span class="n">spectrum_class</span><span class="p">(</span>
+        <span class="n">wavelength</span><span class="o">=</span><span class="n">spectrum</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">convolved_data</span><span class="p">,</span>
+        <span class="n">uncertainty</span><span class="o">=</span><span class="n">convolved_uncertainty</span><span class="p">,</span>
+        <span class="n">wavelength_unit</span><span class="o">=</span><span class="n">spectrum</span><span class="o">.</span><span class="n">wavelength_unit</span><span class="p">,</span>
+        <span class="n">data_unit</span><span class="o">=</span><span class="n">spectrum</span><span class="o">.</span><span class="n">data_unit</span><span class="p">,</span>
+        <span class="n">mask</span><span class="o">=</span><span class="n">convolved_mask</span><span class="p">,</span>
+        <span class="n">flags</span><span class="o">=</span><span class="n">convolved_flags</span><span class="p">,</span>
+        <span class="n">header</span><span class="o">=</span><span class="n">spectrum</span><span class="o">.</span><span class="n">header</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">convolved_spectrum</span></div>
+
+
+
+<div class="viewcode-block" id="convolve_cube_by_spectral_kernel">
+<a class="viewcode-back" href="../../../../code/lezargus.container.function.convolution.html#lezargus.container.function.convolution.convolve_cube_by_spectral_kernel">[docs]</a>
+<span class="k">def</span> <span class="nf">convolve_cube_by_spectral_kernel</span><span class="p">(</span>
+    <span class="n">cube</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusCube</span><span class="p">,</span>
+    <span class="n">kernel</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">kernel_stack</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">kernel_function</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Callable</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusCube</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convolve the cube by a spectral kernel convolving spectra slices.</span>
+
+<span class="sd">    Convolving a spectral cube can either be done one of two ways;</span>
+<span class="sd">    convolving by image slices or convolving by spectral slices. We here</span>
+<span class="sd">    convolve by spectral slices.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    cube : LezargusCube</span>
+<span class="sd">        The cube we are convolving.</span>
+<span class="sd">    kernel : ndarray, default = None</span>
+<span class="sd">        A static 1D spectral kernel. If provided, we use this static kernel</span>
+<span class="sd">        to convolve the cube by. Exclusive with other kernel options.</span>
+<span class="sd">    kernel_stack : ndarray, default = None</span>
+<span class="sd">        A variable 1D spectral kernel stack. If provided, we use the</span>
+<span class="sd">        variable kernel stack to convolve the cube by. Exclusive with</span>
+<span class="sd">        other kernel options.</span>
+<span class="sd">    kernel_function : Callable, default = None</span>
+<span class="sd">        A dynamic 1D kernel function. If provided, we use the dynamic kernel</span>
+<span class="sd">        function to convolve the cube by. Exclusive with other kernel</span>
+<span class="sd">        options.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    convolved_cube : ndarray</span>
+<span class="sd">        A near copy of the data cube after convolution.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Determine the kernel used, and the convolution function being used.</span>
+    <span class="n">is_static</span> <span class="o">=</span> <span class="n">kernel</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="n">is_variable</span> <span class="o">=</span> <span class="n">kernel_stack</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="n">is_dynamic</span> <span class="o">=</span> <span class="n">kernel_function</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="nb">sum</span><span class="p">((</span><span class="n">is_static</span><span class="p">,</span> <span class="n">is_variable</span><span class="p">,</span> <span class="n">is_dynamic</span><span class="p">))</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Only one kernel type allowed: static, </span><span class="si">{</span><span class="n">is_static</span><span class="si">}</span><span class="s2">;&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; variable, </span><span class="si">{</span><span class="n">is_variable</span><span class="si">}</span><span class="s2">; dynamic, </span><span class="si">{</span><span class="n">is_dynamic</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="c1"># We assume that variances add; thus uncertainties add in quadrature.</span>
+    <span class="n">variance</span> <span class="o">=</span> <span class="n">cube</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">**</span><span class="mi">2</span>
+
+    <span class="c1"># We convolve based on the method of convolution as specified.</span>
+    <span class="k">if</span> <span class="n">is_static</span><span class="p">:</span>
+        <span class="c1"># Static convolution.</span>
+        <span class="n">convolved_data</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">convolution</span><span class="o">.</span><span class="n">static_3d_with_1d_over_z</span><span class="p">(</span>
+            <span class="n">array</span><span class="o">=</span><span class="n">cube</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">kernel</span><span class="o">=</span><span class="n">kernel</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">convolved_variance</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">convolution</span><span class="o">.</span><span class="n">static_3d_with_1d_over_z</span><span class="p">(</span>
+                <span class="n">array</span><span class="o">=</span><span class="n">variance</span><span class="p">,</span>
+                <span class="n">kernel</span><span class="o">=</span><span class="n">kernel</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">is_variable</span><span class="p">:</span>
+        <span class="c1"># Variable convolution.</span>
+        <span class="n">convolved_data</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">convolved_variance</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+            <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ToDoError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="s2">&quot;No cube by spectra variable convolution.&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">is_dynamic</span><span class="p">:</span>
+        <span class="c1"># Dynamic convolution.</span>
+        <span class="n">convolved_data</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">convolved_variance</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+            <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ToDoError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="s2">&quot;No cube by spectra dynamic convolution.&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># One of the above convolutions should have triggered.</span>
+        <span class="n">convolved_data</span> <span class="o">=</span> <span class="n">cube</span><span class="o">.</span><span class="n">data</span>
+        <span class="n">convolved_variance</span> <span class="o">=</span> <span class="n">variance</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">LogicFlowError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Unknown convolution mode: static, </span><span class="si">{</span><span class="n">is_static</span><span class="si">}</span><span class="s2">; variable,&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">is_variable</span><span class="si">}</span><span class="s2">; dynamic, </span><span class="si">{</span><span class="n">is_dynamic</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="c1"># We also propagate the convolution of the mask and the flags where</span>
+    <span class="c1"># needed.</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+        <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ToDoError</span><span class="p">,</span>
+        <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Propagation of mask and flags via convolution is not done.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">convolved_mask</span> <span class="o">=</span> <span class="n">cube</span><span class="o">.</span><span class="n">mask</span>
+    <span class="n">convolved_flags</span> <span class="o">=</span> <span class="n">cube</span><span class="o">.</span><span class="n">flags</span>
+
+    <span class="c1"># Converting back to uncertainty.</span>
+    <span class="n">convolved_uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">convolved_variance</span><span class="p">)</span>
+
+    <span class="c1"># From the above information, we construct the new spectra.</span>
+    <span class="n">cube_class</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">cube</span><span class="p">)</span>
+    <span class="n">convolved_cube</span> <span class="o">=</span> <span class="n">cube_class</span><span class="p">(</span>
+        <span class="n">wavelength</span><span class="o">=</span><span class="n">cube</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">convolved_data</span><span class="p">,</span>
+        <span class="n">uncertainty</span><span class="o">=</span><span class="n">convolved_uncertainty</span><span class="p">,</span>
+        <span class="n">wavelength_unit</span><span class="o">=</span><span class="n">cube</span><span class="o">.</span><span class="n">wavelength_unit</span><span class="p">,</span>
+        <span class="n">data_unit</span><span class="o">=</span><span class="n">cube</span><span class="o">.</span><span class="n">data_unit</span><span class="p">,</span>
+        <span class="n">spectral_scale</span><span class="o">=</span><span class="n">cube</span><span class="o">.</span><span class="n">spectral_scale</span><span class="p">,</span>
+        <span class="n">pixel_scale</span><span class="o">=</span><span class="n">cube</span><span class="o">.</span><span class="n">pixel_scale</span><span class="p">,</span>
+        <span class="n">slice_scale</span><span class="o">=</span><span class="n">cube</span><span class="o">.</span><span class="n">slice_scale</span><span class="p">,</span>
+        <span class="n">mask</span><span class="o">=</span><span class="n">convolved_mask</span><span class="p">,</span>
+        <span class="n">flags</span><span class="o">=</span><span class="n">convolved_flags</span><span class="p">,</span>
+        <span class="n">header</span><span class="o">=</span><span class="n">cube</span><span class="o">.</span><span class="n">header</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">convolved_cube</span></div>
+
+
+
+<div class="viewcode-block" id="convolve_cube_by_image_kernel">
+<a class="viewcode-back" href="../../../../code/lezargus.container.function.convolution.html#lezargus.container.function.convolution.convolve_cube_by_image_kernel">[docs]</a>
+<span class="k">def</span> <span class="nf">convolve_cube_by_image_kernel</span><span class="p">(</span>
+    <span class="n">cube</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusCube</span><span class="p">,</span>
+    <span class="n">kernel</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">kernel_stack</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">kernel_function</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Callable</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusCube</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convolve the cube by an image kernel convolving image slices.</span>
+
+<span class="sd">    Convolving a spectral cube can either be done one of two ways;</span>
+<span class="sd">    convolving by image slices or convolving by spectral slices. We here</span>
+<span class="sd">    convolve by image slices.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    cube : LezargusCube</span>
+<span class="sd">        The cube we are convolving.</span>
+<span class="sd">    kernel : ndarray, default = None</span>
+<span class="sd">        A static 2D image kernel. If provided, we use this static kernel</span>
+<span class="sd">        to convolve the cube by. Exclusive with other kernel options.</span>
+<span class="sd">    kernel_stack : ndarray, default = None</span>
+<span class="sd">        A variable 2D image kernel stack. If provided, we use the variable</span>
+<span class="sd">        kernel stack to convolve the cube by. Exclusive with other kernel</span>
+<span class="sd">        options.</span>
+<span class="sd">    kernel_function : Callable, default = None</span>
+<span class="sd">        A dynamic 2D kernel function. If provided, we use the dynamic</span>
+<span class="sd">        kernel function to convolve the cube by. Exclusive with other</span>
+<span class="sd">        kernel options.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    convolved_cube : ndarray</span>
+<span class="sd">        A near copy of the data cube after convolution.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Determine the kernel used, and the convolution function being used.</span>
+    <span class="n">is_static</span> <span class="o">=</span> <span class="n">kernel</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="n">is_variable</span> <span class="o">=</span> <span class="n">kernel_stack</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="n">is_dynamic</span> <span class="o">=</span> <span class="n">kernel_function</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="nb">sum</span><span class="p">((</span><span class="n">is_static</span><span class="p">,</span> <span class="n">is_variable</span><span class="p">,</span> <span class="n">is_dynamic</span><span class="p">))</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Only one kernel type allowed: static, </span><span class="si">{</span><span class="n">is_static</span><span class="si">}</span><span class="s2">;&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; variable, </span><span class="si">{</span><span class="n">is_variable</span><span class="si">}</span><span class="s2">; dynamic, </span><span class="si">{</span><span class="n">is_dynamic</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="c1"># We assume that variances add; thus uncertainties add in quadrature.</span>
+    <span class="n">variance</span> <span class="o">=</span> <span class="n">cube</span><span class="o">.</span><span class="n">uncertainty</span><span class="o">**</span><span class="mi">2</span>
+
+    <span class="c1"># We convolve based on the method of convolution as specified.</span>
+    <span class="k">if</span> <span class="n">is_static</span><span class="p">:</span>
+        <span class="c1"># Static convolution.</span>
+        <span class="n">convolved_data</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">convolution</span><span class="o">.</span><span class="n">static_3d_with_2d_over_xy</span><span class="p">(</span>
+            <span class="n">array</span><span class="o">=</span><span class="n">cube</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">kernel</span><span class="o">=</span><span class="n">kernel</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">convolved_variance</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">convolution</span><span class="o">.</span><span class="n">static_3d_with_2d_over_xy</span><span class="p">(</span>
+                <span class="n">array</span><span class="o">=</span><span class="n">variance</span><span class="p">,</span>
+                <span class="n">kernel</span><span class="o">=</span><span class="n">kernel</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">is_variable</span><span class="p">:</span>
+        <span class="c1"># Variable convolution.</span>
+        <span class="n">convolved_data</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">convolution</span><span class="o">.</span><span class="n">variable_3d_with_2d_over_xy</span><span class="p">(</span>
+                <span class="n">array</span><span class="o">=</span><span class="n">cube</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+                <span class="n">kernel_stack</span><span class="o">=</span><span class="n">kernel_stack</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">convolved_variance</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">convolution</span><span class="o">.</span><span class="n">variable_3d_with_2d_over_xy</span><span class="p">(</span>
+                <span class="n">array</span><span class="o">=</span><span class="n">variance</span><span class="p">,</span>
+                <span class="n">kernel_stack</span><span class="o">=</span><span class="n">kernel_stack</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">elif</span> <span class="n">is_dynamic</span><span class="p">:</span>
+        <span class="c1"># Dynamic convolution.</span>
+        <span class="n">convolved_data</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">convolved_variance</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+            <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ToDoError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="s2">&quot;No cube by image dynamic convolution.&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># One of the above convolutions should have triggered.</span>
+        <span class="n">convolved_data</span> <span class="o">=</span> <span class="n">cube</span><span class="o">.</span><span class="n">data</span>
+        <span class="n">convolved_variance</span> <span class="o">=</span> <span class="n">variance</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">LogicFlowError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Unknown convolution mode: static, </span><span class="si">{</span><span class="n">is_static</span><span class="si">}</span><span class="s2">; variable,&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">is_variable</span><span class="si">}</span><span class="s2">; dynamic, </span><span class="si">{</span><span class="n">is_dynamic</span><span class="si">}</span><span class="s2">.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="c1"># We also propagate the convolution of the mask and the flags where</span>
+    <span class="c1"># needed.</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+        <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ToDoError</span><span class="p">,</span>
+        <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Propagation of mask and flags via convolution is not done.&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">convolved_mask</span> <span class="o">=</span> <span class="n">cube</span><span class="o">.</span><span class="n">mask</span>
+    <span class="n">convolved_flags</span> <span class="o">=</span> <span class="n">cube</span><span class="o">.</span><span class="n">flags</span>
+
+    <span class="c1"># Converting back to uncertainty.</span>
+    <span class="n">convolved_uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">convolved_variance</span><span class="p">)</span>
+
+    <span class="c1"># From the above information, we construct the new spectra.</span>
+    <span class="n">cube_class</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">cube</span><span class="p">)</span>
+    <span class="n">convolved_cube</span> <span class="o">=</span> <span class="n">cube_class</span><span class="p">(</span>
+        <span class="n">wavelength</span><span class="o">=</span><span class="n">cube</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">convolved_data</span><span class="p">,</span>
+        <span class="n">uncertainty</span><span class="o">=</span><span class="n">convolved_uncertainty</span><span class="p">,</span>
+        <span class="n">wavelength_unit</span><span class="o">=</span><span class="n">cube</span><span class="o">.</span><span class="n">wavelength_unit</span><span class="p">,</span>
+        <span class="n">data_unit</span><span class="o">=</span><span class="n">cube</span><span class="o">.</span><span class="n">data_unit</span><span class="p">,</span>
+        <span class="n">spectral_scale</span><span class="o">=</span><span class="n">cube</span><span class="o">.</span><span class="n">spectral_scale</span><span class="p">,</span>
+        <span class="n">pixel_scale</span><span class="o">=</span><span class="n">cube</span><span class="o">.</span><span class="n">pixel_scale</span><span class="p">,</span>
+        <span class="n">slice_scale</span><span class="o">=</span><span class="n">cube</span><span class="o">.</span><span class="n">slice_scale</span><span class="p">,</span>
+        <span class="n">mask</span><span class="o">=</span><span class="n">convolved_mask</span><span class="p">,</span>
+        <span class="n">flags</span><span class="o">=</span><span class="n">convolved_flags</span><span class="p">,</span>
+        <span class="n">header</span><span class="o">=</span><span class="n">cube</span><span class="o">.</span><span class="n">header</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">convolved_cube</span></div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sparrow
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023, Sparrow.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

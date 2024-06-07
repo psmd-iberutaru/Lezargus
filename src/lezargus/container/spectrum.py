@@ -244,6 +244,7 @@ class LezargusSpectrum(LezargusContainerArithmetic):
                     1 / spectrumdex.uncertainty**2 for spectrumdex in lz_spectra
                 ]
             else:
+                using_weights = None
                 # A valid shortcut string has not been provided.
                 accepted_options = ["uniform", "invar"]
                 logging.critical(

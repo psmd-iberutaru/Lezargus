@@ -12,6 +12,7 @@ TODO
     :hidden:
     :caption: Technical Manual
 
+    atmosphere
     contributing
     convention
     photometry

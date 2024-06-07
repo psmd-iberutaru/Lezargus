@@ -1,0 +1,1389 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lezargus.simulator.spectre &#8212; Lezargus  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/lezargus/simulator/spectre';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Lezargus  documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../user/index.html">User Manual</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="simple">
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../technical/index.html">Technical Manual</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/contributing.html">Contributor Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/convention.html">Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/photometry.html">Photometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/uncertainty.html">Uncertainty Propagation</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../code/modules.html">lezargus</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../code/lezargus.html">lezargus package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.container.html">lezargus.container package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.function.html">lezargus.container.function package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.atmosphere.html">lezargus.container.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.cube.html">lezargus.container.cube module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.image.html">lezargus.container.image module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.mosaic.html">lezargus.container.mosaic module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.parent.html">lezargus.container.parent module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.spectrum.html">lezargus.container.spectrum module</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.library.html">lezargus.library package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.array.html">lezargus.library.array module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.atmosphere.html">lezargus.library.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.config.html">lezargus.library.config module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.conversion.html">lezargus.library.conversion module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.convolution.html">lezargus.library.convolution module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.data.html">lezargus.library.data module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.fits.html">lezargus.library.fits module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.flags.html">lezargus.library.flags module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.hint.html">lezargus.library.hint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.interpolate.html">lezargus.library.interpolate module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.logging.html">lezargus.library.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.math.html">lezargus.library.math module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.path.html">lezargus.library.path module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.sanitize.html">lezargus.library.sanitize module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.stitch.html">lezargus.library.stitch module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.temporary.html">lezargus.library.temporary module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.transform.html">lezargus.library.transform module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.simulator.html">lezargus.simulator package</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.simulator.atmosphere.html">lezargus.simulator.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.simulator.spectre.html">lezargus.simulator.spectre module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.simulator.target.html">lezargus.simulator.target module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__main__.html">lezargus.__main__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__version__.html">lezargus.__version__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.initialize.html">lezargus.initialize module</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for lezargus.simulator.spectre</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Simulation code for simulating SPECTRE observations.</span>
+
+<span class="sd">For more information on the simulation of SPECTRE observations, see the</span>
+<span class="sd">documentation file: [[TODO]].</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">astropy.constants</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">lezargus</span>
+<span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">hint</span>
+<span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">logging</span>
+
+
+<div class="viewcode-block" id="SimulatorSpectre">
+<a class="viewcode-back" href="../../../code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SimulatorSpectre">[docs]</a>
+<span class="k">class</span> <span class="nc">SimulatorSpectre</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Simulate a SPECTRE observation.</span>
+
+<span class="sd">    We group all of the functions needed to simulate a SPECTRE observation</span>
+<span class="sd">    into this class. It it easier to group all of data and needed functions</span>
+<span class="sd">    this way.</span>
+
+<span class="sd">    By default, all attributes are public to allow for maximum transparency.</span>
+<span class="sd">    By convention, please treat the attributes as read-only. Consult the</span>
+<span class="sd">    documentation for changing them. By default, they are None, this allows</span>
+<span class="sd">    us to track the process of the simulation.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    astrophysical_object_spectra : LezargusSpectrum</span>
+<span class="sd">        The &quot;perfect&quot; spectra of the astrophysical object who&#39;s observation is</span>
+<span class="sd">        being modeled.</span>
+<span class="sd">    astrophysical_object_cube : LezargusCube</span>
+<span class="sd">        The cube form of the perfect astrophysical object who&#39;s observation is</span>
+<span class="sd">        being modeled.</span>
+<span class="sd">    astrophysical_object_cube_atm_trn : LezargusCube</span>
+<span class="sd">        The astrophysical object after applying the atmospheric transmission.</span>
+<span class="sd">    astrophysical_object_cube_atm_rad : LezargusCube</span>
+<span class="sd">        The astrophysical object after applying the atmospheric radiance or</span>
+<span class="sd">        emission after transmission.</span>
+<span class="sd">    astrophysical_object_cube_atm_see : LezargusCube</span>
+<span class="sd">        The astrophysical object after applying the atmospheric seeing</span>
+<span class="sd">        convolution; after transmission and radiance.</span>
+<span class="sd">    astrophysical_object_cube_atm_ref : LezargusCube</span>
+<span class="sd">        The astrophysical object after applying the atmospheric refraction,</span>
+<span class="sd">        after transmission, radiance, and seeing. This is actually just a</span>
+<span class="sd">        read-only alias for :py:attr:`astronomical_object_cube`.</span>
+<span class="sd">    astronomical_object_cube : LezargusCube</span>
+<span class="sd">        The astronomical object, obtained from applying atmospheric conditions</span>
+<span class="sd">        to the astrophysical object. Noted as &quot;astronomical&quot; as it is</span>
+<span class="sd">        considered &quot;as-observed&quot; from the Earth ground.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="SimulatorSpectre.__init__">
+<a class="viewcode-back" href="../../../code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SimulatorSpectre.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="s2">&quot;SimulatorSpectre&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Instantiate the SPECTRE simulation class.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># All of the variables which store the results of the simulation as</span>
+        <span class="c1"># we run it.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_spectra</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_cube</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_cube_atm_trn</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_cube_atm_rad</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_cube_atm_see</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="c1"># astrophysical_object_cube_atm_ref; present to note its existence.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">astronomical_object_cube</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">astrophysical_object_cube_atm_ref</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusCube</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Read-only alias for :py:attr:`astronomical_object_cube`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        cube : LezargusCube</span>
+<span class="sd">            The :py:attr:`astronomical_object_cube` object as an alias.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">astronomical_object_cube</span>
+
+<div class="viewcode-block" id="SimulatorSpectre.create_astrophysical_object_spectra">
+<a class="viewcode-back" href="../../../code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SimulatorSpectre.create_astrophysical_object_spectra">[docs]</a>
+    <span class="k">def</span> <span class="nf">create_astrophysical_object_spectra</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">temperature</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">magnitude</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">filter_spectra</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">,</span>
+        <span class="n">filter_zero_point</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create the astrophysical object from first principles.</span>
+
+<span class="sd">        This function creates and stores the astrophysical object spectra</span>
+<span class="sd">        modeled as a blackbody of a specific temperature. If a custom spectra</span>
+<span class="sd">        is to be provided, please see</span>
+<span class="sd">        :py:meth:`custom_astrophysical_object_spectra`.</span>
+<span class="sd">        The data is stored in this class internally as</span>
+<span class="sd">        :py:attr:`astrophysical_object_spectra`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        temperature : float</span>
+<span class="sd">            The temperature of the black body spectra.</span>
+<span class="sd">        magnitude : float</span>
+<span class="sd">            The magnitude of the object in the photometric filter system</span>
+<span class="sd">            provided.</span>
+<span class="sd">        filter_spectra : LezargusSpectrum</span>
+<span class="sd">            The filter transmission profile, packaged as a LezargusSpectrum. It</span>
+<span class="sd">            does not need to have any header data. We assume a Vega-based</span>
+<span class="sd">            photometric system.</span>
+<span class="sd">        filter_zero_point : float</span>
+<span class="sd">            The zero point value of the filter.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        spectra : LezargusSpectrum</span>
+<span class="sd">            The astrophysical object spectra; it is returned as a courtesy as</span>
+<span class="sd">            the result is stored in this class.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We need to construct our own wavelength base line, we rely on the</span>
+        <span class="c1"># limits of SPECTRE itself.</span>
+        <span class="n">wavelength</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span>
+            <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">SPECTRE_SIMULATION_WAVELENGTH_MINIMUM</span><span class="p">,</span>
+            <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">SPECTRE_SIMULATION_WAVELENGTH_MAXIMUM</span><span class="p">,</span>
+            <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">SPECTRE_SIMULATION_WAVELENGTH_COUNT</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># We construct the blackbody function.</span>
+        <span class="n">blackbody_function</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">blackbody_function</span><span class="p">(</span>
+            <span class="n">temperature</span><span class="o">=</span><span class="n">temperature</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Then we evaluate the blackbody function, of course the scale of which</span>
+        <span class="c1"># will be wrong but it will be fixed.</span>
+        <span class="n">blackbody_flux</span> <span class="o">=</span> <span class="n">blackbody_function</span><span class="p">(</span><span class="n">wavelength</span><span class="p">)</span>
+        <span class="c1"># We integrate over the solid angle.</span>
+        <span class="n">solid_angle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+        <span class="n">integrated_blackbody_flux</span> <span class="o">=</span> <span class="n">blackbody_flux</span> <span class="o">*</span> <span class="n">solid_angle</span>
+        <span class="c1"># Packaging the spectra.</span>
+        <span class="n">blackbody_spectra</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">(</span>
+            <span class="n">wavelength</span><span class="o">=</span><span class="n">wavelength</span><span class="p">,</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">integrated_blackbody_flux</span><span class="p">,</span>
+            <span class="n">uncertainty</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">wavelength_unit</span><span class="o">=</span><span class="s2">&quot;m&quot;</span><span class="p">,</span>
+            <span class="n">data_unit</span><span class="o">=</span><span class="s2">&quot;W m^-2 m^-1&quot;</span><span class="p">,</span>
+            <span class="n">pixel_scale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">slice_scale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">flags</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># We scale the flux to properly photometric scaling based on the</span>
+        <span class="c1"># input filter and zero point values. For the purposes of the</span>
+        <span class="c1"># simulation, we do not really care all too much about error</span>
+        <span class="c1"># propagation as there is no way to communicate it for the output.</span>
+        <span class="n">calibration_factor</span><span class="p">,</span> <span class="n">__</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">photometry</span><span class="o">.</span><span class="n">calculate_photometric_correction_factor_vega</span><span class="p">(</span>
+                <span class="n">star_spectra</span><span class="o">=</span><span class="n">blackbody_spectra</span><span class="p">,</span>
+                <span class="n">filter_spectra</span><span class="o">=</span><span class="n">filter_spectra</span><span class="p">,</span>
+                <span class="n">star_magnitude</span><span class="o">=</span><span class="n">magnitude</span><span class="p">,</span>
+                <span class="n">filter_zero_point</span><span class="o">=</span><span class="n">filter_zero_point</span><span class="p">,</span>
+                <span class="n">star_magnitude_uncertainty</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">filter_zero_point_uncertainty</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Calibrating the flux.</span>
+        <span class="n">calibrated_flux</span> <span class="o">=</span> <span class="n">blackbody_spectra</span><span class="o">.</span><span class="n">data</span> <span class="o">*</span> <span class="n">calibration_factor</span>
+
+        <span class="c1"># We convert the flux to a photon flux, dividing out the photon</span>
+        <span class="c1"># energy.</span>
+        <span class="n">photon_energy</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">astropy</span><span class="o">.</span><span class="n">constants</span><span class="o">.</span><span class="n">h</span> <span class="o">*</span> <span class="n">astropy</span><span class="o">.</span><span class="n">constants</span><span class="o">.</span><span class="n">c</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">value</span> <span class="o">/</span> <span class="n">blackbody_spectra</span><span class="o">.</span><span class="n">wavelength</span>
+        <span class="n">photon_flux</span> <span class="o">=</span> <span class="n">calibrated_flux</span> <span class="o">/</span> <span class="n">photon_energy</span>
+
+        <span class="c1"># Although we do not need a fully fledged header, we add some small</span>
+        <span class="c1"># information where we know.</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;LZI_INST&quot;</span><span class="p">:</span> <span class="s2">&quot;SPECTRE&quot;</span><span class="p">,</span> <span class="s2">&quot;LZO_NAME&quot;</span><span class="p">:</span> <span class="s2">&quot;Simulation&quot;</span><span class="p">}</span>
+
+        <span class="c1"># Compiling the spectra class and storing it.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_spectra</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">(</span>
+            <span class="n">wavelength</span><span class="o">=</span><span class="n">wavelength</span><span class="p">,</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">photon_flux</span><span class="p">,</span>
+            <span class="n">uncertainty</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">wavelength_unit</span><span class="o">=</span><span class="s2">&quot;m&quot;</span><span class="p">,</span>
+            <span class="n">data_unit</span><span class="o">=</span><span class="s2">&quot;ph s^-1 m^-2 m^-1&quot;</span><span class="p">,</span>
+            <span class="n">pixel_scale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">slice_scale</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">flags</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">header</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_spectra</span></div>
+
+
+<div class="viewcode-block" id="SimulatorSpectre.custom_astrophysical_object_spectra">
+<a class="viewcode-back" href="../../../code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SimulatorSpectre.custom_astrophysical_object_spectra">[docs]</a>
+    <span class="k">def</span> <span class="nf">custom_astrophysical_object_spectra</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">custom_spectra</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Use a provided spectra for a custom astrophysical object.</span>
+
+<span class="sd">        This function is used to provide a custom spectra class to use to</span>
+<span class="sd">        define the astrophysical object. If it should be derived instead from</span>
+<span class="sd">        much simpler first principles, then please use</span>
+<span class="sd">        :py:meth:`create_astrophysical_object_spectra` instead. The data is</span>
+<span class="sd">        stored in this class internally as</span>
+<span class="sd">        :py:attr:`astrophysical_object_spectra`.</span>
+
+<span class="sd">        The object spectra should be a point source object. If you have a</span>
+<span class="sd">        custom cube that you want to use, see</span>
+<span class="sd">        :py:meth:`custom_astrophysical_object_cube` instead.</span>
+
+<span class="sd">        Note that the wavelength axis of the custom spectra is used to define</span>
+<span class="sd">        the wavelength scaling of the astrophysical object. We do not add</span>
+<span class="sd">        any unknown information.</span>
+
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        custom_spectra : LezargusSpectrum</span>
+<span class="sd">            The custom provided spectral object to use for the custom</span>
+<span class="sd">            astrophysical object.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        spectra : LezargusSpectrum</span>
+<span class="sd">            The astrophysical object spectra; it is returned as a courtesy as</span>
+<span class="sd">            the result is stored in this class. This is the same as the input</span>
+<span class="sd">            spectra and the return is for consistency.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We really just use it as is, aside from a simple check to make sure</span>
+        <span class="c1"># the input is not going to screw things up down the line.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">custom_spectra</span><span class="p">,</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;The custom input spectra is not a LezargusSpectrum&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; instance but is instead has type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">custom_spectra</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_spectra</span> <span class="o">=</span> <span class="n">custom_spectra</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_spectra</span></div>
+
+
+<div class="viewcode-block" id="SimulatorSpectre.generate_astrophysical_object_cube">
+<a class="viewcode-back" href="../../../code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SimulatorSpectre.generate_astrophysical_object_cube">[docs]</a>
+    <span class="k">def</span> <span class="nf">generate_astrophysical_object_cube</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusCube</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Use the stored astrophysical spectra to generate a field cube.</span>
+
+<span class="sd">        This function takes the stored astrophysical object spectra and</span>
+<span class="sd">        develops a mock field-of-view field of the object represented with a</span>
+<span class="sd">        cube. A custom cube may be provided instead with</span>
+<span class="sd">        :py:meth:`custom_astrophysical_object_cube`. The data is stored in</span>
+<span class="sd">        this class internally as</span>
+<span class="sd">        :py:attr:`astrophysical_object_cube`.</span>
+
+<span class="sd">        The astrophysical object spectra is required to use this function,</span>
+<span class="sd">        see :py:meth:`create_astrophysical_object_spectra` or</span>
+<span class="sd">        :py:meth:`custom_astrophysical_object_spectra` to create it.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        cube : LezargusCube</span>
+<span class="sd">            The astrophysical object cube; it is returned as a courtesy as</span>
+<span class="sd">            the result is stored in this class.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We first need to make sure there is a spectra for us to use.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_spectra</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">WrongOrderError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;There is no astrophysical object spectra to generate the&quot;</span>
+                    <span class="s2">&quot; cube from, please create or provide one.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># From here, we determine the cube based on the configured parameters</span>
+        <span class="c1"># defining the cube. We need to define a dummy cube before creating</span>
+        <span class="c1"># the actual cube by broadcast.</span>
+        <span class="n">dummy_data_shape</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">SPECTRE_SIMULATION_FOV_E_W_COUNT</span><span class="p">,</span>
+            <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">SPECTRE_SIMULATION_FOV_N_S_COUNT</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_spectra</span><span class="o">.</span><span class="n">wavelength</span><span class="o">.</span><span class="n">size</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">dummy_data_cube</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">dummy_data_shape</span><span class="p">)</span>
+        <span class="c1"># We also use the configured size to determine both the pixel and</span>
+        <span class="c1"># slice scales. The configuration lengths are in arcseconds so</span>
+        <span class="c1"># conversion is needed.</span>
+        <span class="n">e_w_length</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">convert_units</span><span class="p">(</span>
+            <span class="n">value</span><span class="o">=</span><span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">SPECTRE_SIMULATION_FOV_E_W_LENGTH</span><span class="p">,</span>
+            <span class="n">value_unit</span><span class="o">=</span><span class="s2">&quot;arcsec&quot;</span><span class="p">,</span>
+            <span class="n">result_unit</span><span class="o">=</span><span class="s2">&quot;rad&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">pixel_scale</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">e_w_length</span>
+            <span class="o">/</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">SPECTRE_SIMULATION_FOV_E_W_COUNT</span>
+        <span class="p">)</span>
+        <span class="n">n_s_length</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">convert_units</span><span class="p">(</span>
+            <span class="n">value</span><span class="o">=</span><span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">SPECTRE_SIMULATION_FOV_N_S_LENGTH</span><span class="p">,</span>
+            <span class="n">value_unit</span><span class="o">=</span><span class="s2">&quot;arcsec&quot;</span><span class="p">,</span>
+            <span class="n">result_unit</span><span class="o">=</span><span class="s2">&quot;rad&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">slice_scale</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">n_s_length</span>
+            <span class="o">/</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">SPECTRE_SIMULATION_FOV_N_S_COUNT</span>
+        <span class="p">)</span>
+
+        <span class="n">template_cube</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusCube</span><span class="p">(</span>
+            <span class="n">wavelength</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_spectra</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">dummy_data_cube</span><span class="p">,</span>
+            <span class="n">uncertainty</span><span class="o">=</span><span class="n">dummy_data_cube</span><span class="p">,</span>
+            <span class="n">wavelength_unit</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_spectra</span><span class="o">.</span><span class="n">wavelength_unit</span><span class="p">,</span>
+            <span class="n">data_unit</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_spectra</span><span class="o">.</span><span class="n">data_unit</span><span class="p">,</span>
+            <span class="n">pixel_scale</span><span class="o">=</span><span class="n">pixel_scale</span><span class="p">,</span>
+            <span class="n">slice_scale</span><span class="o">=</span><span class="n">slice_scale</span><span class="p">,</span>
+            <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">flags</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># We use this template cube to broadcast it to a center-pixel to</span>
+        <span class="c1"># simulate a point source target.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_cube</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">broadcast</span><span class="o">.</span><span class="n">broadcast_spectrum_to_cube_center</span><span class="p">(</span>
+                <span class="n">input_spectrum</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_spectra</span><span class="p">,</span>
+                <span class="n">template_cube</span><span class="o">=</span><span class="n">template_cube</span><span class="p">,</span>
+                <span class="n">wavelength_mode</span><span class="o">=</span><span class="s2">&quot;error&quot;</span><span class="p">,</span>
+                <span class="n">allow_even_center</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="c1"># Just returning the cube as well.</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_cube</span></div>
+
+
+<div class="viewcode-block" id="SimulatorSpectre.custom_astrophysical_object_cube">
+<a class="viewcode-back" href="../../../code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SimulatorSpectre.custom_astrophysical_object_cube">[docs]</a>
+    <span class="k">def</span> <span class="nf">custom_astrophysical_object_cube</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">custom_cube</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusCube</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusCube</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Use a provided cube for a custom astrophysical cube.</span>
+
+<span class="sd">        This function is used to provide a custom cube class to use to</span>
+<span class="sd">        define the astrophysical object field. If it should be derived instead</span>
+<span class="sd">        from a point-source spectra, then please use</span>
+<span class="sd">        :py:meth:`generate_astrophysical_object_cube` instead. The results are</span>
+<span class="sd">        stored in this class internally as</span>
+<span class="sd">        :py:attr:`astrophysical_object_cube`.</span>
+
+<span class="sd">        Note that the wavelength axis of the custom cube is used to define</span>
+<span class="sd">        the wavelength scaling of the astrophysical object. We do not add</span>
+<span class="sd">        any unknown information.</span>
+
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        custom_cube : LezargusSpectrum</span>
+<span class="sd">            The custom provided spectral cube object to use for the custom</span>
+<span class="sd">            astrophysical object field.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        cube : LezargusCube</span>
+<span class="sd">            The astrophysical object cube; it is returned as a courtesy as</span>
+<span class="sd">            the result is stored in this class. This is the same as the input</span>
+<span class="sd">            spectra and the return is for consistency.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We really just use it as is, aside from a simple check to make sure</span>
+        <span class="c1"># the input is not going to screw things up down the line.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">custom_cube</span><span class="p">,</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusCube</span><span class="p">):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;The custom input cube is not a LezargusCube instance but&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; is instead has type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">custom_cube</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_cube</span> <span class="o">=</span> <span class="n">custom_cube</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_cube</span></div>
+
+
+<div class="viewcode-block" id="SimulatorSpectre.prepare_spectra">
+<a class="viewcode-back" href="../../../code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SimulatorSpectre.prepare_spectra">[docs]</a>
+    <span class="k">def</span> <span class="nf">prepare_spectra</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">spectra</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">,</span>
+        <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
+        <span class="n">skip_convolve</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Prepare the provided spectra for future steps.</span>
+
+<span class="sd">        Any provided spectra (transmission curves, emission curves, etc) must</span>
+<span class="sd">        be properly prepared before its application to the simulation data.</span>
+<span class="sd">        We do the following steps in order (if not otherwise skipped):</span>
+
+<span class="sd">            - Convolve: We match the spectral resolution (or resolving power)</span>
+<span class="sd">              to the simulation&#39;s. We leverage</span>
+<span class="sd">              :py:meth:`_prepare_convolve_atmospheric_transmission`.</span>
+
+<span class="sd">        Please see the linked functions in each of the steps for the parameters</span>
+<span class="sd">        required for each step of the preparation, if it is not to be skipped.</span>
+<span class="sd">        Without the required inputs, the preparation will likely fail; failure</span>
+<span class="sd">        will likely be noisy (logged or raised).</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        spectra : LezargusSpectrum</span>
+<span class="sd">            The input spectra which we will be preparing.</span>
+<span class="sd">        skip_convolve : bool, default = False</span>
+<span class="sd">            If True, we skip the resolution convolution step. The backend</span>
+<span class="sd">            function will not be called.</span>
+<span class="sd">        *args : Any</span>
+<span class="sd">            The positional arguments. We forbid any positional arguments for</span>
+<span class="sd">            informing the backend functions because of its ambiguity.</span>
+<span class="sd">        **kwargs : Any</span>
+<span class="sd">            The keyword arguments which will be fed into the backend functions.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        finished_spectra : LezargusSpectrum</span>
+<span class="sd">            The finished prepared spectra after all of the steps have been</span>
+<span class="sd">            done.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Type check on the input spectra.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spectra</span><span class="p">,</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;Input spectra is not a LezargusSpectrum, is instead:&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">spectra</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># There should be no positional arguments.</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+                <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;Spectra preparation cannot have positional arguments, use&quot;</span>
+                    <span class="s2">&quot; keyword  arguments.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Now, we just go down the list making sure that we do all of the</span>
+        <span class="c1"># procedures in order, unless the user wants it skipped.</span>
+        <span class="c1"># ...convolution...</span>
+        <span class="k">if</span> <span class="n">skip_convolve</span><span class="p">:</span>
+            <span class="n">convolved_spectra</span> <span class="o">=</span> <span class="n">spectra</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">convolved_spectra</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_spectra_convolve</span><span class="p">(</span>
+                <span class="n">spectra</span><span class="o">=</span><span class="n">spectra</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="c1"># All done.</span>
+        <span class="n">finished_spectra</span> <span class="o">=</span> <span class="n">convolved_spectra</span>
+        <span class="k">return</span> <span class="n">finished_spectra</span></div>
+
+
+<div class="viewcode-block" id="SimulatorSpectre._prepare_spectra_convolve">
+<a class="viewcode-back" href="../../../code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SimulatorSpectre._prepare_spectra_convolve">[docs]</a>
+    <span class="k">def</span> <span class="nf">_prepare_spectra_convolve</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">spectra</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">,</span>
+        <span class="n">input_resolution</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">input_resolving</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">simulation_resolution</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">simulation_resolving</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">reference_wavelength</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="nb">object</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convolve the input spectra to make its resolution match.</span>
+
+<span class="sd">        Spectra comes in many resolutions. If the resolution of an input</span>
+<span class="sd">        spectra is too high for the simulation, its application can give</span>
+<span class="sd">        erroneous results. Here, we use a Gaussian kernel to convolve the</span>
+<span class="sd">        spectral data to better match the resolution of the input and the</span>
+<span class="sd">        simulation.</span>
+
+<span class="sd">        We leverage :py:func:`kernel_1d_gaussian_resolution` to make the kernel.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        spectra : LezargusSpectrum</span>
+<span class="sd">            The transmission spectra which we will be preparing.</span>
+<span class="sd">        input_resolution : float, default = None</span>
+<span class="sd">            The spectral resolution of the input spectra. Must be in</span>
+<span class="sd">            the same units as the spectra.</span>
+<span class="sd">        input_resolving : float, default = None</span>
+<span class="sd">            The spectral resolving power of the input spectra, relative</span>
+<span class="sd">            to the wavelength `reference_wavelength`.</span>
+<span class="sd">        simulation_resolution : float, default = None</span>
+<span class="sd">            The spectral resolution of the simulation spectra. Must be in</span>
+<span class="sd">            the same units as the simulation spectra.</span>
+<span class="sd">        simulation_resolving : float, default = None</span>
+<span class="sd">            The spectral resolving power of the simulation spectra, relative</span>
+<span class="sd">            to the wavelength `reference_wavelength`.</span>
+<span class="sd">        reference_wavelength : float, default = None</span>
+<span class="sd">            The reference wavelength for any needed conversion.</span>
+<span class="sd">        **kwargs : dict</span>
+<span class="sd">            Keyword argument catcher.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        convolved_spectra : LezargusSpectrum</span>
+<span class="sd">            The spectra, after convolution based on the input parameters.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># This is just to catch and use the keyword arguments.</span>
+        <span class="n">__</span> <span class="o">=</span> <span class="n">kwargs</span>
+
+        <span class="c1"># We assume the kernel size based on the wavelength of the input</span>
+        <span class="c1"># spectra. Namely, the kernel must be smaller than the number of points.</span>
+        <span class="c1"># We assume that we have Nyquist sampling and 1 extra degree of</span>
+        <span class="c1"># freedom.</span>
+        <span class="n">reduction_factor</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">*</span> <span class="mi">2</span>
+        <span class="n">kernel_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">spectra</span><span class="o">.</span><span class="n">wavelength</span><span class="p">)</span> <span class="o">/</span> <span class="n">reduction_factor</span><span class="p">))</span>
+        <span class="n">kernel_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">kernel_size</span><span class="p">,)</span>
+
+        <span class="c1"># We have the input, we rely on the kernel determination to figure out</span>
+        <span class="c1"># the mode.</span>
+        <span class="n">gaussian_kernel</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">convolution</span><span class="o">.</span><span class="n">kernel_1d_gaussian_resolution</span><span class="p">(</span>
+                <span class="n">shape</span><span class="o">=</span><span class="n">kernel_shape</span><span class="p">,</span>
+                <span class="n">template_wavelength</span><span class="o">=</span><span class="n">spectra</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+                <span class="n">base_resolution</span><span class="o">=</span><span class="n">input_resolution</span><span class="p">,</span>
+                <span class="n">target_resolution</span><span class="o">=</span><span class="n">simulation_resolution</span><span class="p">,</span>
+                <span class="n">base_resolving_power</span><span class="o">=</span><span class="n">input_resolving</span><span class="p">,</span>
+                <span class="n">target_resolving_power</span><span class="o">=</span><span class="n">simulation_resolving</span><span class="p">,</span>
+                <span class="n">reference_wavelength</span><span class="o">=</span><span class="n">reference_wavelength</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># We then convolve the input spectra.</span>
+        <span class="n">convolved_spectra</span> <span class="o">=</span> <span class="n">spectra</span><span class="o">.</span><span class="n">convolve</span><span class="p">(</span><span class="n">kernel</span><span class="o">=</span><span class="n">gaussian_kernel</span><span class="p">)</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">convolved_spectra</span></div>
+
+
+<div class="viewcode-block" id="SimulatorSpectre.apply_atmospheric_transmission">
+<a class="viewcode-back" href="../../../code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SimulatorSpectre.apply_atmospheric_transmission">[docs]</a>
+    <span class="k">def</span> <span class="nf">apply_atmospheric_transmission</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">transmission_spectra</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusCube</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Apply the atmospheric transmission to the object.</span>
+
+<span class="sd">        The astrophysical object cube is required to use this function,</span>
+<span class="sd">        see :py:meth:`create_astrophysical_object_cube` or</span>
+<span class="sd">        :py:meth:`custom_astrophysical_object_cube` to create it. The results</span>
+<span class="sd">        are stored in this class internally as</span>
+<span class="sd">        :py:attr:`astrophysical_object_cube_atm_trn`.</span>
+
+<span class="sd">        Moreover, consider using :py:meth:`prepare_spectra`</span>
+<span class="sd">        to properly match the resolving power or resolution of the simulation</span>
+<span class="sd">        spectra and the transmission spectra.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        transmission_spectra : LezargusSpectrum</span>
+<span class="sd">            The atmospheric transmission spectra. The wavelength unit of</span>
+<span class="sd">            this spectra should be meters.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        cube : LezargusCube</span>
+<span class="sd">            The cube of the object after atmospheric transmission has been</span>
+<span class="sd">            applied.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We first need to make sure there is the object cube for us to use.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_cube</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">WrongOrderError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;There is no astrophysical object cube to apply the&quot;</span>
+                    <span class="s2">&quot; atmospheric transmission to.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># We also need to make sure the transmission spectra is a</span>
+        <span class="c1"># LezargusSpectrum.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span>
+            <span class="n">transmission_spectra</span><span class="p">,</span>
+            <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">,</span>
+        <span class="p">):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;The atmospheric transmission spectra has type&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">transmission_spectra</span><span class="p">)</span><span class="si">}</span><span class="s2">, not the expected&quot;</span>
+                    <span class="s2">&quot; LezargusSpectrum.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># We need to align the transmission spectra to the Simulators</span>
+        <span class="c1"># wavelength base.</span>
+        <span class="n">trans_wave</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_cube</span><span class="o">.</span><span class="n">wavelength</span>
+        <span class="n">trans_data</span><span class="p">,</span> <span class="n">trans_uncert</span><span class="p">,</span> <span class="n">trans_mask</span><span class="p">,</span> <span class="n">trans_flags</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">transmission_spectra</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span>
+                <span class="n">wavelength</span><span class="o">=</span><span class="n">trans_wave</span><span class="p">,</span>
+                <span class="n">skip_flags</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">skip_mask</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="c1"># It is convenient to reconstruct a spectra for it.</span>
+        <span class="n">aligned_transmission_spectra</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">(</span>
+            <span class="n">wavelength</span><span class="o">=</span><span class="n">trans_wave</span><span class="p">,</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">trans_data</span><span class="p">,</span>
+            <span class="n">uncertainty</span><span class="o">=</span><span class="n">trans_uncert</span><span class="p">,</span>
+            <span class="n">wavelength_unit</span><span class="o">=</span><span class="n">transmission_spectra</span><span class="o">.</span><span class="n">wavelength_unit</span><span class="p">,</span>
+            <span class="n">data_unit</span><span class="o">=</span><span class="n">transmission_spectra</span><span class="o">.</span><span class="n">data_unit</span><span class="p">,</span>
+            <span class="n">mask</span><span class="o">=</span><span class="n">trans_mask</span><span class="p">,</span>
+            <span class="n">flags</span><span class="o">=</span><span class="n">trans_flags</span><span class="p">,</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">transmission_spectra</span><span class="o">.</span><span class="n">header</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># We then pad this spectra out to a cube for us to apply across the</span>
+        <span class="c1"># board.</span>
+        <span class="n">aligned_transmission_cube</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">broadcast</span><span class="o">.</span><span class="n">broadcast_spectrum_to_cube_uniform</span><span class="p">(</span>
+                <span class="n">input_spectrum</span><span class="o">=</span><span class="n">aligned_transmission_spectra</span><span class="p">,</span>
+                <span class="n">template_cube</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_cube</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Applying the transmission is simple multiplication.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_cube_atm_trn</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_cube</span> <span class="o">*</span> <span class="n">aligned_transmission_cube</span>
+        <span class="p">)</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_cube_atm_trn</span></div>
+
+
+<div class="viewcode-block" id="SimulatorSpectre.apply_atmospheric_radiance">
+<a class="viewcode-back" href="../../../code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SimulatorSpectre.apply_atmospheric_radiance">[docs]</a>
+    <span class="k">def</span> <span class="nf">apply_atmospheric_radiance</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">radiance_spectra</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusCube</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Apply atmospheric radiance spectra to the object.</span>
+
+<span class="sd">        The astrophysical object cube with transmission is required to use</span>
+<span class="sd">        this function, see :py:meth:`apply_atmospheric_transmission`. The</span>
+<span class="sd">        results are stored in this class internally as</span>
+<span class="sd">        :py:attr:`astrophysical_object_cube_atm_rad`.</span>
+
+<span class="sd">        Moreover, consider using :py:meth:`prepare_spectra`</span>
+<span class="sd">        to properly match the resolving power or resolution of the simulation</span>
+<span class="sd">        spectra and the radiance spectra.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        radiance_spectra : LezargusSpectrum</span>
+<span class="sd">            The atmospheric radiance spectra. The wavelength unit of</span>
+<span class="sd">            this spectra should be meters.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        cube : LezargusCube</span>
+<span class="sd">            The cube of the object after atmospheric radiance has been added.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We first need to make sure there is the object cube for us to use.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_cube_atm_trn</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">WrongOrderError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;There is no astrophysical object cube with atmospheric&quot;</span>
+                    <span class="s2">&quot; transmission to apply the atmospheric radiance to.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># We also need to make sure the transmission spectra is a</span>
+        <span class="c1"># LezargusSpectrum.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span>
+            <span class="n">radiance_spectra</span><span class="p">,</span>
+            <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">,</span>
+        <span class="p">):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;The atmospheric radiance spectra has type&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">radiance_spectra</span><span class="p">)</span><span class="si">}</span><span class="s2">, not the expected&quot;</span>
+                    <span class="s2">&quot; LezargusSpectrum.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># We need to align the transmission spectra to the Simulators</span>
+        <span class="c1"># wavelength base.</span>
+        <span class="n">rad_wave</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_cube_atm_trn</span><span class="o">.</span><span class="n">wavelength</span>
+        <span class="n">rad_data</span><span class="p">,</span> <span class="n">rad_uncert</span><span class="p">,</span> <span class="n">rad_mask</span><span class="p">,</span> <span class="n">rad_flags</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">radiance_spectra</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span>
+                <span class="n">wavelength</span><span class="o">=</span><span class="n">rad_wave</span><span class="p">,</span>
+                <span class="n">skip_flags</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                <span class="n">skip_mask</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="c1"># It is convenient to reconstruct a spectra for it.</span>
+        <span class="n">aligned_radiance_spectra</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">(</span>
+            <span class="n">wavelength</span><span class="o">=</span><span class="n">rad_wave</span><span class="p">,</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">rad_data</span><span class="p">,</span>
+            <span class="n">uncertainty</span><span class="o">=</span><span class="n">rad_uncert</span><span class="p">,</span>
+            <span class="n">wavelength_unit</span><span class="o">=</span><span class="n">radiance_spectra</span><span class="o">.</span><span class="n">wavelength_unit</span><span class="p">,</span>
+            <span class="n">data_unit</span><span class="o">=</span><span class="n">radiance_spectra</span><span class="o">.</span><span class="n">data_unit</span><span class="p">,</span>
+            <span class="n">mask</span><span class="o">=</span><span class="n">rad_mask</span><span class="p">,</span>
+            <span class="n">flags</span><span class="o">=</span><span class="n">rad_flags</span><span class="p">,</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">radiance_spectra</span><span class="o">.</span><span class="n">header</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># We then pad this spectra out to a cube for us to apply across the</span>
+        <span class="c1"># board.</span>
+        <span class="n">aligned_radiance_cube</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">broadcast</span><span class="o">.</span><span class="n">broadcast_spectrum_to_cube_uniform</span><span class="p">(</span>
+                <span class="n">input_spectrum</span><span class="o">=</span><span class="n">aligned_radiance_spectra</span><span class="p">,</span>
+                <span class="n">template_cube</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_cube_atm_trn</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Adding the sky radiance.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_cube_atm_rad</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_cube</span> <span class="o">+</span> <span class="n">aligned_radiance_cube</span>
+        <span class="p">)</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_cube_atm_rad</span></div>
+
+
+<div class="viewcode-block" id="SimulatorSpectre.prepare_atmospheric_seeing_kernel">
+<a class="viewcode-back" href="../../../code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SimulatorSpectre.prepare_atmospheric_seeing_kernel">[docs]</a>
+    <span class="k">def</span> <span class="nf">prepare_atmospheric_seeing_kernel</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">seeing</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Create an atmospheric seeing kernel based on the seeing.</span>
+
+<span class="sd">        We create an atmospheric seeing kernel provided some seeing value.</span>
+<span class="sd">        This function exists to assist in the transition between different</span>
+<span class="sd">        more accurate point spread functions or speckle profile as future</span>
+<span class="sd">        kernels are implemented.</span>
+
+<span class="sd">        Currently, the best implemented model we have a simple Gaussian kernel.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        seeing : float</span>
+<span class="sd">            The atmospheric seeing, in radians.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        seeing_kernel : ndarray</span>
+<span class="sd">            The atmospheric seeing kernel.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># First, we need to convert the seeing from the angle measurement to</span>
+        <span class="c1"># pixels, as that is what convolution is built on. We require the</span>
+        <span class="c1"># cube to tell us the plate scales.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_cube_atm_rad</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">WrongOrderError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;There is no astrophysical object cube with atmospheric&quot;</span>
+                    <span class="s2">&quot; radiance to derive the pixel and slice scale from.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># We then convert the seeing into the pixel based dimensions. However,</span>
+        <span class="c1"># the pixel plate scale and the slice plate scale might be different.</span>
+        <span class="n">pixel_scale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_cube_atm_rad</span><span class="o">.</span><span class="n">pixel_scale</span>
+        <span class="n">slice_scale</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_cube_atm_rad</span><span class="o">.</span><span class="n">slice_scale</span>
+        <span class="n">seeing_pixel_scale</span> <span class="o">=</span> <span class="n">seeing</span> <span class="o">/</span> <span class="n">pixel_scale</span>
+        <span class="n">seeing_slice_scale</span> <span class="o">=</span> <span class="n">seeing</span> <span class="o">/</span> <span class="n">slice_scale</span>
+
+        <span class="c1"># The kernel shape is generally determined by the seeing dimensions,</span>
+        <span class="c1"># as opposed to based on the cube image slice size to reduce edge</span>
+        <span class="c1"># artifacts. Assuming the seeing scale lengths are similar to a</span>
+        <span class="c1"># standard deviation of a Gaussian-approximating kernel.</span>
+        <span class="n">n_sigma</span> <span class="o">=</span> <span class="mi">5</span>
+        <span class="n">kernel_length</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span>
+            <span class="p">[</span><span class="n">seeing_pixel_scale</span><span class="p">,</span> <span class="n">seeing_slice_scale</span><span class="p">],</span>
+            <span class="n">n_sigma</span><span class="p">,</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+        <span class="n">kernel_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">kernel_length</span><span class="p">,</span> <span class="n">kernel_length</span><span class="p">)</span>
+
+        <span class="c1"># We derive the kernel using the best implemented model we have.</span>
+        <span class="n">seeing_kernel</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">convolution</span><span class="o">.</span><span class="n">kernel_2d_gaussian</span><span class="p">(</span>
+            <span class="n">shape</span><span class="o">=</span><span class="n">kernel_shape</span><span class="p">,</span>
+            <span class="n">x_stddev</span><span class="o">=</span><span class="n">seeing_pixel_scale</span><span class="p">,</span>
+            <span class="n">y_stddev</span><span class="o">=</span><span class="n">seeing_slice_scale</span><span class="p">,</span>
+            <span class="n">rotation</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">seeing_kernel</span></div>
+
+
+<div class="viewcode-block" id="SimulatorSpectre.apply_atmospheric_seeing">
+<a class="viewcode-back" href="../../../code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SimulatorSpectre.apply_atmospheric_seeing">[docs]</a>
+    <span class="k">def</span> <span class="nf">apply_atmospheric_seeing</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">seeing_kernel</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusCube</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Apply atmospheric seeing effects to the object.</span>
+
+<span class="sd">        This functions simulates atmospheric seeing effects using a convolution</span>
+<span class="sd">        kernel. The kernel should emulate the seeing function and should be</span>
+<span class="sd">        provided.</span>
+
+<span class="sd">        The astrophysical object cube with radiance is required to use</span>
+<span class="sd">        this function, see :py:meth:`apply_atmospheric_radiance`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        seeing_kernel : ndarray</span>
+<span class="sd">            The seeing kernel which is used to convolve against the data cube.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        cube : LezargusCube</span>
+<span class="sd">            The results of the seeing convolution.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We first need to make sure there is the object cube for us to use.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_cube_atm_rad</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">WrongOrderError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;There is no astrophysical object cube with atmospheric&quot;</span>
+                    <span class="s2">&quot; radiance to apply the atmospheric seeing to.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># To model the seeing, we just convolve by spatially by the image</span>
+        <span class="c1"># kernel.</span>
+        <span class="n">seeing_cube</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_cube_atm_rad</span><span class="o">.</span><span class="n">convolve_image</span><span class="p">(</span>
+            <span class="n">kernel</span><span class="o">=</span><span class="n">seeing_kernel</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_cube_atm_see</span> <span class="o">=</span> <span class="n">seeing_cube</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_cube_atm_see</span></div>
+
+
+<div class="viewcode-block" id="SimulatorSpectre.apply_atmospheric_refraction">
+<a class="viewcode-back" href="../../../code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SimulatorSpectre.apply_atmospheric_refraction">[docs]</a>
+    <span class="k">def</span> <span class="nf">apply_atmospheric_refraction</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">zenith_angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">reference_wavelength</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">parallactic_angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Apply atmospheric refraction effects to the object.</span>
+
+<span class="sd">        We apply the effects of atmospheric refraction as described in</span>
+<span class="sd">        :py:func:`relative_atmospheric_refraction_function`. The used</span>
+<span class="sd">        atmospheric conditions are specified by the configurations in the</span>
+<span class="sd">        configuration file.</span>
+
+<span class="sd">        Note that NaNs are introduced into the cube because of the edge of</span>
+<span class="sd">        translations.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        zenith_angle : float</span>
+<span class="sd">            The zenith angle of the observation, in radians.</span>
+<span class="sd">        reference_wavelength: float</span>
+<span class="sd">            The reference wavelength where the relative atmospheric refraction</span>
+<span class="sd">            is zero; must be in the same units as the cube&#39;s wavelength,</span>
+<span class="sd">            typically meters.</span>
+<span class="sd">        parallactic_angle : float</span>
+<span class="sd">            The parallactic angle of the observation, used to derive the</span>
+<span class="sd">            translation vector.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        cube : LezargusCube</span>
+<span class="sd">            The resulting cube after the effects of atmospheric refraction.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We first need to make sure there is the object cube for us to use.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_cube_atm_see</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">WrongOrderError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;There is no astrophysical object cube with atmospheric&quot;</span>
+                    <span class="s2">&quot; seeing to apply the atmospheric refraction skew.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># The atmosphere environment, derived from the configuration</span>
+        <span class="c1"># parameters.</span>
+        <span class="n">atm_temp</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">OBSERVATORY_ATMOSPHERE_TEMPERATURE</span>
+        <span class="n">atm_pres</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">OBSERVATORY_ATMOSPHERE_PRESSURE</span>
+        <span class="n">atm_ph2o</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">OBSERVATORY_ATMOSPHERE_PARTIAL_PRESSURE_WATER</span>
+        <span class="p">)</span>
+
+        <span class="c1"># We calculate the relative atmospheric refraction.</span>
+        <span class="n">lib_rel_atm_refr_func</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">atmosphere</span><span class="o">.</span><span class="n">relative_atmospheric_refraction_function</span>
+        <span class="p">)</span>
+        <span class="n">relative_refraction_function</span> <span class="o">=</span> <span class="n">lib_rel_atm_refr_func</span><span class="p">(</span>
+            <span class="n">wavelength</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_cube_atm_see</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+            <span class="n">reference_wavelength</span><span class="o">=</span><span class="n">reference_wavelength</span><span class="p">,</span>
+            <span class="n">zenith_angle</span><span class="o">=</span><span class="n">zenith_angle</span><span class="p">,</span>
+            <span class="n">temperature</span><span class="o">=</span><span class="n">atm_temp</span><span class="p">,</span>
+            <span class="n">pressure</span><span class="o">=</span><span class="n">atm_pres</span><span class="p">,</span>
+            <span class="n">water_pressure</span><span class="o">=</span><span class="n">atm_ph2o</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">relative_refraction</span> <span class="o">=</span> <span class="n">relative_refraction_function</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_cube_atm_see</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># The atmospheric refraction is the total, we break it into the</span>
+        <span class="c1"># two orthogonal directions to properly deal with the parallactic</span>
+        <span class="c1"># angle.</span>
+        <span class="n">x_refraction</span> <span class="o">=</span> <span class="n">relative_refraction</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">parallactic_angle</span><span class="p">)</span>
+        <span class="n">y_refraction</span> <span class="o">=</span> <span class="n">relative_refraction</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">parallactic_angle</span><span class="p">)</span>
+
+        <span class="c1"># We alias out this to make for nicer lines, and for easy access.</span>
+        <span class="n">seeing_cube</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">astrophysical_object_cube_atm_see</span>
+        <span class="c1"># We model the refraction by small translations of the image slices.</span>
+        <span class="n">refracted_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">seeing_cube</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="n">refracted_uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">seeing_cube</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">)</span>
+        <span class="n">refracted_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">seeing_cube</span><span class="o">.</span><span class="n">mask</span><span class="p">)</span>
+        <span class="n">refracted_flags</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">seeing_cube</span><span class="o">.</span><span class="n">flags</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">index</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">seeing_cube</span><span class="o">.</span><span class="n">wavelength</span><span class="p">)):</span>
+            <span class="c1"># Applying the translation on the data.</span>
+            <span class="n">refracted_data</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">translate_image_array</span><span class="p">(</span>
+                    <span class="n">input_array</span><span class="o">=</span><span class="n">seeing_cube</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">index</span><span class="p">],</span>
+                    <span class="n">x_shift</span><span class="o">=</span><span class="n">x_refraction</span><span class="p">[</span><span class="n">index</span><span class="p">],</span>
+                    <span class="n">y_shift</span><span class="o">=</span><span class="n">y_refraction</span><span class="p">[</span><span class="n">index</span><span class="p">],</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="n">refracted_uncertainty</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">translate_image_array</span><span class="p">(</span>
+                    <span class="n">input_array</span><span class="o">=</span><span class="n">seeing_cube</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">index</span><span class="p">],</span>
+                    <span class="n">x_shift</span><span class="o">=</span><span class="n">x_refraction</span><span class="p">[</span><span class="n">index</span><span class="p">],</span>
+                    <span class="n">y_shift</span><span class="o">=</span><span class="n">y_refraction</span><span class="p">[</span><span class="n">index</span><span class="p">],</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="c1"># Applying the translation on the mask and flags. We assume more</span>
+            <span class="c1"># integer translations for this, combining the result of both</span>
+            <span class="c1"># translations.</span>
+            <span class="c1"># Mask translation is not done...</span>
+            <span class="c1"># Flag translation is not done...</span>
+            <span class="n">refracted_mask</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">seeing_cube</span><span class="o">.</span><span class="n">mask</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">index</span><span class="p">]</span>
+            <span class="n">refracted_flags</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">seeing_cube</span><span class="o">.</span><span class="n">flags</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">index</span><span class="p">]</span>
+        <span class="c1"># The handling of the masks and flags need to be done.</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ToDoError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;Refraction handling of masks and flags need to be handled.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+        <span class="c1"># We have the translations applied, we can now reassemble the cube.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">astronomical_object_cube</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusCube</span><span class="p">(</span>
+            <span class="n">wavelength</span><span class="o">=</span><span class="n">seeing_cube</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">refracted_data</span><span class="p">,</span>
+            <span class="n">uncertainty</span><span class="o">=</span><span class="n">refracted_uncertainty</span><span class="p">,</span>
+            <span class="n">wavelength_unit</span><span class="o">=</span><span class="n">seeing_cube</span><span class="o">.</span><span class="n">wavelength_unit</span><span class="p">,</span>
+            <span class="n">data_unit</span><span class="o">=</span><span class="n">seeing_cube</span><span class="o">.</span><span class="n">data_unit</span><span class="p">,</span>
+            <span class="n">pixel_scale</span><span class="o">=</span><span class="n">seeing_cube</span><span class="o">.</span><span class="n">pixel_scale</span><span class="p">,</span>
+            <span class="n">slice_scale</span><span class="o">=</span><span class="n">seeing_cube</span><span class="o">.</span><span class="n">slice_scale</span><span class="p">,</span>
+            <span class="n">mask</span><span class="o">=</span><span class="n">refracted_mask</span><span class="p">,</span>
+            <span class="n">flags</span><span class="o">=</span><span class="n">refracted_flags</span><span class="p">,</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">seeing_cube</span><span class="o">.</span><span class="n">header</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">astronomical_object_cube</span></div>
+</div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sparrow
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023, Sparrow.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

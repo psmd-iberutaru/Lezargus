@@ -21,8 +21,10 @@ Submodules
    lezargus.library.math
    lezargus.library.path
    lezargus.library.photometry
+   lezargus.library.sanitize
    lezargus.library.stitch
    lezargus.library.temporary
+   lezargus.library.transform
    lezargus.library.wrapper
 
 Module contents

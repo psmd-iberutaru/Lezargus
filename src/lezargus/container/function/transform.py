@@ -9,7 +9,7 @@ We separate the logic for containers into functions which make it a little
 easier to understand. Moreover, these functions can also be used separately.
 The logic is similar to Numpy's functions like py:func:`numpy.mean` and
 `numpy.ndarray.mean`; and other modules in
-:py:module:`lezargus.container.function`.
+:py:mod:`lezargus.container.function`.
 """
 
 # isort: split

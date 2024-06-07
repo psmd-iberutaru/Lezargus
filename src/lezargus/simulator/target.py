@@ -40,35 +40,26 @@ class TargetSimulator:
     the most recently calculated result as a cache and uses it instead of
     recomputing things. This is generally an internal application.
 
-
-    Attributes
-    ----------
-    target : LezargusCube
-        The target, represented as a LezargusCube. The exact properties of the
-        cube are determined from how the simulator was created.
-    target_spectrum : LezargusSpectrum
-        The spectrum of the target. This is only made if the target cube was
-        made by extending a point source, making the cube from a Spectrum;
-        otherwise, this is None.
-    atmosphere : AtmosphereSimulator
-        The atmosphere simulator which describes and simulates atmospheric
-        effects. If not provided by py:meth:`apply_atmosphere`, this
-        defaults to None.
-    observed : LezargusCube
-        The target, represented as a LezargusCube, after the application of
-        atmospheric effects. Derived from the input `target` and the input
-        `atmosphere.
-    use_cache : bool, default = True
-        If True, we cache calculated values so that they do not need to be
-        calculated every time when not needed. If False, caches are never
-        returned and instead everything is always recomputed.
-
     """
 
     target = None
+    """LezargusCube : The target, represented as a LezargusCube. The exact 
+    properties of the cube are determined from how the simulator was created."""
+
     target_spectrum = None
+    """LezargusSpectrum : The spectrum of the target. This is only made if the 
+    target cube was made by extending a point source, making the cube from a 
+    Spectrum; otherwise, this is None."""
+
     atmosphere = None
+    """AtmosphereSimulator : The atmosphere simulator which describes and 
+    simulates atmospheric effects. If not provided by 
+    py:meth:`apply_atmosphere`, this defaults to None."""
+
     use_cache = True
+    """bool : If True, we cache calculated values so that they do not need to 
+    be calculated every time when not needed. If False, caches are never
+    returned and instead everything is always recomputed."""
 
     # Cache objects.
     _cache_target_photon = None
@@ -115,6 +106,8 @@ class TargetSimulator:
 
         # The input cube is the same as the target cube.
         self.target = _cube
+
+
 
     @classmethod
     def from_blackbody(
@@ -776,3 +769,5 @@ class TargetSimulator:
         return current_state
 
     observed = at_refraction
+    """LezargusCube : The target, represented as a LezargusCube, after the 
+    application of atmospheric effects. An alias for :py:attr:`at_refraction`"""

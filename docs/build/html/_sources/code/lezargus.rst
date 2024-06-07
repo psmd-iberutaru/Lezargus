@@ -9,7 +9,7 @@ Subpackages
 
    lezargus.container
    lezargus.library
-   lezargus.simulation
+   lezargus.simulator
 
 Submodules
 ----------

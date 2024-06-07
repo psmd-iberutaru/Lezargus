@@ -114,3 +114,11 @@ weighted mean is:
 
     f = \frac{1}{\sum w_i} \sum w_i A_i \qquad \sigma_f^2 = \sum \left(w_i {\sigma_{A}}_i \right)^2
 
+
+.. _technical-uncertainty-median:
+
+
+Median
+=============
+
+[[TODO]].

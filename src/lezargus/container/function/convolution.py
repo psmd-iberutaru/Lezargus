@@ -4,7 +4,7 @@ We seperate the logic for containers into functions which make it a little
 easier to understand. Moreover, these functions can also be used separately.
 The logic is similar to Numpy's functions like py:func:`numpy.mean` and
 `numpy.ndarray.mean`; and other modules in
-:py:module:`lezargus.container.function`.
+:py:mod:`lezargus.container.function`.
 """
 
 # isort: split
@@ -107,6 +107,8 @@ def convolve_spectrum_by_spectral_kernel(
         )
     elif is_dynamic:
         # Dynamic convolution.
+        convolved_data = None
+        convolved_variance = None
         logging.critical(
             critical_type=logging.ToDoError,
             message="No cube dynamic convolution.",
@@ -217,12 +219,16 @@ def convolve_cube_by_spectral_kernel(
         )
     elif is_variable:
         # Variable convolution.
+        convolved_data = None
+        convolved_variance = None
         logging.critical(
             critical_type=logging.ToDoError,
             message="No cube by spectra variable convolution.",
         )
     elif is_dynamic:
         # Dynamic convolution.
+        convolved_data = None
+        convolved_variance = None
         logging.critical(
             critical_type=logging.ToDoError,
             message="No cube by spectra dynamic convolution.",
@@ -350,6 +356,8 @@ def convolve_cube_by_image_kernel(
         )
     elif is_dynamic:
         # Dynamic convolution.
+        convolved_data = None
+        convolved_variance = None
         logging.critical(
             critical_type=logging.ToDoError,
             message="No cube by image dynamic convolution.",

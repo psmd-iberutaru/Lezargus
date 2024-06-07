@@ -51,8 +51,6 @@ class AtmosphereSimulator:
 
     """
 
-    reference_zenith_angle = 0
-
     def __init__(
         self: "AtmosphereSimulator",
         temperature: float,
@@ -108,6 +106,7 @@ class AtmosphereSimulator:
         self.zenith_angle = zenith_angle
         self.parallactic_angle = parallactic_angle
         self.reference_wavelength = reference_wavelength
+        self.reference_zenith_angle = 0
 
         # We catch all other atmospheric parameters which are not key-based
         # parameters.
