@@ -69,9 +69,9 @@ def add_data_object(name: str, data: object, force: bool = False) -> None:
 
 
 def _zero_buffer_custom_filters(
-    wavelength: hint.ndarray,
-    transmission: hint.ndarray,
-) -> tuple[hint.ndarray, hint.ndarray]:
+    wavelength: hint.NDArray,
+    transmission: hint.NDArray,
+) -> tuple[hint.NDArray, hint.NDArray]:
     """Create a zero transmission buffer on either side of the filter.
 
     This function is a convenience function for creating tail ends of created

@@ -27,7 +27,7 @@ from lezargus.library import logging
 def broadcast_spectrum_to_cube(
     input_spectrum: hint.LezargusSpectrum,
     shape: tuple,
-    location: tuple | hint.ndarray | str,
+    location: tuple | hint.NDArray | str,
     fill_value: float = 0,
     fill_uncertainty: float = 0,
 ) -> hint.LezargusCube:

@@ -5,15 +5,25 @@ convolution functions are brief wrappers around Astropy's convolution.
 All three dimensionalities are covered.
 """
 
+# isort: split
+# Import required to remove circular dependencies from type checking.
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from lezargus.library import hint
+# isort: split
+
+
 import astropy.convolution
 import astropy.modeling
 import numpy as np
 
-from lezargus.library import hint
 from lezargus.library import logging
 
 
-def _check_array_dimensionality(array: hint.ndarray, dimensions: int) -> bool:
+def _check_array_dimensionality(array: hint.NDArray, dimensions: int) -> bool:
     """Check if the array has the expected number of dimensions.
 
     This function checks if the array has the correction number of
@@ -52,7 +62,7 @@ def _check_array_dimensionality(array: hint.ndarray, dimensions: int) -> bool:
     return valid_dimensionality
 
 
-def _check_kernel_dimensionality(kernel: hint.ndarray, dimensions: int) -> bool:
+def _check_kernel_dimensionality(kernel: hint.NDArray, dimensions: int) -> bool:
     """Check if the kernel has the expected number of dimensions.
 
     Same function as :py:meth:`_check_array_dimensionality`, just different
@@ -90,8 +100,8 @@ def _check_kernel_dimensionality(kernel: hint.ndarray, dimensions: int) -> bool:
 
 
 def _check_array_kernel_variable_stack(
-    array: hint.ndarray,
-    kernel_stack: hint.ndarray,
+    array: hint.NDArray,
+    kernel_stack: hint.NDArray,
     axis: int | tuple[int],
 ) -> bool:
     """Check if the kernel stack and array have the exact slice count.
@@ -171,9 +181,9 @@ def _check_array_kernel_variable_stack(
 
 
 def _static_astropy_convolve(
-    array: hint.ndarray,
-    kernel: hint.ndarray,
-) -> hint.ndarray:
+    array: hint.NDArray,
+    kernel: hint.NDArray,
+) -> hint.NDArray:
     """Use Astropy to convolve the array provided the kernel.
 
     The Astropy convolve function only can convolve up to 3D, and they
@@ -269,9 +279,9 @@ def _static_astropy_convolve(
 
 
 def static_1d_with_1d(
-    array: hint.ndarray,
-    kernel: hint.ndarray,
-) -> hint.ndarray:
+    array: hint.NDArray,
+    kernel: hint.NDArray,
+) -> hint.NDArray:
     """Convolve a 1D array using a static 1D kernel.
 
     Parameters
@@ -306,9 +316,9 @@ def static_1d_with_1d(
 
 
 def static_2d_with_2d(
-    array: hint.ndarray,
-    kernel: hint.ndarray,
-) -> hint.ndarray:
+    array: hint.NDArray,
+    kernel: hint.NDArray,
+) -> hint.NDArray:
     """Convolve a 2D array using a static 2D kernel.
 
     Parameters
@@ -343,9 +353,9 @@ def static_2d_with_2d(
 
 
 def static_3d_with_1d_over_z(
-    array: hint.ndarray,
-    kernel: hint.ndarray,
-) -> hint.ndarray:
+    array: hint.NDArray,
+    kernel: hint.NDArray,
+) -> hint.NDArray:
     """Convolve a 3D array using a 1D kernel, over the z dimension.
 
     This convolution convolves 1D slices of the 3D array. The convolution
@@ -394,9 +404,9 @@ def static_3d_with_1d_over_z(
 
 
 def static_3d_with_2d_over_xy(
-    array: hint.ndarray,
-    kernel: hint.ndarray,
-) -> hint.ndarray:
+    array: hint.NDArray,
+    kernel: hint.NDArray,
+) -> hint.NDArray:
     """Convolve a 3D array using a 2D kernel, over the x-y plane.
 
     This convolution convolves 2D slices of the 3D array. The convolution
@@ -444,9 +454,9 @@ def static_3d_with_2d_over_xy(
 
 
 def variable_3d_with_2d_over_xy(
-    array: hint.ndarray,
-    kernel_stack: hint.ndarray,
-) -> hint.ndarray:
+    array: hint.NDArray,
+    kernel_stack: hint.NDArray,
+) -> hint.NDArray:
     """Convolve a 3D array using a variable 2D kernel, over the x-y plane.
 
     Like py:func:`static_3d_with_2d_over_xy`, this convolution convolves
@@ -516,7 +526,7 @@ def variable_3d_with_2d_over_xy(
 def kernel_1d_gaussian(
     shape: tuple | int,
     stddev: float,
-) -> hint.ndarray:
+) -> hint.NDArray:
     """Return a 1D Gaussian convolution kernel.
 
     We normalize the kernel via the amplitude of the Gaussian
@@ -592,13 +602,13 @@ def kernel_1d_gaussian(
 
 def kernel_1d_gaussian_resolution(
     shape: tuple | int,
-    template_wavelength: hint.ndarray | float,
+    template_wavelength: hint.NDArray | float,
     base_resolution: float | None = None,
     target_resolution: float | None = None,
     base_resolving_power: float | None = None,
     target_resolving_power: float | None = None,
     reference_wavelength: float | None = None,
-) -> hint.ndarray:
+) -> hint.NDArray:
     """Gaussian 1D kernel adapted for resolution convolution conversions.
 
     This function is a wrapper around a normal 1D Gaussian kernel. Instead
@@ -754,7 +764,7 @@ def kernel_2d_gaussian(
     x_stddev: float,
     y_stddev: float,
     rotation: float,
-) -> hint.ndarray:
+) -> hint.NDArray:
     """Return a 2D Gaussian convolution kernel.
 
     We normalize the kernel via the amplitude of the Gaussian

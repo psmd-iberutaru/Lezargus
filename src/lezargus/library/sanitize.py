@@ -15,7 +15,7 @@ from lezargus.library import hint
 from lezargus.library import logging
 
 
-def clean_finite_arrays(*arrays: hint.ndarray) -> tuple[hint.ndarray]:
+def clean_finite_arrays(*arrays: hint.NDArray) -> tuple[hint.NDArray]:
     """Return parallel arrays with any non-finite number removed from them.
 
     We remove all parallel-aligned values (aligned with each other) which are
@@ -43,7 +43,6 @@ def clean_finite_arrays(*arrays: hint.ndarray) -> tuple[hint.ndarray]:
         compatible, compatible_array = verify_broadcastability(
             reference_array=reference_array,
             test_array=arraydex,
-            return_broadcast=True,
         )
         # We skip the non-compatible arrays.
         if compatible:
@@ -163,10 +162,9 @@ def fix_fits_header_value(
 
 
 def verify_broadcastability(
-    reference_array: hint.ndarray,
-    test_array: hint.ndarray,
-    return_broadcast: bool = False,
-) -> bool | tuple[bool, hint.ndarray]:
+    reference_array: hint.NDArray,
+    test_array: hint.NDArray,
+) -> tuple[bool, hint.NDArray | None]:
     """Verify if a test array is broadcastable with the reference array.
 
     This function serves to see if two arrays are compatible in shape. If
@@ -179,9 +177,6 @@ def verify_broadcastability(
         The reference array which we are testing against.
     test_array : ndarray
         The test array that we are testing to.
-    return_broadcast : bool, default = False
-        If True, we return a compatible array built from the test array
-        information.
 
     Returns
     -------
@@ -214,7 +209,4 @@ def verify_broadcastability(
         verify = False
         broadcast = None
     # All done.
-    if return_broadcast:
-        return verify, broadcast
-    # Otherwise, we just return the verification status only.
-    return verify
+    return verify, broadcast

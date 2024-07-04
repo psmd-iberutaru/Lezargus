@@ -31,8 +31,8 @@ from lezargus.library import logging
 
 def transform_shear_cube_spectral(
     cube: hint.LezargusCube,
-    x_shifts: hint.ndarray,
-    y_shifts: hint.ndarray,
+    x_shifts: hint.NDArray,
+    y_shifts: hint.NDArray,
     mode: str = "constant",
     constant: float = np.nan,
 ) -> hint.LezargusCube:

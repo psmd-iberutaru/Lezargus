@@ -43,21 +43,21 @@ class TargetSimulator:
     """
 
     target = None
-    """LezargusCube : The target, represented as a LezargusCube. The exact 
+    """LezargusCube : The target, represented as a LezargusCube. The exact
     properties of the cube are determined from how the simulator was created."""
 
     target_spectrum = None
-    """LezargusSpectrum : The spectrum of the target. This is only made if the 
-    target cube was made by extending a point source, making the cube from a 
+    """LezargusSpectrum : The spectrum of the target. This is only made if the
+    target cube was made by extending a point source, making the cube from a
     Spectrum; otherwise, this is None."""
 
     atmosphere = None
-    """AtmosphereSimulator : The atmosphere simulator which describes and 
-    simulates atmospheric effects. If not provided by 
+    """AtmosphereSimulator : The atmosphere simulator which describes and
+    simulates atmospheric effects. If not provided by
     py:meth:`apply_atmosphere`, this defaults to None."""
 
     use_cache = True
-    """bool : If True, we cache calculated values so that they do not need to 
+    """bool : If True, we cache calculated values so that they do not need to
     be calculated every time when not needed. If False, caches are never
     returned and instead everything is always recomputed."""
 
@@ -107,12 +107,10 @@ class TargetSimulator:
         # The input cube is the same as the target cube.
         self.target = _cube
 
-
-
     @classmethod
     def from_blackbody(
         cls: hint.Type[hint.Self],
-        wavelength: hint.ndarray,
+        wavelength: hint.NDArray,
         temperature: float,
         magnitude: float,
         filter_profile: hint.LezargusSpectrum,
@@ -415,7 +413,7 @@ class TargetSimulator:
         return photon_container
 
     @property
-    def at_target_spectrum(self: hint.Self) -> hint.LezargusCube:
+    def at_target_spectrum(self: hint.Self) -> hint.LezargusCube | None:
         """Alias for py:attr:`target_spectrum` to match naming convention.
 
         By self-imposed convention, the attributes are generally named as
@@ -451,7 +449,8 @@ class TargetSimulator:
 
         Returns
         -------
-        None
+        target : LezargusCube
+            The energy based flux simulation data cube of the target.
 
         """
         return self.target
@@ -769,5 +768,5 @@ class TargetSimulator:
         return current_state
 
     observed = at_refraction
-    """LezargusCube : The target, represented as a LezargusCube, after the 
+    """LezargusCube : The target, represented as a LezargusCube, after the
     application of atmospheric effects. An alias for :py:attr:`at_refraction`"""

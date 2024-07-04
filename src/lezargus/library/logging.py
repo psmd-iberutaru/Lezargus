@@ -422,7 +422,7 @@ def add_console_logging_handler(
 
     """
     # We first check if there already exists a console handler.
-    __lhn = lezargus.library.config.LOGGING_SPECIFIC_CONSOLE_HANDLER_FLAG_NAME
+    __lhn = lezargus.config.LOGGING_SPECIFIC_CONSOLE_HANDLER_FLAG_NAME
     for handlerdex in __lezargus_logger.handlers:
         if handlerdex.name == __lhn:
             # There already exists a Lezargus console handler, there is no
@@ -433,36 +433,30 @@ def add_console_logging_handler(
     console_handler.setLevel(log_level)
     # We use an overly specific name to avoid any overlap or namespace clashes.
     console_handler.name = (
-        lezargus.library.config.LOGGING_SPECIFIC_CONSOLE_HANDLER_FLAG_NAME
+        lezargus.config.LOGGING_SPECIFIC_CONSOLE_HANDLER_FLAG_NAME
     )
     # Get the format from the specified configuration.
     color_format_dict = {
-        LOGGING_DEBUG_LEVEL: (
-            lezargus.library.config.LOGGING_STREAM_DEBUG_COLOR_HEX
-        ),
-        LOGGING_INFO_LEVEL: (
-            lezargus.library.config.LOGGING_STREAM_INFO_COLOR_HEX
-        ),
+        LOGGING_DEBUG_LEVEL: (lezargus.config.LOGGING_STREAM_DEBUG_COLOR_HEX),
+        LOGGING_INFO_LEVEL: (lezargus.config.LOGGING_STREAM_INFO_COLOR_HEX),
         LOGGING_WARNING_LEVEL: (
-            lezargus.library.config.LOGGING_STREAM_WARNING_COLOR_HEX
+            lezargus.config.LOGGING_STREAM_WARNING_COLOR_HEX
         ),
-        LOGGING_ERROR_LEVEL: (
-            lezargus.library.config.LOGGING_STREAM_ERROR_COLOR_HEX
-        ),
+        LOGGING_ERROR_LEVEL: (lezargus.config.LOGGING_STREAM_ERROR_COLOR_HEX),
         LOGGING_CRITICAL_LEVEL: (
-            lezargus.library.config.LOGGING_STREAM_CRITICAL_COLOR_HEX
+            lezargus.config.LOGGING_STREAM_CRITICAL_COLOR_HEX
         ),
     }
     if use_color:
         console_formatter = ColoredLogFormatter(
-            message_format=lezargus.library.config.LOGGING_RECORD_FORMAT_STRING,
-            date_format=lezargus.library.config.LOGGING_DATETIME_FORMAT_STRING,
+            message_format=lezargus.config.LOGGING_RECORD_FORMAT_STRING,
+            date_format=lezargus.config.LOGGING_DATETIME_FORMAT_STRING,
             color_hex_dict=color_format_dict,
         )
     else:
         console_formatter = logging.Formatter(
-            fmt=lezargus.library.config.LOGGING_RECORD_FORMAT_STRING,
-            datefmt=lezargus.library.config.LOGGING_DATETIME_FORMAT_STRING,
+            fmt=lezargus.config.LOGGING_RECORD_FORMAT_STRING,
+            datefmt=lezargus.config.LOGGING_DATETIME_FORMAT_STRING,
         )
     # Adding the logger.
     console_handler.setFormatter(console_formatter)
@@ -498,32 +492,26 @@ def add_stream_logging_handler(
     stream_handler.setLevel(log_level)
     # Get the format from the specified configuration.
     color_format_dict = {
-        LOGGING_DEBUG_LEVEL: (
-            lezargus.library.config.LOGGING_STREAM_DEBUG_COLOR_HEX
-        ),
-        LOGGING_INFO_LEVEL: (
-            lezargus.library.config.LOGGING_STREAM_INFO_COLOR_HEX
-        ),
+        LOGGING_DEBUG_LEVEL: (lezargus.config.LOGGING_STREAM_DEBUG_COLOR_HEX),
+        LOGGING_INFO_LEVEL: (lezargus.config.LOGGING_STREAM_INFO_COLOR_HEX),
         LOGGING_WARNING_LEVEL: (
-            lezargus.library.config.LOGGING_STREAM_WARNING_COLOR_HEX
+            lezargus.config.LOGGING_STREAM_WARNING_COLOR_HEX
         ),
-        LOGGING_ERROR_LEVEL: (
-            lezargus.library.config.LOGGING_STREAM_ERROR_COLOR_HEX
-        ),
+        LOGGING_ERROR_LEVEL: (lezargus.config.LOGGING_STREAM_ERROR_COLOR_HEX),
         LOGGING_CRITICAL_LEVEL: (
-            lezargus.library.config.LOGGING_STREAM_CRITICAL_COLOR_HEX
+            lezargus.config.LOGGING_STREAM_CRITICAL_COLOR_HEX
         ),
     }
     if use_color:
         stream_formatter = ColoredLogFormatter(
-            message_format=lezargus.library.config.LOGGING_RECORD_FORMAT_STRING,
-            date_format=lezargus.library.config.LOGGING_DATETIME_FORMAT_STRING,
+            message_format=lezargus.config.LOGGING_RECORD_FORMAT_STRING,
+            date_format=lezargus.config.LOGGING_DATETIME_FORMAT_STRING,
             color_hex_dict=color_format_dict,
         )
     else:
         stream_formatter = logging.Formatter(
-            fmt=lezargus.library.config.LOGGING_RECORD_FORMAT_STRING,
-            datefmt=lezargus.library.config.LOGGING_DATETIME_FORMAT_STRING,
+            fmt=lezargus.config.LOGGING_RECORD_FORMAT_STRING,
+            datefmt=lezargus.config.LOGGING_DATETIME_FORMAT_STRING,
         )
     # Adding the logger.
     stream_handler.setFormatter(stream_formatter)
@@ -553,8 +541,8 @@ def add_file_logging_handler(
     file_handler.setLevel(log_level)
     # Get the format from the specified configuration.
     file_formatter = logging.Formatter(
-        fmt=lezargus.library.config.LOGGING_RECORD_FORMAT_STRING,
-        datefmt=lezargus.library.config.LOGGING_DATETIME_FORMAT_STRING,
+        fmt=lezargus.config.LOGGING_RECORD_FORMAT_STRING,
+        datefmt=lezargus.config.LOGGING_DATETIME_FORMAT_STRING,
     )
     # Adding the logger.
     file_handler.setFormatter(file_formatter)
@@ -626,7 +614,7 @@ def info(message: str) -> None:
 
 
 def warning(
-    warning_type: LezargusWarning,
+    warning_type: type[LezargusWarning],
     message: str,
     elevate: bool | None = None,
 ) -> None:
@@ -661,7 +649,7 @@ def warning(
         )
     # We add the warning type to the message, if the configuration specifies it
     # to be so.
-    if lezargus.library.config.LOGGING_INCLUDE_EXCEPTION_TYPE_IN_MESSAGE:
+    if lezargus.config.LOGGING_INCLUDE_EXCEPTION_TYPE_IN_MESSAGE:
         typed_message = f"{warning_type.__name__} - {message}"
     else:
         # Do not add anything.
@@ -674,7 +662,7 @@ def warning(
     elevate = (
         elevate
         if elevate is not None
-        else lezargus.library.config.LOGGING_ELEVATE_WARNING_TO_CRITICAL
+        else lezargus.config.LOGGING_ELEVATE_WARNING_TO_CRITICAL
     )
     if elevate:
         elevated_message = (
@@ -684,7 +672,7 @@ def warning(
 
 
 def error(
-    error_type: LezargusError,
+    error_type: type[LezargusBaseError | LezargusError],
     message: str,
     elevate: bool | None = None,
 ) -> None:
@@ -721,7 +709,7 @@ def error(
         )
     # We add the error type to the message, if the configuration specifies it
     # to be so.
-    if lezargus.library.config.LOGGING_INCLUDE_EXCEPTION_TYPE_IN_MESSAGE:
+    if lezargus.config.LOGGING_INCLUDE_EXCEPTION_TYPE_IN_MESSAGE:
         typed_message = f"{error_type.__name__} - {message}"
     else:
         # Do not add anything.
@@ -733,14 +721,17 @@ def error(
     elevate = (
         elevate
         if elevate is not None
-        else lezargus.library.config.LOGGING_ELEVATE_ERROR_TO_CRITICAL
+        else lezargus.config.LOGGING_ELEVATE_ERROR_TO_CRITICAL
     )
     if elevate:
         elevated_message = f"The following error was elevated: {typed_message}"
         critical(critical_type=ElevatedError, message=elevated_message)
 
 
-def critical(critical_type: LezargusError, message: str) -> None:
+def critical(
+    critical_type: type[LezargusBaseError | LezargusError],
+    message: str,
+) -> None:
     """Log a critical error and raise.
 
     Use this for issues which are more serious than warnings and should
@@ -775,7 +766,7 @@ def critical(critical_type: LezargusError, message: str) -> None:
         )
     # We add the critical type to the message, if the configuration specifies it
     # to be so.
-    if lezargus.library.config.LOGGING_INCLUDE_EXCEPTION_TYPE_IN_MESSAGE:
+    if lezargus.config.LOGGING_INCLUDE_EXCEPTION_TYPE_IN_MESSAGE:
         typed_message = f"{critical_type.__name__} - {message}"
     else:
         # Do not add anything.

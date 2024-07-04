@@ -16,11 +16,11 @@ from lezargus.library import logging
 
 
 def bin_image_array(
-    image: hint.ndarray,
+    image: hint.NDArray,
     x_bin: int,
     y_bin: int,
     mode: str = "add",
-) -> hint.ndarray:
+) -> hint.NDArray:
     """Bin an image by using integer super pixels.
 
     A lot of inspiration for this function is from here:
@@ -95,11 +95,11 @@ def bin_image_array(
 
 
 def bin_cube_array_spatially(
-    cube: hint.ndarray,
+    cube: hint.NDArray,
     x_bin: int,
     y_bin: int,
     mode: str = "add",
-) -> hint.ndarray:
+) -> hint.NDArray:
     """Bin a cube spatially into super pixels.
 
     We only bin the cube in the spatial directions, the spectral direction is

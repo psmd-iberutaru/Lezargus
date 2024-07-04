@@ -29,7 +29,7 @@ def pytest_sessionstart(session: pytest.Session) -> None:
         filename="test_configuration_overrides",
         extension="yaml",
     )
-    lezargus.library.config.load_configuration_file(
+    lezargus.library.configuration.load_configuration_file(
         filename=test_configuration_file,
     )
 

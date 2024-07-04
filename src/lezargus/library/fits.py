@@ -109,15 +109,15 @@ def read_lezargus_fits_file(
     filename: str,
 ) -> tuple[
     hint.Header,
-    hint.ndarray,
-    hint.ndarray,
-    hint.ndarray,
+    hint.NDArray,
+    hint.NDArray,
+    hint.NDArray,
     hint.Unit,
     hint.Unit,
     float,
     float,
-    hint.ndarray,
-    hint.ndarray,
+    hint.NDArray,
+    hint.NDArray,
 ]:
     """Read in a Lezargus fits file.
 
@@ -266,16 +266,16 @@ def read_lezargus_fits_file(
 def write_lezargus_fits_file(
     filename: str,
     header: hint.Header,
-    wavelength: hint.ndarray,
-    data: hint.ndarray,
-    uncertainty: hint.ndarray,
+    wavelength: hint.NDArray,
+    data: hint.NDArray,
+    uncertainty: hint.NDArray,
     wavelength_unit: hint.Unit,
     data_unit: hint.Unit,
     spectral_scale: float,
     pixel_scale: float,
     slice_scale: float,
-    mask: hint.ndarray,
-    flags: hint.ndarray,
+    mask: hint.NDArray,
+    flags: hint.NDArray,
     overwrite: bool = False,
 ) -> None:
     """Write to a Lezargus fits file.

@@ -33,7 +33,7 @@ def get_most_recent_filename_in_directory(
     basename: str | list | None = None,
     extension: str | list | None = None,
     recursive: bool = False,
-    recency_function: hint.Callable[[str], float] = None,
+    recency_function: hint.Callable[[str], float] | None = None,
 ) -> str | None:
     """Get the most recent filename from a directory.
 

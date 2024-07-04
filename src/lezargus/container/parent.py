@@ -63,17 +63,17 @@ class LezargusContainerArithmetic:
 
     def __init__(
         self: "LezargusContainerArithmetic",
-        wavelength: hint.ndarray,
-        data: hint.ndarray,
-        uncertainty: hint.ndarray,
-        wavelength_unit: hint.Unit | None = None,
-        data_unit: hint.Unit | None = None,
+        wavelength: hint.NDArray | float,
+        data: hint.NDArray | float,
+        uncertainty: hint.NDArray | float | None,
+        wavelength_unit: hint.Unit | str | None = None,
+        data_unit: hint.Unit | str | None = None,
         spectral_scale: float | None = None,
         pixel_scale: float | None = None,
         slice_scale: float | None = None,
-        mask: hint.ndarray | None = None,
-        flags: hint.ndarray | None = None,
-        header: hint.Header | None = None,
+        mask: hint.NDArray | None = None,
+        flags: hint.NDArray | None = None,
+        header: hint.Header | dict | None = None,
     ) -> None:
         """Construct a wavelength-aware Lezargus data container.
 
@@ -367,7 +367,7 @@ class LezargusContainerArithmetic:
         justification = True
         return justification
 
-    def __add__(self: hint.Self, operand: hint.Self) -> hint.Self:
+    def __add__(self: hint.Self, operand: float | hint.Self) -> hint.Self:
         """Perform an addition operation.
 
         Parameters

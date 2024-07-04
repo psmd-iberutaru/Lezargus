@@ -57,10 +57,10 @@ class AtmosphereSpectrumGenerator:
 
     def __init__(
         self: AtmosphereSpectrumGenerator,
-        wavelength: hint.ndarray,
-        zenith_angle: hint.ndarray,
-        pwv: hint.ndarray,
-        data: hint.ndarray,
+        wavelength: hint.NDArray,
+        zenith_angle: hint.NDArray,
+        pwv: hint.NDArray,
+        data: hint.NDArray,
         wavelength_unit: hint.Unit | str = "m",
         data_unit: hint.Unit | str = "",
         spectral_scale: float | None = None,
@@ -123,10 +123,10 @@ class AtmosphereSpectrumGenerator:
 
     def interpolate(
         self: hint.Self,
-        wavelength: hint.ndarray | None = None,
+        wavelength: hint.NDArray | None = None,
         zenith_angle: float = 0,
         pwv: float = 0.5,
-    ) -> hint.ndarray:
+    ) -> hint.NDArray:
         """Generate atmospheric spectrum, through interpolation.
 
         Parameters
@@ -170,7 +170,7 @@ class AtmosphereSpectrumGenerator:
 
     def interpolate_spectrum(
         self: hint.Self,
-        wavelength: hint.ndarray | None = None,
+        wavelength: hint.NDArray | None = None,
         zenith_angle: float = 0,
         pwv: float = 0.5,
     ) -> hint.LezargusSpectrum:

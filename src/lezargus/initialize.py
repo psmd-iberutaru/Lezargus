@@ -56,9 +56,6 @@ def initialize(*args: tuple, **kwargs: object) -> None:
     # This is to "use" the kwarg parameter, nothing much else.
     lezargus.library.wrapper.do_nothing(**kwargs)
 
-    # Load in the default configuration file.
-    initialize_configuration(**kwargs)
-
     # Load the logging outputs.
     initialize_logging_outputs(**kwargs)
 
@@ -69,53 +66,6 @@ def initialize(*args: tuple, **kwargs: object) -> None:
 
     # Load all of the data files for Lezargus.
     initialize_data_all(**kwargs)
-
-
-def initialize_configuration(*args: tuple, **kwargs: object) -> None:
-    """Initialize the default configuration file.
-
-    This function forces the reading and applying of the default
-    configuration file. Note, this should not called when a user configuration
-    file has already been provided.
-
-
-    Parameters
-    ----------
-    *args : tuple
-        Positional arguments. There should be no positional arguments. This
-        serves to catch them.
-    **kwargs : dict
-        A catch-all keyword argument, used to catch arguments which are not
-        relevant or are otherwise passed to other internal functions.
-
-    Returns
-    -------
-    None
-
-    """
-    # The initialization function cannot have positional arguments as
-    # such positional arguments may get confused for other arguments when
-    # we pass it down.
-    if len(args) != 0:
-        logging.critical(
-            critical_type=logging.InputError,
-            message=(
-                "Initialization cannot have positional arguments, use keyword"
-                " arguments."
-            ),
-        )
-    # This is to "use" the kwarg parameter, nothing much else.
-    lezargus.library.wrapper.do_nothing(**kwargs)
-
-    # Load the default configuration parameters. The user's configurations
-    # should overwrite these when supplied.
-    lezargus.library.config.load_configuration_file(
-        filename=lezargus.library.path.merge_pathname(
-            directory=lezargus.library.config.INTERNAL_MODULE_INSTALLATION_PATH,
-            filename="configuration",
-            extension="yaml",
-        ),
-    )
 
 
 def initialize_logging_outputs(*args: tuple, **kwargs: object) -> None:
@@ -157,7 +107,7 @@ def initialize_logging_outputs(*args: tuple, **kwargs: object) -> None:
     lezargus.library.logging.add_console_logging_handler(
         console=sys.stderr,
         log_level=lezargus.library.logging.LOGGING_INFO_LEVEL,
-        use_color=lezargus.library.config.LOGGING_STREAM_USE_COLOR,
+        use_color=lezargus.config.LOGGING_STREAM_USE_COLOR,
     )
     # The default file logging is really a temporary thing (just in case) and
     # should not kept from run to run. Moreover, if there are multiple
@@ -168,7 +118,7 @@ def initialize_logging_outputs(*args: tuple, **kwargs: object) -> None:
     # capture the log messages when we try and remove the old logs.
     unique_hex_identifier = uuid.uuid4().hex
     default_log_file_filename = lezargus.library.path.merge_pathname(
-        directory=lezargus.library.config.INTERNAL_MODULE_INSTALLATION_PATH,
+        directory=lezargus.config.INTERNAL_MODULE_INSTALLATION_PATH,
         filename="lezargus_" + unique_hex_identifier,
         extension="log",
     )
@@ -181,7 +131,7 @@ def initialize_logging_outputs(*args: tuple, **kwargs: object) -> None:
     # want to clog the log with it.
     old_log_files = glob.glob(
         lezargus.library.path.merge_pathname(
-            directory=lezargus.library.config.INTERNAL_MODULE_INSTALLATION_PATH,
+            directory=lezargus.config.INTERNAL_MODULE_INSTALLATION_PATH,
             filename="lezargus_*",
             extension="log",
         ),
@@ -240,17 +190,13 @@ def initialize_temporary_directory(*args: tuple, **kwargs: object) -> None:
     # We need to get the temporary directory path, if the configurations were
     # not loaded, we inform the user.
     try:
-        temporary_directory = (
-            lezargus.library.config.LEZARGUS_TEMPORARY_DIRECTORY
-        )
+        temporary_directory = lezargus.config.LEZARGUS_TEMPORARY_DIRECTORY
         # We also check for the flag filename because the creation of the the
         # directory includes it.
         temporary_flag_file = (
-            lezargus.library.config.LEZARGUS_TEMPORARY_DIRECTORY_FLAG_FILENAME
+            lezargus.config.LEZARGUS_TEMPORARY_DIRECTORY_FLAG_FILENAME
         )
-        overwrite = (
-            lezargus.library.config.LEZARGUS_TEMPORARY_OVERWRITE_DIRECTORY
-        )
+        overwrite = lezargus.config.LEZARGUS_TEMPORARY_OVERWRITE_DIRECTORY
     except AttributeError:
         # The configurations were likely not found.
         logging.critical(
@@ -353,7 +299,7 @@ def initialize_data_star_files(*args: tuple, **kwargs: object) -> None:
         name="STAR_16CYGB",
         data=lezargus.container.LezargusSpectrum.read_fits_file(
             filename=lezargus.library.path.merge_pathname(
-                directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
+                directory=lezargus.config.INTERNAL_MODULE_DATA_DIRECTORY,
                 filename="star_spectra_16CygB",
                 extension="fits",
             ),
@@ -363,7 +309,7 @@ def initialize_data_star_files(*args: tuple, **kwargs: object) -> None:
         name="STAR_109VIR",
         data=lezargus.container.LezargusSpectrum.read_fits_file(
             filename=lezargus.library.path.merge_pathname(
-                directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
+                directory=lezargus.config.INTERNAL_MODULE_DATA_DIRECTORY,
                 filename="star_spectra_109Vir",
                 extension="fits",
             ),
@@ -373,7 +319,7 @@ def initialize_data_star_files(*args: tuple, **kwargs: object) -> None:
         name="STAR_SUN",
         data=lezargus.container.LezargusSpectrum.read_fits_file(
             filename=lezargus.library.path.merge_pathname(
-                directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
+                directory=lezargus.config.INTERNAL_MODULE_DATA_DIRECTORY,
                 filename="star_spectra_Sun",
                 extension="fits",
             ),
@@ -383,7 +329,7 @@ def initialize_data_star_files(*args: tuple, **kwargs: object) -> None:
         name="STAR_VEGA",
         data=lezargus.container.LezargusSpectrum.read_fits_file(
             filename=lezargus.library.path.merge_pathname(
-                directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
+                directory=lezargus.config.INTERNAL_MODULE_DATA_DIRECTORY,
                 filename="star_spectra_Vega",
                 extension="fits",
             ),
@@ -393,7 +339,7 @@ def initialize_data_star_files(*args: tuple, **kwargs: object) -> None:
         name="STAR_A0V",
         data=lezargus.container.LezargusSpectrum.read_fits_file(
             filename=lezargus.library.path.merge_pathname(
-                directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
+                directory=lezargus.config.INTERNAL_MODULE_DATA_DIRECTORY,
                 filename="star_spectra_A0V",
                 extension="fits",
             ),
@@ -441,7 +387,7 @@ def initialize_data_filter_files(*args: tuple, **kwargs: object) -> None:
         name="FILTER_JOHNSON_U_PHOTON",
         data=lezargus.container.LezargusSpectrum.read_fits_file(
             filename=lezargus.library.path.merge_pathname(
-                directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
+                directory=lezargus.config.INTERNAL_MODULE_DATA_DIRECTORY,
                 filename="filter_Johnson_U_photon",
                 extension="fits",
             ),
@@ -451,7 +397,7 @@ def initialize_data_filter_files(*args: tuple, **kwargs: object) -> None:
         name="FILTER_JOHNSON_B_PHOTON",
         data=lezargus.container.LezargusSpectrum.read_fits_file(
             filename=lezargus.library.path.merge_pathname(
-                directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
+                directory=lezargus.config.INTERNAL_MODULE_DATA_DIRECTORY,
                 filename="filter_Johnson_B_photon",
                 extension="fits",
             ),
@@ -461,7 +407,7 @@ def initialize_data_filter_files(*args: tuple, **kwargs: object) -> None:
         name="FILTER_JOHNSON_V_PHOTON",
         data=lezargus.container.LezargusSpectrum.read_fits_file(
             filename=lezargus.library.path.merge_pathname(
-                directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
+                directory=lezargus.config.INTERNAL_MODULE_DATA_DIRECTORY,
                 filename="filter_Johnson_V_photon",
                 extension="fits",
             ),
@@ -473,7 +419,7 @@ def initialize_data_filter_files(*args: tuple, **kwargs: object) -> None:
         name="FILTER_GAIA_GG_PHOTON",
         data=lezargus.container.LezargusSpectrum.read_fits_file(
             filename=lezargus.library.path.merge_pathname(
-                directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
+                directory=lezargus.config.INTERNAL_MODULE_DATA_DIRECTORY,
                 filename="filter_Gaia_GG_photon",
                 extension="fits",
             ),
@@ -483,7 +429,7 @@ def initialize_data_filter_files(*args: tuple, **kwargs: object) -> None:
         name="FILTER_GAIA_GB_PHOTON",
         data=lezargus.container.LezargusSpectrum.read_fits_file(
             filename=lezargus.library.path.merge_pathname(
-                directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
+                directory=lezargus.config.INTERNAL_MODULE_DATA_DIRECTORY,
                 filename="filter_Gaia_GB_photon",
                 extension="fits",
             ),
@@ -493,7 +439,7 @@ def initialize_data_filter_files(*args: tuple, **kwargs: object) -> None:
         name="FILTER_GAIA_GR_PHOTON",
         data=lezargus.container.LezargusSpectrum.read_fits_file(
             filename=lezargus.library.path.merge_pathname(
-                directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
+                directory=lezargus.config.INTERNAL_MODULE_DATA_DIRECTORY,
                 filename="filter_Gaia_GR_photon",
                 extension="fits",
             ),
@@ -505,7 +451,7 @@ def initialize_data_filter_files(*args: tuple, **kwargs: object) -> None:
         name="FILTER_2MASS_J_PHOTON",
         data=lezargus.container.LezargusSpectrum.read_fits_file(
             filename=lezargus.library.path.merge_pathname(
-                directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
+                directory=lezargus.config.INTERNAL_MODULE_DATA_DIRECTORY,
                 filename="filter_2MASS_J_photon",
                 extension="fits",
             ),
@@ -515,7 +461,7 @@ def initialize_data_filter_files(*args: tuple, **kwargs: object) -> None:
         name="FILTER_2MASS_H_PHOTON",
         data=lezargus.container.LezargusSpectrum.read_fits_file(
             filename=lezargus.library.path.merge_pathname(
-                directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
+                directory=lezargus.config.INTERNAL_MODULE_DATA_DIRECTORY,
                 filename="filter_2MASS_H_photon",
                 extension="fits",
             ),
@@ -525,7 +471,7 @@ def initialize_data_filter_files(*args: tuple, **kwargs: object) -> None:
         name="FILTER_2MASS_KS_PHOTON",
         data=lezargus.container.LezargusSpectrum.read_fits_file(
             filename=lezargus.library.path.merge_pathname(
-                directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
+                directory=lezargus.config.INTERNAL_MODULE_DATA_DIRECTORY,
                 filename="filter_2MASS_Ks_photon",
                 extension="fits",
             ),
@@ -579,7 +525,7 @@ def initialize_data_atmosphere_files(*args: tuple, **kwargs: object) -> None:
 
     # First, transmission. We load the data produced.
     transmission_filename = lezargus.library.path.merge_pathname(
-        directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
+        directory=lezargus.config.INTERNAL_MODULE_DATA_DIRECTORY,
         filename="psg_telluric_transmission",
         extension="dat",
     )
@@ -625,7 +571,7 @@ def initialize_data_atmosphere_files(*args: tuple, **kwargs: object) -> None:
 
     # Second, we repeat for radiance. We load the data produced.
     radiance_filename = lezargus.library.path.merge_pathname(
-        directory=lezargus.library.config.INTERNAL_MODULE_DATA_DIRECTORY,
+        directory=lezargus.config.INTERNAL_MODULE_DATA_DIRECTORY,
         filename="psg_telluric_radiance",
         extension="dat",
     )

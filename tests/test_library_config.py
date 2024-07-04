@@ -23,7 +23,7 @@ def test_read_configuration_file():
     # fail, but a message should pop up.
     bad_filename = "config_filename_without_correct_extension.txt"
     try:
-        __ = lezargus.library.config.read_configuration_file(
+        __ = lezargus.config.read_configuration_file(
             filename=bad_filename,
         )
     except lezargus.library.logging.ElevatedError:
@@ -33,7 +33,7 @@ def test_read_configuration_file():
     # We next test if we can detect files which do not exist.
     no_filename = "config_filename_does_not_exist.yaml"
     try:
-        __ = lezargus.library.config.read_configuration_file(
+        __ = lezargus.config.read_configuration_file(
             filename=no_filename,
         )
     except lezargus.library.logging.FileError:
@@ -44,7 +44,7 @@ def test_read_configuration_file():
     nonflat_filename = "config_filename_not_flat_configuration.yaml"
     nonflat_filename = conftest.fetch_test_filename(basename=nonflat_filename)
     try:
-        __ = lezargus.library.config.read_configuration_file(
+        __ = lezargus.config.read_configuration_file(
             filename=nonflat_filename,
         )
     except lezargus.library.logging.ElevatedError:
@@ -73,7 +73,7 @@ def test_load_configuration_file() -> None:
         basename=lowercase_filename,
     )
     try:
-        __ = lezargus.library.config.load_configuration_file(
+        __ = lezargus.config.load_configuration_file(
             filename=lowercase_filename,
         )
     except lezargus.library.logging.ElevatedError:
@@ -98,7 +98,7 @@ def test_create_configuration_file() -> None:
     same_filename = "config_filename_with_lowercase_keys.yaml"
     same_filename = conftest.fetch_test_filename(basename=same_filename)
     try:
-        __ = lezargus.library.config.create_configuration_file(
+        __ = lezargus.config.create_configuration_file(
             filename=same_filename,
             overwrite=False,
         )
@@ -112,11 +112,11 @@ def test_create_configuration_file() -> None:
     # Fixing the path.
     noext_filename = conftest.fetch_test_filename(basename=noext_filename)
     ext_filename = conftest.fetch_test_filename(basename=ext_filename)
-    __ = lezargus.library.config.create_configuration_file(
+    __ = lezargus.config.create_configuration_file(
         filename=noext_filename,
         overwrite=True,
     )
-    __ = lezargus.library.config.create_configuration_file(
+    __ = lezargus.config.create_configuration_file(
         filename=ext_filename,
         overwrite=True,
     )

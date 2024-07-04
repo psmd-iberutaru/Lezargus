@@ -13,7 +13,7 @@ from lezargus.library import hint
 from lezargus.library import logging
 
 
-def get_smallest_gap(wavelength: hint.ndarray) -> float:
+def get_smallest_gap(wavelength: hint.NDArray) -> float:
     """Find the smallest possible gap value for a wavelength array.
 
     Gaps, which are important in gap-based interpolation, are where there is
@@ -90,8 +90,8 @@ class Generic1DInterpolate:
 
     def __init__(
         self: "Generic1DInterpolate",
-        x: hint.ndarray,
-        v: hint.ndarray,
+        x: hint.NDArray,
+        v: hint.NDArray,
         extrapolate: bool = False,
         extrapolate_fill: float = np.nan,
         gap: float = +np.inf,
@@ -142,9 +142,9 @@ class Generic1DInterpolate:
 
     @staticmethod
     def _interpolator_generator(
-        x: hint.ndarray,
-        v: hint.ndarray,
-    ) -> hint.Callable[[hint.ndarray], hint.ndarray]:
+        x: hint.NDArray,
+        v: hint.NDArray,
+    ) -> hint.Callable[[hint.NDArray], hint.NDArray]:
         """Define the integration with the wrapped interpolator here.
 
         This function needs to be overwritten with the implementation of the
@@ -178,12 +178,14 @@ class Generic1DInterpolate:
         # We define a dummy function here so that PyLint is happy. Of course,
         # the critical error process above should really prevent this code from
         # running in the first place.
-        def _dummy_interpolator(input_: hint.ndarray) -> hint.ndarray:
+        def _dummy_interpolator(input_: hint.NDArray) -> hint.NDArray:
             return input_
 
         return _dummy_interpolator
 
-    def _calculate_gap_bounds(self: hint.Self) -> tuple[tuple, tuple]:
+    def _calculate_gap_bounds(
+        self: hint.Self,
+    ) -> tuple[hint.NDArray, hint.NDArray]:
         """Calculate the gap lower and upper bounds.
 
         Parameters
@@ -208,7 +210,7 @@ class Generic1DInterpolate:
         # All done.
         return lower_bounds, upper_bounds
 
-    def interpolate(self: hint.Self, x: hint.ndarray) -> hint.ndarray:
+    def interpolate(self: hint.Self, x: hint.NDArray) -> hint.NDArray:
         """Interpolate the input value.
 
         Parameters
@@ -247,9 +249,9 @@ class Generic1DInterpolate:
 
     def _apply_extrapolation_criteria(
         self: hint.Self,
-        interp_x: hint.ndarray,
-        interp_v: hint.ndarray,
-    ) -> hint.ndarray:
+        interp_x: hint.NDArray,
+        interp_v: hint.NDArray,
+    ) -> hint.NDArray:
         """Apply the extrapolation criteria to interpolated data.
 
         Namely, if there was to be no extrapolation, we replace any data with
@@ -294,9 +296,9 @@ class Generic1DInterpolate:
 
     def _apply_gap_criteria(
         self: hint.Self,
-        interp_x: hint.ndarray,
-        interp_v: hint.ndarray,
-    ) -> hint.ndarray:
+        interp_x: hint.NDArray,
+        interp_v: hint.NDArray,
+    ) -> hint.NDArray:
         """Apply the gap criteria to interpolated data.
 
         Namely, if the interpolated value falls within a gap, we replace the
@@ -343,7 +345,7 @@ class Generic1DInterpolate:
     def template_class(
         cls: hint.Type[hint.Self],
         **kwargs: hint.Any,
-    ) -> hint.Callable[[hint.ndarray, hint.ndarray], hint.Self]:
+    ) -> hint.Callable[[hint.NDArray, hint.NDArray], hint.Self]:
         """Provide a template with the same flags as this interpolator class.
 
         This function does the same thing as :py:meth:`template_instance`, but
@@ -374,7 +376,7 @@ class Generic1DInterpolate:
     def template_instance(
         self: hint.Self,
         **kwargs: hint.Any,
-    ) -> hint.Callable[[hint.ndarray, hint.ndarray], hint.Self]:
+    ) -> hint.Callable[[hint.NDArray, hint.NDArray], hint.Self]:
         """Provide a template with the same flags as this interpolator.
 
         Sometimes it is needed to have an interpolator which you can make
@@ -411,8 +413,8 @@ class Generic1DInterpolate:
 
         # Defining the interpolator template.
         def interpolator_template(
-            x: hint.ndarray,
-            v: hint.ndarray,
+            x: hint.NDArray,
+            v: hint.NDArray,
         ) -> hint.Self:
             """Create the interpolator from this template.
 
@@ -450,9 +452,9 @@ class Nearest1DInterpolate(Generic1DInterpolate):
 
     @staticmethod
     def _interpolator_generator(
-        x: hint.ndarray,
-        v: hint.ndarray,
-    ) -> hint.Callable[[hint.ndarray], hint.ndarray]:
+        x: hint.NDArray,
+        v: hint.NDArray,
+    ) -> hint.Callable[[hint.NDArray], hint.NDArray]:
         """Linear interpolator.
 
         Parameters
@@ -486,9 +488,9 @@ class Linear1DInterpolate(Generic1DInterpolate):
 
     @staticmethod
     def _interpolator_generator(
-        x: hint.ndarray,
-        v: hint.ndarray,
-    ) -> hint.Callable[[hint.ndarray], hint.ndarray]:
+        x: hint.NDArray,
+        v: hint.NDArray,
+    ) -> hint.Callable[[hint.NDArray], hint.NDArray]:
         """Linear interpolator.
 
         Parameters
@@ -508,7 +510,7 @@ class Linear1DInterpolate(Generic1DInterpolate):
         # The Numpy linear interpolator doesn't return an interpolation
         # class so we need to do it ourselves. We also need to implement
         # extrapolation.
-        def interpolator(input_: hint.ndarray) -> hint.ndarray:
+        def interpolator(input_: hint.NDArray) -> hint.NDArray:
             """Linear interpolator."""
             # The original data.
             # The output.
@@ -544,9 +546,9 @@ class Spline1DInterpolate(Generic1DInterpolate):
 
     @staticmethod
     def _interpolator_generator(
-        x: hint.ndarray,
-        v: hint.ndarray,
-    ) -> hint.Callable[[hint.ndarray], hint.ndarray]:
+        x: hint.NDArray,
+        v: hint.NDArray,
+    ) -> hint.Callable[[hint.NDArray], hint.NDArray]:
         """Generate modified Akima interpolator.
 
         Parameters
@@ -612,8 +614,8 @@ class RepeatNDInterpolate:
 
     def __init__(
         self: "RepeatNDInterpolate",
-        domain: list[hint.ndarray],
-        v: hint.ndarray,
+        domain: list[hint.NDArray],
+        v: hint.NDArray,
         template: hint.Callable,
     ) -> None:
         """Create the 2D interpolator, constructed from many 1D interpolations.
@@ -670,12 +672,12 @@ class RepeatNDInterpolate:
 
     @staticmethod
     def _interpolate_reduce_dimension(
-        data: hint.ndarray,
-        single_domain: hint.ndarray,
+        data: hint.NDArray,
+        single_domain: hint.NDArray,
         point: float,
         template: hint.Callable,
         axis: int = -1,
-    ) -> hint.ndarray:
+    ) -> hint.NDArray:
         """Interpolate and reduce the multi-dimensional data by one dimension.
 
         This function interpolates a multi-dimensional data set by creating 1D
@@ -729,7 +731,7 @@ class RepeatNDInterpolate:
         # We build the interpolation generating function which will be
         # mapped across the array. To save resources, we also evaluate it
         # at the same time as the mapping.
-        def interpolate_evaluate(y: hint.ndarray) -> float:
+        def interpolate_evaluate(y: hint.NDArray) -> float:
             """Create an interpolator across the axis and evaluate it.
 
             Parameters
@@ -765,7 +767,7 @@ class RepeatNDInterpolate:
         reduced = np.apply_along_axis(interpolate_evaluate, axis, data)
         return reduced
 
-    def _interpolate(self: hint.Self, *domain: hint.ndarray) -> hint.ndarray:
+    def _interpolate(self: hint.Self, *domain: hint.NDArray) -> hint.NDArray:
         """Interpolate the data points; internal function.
 
         The shape and arrangement of the input points provided is preserved.
@@ -789,12 +791,12 @@ class RepeatNDInterpolate:
 
         """
         # We only want to work with arrays.
-        domain = [np.asarray(domaindex) for domaindex in domain]
+        domain_array = [np.asarray(domaindex) for domaindex in domain]
 
         # The shape of all the the input must be the same shape. Defaulting
         # to have the first element be the primary.
-        input_shape = domain[0].shape
-        for domaindex in domain:
+        input_shape = domain_array[0].shape
+        for domaindex in domain_array:
             if domaindex.shape != input_shape:
                 logging.error(
                     logging.InputError,
@@ -803,7 +805,7 @@ class RepeatNDInterpolate:
 
         # We work with flat arrays, evaluating the interpolation points then
         # repackage them back into the proper shape later.
-        flat_domain = [np.ravel(domaindex) for domaindex in domain]
+        flat_domain = [np.ravel(domaindex) for domaindex in domain_array]
         flat_result = np.empty(input_shape)
         for index, pointdex in enumerate(zip(*flat_domain, strict=True)):
             flat_result[index] = self._interpolate_point(*pointdex)
@@ -863,7 +865,7 @@ class RepeatNDInterpolate:
     def _interpolate_slice(
         self: hint.Self,
         *slice_: float | None,
-    ) -> hint.ndarray:
+    ) -> hint.NDArray:
         """Interpolate a single slice of the data.
 
         A "slice" is provided by specifying the values of specific points
@@ -956,9 +958,9 @@ class Repeat2DInterpolate(RepeatNDInterpolate):
 
     def __init__(
         self: "Repeat2DInterpolate",
-        x: hint.ndarray,
-        y: hint.ndarray,
-        v: hint.ndarray,
+        x: hint.NDArray,
+        y: hint.NDArray,
+        v: hint.NDArray,
         template: hint.Callable,
     ) -> None:
         """Create the 2D interpolator, constructed from many 1D interpolations.
@@ -1006,9 +1008,9 @@ class Repeat2DInterpolate(RepeatNDInterpolate):
 
     def interpolate(
         self: hint.Self,
-        x: hint.ndarray,
-        y: hint.ndarray,
-    ) -> hint.ndarray:
+        x: hint.NDArray,
+        y: hint.NDArray,
+    ) -> hint.NDArray:
         """Interpolate the data points.
 
         We interpolate the data at the given x and y values. The shapes
@@ -1125,11 +1127,11 @@ class Repeat3DInterpolate(RepeatNDInterpolate):
     """
 
     def __init__(
-        self: "Repeat2DInterpolate",
-        x: hint.ndarray,
-        y: hint.ndarray,
-        z: hint.ndarray,
-        v: hint.ndarray,
+        self: "Repeat3DInterpolate",
+        x: hint.NDArray,
+        y: hint.NDArray,
+        z: hint.NDArray,
+        v: hint.NDArray,
         template: hint.Callable,
     ) -> None:
         """Create the 2D interpolator, constructed from many 1D interpolations.
@@ -1181,10 +1183,10 @@ class Repeat3DInterpolate(RepeatNDInterpolate):
 
     def interpolate(
         self: hint.Self,
-        x: hint.ndarray,
-        y: hint.ndarray,
-        z: hint.ndarray,
-    ) -> hint.ndarray:
+        x: hint.NDArray,
+        y: hint.NDArray,
+        z: hint.NDArray,
+    ) -> hint.NDArray:
         """Interpolate the data points.
 
         We interpolate the data at the given x, y, and z values. The shapes
@@ -1312,8 +1314,8 @@ class RegularNDInterpolate(scipy.interpolate.RegularGridInterpolator):
 
     def __init__(
         self: "RegularNDInterpolate",
-        domain: list[hint.ndarray],
-        v: hint.ndarray,
+        domain: list[hint.NDArray],
+        v: hint.NDArray,
     ) -> None:
         """Create the interpolator, using the Scipy interpolator as a base.
 
@@ -1368,7 +1370,7 @@ class RegularNDInterpolate(scipy.interpolate.RegularGridInterpolator):
             fill_value=None,
         )
 
-    def interpolate(self: hint.Self, *domain: hint.ndarray) -> hint.ndarray:
+    def interpolate(self: hint.Self, *domain: hint.NDArray) -> hint.NDArray:
         """Interpolate the data points provided their axis values.
 
         Parameters
@@ -1384,12 +1386,12 @@ class RegularNDInterpolate(scipy.interpolate.RegularGridInterpolator):
 
         """
         # We only want to work with arrays.
-        domain = [np.asarray(domaindex) for domaindex in domain]
+        domain_array = [np.asarray(domaindex) for domaindex in domain]
 
         # The shape of all the the input must be the same shape. Defaulting
         # to have the first element be the primary.
-        input_shape = domain[0].shape
-        for domaindex in domain:
+        input_shape = domain_array[0].shape
+        for domaindex in domain_array:
             if domaindex.shape != input_shape:
                 logging.error(
                     logging.InputError,
@@ -1398,7 +1400,7 @@ class RegularNDInterpolate(scipy.interpolate.RegularGridInterpolator):
 
         # We work with flat arrays, evaluating the interpolation points then
         # repackage them back into the proper shape later.
-        flat_domain = [np.ravel(domaindex) for domaindex in domain]
+        flat_domain = [np.ravel(domaindex) for domaindex in domain_array]
         # The points to interpolate at. Scipy can handle input of multiple
         # points.
         points = list(zip(*flat_domain, strict=True))
@@ -1437,13 +1439,13 @@ class RegularNDInterpolate(scipy.interpolate.RegularGridInterpolator):
 
         # We continuously reduce the dimensions, evaluating based on the
         # input point.
-        v = self(point)
+        v = float(self(point))
         return v
 
     def interpolate_slice(
         self: hint.Self,
         *slice_: float | None,
-    ) -> hint.ndarray:
+    ) -> hint.NDArray:
         """Interpolate a single slice of the data.
 
         A "slice" is provided by specifying the values of specific points
@@ -1481,5 +1483,5 @@ class RegularNDInterpolate(scipy.interpolate.RegularGridInterpolator):
         )
 
         # All done.
-        v = None
+        v = np.array([1, 2])
         return v

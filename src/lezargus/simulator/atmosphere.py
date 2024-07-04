@@ -62,8 +62,8 @@ class AtmosphereSimulator:
         parallactic_angle: float,
         reference_wavelength: float,
         *args: hint.Any,
-        transmission_generator: hint.AtmosphereSpectrumGenerator = None,
-        radiance_generator: hint.AtmosphereSpectrumGenerator = None,
+        transmission_generator: hint.AtmosphereSpectrumGenerator | None = None,
+        radiance_generator: hint.AtmosphereSpectrumGenerator | None = None,
     ) -> None:
         """Create the atmospheric simulator, provided atmospheric properties.
 
@@ -364,8 +364,8 @@ class AtmosphereSimulator:
 
     def seeing_function(
         self: hint.Self,
-        wavelength: hint.ndarray,
-    ) -> hint.ndarray:
+        wavelength: hint.NDArray,
+    ) -> hint.NDArray:
         """Seeing function over wavelength for the current atmosphere.
 
         This function primarily takes the proportionality relationships of
@@ -398,7 +398,7 @@ class AtmosphereSimulator:
     def generate_seeing_kernels(
         self: hint.Self,
         template: hint.LezargusContainerArithmetic,
-    ) -> hint.ndarray:
+    ) -> hint.NDArray:
         """Generate a seeing kernel, accounting for wavelength variations.
 
         We create a seeing kernel for convolution. We take into account the
@@ -493,7 +493,7 @@ class AtmosphereSimulator:
     def generate_refraction_vectors(
         self: hint.Self,
         template: hint.LezargusContainerArithmetic,
-    ) -> hint.ndarray:
+    ) -> hint.NDArray:
         """Generate a set of translation vectors mimicking refraction.
 
         We create a set of translation vectors which simulate fraction for

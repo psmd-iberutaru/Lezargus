@@ -13,10 +13,10 @@ from lezargus.library import logging
 
 
 def convert_units(
-    value: float | hint.ndarray,
+    value: float | hint.NDArray,
     value_unit: hint.Unit | str,
     result_unit: hint.Unit | str,
-) -> float | hint.ndarray:
+) -> float | hint.NDArray:
     """Convert a value from one unit to another unit.
 
     We convert values using Astropy, however, we only convert raw numbers and
@@ -61,7 +61,7 @@ def convert_units(
     return result
 
 
-def parse_astropy_unit(unit_string: str | hint.Unit) -> hint.Unit:
+def parse_astropy_unit(unit_string: str | hint.Unit | None) -> hint.Unit:
     """Parse a unit string to an Astropy Unit class.
 
     Although for most cases, it is easier to use the Unit instantiation class
@@ -71,7 +71,7 @@ def parse_astropy_unit(unit_string: str | hint.Unit) -> hint.Unit:
 
     Parameters
     ----------
-    unit_string : str or Astropy Unit.
+    unit_string : str or Astropy Unit or None.
         The unit string to parse into an Astropy unit. If it is None, then we
         return a dimensionless quantity unit.
 

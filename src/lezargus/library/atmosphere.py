@@ -12,7 +12,7 @@ from lezargus.library import hint
 from lezargus.library import logging
 
 
-def airmass(zenith_angle: float | hint.ndarray) -> float | hint.ndarray:
+def airmass(zenith_angle: float | hint.NDArray) -> float | hint.NDArray:
     """Calculate the airmass from the zenith angle.
 
     This function calculates the airmass provided a zenith angle. We use a
@@ -64,7 +64,7 @@ def airmass(zenith_angle: float | hint.ndarray) -> float | hint.ndarray:
     return airmass_value
 
 
-def index_of_refraction_ideal_air(wavelength: hint.ndarray) -> hint.ndarray:
+def index_of_refraction_ideal_air(wavelength: hint.NDArray) -> hint.NDArray:
     """Calculate the ideal refraction of air over wavelength.
 
     The index of refraction of air depends slightly on wavelength, we use
@@ -102,10 +102,10 @@ def index_of_refraction_ideal_air(wavelength: hint.ndarray) -> hint.ndarray:
 
 
 def index_of_refraction_dry_air(
-    wavelength: hint.ndarray,
+    wavelength: hint.NDArray,
     pressure: float,
     temperature: float,
-) -> hint.ndarray:
+) -> hint.NDArray:
     """Calculate the refraction of air of pressured warm dry air.
 
     The index of refraction depends on wavelength, pressure and temperature, we
@@ -156,11 +156,11 @@ def index_of_refraction_dry_air(
 
 
 def index_of_refraction_moist_air(
-    wavelength: hint.ndarray,
+    wavelength: hint.NDArray,
     temperature: float,
     pressure: float,
     water_pressure: float,
-) -> hint.ndarray:
+) -> hint.NDArray:
     """Calculate the refraction of air of pressured warm moist air.
 
     The index of refraction depends on wavelength, pressure, temperature, and
@@ -211,12 +211,12 @@ def index_of_refraction_moist_air(
 
 
 def absolute_atmospheric_refraction(
-    wavelength: hint.ndarray,
+    wavelength: hint.NDArray,
     zenith_angle: float,
     temperature: float,
     pressure: float,
     water_pressure: float,
-) -> hint.ndarray:
+) -> hint.NDArray:
     """Compute the absolute atmospheric refraction.
 
     The absolute atmospheric refraction is not as useful as the relative
@@ -261,12 +261,12 @@ def absolute_atmospheric_refraction(
 
 
 def absolute_atmospheric_refraction_function(
-    wavelength: hint.ndarray,
+    wavelength: hint.NDArray,
     zenith_angle: float,
     temperature: float,
     pressure: float,
     water_pressure: float,
-) -> hint.Callable[[hint.ndarray], hint.ndarray]:
+) -> hint.Callable[[hint.NDArray], hint.NDArray]:
     """Compute the absolute atmospheric refraction function.
 
     The absolute atmospheric refraction is not as useful as the relative
@@ -316,13 +316,13 @@ def absolute_atmospheric_refraction_function(
 
 
 def relative_atmospheric_refraction(
-    wavelength: hint.ndarray,
+    wavelength: hint.NDArray,
     reference_wavelength: float,
     zenith_angle: float,
     temperature: float,
     pressure: float,
     water_pressure: float,
-) -> hint.ndarray:
+) -> hint.NDArray:
     """Compute the relative atmospheric refraction.
 
     The relative atmospheric refraction is computed similarly to the
@@ -373,13 +373,13 @@ def relative_atmospheric_refraction(
 
 
 def relative_atmospheric_refraction_function(
-    wavelength: hint.ndarray,
+    wavelength: hint.NDArray,
     reference_wavelength: float,
     zenith_angle: float,
     temperature: float,
     pressure: float,
     water_pressure: float,
-) -> hint.Callable[[hint.ndarray], hint.ndarray]:
+) -> hint.Callable[[hint.NDArray], hint.NDArray]:
     """Compute the relative atmospheric refraction function.
 
     The relative refraction function is the same as the absolute refraction
@@ -432,12 +432,12 @@ def relative_atmospheric_refraction_function(
 
 
 def seeing(
-    wavelength: hint.ndarray,
+    wavelength: hint.NDArray,
     zenith_angle: float,
     reference_seeing: float,
     reference_wavelength: float,
     reference_zenith_angle: float = 0,
-) -> hint.ndarray:
+) -> hint.NDArray:
     """Compute seeing as a function of wavelength.
 
     The seeing, as a function of wavelength, is computed from wavelength and

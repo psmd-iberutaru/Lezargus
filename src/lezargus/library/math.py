@@ -13,7 +13,7 @@ from lezargus.library import hint
 from lezargus.library import logging
 
 
-def covariance(param_1: hint.ndarray, param_2: hint.ndarray) -> float:
+def covariance(param_1: hint.NDArray, param_2: hint.NDArray) -> float:
     """Compute the covariance for two parameters.
 
     If the covariance cannot be computed, we default to 0.
@@ -53,11 +53,11 @@ def covariance(param_1: hint.ndarray, param_2: hint.ndarray) -> float:
 
 
 def add(
-    augend: hint.ndarray,
-    addend: hint.ndarray,
-    augend_uncertainty: hint.ndarray = None,
-    addend_uncertainty: hint.ndarray = None,
-) -> tuple[hint.ndarray, hint.ndarray]:
+    augend: hint.NDArray,
+    addend: hint.NDArray,
+    augend_uncertainty: hint.NDArray | float | None = 0,
+    addend_uncertainty: hint.NDArray | float | None = 0,
+) -> tuple[hint.NDArray, hint.NDArray]:
     """Add two values and propagate uncertainties.
 
     Parameters
@@ -66,10 +66,10 @@ def add(
         The "left"-side of the addition.
     addend : ndarray
         The "right"-side of the addition.
-    augend_uncertainty : ndarray, default = None
+    augend_uncertainty : ndarray, default = 0
         The uncertainty on the augend term. If None, we assume that the
         uncertainty is 0.
-    addend_uncertainty : ndarray, default = None
+    addend_uncertainty : ndarray, default = 0
         The uncertainty on the addend term. If None, we assume that the
         uncertainty is 0.
 
@@ -96,11 +96,11 @@ def add(
 
 
 def subtract(
-    minuend: hint.ndarray,
-    subtrahend: hint.ndarray,
-    minuend_uncertainty: hint.ndarray = None,
-    subtrahend_uncertainty: hint.ndarray = None,
-) -> tuple[hint.ndarray, hint.ndarray]:
+    minuend: hint.NDArray,
+    subtrahend: hint.NDArray,
+    minuend_uncertainty: hint.NDArray | float | None = None,
+    subtrahend_uncertainty: hint.NDArray | float | None = None,
+) -> tuple[hint.NDArray, hint.NDArray]:
     """Subtract two values and propagate uncertainties.
 
     Parameters
@@ -143,11 +143,11 @@ def subtract(
 
 
 def multiply(
-    multiplier: hint.ndarray,
-    multiplicand: hint.ndarray,
-    multiplier_uncertainty: hint.ndarray = None,
-    multiplicand_uncertainty: hint.ndarray = None,
-) -> tuple[hint.ndarray, hint.ndarray]:
+    multiplier: hint.NDArray,
+    multiplicand: hint.NDArray,
+    multiplier_uncertainty: hint.NDArray | float | None = None,
+    multiplicand_uncertainty: hint.NDArray | float | None = None,
+) -> tuple[hint.NDArray, hint.NDArray]:
     """Multiply two values and propagate uncertainties.
 
     Note, the typical formula for the propagation of uncertainties for
@@ -203,11 +203,11 @@ def multiply(
 
 
 def divide(
-    numerator: hint.ndarray,
-    denominator: hint.ndarray,
-    numerator_uncertainty: hint.ndarray = None,
-    denominator_uncertainty: hint.ndarray = None,
-) -> tuple[hint.ndarray, hint.ndarray]:
+    numerator: hint.NDArray,
+    denominator: hint.NDArray,
+    numerator_uncertainty: hint.NDArray | float | None = None,
+    denominator_uncertainty: hint.NDArray | float | None = None,
+) -> tuple[hint.NDArray, hint.NDArray]:
     """Divide two values and propagate uncertainties.
 
     Note, the typical formula for the propagation of uncertainties for
@@ -262,11 +262,11 @@ def divide(
 
 
 def exponentiate(
-    base: hint.ndarray,
-    exponent: hint.ndarray,
-    base_uncertainty: hint.ndarray,
-    exponent_uncertainty: hint.ndarray,
-) -> tuple[hint.ndarray, hint.ndarray]:
+    base: hint.NDArray,
+    exponent: hint.NDArray,
+    base_uncertainty: hint.NDArray | float | None = None,
+    exponent_uncertainty: hint.NDArray | float | None = None,
+) -> tuple[hint.NDArray, hint.NDArray]:
     """Compute the exponent of two values and propagate uncertainties.
 
     Parameters
@@ -309,10 +309,10 @@ def exponentiate(
 
 
 def logarithm(
-    antilogarithm: hint.ndarray,
-    base: hint.ndarray,
-    antilogarithm_uncertainty: hint.ndarray = None,
-) -> tuple[hint.ndarray, hint.ndarray]:
+    antilogarithm: hint.NDArray,
+    base: hint.NDArray,
+    antilogarithm_uncertainty: hint.NDArray | float | None = None,
+) -> tuple[hint.NDArray, hint.NDArray]:
     """Compute the logarithm of two values and propagate uncertainties.
 
     Parameters
@@ -346,9 +346,9 @@ def logarithm(
 
 
 def integrate_discrete(
-    variable: hint.ndarray,
-    integrand: hint.ndarray,
-    integrand_uncertainty: hint.ndarray = None,
+    variable: hint.NDArray,
+    integrand: hint.NDArray,
+    integrand_uncertainty: hint.NDArray | float | None = None,
 ) -> tuple[float, float]:
     """Integrate discrete values and propagate the errors.
 
@@ -386,7 +386,7 @@ def integrate_discrete(
     return result, uncertainty
 
 
-def normalize_weights(weights: hint.ndarray) -> hint.ndarray:
+def normalize_weights(weights: hint.NDArray) -> hint.NDArray:
     """Normalize weights, handling NaNs so they don't screw things up.
 
     We do not include NaNs in the normalization of the weights, however we
@@ -429,9 +429,9 @@ def normalize_weights(weights: hint.ndarray) -> hint.ndarray:
 
 
 def weighted_mean(
-    values: hint.ndarray,
-    uncertainties: hint.ndarray = None,
-    weights: hint.ndarray = None,
+    values: hint.NDArray,
+    uncertainties: hint.NDArray | None = None,
+    weights: hint.NDArray | None = None,
 ) -> tuple[float, float]:
     """Calculate a weighted mean, propagating uncertainties where needed.
 
@@ -471,7 +471,7 @@ def weighted_mean(
     norm_weights = normalize_weights(weights=weights)
 
     # Finally, calculating the mean.
-    mean_value = np.average(values, weights=norm_weights)
+    mean_value = float(np.average(values, weights=norm_weights))
     # The error propagation, done as prescribed. We assume next to no
     # covariance and in general we calculate it via variance propagation of
     # the definition of the weighted mean.
@@ -481,9 +481,9 @@ def weighted_mean(
 
 
 def nan_weighted_mean(
-    values: hint.ndarray,
-    uncertainties: hint.ndarray = None,
-    weights: hint.ndarray = None,
+    values: hint.NDArray,
+    uncertainties: hint.NDArray | None = None,
+    weights: hint.NDArray | None = None,
 ) -> tuple[float, float]:
     """Calculate the no-NaN weighted mean and uncertainty.
 
@@ -537,9 +537,9 @@ def nan_weighted_mean(
 
 
 def weighted_quantile_mean(
-    values: hint.ndarray,
-    uncertainties: hint.ndarray = None,
-    weights: hint.ndarray = None,
+    values: hint.NDArray,
+    uncertainties: hint.NDArray | None = None,
+    weights: hint.NDArray | None = None,
     quantile: float | tuple[float, float] = (0, 1),
 ) -> tuple[float, float]:
     """Calculate the no-NaN weighted quantile mean and uncertainty.
@@ -589,13 +589,13 @@ def weighted_quantile_mean(
                     " All data may be cut."
                 ),
             )
-        quantile = (quantile, 1 - quantile)
+        dual_quantile = (quantile, 1 - quantile)
     else:
-        quantile = tuple(quantile)
+        dual_quantile = tuple(quantile)
 
     # We need to obtain only the values within the quartile before computing
     # the average.
-    lower_limit, upper_limit = np.nanquantile(values, quantile)
+    lower_limit, upper_limit = np.nanquantile(values, dual_quantile)
     valid_index = (lower_limit <= values) & (values <= upper_limit)
     valid_values = values[valid_index]
     valid_uncertainties = uncertainties[valid_index]
@@ -612,9 +612,9 @@ def weighted_quantile_mean(
 
 
 def median(
-    values: hint.ndarray,
-    uncertainties: hint.ndarray = None,
-    weights: hint.ndarray = None,
+    values: hint.NDArray,
+    uncertainties: hint.NDArray | None = None,
+    weights: hint.NDArray | None = None,
 ) -> tuple[float, float]:
     """Calculate the median and uncertainty.
 
@@ -646,7 +646,7 @@ def median(
     weights = np.ones_like(values) if weights is None else weights
 
     # Calculating the median.
-    median_value = np.median(values)
+    median_value = float(np.median(values))
 
     # The uncertainty propagation on the median.
     logging.error(
@@ -660,9 +660,9 @@ def median(
 
 
 def nan_median(
-    values: hint.ndarray,
-    uncertainties: hint.ndarray = None,
-    weights: hint.ndarray = None,
+    values: hint.NDArray,
+    uncertainties: hint.NDArray | None = None,
+    weights: hint.NDArray | None = None,
 ) -> tuple[float, float]:
     """Calculate the no-NaN median and uncertainty.
 

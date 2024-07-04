@@ -41,8 +41,9 @@ lezargus = "lezargus.__main__:main"
 
 
 
-# Tools and other build information. 
-#####################################
+## ## ## ## ## ## ## ## ## ##
+# TOOL : [MAIN]
+## ## ## ## ## ## ## ## ## ##
 
 [tool.hatch.version]
 path = "src/lezargus/__version__.py"
@@ -76,11 +77,12 @@ cover = [
     "coverage html",
     "coverage erase",
 ]
-lint = [
+check = [
     "ruff check {args:src}",
     "pylint {args:src}",
+    "pyright",
 ]
-lintfix = [
+checkfix = [
     "format",
     "ruff check {args:src} --fix",
     "format",
@@ -95,8 +97,8 @@ docs = [
 ]
 auxiliary = [
     "format",
-    "lintfix",
-    "lint",
+    "checkfix",
+    "check",
     "test",
     "cover",
     "format",
@@ -116,10 +118,19 @@ testpaths = [
     "tests"
 ]
 
+## ## ## ## ## ## ## ## ## ##
+# TOOL : BLACK
+## ## ## ## ## ## ## ## ## ##
+
 [tool.black]
 target-version = ["py311"]
 line-length = 80
 preview = true
+
+
+## ## ## ## ## ## ## ## ## ##
+# TOOL : RUFF
+## ## ## ## ## ## ## ## ## ##
 
 [tool.ruff]
 target-version = "py311"
@@ -167,12 +178,18 @@ ban-relative-imports = "all"
 # The __init__ files often provide the imports to other files. 
 # So they are used, just not in that file. 
 "src/lezargus/**/__init__.py" = ["F401",]
+# The config file needs not aheare to the line length limit for clarity.
+"src/lezargus/config.py" = ["E501",]
 
 [tool.ruff.lint.mccabe]
 # Flag errors (`C901`) whenever the complexity level exceeds some value.
 # A lot of the functions here exceed the default McCabe complexity value of 10,
 # so we need to raise it. Excessive raising should be avoided.
 max-complexity = 15
+
+## ## ## ## ## ## ## ## ## ##
+# TOOL : PYLINT
+## ## ## ## ## ## ## ## ## ##
 
 [tool.pylint]
 clear-cache-post-run = true
@@ -189,6 +206,7 @@ disable = [
     "R0913", # (too-many-arguments)
     "R0914", # (too-many-locals)
     "C0302", # (too-many-lines)
+    "C0412", # (ungrouped-imports) - Let Ruff and isort handle imports.
     "C0413", # (wrong-import-position) - Let Ruff and isort handle imports.
 ]
 extension-pkg-allow-list = [
@@ -198,11 +216,41 @@ generated-members = [
     # Configuration and parameters are generated on-the-fly. We need to inform 
     # pylint that they are okay as it does not do introspection on the fly as 
     # well.
-    "lezargus.library.config.*",
     "lezargus.library.data.*",
     # Astropy Constants seem to also be generated.
     "astropy.constants.*"
 ]
+
+## ## ## ## ## ## ## ## ## ##
+# TOOL : PYRIGHT
+## ## ## ## ## ## ## ## ## ##
+
+[tool.pyright]
+include = ["src"]
+exclude = [
+    "**/node_modules",
+    "**/__pycache__",
+]
+ignore = [
+    "src/gui/qtui",
+]
+defineConstant = { DEBUG = true }
+
+reportMissingImports = true
+reportMissingTypeStubs = false
+
+pythonVersion = "3.11"
+pythonPlatform = "All"
+
+executionEnvironments = [
+
+]
+typeCheckingMode = "basic"
+
+## ## ## ## ## ## ## ## ## ##
+# TOOL : COVERAGE
+## ## ## ## ## ## ## ## ## ##
+
 
 [tool.coverage.run]
 source_pkgs = ["lezargus", "tests"]

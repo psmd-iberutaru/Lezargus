@@ -37,15 +37,15 @@ def do_nothing(*args: hint.Any, **kwargs: hint.Any) -> None:
 
     """
     # We just do nothing.
-    args = None
-    kwargs = None
+    args = (None,)
+    kwargs = {"None": None}
     __ = type(args)()
     __ = type(kwargs)()
 
 
 def blackbody_function(
     temperature: float,
-) -> hint.Callable[[hint.ndarray], hint.ndarray]:
+) -> hint.Callable[[hint.NDArray], hint.NDArray]:
     """Return a callable blackbody function for a given temperature.
 
     This function is a wrapper around the Astropy blackbody model. This wrapper
@@ -77,7 +77,7 @@ def blackbody_function(
         scale=si_scale,
     )
 
-    def blackbody(wave: hint.ndarray) -> hint.ndarray:
+    def blackbody(wave: hint.NDArray) -> hint.NDArray:
         """Blackbody function.
 
         Parameters
@@ -101,9 +101,9 @@ def blackbody_function(
 
 
 def wavelength_overlap_fraction(
-    base: hint.ndarray,
-    contain: hint.ndarray,
-) -> str:
+    base: hint.NDArray,
+    contain: hint.NDArray,
+) -> float:
     """Check if two wavelengths, defined as arrays, overlap.
 
     This is a function to check if the wavelength arrays overlap each other.
@@ -182,7 +182,7 @@ def wavelength_overlap_fraction(
 
 
 def flatten_list_recursively(
-    object_list: list[hint.ndarray | list],
+    object_list: list[hint.NDArray | list],
 ) -> list[float]:
     """Flatten a list containing different sized numerical data.
 

@@ -2,7 +2,7 @@
 
 from lezargus.library import array
 from lezargus.library import atmosphere
-from lezargus.library import config
+from lezargus.library import configuration
 from lezargus.library import conversion
 from lezargus.library import convolution
 from lezargus.library import data

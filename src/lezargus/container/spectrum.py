@@ -33,16 +33,16 @@ class LezargusSpectrum(LezargusContainerArithmetic):
 
     def __init__(
         self: LezargusSpectrum,
-        wavelength: hint.ndarray,
-        data: hint.ndarray,
-        uncertainty: hint.ndarray | None = None,
+        wavelength: hint.NDArray,
+        data: hint.NDArray,
+        uncertainty: hint.NDArray | None = None,
         wavelength_unit: str | hint.Unit | None = None,
         data_unit: str | hint.Unit | None = None,
         spectral_scale: float | None = None,
         pixel_scale: float | None = None,
         slice_scale: float | None = None,
-        mask: hint.ndarray | None = None,
-        flags: hint.ndarray | None = None,
+        mask: hint.NDArray | None = None,
+        flags: hint.NDArray | None = None,
         header: hint.Header | None = None,
     ) -> None:
         """Instantiate the spectrum class.
@@ -169,9 +169,9 @@ class LezargusSpectrum(LezargusContainerArithmetic):
     def stitch(
         cls: hint.Type[hint.Self],
         *spectra: hint.LezargusSpectrum,
-        weights: list[hint.ndarray] | str = "uniform",
+        weights: list[hint.NDArray] | str = "uniform",
         average_routine: hint.Callable[
-            [hint.ndarray, hint.ndarray, hint.ndarray],
+            [hint.NDArray, hint.NDArray, hint.NDArray],
             tuple[float, float],
         ] = None,
     ) -> hint.Self:
@@ -334,8 +334,8 @@ class LezargusSpectrum(LezargusContainerArithmetic):
 
     def convolve(
         self: hint.Self,
-        kernel: hint.ndarray | None = None,
-        kernel_stack: hint.ndarray | None = None,
+        kernel: hint.NDArray | None = None,
+        kernel_stack: hint.NDArray | None = None,
         kernel_function: hint.Callable | None = None,
     ) -> hint.Self:
         """Convolve the spectrum with a spectral kernel.
@@ -367,15 +367,15 @@ class LezargusSpectrum(LezargusContainerArithmetic):
 
     def interpolate(
         self: hint.Self,
-        wavelength: hint.ndarray,
+        wavelength: hint.NDArray,
         extrapolate: bool = False,
         skip_mask: bool = True,
         skip_flags: bool = True,
     ) -> tuple[
-        hint.ndarray,
-        hint.ndarray,
-        hint.ndarray | None,
-        hint.ndarray | None,
+        hint.NDArray,
+        hint.NDArray,
+        hint.NDArray | None,
+        hint.NDArray | None,
     ]:
         """Interpolation calling function for spectrum.
 

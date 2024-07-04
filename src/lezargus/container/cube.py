@@ -23,16 +23,16 @@ class LezargusCube(LezargusContainerArithmetic):
 
     def __init__(
         self: hint.Self,
-        wavelength: hint.ndarray,
-        data: hint.ndarray,
-        uncertainty: hint.ndarray = None,
+        wavelength: hint.NDArray,
+        data: hint.NDArray,
+        uncertainty: hint.NDArray = None,
         wavelength_unit: str | hint.Unit | None = None,
         data_unit: str | hint.Unit | None = None,
         spectral_scale: float | None = None,
         pixel_scale: float | None = None,
         slice_scale: float | None = None,
-        mask: hint.ndarray | None = None,
-        flags: hint.ndarray | None = None,
+        mask: hint.NDArray | None = None,
+        flags: hint.NDArray | None = None,
         header: hint.Header | None = None,
     ) -> None:
         """Instantiate the spectral cube class.
@@ -181,8 +181,8 @@ class LezargusCube(LezargusContainerArithmetic):
 
     def convolve_spectra(
         self: hint.Self,
-        kernel: hint.ndarray | None = None,
-        kernel_stack: hint.ndarray | None = None,
+        kernel: hint.NDArray | None = None,
+        kernel_stack: hint.NDArray | None = None,
         kernel_function: hint.Callable | None = None,
     ) -> hint.Self:
         """Convolve the cube by a spectral kernel convolving spectra slices.
@@ -213,8 +213,8 @@ class LezargusCube(LezargusContainerArithmetic):
 
     def convolve_image(
         self: hint.Self,
-        kernel: hint.ndarray | None = None,
-        kernel_stack: hint.ndarray | None = None,
+        kernel: hint.NDArray | None = None,
+        kernel_stack: hint.NDArray | None = None,
         kernel_function: hint.Callable | None = None,
     ) -> hint.Self:
         """Convolve the cube by an image kernel convolving image slices.

@@ -11,7 +11,7 @@ import lezargus
 from lezargus.library import hint
 
 
-def combine_masks(*masks: hint.ndarray) -> hint.ndarray:
+def combine_masks(*masks: hint.NDArray) -> hint.NDArray:
     """Combine two or more masks.
 
     The masks follow the Numpy convention; a True value means that the data
@@ -38,7 +38,7 @@ def combine_masks(*masks: hint.ndarray) -> hint.ndarray:
     return combined_mask
 
 
-def combine_flags(*flags: hint.ndarray) -> hint.ndarray:
+def combine_flags(*flags: hint.NDArray) -> hint.NDArray:
     """Combine two or more flag arrays.
 
     The flag values here follow the Lezargus convention, see [[TODO]].
@@ -64,7 +64,7 @@ def combine_flags(*flags: hint.ndarray) -> hint.ndarray:
     return combined_flags
 
 
-def reduce_flags(flag_array: hint.ndarray) -> hint.ndarray:
+def reduce_flags(flag_array: hint.NDArray) -> hint.NDArray:
     """Reduce the flag value to the minimum it can be.
 
     Flags, based on the Lezargus convention (see [[TODO]]),

@@ -37,7 +37,7 @@ from matplotlib.backend_bases import MouseEvent
 
 # Arrays. We use ndarray instead as ArrayLike casts a rather larger union
 # in the documentation.
-from numpy import ndarray
+from numpy.typing import NDArray
 
 # The GUI windows and other imports.
 from PySide6 import QtCore

@@ -13,12 +13,12 @@ from lezargus.library import logging
 
 
 def get_spectra_scale_factor(
-    base_wavelength: hint.ndarray,
-    base_data: hint.ndarray,
-    input_wavelength: hint.ndarray,
-    input_data: hint.ndarray,
-    base_uncertainty: hint.ndarray = None,
-    input_uncertainty: hint.ndarray = None,
+    base_wavelength: hint.NDArray,
+    base_data: hint.NDArray,
+    input_wavelength: hint.NDArray,
+    input_data: hint.NDArray,
+    base_uncertainty: hint.NDArray = None,
+    input_uncertainty: hint.NDArray = None,
     bounds: tuple[float, float] = (-np.inf, +np.inf),
 ) -> tuple[float, float]:
     """Find the scale factor to scale one overlapping spectrum to another.
@@ -194,9 +194,9 @@ def get_spectra_scale_factor(
 
 
 def stitch_wavelengths_discrete(
-    *wavelengths: hint.ndarray,
+    *wavelengths: hint.NDArray,
     sample_mode: str = "hierarchy",
-) -> hint.ndarray:
+) -> hint.NDArray:
     """Stitch only wavelength arrays together.
 
     This function simply takes input wavelength arrays and outputs a single
@@ -279,24 +279,24 @@ def stitch_wavelengths_discrete(
 
 
 def stitch_spectra_functional(
-    wavelength_functions: list[hint.Callable[[hint.ndarray], hint.ndarray]],
-    data_functions: list[hint.Callable[[hint.ndarray], hint.ndarray]],
+    wavelength_functions: list[hint.Callable[[hint.NDArray], hint.NDArray]],
+    data_functions: list[hint.Callable[[hint.NDArray], hint.NDArray]],
     uncertainty_functions: (
-        list[hint.Callable[[hint.ndarray], hint.ndarray]] | None
+        list[hint.Callable[[hint.NDArray], hint.NDArray]] | None
     ) = None,
     weight_functions: (
-        list[hint.Callable[[hint.ndarray], hint.ndarray]] | None
+        list[hint.Callable[[hint.NDArray], hint.NDArray]] | None
     ) = None,
     average_routine: hint.Callable[
-        [hint.ndarray, hint.ndarray, hint.ndarray],
+        [hint.NDArray, hint.NDArray, hint.NDArray],
         tuple[float, float],
     ] = None,
     interpolate_routine: hint.Type[hint.Generic1DInterpolate] | None = None,
-    reference_wavelength: hint.ndarray = None,
+    reference_wavelength: hint.NDArray = None,
 ) -> tuple[
-    hint.Callable[[hint.ndarray], hint.ndarray],
-    hint.Callable[[hint.ndarray], hint.ndarray],
-    hint.Callable[[hint.ndarray], hint.ndarray],
+    hint.Callable[[hint.NDArray], hint.NDArray],
+    hint.Callable[[hint.NDArray], hint.NDArray],
+    hint.Callable[[hint.NDArray], hint.NDArray],
 ]:
     R"""Stitch spectra functions together.
 
@@ -447,9 +447,9 @@ def stitch_spectra_functional(
     # We use the user's provided average function, but we adapt for the case
     # where there is no valid data within the range, we just return NaN.
     def average_handle_no_data(
-        _values: hint.ndarray,
-        _uncertainty: hint.ndarray,
-        _weights: hint.ndarray,
+        _values: hint.NDArray,
+        _uncertainty: hint.NDArray,
+        _weights: hint.NDArray,
     ) -> tuple[float, float]:
         """Extend the average fraction to handle no usable data.
 
@@ -569,17 +569,20 @@ def stitch_spectra_functional(
 
 
 def stitch_spectra_discrete(
-    wavelength_arrays: list[hint.ndarray],
-    data_arrays: list[hint.ndarray],
-    uncertainty_arrays: list[hint.ndarray] | None = None,
-    weight_arrays: list[hint.ndarray] | None = None,
-    average_routine: hint.Callable[
-        [hint.ndarray, hint.ndarray, hint.ndarray],
-        tuple[float, float],
-    ] = None,
-    interpolate_routine: hint.Generic1DInterpolate | None = None,
-    reference_wavelength: hint.ndarray = None,
-) -> tuple[hint.ndarray, hint.ndarray, hint.ndarray]:
+    wavelength_arrays: list[hint.NDArray],
+    data_arrays: list[hint.NDArray],
+    uncertainty_arrays: list[hint.NDArray] | None = None,
+    weight_arrays: list[hint.NDArray] | None = None,
+    average_routine: (
+        hint.Callable[
+            [hint.NDArray, hint.NDArray, hint.NDArray],
+            tuple[float, float],
+        ]
+        | None
+    ) = None,
+    interpolate_routine: type[hint.Generic1DInterpolate] | None = None,
+    reference_wavelength: hint.NDArray | None = None,
+) -> tuple[hint.NDArray, hint.NDArray, hint.NDArray]:
     R"""Stitch spectra data arrays together.
 
     We take the discrete point data of spectra (wavelength, data, and

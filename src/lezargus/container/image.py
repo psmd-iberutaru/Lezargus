@@ -22,16 +22,16 @@ class LezargusImage(LezargusContainerArithmetic):
 
     def __init__(
         self: "LezargusImage",
-        data: hint.ndarray,
-        uncertainty: hint.ndarray | None = None,
+        data: hint.NDArray,
+        uncertainty: hint.NDArray | None = None,
         wavelength: float | None = None,
-        wavelength_unit: str | hint.Unit = None,
+        wavelength_unit: str | hint.Unit | None = None,
         data_unit: str | hint.Unit | None = None,
         spectral_scale: float | None = None,
         pixel_scale: float | None = None,
         slice_scale: float | None = None,
-        mask: hint.ndarray | None = None,
-        flags: hint.ndarray | None = None,
+        mask: hint.NDArray | None = None,
+        flags: hint.NDArray | None = None,
         header: hint.Header | None = None,
     ) -> None:
         """Instantiate the spectra class.
@@ -95,15 +95,15 @@ class LezargusImage(LezargusContainerArithmetic):
         # The wavelength parameter is more metadata describing the image. It is
         # completely optional. If provided, we add it.
         if wavelength is not None:
-            self.wavelength = np.array(float(wavelength))
+            set_wavelength = np.array(float(wavelength))
         else:
-            self.wavelength = np.array(None)
+            set_wavelength = np.array(None)
 
         # Constructing the original class. We do not deal with WCS here because
         # the base class does not support it. We do not involve units here as
         # well for speed concerns. Both are handled during reading and writing.
         super().__init__(
-            wavelength=wavelength,
+            wavelength=set_wavelength,
             data=data,
             uncertainty=uncertainty,
             wavelength_unit=wavelength_unit,
@@ -148,7 +148,7 @@ class LezargusImage(LezargusContainerArithmetic):
         self: hint.Self,
         filename: str,
         overwrite: bool = False,
-    ) -> hint.Self:
+    ) -> None:
         """Write a Lezargus image FITS file.
 
         We write a Lezargus FITS file to disk.

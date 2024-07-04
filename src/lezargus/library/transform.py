@@ -12,12 +12,12 @@ from lezargus.library import logging
 
 
 def translate_2d(
-    array: hint.ndarray,
+    array: hint.NDArray,
     x_shift: float,
     y_shift: float,
     mode: str = "constant",
     constant: float = np.nan,
-) -> hint.ndarray:
+) -> hint.NDArray:
     """Translate a 2D image array.
 
     This function is a convenient wrapper around Scipy's function.
@@ -68,11 +68,11 @@ def translate_2d(
 
 
 def rotate_2d(
-    array: hint.ndarray,
+    array: hint.NDArray,
     rotation: float,
     mode: str = "constant",
     constant: float = np.nan,
-) -> hint.ndarray:
+) -> hint.NDArray:
     """Rotate a 2D image array array.
 
     This function is a connivent wrapper around scipy's function.

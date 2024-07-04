@@ -360,21 +360,21 @@ document.write(`
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">target</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;LezargusCube : The target, represented as a LezargusCube. The exact </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;LezargusCube : The target, represented as a LezargusCube. The exact</span>
 <span class="sd">    properties of the cube are determined from how the simulator was created.&quot;&quot;&quot;</span>
 
     <span class="n">target_spectrum</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;LezargusSpectrum : The spectrum of the target. This is only made if the </span>
-<span class="sd">    target cube was made by extending a point source, making the cube from a </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;LezargusSpectrum : The spectrum of the target. This is only made if the</span>
+<span class="sd">    target cube was made by extending a point source, making the cube from a</span>
 <span class="sd">    Spectrum; otherwise, this is None.&quot;&quot;&quot;</span>
 
     <span class="n">atmosphere</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;AtmosphereSimulator : The atmosphere simulator which describes and </span>
-<span class="sd">    simulates atmospheric effects. If not provided by </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;AtmosphereSimulator : The atmosphere simulator which describes and</span>
+<span class="sd">    simulates atmospheric effects. If not provided by</span>
 <span class="sd">    py:meth:`apply_atmosphere`, this defaults to None.&quot;&quot;&quot;</span>
 
     <span class="n">use_cache</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;bool : If True, we cache calculated values so that they do not need to </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;bool : If True, we cache calculated values so that they do not need to</span>
 <span class="sd">    be calculated every time when not needed. If False, caches are never</span>
 <span class="sd">    returned and instead everything is always recomputed.&quot;&quot;&quot;</span>
 
@@ -425,8 +425,6 @@ document.write(`
 
         <span class="c1"># The input cube is the same as the target cube.</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">target</span> <span class="o">=</span> <span class="n">_cube</span></div>
-
-
 
 
 <div class="viewcode-block" id="TargetSimulator.from_blackbody">
@@ -1107,7 +1105,7 @@ document.write(`
         <span class="k">return</span> <span class="n">current_state</span>
 
     <span class="n">observed</span> <span class="o">=</span> <span class="n">at_refraction</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;LezargusCube : The target, represented as a LezargusCube, after the </span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;LezargusCube : The target, represented as a LezargusCube, after the</span>
 <span class="sd">    application of atmospheric effects. An alias for :py:attr:`at_refraction`&quot;&quot;&quot;</span></div>
 
 </pre></div>

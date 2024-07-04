@@ -26,8 +26,8 @@ from lezargus.library import logging
 
 def convolve_spectrum_by_spectral_kernel(
     spectrum: hint.LezargusSpectrum,
-    kernel: hint.ndarray | None = None,
-    kernel_stack: hint.ndarray | None = None,
+    kernel: hint.NDArray | None = None,
+    kernel_stack: hint.NDArray | None = None,
     kernel_function: hint.Callable | None = None,
 ) -> hint.LezargusSpectrum:
     """Convolve the spectrum with a spectral kernel.
@@ -156,8 +156,8 @@ def convolve_spectrum_by_spectral_kernel(
 
 def convolve_cube_by_spectral_kernel(
     cube: hint.LezargusCube,
-    kernel: hint.ndarray | None = None,
-    kernel_stack: hint.ndarray | None = None,
+    kernel: hint.NDArray | None = None,
+    kernel_stack: hint.NDArray | None = None,
     kernel_function: hint.Callable | None = None,
 ) -> hint.LezargusCube:
     """Convolve the cube by a spectral kernel convolving spectra slices.
@@ -279,8 +279,8 @@ def convolve_cube_by_spectral_kernel(
 
 def convolve_cube_by_image_kernel(
     cube: hint.LezargusCube,
-    kernel: hint.ndarray | None = None,
-    kernel_stack: hint.ndarray | None = None,
+    kernel: hint.NDArray | None = None,
+    kernel_stack: hint.NDArray | None = None,
     kernel_function: hint.Callable | None = None,
 ) -> hint.LezargusCube:
     """Convolve the cube by an image kernel convolving image slices.
