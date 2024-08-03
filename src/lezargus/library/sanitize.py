@@ -8,10 +8,19 @@ Specific internal sanitization methods may be stored in the same module as the
 internal subject instead of this one.
 """
 
+# isort: split
+# Import required to remove circular dependencies from type checking.
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from lezargus.library import hint
+# isort: split
+
 import astropy.io.fits
 import numpy as np
 
-from lezargus.library import hint
 from lezargus.library import logging
 
 

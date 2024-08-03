@@ -3,6 +3,16 @@
 Use the functions here when logging or issuing errors or other information.
 """
 
+# isort: split
+# Import required to remove circular dependencies from type checking.
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from lezargus.library import hint
+# isort: split
+
 import logging
 import string
 import sys
@@ -10,7 +20,6 @@ import sys
 import colorama
 
 import lezargus
-from lezargus.library import hint
 
 
 class LezargusBaseError(BaseException):
@@ -282,10 +291,10 @@ class ColoredLogFormatter(logging.Formatter):
     """
 
     def __init__(
-        self: "ColoredLogFormatter",
+        self: ColoredLogFormatter,
         message_format: str,
         date_format: str,
-        color_hex_dict: dict[int:str] | None = None,
+        color_hex_dict: dict[int, str] | None = None,
     ) -> None:
         """Initialize the color formatter.
 
@@ -329,7 +338,7 @@ class ColoredLogFormatter(logging.Formatter):
         colorama.just_fix_windows_console()
 
     def format(
-        self: "ColoredLogFormatter",
+        self: ColoredLogFormatter,
         record: hint.LogRecord,
     ) -> str:
         """Format a log record.
@@ -395,7 +404,7 @@ class ColoredLogFormatter(logging.Formatter):
 
 
 def add_console_logging_handler(
-    console: object = sys.stderr,
+    console: hint.Any = sys.stderr,
     log_level: int = LOGGING_DEBUG_LEVEL,
     use_color: bool = True,
 ) -> None:
@@ -465,7 +474,7 @@ def add_console_logging_handler(
 
 
 def add_stream_logging_handler(
-    stream: object,
+    stream: hint.Any,
     log_level: int = LOGGING_DEBUG_LEVEL,
     use_color: bool = True,
 ) -> None:

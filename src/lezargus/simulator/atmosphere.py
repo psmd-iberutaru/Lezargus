@@ -5,12 +5,22 @@ here. Namely, the main four functions are the atmospheric transmission,
 radiance, seeing, and diffraction.
 """
 
+# isort: split
+# Import required to remove circular dependencies from type checking.
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from lezargus.library import hint
+# isort: split
+
+
 import copy
 
 import numpy as np
 
 import lezargus
-from lezargus.library import hint
 from lezargus.library import logging
 
 
@@ -52,7 +62,7 @@ class AtmosphereSimulator:
     """
 
     def __init__(
-        self: "AtmosphereSimulator",
+        self: AtmosphereSimulator,
         temperature: float,
         pressure: float,
         ppw: float,
@@ -122,13 +132,13 @@ class AtmosphereSimulator:
         # Handling the defaults, if we use the basic generators.
         if not isinstance(
             transmission_generator,
-            lezargus.container.AtmosphereSpectrumGenerator,
+            lezargus.library.container.AtmosphereSpectrumGenerator,
         ):
             transmission_generator = lezargus.library.data.ATM_TRANS_GEN
         self.transmission_generator = transmission_generator
         if not isinstance(
             radiance_generator,
-            lezargus.container.AtmosphereSpectrumGenerator,
+            lezargus.library.container.AtmosphereSpectrumGenerator,
         ):
             radiance_generator = lezargus.library.data.ATM_RADIANCE_GEN
         self.radiance_generator = radiance_generator
@@ -295,7 +305,7 @@ class AtmosphereSimulator:
         # should just be zero instead.
         is_zero = transmission_spectrum.data <= 0
         transmission_spectrum.data[is_zero] = 0
-        # It is extremely unlikely, but transmission above 1 is unphysical.
+        # It is extremely unlikely, but transmission above 1 is not physical.
         is_one = transmission_spectrum.data >= 1
         transmission_spectrum.data[is_one] = 1
 

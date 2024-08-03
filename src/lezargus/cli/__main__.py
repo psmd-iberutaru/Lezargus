@@ -14,7 +14,7 @@ def execute_primary_action(
     parser: hint.ArgumentParser,
     arguments: dict,
 ) -> None:
-    """Execute: `help ... ... ... ...`; the help function.
+    """Execute the primary action.
 
     Parameters
     ----------
@@ -38,11 +38,22 @@ def execute_primary_action(
     match primary_action:
         # Help function.
         case "help":
-            lezargus.cli.help.help_(parser=parser, arguments=arguments)
+            lezargus.cli.help_.help_(parser=parser, arguments=arguments)
 
+        # The user wants a list of available actions.
+        case "list":
+            available_actions = [
+                "help",
+                # Other commands go above, in order.
+                "list",
+            ]
+            logging.info(message=f"Available actions: {available_actions}")
         # No matching action.
         case _:
             logging.critical(
                 critical_type=logging.CommandLineError,
-                message=f"Unknown primary action: {primary_action}",
+                message=(
+                    f"Unknown primary action: {primary_action}. Use `list` to"
+                    " list available actions."
+                ),
             )

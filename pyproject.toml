@@ -80,10 +80,10 @@ cover = [
 check = [
     "ruff check {args:src}",
     "pylint {args:src}",
-    "pyright",
+    "pyright {args:src}",
 ]
 checkfix = [
-    "format",
+    "format --enable-unstable-feature=string_processing",
     "ruff check {args:src} --fix",
     "format",
 ]
@@ -95,16 +95,6 @@ docs = [
     # tree with large files.
     #"sphinx-build -M latexpdf ./docs/source/ ./docs/build/latex/",
 ]
-auxiliary = [
-    "format",
-    "checkfix",
-    "check",
-    "test",
-    "cover",
-    "format",
-    "docs",
-]
-aux = "auxiliary"
 
 
 [[tool.hatch.envs.all.matrix]]

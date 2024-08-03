@@ -1,7 +1,16 @@
 """Functions to deal with the computation of synthetic and real photometry."""
 
+# isort: split
+# Import required to remove circular dependencies from type checking.
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from lezargus.library import hint
+# isort: split
+
 import lezargus
-from lezargus.library import hint
 from lezargus.library import logging
 
 

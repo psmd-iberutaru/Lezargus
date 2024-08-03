@@ -22,7 +22,6 @@ import astropy.constants
 import numpy as np
 
 import lezargus
-from lezargus.library import hint
 from lezargus.library import logging
 
 
@@ -54,7 +53,7 @@ class TargetSimulator:
     atmosphere = None
     """AtmosphereSimulator : The atmosphere simulator which describes and
     simulates atmospheric effects. If not provided by
-    py:meth:`apply_atmosphere`, this defaults to None."""
+    py:meth:`add_atmosphere`, this defaults to None."""
 
     use_cache = True
     """bool : If True, we cache calculated values so that they do not need to
@@ -172,7 +171,7 @@ class TargetSimulator:
         solid_angle = np.pi
         integrated_blackbody_flux = blackbody_flux * solid_angle
         # Packaging the spectra.
-        blackbody_spectra = lezargus.container.LezargusSpectrum(
+        blackbody_spectra = lezargus.library.container.LezargusSpectrum(
             wavelength=wavelength,
             data=integrated_blackbody_flux,
             uncertainty=None,
@@ -245,7 +244,10 @@ class TargetSimulator:
 
         """
         # We first check if we have a proper LezargusCube spectrum.
-        if not isinstance(spectrum, lezargus.container.LezargusSpectrum):
+        if not isinstance(
+            spectrum,
+            lezargus.library.container.LezargusSpectrum,
+        ):
             logging.error(
                 error_type=logging.InputError,
                 message=(
@@ -260,12 +262,14 @@ class TargetSimulator:
 
         # From there, we can create a cube based on broadcasting the spectrum
         # into a cube.
-        broadcast_cube = lezargus.container.function.broadcast_spectrum_to_cube(
-            input_spectrum=spectrum,
-            shape=spatial_shape,
-            location=location,
-            fill_value=background_data,
-            fill_uncertainty=background_uncertainty,
+        broadcast_cube = (
+            lezargus.library.container.functionality.broadcast_spectrum_to_cube(
+                input_spectrum=spectrum,
+                shape=spatial_shape,
+                location=location,
+                fill_value=background_data,
+                fill_uncertainty=background_uncertainty,
+            )
         )
 
         # We pass it to the main function for us to create the actual target
@@ -300,7 +304,7 @@ class TargetSimulator:
 
         """
         # We first check if we have a proper LezargusCube.
-        if not isinstance(cube, lezargus.container.LezargusCube):
+        if not isinstance(cube, lezargus.library.container.LezargusCube):
             logging.error(
                 error_type=logging.InputError,
                 message=(
@@ -486,11 +490,13 @@ class TargetSimulator:
             self._cache_target_photon = target_photon
         return target_photon
 
-    def apply_atmosphere(
+    def add_atmosphere(
         self: hint.Self,
         atmosphere: hint.AtmosphereSimulator,
     ) -> None:
-        """Apply an atmosphere simulator to simulate the atmospheric effects.
+        """Add an atmosphere simulator to simulate the atmospheric effects.
+
+        Note, we only allow one atmosphere at a time.
 
         Parameters
         ----------
@@ -559,7 +565,7 @@ class TargetSimulator:
             template=previous_state,
         )
         transmission_cube = (
-            lezargus.container.function.broadcast_spectrum_to_cube(
+            lezargus.library.container.functionality.broadcast_spectrum_to_cube(
                 input_spectrum=transmission_spectrum,
                 shape=previous_state.data.shape,
                 location="full",
@@ -615,12 +621,14 @@ class TargetSimulator:
         radiance_spectrum = self.atmosphere.generate_radiance(
             template=previous_state,
         )
-        radiance_cube = lezargus.container.function.broadcast_spectrum_to_cube(
-            input_spectrum=radiance_spectrum,
-            shape=previous_state.data.shape,
-            location="full",
-            fill_value=0,
-            fill_uncertainty=0,
+        radiance_cube = (
+            lezargus.library.container.functionality.broadcast_spectrum_to_cube(
+                input_spectrum=radiance_spectrum,
+                shape=previous_state.data.shape,
+                location="full",
+                fill_value=0,
+                fill_uncertainty=0,
+            )
         )
 
         # We integrate the radiance to provide a proper photon spectral
@@ -752,14 +760,14 @@ class TargetSimulator:
         # Applying the refraction, modeling it as a shear transformation
         # along the spectral axis (parallel to the spatial axes).
         # We assume that it is only just more "uniform" sky everywhere else.
-        current_state = (
-            lezargus.container.function.transform_shear_cube_spectral(
-                cube=previous_state,
-                x_shifts=refraction_x,
-                y_shifts=refraction_y,
-                mode="nearest",
-                constant=np.nan,
-            )
+        # (We split up the function just for line length.)
+        _functionality = lezargus.library.container.functionality
+        current_state = _functionality.transform_shear_cube_spectral(
+            cube=previous_state,
+            x_shifts=refraction_x,
+            y_shifts=refraction_y,
+            mode="nearest",
+            constant=np.nan,
         )
 
         # Saving the result later in the cache.

@@ -5,10 +5,19 @@ here. Extremely standard conversion functions are welcome in here, but,
 sometimes, a simple multiplication factor is more effective.
 """
 
+# isort: split
+# Import required to remove circular dependencies from type checking.
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from lezargus.library import hint
+# isort: split
+
 import astropy.io.fits
 import astropy.units
 
-from lezargus.library import hint
 from lezargus.library import logging
 
 

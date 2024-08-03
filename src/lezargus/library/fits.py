@@ -1,5 +1,15 @@
 """FITS file reading, writing, and other manipulations."""
 
+# isort: split
+# Import required to remove circular dependencies from type checking.
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from lezargus.library import hint
+# isort: split
+
 import copy
 import os
 
@@ -8,7 +18,6 @@ import astropy.table
 import numpy as np
 
 import lezargus
-from lezargus.library import hint
 from lezargus.library import logging
 
 # This is order and defaults for the header parameters relevant to Lezargus.

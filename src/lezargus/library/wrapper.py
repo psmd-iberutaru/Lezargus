@@ -7,13 +7,22 @@ functions are either legacy or depreciated or otherwise overly-complex; and
 as such, they may be changed in future builds so we unify all changes.
 """
 
+# isort: split
+# Import required to remove circular dependencies from type checking.
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from lezargus.library import hint
+# isort: split
+
 import collections.abc
 
 import astropy.modeling.models
 import astropy.units
 import numpy as np
 
-from lezargus.library import hint
 from lezargus.library import logging
 
 

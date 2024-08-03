@@ -91,7 +91,7 @@ def test_get_most_recent_filename_in_directory() -> None:
     )
     __ = lezargus.library.path.get_most_recent_filename_in_directory(
         directory=recent_directory,
-        extension=["yaml", ".fits"],
+        extension=["txt"],
         recursive=True,
     )
 

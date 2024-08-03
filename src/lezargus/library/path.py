@@ -3,10 +3,19 @@
 As Lezargus is going to be cross platform, this is a nice abstraction.
 """
 
+# isort: split
+# Import required to remove circular dependencies from type checking.
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from lezargus.library import hint
+# isort: split
+
 import glob
 import os
 
-from lezargus.library import hint
 from lezargus.library import logging
 
 

@@ -7,6 +7,7 @@ as expected by the commands.
 import argparse
 
 import lezargus
+import lezargus.terminate
 from lezargus.library import hint
 
 
@@ -31,7 +32,7 @@ def parse_arguments() -> tuple[hint.ArgumentParser, dict]:
         description=(
             "This is the command-line interface for Lezargus, see `lezargus"
             " help` for more information. For information on the available"
-            " options for the CLI action chain, please see the main"
+            " options for the CLI action chain, please see `list` and the main"
             " documentation."
         ),
         prefix_chars="-+",
@@ -136,8 +137,15 @@ def main() -> None:
         configuration=override_configuration,
     )
 
-    # And executing the arguments, starting with the primary action
-    lezargus.cli.execute_primary_action(parser=parser, arguments=arguments)
+    # We want to make sure we properly clean up after ourselves, even if
+    # there is any errors.
+    try:
+        # Before we do anything, we need to initialize the module.
+        lezargus.initialize.initialize()
+        # And executing the arguments, starting with the primary action
+        lezargus.cli.execute_primary_action(parser=parser, arguments=arguments)
+    finally:
+        lezargus.terminate.terminate()
 
 
 if __name__ == "__main__":

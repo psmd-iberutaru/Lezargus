@@ -5,11 +5,20 @@ all of them here. We usually derive the more specialty interpolation functions
 from a set of base functions.
 """
 
+# isort: split
+# Import required to remove circular dependencies from type checking.
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from lezargus.library import hint
+# isort: split
+
 import numpy as np
 import scipy.interpolate
 
 import lezargus
-from lezargus.library import hint
 from lezargus.library import logging
 
 
@@ -89,7 +98,7 @@ class Generic1DInterpolate:
     """
 
     def __init__(
-        self: "Generic1DInterpolate",
+        self: Generic1DInterpolate,
         x: hint.NDArray,
         v: hint.NDArray,
         extrapolate: bool = False,
@@ -613,7 +622,7 @@ class RepeatNDInterpolate:
     """
 
     def __init__(
-        self: "RepeatNDInterpolate",
+        self: RepeatNDInterpolate,
         domain: list[hint.NDArray],
         v: hint.NDArray,
         template: hint.Callable,
@@ -957,7 +966,7 @@ class Repeat2DInterpolate(RepeatNDInterpolate):
     """
 
     def __init__(
-        self: "Repeat2DInterpolate",
+        self: Repeat2DInterpolate,
         x: hint.NDArray,
         y: hint.NDArray,
         v: hint.NDArray,
@@ -1127,7 +1136,7 @@ class Repeat3DInterpolate(RepeatNDInterpolate):
     """
 
     def __init__(
-        self: "Repeat3DInterpolate",
+        self: Repeat3DInterpolate,
         x: hint.NDArray,
         y: hint.NDArray,
         z: hint.NDArray,
@@ -1313,7 +1322,7 @@ class RegularNDInterpolate(scipy.interpolate.RegularGridInterpolator):
     """
 
     def __init__(
-        self: "RegularNDInterpolate",
+        self: RegularNDInterpolate,
         domain: list[hint.NDArray],
         v: hint.NDArray,
     ) -> None:

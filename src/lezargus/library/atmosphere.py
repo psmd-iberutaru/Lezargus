@@ -5,10 +5,20 @@ with the atmosphere. Note that seeing convolution and spectral convolution
 is in the :py:mod:`lezargus.library.convolution` module.
 """
 
+# isort: split
+# Import required to remove circular dependencies from type checking.
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from lezargus.library import hint
+# isort: split
+
+
 import numpy as np
 
 import lezargus
-from lezargus.library import hint
 from lezargus.library import logging
 
 

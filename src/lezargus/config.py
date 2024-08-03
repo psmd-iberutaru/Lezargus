@@ -35,9 +35,16 @@ LEZARGUS_TEMPORARY_DIRECTORY_FLAG_FILENAME = "lezargus_temporary_directory"
 # is currently inside of it.
 LEZARGUS_TEMPORARY_OVERWRITE_DIRECTORY = False
 
-# If set to True, on deletion of the temporary directory, we try to force its
-# deletion no matter what.
+# We usually clean up temporary directory by deleting it afterwards. Set to
+# True to skip the deletion. We also make specific checks to ensure we are not
+# deleting anything bad by mistake, but the deletion can be forced to skip the
+# checks.
+LEZARGUS_TEMPORARY_SKIP_DELETION = False
 LEZARGUS_TEMPORARY_FORCE_DELETION = False
+
+# If set to True, we do not delete the temporary directory upon program
+# termination. We make no guarantees of the state of the temporary directory.
+LEZARGUS_TEMPORARY_SKIP_DELETION = False
 
 # # # # # # # # # # # # # # # # # # # #
 # </END TEMPORARY>
@@ -86,14 +93,25 @@ LOGGING_STREAM_CRITICAL_COLOR_HEX = "#BD2024"
 # # # Observatory and Environmental Configuration
 # # # # # # # # # # # # # # # # # # # #
 
-# The local conditions of the observatory. Here, the atmospheric conditions:
-# the temperature (Kelvin), pressure (Pascal), and partial pressure of
+# Here local atmospheric climate conditions of the observatory:
+# The temperature (Kelvin), pressure (Pascal), and partial pressure of
 # water (Pascal). These values are usually for simulation, however, it is
 # less a property of the instrument and more a global facility property so
 # we have it here.
 OBSERVATORY_ATMOSPHERE_TEMPERATURE = 274
 OBSERVATORY_ATMOSPHERE_PRESSURE = 0
 OBSERVATORY_ATMOSPHERE_PARTIAL_PRESSURE_WATER = 0
+
+# Here, the local conditions of the IRTF telescope, if used. If the IRTF
+# telescope is not used, these parameters should not affect the operation
+# of the software.
+# The telescope radius is the radius of the IRTF primary mirror (meters).
+# The temperatures are of the primary and secondary mirror (Kelvin).
+OBSERVATORY_IRTF_TELESCOPE_RADIUS = 1.6
+OBSERVATORY_IRTF_PRIMARY_TEMPERATURE = 274
+OBSERVATORY_IRTF_SECONDARY_TEMPERATURE = 274
+
+
 
 # # # # # # # # # # # # # # # # # # # #
 # </END OBSERVATORY>
@@ -140,7 +158,7 @@ SPECTRE_SIMULATION_FOV_E_W_COUNT = 201
 
 
 # <<>>
-# # # SPECTRE Simulation Instrument Configuration
+# # # Lezargus internal configuration.
 # # # # # # # # # # # # # # # # # # # #
 
 # This is the internal configuration parameters of Lezargus, do not modify.
@@ -152,11 +170,16 @@ INTERNAL_MODULE_INSTALLATION_PATH = os.path.dirname(
 )
 
 # We need to get the actual directory of the data.
-INTERNAL_MODULE_DATA_DIRECTORY = os.path.join(
+INTERNAL_MODULE_DATA_FILE_DIRECTORY = os.path.join(
     INTERNAL_MODULE_INSTALLATION_PATH,
-    "library",
     "data",
+    "_files",
 )
+
+# Due to the nature of loading data files, sometimes, loading data files needs
+# to be disabled when creating the data files themselves. This parameter means
+# nothing if changed during runtime. This should be False in most cases.
+INTERNAL_DEBUG_SKIP_LOADING_DATA_FILES = True
 
 # # # # # # # # # # # # # # # # # # # #
 # <<>>

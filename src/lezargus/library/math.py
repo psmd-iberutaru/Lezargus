@@ -5,24 +5,36 @@ operations need to be propagated. We gather these functions so that they
 can easily be reused or better default methods used in place.
 """
 
+# isort: split
+# Import required to remove circular dependencies from type checking.
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from lezargus.library import hint
+# isort: split
+
 import numpy as np
 import scipy.integrate
 
 import lezargus
-from lezargus.library import hint
 from lezargus.library import logging
 
 
-def covariance(param_1: hint.NDArray, param_2: hint.NDArray) -> float:
+def covariance(
+    param_1: hint.NDArray | float,
+    param_2: hint.NDArray | float,
+) -> float:
     """Compute the covariance for two parameters.
 
     If the covariance cannot be computed, we default to 0.
 
     Parameters
     ----------
-    param_1 : ndarray
+    param_1 : ndarray or float
         The first parameter.
-    param_2 : ndarray
+    param_2 : ndarray or float
         The second parameter.
 
     Returns
@@ -53,18 +65,18 @@ def covariance(param_1: hint.NDArray, param_2: hint.NDArray) -> float:
 
 
 def add(
-    augend: hint.NDArray,
-    addend: hint.NDArray,
+    augend: hint.NDArray | float,
+    addend: hint.NDArray | float,
     augend_uncertainty: hint.NDArray | float | None = 0,
     addend_uncertainty: hint.NDArray | float | None = 0,
-) -> tuple[hint.NDArray, hint.NDArray]:
+) -> tuple[hint.NDArray | float, hint.NDArray | float]:
     """Add two values and propagate uncertainties.
 
     Parameters
     ----------
-    augend : ndarray
+    augend : ndarray or float
         The "left"-side of the addition.
-    addend : ndarray
+    addend : ndarray or float
         The "right"-side of the addition.
     augend_uncertainty : ndarray, default = 0
         The uncertainty on the augend term. If None, we assume that the

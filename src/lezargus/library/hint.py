@@ -48,19 +48,13 @@ from PySide6 import QtWidgets
 from PySide6.QtWidgets import QMainWindow
 from PySide6.QtWidgets import QWidget
 
-# Other containers...
-from lezargus.container import AtmosphereSpectrumGenerator
-
 # Containers...
-from lezargus.container import LezargusContainerArithmetic
-from lezargus.container import LezargusCube
-from lezargus.container import LezargusImage
-from lezargus.container import LezargusMosaic
-from lezargus.container import LezargusSpectrum
+from lezargus.library.container import *
 
 # Lezargus aliases.
 # Library things.
 from lezargus.library.interpolate import Generic1DInterpolate
+from lezargus.library.interpolate import Spline1DInterpolate
 
 # Simulators...
 from lezargus.simulator import AtmosphereSimulator

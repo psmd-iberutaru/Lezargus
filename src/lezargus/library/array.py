@@ -11,7 +11,16 @@ Note that all of these functions follow the axes convention of indexing being
 erroneous results, but, the functions themselves cannot detect this.
 """
 
-from lezargus.library import hint
+# isort: split
+# Import required to remove circular dependencies from type checking.
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from lezargus.library import hint
+# isort: split
+
 from lezargus.library import logging
 
 

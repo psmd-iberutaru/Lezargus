@@ -85,7 +85,7 @@ def create_temporary_directory(
             filename=flag_filename,
             extension="txt",
         )
-        write_temporary_directory_file(filename=flag_pathname)
+        create_temporary_directory_file(filename=flag_pathname)
 
     # All done.
 
@@ -170,7 +170,7 @@ def delete_temporary_directory(
     # All done.
 
 
-def write_temporary_directory_file(filename: str) -> None:
+def create_temporary_directory_file(filename: str) -> None:
     """Write the information for the temporary directory file.
 
     We just write a few lines informing the user of the temporary directory.
