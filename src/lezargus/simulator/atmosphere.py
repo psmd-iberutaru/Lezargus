@@ -36,7 +36,7 @@ class AtmosphereSimulator:
     ppw : float
         The partial pressure of water in the atmosphere, in Pascals.
     pwv : float
-        The precipitable water vapor, in millimeters.
+        The precipitable water vapor, in meters.
     seeing : float
         The atmospheric seeing parameter, in radians. Measured at the
         reference zenith angle (0) and the reference wavelength.
@@ -86,7 +86,7 @@ class AtmosphereSimulator:
         ppw : float
             The partial pressure of water in the atmosphere, in Pascals.
         pwv : float
-            The precipitable water vapor, in millimeters.
+            The precipitable water vapor, in meters.
         seeing : float
             The atmospheric seeing parameter, in radians.
         zenith_angle : float
@@ -134,13 +134,13 @@ class AtmosphereSimulator:
             transmission_generator,
             lezargus.library.container.AtmosphereSpectrumGenerator,
         ):
-            transmission_generator = lezargus.library.data.ATM_TRANS_GEN
+            transmission_generator = lezargus.data.ATM_TRANS_GEN
         self.transmission_generator = transmission_generator
         if not isinstance(
             radiance_generator,
             lezargus.library.container.AtmosphereSpectrumGenerator,
         ):
-            radiance_generator = lezargus.library.data.ATM_RADIANCE_GEN
+            radiance_generator = lezargus.data.ATM_RADIANCE_GEN
         self.radiance_generator = radiance_generator
 
         # All done.
@@ -472,7 +472,9 @@ class AtmosphereSimulator:
             # Approximating it based on the 68-95-99.7 rule; everything ought
             # to be within 5-sigma.
             sigma_multiple = 5
-            longest_edge = max([pixel_seeing, slice_seeing]) * sigma_multiple
+            longest_edge = (
+                np.nanmax([pixel_seeing, slice_seeing]) * sigma_multiple
+            )
             kernel_shape_guide = longest_edge, longest_edge
         # We also want to make sure the kernel has odd edges, just in case
         # discrete convolution is needed.

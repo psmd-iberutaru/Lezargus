@@ -191,9 +191,8 @@ def verify_broadcastability(
     -------
     verify : bool
         The verification.
-    broadcast : ndarray, optional
-        The broadcast, we only return this if `return_broadcast` was provided.
-        If verify is False, then this is None.
+    broadcast : ndarray
+        The broadcasted array, may be trashed if not needed,
 
     """
     # We need to make them like arrays.

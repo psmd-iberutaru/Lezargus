@@ -13,7 +13,7 @@ from lezargus.library import logging
 # pylint: disable=global-variable-undefined
 
 
-def __init_data_all() -> None:
+def __initialize_data_all() -> None:
     """Initialize the all of the data objects.
 
     We wrap the initialization of the data objects in a function so we can
@@ -34,12 +34,13 @@ def __init_data_all() -> None:
         return
 
     # Loading the data in the proper order.
-    __init_data_spectra()
-    __init_data_photometric_filters()
-    __init_data_atmosphere_generators()
+    __initialize_data_star_spectra()
+    __initialize_data_photometric_filters()
+    __initialize_data_atmosphere_generators()
+    __initialize_data_optic_efficiency_functions()
 
 
-def __init_data_spectra() -> None:
+def __initialize_data_star_spectra() -> None:
     """Initialize only the standard spectral data.
 
     Parameters
@@ -81,7 +82,7 @@ def __init_data_spectra() -> None:
     return
 
 
-def __init_data_photometric_filters() -> None:
+def __initialize_data_photometric_filters() -> None:
     """Initialize only the photometric filters.
 
     Parameters
@@ -107,10 +108,10 @@ def __init_data_photometric_filters() -> None:
             lezargus.library.container.LezargusSpectrum,
         ):
             logging.critical(
-                critical_type=logging.ExpectedCaughtError,
+                critical_type=logging.DevelopmentError,
                 message="Standard A0V star is not a LezargusSpectrum.",
             )
-    except (NameError, logging.ExpectedCaughtError):
+    except NameError:
         logging.critical(
             critical_type=logging.DevelopmentError,
             message=(
@@ -183,7 +184,7 @@ def __init_data_photometric_filters() -> None:
     )
 
 
-def __init_data_atmosphere_generators() -> None:
+def __initialize_data_atmosphere_generators() -> None:
     """Initialize only the atmospheric generators.
 
     Parameters
@@ -213,4 +214,141 @@ def __init_data_atmosphere_generators() -> None:
     )
 
 
-__init_data_all()
+def __initialize_data_optic_efficiency_functions() -> None:
+    """Initialize only the optic efficiency function spectrums.
+
+    Parameters
+    ----------
+    None
+
+    Returns
+    -------
+    None
+
+    """
+    # If the initialization of the data is to be skipped.
+    if lezargus.config.INTERNAL_DEBUG_SKIP_LOADING_DATA_FILES:
+        return
+
+    # Otherwise...
+    # Creating the IRTF efficiency functions for the primary and secondary
+    # mirror.
+    global EFFICIENCY_IRTF_PRIMARY
+    EFFICIENCY_IRTF_PRIMARY = _make.make_optic_efficiency(
+        basename="efficiency_irtf_primary_mirror.dat",
+    )
+
+    global EFFICIENCY_IRTF_SECONDARY
+    EFFICIENCY_IRTF_SECONDARY = _make.make_optic_efficiency(
+        basename="efficiency_irtf_secondary_mirror.dat",
+    )
+
+    # Creating the SPECTRE entrance window efficiency.
+    global EFFICIENCY_SPECTRE_WINDOW
+    EFFICIENCY_SPECTRE_WINDOW = _make.make_optic_efficiency(
+        basename="efficiency_spectre_entrance_window.dat",
+    )
+
+    # Creating the SPECTRE collimator mirror efficiency.
+    global EFFICIENCY_SPECTRE_COLLIMATOR
+    EFFICIENCY_SPECTRE_COLLIMATOR = _make.make_optic_efficiency(
+        basename="efficiency_spectre_collimator_mirror.dat",
+    )
+
+    # Creating the SPECTRE camera mirror efficiency.
+    global EFFICIENCY_SPECTRE_CAMERA
+    EFFICIENCY_SPECTRE_CAMERA = _make.make_optic_efficiency(
+        basename="efficiency_spectre_camera_mirror.dat",
+    )
+
+    # Creating the SPECTRE IFU image slicer efficiency.
+    global EFFICIENCY_SPECTRE_IMAGE_SLICER
+    EFFICIENCY_SPECTRE_IMAGE_SLICER = _make.make_optic_efficiency(
+        basename="efficiency_spectre_image_slicer.dat",
+    )
+
+    # Creating the SPECTRE IFU pupil mirror efficiency.
+    global EFFICIENCY_SPECTRE_PUPIL_MIRROR
+    EFFICIENCY_SPECTRE_PUPIL_MIRROR = _make.make_optic_efficiency(
+        basename="efficiency_spectre_pupil_mirror.dat",
+    )
+
+    # Creating the SPECTRE dichroic efficiencies.
+    global EFFICIENCY_SPECTRE_DICHROIC_VISIBLE
+    EFFICIENCY_SPECTRE_DICHROIC_VISIBLE = _make.make_optic_efficiency(
+        basename="efficiency_spectre_dichroic_visible.dat",
+    )
+    global EFFICIENCY_SPECTRE_DICHROIC_NEARIR
+    EFFICIENCY_SPECTRE_DICHROIC_NEARIR = _make.make_optic_efficiency(
+        basename="efficiency_spectre_dichroic_nearir.dat",
+    )
+    global EFFICIENCY_SPECTRE_DICHROIC_MIDIR
+    EFFICIENCY_SPECTRE_DICHROIC_MIDIR = _make.make_optic_efficiency(
+        basename="efficiency_spectre_dichroic_midir.dat",
+    )
+
+    # Creating the SPECTRE relay mirror efficiencies.
+    global EFFICIENCY_SPECTRE_RELAY_VISIBLE
+    EFFICIENCY_SPECTRE_RELAY_VISIBLE = _make.make_optic_efficiency(
+        basename="efficiency_spectre_relay_mirror_visible.dat",
+    )
+    global EFFICIENCY_SPECTRE_RELAY_NEARIR
+    EFFICIENCY_SPECTRE_RELAY_NEARIR = _make.make_optic_efficiency(
+        basename="efficiency_spectre_relay_mirror_nearir.dat",
+    )
+    global EFFICIENCY_SPECTRE_RELAY_MIDIR
+    EFFICIENCY_SPECTRE_RELAY_MIDIR = _make.make_optic_efficiency(
+        basename="efficiency_spectre_relay_mirror_midir.dat",
+    )
+
+    # Creating the SPECTRE prism efficiencies.
+    global EFFICIENCY_SPECTRE_PRISM_BK7
+    EFFICIENCY_SPECTRE_PRISM_BK7 = _make.make_optic_efficiency(
+        basename="efficiency_spectre_prism_bk7.dat",
+    )
+    global EFFICIENCY_SPECTRE_PRISM_SILICA
+    EFFICIENCY_SPECTRE_PRISM_SILICA = _make.make_optic_efficiency(
+        basename="efficiency_spectre_prism_silica.dat",
+    )
+    global EFFICIENCY_SPECTRE_PRISM_ZNSE
+    EFFICIENCY_SPECTRE_PRISM_ZNSE = _make.make_optic_efficiency(
+        basename="efficiency_spectre_prism_znse.dat",
+    )
+    global EFFICIENCY_SPECTRE_PRISM_SAPPHIRE
+    EFFICIENCY_SPECTRE_PRISM_SAPPHIRE = _make.make_optic_efficiency(
+        basename="efficiency_spectre_prism_sapphire.dat",
+    )
+
+    # Creating the SPECTRE fold mirror efficiencies.
+    global EFFICIENCY_SPECTRE_FOLD_VISIBLE
+    EFFICIENCY_SPECTRE_FOLD_VISIBLE = _make.make_optic_efficiency(
+        basename="efficiency_spectre_fold_mirror_visible.dat",
+    )
+    global EFFICIENCY_SPECTRE_FOLD_NEARIR
+    EFFICIENCY_SPECTRE_FOLD_NEARIR = _make.make_optic_efficiency(
+        basename="efficiency_spectre_fold_mirror_nearir.dat",
+    )
+    global EFFICIENCY_SPECTRE_FOLD_MIDIR
+    EFFICIENCY_SPECTRE_FOLD_MIDIR = _make.make_optic_efficiency(
+        basename="efficiency_spectre_fold_mirror_midir.dat",
+    )
+
+    # Creating the SPECTRE detector quantum efficiencies.
+    global EFFICIENCY_SPECTRE_CCD_VISIBLE
+    EFFICIENCY_SPECTRE_CCD_VISIBLE = _make.make_optic_efficiency(
+        basename="efficiency_spectre_ccd_qe.dat",
+    )
+    global EFFICIENCY_SPECTRE_H2RG_NEARIR
+    EFFICIENCY_SPECTRE_H2RG_NEARIR = _make.make_optic_efficiency(
+        basename="efficiency_spectre_h2rg25_qe.dat",
+    )
+    global EFFICIENCY_SPECTRE_H2RG_MIDIR
+    EFFICIENCY_SPECTRE_H2RG_MIDIR = _make.make_optic_efficiency(
+        basename="efficiency_spectre_h2rg40_qe.dat",
+    )
+
+    # All done
+    return
+
+
+__initialize_data_all()

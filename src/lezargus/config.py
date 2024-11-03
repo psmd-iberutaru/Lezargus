@@ -107,7 +107,8 @@ OBSERVATORY_ATMOSPHERE_PARTIAL_PRESSURE_WATER = 0
 # of the software.
 # The telescope radius is the radius of the IRTF primary mirror (meters).
 # The temperatures are of the primary and secondary mirror (Kelvin).
-OBSERVATORY_IRTF_TELESCOPE_RADIUS = 1.6
+OBSERVATORY_IRTF_PRIMARY_MIRROR_RADIUS = 1.6
+OBSERVATORY_IRTF_SECONDARY_MIRROR_RADIUS = 0.8
 OBSERVATORY_IRTF_PRIMARY_TEMPERATURE = 274
 OBSERVATORY_IRTF_SECONDARY_TEMPERATURE = 274
 
@@ -157,7 +158,7 @@ SPECTRE_SIMULATION_FOV_E_W_COUNT = 201
 # notate it for the automatic yaml generation.
 
 
-# <<>>
+# <BEGIN INTERNAL>
 # # # Lezargus internal configuration.
 # # # # # # # # # # # # # # # # # # # #
 
@@ -176,10 +177,17 @@ INTERNAL_MODULE_DATA_FILE_DIRECTORY = os.path.join(
     "_files",
 )
 
+# <BEGIN DEBUG>
+# # # SPECTRE Simulation Instrument Configuration
+# # # # # # # # # # # # # # # # # # # #
+
 # Due to the nature of loading data files, sometimes, loading data files needs
 # to be disabled when creating the data files themselves. This parameter means
 # nothing if changed during runtime. This should be False in most cases.
-INTERNAL_DEBUG_SKIP_LOADING_DATA_FILES = True
+INTERNAL_DEBUG_SKIP_LOADING_DATA_FILES = False
 
 # # # # # # # # # # # # # # # # # # # #
-# <<>>
+# </END DEBUG>
+
+# # # # # # # # # # # # # # # # # # # #
+# </END INTERNAL>

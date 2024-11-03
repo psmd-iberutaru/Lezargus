@@ -15,6 +15,8 @@ if TYPE_CHECKING:
     from lezargus.library import hint
 # isort: split
 
+import decimal
+
 import numpy as np
 import scipy.integrate
 
@@ -271,6 +273,76 @@ def divide(
     )
     uncertainty = np.sqrt(variance)
     return result, uncertainty
+
+
+def modulo(
+    numerator: hint.NDArray,
+    denominator: hint.NDArray,
+    numerator_uncertainty: hint.NDArray | float | None = None,
+    denominator_uncertainty: hint.NDArray | float | None = None,
+) -> tuple[hint.NDArray, hint.NDArray]:
+    """Compute the modulo of two values and propagate uncertainties.
+
+    This function properly handles floating point modulo operations and thus
+    is preferred if floats are involved.
+
+    Parameters
+    ----------
+    numerator : ndarray
+        The numerator of the modulo division; the top value.
+    denominator : ndarray
+        The denominator of the modulo division; the bottom value.
+    numerator_uncertainty : ndarray, default = None
+        The uncertainty on the numerator term. If None, we assume that the
+        uncertainty is 0.
+    denominator_uncertainty : ndarray, default = None
+        The uncertainty on the denominator term. If None, we assume that the
+        uncertainty is 0.
+
+    Returns
+    -------
+    result : ndarray
+        The result of the modulo division operation.
+    uncertainty : ndarray
+        The propagated uncertainty.
+
+    """
+    # If the uncertainties are not provided, then we assume zero.
+    numerator_uncertainty = (
+        0 if numerator_uncertainty is None else numerator_uncertainty
+    )
+    denominator_uncertainty = (
+        0 if denominator_uncertainty is None else denominator_uncertainty
+    )
+
+    # We utilize the decimal library to do the modulo and so we can only work
+    # on one number at a time. However, we leverage Numpy's vectorization
+    # convenience function.
+    def single_value_modulo(
+        num: float,
+        den: float,
+        num_uncrt: float,
+        den_uncert: float,
+    ) -> tuple[float, float]:
+        """Determine the modulo of a single division."""
+        # We leverage the decimal library to help us here.
+        num_decimal = decimal.Decimal(str(num))
+        den_decimal = decimal.Decimal(str(den))
+        quotient = float(num_decimal % den_decimal)
+        # Error propagation to be done.
+        lezargus.library.wrapper.do_nothing(num_uncrt, den_uncert)
+        uncert = 0
+        return quotient, uncert
+
+    # Vectorizing the function.
+    vector_modulo = np.vectorize(single_value_modulo, otypes=[float, float])
+    result = vector_modulo(
+        numerator,
+        denominator,
+        numerator_uncertainty,
+        denominator_uncertainty,
+    )
+    return result
 
 
 def exponentiate(

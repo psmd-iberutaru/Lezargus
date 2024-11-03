@@ -687,7 +687,7 @@ class LezargusContainerArithmetic:
 
     @classmethod
     def _read_fits_file(
-        cls: hint.Type[hint.Self],
+        cls: type[hint.Self],
         filename: str,
     ) -> hint.Self:
         """Read in a FITS file into an object.

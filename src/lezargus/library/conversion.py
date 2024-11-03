@@ -56,7 +56,7 @@ def convert_units(
 
     # Determine the conversion factor and convert between the two.
     try:
-        conversion_factor = value_unit.to(result_unit)
+        conversion_factor = float(value_unit.to(result_unit))
     except astropy.units.UnitConversionError as error:
         # The unit failed to convert. Astropy's message is actually pretty
         # informative so we bootstrap it.

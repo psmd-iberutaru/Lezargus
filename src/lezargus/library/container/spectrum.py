@@ -139,7 +139,7 @@ class LezargusSpectrum(LezargusContainerArithmetic):
 
     @classmethod
     def read_fits_file(
-        cls: hint.Type[hint.Self],
+        cls: type[hint.Self],
         filename: str,
     ) -> hint.Self:
         """Read a Lezargus spectrum FITS file.
@@ -167,7 +167,7 @@ class LezargusSpectrum(LezargusContainerArithmetic):
 
     @classmethod
     def stitch(
-        cls: hint.Type[hint.Self],
+        cls: type[hint.Self],
         *spectra: hint.LezargusSpectrum,
         weights: list[hint.NDArray] | str = "uniform",
         average_routine: hint.Callable[
@@ -506,6 +506,65 @@ class LezargusSpectrum(LezargusContainerArithmetic):
 
         # All done.
         return interp_data, interp_uncertainty, interp_mask, interp_flags
+
+    def interpolate_spectrum(
+        self: hint.Self,
+        wavelength: hint.NDArray,
+        extrapolate: bool = False,
+        skip_mask: bool = True,
+        skip_flags: bool = True,
+    ) -> hint.LezargusSpectrum:
+        """Interpolation calling function for spectrum.
+
+        Each entry is considered a single point to interpolate over.
+
+        Parameters
+        ----------
+        wavelength : ndarray
+            The wavelength values which we are going to interpolate to. The
+            units of the data of this array should be the same as the
+            wavelength unit stored.
+        extrapolate : bool, default = False
+            If True, we extrapolate. Otherwise, the edges are NaNs.
+        skip_mask : bool, default = True
+            If provided, the propagation of data mask through the
+            interpolation is skipped. It is computationally a little expensive
+            otherwise.
+        skip_flags : bool, default = True
+            If provided, the propagation of data flags through the
+            interpolation is skipped. It is computationally a little expensive
+            otherwise.
+
+        Returns
+        -------
+        interp_spectrum : LezargusSpectrum
+            The interpolated spectrum, packaged as a spectrum class.
+
+        """
+        # We rely on the primary interpolation routine.
+        interp_data, interp_uncertainty, interp_mask, interp_flags = (
+            self.interpolate(
+                wavelength=wavelength,
+                extrapolate=extrapolate,
+                skip_mask=skip_mask,
+                skip_flags=skip_flags,
+            )
+        )
+        # Repackaging it.
+        interp_spectrum = type(self)(
+            wavelength=wavelength,
+            data=interp_data,
+            uncertainty=interp_uncertainty,
+            wavelength_unit=self.wavelength_unit,
+            data_unit=self.data_unit,
+            spectral_scale=self.spectral_scale,
+            pixel_scale=self.pixel_scale,
+            slice_scale=self.slice_scale,
+            mask=interp_mask,
+            flags=interp_flags,
+            header=self.header,
+        )
+        return interp_spectrum
 
     def stitch_on(
         self: hint.Self,

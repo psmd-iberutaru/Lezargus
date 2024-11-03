@@ -108,13 +108,15 @@ class TargetSimulator:
 
     @classmethod
     def from_blackbody(
-        cls: hint.Type[hint.Self],
+        cls: type[hint.Self],
         wavelength: hint.NDArray,
         temperature: float,
         magnitude: float,
-        filter_profile: hint.LezargusSpectrum,
-        filter_zero_point: float,
-        spatial_shape: tuple,
+        photometric_filter: (
+            hint.PhotometricABFilter | hint.PhotometricVegaFilter
+        ),
+        spatial_grid_shape: tuple,
+        spatial_fov_shape: tuple,
         spectral_scale: float,
         **kwargs: hint.Any,
     ) -> hint.Self:
@@ -134,29 +136,28 @@ class TargetSimulator:
         magnitude : float
             The magnitude of the object in the photometric filter system
             provided.
-        filter_profile : LezargusSpectrum
-            The filter transmission profile, packaged as a LezargusSpectrum. It
-            does not need to have any header data. We assume a Vega-based
-            photometric system. The filter transmission curve should be energy
-            based.
-        filter_zero_point : float
-            The zero point value of the filter. The curve should be energy
-            based.
-        spatial_shape : tuple
-            The shape of the spatial component of the target; namely, how big
-            a region of the sky will be simulated. The units of this are pixels
-            and should relate to the real sky dimensions based on the pixel
-            scales provided by the input spectrum.
+        photometric_filter : PhotometricVegaFilter | PhotometricABFilter
+            The photometric filter which we are using to scale the blackbody
+            to match the magnitude provided; which is assumed to be in the
+            correct photometric system.
+        spatial_grid_shape : tuple
+            The spatial pixel grid shape. This defines the array shape of the
+            simulation's spatial component. The pixel and slice scale is
+            calculated from this and the field of view.
+        spatial_fov_shape : tuple
+            The defined field of view shape. This defines the on-sky field of
+            view shape of the array, and is in radians. The pixel and slice
+            scale is calculated from this and the field of view.
         spectral_scale : float
             The spectral scale of the simulated spectra, as a resolution,
-            in wavelength separation per pixel.
+            in wavelength separation (in meters) per pixel.
         **kwargs : Any
             Additional keyword arguments passed to the py:meth:`from_spectrum`
             function which does the heavy lifting.
 
         Returns
         -------
-        target_instance : LezargusCube
+        target_instance : TargetSimulator
             The target simulator instance derived from the input parameters.
 
         """
@@ -170,7 +171,8 @@ class TargetSimulator:
         # We integrate over the solid angle.
         solid_angle = np.pi
         integrated_blackbody_flux = blackbody_flux * solid_angle
-        # Packaging the spectra.
+        # Packaging the spectra. The pixel scale and slice scales are handled
+        # later.
         blackbody_spectra = lezargus.library.container.LezargusSpectrum(
             wavelength=wavelength,
             data=integrated_blackbody_flux,
@@ -189,15 +191,13 @@ class TargetSimulator:
         # provided filter profile, zero point, and filter magnitude.
         # We do not really care about the error term.
         correction_factor, __ = (
-            lezargus.library.photometry.calculate_photometric_correction_factor_vega(
-                star_spectra=blackbody_spectra,
-                filter_spectra=filter_profile,
-                star_magnitude=magnitude,
-                filter_zero_point=filter_zero_point,
-                star_magnitude_uncertainty=None,
-                filter_zero_point_uncertainty=None,
+            photometric_filter.calculate_photometric_correction(
+                spectrum=blackbody_spectra,
+                magnitude=magnitude,
+                magnitude_uncertainty=0,
             )
         )
+
         # Photometrically calibrating it.
         target_spectrum = blackbody_spectra * correction_factor
 
@@ -205,16 +205,18 @@ class TargetSimulator:
         # from the spectrum.
         target_instance = cls.from_spectrum(
             spectrum=target_spectrum,
-            spatial_shape=spatial_shape,
+            spatial_grid_shape=spatial_grid_shape,
+            spatial_fov_shape=spatial_fov_shape,
             **kwargs,
         )
         return target_instance
 
     @classmethod
     def from_spectrum(
-        cls: hint.Type[hint.Self],
+        cls: type[hint.Self],
         spectrum: hint.LezargusSpectrum,
-        spatial_shape: tuple,
+        spatial_grid_shape: tuple,
+        spatial_fov_shape: tuple,
         location: tuple | str = "center",
     ) -> hint.Self:
         """Create a target simulation object from a point source spectrum.
@@ -225,11 +227,14 @@ class TargetSimulator:
             The point source spectrum which we will use as the target to make
             the target cube of. The spectrum should be an energy-based
             spectrum.
-        spatial_shape : tuple
-            The shape of the spatial component of the target; namely, how big
-            a region of the sky will be simulated. The units of this are pixels
-            and should relate to the real sky dimensions based on the pixel
-            scales provided by the input spectrum.
+        spatial_grid_shape : tuple
+            The spatial pixel grid shape. This defines the array shape of the
+            simulation's spatial component. The pixel and slice scale is
+            calculated from this and the field of view.
+        spatial_fov_shape : tuple
+            The defined field of view shape. This defines the on-sky field of
+            view shape of the array, and is in radians The pixel and slice
+            scale is calculated from this and the field of view.
         location : tuple or str, default = "center"
             Where the spectra, as a point source, be placed spatially. If a
             string, we compute the location from the instruction:
@@ -239,7 +244,7 @@ class TargetSimulator:
 
         Returns
         -------
-        target_instance : LezargusCube
+        target_instance : TargetSimulator
             The target simulator instance derived from the input parameters.
 
         """
@@ -256,6 +261,12 @@ class TargetSimulator:
                 ),
             )
 
+        # We calculate the pixel and slice scale from the provided grid.
+        pixel_scale = spatial_fov_shape[0] / spatial_grid_shape[0]
+        slice_scale = spatial_fov_shape[1] / spatial_grid_shape[1]
+        spectrum.pixel_scale = pixel_scale
+        spectrum.slice_scale = slice_scale
+
         # We assume that background space is dark, so a zero fill value.
         background_data = 0
         background_uncertainty = 0
@@ -265,7 +276,7 @@ class TargetSimulator:
         broadcast_cube = (
             lezargus.library.container.functionality.broadcast_spectrum_to_cube(
                 input_spectrum=spectrum,
-                shape=spatial_shape,
+                shape=spatial_grid_shape,
                 location=location,
                 fill_value=background_data,
                 fill_uncertainty=background_uncertainty,
@@ -282,7 +293,7 @@ class TargetSimulator:
 
     @classmethod
     def from_cube(
-        cls: hint.Type[hint.Self],
+        cls: type[hint.Self],
         cube: hint.LezargusCube,
     ) -> hint.Self:
         """Create a target simulation object from a provided cube.
@@ -299,7 +310,7 @@ class TargetSimulator:
 
         Returns
         -------
-        target_instance : LezargusCube
+        target_instance : TargetSimulator
             The target simulator instance derived from the input parameters.
 
         """
@@ -775,6 +786,6 @@ class TargetSimulator:
             self._cache_refraction = current_state
         return current_state
 
-    observed = at_refraction
+    at_observed = at_refraction
     """LezargusCube : The target, represented as a LezargusCube, after the
     application of atmospheric effects. An alias for :py:attr:`at_refraction`"""

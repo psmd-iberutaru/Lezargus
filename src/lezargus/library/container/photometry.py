@@ -40,34 +40,33 @@ class PhotometricVegaFilter:
     """
 
     wavelength: hint.NDArray
-    """NDArray : The wavelengths of the energy-based and photon-based
+    """The wavelengths of the energy-based and photon-based
     transmissions for the filter."""
 
     wavelength_unit: hint.Unit
-    """Unit : The unit of the wavelength. For Lezargus, this is usually
+    """The unit of the wavelength. For Lezargus, this is usually
     meters"""
 
     transmission_energy: hint.NDArray
-    """NDArray : The energy-based transmission of the filter at the
+    """The energy-based transmission of the filter at the
     wavelengths provided."""
 
-    standard_spectrum: hint.LezargusSpectrum | None = None
-    """LezargusSpectrum : The standard star which is the effective dagger
+    standard_spectrum: hint.LezargusSpectrum
+    """The standard star which is the effective dagger
     standard for this filter. Typically, the standard spectra is a Vega spectra
     but this may change."""
 
     standard_magnitude: float
-    """float : The magnitude of the standard star in this filter."""
+    """The magnitude of the standard star in this filter."""
 
     standard_magnitude_uncertainty: float
-    """float : The uncertainty of the magnitude of the standard star in this
-    filter."""
+    """The uncertainty of the magnitude of the standard star in this filter."""
 
     zero_point: float
-    """float : The filter zero point value of the filter."""
+    """The filter zero point value of the filter."""
 
     zero_point_uncertainty: float
-    """float : The uncertainty in the filter zero point value of the filter."""
+    """The uncertainty in the filter zero point value of the filter."""
 
     def __init__(
         self: PhotometricVegaFilter,
@@ -110,7 +109,7 @@ class PhotometricVegaFilter:
 
     @classmethod
     def from_energy_transmission(
-        cls: hint.Type[hint.Self],
+        cls: type[hint.Self],
         wavelength: hint.NDArray,
         energy_transmission: hint.NDArray,
         wavelength_unit: hint.Unit | str = "m",
@@ -142,7 +141,7 @@ class PhotometricVegaFilter:
 
     @classmethod
     def from_photon_transmission(
-        cls: hint.Type[hint.Self],
+        cls: type[hint.Self],
         wavelength: hint.NDArray,
         photon_transmission: hint.NDArray,
         wavelength_unit: hint.Unit | str = "m",

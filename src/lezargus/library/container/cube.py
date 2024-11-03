@@ -135,7 +135,7 @@ class LezargusCube(LezargusContainerArithmetic):
 
     @classmethod
     def read_fits_file(
-        cls: hint.Type[hint.Self],
+        cls: type[hint.Self],
         filename: str,
     ) -> hint.Self:
         """Read a Lezargus cube FITS file.
@@ -165,7 +165,7 @@ class LezargusCube(LezargusContainerArithmetic):
         self: hint.Self,
         filename: str,
         overwrite: bool = False,
-    ) -> hint.Self:
+    ) -> None:
         """Write a Lezargus cube FITS file.
 
         We write a Lezargus FITS file to disk.

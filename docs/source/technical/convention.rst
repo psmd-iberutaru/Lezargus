@@ -5,6 +5,20 @@ Conventions
 ===========
 
 
+Array Indexing
+==============
+
+[[TODO INTRO]]
+
+We use the simple following conventions with our array indexes. 
+
+- We default to using C-order array indexing. This is the Numpy default, but 
+this default is opposite of Fortran and IDL indexing. 
+- For multidimensional images and cubes, we use the following indexing order:
+images, (x, y); cubes, (x, y, λ). Here, "x" is width and "y" is height. Special conversions may be needed as some image plotting conventions may be different.
+
+
+
 Units
 =====
 

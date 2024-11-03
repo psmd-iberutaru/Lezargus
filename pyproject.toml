@@ -22,19 +22,19 @@ classifiers = [
 ]
 dependencies = [
     "colorama==0.4.6",
-    "numpy",
-    "scipy",
-    "astropy",
-    "pyyaml",
-    "matplotlib",
-    "PySide6>=6.5.0",
+    "numpy>=2.0.0",
+    "scipy>=1.14.1",
+    "astropy>=6.1.0",
+    "pyyaml>=6.0.0",
+    "matplotlib>=3.9.0",
+    "PySide6>=6.8.0",
 ]
 
 [project.urls]
 Homepage = "http://irtfweb.ifa.hawaii.edu/~spectre/"
+Repository = "https://github.com/psmd-iberutaru/Lezargus/"
 Documentation = "https://psmd-iberutaru.github.io/Lezargus/"
 Issues = "https://github.com/psmd-iberutaru/Lezargus/issues"
-Source = "https://github.com/psmd-iberutaru/Lezargus/"
 
 [project.scripts]
 lezargus = "lezargus.__main__:main"
@@ -51,7 +51,7 @@ path = "src/lezargus/__version__.py"
 [tool.hatch.build]
 exclude = [
     # We do not want to package the utility scripts and files in a build.
-    "./utility/*"
+    "./auxiliary/*"
 ]
 
 [tool.hatch.envs.default]
@@ -60,31 +60,32 @@ dependencies = [
     "coverage[toml]>=7.3.4",
     "pytest>=8.1.0",
     "black[jupyter]>=24.4.0",
-    "pylint[spelling]>=3.2.2",
-    "ruff>=0.4.8",
+    "pylint[spelling]>=3.3.1",
+    "ruff>=0.7.0",
     "sphinx>=7.2.6",
     "sphinx-book-theme>=1.1.0",
 ]
 [tool.hatch.envs.default.scripts]
-test = "pytest {args:tests}"
+test = "pytest tests"
 format = [
-    "black {args:.}",
+    "black . --enable-unstable-feature=string_processing",
+    "black .",
 ]
 cover = [
-    "coverage run -m pytest {args:tests}",
+    "coverage run -m pytest tests",
     "- coverage combine",
     "coverage report",
     "coverage html",
     "coverage erase",
 ]
 check = [
-    "ruff check {args:src}",
-    "pylint {args:src}",
-    "pyright {args:src}",
+    "ruff check src",
+    "pylint src",
+    "pyright src",
 ]
 checkfix = [
-    "format --enable-unstable-feature=string_processing",
-    "ruff check {args:src} --fix",
+    "format",
+    "ruff check src --fix",
     "format",
 ]
 docs = [
@@ -184,20 +185,22 @@ max-complexity = 15
 [tool.pylint]
 clear-cache-post-run = true
 recursive = true
+init-hook = "import sys; sys.setrecursionlimit(10000)"
 good-names-rgxs = [
     # Allow for 2-character names, following the usual snake case conventions.
     "[_a-z][_a-z0-9]?$",
 ]
 disable = [
-    "R0801", # (duplicate-code)
-    "R0401", # (cyclic-import)
-    "R0902", # (too-many-instance-attributes)
-    "R0903", # (too-few-public-methods)
-    "R0913", # (too-many-arguments)
-    "R0914", # (too-many-locals)
-    "C0302", # (too-many-lines)
-    "C0412", # (ungrouped-imports) - Let Ruff and isort handle imports.
-    "C0413", # (wrong-import-position) - Let Ruff and isort handle imports.
+    "duplicate-code", 
+    "cyclic-import", 
+    "too-many-instance-attributes", 
+    "too-few-public-methods", 
+    "too-many-arguments", 
+    "too-many-locals", 
+    "too-many-positional-arguments",  # Let Ruff handle arguments.
+    "too-many-lines", 
+    "ungrouped-imports",  # Let Ruff and isort handle imports.
+    "wrong-import-position",  # Let Ruff and isort handle imports.
 ]
 extension-pkg-allow-list = [
     "PySide6",
@@ -206,7 +209,7 @@ generated-members = [
     # Configuration and parameters are generated on-the-fly. We need to inform 
     # pylint that they are okay as it does not do introspection on the fly as 
     # well.
-    "lezargus.library.data.*",
+    "lezargus.data.*",
     # Astropy Constants seem to also be generated.
     "astropy.constants.*"
 ]

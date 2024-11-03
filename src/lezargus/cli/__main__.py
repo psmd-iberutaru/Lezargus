@@ -39,11 +39,14 @@ def execute_primary_action(
         # Help function.
         case "help":
             lezargus.cli.help_.help_(parser=parser, arguments=arguments)
+        case "version":
+            lezargus.cli.version.version(parser=parser, arguments=arguments)
 
         # The user wants a list of available actions.
         case "list":
             available_actions = [
                 "help",
+                "version"
                 # Other commands go above, in order.
                 "list",
             ]

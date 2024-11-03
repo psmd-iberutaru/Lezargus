@@ -21,13 +21,13 @@ import lezargus
 from lezargus.library import logging
 
 
-def get_spectra_scale_factor(
+def calculate_spectra_scale_factor(
     base_wavelength: hint.NDArray,
     base_data: hint.NDArray,
     input_wavelength: hint.NDArray,
     input_data: hint.NDArray,
-    base_uncertainty: hint.NDArray = None,
-    input_uncertainty: hint.NDArray = None,
+    base_uncertainty: hint.NDArray | None = None,
+    input_uncertainty: hint.NDArray | None = None,
     bounds: tuple[float, float] = (-np.inf, +np.inf),
 ) -> tuple[float, float]:
     """Find the scale factor to scale one overlapping spectrum to another.
@@ -81,14 +81,21 @@ def get_spectra_scale_factor(
         if input_uncertainty is None
         else input_uncertainty
     )
-    # We rebase both spectra to some common wavelength.
+
+    # We rebase both spectra to some common wavelength. We also need to account
+    # for any gaps in the region.
+    common_wavelength = np.append(base_wavelength, input_wavelength)
+    small_gap = lezargus.library.interpolate.get_smallest_gap(
+        wavelength=common_wavelength,
+    )
+
     interpolator = (
         lezargus.library.interpolate.Spline1DInterpolate.template_class(
             extrapolate=False,
-            gap=+np.inf,
+            gap=small_gap,
+            gap_fill=np.nan,
         )
     )
-    common_wavelength = np.append(base_wavelength, input_wavelength)
     common_base_data = interpolator(x=base_wavelength, v=base_data)(
         common_wavelength,
     )
@@ -300,7 +307,7 @@ def stitch_spectra_functional(
         [hint.NDArray, hint.NDArray, hint.NDArray],
         tuple[float, float],
     ] = None,
-    interpolate_routine: hint.Type[hint.Generic1DInterpolate] | None = None,
+    interpolate_routine: type[hint.Generic1DInterpolate] | None = None,
     reference_wavelength: hint.NDArray = None,
 ) -> tuple[
     hint.Callable[[hint.NDArray], hint.NDArray],
@@ -377,7 +384,7 @@ def stitch_spectra_functional(
     # If a custom routine is provided, we need to make sure it is the right
     # type. Otherwise, we just use a default spline interpolator.
     interpolate_routine = (
-        lezargus.library.interpolate.Spline1DInterpolate
+        lezargus.library.interpolate.Linear1DInterpolate
         if interpolate_routine is None
         else interpolate_routine
     )
@@ -660,7 +667,7 @@ def stitch_spectra_discrete(
     # If a custom routine is provided, we need to make sure it is the right
     # type. Otherwise, we just use a default spline interpolator.
     interpolate_routine = (
-        lezargus.library.interpolate.Spline1DInterpolate
+        lezargus.library.interpolate.Linear1DInterpolate
         if interpolate_routine is None
         else interpolate_routine
     )
@@ -713,21 +720,18 @@ def stitch_spectra_discrete(
             lezargus.library.sanitize.verify_broadcastability(
                 reference_array=temp_wave,
                 test_array=datadex,
-                return_broadcast=True,
             )
         )
         verify_uncert, temp_uncert = (
             lezargus.library.sanitize.verify_broadcastability(
                 reference_array=temp_wave,
                 test_array=uncertdex,
-                return_broadcast=True,
             )
         )
         verify_weight, temp_weight = (
             lezargus.library.sanitize.verify_broadcastability(
                 reference_array=temp_wave,
                 test_array=weightdex,
-                return_broadcast=True,
             )
         )
         if not (verify_data and verify_uncert and verify_weight):

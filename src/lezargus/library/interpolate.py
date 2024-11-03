@@ -46,12 +46,14 @@ def get_smallest_gap(wavelength: hint.NDArray) -> float:
         provided wavelength array.
 
     """
+    # We need to make sure the wavelength is in order.
+    sorted_wavelength = np.sort(np.asarray(wavelength))
+
     # We just find the largest separation.
-    wavelength = np.asarray(wavelength)
-    small_gap_guess = np.nanmax(wavelength[1:] - wavelength[:-1])
+    small_gap_guess = np.nanmax(sorted_wavelength[1:] - sorted_wavelength[:-1])
     # However, we pad it just by some epsilon to ensure that the derived
     # separation itself is not considered a gap.
-    epsilon = np.nanmax(np.spacing(wavelength))
+    epsilon = np.nanmax(np.spacing(sorted_wavelength))
     small_gap = small_gap_guess + epsilon
     # All done.
     return small_gap
@@ -352,7 +354,7 @@ class Generic1DInterpolate:
 
     @classmethod
     def template_class(
-        cls: hint.Type[hint.Self],
+        cls: type[hint.Self],
         **kwargs: hint.Any,
     ) -> hint.Callable[[hint.NDArray, hint.NDArray], hint.Self]:
         """Provide a template with the same flags as this interpolator class.
@@ -576,20 +578,12 @@ class Spline1DInterpolate(Generic1DInterpolate):
         # The Akima1D interpolator. The modified version is the better one to
         # use considering its advantages. Namely the higher dimensionality and
         # better handling of flat data.
-        # Akima  interpolator = scipy.interpolate.Akima1DInterpolator(
-        # Akima      x,
-        # Akima      v,
-        # Akima      method="makima",
-        # Akima      extrapolate=True,
-        # Akima  )
-
-        # Super temporary; REMOVE when makima is proper.
-        interpolator = scipy.interpolate.PchipInterpolator(
+        interpolator = scipy.interpolate.Akima1DInterpolator(
             x,
             v,
+            method="makima",
             extrapolate=True,
         )
-
         return interpolator
 
 
