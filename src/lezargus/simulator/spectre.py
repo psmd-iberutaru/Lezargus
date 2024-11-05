@@ -6,6 +6,10 @@ things (like the object itself or the atmosphere) and the specifics of their
 implementations can be found there. Implementation specifics to the SPECTRE
 instrument itself are found here.
 
+By self-imposed convention, the attributes are generally named as `at_[stage]` 
+where the result is the simulated result right after simulating whichever 
+stage is named.
+
 For ease, we package the smaller simulators within this single simulator class.
 """
 
@@ -29,7 +33,12 @@ from lezargus.library import logging
 
 
 class SpectreSimulator:  # pylint: disable=too-many-public-methods
-    """Main SPECTRE simulator class."""
+    """Main SPECTRE simulator class.
+    
+    By self-imposed convention, the attributes are generally named as
+    `at_[stage]` where the result is the simulated result right after
+    simulating whichever stage is named.
+    """
 
     target: hint.TargetSimulator
     """The target object simulation. This is the working copy."""
@@ -61,8 +70,6 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
     be calculated every time when not needed. If False, caches are never
     returned and instead everything is always recomputed."""
 
-    # Cache objects.
-    _cache_at_telescope = None
 
     def __init__(
         self: SpectreSimulator,
@@ -340,6 +347,125 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             container=container,
         )
         return photon_container
+
+    @property
+    def at_target_spectrum(self: hint.Self) -> hint.LezargusCube | None:
+        """Exposing the target's `at_target_spectrum` instance.
+
+        See py:meth:`lezargus.simulator.target.TargetSimulator.at_target_spectrum()`.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+
+        """
+        return self.target.at_target_spectrum
+
+    @property
+    def at_target(self: hint.Self) -> hint.LezargusCube:
+        """Exposing the target's `at_target` instance.
+
+        See py:meth:`lezargus.simulator.target.TargetSimulator.at_target()`.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+
+        """
+        return self.target.at_target
+
+    @property
+    def at_target_photon(self: hint.Self) -> hint.LezargusCube:
+        """Exposing the target's `at_target_photon` instance.
+
+        See py:meth:`lezargus.simulator.target.TargetSimulator.at_target_photon()`.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+
+        """
+        return self.target.at_target_photon
+
+    @property
+    def at_transmission(self: hint.Self) -> hint.LezargusCube:
+        """Exposing the target's `at_transmission` instance.
+
+        See py:meth:`lezargus.simulator.target.TargetSimulator.at_transmission()`.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+
+        """
+        return self.target.at_transmission
+
+    @property
+    def at_radiance(self: hint.Self) -> hint.LezargusCube:
+        """Exposing the target's `at_radiance` instance.
+
+        See py:meth:`lezargus.simulator.target.TargetSimulator.at_radiance()`.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+
+        """
+        return self.target.at_radiance
+
+    @property
+    def at_seeing(self: hint.Self) -> hint.LezargusCube:
+        """Exposing the target's `at_seeing` instance.
+
+        See py:meth:`lezargus.simulator.target.TargetSimulator.at_seeing()`.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+
+        """
+        return self.target.at_seeing
+
+    @property
+    def at_refraction(self: hint.Self) -> hint.LezargusCube:
+        """Exposing the target's `at_refraction` instance.
+
+        See py:meth:`lezargus.simulator.target.TargetSimulator.at_refraction()`.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+
+        """
+        return self.target.at_refraction
 
     @property
     def at_observed(self: hint.Self) -> hint.LezargusCube:

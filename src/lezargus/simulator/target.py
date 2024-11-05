@@ -62,10 +62,7 @@ class TargetSimulator:
 
     # Cache objects.
     _cache_target_photon = None
-    _cache_transmission = None
-    _cache_radiance = None
-    _cache_seeing = None
-    _cache_refraction = None
+    _cache_observed = None
 
     def __init__(
         self: TargetSimulator,
@@ -550,10 +547,6 @@ class TargetSimulator:
             atmospheric transmission.
 
         """
-        # We use a cached value if there exists one.
-        if self._cache_transmission is not None and self.use_cache:
-            return self._cache_transmission
-
         # No cached value, we calculate it from the previous state.
         previous_state = self.at_target_photon
 
@@ -589,9 +582,6 @@ class TargetSimulator:
         # efficiencies.
         current_state = previous_state * transmission_cube
 
-        # Saving the result later in the cache.
-        if self.use_cache:
-            self._cache_transmission = current_state
         return current_state
 
     @property
@@ -609,9 +599,6 @@ class TargetSimulator:
             atmospheric radiance.
 
         """
-        # We use a cached value if there exists one.
-        if self._cache_radiance is not None and self.use_cache:
-            return self._cache_radiance
 
         # No cached value, we calculate it from the previous state.
         previous_state = self.at_transmission
@@ -671,9 +658,6 @@ class TargetSimulator:
         # efficiencies.
         current_state = previous_state + irradiance_photon_cube
 
-        # Saving the result later in the cache.
-        if self.use_cache:
-            self._cache_radiance = current_state
         return current_state
 
     @property
@@ -691,9 +675,6 @@ class TargetSimulator:
             atmospheric seeing.
 
         """
-        # We use a cached value if there exists one.
-        if self._cache_seeing is not None and self.use_cache:
-            return self._cache_seeing
 
         # No cached value, we calculate it from the previous state.
         previous_state = self.at_radiance
@@ -720,9 +701,6 @@ class TargetSimulator:
             kernel_stack=seeing_kernels,
         )
 
-        # Saving the result later in the cache.
-        if self.use_cache:
-            self._cache_seeing = current_state
         return current_state
 
     @property
@@ -740,9 +718,6 @@ class TargetSimulator:
             atmospheric refraction.
 
         """
-        # We use a cached value if there exists one.
-        if self._cache_refraction is not None and self.use_cache:
-            return self._cache_refraction
 
         # No cached value, we calculate it from the previous state.
         previous_state = self.at_seeing
@@ -780,12 +755,38 @@ class TargetSimulator:
             mode="nearest",
             constant=np.nan,
         )
+        return current_state
+
+    @property
+    def at_observed(self: hint.Self) -> hint.LezargusCube:
+        """State of simulation after an "observation".
+
+        This object is basically the preferred alias for referring to the 
+        simulation at the point right after atmospheric effects. This is where
+        the a target simulation ends and further simulation is done by 
+        specific instrument simulators.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        current_state : LezargusCube
+            The state of the simulation after an "observation".
+
+        """
+        # We use a cached value if there exists one.
+        if self._cache_observed is not None and self.use_cache:
+            return self._cache_observed
+
+        # No cached value, we calculate it from the previous state.
+        previous_state = self.at_refraction
+        # This is just an alias so the current state is the same.
+        current_state = previous_state
 
         # Saving the result later in the cache.
         if self.use_cache:
-            self._cache_refraction = current_state
+            self._cache_observed = current_state
         return current_state
 
-    at_observed = at_refraction
-    """LezargusCube : The target, represented as a LezargusCube, after the
-    application of atmospheric effects. An alias for :py:attr:`at_refraction`"""

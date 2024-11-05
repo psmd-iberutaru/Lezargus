@@ -209,7 +209,7 @@ def __initialize_data_atmosphere_generators() -> None:
     )
 
     global ATM_RADIANCE_GEN
-    ATM_RADIANCE_GEN = _make.make_atmosphere_transmission_generator(
+    ATM_RADIANCE_GEN = _make.make_atmosphere_radiance_generator(
         basename="psg_telluric_radiance.dat",
     )
 

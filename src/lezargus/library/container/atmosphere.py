@@ -125,7 +125,7 @@ class AtmosphereSpectrumGenerator:
         self: hint.Self,
         wavelength: hint.NDArray | None = None,
         zenith_angle: float = 0,
-        pwv: float = 0.5,
+        pwv: float = 0.005,
     ) -> hint.NDArray:
         """Generate atmospheric spectrum, through interpolation.
 
@@ -137,9 +137,9 @@ class AtmosphereSpectrumGenerator:
         zenith_angle : float, default = 0
             The zenith angle for the transmission spectrum generation,
             in radians.
-        pwv : float, default = 0
+        pwv : float, default = 0.005
             The precipitable water vapor for the transmission spectrum
-            generation, in millimeters.
+            generation, in meters.
 
         Returns
         -------
@@ -172,7 +172,7 @@ class AtmosphereSpectrumGenerator:
         self: hint.Self,
         wavelength: hint.NDArray | None = None,
         zenith_angle: float = 0,
-        pwv: float = 0.5,
+        pwv: float = 0.005,
     ) -> hint.LezargusSpectrum:
         """Generate a atmospheric LezargusSpectrum, through interpolation.
 
@@ -188,9 +188,9 @@ class AtmosphereSpectrumGenerator:
         zenith_angle : float, default = 0
             The zenith angle for the transmission spectrum generation,
             in radians.
-        pwv : float, default = 0
+        pwv : float, default = 0.005
             The precipitable water vapor for the transmission spectrum
-            generation, in millimeters.
+            generation, in meters.
 
         Returns
         -------
