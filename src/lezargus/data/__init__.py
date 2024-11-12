@@ -34,10 +34,34 @@ def __initialize_data_all() -> None:
         return
 
     # Loading the data in the proper order.
+    __initialize_data_constants()
     __initialize_data_star_spectra()
     __initialize_data_photometric_filters()
     __initialize_data_atmosphere_generators()
     __initialize_data_optic_efficiency_functions()
+
+def __initialize_data_constants() -> None:
+    """Initialize only the constant value data.
+
+    Parameters
+    ----------
+    None
+
+    Returns
+    -------
+    None
+
+    """
+    # If the initialization of the data is to be skipped.
+    if lezargus.config.INTERNAL_DEBUG_SKIP_LOADING_DATA_FILES:
+        return
+
+    # Otherwise...
+    global CONST_SPECTRE_SLICES
+    CONST_SPECTRE_SLICES = _make.make_constant(key="CONST_SPECTRE_SLICES")
+
+    # All done.
+    return
 
 
 def __initialize_data_star_spectra() -> None:

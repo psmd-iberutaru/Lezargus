@@ -35,7 +35,7 @@ class LezargusSpectrum(LezargusContainerArithmetic):
         self: LezargusSpectrum,
         wavelength: hint.NDArray,
         data: hint.NDArray,
-        uncertainty: hint.NDArray | None = None,
+        uncertainty: hint.NDArray |float| None = None,
         wavelength_unit: str | hint.Unit | None = None,
         data_unit: str | hint.Unit | None = None,
         spectral_scale: float | None = None,

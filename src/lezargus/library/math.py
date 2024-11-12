@@ -110,11 +110,11 @@ def add(
 
 
 def subtract(
-    minuend: hint.NDArray,
-    subtrahend: hint.NDArray,
+    minuend: hint.NDArray|float,
+    subtrahend: hint.NDArray|float,
     minuend_uncertainty: hint.NDArray | float | None = None,
     subtrahend_uncertainty: hint.NDArray | float | None = None,
-) -> tuple[hint.NDArray, hint.NDArray]:
+) -> tuple[float|hint.NDArray, float|hint.NDArray]:
     """Subtract two values and propagate uncertainties.
 
     Parameters
@@ -157,11 +157,11 @@ def subtract(
 
 
 def multiply(
-    multiplier: hint.NDArray,
-    multiplicand: hint.NDArray,
+    multiplier: hint.NDArray|float,
+    multiplicand: hint.NDArray|float,
     multiplier_uncertainty: hint.NDArray | float | None = None,
     multiplicand_uncertainty: hint.NDArray | float | None = None,
-) -> tuple[hint.NDArray, hint.NDArray]:
+) -> tuple[float|hint.NDArray, float|hint.NDArray]:
     """Multiply two values and propagate uncertainties.
 
     Note, the typical formula for the propagation of uncertainties for
@@ -217,11 +217,11 @@ def multiply(
 
 
 def divide(
-    numerator: hint.NDArray,
-    denominator: hint.NDArray,
+    numerator: float|hint.NDArray,
+    denominator: float|hint.NDArray,
     numerator_uncertainty: hint.NDArray | float | None = None,
     denominator_uncertainty: hint.NDArray | float | None = None,
-) -> tuple[hint.NDArray, hint.NDArray]:
+) -> tuple[float|hint.NDArray, float|hint.NDArray]:
     """Divide two values and propagate uncertainties.
 
     Note, the typical formula for the propagation of uncertainties for
@@ -346,8 +346,8 @@ def modulo(
 
 
 def exponentiate(
-    base: hint.NDArray,
-    exponent: hint.NDArray,
+    base: float|hint.NDArray,
+    exponent: float|hint.NDArray,
     base_uncertainty: hint.NDArray | float | None = None,
     exponent_uncertainty: hint.NDArray | float | None = None,
 ) -> tuple[hint.NDArray, hint.NDArray]:

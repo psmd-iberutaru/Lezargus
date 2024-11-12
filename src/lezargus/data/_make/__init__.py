@@ -12,13 +12,10 @@ from lezargus.data._make.make_atmosphere_generators import (
     make_atmosphere_transmission_generator,
 )
 
+# Constant values.
+from lezargus.data._make.make_constants import make_constant
+
 # Efficiency function spectrum make functions.
-from lezargus.data._make.make_optic_efficiencies import (
-    make_irtf_primary_efficiency,
-)
-from lezargus.data._make.make_optic_efficiencies import (
-    make_irtf_secondary_efficiency,
-)
 from lezargus.data._make.make_optic_efficiencies import make_optic_efficiency
 
 # Photometric filter make functions.

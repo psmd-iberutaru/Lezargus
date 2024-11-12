@@ -10,6 +10,8 @@ Remove-Item "./products/*" -Recurse -Force
 # Generating the data files, if the script fails, we don't want to continue 
 # and mess up the other files.
 # We use `if ( -not ($?)) { Exit }` so the script exits on failure.
+python -m jupyter nbconvert --to notebook --execute "./constants.ipynb"
+if ( -not ($?)) { Exit }
 python -m jupyter nbconvert --to notebook --execute "./standard_stars.ipynb"
 if ( -not ($?)) { Exit }
 python -m jupyter nbconvert --to notebook --execute "./photometric_filters.ipynb"

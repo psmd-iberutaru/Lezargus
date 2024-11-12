@@ -740,19 +740,20 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         window_temperature = 273
         science_beam_diameter = 1.0
         solid_angle = 1.0
+        common_wavelength = previous_state.wavelength
         # We assume a blackbody emission function.
         window_blackbody = lezargus.library.wrapper.blackbody_function(
             temperature=window_temperature,
         )
-        window_blackbody_radiance = window_blackbody(previous_state.wavelength)
+        window_blackbody_radiance = window_blackbody(common_wavelength)
 
         # The blackbody is modulated by...
         # ...the window's own transmission,
         window_transmission = lezargus.data.EFFICIENCY_SPECTRE_WINDOW
-        window_transmission_spectrum = window_transmission.interpolate_spectrum(
-            wavelength=previous_state.wavelength,
+        window_transmission_data,__, __, __ = window_transmission.interpolate(
+            wavelength=common_wavelength, extrapolate=False
         )
-        emission_efficiency = 1 - window_transmission_spectrum
+        emission_efficiency = 1 - window_transmission_data
         # ...the area of the window, more specifically, the area of the science
         # beam,
         window_area = (np.pi / 4) * science_beam_diameter**2
@@ -765,8 +766,15 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         )
 
         # We want this emission in photon counting form.
+        window_emission_spectrum = lezargus.library.container.LezargusSpectrum(
+            wavelength=common_wavelength, 
+            data=window_emission, 
+            uncertainty=0, 
+            wavelength_unit=previous_state.wavelength_unit, 
+            data_unit="W m^-2 m^-1"
+        )
         window_photon_emission = self._convert_to_photon(
-            container=window_emission,
+            container=window_emission_spectrum,
         )
 
         # And, broadcasting the emission spectra to allow us to apply it
@@ -948,6 +956,10 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             slice_count = 36
             pixel_scale = previous_state.pixel_scale
             slice_scale = previous_state.slice_scale
+
+            # The field of view ought to be in radians per the SI convention.
+            fov_radian = lezargus.library.conversion.convert_units(value=fov_arcsec, value_unit="arcsec", result_unit="radian")
+
             # We need to make sure there is actually a provided pixel scale
             # and slice scale, else we cannot assume the size of the current
             # array.
@@ -967,7 +979,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             # we are determining the crop based on array slicing.
             # Pixels...
             pixel_modulo, __ = lezargus.library.math.modulo(
-                numerator=fov_arcsec,
+                numerator=fov_radian,
                 denominator=pixel_scale,
             )
             if not np.isclose(pixel_modulo, 0):
@@ -975,14 +987,14 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
                     warning_type=logging.AccuracyWarning,
                     message=(
                         "Non-integer pixel edge length"
-                        f" {fov_arcsec / pixel_scale}, based on pixel scale at"
+                        f" {fov_radian / pixel_scale}, based on pixel scale at"
                         " image slicer stop; overcropping."
                     ),
                 )
-            max_pixel_dim = int(np.floor(fov_arcsec / pixel_scale))
+            max_pixel_dim = int(np.floor(fov_radian / pixel_scale))
             # Slices...
             slice_modulo, __ = lezargus.library.math.modulo(
-                numerator=fov_arcsec,
+                numerator=fov_radian,
                 denominator=slice_scale,
             )
             if not np.isclose(slice_modulo, 0):
@@ -990,11 +1002,11 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
                     warning_type=logging.AccuracyWarning,
                     message=(
                         "Non-integer slice edge length"
-                        f" {fov_arcsec / slice_scale}, based on slice scale at"
+                        f" {fov_radian / slice_scale}, based on slice scale at"
                         " image slicer stop; overcropping."
                     ),
                 )
-            max_slice_dim = int(np.floor(fov_arcsec / slice_scale))
+            max_slice_dim = int(np.floor(fov_radian / slice_scale))
 
             # We assume the center of the array is the center of the crop.
             crop_array = lezargus.library.transform.crop_2d(

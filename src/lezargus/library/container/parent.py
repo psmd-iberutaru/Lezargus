@@ -246,11 +246,11 @@ class LezargusContainerArithmetic:
         """
         return self.data_unit
 
-    def __justify_arithmetic_operation(
+    def __verify_arithmetic_operation(
         self: hint.Self,
         operand: hint.Self | float,
     ) -> bool:
-        """Justify operations between two objects is valid.
+        """Verify operations between two objects is valid.
 
         Operations done between different instances of the Lezargus data
         structure need to keep in mind the wavelength dependance of the data.
@@ -264,8 +264,8 @@ class LezargusContainerArithmetic:
 
         Returns
         -------
-        justification : bool
-            The state of the justification test. If it is True, then the
+        verified : bool
+            The state of the verification test. If it is True, then the
             operation can continue, otherwise, False.
 
         .. note::
@@ -276,7 +276,7 @@ class LezargusContainerArithmetic:
         """
         # We assume that the two objects are incompatible, until proven
         # otherwise.
-        justification = False
+        verified = False
 
         # We first check for appropriate types. Only singular values, and
         # equivalent Lezargus containers can be accessed.
@@ -284,15 +284,15 @@ class LezargusContainerArithmetic:
             # The operand is likely a singular value, so it can be properly
             # broadcast together. It is a singe value, all other checks
             # are unneeded.
-            justification = True
-            return justification
+            verified = True
+            return verified
 
         # If the Lezargus data types are the same.
         if isinstance(operand, type(self)):
             # All good.
             operand_data = operand.data
         else:
-            operand_data = None
+            verified = False
             logging.critical(
                 critical_type=logging.ArithmeticalError,
                 message=(
@@ -309,6 +309,7 @@ class LezargusContainerArithmetic:
             )
         except ValueError:
             # The data is unable to be broadcast together.
+            verified = False
             logging.critical(
                 critical_type=logging.ArithmeticalError,
                 message=(
@@ -321,6 +322,7 @@ class LezargusContainerArithmetic:
             # The shapes are broadcast-able, but the container data shape must
             # be preserved and it itself cannot be broadcast.
             if self.data.shape != broadcast_shape:
+                verified = False
                 logging.critical(
                     critical_type=logging.ArithmeticalError,
                     message=(
@@ -338,6 +340,7 @@ class LezargusContainerArithmetic:
         # do math of two Lezargus containers without aligned wavelength values
         # is just not proper.
         if self.wavelength.shape != operand.wavelength.shape:
+            verified = False
             logging.critical(
                 critical_type=logging.ArithmeticalError,
                 message=(
@@ -373,10 +376,10 @@ class LezargusContainerArithmetic:
             )
 
         # If it survived all of the tests above, then it should be fine.
-        justification = True
-        return justification
+        verified = True
+        return verified
 
-    def __add__(self: hint.Self, operand: float | hint.Self) -> hint.Self:
+    def __add__(self: hint.Self, operand: int|float | hint.Self) -> hint.Self:
         """Perform an addition operation.
 
         Parameters
@@ -393,7 +396,7 @@ class LezargusContainerArithmetic:
         # We need to check the applicability of the operand and the operation
         # being attempted. The actual return is likely not needed, but we
         # still test for it.
-        if not self.__justify_arithmetic_operation(operand=operand):
+        if not self.__verify_arithmetic_operation(operand=operand):
             logging.critical(
                 critical_type=logging.DevelopmentError,
                 message=(
@@ -402,28 +405,33 @@ class LezargusContainerArithmetic:
                     " returned here."
                 ),
             )
+
+        # There are two cases, if the operand object is a container, or 
+        # a singular value.
+        if isinstance(operand, LezargusContainerArithmetic):
+            # It is a container, we perform operations as normal.
+            operand_data = operand.data
+            operand_uncertainty = operand.uncertainty
+            operand_unit = operand.data_unit
+        else:
+            # The operand is just a single value, so, we handle it as so.
+            # We assume a single value does not have any uncertainty that
+            # we really care about.
+            operand_data = operand
+            operand_uncertainty = np.zeros_like(self.uncertainty)
+            operand_unit = lezargus.library.conversion.parse_astropy_unit(unit_string="")
+
         # Addition and subtraction are unique in that we need to also check
-        # the data units.
-        if self.data_unit != operand.data_unit:
+        # the data units. 
+        if self.data_unit != operand_unit:
             logging.error(
                 error_type=logging.ArithmeticalError,
                 message=(
                     "The Lezargus container data/flux unit"
                     f" {self.data_unit} is not the same as the operand"
-                    f" unit {operand.data_unit}."
+                    f" unit {operand_unit}."
                 ),
             )
-
-        # If the operand is a single value, then we need to take that into
-        # account.
-        if isinstance(operand, LezargusContainerArithmetic):
-            operand_data = operand.data
-            operand_uncertainty = operand.uncertainty
-        else:
-            # We assume a single value does not have any uncertainty that
-            # we really care about.
-            operand_data = operand
-            operand_uncertainty = np.zeros_like(self.uncertainty)
 
         # Now we do the addition.
         # We do not want to modify our own objects as that goes against the
@@ -438,7 +446,24 @@ class LezargusContainerArithmetic:
         # All done.
         return result
 
-    def __sub__(self: hint.Self, operand: hint.Self) -> hint.Self:
+    def __radd__(self: hint.Self, operand: hint.Self) -> hint.Self:
+        """Perform an addition operation, commutative with __add__.
+
+        Parameters
+        ----------
+        operand : Self-like
+            The container object to add to this.
+
+        Returns
+        -------
+        result : Self-like
+            A copy of this object with the resultant calculations done.
+
+        """
+        return self.__add__(operand=operand)
+
+
+    def __sub__(self: hint.Self, operand: int|float|hint.Self) -> hint.Self:
         """Perform a subtraction operation.
 
         Parameters
@@ -455,7 +480,7 @@ class LezargusContainerArithmetic:
         # We need to check the applicability of the operand and the operation
         # being attempted. The actual return is likely not needed, but we
         # still test for it.
-        if not self.__justify_arithmetic_operation(operand=operand):
+        if not self.__verify_arithmetic_operation(operand=operand):
             logging.critical(
                 critical_type=logging.DevelopmentError,
                 message=(
@@ -464,34 +489,35 @@ class LezargusContainerArithmetic:
                     " returned here."
                 ),
             )
+
+        # There are two cases, if the operand object is a container, or 
+        # a singular value.
+        if isinstance(operand, LezargusContainerArithmetic):
+            # It is a container, we perform operations as normal.
+            operand_data = operand.data
+            operand_uncertainty = operand.uncertainty
+            operand_unit = operand.data_unit
+        else:
+            # The operand is just a single value, so, we handle it as so.
+            # We assume a single value does not have any uncertainty that
+            # we really care about.
+            operand_data = operand
+            operand_uncertainty = np.zeros_like(self.uncertainty)
+            operand_unit = lezargus.library.conversion.parse_astropy_unit(unit_string="")
+
         # Addition and subtraction are unique in that we need to also check
-        # the data units.
-        if self.data_unit != operand.data_unit:
+        # the data units. 
+        if self.data_unit != operand_unit:
             logging.error(
                 error_type=logging.ArithmeticalError,
                 message=(
                     "The Lezargus container data/flux unit"
                     f" {self.data_unit} is not the same as the operand"
-                    f" unit {operand.data_unit}."
+                    f" unit {operand_unit}."
                 ),
             )
 
-        # If the operand is a single value, then we need to take that into
-        # account.
-        if isinstance(operand, LezargusContainerArithmetic):
-            operand_data = operand.data
-            operand_uncertainty = operand.uncertainty
-        else:
-            # We assume a single value does not have any uncertainty that
-            # we really care about.
-            operand_data = operand
-            operand_uncertainty = np.zeros_like(self.uncertainty)
-
-        # We do not want to modify our own objects as that goes against the
-        # the main idea of operator operations.
-        result = copy.deepcopy(self)
-
-        # Now we perform the subtraction.
+        # Now we do the subtraction.
         # We do not want to modify our own objects as that goes against the
         # the main idea of operator operations.
         result = copy.deepcopy(self)
@@ -504,7 +530,7 @@ class LezargusContainerArithmetic:
         # All done.
         return result
 
-    def __mul__(self: hint.Self, operand: hint.Self) -> hint.Self:
+    def __mul__(self: hint.Self, operand: int|float|hint.Self) -> hint.Self:
         """Perform a multiplication operation.
 
         Parameters
@@ -521,7 +547,7 @@ class LezargusContainerArithmetic:
         # We need to check the applicability of the operand and the operation
         # being attempted. The actual return is likely not needed, but we
         # still test for it.
-        if not self.__justify_arithmetic_operation(operand=operand):
+        if not self.__verify_arithmetic_operation(operand=operand):
             logging.critical(
                 critical_type=logging.DevelopmentError,
                 message=(
@@ -535,13 +561,13 @@ class LezargusContainerArithmetic:
         # account.
         if isinstance(operand, LezargusContainerArithmetic):
             operand_data = operand.data
-            operand_data_unit = operand.data_unit
+            operand_unit = operand.data_unit
             operand_uncertainty = operand.uncertainty
         else:
             # We assume a single value does not have any uncertainty that
             # we really care about.
             operand_data = operand
-            operand_data_unit = lezargus.library.conversion.parse_astropy_unit(
+            operand_unit = lezargus.library.conversion.parse_astropy_unit(
                 unit_string="",
             )
             operand_uncertainty = np.zeros_like(self.uncertainty)
@@ -558,11 +584,27 @@ class LezargusContainerArithmetic:
         )
         # We also need to propagate the unit.
 
-        result.data_unit = self.data_unit * operand_data_unit
+        result.data_unit = self.data_unit * operand_unit
         # All done.
         return result
 
-    def __truediv__(self: hint.Self, operand: hint.Self) -> hint.Self:
+    def __rmul__(self: hint.Self, operand: hint.Self) -> hint.Self:
+        """Perform a multiplication operation, commutative with __mul__.
+
+        Parameters
+        ----------
+        operand : Self-like
+            The container object to multiply to this.
+
+        Returns
+        -------
+        result : Self-like
+            A copy of this object with the resultant calculations done.
+
+        """
+        return self.__mul__(operand=operand)
+
+    def __truediv__(self: hint.Self, operand: int|float|hint.Self) -> hint.Self:
         """Perform a true division operation.
 
         Parameters
@@ -579,7 +621,7 @@ class LezargusContainerArithmetic:
         # We need to check the applicability of the operand and the operation
         # being attempted. The actual return is likely not needed, but we
         # still test for it.
-        if not self.__justify_arithmetic_operation(operand=operand):
+        if not self.__verify_arithmetic_operation(operand=operand):
             logging.critical(
                 critical_type=logging.DevelopmentError,
                 message=(
@@ -593,13 +635,13 @@ class LezargusContainerArithmetic:
         # account.
         if isinstance(operand, LezargusContainerArithmetic):
             operand_data = operand.data
-            operand_data_unit = operand.data_unit
+            operand_unit = operand.data_unit
             operand_uncertainty = operand.uncertainty
         else:
             # We assume a single value does not have any uncertainty that
             # we really care about.
             operand_data = operand
-            operand_data_unit = lezargus.library.conversion.parse_astropy_unit(
+            operand_unit = lezargus.library.conversion.parse_astropy_unit(
                 unit_string="",
             )
             operand_uncertainty = np.zeros_like(self.uncertainty)
@@ -615,11 +657,11 @@ class LezargusContainerArithmetic:
             denominator_uncertainty=operand_uncertainty,
         )
         # We also need to propagate the unit.
-        result.data_unit = self.data_unit / operand_data_unit
+        result.data_unit = self.data_unit / operand_unit
         # All done.
         return result
 
-    def __pow__(self: hint.Self, operand: hint.Self) -> hint.Self:
+    def __pow__(self: hint.Self, operand: int|float|hint.Self) -> hint.Self:
         """Perform a true division operation.
 
         Parameters
@@ -636,7 +678,7 @@ class LezargusContainerArithmetic:
         # We need to check the applicability of the operand and the operation
         # being attempted. The actual return is likely not needed, but we
         # still test for it.
-        if not self.__justify_arithmetic_operation(operand=operand):
+        if not self.__verify_arithmetic_operation(operand=operand):
             logging.critical(
                 critical_type=logging.DevelopmentError,
                 message=(
@@ -653,13 +695,13 @@ class LezargusContainerArithmetic:
         )
         if isinstance(operand, LezargusContainerArithmetic):
             operand_data = operand.data
-            operand_data_unit = operand.data_unit
+            operand_unit = operand.data_unit
             operand_uncertainty = operand.uncertainty
         else:
             # We assume a single value does not have any uncertainty that
             # we really care about.
             operand_data = operand
-            operand_data_unit = no_unit
+            operand_unit = no_unit
             operand_uncertainty = np.zeros_like(self.uncertainty)
 
         # Now we perform the exponentiation.
@@ -672,16 +714,19 @@ class LezargusContainerArithmetic:
             base_uncertainty=self.uncertainty,
             exponent_uncertainty=operand_uncertainty,
         )
+
         # We propagate the units; however, by general practice, the exponent
         # should not have a unit.
-        if operand_data_unit != no_unit:
+        if operand_unit != no_unit:
             logging.error(
                 error_type=logging.ArithmeticalError,
                 message=(
                     "The exponent should be unitless, it has units:"
-                    f" {operand_data_unit}"
+                    f" {operand_unit}"
                 ),
             )
+        result.data_unit = self.data_unit ** operand
+
         # All done.
         return result
 
