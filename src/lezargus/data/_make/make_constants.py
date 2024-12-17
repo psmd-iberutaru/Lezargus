@@ -1,6 +1,6 @@
 """Make functions to create the generally non-configurable constants.
 
-This module is created to making the near-non-configurable constants in the 
+This module is created to making the near-non-configurable constants in the
 data module. Configurable constants should of course be under the domain
 of the configuration file.
 """
@@ -9,29 +9,27 @@ of the configuration file.
 # Import required to remove circular dependencies from type checking.
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from lezargus.library import hint
 # isort: split
 
-import astropy.table
 
-import lezargus
-from lezargus.library import logging
 from lezargus.data._make import functionality
+from lezargus.library import logging
 
-def make_constant(key:str, basename:str="constants.txt") -> None | int |float|str:
+
+def make_constant(
+    key: str,
+    basename: str = "constants.txt",
+) -> None | int | float | str:
     """Load a single constant value from the main file, based on the key.
 
     Parameters
     ----------
     key : str
-        The constant key value which we are going to be pulling from the 
+        The constant key value which we are going to be pulling from the
         constants file.
     basename : str, default = "constants.txt"
         The basename of the internal data file of the optic efficiency file.
-        The paths are handled automatically. We default to the expected 
+        The paths are handled automatically. We default to the expected
         constant file.
 
     Returns
@@ -45,10 +43,16 @@ def make_constant(key:str, basename:str="constants.txt") -> None | int |float|st
     # Sanitizing the key input.
     clean_key = key.upper().strip()
     if not clean_key.startswith("CONST_"):
-        logging.error(error_type=logging.InputError, message=f"Key {clean_key} does not begin with 'CONST_' and so is an invalid constant key.")
+        logging.error(
+            error_type=logging.InputError,
+            message=(
+                f"Key {clean_key} does not begin with 'CONST_' and so is an"
+                " invalid constant key."
+            ),
+        )
 
     # Opening the file.
-    with open(constants_filename, mode="r", encoding="utf8") as file:
+    with open(constants_filename, encoding="utf8") as file:
         file_lines = file.readlines()
 
     # We need to find the line in the file which has the constant value.
@@ -62,7 +66,13 @@ def make_constant(key:str, basename:str="constants.txt") -> None | int |float|st
             break
     # If the key failed to find.
     if constant_line is None:
-        logging.error(error_type=logging.DevelopmentError, message=f"Key {clean_key} does not match any entry in the constant file: {constants_filename}.")
+        logging.error(
+            error_type=logging.DevelopmentError,
+            message=(
+                f"Key {clean_key} does not match any entry in the constant"
+                f" file: {constants_filename}."
+            ),
+        )
         str_key = clean_key
         str_value = "None"
     else:
@@ -72,10 +82,16 @@ def make_constant(key:str, basename:str="constants.txt") -> None | int |float|st
         str_value = str_value.strip()
         # Last check.
         if str_key != clean_key:
-            logging.critical(critical_type=logging.DevelopmentError, message=f"Input key {clean_key} matched constant line key {str_key}, but they are not equal.")
-        
+            logging.critical(
+                critical_type=logging.DevelopmentError,
+                message=(
+                    f"Input key {clean_key} matched constant line key"
+                    f" {str_key}, but they are not equal."
+                ),
+            )
+
     # Finally, we need to convert it between one of the four types.
-    if str_value.casefold() == "none" or str_value == None:
+    if str_value.casefold() == "none" or str_value is None:
         constant_value = None
         return constant_value
     # We then attempt integers or floats.
@@ -92,8 +108,3 @@ def make_constant(key:str, basename:str="constants.txt") -> None | int |float|st
 
     # All done.
     return constant_value
-
-
-
-
-    

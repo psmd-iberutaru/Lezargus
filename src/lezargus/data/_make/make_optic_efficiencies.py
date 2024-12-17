@@ -21,7 +21,6 @@ import lezargus
 from lezargus.data._make import functionality
 
 
-
 def make_optic_efficiency(basename: str) -> hint.LezargusSpectrum:
     """Load the a single optic efficiency spectrum file.
 

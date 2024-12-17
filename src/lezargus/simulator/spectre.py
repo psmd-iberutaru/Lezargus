@@ -6,8 +6,8 @@ things (like the object itself or the atmosphere) and the specifics of their
 implementations can be found there. Implementation specifics to the SPECTRE
 instrument itself are found here.
 
-By self-imposed convention, the attributes are generally named as `at_[stage]` 
-where the result is the simulated result right after simulating whichever 
+By self-imposed convention, the attributes are generally named as `at_[stage]`
+where the result is the simulated result right after simulating whichever
 stage is named.
 
 For ease, we package the smaller simulators within this single simulator class.
@@ -34,7 +34,7 @@ from lezargus.library import logging
 
 class SpectreSimulator:  # pylint: disable=too-many-public-methods
     """Main SPECTRE simulator class.
-    
+
     By self-imposed convention, the attributes are generally named as
     `at_[stage]` where the result is the simulated result right after
     simulating whichever stage is named.
@@ -69,7 +69,6 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
     """If True, we cache calculated values so that they do not need to
     be calculated every time when not needed. If False, caches are never
     returned and instead everything is always recomputed."""
-
 
     def __init__(
         self: SpectreSimulator,
@@ -352,7 +351,8 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
     def at_target_spectrum(self: hint.Self) -> hint.LezargusCube | None:
         """Exposing the target's `at_target_spectrum` instance.
 
-        See py:meth:`lezargus.simulator.target.TargetSimulator.at_target_spectrum()`.
+        See
+        py:meth:`lezargus.simulator.target.TargetSimulator.at_target_spectrum()`.
 
         Parameters
         ----------
@@ -386,7 +386,8 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
     def at_target_photon(self: hint.Self) -> hint.LezargusCube:
         """Exposing the target's `at_target_photon` instance.
 
-        See py:meth:`lezargus.simulator.target.TargetSimulator.at_target_photon()`.
+        See
+        py:meth:`lezargus.simulator.target.TargetSimulator.at_target_photon()`.
 
         Parameters
         ----------
@@ -403,7 +404,8 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
     def at_transmission(self: hint.Self) -> hint.LezargusCube:
         """Exposing the target's `at_transmission` instance.
 
-        See py:meth:`lezargus.simulator.target.TargetSimulator.at_transmission()`.
+        See
+        py:meth:`lezargus.simulator.target.TargetSimulator.at_transmission()`.
 
         Parameters
         ----------
@@ -750,8 +752,9 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # The blackbody is modulated by...
         # ...the window's own transmission,
         window_transmission = lezargus.data.EFFICIENCY_SPECTRE_WINDOW
-        window_transmission_data,__, __, __ = window_transmission.interpolate(
-            wavelength=common_wavelength, extrapolate=False
+        window_transmission_data, __, __, __ = window_transmission.interpolate(
+            wavelength=common_wavelength,
+            extrapolate=False,
         )
         emission_efficiency = 1 - window_transmission_data
         # ...the area of the window, more specifically, the area of the science
@@ -767,11 +770,11 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
 
         # We want this emission in photon counting form.
         window_emission_spectrum = lezargus.library.container.LezargusSpectrum(
-            wavelength=common_wavelength, 
-            data=window_emission, 
-            uncertainty=0, 
-            wavelength_unit=previous_state.wavelength_unit, 
-            data_unit="W m^-2 m^-1"
+            wavelength=common_wavelength,
+            data=window_emission,
+            uncertainty=0,
+            wavelength_unit=previous_state.wavelength_unit,
+            data_unit="W m^-2 m^-1",
         )
         window_photon_emission = self._convert_to_photon(
             container=window_emission_spectrum,
@@ -958,7 +961,11 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             slice_scale = previous_state.slice_scale
 
             # The field of view ought to be in radians per the SI convention.
-            fov_radian = lezargus.library.conversion.convert_units(value=fov_arcsec, value_unit="arcsec", result_unit="radian")
+            fov_radian = lezargus.library.conversion.convert_units(
+                value=fov_arcsec,
+                value_unit="arcsec",
+                result_unit="radian",
+            )
 
             # We need to make sure there is actually a provided pixel scale
             # and slice scale, else we cannot assume the size of the current
@@ -1142,7 +1149,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # We then apply the transmission function to each of the slices.
         new_state = list(previous_state)
         for index, slicedex in enumerate(previous_state):
-            new_state[index] = slicedex *  pupil_mirror_transmission_broadcast
+            new_state[index] = slicedex * pupil_mirror_transmission_broadcast
 
         # All done.
         current_state = tuple(new_state)
@@ -1237,9 +1244,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # We then apply the transmission function to each of the slices.
         new_state = list(previous_state)
         for index, slicedex in enumerate(previous_state):
-            new_state[index] = (
-                slicedex * dichroic_transmission_broadcast
-            )
+            new_state[index] = slicedex * dichroic_transmission_broadcast
 
         # All done.
         current_state = tuple(new_state)
@@ -1305,9 +1310,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # We then apply the transmission function to each of the slices.
         new_state = list(previous_state)
         for index, slicedex in enumerate(previous_state):
-            new_state[index] = (
-                slicedex * trirelay_transmission_broadcast
-            )
+            new_state[index] = slicedex * trirelay_transmission_broadcast
 
         # All done.
         current_state = tuple(new_state)
@@ -1382,9 +1385,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # We then apply the transmission function to each of the slices.
         new_state = list(previous_state)
         for index, slicedex in enumerate(previous_state):
-            new_state[index] = (
-                slicedex * double_prism_transmission_broadcast
-            )
+            new_state[index] = slicedex * double_prism_transmission_broadcast
 
         # All done.
         current_state = tuple(new_state)
@@ -1446,9 +1447,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # We then apply the transmission function to each of the slices.
         new_state = list(previous_state)
         for index, slicedex in enumerate(previous_state):
-            new_state[index] = (
-                slicedex * fold_transmission_broadcast
-            )
+            new_state[index] = slicedex * fold_transmission_broadcast
 
         # All done.
         current_state = tuple(new_state)
@@ -1511,9 +1510,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # We then apply the transmission function to each of the slices.
         new_state = list(previous_state)
         for index, slicedex in enumerate(previous_state):
-            new_state[index] = (
-                slicedex * detector_efficiency_broadcast
-            )
+            new_state[index] = slicedex * detector_efficiency_broadcast
 
         # All done.
         current_state = tuple(new_state)

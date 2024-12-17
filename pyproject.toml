@@ -126,6 +126,7 @@ preview = true
 [tool.ruff]
 target-version = "py311"
 line-length = 80
+output-format = "concise"
 
 [tool.ruff.lint]
 select = [

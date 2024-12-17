@@ -1,0 +1,14 @@
+
+# Data constants for the Lezargus package. We do not expect these constants to 
+# change throughout usage of the program. Changeable constants are instead 
+# considered configuration values and should be changed by the configuration 
+# file accordingly.
+# 
+# Only basic ASCII-like values should be applied as values to these constants. 
+# These constants are usually generated via the appropriate auxiliary file.
+# --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
+
+CONST_ENTRANCE_WINDOW_SOLID_ANGLE  =  9.296427990171936e-05
+CONST_PRIMARY_MIRROR_SOLID_ANGLE  =  4.5724067020922155e-08
+CONST_SECONDARY_MIRROR_SOLID_ANGLE  =  1.404543931703224e-07
+CONST_SPECTRE_SLICES  =  36

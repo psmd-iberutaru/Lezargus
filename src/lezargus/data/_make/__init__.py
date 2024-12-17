@@ -15,6 +15,11 @@ from lezargus.data._make.make_atmosphere_generators import (
 # Constant values.
 from lezargus.data._make.make_constants import make_constant
 
+# Dispersion patterns.
+from lezargus.data._make.make_dispersion_patterns import (
+    make_spectre_dispersion_pattern,
+)
+
 # Efficiency function spectrum make functions.
 from lezargus.data._make.make_optic_efficiencies import make_optic_efficiency
 

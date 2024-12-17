@@ -692,7 +692,13 @@ def kernel_1d_gaussian_resolution(
             (base_resolving_power**2 - target_resolving_power**2)
             / (base_resolving_power * target_resolving_power)
         )
-        logging.warning(warning_type=logging.DeprecationWarning, message=f"Resolving power kernel generation should be replaced with resolutions computed from resolving power.")
+        logging.warning(
+            warning_type=logging.DeprecationWarning,
+            message=(
+                "Resolving power kernel generation should be replaced with"
+                " resolutions computed from resolving power."
+            ),
+        )
     else:
         # No mode could be found usable. The inputs seem to be quite wrong.
         # This is equivalent to TypeError missing argument, hence a critical

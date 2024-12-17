@@ -599,7 +599,6 @@ class TargetSimulator:
             atmospheric radiance.
 
         """
-
         # No cached value, we calculate it from the previous state.
         previous_state = self.at_transmission
 
@@ -675,7 +674,6 @@ class TargetSimulator:
             atmospheric seeing.
 
         """
-
         # No cached value, we calculate it from the previous state.
         previous_state = self.at_radiance
 
@@ -718,7 +716,6 @@ class TargetSimulator:
             atmospheric refraction.
 
         """
-
         # No cached value, we calculate it from the previous state.
         previous_state = self.at_seeing
 
@@ -761,9 +758,9 @@ class TargetSimulator:
     def at_observed(self: hint.Self) -> hint.LezargusCube:
         """State of simulation after an "observation".
 
-        This object is basically the preferred alias for referring to the 
+        This object is basically the preferred alias for referring to the
         simulation at the point right after atmospheric effects. This is where
-        the a target simulation ends and further simulation is done by 
+        the a target simulation ends and further simulation is done by
         specific instrument simulators.
 
         Parameters
@@ -789,4 +786,3 @@ class TargetSimulator:
         if self.use_cache:
             self._cache_observed = current_state
         return current_state
-

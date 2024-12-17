@@ -57,6 +57,7 @@ from lezargus.library.container import LezargusMosaic
 from lezargus.library.container import LezargusSpectrum
 from lezargus.library.container import PhotometricABFilter
 from lezargus.library.container import PhotometricVegaFilter
+from lezargus.library.container import SpectreDispersionPattern
 
 # Lezargus aliases.
 # Library things.

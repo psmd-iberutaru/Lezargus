@@ -231,13 +231,19 @@ class DataLossWarning(LezargusWarning):
     files are trying to be deleted or otherwise modified.
     """
 
-class DeprecationWarning(LezargusWarning):
+
+class DeprecationWarning(LezargusWarning):  # noqa: A001
     """A warning for deprecated functions.
-    
+
     This warning is used when a deprecated function is being used. This is used
-    over DeprecationError when there is not an obvious replacement. There 
-    should be something similar which can be used, but it is not guaranteed to 
-    a drop and replace."""
+    over DeprecationError when there is not an obvious replacement. There
+    should be something similar which can be used, but it is not guaranteed to
+    a drop and replace.
+
+    Note, this shadows the built-in DeprecationWarning. However, this should
+    not be an issue as this class is only exposed for Lezargus.
+    """
+
 
 class FileWarning(LezargusWarning):
     """A warning used for file and permission issues which are not fatal.

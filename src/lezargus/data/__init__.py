@@ -39,6 +39,8 @@ def __initialize_data_all() -> None:
     __initialize_data_photometric_filters()
     __initialize_data_atmosphere_generators()
     __initialize_data_optic_efficiency_functions()
+    __initialize_data_dispersion_patterns()
+
 
 def __initialize_data_constants() -> None:
     """Initialize only the constant value data.
@@ -57,6 +59,21 @@ def __initialize_data_constants() -> None:
         return
 
     # Otherwise...
+    global CONST_ENTRANCE_WINDOW_SOLID_ANGLE
+    CONST_ENTRANCE_WINDOW_SOLID_ANGLE = _make.make_constant(
+        key="CONST_ENTRANCE_WINDOW_SOLID_ANGLE",
+    )
+
+    global CONST_PRIMARY_MIRROR_SOLID_ANGLE
+    CONST_PRIMARY_MIRROR_SOLID_ANGLE = _make.make_constant(
+        key="CONST_PRIMARY_MIRROR_SOLID_ANGLE",
+    )
+
+    global CONST_SECONDARY_MIRROR_SOLID_ANGLE
+    CONST_SECONDARY_MIRROR_SOLID_ANGLE = _make.make_constant(
+        key="CONST_SECONDARY_MIRROR_SOLID_ANGLE",
+    )
+
     global CONST_SPECTRE_SLICES
     CONST_SPECTRE_SLICES = _make.make_constant(key="CONST_SPECTRE_SLICES")
 
@@ -373,6 +390,29 @@ def __initialize_data_optic_efficiency_functions() -> None:
 
     # All done
     return
+
+
+def __initialize_data_dispersion_patterns() -> None:
+    """Initialize only the spectral/detector dispersion patterns.
+
+    Parameters
+    ----------
+    None
+
+    Returns
+    -------
+    None
+
+    """
+    # If the initialization of the data is to be skipped.
+    if lezargus.config.INTERNAL_DEBUG_SKIP_LOADING_DATA_FILES:
+        return
+
+    # The SPECTRE pattern.
+    global DISPERSION_SPECTRE
+    DISPERSION_SPECTRE = _make.make_spectre_dispersion_pattern(
+        basename="spectre_slice_dispersion.dat",
+    )
 
 
 __initialize_data_all()

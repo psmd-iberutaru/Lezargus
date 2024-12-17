@@ -379,7 +379,7 @@ class LezargusContainerArithmetic:
         verified = True
         return verified
 
-    def __add__(self: hint.Self, operand: int|float | hint.Self) -> hint.Self:
+    def __add__(self: hint.Self, operand: float | hint.Self) -> hint.Self:
         """Perform an addition operation.
 
         Parameters
@@ -406,7 +406,7 @@ class LezargusContainerArithmetic:
                 ),
             )
 
-        # There are two cases, if the operand object is a container, or 
+        # There are two cases, if the operand object is a container, or
         # a singular value.
         if isinstance(operand, LezargusContainerArithmetic):
             # It is a container, we perform operations as normal.
@@ -419,10 +419,12 @@ class LezargusContainerArithmetic:
             # we really care about.
             operand_data = operand
             operand_uncertainty = np.zeros_like(self.uncertainty)
-            operand_unit = lezargus.library.conversion.parse_astropy_unit(unit_string="")
+            operand_unit = lezargus.library.conversion.parse_astropy_unit(
+                unit_string="",
+            )
 
         # Addition and subtraction are unique in that we need to also check
-        # the data units. 
+        # the data units.
         if self.data_unit != operand_unit:
             logging.error(
                 error_type=logging.ArithmeticalError,
@@ -462,8 +464,7 @@ class LezargusContainerArithmetic:
         """
         return self.__add__(operand=operand)
 
-
-    def __sub__(self: hint.Self, operand: int|float|hint.Self) -> hint.Self:
+    def __sub__(self: hint.Self, operand: float | hint.Self) -> hint.Self:
         """Perform a subtraction operation.
 
         Parameters
@@ -490,7 +491,7 @@ class LezargusContainerArithmetic:
                 ),
             )
 
-        # There are two cases, if the operand object is a container, or 
+        # There are two cases, if the operand object is a container, or
         # a singular value.
         if isinstance(operand, LezargusContainerArithmetic):
             # It is a container, we perform operations as normal.
@@ -503,10 +504,12 @@ class LezargusContainerArithmetic:
             # we really care about.
             operand_data = operand
             operand_uncertainty = np.zeros_like(self.uncertainty)
-            operand_unit = lezargus.library.conversion.parse_astropy_unit(unit_string="")
+            operand_unit = lezargus.library.conversion.parse_astropy_unit(
+                unit_string="",
+            )
 
         # Addition and subtraction are unique in that we need to also check
-        # the data units. 
+        # the data units.
         if self.data_unit != operand_unit:
             logging.error(
                 error_type=logging.ArithmeticalError,
@@ -530,7 +533,7 @@ class LezargusContainerArithmetic:
         # All done.
         return result
 
-    def __mul__(self: hint.Self, operand: int|float|hint.Self) -> hint.Self:
+    def __mul__(self: hint.Self, operand: float | hint.Self) -> hint.Self:
         """Perform a multiplication operation.
 
         Parameters
@@ -604,7 +607,10 @@ class LezargusContainerArithmetic:
         """
         return self.__mul__(operand=operand)
 
-    def __truediv__(self: hint.Self, operand: int|float|hint.Self) -> hint.Self:
+    def __truediv__(
+        self: hint.Self,
+        operand: float | hint.Self,
+    ) -> hint.Self:
         """Perform a true division operation.
 
         Parameters
@@ -661,7 +667,7 @@ class LezargusContainerArithmetic:
         # All done.
         return result
 
-    def __pow__(self: hint.Self, operand: int|float|hint.Self) -> hint.Self:
+    def __pow__(self: hint.Self, operand: float | hint.Self) -> hint.Self:
         """Perform a true division operation.
 
         Parameters
@@ -725,7 +731,7 @@ class LezargusContainerArithmetic:
                     f" {operand_unit}"
                 ),
             )
-        result.data_unit = self.data_unit ** operand
+        result.data_unit = self.data_unit**operand
 
         # All done.
         return result
