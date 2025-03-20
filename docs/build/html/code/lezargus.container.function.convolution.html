@@ -14,39 +14,41 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-
-  
-  <link href="../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
     <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../_static/doctools.js?v=888ff710"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'code/lezargus.container.function.convolution';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="lezargus.container.function.transform module" href="lezargus.container.function.transform.html" />
-    <link rel="prev" title="lezargus.container.function.broadcast module" href="lezargus.container.function.broadcast.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -54,31 +56,16 @@
 
   
   
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -86,7 +73,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -94,10 +80,15 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
     </header>
   
 
@@ -106,7 +97,8 @@
       
       
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -121,6 +113,8 @@
         <div class="sidebar-primary-item">
 
   
+    
+  
 
 <a class="navbar-brand logo" href="../index.html">
   
@@ -134,55 +128,51 @@
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Manual</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../user/index.html">User Manual</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="simple">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../user/index.html">User Manual</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
 </ul>
-</li>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../technical/index.html">Technical Manual</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../technical/index.html">Technical Manual</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../technical/atmosphere.html">Atmospheric Properties</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../technical/contributing.html">Contributor Guide</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../technical/convention.html">Conventions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../technical/photometry.html">Photometry</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../technical/uncertainty.html">Uncertainty Propagation</a></li>
 </ul>
-</li>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
-<ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active has-children"><a class="reference internal" href="modules.html">lezargus</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l2 current active has-children"><a class="reference internal" href="lezargus.html">lezargus package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l3 current active has-children"><a class="reference internal" href="lezargus.container.html">lezargus.container package</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
-<li class="toctree-l4 current active"><a class="reference internal" href="lezargus.container.function.html">lezargus.container.function package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lezargus.container.atmosphere.html">lezargus.container.atmosphere module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lezargus.container.cube.html">lezargus.container.cube module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lezargus.container.image.html">lezargus.container.image module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lezargus.container.mosaic.html">lezargus.container.mosaic module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lezargus.container.parent.html">lezargus.container.parent module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lezargus.container.spectrum.html">lezargus.container.spectrum module</a></li>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="modules.html">lezargus</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="lezargus.html">lezargus package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="lezargus.cli.html">lezargus.cli package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.cli.__main__.html">lezargus.cli.__main__ module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.cli.help_.html">lezargus.cli.help_ module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.cli.version.html">lezargus.cli.version module</a></li>
 </ul>
-</li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="lezargus.library.html">lezargus.library package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="lezargus.data.html">lezargus.data package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.data._make.html">lezargus.data._make package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="lezargus.library.html">lezargus.library package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.container.html">lezargus.library.container package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.array.html">lezargus.library.array module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.atmosphere.html">lezargus.library.atmosphere module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lezargus.library.config.html">lezargus.library.config module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.configuration.html">lezargus.library.configuration module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.conversion.html">lezargus.library.conversion module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.convolution.html">lezargus.library.convolution module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lezargus.library.data.html">lezargus.library.data module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.fits.html">lezargus.library.fits module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.flags.html">lezargus.library.flags module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.hint.html">lezargus.library.hint module</a></li>
@@ -197,20 +187,23 @@
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.transform.html">lezargus.library.transform module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
 </ul>
-</li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="lezargus.simulator.html">lezargus.simulator package</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="lezargus.simulator.html">lezargus.simulator package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.simulator.atmosphere.html">lezargus.simulator.atmosphere module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.simulator.spectre.html">lezargus.simulator.spectre module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.simulator.target.html">lezargus.simulator.target module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.simulator.telescope.html">lezargus.simulator.telescope module</a></li>
 </ul>
-</li>
+</details></li>
 <li class="toctree-l3"><a class="reference internal" href="lezargus.__main__.html">lezargus.__main__ module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="lezargus.__version__.html">lezargus.__version__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lezargus.config.html">lezargus.config module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="lezargus.initialize.html">lezargus.initialize module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lezargus.terminate.html">lezargus.terminate module</a></li>
 </ul>
-</li>
+</details></li>
 </ul>
-</li>
+</details></li>
 </ul>
 
     </div>
@@ -226,7 +219,7 @@
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -235,14 +228,14 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -318,27 +311,17 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="fa-solid fa-list"></span>
-</label>
+</button>
+
 </div></div>
       
     </div>
@@ -354,16 +337,6 @@ document.write(`
     <div id="print-main-content">
         <div id="jb-print-toc">
             
-            <div>
-                <h2> Contents </h2>
-            </div>
-            <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.container.function.convolution.convolve_cube_by_image_kernel"><code class="docutils literal notranslate"><span class="pre">convolve_cube_by_image_kernel()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.container.function.convolution.convolve_cube_by_spectral_kernel"><code class="docutils literal notranslate"><span class="pre">convolve_cube_by_spectral_kernel()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.container.function.convolution.convolve_spectrum_by_spectral_kernel"><code class="docutils literal notranslate"><span class="pre">convolve_spectrum_by_spectral_kernel()</span></code></a></li>
-</ul>
-            </nav>
         </div>
     </div>
 </div>
@@ -373,106 +346,8 @@ document.write(`
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <section id="module-lezargus.container.function.convolution">
-<span id="lezargus-container-function-convolution-module"></span><h1>lezargus.container.function.convolution module<a class="headerlink" href="#module-lezargus.container.function.convolution" title="Link to this heading">#</a></h1>
-<p>Convolution functions specifically tailored to Lezargus containers.</p>
-<p>We seperate the logic for containers into functions which make it a little
-easier to understand. Moreover, these functions can also be used separately.
-The logic is similar to Numpy’s functions like py:func:<cite>numpy.mean</cite> and
-<cite>numpy.ndarray.mean</cite>; and other modules in
-<a class="reference internal" href="lezargus.container.function.html#module-lezargus.container.function" title="lezargus.container.function"><code class="xref py py-mod docutils literal notranslate"><span class="pre">lezargus.container.function</span></code></a>.</p>
-<dl class="py function">
-<dt class="sig sig-object py" id="lezargus.container.function.convolution.convolve_cube_by_image_kernel">
-<span class="sig-prename descclassname"><span class="pre">lezargus.container.function.convolution.</span></span><span class="sig-name descname"><span class="pre">convolve_cube_by_image_kernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cube</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.LezargusCube</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_stack</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.Callable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">hint.LezargusCube</span></span></span><a class="reference internal" href="../_modules/lezargus/container/function/convolution.html#convolve_cube_by_image_kernel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.container.function.convolution.convolve_cube_by_image_kernel" title="Link to this definition">#</a></dt>
-<dd><p>Convolve the cube by an image kernel convolving image slices.</p>
-<p>Convolving a spectral cube can either be done one of two ways;
-convolving by image slices or convolving by spectral slices. We here
-convolve by image slices.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>cube</strong> (<a class="reference internal" href="lezargus.container.cube.html#lezargus.container.cube.LezargusCube" title="lezargus.container.cube.LezargusCube"><em>LezargusCube</em></a>) – The cube we are convolving.</p></li>
-<li><p><strong>kernel</strong> (<em>ndarray</em><em>, </em><em>default = None</em>) – A static 2D image kernel. If provided, we use this static kernel
-to convolve the cube by. Exclusive with other kernel options.</p></li>
-<li><p><strong>kernel_stack</strong> (<em>ndarray</em><em>, </em><em>default = None</em>) – A variable 2D image kernel stack. If provided, we use the variable
-kernel stack to convolve the cube by. Exclusive with other kernel
-options.</p></li>
-<li><p><strong>kernel_function</strong> (<em>Callable</em><em>, </em><em>default = None</em>) – A dynamic 2D kernel function. If provided, we use the dynamic
-kernel function to convolve the cube by. Exclusive with other
-kernel options.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>convolved_cube</strong> – A near copy of the data cube after convolution.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="lezargus.container.function.convolution.convolve_cube_by_spectral_kernel">
-<span class="sig-prename descclassname"><span class="pre">lezargus.container.function.convolution.</span></span><span class="sig-name descname"><span class="pre">convolve_cube_by_spectral_kernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cube</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.LezargusCube</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_stack</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.Callable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">hint.LezargusCube</span></span></span><a class="reference internal" href="../_modules/lezargus/container/function/convolution.html#convolve_cube_by_spectral_kernel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.container.function.convolution.convolve_cube_by_spectral_kernel" title="Link to this definition">#</a></dt>
-<dd><p>Convolve the cube by a spectral kernel convolving spectra slices.</p>
-<p>Convolving a spectral cube can either be done one of two ways;
-convolving by image slices or convolving by spectral slices. We here
-convolve by spectral slices.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>cube</strong> (<a class="reference internal" href="lezargus.container.cube.html#lezargus.container.cube.LezargusCube" title="lezargus.container.cube.LezargusCube"><em>LezargusCube</em></a>) – The cube we are convolving.</p></li>
-<li><p><strong>kernel</strong> (<em>ndarray</em><em>, </em><em>default = None</em>) – A static 1D spectral kernel. If provided, we use this static kernel
-to convolve the cube by. Exclusive with other kernel options.</p></li>
-<li><p><strong>kernel_stack</strong> (<em>ndarray</em><em>, </em><em>default = None</em>) – A variable 1D spectral kernel stack. If provided, we use the
-variable kernel stack to convolve the cube by. Exclusive with
-other kernel options.</p></li>
-<li><p><strong>kernel_function</strong> (<em>Callable</em><em>, </em><em>default = None</em>) – A dynamic 1D kernel function. If provided, we use the dynamic kernel
-function to convolve the cube by. Exclusive with other kernel
-options.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>convolved_cube</strong> – A near copy of the data cube after convolution.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt class="sig sig-object py" id="lezargus.container.function.convolution.convolve_spectrum_by_spectral_kernel">
-<span class="sig-prename descclassname"><span class="pre">lezargus.container.function.convolution.</span></span><span class="sig-name descname"><span class="pre">convolve_spectrum_by_spectral_kernel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spectrum</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.LezargusSpectrum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_stack</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.ndarray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kernel_function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.Callable</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">hint.LezargusSpectrum</span></span></span><a class="reference internal" href="../_modules/lezargus/container/function/convolution.html#convolve_spectrum_by_spectral_kernel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.container.function.convolution.convolve_spectrum_by_spectral_kernel" title="Link to this definition">#</a></dt>
-<dd><p>Convolve the spectrum with a spectral kernel.</p>
-<p>We compute the convolution and return a near copy of the spectrum after
-convolution. The wavelength is not affected.</p>
-<p>As spectrum are 1D, there is no dimension to have a variable kernel,
-as variable kernels need a non-convolution axis to vary on. There can
-only be a static or dynamic kernel.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>spectrum</strong> (<a class="reference internal" href="lezargus.container.cube.html#lezargus.container.cube.LezargusCube" title="lezargus.container.cube.LezargusCube"><em>LezargusCube</em></a>) – The spectrum we are convolving.</p></li>
-<li><p><strong>kernel</strong> (<em>ndarray</em><em>, </em><em>default = None</em>) – A static 1D spectral kernel. If provided, we use this static kernel
-to convolve the spectrum by. Exclusive with other kernel options.</p></li>
-<li><p><strong>kernel_stack</strong> (<em>ndarray</em><em>, </em><em>default = None</em>) – A variable 1D spectral kernel stack. If provided, we use the
-variable kernel stack to convolve the spectrum by. Exclusive with
-other kernel options.</p></li>
-<li><p><strong>kernel_function</strong> (<em>Callable</em><em>, </em><em>default = None</em>) – A dynamic 1D kernel function. If provided, we use the dynamic kernel
-function to convolve the spectrum by. Exclusive with other kernel
-options.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>convolved_spectrum</strong> – A near copy of the spectrum after convolution.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-
+  <section id="lezargus-container-function-convolution-module">
+<h1>lezargus.container.function.convolution module<a class="headerlink" href="#lezargus-container-function-convolution-module" title="Link to this heading">#</a></h1>
 </section>
 
 
@@ -483,50 +358,15 @@ options.</p></li>
               
               
               
-                <footer class="prev-next-footer">
+                <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
-    <a class="left-prev"
-       href="lezargus.container.function.broadcast.html"
-       title="previous page">
-      <i class="fa-solid fa-angle-left"></i>
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">lezargus.container.function.broadcast module</p>
-      </div>
-    </a>
-    <a class="right-next"
-       href="lezargus.container.function.transform.html"
-       title="next page">
-      <div class="prev-next-info">
-        <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">lezargus.container.function.transform module</p>
-      </div>
-      <i class="fa-solid fa-angle-right"></i>
-    </a>
 </div>
                 </footer>
               
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
-
-
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
-    <i class="fa-solid fa-list"></i> Contents
-  </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.container.function.convolution.convolve_cube_by_image_kernel"><code class="docutils literal notranslate"><span class="pre">convolve_cube_by_image_kernel()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.container.function.convolution.convolve_cube_by_spectral_kernel"><code class="docutils literal notranslate"><span class="pre">convolve_cube_by_spectral_kernel()</span></code></a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.container.function.convolution.convolve_spectrum_by_spectral_kernel"><code class="docutils literal notranslate"><span class="pre">convolve_spectrum_by_spectral_kernel()</span></code></a></li>
-</ul>
-  </nav></div>
-
-</div></div>
               
             
           </div>
@@ -571,8 +411,8 @@ By Sparrow
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
   </footer>

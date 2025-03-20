@@ -1,6 +1,14 @@
 lezargus.library package
 ========================
 
+Subpackages
+-----------
+
+.. toctree::
+   :maxdepth: 4
+
+   lezargus.library.container
+
 Submodules
 ----------
 
@@ -9,10 +17,9 @@ Submodules
 
    lezargus.library.array
    lezargus.library.atmosphere
-   lezargus.library.config
+   lezargus.library.configuration
    lezargus.library.conversion
    lezargus.library.convolution
-   lezargus.library.data
    lezargus.library.fits
    lezargus.library.flags
    lezargus.library.hint

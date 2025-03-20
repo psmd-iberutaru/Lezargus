@@ -10,6 +10,7 @@ Submodules
    lezargus.simulator.atmosphere
    lezargus.simulator.spectre
    lezargus.simulator.target
+   lezargus.simulator.telescope
 
 Module contents
 ---------------

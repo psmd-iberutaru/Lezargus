@@ -13,37 +13,41 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-
-  
-  <link href="../../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
     <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
   
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
-<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
-  <script src="../../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
     <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
     <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = '_modules/lezargus/simulator/target';</script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -51,31 +55,16 @@
 
   
   
-  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../../../search.html"
       method="get">
@@ -83,7 +72,6 @@
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search..."
          aria-label="Search..."
          autocomplete="off"
@@ -91,10 +79,15 @@
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
     </header>
   
 
@@ -105,7 +98,8 @@
       
         
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -120,6 +114,8 @@
         <div class="sidebar-primary-item">
 
   
+    
+  
 
 <a class="navbar-brand logo" href="../../../index.html">
   
@@ -133,55 +129,51 @@
 </a></div>
         <div class="sidebar-primary-item">
 
- <script>
- document.write(`
-   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <i class="fa-solid fa-magnifying-glass"></i>
-    <span class="search-button__default-text">Search</span>
-    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
-   </button>
- `);
- </script></div>
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
         <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Manual</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../user/index.html">User Manual</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul class="simple">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../user/index.html">User Manual</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
 </ul>
-</li>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../technical/index.html">Technical Manual</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../technical/index.html">Technical Manual</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l2"><a class="reference internal" href="../../../technical/atmosphere.html">Atmospheric Properties</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../technical/contributing.html">Contributor Guide</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../technical/convention.html">Conventions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../technical/photometry.html">Photometry</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../../technical/uncertainty.html">Uncertainty Propagation</a></li>
 </ul>
-</li>
+</details></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
 <ul class="nav bd-sidenav">
-<li class="toctree-l1 has-children"><a class="reference internal" href="../../../code/modules.html">lezargus</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l2 has-children"><a class="reference internal" href="../../../code/lezargus.html">lezargus package</a><input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.container.html">lezargus.container package</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
-<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.function.html">lezargus.container.function package</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.atmosphere.html">lezargus.container.atmosphere module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.cube.html">lezargus.container.cube module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.image.html">lezargus.container.image module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.mosaic.html">lezargus.container.mosaic module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.parent.html">lezargus.container.parent module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.container.spectrum.html">lezargus.container.spectrum module</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../code/modules.html">lezargus</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../code/lezargus.html">lezargus package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.cli.html">lezargus.cli package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.cli.__main__.html">lezargus.cli.__main__ module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.cli.help_.html">lezargus.cli.help_ module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.cli.version.html">lezargus.cli.version module</a></li>
 </ul>
-</li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.library.html">lezargus.library package</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.data.html">lezargus.data package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.data._make.html">lezargus.data._make package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.library.html">lezargus.library package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.container.html">lezargus.library.container package</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.array.html">lezargus.library.array module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.atmosphere.html">lezargus.library.atmosphere module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.config.html">lezargus.library.config module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.configuration.html">lezargus.library.configuration module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.conversion.html">lezargus.library.conversion module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.convolution.html">lezargus.library.convolution module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.data.html">lezargus.library.data module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.fits.html">lezargus.library.fits module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.flags.html">lezargus.library.flags module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.hint.html">lezargus.library.hint module</a></li>
@@ -196,20 +188,23 @@
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.transform.html">lezargus.library.transform module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
 </ul>
-</li>
-<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.simulator.html">lezargus.simulator package</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.simulator.html">lezargus.simulator package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.simulator.atmosphere.html">lezargus.simulator.atmosphere module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.simulator.spectre.html">lezargus.simulator.spectre module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.simulator.target.html">lezargus.simulator.target module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.simulator.telescope.html">lezargus.simulator.telescope module</a></li>
 </ul>
-</li>
+</details></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__main__.html">lezargus.__main__ module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__version__.html">lezargus.__version__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.config.html">lezargus.config module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.initialize.html">lezargus.initialize module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.terminate.html">lezargus.terminate module</a></li>
 </ul>
-</li>
+</details></li>
 </ul>
-</li>
+</details></li>
 </ul>
 
     </div>
@@ -225,7 +220,7 @@
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -234,14 +229,14 @@
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -269,24 +264,16 @@
 
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
-  </button>
-`);
-</script>
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
+</button>
 
 </div></div>
       
@@ -337,7 +324,6 @@ document.write(`
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 <span class="kn">import</span> <span class="nn">lezargus</span>
-<span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">hint</span>
 <span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">logging</span>
 
 
@@ -371,7 +357,7 @@ document.write(`
     <span class="n">atmosphere</span> <span class="o">=</span> <span class="kc">None</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;AtmosphereSimulator : The atmosphere simulator which describes and</span>
 <span class="sd">    simulates atmospheric effects. If not provided by</span>
-<span class="sd">    py:meth:`apply_atmosphere`, this defaults to None.&quot;&quot;&quot;</span>
+<span class="sd">    py:meth:`add_atmosphere`, this defaults to None.&quot;&quot;&quot;</span>
 
     <span class="n">use_cache</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;bool : If True, we cache calculated values so that they do not need to</span>
@@ -380,10 +366,7 @@ document.write(`
 
     <span class="c1"># Cache objects.</span>
     <span class="n">_cache_target_photon</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">_cache_transmission</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">_cache_radiance</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">_cache_seeing</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">_cache_refraction</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">_cache_observed</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="TargetSimulator.__init__">
 <a class="viewcode-back" href="../../../code/lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.__init__">[docs]</a>
@@ -431,13 +414,15 @@ document.write(`
 <a class="viewcode-back" href="../../../code/lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.from_blackbody">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_blackbody</span><span class="p">(</span>
-        <span class="bp">cls</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Type</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">],</span>
-        <span class="n">wavelength</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span>
+        <span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">],</span>
+        <span class="n">wavelength</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">,</span>
         <span class="n">temperature</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
         <span class="n">magnitude</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-        <span class="n">filter_profile</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">,</span>
-        <span class="n">filter_zero_point</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-        <span class="n">spatial_shape</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span>
+        <span class="n">photometric_filter</span><span class="p">:</span> <span class="p">(</span>
+            <span class="n">hint</span><span class="o">.</span><span class="n">PhotometricABFilter</span> <span class="o">|</span> <span class="n">hint</span><span class="o">.</span><span class="n">PhotometricVegaFilter</span>
+        <span class="p">),</span>
+        <span class="n">spatial_grid_shape</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span>
+        <span class="n">spatial_fov_shape</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span>
         <span class="n">spectral_scale</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
         <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">:</span>
@@ -457,29 +442,28 @@ document.write(`
 <span class="sd">        magnitude : float</span>
 <span class="sd">            The magnitude of the object in the photometric filter system</span>
 <span class="sd">            provided.</span>
-<span class="sd">        filter_profile : LezargusSpectrum</span>
-<span class="sd">            The filter transmission profile, packaged as a LezargusSpectrum. It</span>
-<span class="sd">            does not need to have any header data. We assume a Vega-based</span>
-<span class="sd">            photometric system. The filter transmission curve should be energy</span>
-<span class="sd">            based.</span>
-<span class="sd">        filter_zero_point : float</span>
-<span class="sd">            The zero point value of the filter. The curve should be energy</span>
-<span class="sd">            based.</span>
-<span class="sd">        spatial_shape : tuple</span>
-<span class="sd">            The shape of the spatial component of the target; namely, how big</span>
-<span class="sd">            a region of the sky will be simulated. The units of this are pixels</span>
-<span class="sd">            and should relate to the real sky dimensions based on the pixel</span>
-<span class="sd">            scales provided by the input spectrum.</span>
+<span class="sd">        photometric_filter : PhotometricVegaFilter | PhotometricABFilter</span>
+<span class="sd">            The photometric filter which we are using to scale the blackbody</span>
+<span class="sd">            to match the magnitude provided; which is assumed to be in the</span>
+<span class="sd">            correct photometric system.</span>
+<span class="sd">        spatial_grid_shape : tuple</span>
+<span class="sd">            The spatial pixel grid shape. This defines the array shape of the</span>
+<span class="sd">            simulation&#39;s spatial component. The pixel and slice scale is</span>
+<span class="sd">            calculated from this and the field of view.</span>
+<span class="sd">        spatial_fov_shape : tuple</span>
+<span class="sd">            The defined field of view shape. This defines the on-sky field of</span>
+<span class="sd">            view shape of the array, and is in radians. The pixel and slice</span>
+<span class="sd">            scale is calculated from this and the field of view.</span>
 <span class="sd">        spectral_scale : float</span>
 <span class="sd">            The spectral scale of the simulated spectra, as a resolution,</span>
-<span class="sd">            in wavelength separation per pixel.</span>
+<span class="sd">            in wavelength separation (in meters) per pixel.</span>
 <span class="sd">        **kwargs : Any</span>
 <span class="sd">            Additional keyword arguments passed to the py:meth:`from_spectrum`</span>
 <span class="sd">            function which does the heavy lifting.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        target_instance : LezargusCube</span>
+<span class="sd">        target_instance : TargetSimulator</span>
 <span class="sd">            The target simulator instance derived from the input parameters.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -493,8 +477,9 @@ document.write(`
         <span class="c1"># We integrate over the solid angle.</span>
         <span class="n">solid_angle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
         <span class="n">integrated_blackbody_flux</span> <span class="o">=</span> <span class="n">blackbody_flux</span> <span class="o">*</span> <span class="n">solid_angle</span>
-        <span class="c1"># Packaging the spectra.</span>
-        <span class="n">blackbody_spectra</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">(</span>
+        <span class="c1"># Packaging the spectra. The pixel scale and slice scales are handled</span>
+        <span class="c1"># later.</span>
+        <span class="n">blackbody_spectra</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">(</span>
             <span class="n">wavelength</span><span class="o">=</span><span class="n">wavelength</span><span class="p">,</span>
             <span class="n">data</span><span class="o">=</span><span class="n">integrated_blackbody_flux</span><span class="p">,</span>
             <span class="n">uncertainty</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
@@ -512,15 +497,13 @@ document.write(`
         <span class="c1"># provided filter profile, zero point, and filter magnitude.</span>
         <span class="c1"># We do not really care about the error term.</span>
         <span class="n">correction_factor</span><span class="p">,</span> <span class="n">__</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">photometry</span><span class="o">.</span><span class="n">calculate_photometric_correction_factor_vega</span><span class="p">(</span>
-                <span class="n">star_spectra</span><span class="o">=</span><span class="n">blackbody_spectra</span><span class="p">,</span>
-                <span class="n">filter_spectra</span><span class="o">=</span><span class="n">filter_profile</span><span class="p">,</span>
-                <span class="n">star_magnitude</span><span class="o">=</span><span class="n">magnitude</span><span class="p">,</span>
-                <span class="n">filter_zero_point</span><span class="o">=</span><span class="n">filter_zero_point</span><span class="p">,</span>
-                <span class="n">star_magnitude_uncertainty</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                <span class="n">filter_zero_point_uncertainty</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+            <span class="n">photometric_filter</span><span class="o">.</span><span class="n">calculate_photometric_correction</span><span class="p">(</span>
+                <span class="n">spectrum</span><span class="o">=</span><span class="n">blackbody_spectra</span><span class="p">,</span>
+                <span class="n">magnitude</span><span class="o">=</span><span class="n">magnitude</span><span class="p">,</span>
+                <span class="n">magnitude_uncertainty</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
             <span class="p">)</span>
         <span class="p">)</span>
+
         <span class="c1"># Photometrically calibrating it.</span>
         <span class="n">target_spectrum</span> <span class="o">=</span> <span class="n">blackbody_spectra</span> <span class="o">*</span> <span class="n">correction_factor</span>
 
@@ -528,7 +511,8 @@ document.write(`
         <span class="c1"># from the spectrum.</span>
         <span class="n">target_instance</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_spectrum</span><span class="p">(</span>
             <span class="n">spectrum</span><span class="o">=</span><span class="n">target_spectrum</span><span class="p">,</span>
-            <span class="n">spatial_shape</span><span class="o">=</span><span class="n">spatial_shape</span><span class="p">,</span>
+            <span class="n">spatial_grid_shape</span><span class="o">=</span><span class="n">spatial_grid_shape</span><span class="p">,</span>
+            <span class="n">spatial_fov_shape</span><span class="o">=</span><span class="n">spatial_fov_shape</span><span class="p">,</span>
             <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">target_instance</span></div>
@@ -538,9 +522,10 @@ document.write(`
 <a class="viewcode-back" href="../../../code/lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.from_spectrum">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_spectrum</span><span class="p">(</span>
-        <span class="bp">cls</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Type</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">],</span>
+        <span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">],</span>
         <span class="n">spectrum</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">,</span>
-        <span class="n">spatial_shape</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span>
+        <span class="n">spatial_grid_shape</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span>
+        <span class="n">spatial_fov_shape</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span>
         <span class="n">location</span><span class="p">:</span> <span class="nb">tuple</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;center&quot;</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a target simulation object from a point source spectrum.</span>
@@ -551,11 +536,14 @@ document.write(`
 <span class="sd">            The point source spectrum which we will use as the target to make</span>
 <span class="sd">            the target cube of. The spectrum should be an energy-based</span>
 <span class="sd">            spectrum.</span>
-<span class="sd">        spatial_shape : tuple</span>
-<span class="sd">            The shape of the spatial component of the target; namely, how big</span>
-<span class="sd">            a region of the sky will be simulated. The units of this are pixels</span>
-<span class="sd">            and should relate to the real sky dimensions based on the pixel</span>
-<span class="sd">            scales provided by the input spectrum.</span>
+<span class="sd">        spatial_grid_shape : tuple</span>
+<span class="sd">            The spatial pixel grid shape. This defines the array shape of the</span>
+<span class="sd">            simulation&#39;s spatial component. The pixel and slice scale is</span>
+<span class="sd">            calculated from this and the field of view.</span>
+<span class="sd">        spatial_fov_shape : tuple</span>
+<span class="sd">            The defined field of view shape. This defines the on-sky field of</span>
+<span class="sd">            view shape of the array, and is in radians The pixel and slice</span>
+<span class="sd">            scale is calculated from this and the field of view.</span>
 <span class="sd">        location : tuple or str, default = &quot;center&quot;</span>
 <span class="sd">            Where the spectra, as a point source, be placed spatially. If a</span>
 <span class="sd">            string, we compute the location from the instruction:</span>
@@ -565,12 +553,15 @@ document.write(`
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        target_instance : LezargusCube</span>
+<span class="sd">        target_instance : TargetSimulator</span>
 <span class="sd">            The target simulator instance derived from the input parameters.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># We first check if we have a proper LezargusCube spectrum.</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">spectrum</span><span class="p">,</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span>
+            <span class="n">spectrum</span><span class="p">,</span>
+            <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">,</span>
+        <span class="p">):</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
                 <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
                 <span class="n">message</span><span class="o">=</span><span class="p">(</span>
@@ -579,18 +570,26 @@ document.write(`
                 <span class="p">),</span>
             <span class="p">)</span>
 
+        <span class="c1"># We calculate the pixel and slice scale from the provided grid.</span>
+        <span class="n">pixel_scale</span> <span class="o">=</span> <span class="n">spatial_fov_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">/</span> <span class="n">spatial_grid_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">slice_scale</span> <span class="o">=</span> <span class="n">spatial_fov_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">spatial_grid_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">spectrum</span><span class="o">.</span><span class="n">pixel_scale</span> <span class="o">=</span> <span class="n">pixel_scale</span>
+        <span class="n">spectrum</span><span class="o">.</span><span class="n">slice_scale</span> <span class="o">=</span> <span class="n">slice_scale</span>
+
         <span class="c1"># We assume that background space is dark, so a zero fill value.</span>
         <span class="n">background_data</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">background_uncertainty</span> <span class="o">=</span> <span class="mi">0</span>
 
         <span class="c1"># From there, we can create a cube based on broadcasting the spectrum</span>
         <span class="c1"># into a cube.</span>
-        <span class="n">broadcast_cube</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">broadcast_spectrum_to_cube</span><span class="p">(</span>
-            <span class="n">input_spectrum</span><span class="o">=</span><span class="n">spectrum</span><span class="p">,</span>
-            <span class="n">shape</span><span class="o">=</span><span class="n">spatial_shape</span><span class="p">,</span>
-            <span class="n">location</span><span class="o">=</span><span class="n">location</span><span class="p">,</span>
-            <span class="n">fill_value</span><span class="o">=</span><span class="n">background_data</span><span class="p">,</span>
-            <span class="n">fill_uncertainty</span><span class="o">=</span><span class="n">background_uncertainty</span><span class="p">,</span>
+        <span class="n">broadcast_cube</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">functionality</span><span class="o">.</span><span class="n">broadcast_spectrum_to_cube</span><span class="p">(</span>
+                <span class="n">input_spectrum</span><span class="o">=</span><span class="n">spectrum</span><span class="p">,</span>
+                <span class="n">shape</span><span class="o">=</span><span class="n">spatial_grid_shape</span><span class="p">,</span>
+                <span class="n">location</span><span class="o">=</span><span class="n">location</span><span class="p">,</span>
+                <span class="n">fill_value</span><span class="o">=</span><span class="n">background_data</span><span class="p">,</span>
+                <span class="n">fill_uncertainty</span><span class="o">=</span><span class="n">background_uncertainty</span><span class="p">,</span>
+            <span class="p">)</span>
         <span class="p">)</span>
 
         <span class="c1"># We pass it to the main function for us to create the actual target</span>
@@ -606,7 +605,7 @@ document.write(`
 <a class="viewcode-back" href="../../../code/lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.from_cube">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_cube</span><span class="p">(</span>
-        <span class="bp">cls</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Type</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">],</span>
+        <span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">],</span>
         <span class="n">cube</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusCube</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Create a target simulation object from a provided cube.</span>
@@ -623,12 +622,12 @@ document.write(`
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        target_instance : LezargusCube</span>
+<span class="sd">        target_instance : TargetSimulator</span>
 <span class="sd">            The target simulator instance derived from the input parameters.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># We first check if we have a proper LezargusCube.</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cube</span><span class="p">,</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusCube</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">cube</span><span class="p">,</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusCube</span><span class="p">):</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
                 <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
                 <span class="n">message</span><span class="o">=</span><span class="p">(</span>
@@ -748,7 +747,7 @@ document.write(`
 
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">at_target_spectrum</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusCube</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">at_target_spectrum</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusCube</span> <span class="o">|</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;Alias for py:attr:`target_spectrum` to match naming convention.</span>
 
 <span class="sd">        By self-imposed convention, the attributes are generally named as</span>
@@ -784,7 +783,8 @@ document.write(`
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        None</span>
+<span class="sd">        target : LezargusCube</span>
+<span class="sd">            The energy based flux simulation data cube of the target.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">target</span>
@@ -820,13 +820,15 @@ document.write(`
             <span class="bp">self</span><span class="o">.</span><span class="n">_cache_target_photon</span> <span class="o">=</span> <span class="n">target_photon</span>
         <span class="k">return</span> <span class="n">target_photon</span>
 
-<div class="viewcode-block" id="TargetSimulator.apply_atmosphere">
-<a class="viewcode-back" href="../../../code/lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.apply_atmosphere">[docs]</a>
-    <span class="k">def</span> <span class="nf">apply_atmosphere</span><span class="p">(</span>
+<div class="viewcode-block" id="TargetSimulator.add_atmosphere">
+<a class="viewcode-back" href="../../../code/lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.add_atmosphere">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_atmosphere</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
         <span class="n">atmosphere</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">AtmosphereSimulator</span><span class="p">,</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Apply an atmosphere simulator to simulate the atmospheric effects.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add an atmosphere simulator to simulate the atmospheric effects.</span>
+
+<span class="sd">        Note, we only allow one atmosphere at a time.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -870,10 +872,6 @@ document.write(`
 <span class="sd">            atmospheric transmission.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># We use a cached value if there exists one.</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_transmission</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_cache</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_transmission</span>
-
         <span class="c1"># No cached value, we calculate it from the previous state.</span>
         <span class="n">previous_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">at_target_photon</span>
 
@@ -896,7 +894,7 @@ document.write(`
             <span class="n">template</span><span class="o">=</span><span class="n">previous_state</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">transmission_cube</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">broadcast_spectrum_to_cube</span><span class="p">(</span>
+            <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">functionality</span><span class="o">.</span><span class="n">broadcast_spectrum_to_cube</span><span class="p">(</span>
                 <span class="n">input_spectrum</span><span class="o">=</span><span class="n">transmission_spectrum</span><span class="p">,</span>
                 <span class="n">shape</span><span class="o">=</span><span class="n">previous_state</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
                 <span class="n">location</span><span class="o">=</span><span class="s2">&quot;full&quot;</span><span class="p">,</span>
@@ -909,9 +907,6 @@ document.write(`
         <span class="c1"># efficiencies.</span>
         <span class="n">current_state</span> <span class="o">=</span> <span class="n">previous_state</span> <span class="o">*</span> <span class="n">transmission_cube</span>
 
-        <span class="c1"># Saving the result later in the cache.</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_cache</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_cache_transmission</span> <span class="o">=</span> <span class="n">current_state</span>
         <span class="k">return</span> <span class="n">current_state</span>
 
     <span class="nd">@property</span>
@@ -929,10 +924,6 @@ document.write(`
 <span class="sd">            atmospheric radiance.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># We use a cached value if there exists one.</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_radiance</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_cache</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_radiance</span>
-
         <span class="c1"># No cached value, we calculate it from the previous state.</span>
         <span class="n">previous_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">at_transmission</span>
 
@@ -952,12 +943,14 @@ document.write(`
         <span class="n">radiance_spectrum</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">atmosphere</span><span class="o">.</span><span class="n">generate_radiance</span><span class="p">(</span>
             <span class="n">template</span><span class="o">=</span><span class="n">previous_state</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="n">radiance_cube</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">broadcast_spectrum_to_cube</span><span class="p">(</span>
-            <span class="n">input_spectrum</span><span class="o">=</span><span class="n">radiance_spectrum</span><span class="p">,</span>
-            <span class="n">shape</span><span class="o">=</span><span class="n">previous_state</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
-            <span class="n">location</span><span class="o">=</span><span class="s2">&quot;full&quot;</span><span class="p">,</span>
-            <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-            <span class="n">fill_uncertainty</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">radiance_cube</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">functionality</span><span class="o">.</span><span class="n">broadcast_spectrum_to_cube</span><span class="p">(</span>
+                <span class="n">input_spectrum</span><span class="o">=</span><span class="n">radiance_spectrum</span><span class="p">,</span>
+                <span class="n">shape</span><span class="o">=</span><span class="n">previous_state</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+                <span class="n">location</span><span class="o">=</span><span class="s2">&quot;full&quot;</span><span class="p">,</span>
+                <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                <span class="n">fill_uncertainty</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="p">)</span>
         <span class="p">)</span>
 
         <span class="c1"># We integrate the radiance to provide a proper photon spectral</span>
@@ -989,9 +982,6 @@ document.write(`
         <span class="c1"># efficiencies.</span>
         <span class="n">current_state</span> <span class="o">=</span> <span class="n">previous_state</span> <span class="o">+</span> <span class="n">irradiance_photon_cube</span>
 
-        <span class="c1"># Saving the result later in the cache.</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_cache</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_cache_radiance</span> <span class="o">=</span> <span class="n">current_state</span>
         <span class="k">return</span> <span class="n">current_state</span>
 
     <span class="nd">@property</span>
@@ -1009,10 +999,6 @@ document.write(`
 <span class="sd">            atmospheric seeing.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># We use a cached value if there exists one.</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_seeing</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_cache</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_seeing</span>
-
         <span class="c1"># No cached value, we calculate it from the previous state.</span>
         <span class="n">previous_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">at_radiance</span>
 
@@ -1038,9 +1024,6 @@ document.write(`
             <span class="n">kernel_stack</span><span class="o">=</span><span class="n">seeing_kernels</span><span class="p">,</span>
         <span class="p">)</span>
 
-        <span class="c1"># Saving the result later in the cache.</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_cache</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_cache_seeing</span> <span class="o">=</span> <span class="n">current_state</span>
         <span class="k">return</span> <span class="n">current_state</span>
 
     <span class="nd">@property</span>
@@ -1058,10 +1041,6 @@ document.write(`
 <span class="sd">            atmospheric refraction.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># We use a cached value if there exists one.</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_refraction</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_cache</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_refraction</span>
-
         <span class="c1"># No cached value, we calculate it from the previous state.</span>
         <span class="n">previous_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">at_seeing</span>
 
@@ -1089,24 +1068,49 @@ document.write(`
         <span class="c1"># Applying the refraction, modeling it as a shear transformation</span>
         <span class="c1"># along the spectral axis (parallel to the spatial axes).</span>
         <span class="c1"># We assume that it is only just more &quot;uniform&quot; sky everywhere else.</span>
-        <span class="n">current_state</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">lezargus</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">function</span><span class="o">.</span><span class="n">transform_shear_cube_spectral</span><span class="p">(</span>
-                <span class="n">cube</span><span class="o">=</span><span class="n">previous_state</span><span class="p">,</span>
-                <span class="n">x_shifts</span><span class="o">=</span><span class="n">refraction_x</span><span class="p">,</span>
-                <span class="n">y_shifts</span><span class="o">=</span><span class="n">refraction_y</span><span class="p">,</span>
-                <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;nearest&quot;</span><span class="p">,</span>
-                <span class="n">constant</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
-            <span class="p">)</span>
+        <span class="c1"># (We split up the function just for line length.)</span>
+        <span class="n">_functionality</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">functionality</span>
+        <span class="n">current_state</span> <span class="o">=</span> <span class="n">_functionality</span><span class="o">.</span><span class="n">transform_shear_cube_spectral</span><span class="p">(</span>
+            <span class="n">cube</span><span class="o">=</span><span class="n">previous_state</span><span class="p">,</span>
+            <span class="n">x_shifts</span><span class="o">=</span><span class="n">refraction_x</span><span class="p">,</span>
+            <span class="n">y_shifts</span><span class="o">=</span><span class="n">refraction_y</span><span class="p">,</span>
+            <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;nearest&quot;</span><span class="p">,</span>
+            <span class="n">constant</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
         <span class="p">)</span>
+        <span class="k">return</span> <span class="n">current_state</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">at_observed</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusCube</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;State of simulation after an &quot;observation&quot;.</span>
+
+<span class="sd">        This object is basically the preferred alias for referring to the</span>
+<span class="sd">        simulation at the point right after atmospheric effects. This is where</span>
+<span class="sd">        the a target simulation ends and further simulation is done by</span>
+<span class="sd">        specific instrument simulators.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        current_state : LezargusCube</span>
+<span class="sd">            The state of the simulation after an &quot;observation&quot;.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We use a cached value if there exists one.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_observed</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_cache</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_observed</span>
+
+        <span class="c1"># No cached value, we calculate it from the previous state.</span>
+        <span class="n">previous_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">at_refraction</span>
+        <span class="c1"># This is just an alias so the current state is the same.</span>
+        <span class="n">current_state</span> <span class="o">=</span> <span class="n">previous_state</span>
 
         <span class="c1"># Saving the result later in the cache.</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_cache</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_cache_refraction</span> <span class="o">=</span> <span class="n">current_state</span>
-        <span class="k">return</span> <span class="n">current_state</span>
-
-    <span class="n">observed</span> <span class="o">=</span> <span class="n">at_refraction</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;LezargusCube : The target, represented as a LezargusCube, after the</span>
-<span class="sd">    application of atmospheric effects. An alias for :py:attr:`at_refraction`&quot;&quot;&quot;</span></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cache_observed</span> <span class="o">=</span> <span class="n">current_state</span>
+        <span class="k">return</span> <span class="n">current_state</span></div>
 
 </pre></div>
 
@@ -1117,7 +1121,7 @@ document.write(`
               
               
               
-                <footer class="prev-next-footer">
+                <footer class="prev-next-footer d-print-none">
                   
 <div class="prev-next-area">
 </div>
@@ -1126,8 +1130,6 @@ document.write(`
             </div>
             
             
-              
-                <div class="bd-sidebar-secondary bd-toc"></div>
               
             
           </div>
@@ -1172,8 +1174,8 @@ By Sparrow
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
-<script src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
   </footer>

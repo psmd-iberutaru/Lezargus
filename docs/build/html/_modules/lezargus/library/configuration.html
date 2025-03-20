@@ -1,0 +1,1170 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lezargus.library.configuration &#8212; Lezargus  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/lezargus/library/configuration';</script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Lezargus  documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../user/index.html">User Manual</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../technical/index.html">Technical Manual</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/atmosphere.html">Atmospheric Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/contributing.html">Contributor Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/convention.html">Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/photometry.html">Photometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../technical/uncertainty.html">Uncertainty Propagation</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../code/modules.html">lezargus</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../code/lezargus.html">lezargus package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.cli.html">lezargus.cli package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.cli.__main__.html">lezargus.cli.__main__ module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.cli.help_.html">lezargus.cli.help_ module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.cli.version.html">lezargus.cli.version module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.data.html">lezargus.data package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.data._make.html">lezargus.data._make package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.library.html">lezargus.library package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.container.html">lezargus.library.container package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.array.html">lezargus.library.array module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.atmosphere.html">lezargus.library.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.configuration.html">lezargus.library.configuration module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.conversion.html">lezargus.library.conversion module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.convolution.html">lezargus.library.convolution module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.fits.html">lezargus.library.fits module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.flags.html">lezargus.library.flags module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.hint.html">lezargus.library.hint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.interpolate.html">lezargus.library.interpolate module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.logging.html">lezargus.library.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.math.html">lezargus.library.math module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.path.html">lezargus.library.path module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.sanitize.html">lezargus.library.sanitize module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.stitch.html">lezargus.library.stitch module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.temporary.html">lezargus.library.temporary module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.transform.html">lezargus.library.transform module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../code/lezargus.simulator.html">lezargus.simulator package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.simulator.atmosphere.html">lezargus.simulator.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.simulator.spectre.html">lezargus.simulator.spectre module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.simulator.target.html">lezargus.simulator.target module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../code/lezargus.simulator.telescope.html">lezargus.simulator.telescope module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__main__.html">lezargus.__main__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.__version__.html">lezargus.__version__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.config.html">lezargus.config module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.initialize.html">lezargus.initialize module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../code/lezargus.terminate.html">lezargus.terminate module</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for lezargus.library.configuration</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Controls the inputting of configuration files.</span>
+
+<span class="sd">This also serves to bring all of the configuration parameters into a more</span>
+<span class="sd">accessible space which other parts of Lezargus can use.</span>
+
+<span class="sd">Note these configuration constant parameters are all accessed using capital</span>
+<span class="sd">letters regardless of the configuration file&#39;s labels. Because of this, the</span>
+<span class="sd">names must also obey a stricter set of Python variable naming conventions.</span>
+<span class="sd">Namely, capital letter names and only alphanumeric characters.</span>
+
+<span class="sd">There are constant parameters which are stored here which are not otherwise</span>
+<span class="sd">changeable by the configuration file.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># isort: split</span>
+<span class="c1"># Import required to remove circular dependencies from type checking.</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">hint</span>
+<span class="c1"># isort: split</span>
+
+<span class="kn">import</span> <span class="nn">contextlib</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">uuid</span>
+
+<span class="kn">import</span> <span class="nn">yaml</span>
+
+<span class="kn">import</span> <span class="nn">lezargus</span>
+<span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">logging</span>
+
+<span class="c1"># isort: split</span>
+
+
+<div class="viewcode-block" id="sanitize_configuration">
+<a class="viewcode-back" href="../../../code/lezargus.library.configuration.html#lezargus.library.configuration.sanitize_configuration">[docs]</a>
+<span class="k">def</span> <span class="nf">sanitize_configuration</span><span class="p">(</span><span class="n">configuration</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Sanitize the configuration, conforming it to the Lezargus standards.</span>
+
+<span class="sd">    Sometimes configurations input by users do not exactly follow the</span>
+<span class="sd">    expectations of Lezargus, so, here, we sanitize it as much as we can.</span>
+<span class="sd">    Should some level of sanitation fail, then we inform the user.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    configuration : dict</span>
+<span class="sd">        The configuration we are going to sanitize.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    sanitized_configuration : dict</span>
+<span class="sd">        The configuration, after sanitization.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># We need to entry by entry in sanitization.</span>
+    <span class="n">sanitized_configuration</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">keydex</span><span class="p">,</span> <span class="n">valuedex</span> <span class="ow">in</span> <span class="n">configuration</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="c1"># We first need to sanitize the key.</span>
+        <span class="n">sanitized_key</span> <span class="o">=</span> <span class="n">sanitize_configuration_key</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">keydex</span><span class="p">)</span>
+        <span class="c1"># And the value...</span>
+        <span class="n">sanitized_value</span> <span class="o">=</span> <span class="n">sanitize_configuration_value</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">valuedex</span><span class="p">)</span>
+        <span class="c1"># Reconstruction of the dictionary.</span>
+        <span class="n">sanitized_configuration</span><span class="p">[</span><span class="n">sanitized_key</span><span class="p">]</span> <span class="o">=</span> <span class="n">sanitized_value</span>
+    <span class="c1"># All done.</span>
+    <span class="k">return</span> <span class="n">sanitized_configuration</span></div>
+
+
+
+<div class="viewcode-block" id="sanitize_configuration_key">
+<a class="viewcode-back" href="../../../code/lezargus.library.configuration.html#lezargus.library.configuration.sanitize_configuration_key">[docs]</a>
+<span class="k">def</span> <span class="nf">sanitize_configuration_key</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Sanitize only the configuration key name.</span>
+
+<span class="sd">    The key sanitization makes sure that the key follows the below criteria:</span>
+
+<span class="sd">    - The key contains only letters and single underscores as word</span>
+<span class="sd">      demarcations.</span>
+<span class="sd">    - The key is all uppercase and is unique across all variations of cases.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    key : str</span>
+<span class="sd">        The configuration key to sanitize.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    sanitized_key : str</span>
+<span class="sd">        The key, sanitized.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># We replace common text demarcations with underscores. Also,</span>
+    <span class="c1"># only single underscores so we need to remove subsequent underscores.</span>
+    <span class="n">common_demarcations</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot;.&quot;</span><span class="p">]</span>
+    <span class="n">underscore_key</span> <span class="o">=</span> <span class="n">key</span>
+    <span class="k">for</span> <span class="n">demarkdex</span> <span class="ow">in</span> <span class="n">common_demarcations</span><span class="p">:</span>
+        <span class="n">underscore_key</span> <span class="o">=</span> <span class="n">underscore_key</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">demarkdex</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span>
+    <span class="n">has_successive_underscores</span> <span class="o">=</span> <span class="s2">&quot;__&quot;</span> <span class="ow">in</span> <span class="n">underscore_key</span>
+    <span class="k">while</span> <span class="n">has_successive_underscores</span><span class="p">:</span>
+        <span class="c1"># Underscore check.</span>
+        <span class="n">has_successive_underscores</span> <span class="o">=</span> <span class="s2">&quot;__&quot;</span> <span class="ow">in</span> <span class="n">underscore_key</span>
+        <span class="n">underscore_key</span> <span class="o">=</span> <span class="n">underscore_key</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;__&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span>
+
+    <span class="c1"># We check that it only has letters.</span>
+    <span class="n">letter_test_key</span> <span class="o">=</span> <span class="n">underscore_key</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">letter_test_key</span><span class="o">.</span><span class="n">isalnum</span><span class="p">():</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+            <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ConfigurationError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Key </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2"> contains non-alphanumeric non-underscore&quot;</span>
+                <span class="s2">&quot; characters.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">underscore_key</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isascii</span><span class="p">()</span> <span class="ow">and</span> <span class="n">underscore_key</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">isalpha</span><span class="p">()):</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+            <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ConfigurationError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Key </span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2"> begins with non-ascii letter; thus making it&quot;</span>
+                <span class="s2">&quot; invalid for a configuration key.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="c1"># We ensure that the case of the key is upper case, and more importantly,</span>
+    <span class="c1"># unique in case.</span>
+    <span class="n">upper_key</span> <span class="o">=</span> <span class="n">underscore_key</span><span class="o">.</span><span class="n">casefold</span><span class="p">()</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+
+    <span class="c1"># The current stage of the key is sanitized.</span>
+    <span class="n">sanitized_key</span> <span class="o">=</span> <span class="n">upper_key</span>
+    <span class="k">return</span> <span class="n">sanitized_key</span></div>
+
+
+
+<div class="viewcode-block" id="sanitize_configuration_value">
+<a class="viewcode-back" href="../../../code/lezargus.library.configuration.html#lezargus.library.configuration.sanitize_configuration_value">[docs]</a>
+<span class="k">def</span> <span class="nf">sanitize_configuration_value</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Sanitize only the configuration value to a string.</span>
+
+<span class="sd">    Value sanitization ensures just three properties:</span>
+
+<span class="sd">    - The value in question can be serialized to and from a numeric or string.</span>
+<span class="sd">    - The value is not a dictionary.</span>
+<span class="sd">    - The value string can fit on one line.</span>
+
+<span class="sd">    We need to require strings because that is the format yaml ensures.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    value : str</span>
+<span class="sd">        The configuration value to sanitize.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    sanitized_value : int, float, or str</span>
+<span class="sd">        The value, sanitized.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># We need to make sure it is not a dictionary, else, that is likely nested</span>
+    <span class="c1"># configurations.</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+            <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ConfigurationError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;Input value is a dictionary, this would lead to non-flat&quot;</span>
+                <span class="s2">&quot; configurations and files.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="c1"># We need to make sure it can be turned into a string.</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">value_str</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+            <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ConfigurationError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Input value </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2"> cannot be turned to a string.&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="c1"># We have no real metric for it all fitting onto a line. But, we do just</span>
+    <span class="c1"># give a warning if it is long.</span>
+    <span class="n">too_long_value</span> <span class="o">=</span> <span class="mi">80</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">value_str</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">too_long_value</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ConfigurationWarning</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Configuration value </span><span class="si">{</span><span class="n">value_str</span><span class="si">}</span><span class="s2"> is very long.&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Lastly, we figure out what is the best representation.</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">sanitized_value</span> <span class="o">=</span> <span class="n">value</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># Maybe it is still a number?</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">sanitized_value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">value_str</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="c1"># Nope, it is better to just use the string value.</span>
+            <span class="n">sanitized_value</span> <span class="o">=</span> <span class="n">value_str</span>
+    <span class="k">return</span> <span class="n">sanitized_value</span></div>
+
+
+
+<div class="viewcode-block" id="assign_configuration">
+<a class="viewcode-back" href="../../../code/lezargus.library.configuration.html#lezargus.library.configuration.assign_configuration">[docs]</a>
+<span class="k">def</span> <span class="nf">assign_configuration</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Assign the configuration in lezargus.config.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    key : str</span>
+<span class="sd">        The configuration key value. If the key value does not exist in the</span>
+<span class="sd">        main configuration, then an error is raised as it generally</span>
+<span class="sd">        indicates a consistency error.</span>
+<span class="sd">    value : int | float | str</span>
+<span class="sd">        The value of the configuration to be set. Must be a simple type as</span>
+<span class="sd">        configuration files should have pretty primitive types.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># We need to sanitize the key first.</span>
+    <span class="n">sanitize_key</span> <span class="o">=</span> <span class="n">sanitize_configuration_key</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">key</span><span class="p">)</span>
+    <span class="c1"># And the value.</span>
+    <span class="n">sanitize_value</span> <span class="o">=</span> <span class="n">sanitize_configuration_value</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">)</span>
+
+    <span class="c1"># We then check the main configuration module for consistency before</span>
+    <span class="c1"># applying it.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">lezargus</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="n">sanitize_key</span><span class="p">):</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+            <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ConfigurationError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;Lezargus configuration does not support the&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">sanitize_key</span><span class="si">}</span><span class="s2"> key.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Otherwise, we apply it.</span>
+    <span class="nb">setattr</span><span class="p">(</span><span class="n">lezargus</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="n">sanitize_key</span><span class="p">,</span> <span class="n">sanitize_value</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="apply_configuration">
+<a class="viewcode-back" href="../../../code/lezargus.library.configuration.html#lezargus.library.configuration.apply_configuration">[docs]</a>
+<span class="k">def</span> <span class="nf">apply_configuration</span><span class="p">(</span><span class="n">configuration</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Apply the configuration, input structured as a dictionary.</span>
+
+<span class="sd">    Note configuration files should be flat, there should be no nested</span>
+<span class="sd">    configuration parameters.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    configuration : dict</span>
+<span class="sd">        The configuration dictionary we are going to apply.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Constants typically are all capitalized in their variable naming.</span>
+    <span class="n">capital_configuration</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">keydex</span><span class="o">.</span><span class="n">upper</span><span class="p">():</span> <span class="n">valuedex</span> <span class="k">for</span> <span class="n">keydex</span><span class="p">,</span> <span class="n">valuedex</span> <span class="ow">in</span> <span class="n">configuration</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+    <span class="p">}</span>
+    <span class="c1"># Check that the configuration names were capitalized.</span>
+    <span class="k">for</span> <span class="n">keydex</span><span class="p">,</span> <span class="n">capital_keydex</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+        <span class="n">configuration</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span>
+        <span class="n">capital_configuration</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span>
+        <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">):</span>
+        <span class="k">if</span> <span class="n">keydex</span><span class="o">.</span><span class="n">casefold</span><span class="p">()</span> <span class="o">!=</span> <span class="n">capital_keydex</span><span class="o">.</span><span class="n">casefold</span><span class="p">():</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ConfigurationError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;The following configuration keys differ on the case&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; transformation: </span><span class="si">{</span><span class="n">keydex</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">capital_keydex</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">keydex</span> <span class="o">!=</span> <span class="n">capital_keydex</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ConfigurationError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;The keys of configuration parameters should be in all&quot;</span>
+                    <span class="s2">&quot; capital letters. The following key is inappropriate:&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">keydex</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+    <span class="c1"># We just sanitize the configuration.</span>
+    <span class="n">sanitize_config</span> <span class="o">=</span> <span class="n">sanitize_configuration</span><span class="p">(</span>
+        <span class="n">configuration</span><span class="o">=</span><span class="n">capital_configuration</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Apply it to the configuration.</span>
+    <span class="k">for</span> <span class="n">keydex</span><span class="p">,</span> <span class="n">valuedex</span> <span class="ow">in</span> <span class="n">sanitize_config</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">assign_configuration</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="n">keydex</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="n">valuedex</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="read_configuration_file">
+<a class="viewcode-back" href="../../../code/lezargus.library.configuration.html#lezargus.library.configuration.read_configuration_file">[docs]</a>
+<span class="k">def</span> <span class="nf">read_configuration_file</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Read the configuration file and output a dictionary of parameters.</span>
+
+<span class="sd">    Note configuration files should be flat, there should be no nested</span>
+<span class="sd">    configuration parameters.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filename : str</span>
+<span class="sd">        The filename of the configuration file, with the extension. Will raise</span>
+<span class="sd">        if the filename is not the correct extension, just as a quick check.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    configuration : dict</span>
+<span class="sd">        The dictionary which contains all of the configuration parameters</span>
+<span class="sd">        within it.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Checking the extension is valid, just as a quick sanity check that the</span>
+    <span class="c1"># configuration file is proper.</span>
+    <span class="n">config_extension</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;yaml&quot;</span><span class="p">,</span> <span class="s2">&quot;yml&quot;</span><span class="p">)</span>
+    <span class="n">filename_ext</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">get_file_extension</span><span class="p">(</span><span class="n">pathname</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">filename_ext</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">config_extension</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">FileError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;Configuration file does not have the proper extension, it&quot;</span>
+                <span class="s2">&quot; should be a yaml file.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+    <span class="c1"># Loading the configuration file.</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">config_file</span><span class="p">:</span>
+            <span class="n">raw_configuration</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+                <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">config_file</span><span class="p">,</span> <span class="n">Loader</span><span class="o">=</span><span class="n">yaml</span><span class="o">.</span><span class="n">SafeLoader</span><span class="p">),</span>
+            <span class="p">)</span>
+    <span class="k">except</span> <span class="ne">FileNotFoundError</span><span class="p">:</span>
+        <span class="c1"># The file is not found, it cannot be opened.</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+            <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">FileError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;The following configuration filename does not exist:&quot;</span>
+                <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Double check that the configuration is flat as per the documentation</span>
+    <span class="c1"># and expectation.</span>
+    <span class="k">for</span> <span class="n">valuedex</span> <span class="ow">in</span> <span class="n">raw_configuration</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">valuedex</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="c1"># A dictionary implies a nested configuration which is not allowed.</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ConfigurationError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;The configuration file should not have any embedded&quot;</span>
+                    <span class="s2">&quot; configurations, it should be a flat file. Please use the&quot;</span>
+                    <span class="s2">&quot; configuration file templates.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+    <span class="c1"># A final clean up of the configuration.</span>
+    <span class="n">configuration</span> <span class="o">=</span> <span class="n">sanitize_configuration</span><span class="p">(</span><span class="n">configuration</span><span class="o">=</span><span class="n">raw_configuration</span><span class="p">)</span>
+
+    <span class="c1"># The configuration dictionary should be good.</span>
+    <span class="k">return</span> <span class="n">configuration</span></div>
+
+
+
+<div class="viewcode-block" id="_convert_default_configuration_yaml">
+<a class="viewcode-back" href="../../../code/lezargus.library.configuration.html#lezargus.library.configuration._convert_default_configuration_yaml">[docs]</a>
+<span class="k">def</span> <span class="nf">_convert_default_configuration_yaml</span><span class="p">(</span><span class="n">section</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;ALL&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a temporary configuration YAML, returning the file lines.</span>
+
+<span class="sd">    The configuration file by default is a Python file to satisfy the type</span>
+<span class="sd">    checker. However, most people will be using YAML files as it is safer.</span>
+<span class="sd">    We convert the default configuration file to a YAML file, temporarily</span>
+<span class="sd">    within the context manager, to manipulate, and provide to the user.</span>
+
+<span class="sd">    The configuration file is split into sections based on the section tags.</span>
+<span class="sd">    If a section label is provided, we only provide the configuration within</span>
+<span class="sd">    the tags.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    section : str, default</span>
+<span class="sd">        The section label. We limit the YAML file to the section label subset.</span>
+<span class="sd">        By default, we use ALL, the full file.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    yaml_lines : str</span>
+<span class="sd">        The file lines of the configuration YAML file.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># We get the default configuration Python file.</span>
+    <span class="n">config_py_filename</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+        <span class="n">directory</span><span class="o">=</span><span class="n">lezargus</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">INTERNAL_MODULE_INSTALLATION_PATH</span><span class="p">,</span>
+        <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;config&quot;</span><span class="p">,</span>
+        <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;py&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># We read in the Python file, care is needed to not load anything.</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config_py_filename</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">config_py</span><span class="p">:</span>
+        <span class="n">all_config_py_lines</span> <span class="o">=</span> <span class="n">config_py</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+        <span class="c1"># We do not need the new line characters nor padding.</span>
+        <span class="n">all_config_py_lines</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">linedex</span><span class="o">.</span><span class="n">removesuffix</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="k">for</span> <span class="n">linedex</span> <span class="ow">in</span> <span class="n">all_config_py_lines</span>
+        <span class="p">]</span>
+
+    <span class="c1"># By convention, we have tagged the beginning and end of the configuration</span>
+    <span class="c1"># part of the Python file. So we only need those parts.</span>
+    <span class="n">clean_section</span> <span class="o">=</span> <span class="n">section</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="n">start_tag</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;# &lt;BEGIN </span><span class="si">{</span><span class="n">clean_section</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
+    <span class="n">end_tag</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;# &lt;/END </span><span class="si">{</span><span class="n">clean_section</span><span class="si">}</span><span class="s2">&gt;&quot;</span>
+    <span class="c1"># We find the index parts.</span>
+    <span class="n">start_index</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">end_index</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">linedex</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">all_config_py_lines</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">start_tag</span> <span class="ow">in</span> <span class="n">linedex</span><span class="p">:</span>
+            <span class="n">start_index</span> <span class="o">=</span> <span class="n">index</span>
+        <span class="k">if</span> <span class="n">end_tag</span> <span class="ow">in</span> <span class="n">linedex</span><span class="p">:</span>
+            <span class="n">end_index</span> <span class="o">=</span> <span class="n">index</span>
+    <span class="c1"># If we don&#39;t have either a start or end index, the tag provided is likely</span>
+    <span class="c1"># incorrect.</span>
+    <span class="k">if</span> <span class="n">start_index</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">end_index</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">start_index</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">end_index</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Configuration section tag </span><span class="si">{</span><span class="n">section</span><span class="si">}</span><span class="s2"> does not match any&quot;</span>
+                <span class="s2">&quot; sections.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+    <span class="c1"># We want the end tag as well.</span>
+    <span class="n">config_py_lines</span> <span class="o">=</span> <span class="n">all_config_py_lines</span><span class="p">[</span><span class="n">start_index</span> <span class="p">:</span> <span class="n">end_index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+
+    <span class="c1"># We will be testing the configuration lines to make sure they are</span>
+    <span class="c1"># properly formatted before we attempt the conversion. The test using</span>
+    <span class="c1"># regular expressions, it is better to compile it early.</span>
+    <span class="n">regex_test_pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;[A-Z_]+ = [^=\n]*&quot;</span>
+    <span class="n">regex_test</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">regex_test_pattern</span><span class="p">)</span>
+
+    <span class="c1"># The only real difference between the Python file and the YAML file is</span>
+    <span class="c1"># the = and : as seperators. We leverage this fact and just change the</span>
+    <span class="c1"># character.</span>
+    <span class="n">yaml_lines</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">linedex</span> <span class="ow">in</span> <span class="n">config_py_lines</span><span class="p">:</span>
+        <span class="c1"># Clearing out some cases where we should not change anything.</span>
+        <span class="k">if</span> <span class="n">linedex</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">):</span>
+            <span class="c1"># Line is a comment, no action taken. We just add it and move on.</span>
+            <span class="n">yaml_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">linedex</span><span class="p">)</span>
+            <span class="k">continue</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">linedex</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># Line is blank, no action can be taken. We just add it and move</span>
+            <span class="c1"># on.</span>
+            <span class="n">yaml_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">linedex</span><span class="p">)</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># We need to test that the configuration line is correct.</span>
+        <span class="k">if</span> <span class="n">regex_test</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="n">linedex</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+                <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ConfigurationError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Configuration line </span><span class="si">{</span><span class="n">linedex</span><span class="si">}</span><span class="s2"> does not match the expected&quot;</span>
+                    <span class="s2">&quot; format of a configuration setting.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># We just replace the = with a :.</span>
+            <span class="n">new_linedex</span> <span class="o">=</span> <span class="n">linedex</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="sa">R</span><span class="s2">&quot; = &quot;</span><span class="p">,</span> <span class="sa">R</span><span class="s2">&quot; : &quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">yaml_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_linedex</span><span class="p">)</span>
+    <span class="c1"># All done</span>
+    <span class="k">return</span> <span class="n">yaml_lines</span></div>
+
+
+
+<div class="viewcode-block" id="_convert_default_configuration_file">
+<a class="viewcode-back" href="../../../code/lezargus.library.configuration.html#lezargus.library.configuration._convert_default_configuration_file">[docs]</a>
+<span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+<span class="k">def</span> <span class="nf">_convert_default_configuration_file</span><span class="p">(</span>
+    <span class="n">section</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;ALL&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Iterator</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a temporary configuration YAML file, returning the path.</span>
+
+<span class="sd">    See py:func:`_convert_default_configuration_yaml` for more information.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    section : str, default</span>
+<span class="sd">        The section label. We limit the YAML file to the section label subset.</span>
+<span class="sd">        By default, we use ALL, the full file.</span>
+
+<span class="sd">    Yeilds</span>
+<span class="sd">    ------</span>
+<span class="sd">    filename : str</span>
+<span class="sd">        The filename of the default YAML file, we create it internally then</span>
+<span class="sd">        delete it afterwards.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">yaml_lines</span> <span class="o">=</span> <span class="n">_convert_default_configuration_yaml</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="n">section</span><span class="p">)</span>
+
+    <span class="c1"># Now that we have the YAML format file, we can write it. We will not use</span>
+    <span class="c1"># the temporary directory because it might not be configured yet.</span>
+    <span class="c1"># We want to make sure there is no file conflict.</span>
+    <span class="n">yaml_random_filename</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+        <span class="n">directory</span><span class="o">=</span><span class="n">lezargus</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">INTERNAL_MODULE_INSTALLATION_PATH</span><span class="p">,</span>
+        <span class="n">filename</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;temp_config_</span><span class="si">{</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;yaml&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="c1"># Finally, saving the file. We need to make our own new line characters.</span>
+    <span class="n">raw_yaml_lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">linedex</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">linedex</span> <span class="ow">in</span> <span class="n">yaml_lines</span><span class="p">]</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">yaml_random_filename</span><span class="p">,</span> <span class="s2">&quot;xt&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">yaml_file</span><span class="p">:</span>
+        <span class="n">yaml_file</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">raw_yaml_lines</span><span class="p">)</span>
+
+    <span class="c1"># We yeild to the user to execute the file as they may want to.</span>
+    <span class="k">yield</span> <span class="n">yaml_random_filename</span>
+
+    <span class="c1"># Finally, we clean up the file, it is not needed anymore and we don&#39;t</span>
+    <span class="c1"># want it sticking around.</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">yaml_random_filename</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="write_configuration_file">
+<a class="viewcode-back" href="../../../code/lezargus.library.configuration.html#lezargus.library.configuration.write_configuration_file">[docs]</a>
+<span class="k">def</span> <span class="nf">write_configuration_file</span><span class="p">(</span>
+    <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">configuration</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">hint</span><span class="o">.</span><span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">section</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;ALL&quot;</span><span class="p">,</span>
+    <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Write a configuration file based on provided configuration.</span>
+
+<span class="sd">    Note configuration files should be flat, there should be no nested</span>
+<span class="sd">    configuration parameters. Moreover, we only write configurations present</span>
+<span class="sd">    as default or as overwritten by the provided configuration, within the</span>
+<span class="sd">    section tag as provided. This function does not account for current live</span>
+<span class="sd">    configurations.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filename : str</span>
+<span class="sd">        The filename of the configuration file to be saved, with the extension.</span>
+<span class="sd">        An error will be provided if the extension is not a correct extension.</span>
+<span class="sd">    configuration : dict, default = None</span>
+<span class="sd">        The configuration which we will save, along with any defaults present</span>
+<span class="sd">        in the main configuration file. If None, only defaults are saved.</span>
+<span class="sd">    section : str</span>
+<span class="sd">        The section label for us to reduce the scope of the configuration</span>
+<span class="sd">        file we will be writing.</span>
+<span class="sd">    overwrite : bool</span>
+<span class="sd">        If True, we overwrite the configuration file if already present.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># We need to sanitize the input configuration first.</span>
+    <span class="n">configuration</span> <span class="o">=</span> <span class="p">{}</span> <span class="k">if</span> <span class="n">configuration</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">configuration</span>
+    <span class="n">configuration</span> <span class="o">=</span> <span class="n">sanitize_configuration</span><span class="p">(</span><span class="n">configuration</span><span class="o">=</span><span class="n">configuration</span><span class="p">)</span>
+
+    <span class="c1"># We also need the default configuration.</span>
+    <span class="n">default_configuration</span> <span class="o">=</span> <span class="n">get_default_configuration</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="n">section</span><span class="p">)</span>
+
+    <span class="c1"># Applying any overwrites.</span>
+    <span class="n">writing_configuration</span> <span class="o">=</span> <span class="p">{</span><span class="o">**</span><span class="n">default_configuration</span><span class="p">,</span> <span class="o">**</span><span class="n">configuration</span><span class="p">}</span>
+
+    <span class="c1"># We want to preserve the comment information explaining the</span>
+    <span class="c1"># configurations, so, instead of just dumping the YAML, we attempt to just</span>
+    <span class="c1"># create a file inplace and manually change the required lines.</span>
+    <span class="n">default_lines</span> <span class="o">=</span> <span class="n">_convert_default_configuration_yaml</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="n">section</span><span class="p">)</span>
+
+    <span class="c1"># Now we search through all lines, finding the needed fields we need to</span>
+    <span class="c1"># replace.</span>
+    <span class="n">writing_lines</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">linedex</span> <span class="ow">in</span> <span class="n">default_lines</span><span class="p">:</span>
+        <span class="c1"># If the line is blank, we want to keep it blank in the write out.</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">linedex</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">writing_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="k">continue</span>
+        <span class="c1"># If the line is a comment, it is likely documentation so we keep it</span>
+        <span class="c1"># as is.</span>
+        <span class="k">if</span> <span class="n">linedex</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;#&quot;</span><span class="p">):</span>
+            <span class="n">writing_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">linedex</span><span class="p">)</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># If it is a `key : value` pair, we need to determine the key and value</span>
+        <span class="c1"># and replace it with the new one if needed.</span>
+        <span class="k">if</span> <span class="sa">R</span><span class="s2">&quot; : &quot;</span> <span class="ow">in</span> <span class="n">linedex</span><span class="p">:</span>
+            <span class="c1"># We do not want to split more than the key value pair itself. The</span>
+            <span class="c1"># key should never have : in it.</span>
+            <span class="n">default_key</span><span class="p">,</span> <span class="n">default_value</span> <span class="o">=</span> <span class="n">linedex</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">R</span><span class="s2">&quot; : &quot;</span><span class="p">,</span> <span class="n">maxsplit</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">writing_key</span> <span class="o">=</span> <span class="n">default_key</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+            <span class="c1"># Now we need to determine if the value is contained within the</span>
+            <span class="c1"># writing configuration.</span>
+            <span class="n">writing_value</span> <span class="o">=</span> <span class="n">writing_configuration</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+                <span class="n">writing_key</span><span class="p">,</span>
+                <span class="n">default_value</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">temp_writing_line</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">writing_key</span><span class="si">}</span><span class="s2"> : </span><span class="si">{</span><span class="n">writing_value</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="n">writing_lines</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp_writing_line</span><span class="p">)</span>
+
+        <span class="c1"># If a configuration line does not meet any of the above, it is not</span>
+        <span class="c1"># parsable for writing.</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">ConfigurationError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Configuration line cannot be parsed for writing: </span><span class="si">{</span><span class="n">linedex</span><span class="si">}</span><span class="s2">&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="c1"># We need to do a few checks for the configuration file path.</span>
+    <span class="n">config_extension</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;yaml&quot;</span><span class="p">,</span> <span class="s2">&quot;yml&quot;</span><span class="p">)</span>
+    <span class="n">filename_ext</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">get_file_extension</span><span class="p">(</span><span class="n">pathname</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">filename_ext</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">config_extension</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">FileError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Configuration filename has extension </span><span class="si">{</span><span class="n">filename_ext</span><span class="si">}</span><span class="s2">, not a&quot;</span>
+                <span class="s2">&quot; YAML extension (yml or yaml).&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+    <span class="c1"># We also check the directory and path.</span>
+    <span class="n">directory</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">get_directory</span><span class="p">(</span><span class="n">pathname</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
+        <span class="c1"># The directory of the file does not exist.</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+            <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">FileWarning</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Saving filename directory </span><span class="si">{</span><span class="n">directory</span><span class="si">}</span><span class="s2"> does not exist,&quot;</span>
+                <span class="s2">&quot; creating it.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># And we check if the file exists.</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">overwrite</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+            <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">FileError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Configuration file </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2"> already exists.&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Finally, saving the file. We need to make our own new line characters.</span>
+    <span class="n">yaml_lines</span> <span class="o">=</span> <span class="p">[</span><span class="n">linedex</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="k">for</span> <span class="n">linedex</span> <span class="ow">in</span> <span class="n">writing_lines</span><span class="p">]</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;w&quot;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf-8&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">new_file</span><span class="p">:</span>
+        <span class="n">new_file</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">yaml_lines</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="get_default_configuration">
+<a class="viewcode-back" href="../../../code/lezargus.library.configuration.html#lezargus.library.configuration.get_default_configuration">[docs]</a>
+<span class="k">def</span> <span class="nf">get_default_configuration</span><span class="p">(</span><span class="n">section</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;ALL&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get the default configuration dictionary.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    section : str</span>
+<span class="sd">        The section label for us to reduce the scope of the default</span>
+<span class="sd">        configuration provided</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    default_configuration : dict</span>
+<span class="sd">        The total default configuration dictionary.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Loading the default configuration</span>
+    <span class="k">with</span> <span class="n">_convert_default_configuration_file</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="n">section</span><span class="p">)</span> <span class="k">as</span> <span class="n">default</span><span class="p">:</span>
+        <span class="n">default_configuration</span> <span class="o">=</span> <span class="n">read_configuration_file</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">default</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">default_configuration</span></div>
+
+
+
+<div class="viewcode-block" id="create_configuration_file">
+<a class="viewcode-back" href="../../../code/lezargus.library.configuration.html#lezargus.library.configuration.create_configuration_file">[docs]</a>
+<span class="k">def</span> <span class="nf">create_configuration_file</span><span class="p">(</span>
+    <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">section</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;ALL&quot;</span><span class="p">,</span>
+    <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Create a copy of the default configuration file to the given location.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filename : str</span>
+<span class="sd">        The filename of the new configuration file to be saved, with the</span>
+<span class="sd">        extension. An error will be provided if the extension is not a</span>
+<span class="sd">        correct extension.</span>
+<span class="sd">    section : str</span>
+<span class="sd">        The section label for us to reduce the scope of the configuration</span>
+<span class="sd">        file we will be writing.</span>
+<span class="sd">    overwrite : bool, default = False</span>
+<span class="sd">        If the file already exists, overwrite it. If False, it would raise</span>
+<span class="sd">        an error instead.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># This really is just the same as writing a configuration file, just with</span>
+    <span class="c1"># no configuration changes from the default.</span>
+    <span class="n">write_configuration_file</span><span class="p">(</span>
+        <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
+        <span class="n">configuration</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">section</span><span class="o">=</span><span class="n">section</span><span class="p">,</span>
+        <span class="n">overwrite</span><span class="o">=</span><span class="n">overwrite</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="load_configuration_file">
+<a class="viewcode-back" href="../../../code/lezargus.library.configuration.html#lezargus.library.configuration.load_configuration_file">[docs]</a>
+<span class="k">def</span> <span class="nf">load_configuration_file</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load a configuration file, then apply it.</span>
+
+<span class="sd">    Reads a configuration file, the applies it to the current configuration.</span>
+<span class="sd">    Note configuration files should be flat, there should be no nested</span>
+<span class="sd">    configuration parameters.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filename : str</span>
+<span class="sd">        The filename of the configuration file, with the extension. Will raise</span>
+<span class="sd">        if the filename is not the correct extension, just as a quick check.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Loading a configuration is simply just reading the file, then applying</span>
+    <span class="c1"># the configuration.</span>
+    <span class="n">configuration</span> <span class="o">=</span> <span class="n">read_configuration_file</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+    <span class="n">apply_configuration</span><span class="p">(</span><span class="n">configuration</span><span class="o">=</span><span class="n">configuration</span><span class="p">)</span>
+    <span class="c1"># Notifying that it was applied.</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span>
+        <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Configuration file </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2"> was loaded and applied.&quot;</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="save_configuration_file">
+<a class="viewcode-back" href="../../../code/lezargus.library.configuration.html#lezargus.library.configuration.save_configuration_file">[docs]</a>
+<span class="k">def</span> <span class="nf">save_configuration_file</span><span class="p">(</span>
+    <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="n">section</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;ALL&quot;</span><span class="p">,</span>
+    <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Save the current live configuration to a configuration file.</span>
+
+<span class="sd">    This function saves the current configuration to a configuration file.</span>
+<span class="sd">    The entire configuration file is provided by default to replicate</span>
+<span class="sd">    the current settings, but a section tag may be provided.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    filename : str</span>
+<span class="sd">        The filename of the configuration file to be saved, with the</span>
+<span class="sd">        extension. An error will be provided if the extension is not a</span>
+<span class="sd">        correct extension.</span>
+<span class="sd">    section : str</span>
+<span class="sd">        The section label for us to reduce the scope of the configuration</span>
+<span class="sd">        file we will be saving.</span>
+<span class="sd">    overwrite : bool, default = False</span>
+<span class="sd">        If the file already exists, overwrite it. If False, it would raise</span>
+<span class="sd">        an error instead.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># We need to export the current configuration. Extracting all of the</span>
+    <span class="c1"># attributes ought to be fine but we need to sort though it after.</span>
+    <span class="n">raw_state</span> <span class="o">=</span> <span class="nb">vars</span><span class="p">(</span><span class="n">lezargus</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+
+    <span class="c1"># We get the parts of the configuration that we actually need.</span>
+    <span class="n">default_configuration</span> <span class="o">=</span> <span class="n">get_default_configuration</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="n">section</span><span class="p">)</span>
+
+    <span class="c1"># We cycle through the raw state, extracting the required configurations</span>
+    <span class="c1"># from it.</span>
+    <span class="n">live_configuration</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">keydex</span><span class="p">:</span> <span class="n">raw_state</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">keydex</span><span class="p">,</span> <span class="n">valuedex</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">keydex</span><span class="p">,</span> <span class="n">valuedex</span> <span class="ow">in</span> <span class="n">default_configuration</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+    <span class="p">}</span>
+
+    <span class="c1"># Finally, we save the live configuration.</span>
+    <span class="n">write_configuration_file</span><span class="p">(</span>
+        <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
+        <span class="n">configuration</span><span class="o">=</span><span class="n">live_configuration</span><span class="p">,</span>
+        <span class="n">section</span><span class="o">=</span><span class="n">section</span><span class="p">,</span>
+        <span class="n">overwrite</span><span class="o">=</span><span class="n">overwrite</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sparrow
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023, Sparrow.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

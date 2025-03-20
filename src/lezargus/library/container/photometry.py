@@ -77,8 +77,8 @@ class PhotometricVegaFilter:
         """Create an instance of a Vega-based photometric filter.
 
         It may be better to use the class methods
-        :py:method:`from_energy_transmission` and
-        :py:method:`from_photon_transmission` instead.
+        :py:meth:`from_energy_transmission` and
+        :py:meth:`from_photon_transmission` instead.
 
         Parameters
         ----------

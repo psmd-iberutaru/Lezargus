@@ -1,0 +1,854 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lezargus.data &#8212; Lezargus  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/lezargus/data';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Lezargus  documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../user/index.html">User Manual</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../technical/index.html">Technical Manual</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../technical/atmosphere.html">Atmospheric Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical/contributing.html">Contributor Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical/convention.html">Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical/photometry.html">Photometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../technical/uncertainty.html">Uncertainty Propagation</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../code/modules.html">lezargus</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../code/lezargus.html">lezargus package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../code/lezargus.cli.html">lezargus.cli package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../code/lezargus.cli.__main__.html">lezargus.cli.__main__ module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../code/lezargus.cli.help_.html">lezargus.cli.help_ module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../code/lezargus.cli.version.html">lezargus.cli.version module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../code/lezargus.data.html">lezargus.data package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../code/lezargus.data._make.html">lezargus.data._make package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../code/lezargus.library.html">lezargus.library package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../code/lezargus.library.container.html">lezargus.library.container package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../code/lezargus.library.array.html">lezargus.library.array module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../code/lezargus.library.atmosphere.html">lezargus.library.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../code/lezargus.library.configuration.html">lezargus.library.configuration module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../code/lezargus.library.conversion.html">lezargus.library.conversion module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../code/lezargus.library.convolution.html">lezargus.library.convolution module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../code/lezargus.library.fits.html">lezargus.library.fits module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../code/lezargus.library.flags.html">lezargus.library.flags module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../code/lezargus.library.hint.html">lezargus.library.hint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../code/lezargus.library.interpolate.html">lezargus.library.interpolate module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../code/lezargus.library.logging.html">lezargus.library.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../code/lezargus.library.math.html">lezargus.library.math module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../code/lezargus.library.path.html">lezargus.library.path module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../code/lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../code/lezargus.library.sanitize.html">lezargus.library.sanitize module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../code/lezargus.library.stitch.html">lezargus.library.stitch module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../code/lezargus.library.temporary.html">lezargus.library.temporary module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../code/lezargus.library.transform.html">lezargus.library.transform module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../code/lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../code/lezargus.simulator.html">lezargus.simulator package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../code/lezargus.simulator.atmosphere.html">lezargus.simulator.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../code/lezargus.simulator.spectre.html">lezargus.simulator.spectre module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../code/lezargus.simulator.target.html">lezargus.simulator.target module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../code/lezargus.simulator.telescope.html">lezargus.simulator.telescope module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../code/lezargus.__main__.html">lezargus.__main__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../code/lezargus.__version__.html">lezargus.__version__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../code/lezargus.config.html">lezargus.config module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../code/lezargus.initialize.html">lezargus.initialize module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../code/lezargus.terminate.html">lezargus.terminate module</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for lezargus.data</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Data objects needed for Lezargus are stored here.</span>
+
+<span class="sd">We load and make the objects from accompanying data files.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">import</span> <span class="nn">lezargus</span>
+<span class="kn">from</span> <span class="nn">lezargus.data</span> <span class="kn">import</span> <span class="n">_make</span>
+<span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">logging</span>
+
+<span class="c1"># Globals are how this entire module works, and it is readable as compared to</span>
+<span class="c1"># using the globals dictionary.</span>
+<span class="c1"># ruff: noqa: PLW0603</span>
+<span class="c1"># pylint: disable=global-variable-undefined</span>
+
+
+<div class="viewcode-block" id="__initialize_data_all">
+<a class="viewcode-back" href="../../code/lezargus.data.html#lezargus.data.__initialize_data_all">[docs]</a>
+<span class="k">def</span> <span class="nf">__initialize_data_all</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize the all of the data objects.</span>
+
+<span class="sd">    We wrap the initialization of the data objects in a function so we can</span>
+<span class="sd">    handle it with a more fine grained approach. The use of the global keyword</span>
+<span class="sd">    enables the objects to be the global space of this module anyways.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># If the initialization of the data is to be skipped.</span>
+    <span class="k">if</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">INTERNAL_DEBUG_SKIP_LOADING_DATA_FILES</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="c1"># Loading the data in the proper order.</span>
+    <span class="n">__initialize_data_constants</span><span class="p">()</span>
+    <span class="n">__initialize_data_star_spectra</span><span class="p">()</span>
+    <span class="n">__initialize_data_photometric_filters</span><span class="p">()</span>
+    <span class="n">__initialize_data_atmosphere_generators</span><span class="p">()</span>
+    <span class="n">__initialize_data_optic_efficiency_functions</span><span class="p">()</span>
+    <span class="n">__initialize_data_dispersion_patterns</span><span class="p">()</span></div>
+
+
+
+<div class="viewcode-block" id="__initialize_data_constants">
+<a class="viewcode-back" href="../../code/lezargus.data.html#lezargus.data.__initialize_data_constants">[docs]</a>
+<span class="k">def</span> <span class="nf">__initialize_data_constants</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize only the constant value data.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># If the initialization of the data is to be skipped.</span>
+    <span class="k">if</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">INTERNAL_DEBUG_SKIP_LOADING_DATA_FILES</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="c1"># Otherwise...</span>
+
+    <span class="c1"># Mirror solid angles.</span>
+    <span class="k">global</span> <span class="n">CONST_ENTRANCE_WINDOW_SOLID_ANGLE</span>
+    <span class="n">CONST_ENTRANCE_WINDOW_SOLID_ANGLE</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_constant</span><span class="p">(</span>
+        <span class="n">key</span><span class="o">=</span><span class="s2">&quot;CONST_ENTRANCE_WINDOW_SOLID_ANGLE&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">global</span> <span class="n">CONST_PRIMARY_MIRROR_SOLID_ANGLE</span>
+    <span class="n">CONST_PRIMARY_MIRROR_SOLID_ANGLE</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_constant</span><span class="p">(</span>
+        <span class="n">key</span><span class="o">=</span><span class="s2">&quot;CONST_PRIMARY_MIRROR_SOLID_ANGLE&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">global</span> <span class="n">CONST_SECONDARY_MIRROR_SOLID_ANGLE</span>
+    <span class="n">CONST_SECONDARY_MIRROR_SOLID_ANGLE</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_constant</span><span class="p">(</span>
+        <span class="n">key</span><span class="o">=</span><span class="s2">&quot;CONST_SECONDARY_MIRROR_SOLID_ANGLE&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Pixel and slice sizes and widths.</span>
+    <span class="k">global</span> <span class="n">CONST_SPECTRE_SLICES</span>
+    <span class="n">CONST_SPECTRE_SLICES</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_constant</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">&quot;CONST_SPECTRE_SLICES&quot;</span><span class="p">)</span>
+    <span class="k">global</span> <span class="n">CONST_VISIBLE_DETECTOR_SIZE</span>
+    <span class="n">CONST_VISIBLE_DETECTOR_SIZE</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_constant</span><span class="p">(</span>
+        <span class="n">key</span><span class="o">=</span><span class="s2">&quot;CONST_VISIBLE_DETECTOR_SIZE&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">global</span> <span class="n">CONST_NEARIR_DETECTOR_SIZE</span>
+    <span class="n">CONST_NEARIR_DETECTOR_SIZE</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_constant</span><span class="p">(</span>
+        <span class="n">key</span><span class="o">=</span><span class="s2">&quot;CONST_NEARIR_DETECTOR_SIZE&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">global</span> <span class="n">CONST_MIDIR_DETECTOR_SIZE</span>
+    <span class="n">CONST_MIDIR_DETECTOR_SIZE</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_constant</span><span class="p">(</span>
+        <span class="n">key</span><span class="o">=</span><span class="s2">&quot;CONST_MIDIR_DETECTOR_SIZE&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">global</span> <span class="n">CONST_VISIBLE_PIXEL_SIZE</span>
+    <span class="n">CONST_VISIBLE_PIXEL_SIZE</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_constant</span><span class="p">(</span>
+        <span class="n">key</span><span class="o">=</span><span class="s2">&quot;CONST_VISIBLE_PIXEL_SIZE&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">global</span> <span class="n">CONST_NEARIR_PIXEL_SIZE</span>
+    <span class="n">CONST_NEARIR_PIXEL_SIZE</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_constant</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">&quot;CONST_NEARIR_PIXEL_SIZE&quot;</span><span class="p">)</span>
+    <span class="k">global</span> <span class="n">CONST_MIDIR_PIXEL_SIZE</span>
+    <span class="n">CONST_MIDIR_PIXEL_SIZE</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_constant</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">&quot;CONST_MIDIR_PIXEL_SIZE&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Cosmic ray parameters.</span>
+    <span class="k">global</span> <span class="n">CONST_COSMIC_RAY_VALUE</span>
+    <span class="n">CONST_COSMIC_RAY_VALUE</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_constant</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">&quot;CONST_COSMIC_RAY_VALUE&quot;</span><span class="p">)</span>
+    <span class="k">global</span> <span class="n">CONST_COSMIC_RAY_RATE</span>
+    <span class="n">CONST_COSMIC_RAY_RATE</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_constant</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">&quot;CONST_COSMIC_RAY_RATE&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Detector gain values.</span>
+    <span class="k">global</span> <span class="n">CONST_VISIBLE_DETECTOR_GAIN</span>
+    <span class="n">CONST_VISIBLE_DETECTOR_GAIN</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_constant</span><span class="p">(</span>
+        <span class="n">key</span><span class="o">=</span><span class="s2">&quot;CONST_VISIBLE_DETECTOR_GAIN&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">global</span> <span class="n">CONST_NEARIR_DETECTOR_GAIN</span>
+    <span class="n">CONST_NEARIR_DETECTOR_GAIN</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_constant</span><span class="p">(</span>
+        <span class="n">key</span><span class="o">=</span><span class="s2">&quot;CONST_NEARIR_DETECTOR_GAIN&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">global</span> <span class="n">CONST_MIDIR_DETECTOR_GAIN</span>
+    <span class="n">CONST_MIDIR_DETECTOR_GAIN</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_constant</span><span class="p">(</span>
+        <span class="n">key</span><span class="o">=</span><span class="s2">&quot;CONST_MIDIR_DETECTOR_GAIN&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># All done.</span>
+    <span class="k">return</span></div>
+
+
+
+<div class="viewcode-block" id="__initialize_data_star_spectra">
+<a class="viewcode-back" href="../../code/lezargus.data.html#lezargus.data.__initialize_data_star_spectra">[docs]</a>
+<span class="k">def</span> <span class="nf">__initialize_data_star_spectra</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize only the standard spectral data.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># If the initialization of the data is to be skipped.</span>
+    <span class="k">if</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">INTERNAL_DEBUG_SKIP_LOADING_DATA_FILES</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="c1"># Otherwise...</span>
+
+    <span class="c1"># Creating all of the standard (star) spectra objects.</span>
+    <span class="k">global</span> <span class="n">STAR_16CYGB</span>
+    <span class="n">STAR_16CYGB</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_standard_spectrum</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;star_spectra_16CygB.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">global</span> <span class="n">STAR_109VIR</span>
+    <span class="n">STAR_109VIR</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_standard_spectrum</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;star_spectra_109Vir.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">global</span> <span class="n">STAR_A0V</span>
+    <span class="n">STAR_A0V</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_standard_spectrum</span><span class="p">(</span><span class="n">basename</span><span class="o">=</span><span class="s2">&quot;star_spectra_A0V.dat&quot;</span><span class="p">)</span>
+
+    <span class="k">global</span> <span class="n">STAR_SUN</span>
+    <span class="n">STAR_SUN</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_standard_spectrum</span><span class="p">(</span><span class="n">basename</span><span class="o">=</span><span class="s2">&quot;star_spectra_Sun.dat&quot;</span><span class="p">)</span>
+
+    <span class="k">global</span> <span class="n">STAR_VEGA</span>
+    <span class="n">STAR_VEGA</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_standard_spectrum</span><span class="p">(</span><span class="n">basename</span><span class="o">=</span><span class="s2">&quot;star_spectra_Vega.dat&quot;</span><span class="p">)</span>
+
+    <span class="c1"># All done.</span>
+    <span class="k">return</span></div>
+
+
+
+<div class="viewcode-block" id="__initialize_data_photometric_filters">
+<a class="viewcode-back" href="../../code/lezargus.data.html#lezargus.data.__initialize_data_photometric_filters">[docs]</a>
+<span class="k">def</span> <span class="nf">__initialize_data_photometric_filters</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize only the photometric filters.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># If the initialization of the data is to be skipped.</span>
+    <span class="k">if</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">INTERNAL_DEBUG_SKIP_LOADING_DATA_FILES</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="c1"># Otherwise...</span>
+
+    <span class="c1"># If the standard Vega spectrum does not exist, we cannot actually</span>
+    <span class="c1"># load the filters. The spectrum needs to be done first.</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span>
+            <span class="n">STAR_A0V</span><span class="p">,</span>
+            <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">,</span>
+        <span class="p">):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+                <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Standard A0V star is not a LezargusSpectrum.&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+    <span class="k">except</span> <span class="ne">NameError</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+            <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;Standard A0V spectrum data does not exist in data module.&quot;</span>
+                <span class="s2">&quot; Cannot properly load photometric filters.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+
+    <span class="c1"># Creating all of the photometric filter objects.</span>
+    <span class="c1"># Johnson U B V filters.</span>
+    <span class="k">global</span> <span class="n">FILTER_JOHNSON_U</span>
+    <span class="n">FILTER_JOHNSON_U</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_vega_photometric_filter</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;filter_Johnson_U.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">FILTER_JOHNSON_U</span><span class="o">.</span><span class="n">add_standard_star_spectrum</span><span class="p">(</span>
+        <span class="n">spectrum</span><span class="o">=</span><span class="n">STAR_A0V</span><span class="p">,</span>
+        <span class="n">magnitude</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">magnitude_uncertainty</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">global</span> <span class="n">FILTER_JOHNSON_B</span>
+    <span class="n">FILTER_JOHNSON_B</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_vega_photometric_filter</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;filter_Johnson_B.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">FILTER_JOHNSON_B</span><span class="o">.</span><span class="n">add_standard_star_spectrum</span><span class="p">(</span>
+        <span class="n">spectrum</span><span class="o">=</span><span class="n">STAR_A0V</span><span class="p">,</span>
+        <span class="n">magnitude</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">magnitude_uncertainty</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">global</span> <span class="n">FILTER_JOHNSON_V</span>
+    <span class="n">FILTER_JOHNSON_V</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_vega_photometric_filter</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;filter_Johnson_V.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">FILTER_JOHNSON_V</span><span class="o">.</span><span class="n">add_standard_star_spectrum</span><span class="p">(</span>
+        <span class="n">spectrum</span><span class="o">=</span><span class="n">STAR_A0V</span><span class="p">,</span>
+        <span class="n">magnitude</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">magnitude_uncertainty</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># 2MASS J H Ks filters.</span>
+    <span class="k">global</span> <span class="n">FILTER_2MASS_J</span>
+    <span class="n">FILTER_2MASS_J</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_vega_photometric_filter</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;filter_2MASS_J.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">FILTER_2MASS_J</span><span class="o">.</span><span class="n">add_standard_star_spectrum</span><span class="p">(</span>
+        <span class="n">spectrum</span><span class="o">=</span><span class="n">STAR_A0V</span><span class="p">,</span>
+        <span class="n">magnitude</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">magnitude_uncertainty</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">global</span> <span class="n">FILTER_2MASS_H</span>
+    <span class="n">FILTER_2MASS_H</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_vega_photometric_filter</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;filter_2MASS_H.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">FILTER_2MASS_H</span><span class="o">.</span><span class="n">add_standard_star_spectrum</span><span class="p">(</span>
+        <span class="n">spectrum</span><span class="o">=</span><span class="n">STAR_A0V</span><span class="p">,</span>
+        <span class="n">magnitude</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">magnitude_uncertainty</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">global</span> <span class="n">FILTER_2MASS_KS</span>
+    <span class="n">FILTER_2MASS_KS</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_vega_photometric_filter</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;filter_2MASS_Ks.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">FILTER_2MASS_KS</span><span class="o">.</span><span class="n">add_standard_star_spectrum</span><span class="p">(</span>
+        <span class="n">spectrum</span><span class="o">=</span><span class="n">STAR_A0V</span><span class="p">,</span>
+        <span class="n">magnitude</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">magnitude_uncertainty</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="__initialize_data_atmosphere_generators">
+<a class="viewcode-back" href="../../code/lezargus.data.html#lezargus.data.__initialize_data_atmosphere_generators">[docs]</a>
+<span class="k">def</span> <span class="nf">__initialize_data_atmosphere_generators</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize only the atmospheric generators.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># If the initialization of the data is to be skipped.</span>
+    <span class="k">if</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">INTERNAL_DEBUG_SKIP_LOADING_DATA_FILES</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="c1"># Otherwise...</span>
+
+    <span class="c1"># Creating the atmospheric transmission and radiance generators.</span>
+    <span class="k">global</span> <span class="n">ATM_TRANS_GEN</span>
+    <span class="n">ATM_TRANS_GEN</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_atmosphere_transmission_generator</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;psg_telluric_transmission.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">global</span> <span class="n">ATM_RADIANCE_GEN</span>
+    <span class="n">ATM_RADIANCE_GEN</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_atmosphere_radiance_generator</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;psg_telluric_radiance.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="__initialize_data_optic_efficiency_functions">
+<a class="viewcode-back" href="../../code/lezargus.data.html#lezargus.data.__initialize_data_optic_efficiency_functions">[docs]</a>
+<span class="k">def</span> <span class="nf">__initialize_data_optic_efficiency_functions</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize only the optic efficiency function spectrums.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># If the initialization of the data is to be skipped.</span>
+    <span class="k">if</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">INTERNAL_DEBUG_SKIP_LOADING_DATA_FILES</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="c1"># Otherwise...</span>
+    <span class="c1"># Creating the IRTF efficiency functions for the primary and secondary</span>
+    <span class="c1"># mirror.</span>
+    <span class="k">global</span> <span class="n">EFFICIENCY_IRTF_PRIMARY</span>
+    <span class="n">EFFICIENCY_IRTF_PRIMARY</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_optic_efficiency</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;efficiency_irtf_primary_mirror.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">global</span> <span class="n">EFFICIENCY_IRTF_SECONDARY</span>
+    <span class="n">EFFICIENCY_IRTF_SECONDARY</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_optic_efficiency</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;efficiency_irtf_secondary_mirror.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Creating the SPECTRE entrance window efficiency.</span>
+    <span class="k">global</span> <span class="n">EFFICIENCY_SPECTRE_WINDOW</span>
+    <span class="n">EFFICIENCY_SPECTRE_WINDOW</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_optic_efficiency</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;efficiency_spectre_entrance_window.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Creating the SPECTRE collimator mirror efficiency.</span>
+    <span class="k">global</span> <span class="n">EFFICIENCY_SPECTRE_COLLIMATOR</span>
+    <span class="n">EFFICIENCY_SPECTRE_COLLIMATOR</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_optic_efficiency</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;efficiency_spectre_collimator_mirror.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Creating the SPECTRE camera mirror efficiency.</span>
+    <span class="k">global</span> <span class="n">EFFICIENCY_SPECTRE_CAMERA</span>
+    <span class="n">EFFICIENCY_SPECTRE_CAMERA</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_optic_efficiency</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;efficiency_spectre_camera_mirror.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Creating the SPECTRE IFU image slicer efficiency.</span>
+    <span class="k">global</span> <span class="n">EFFICIENCY_SPECTRE_IMAGE_SLICER</span>
+    <span class="n">EFFICIENCY_SPECTRE_IMAGE_SLICER</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_optic_efficiency</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;efficiency_spectre_image_slicer.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Creating the SPECTRE IFU pupil mirror efficiency.</span>
+    <span class="k">global</span> <span class="n">EFFICIENCY_SPECTRE_PUPIL_MIRROR</span>
+    <span class="n">EFFICIENCY_SPECTRE_PUPIL_MIRROR</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_optic_efficiency</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;efficiency_spectre_pupil_mirror.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Creating the SPECTRE dichroic efficiencies.</span>
+    <span class="k">global</span> <span class="n">EFFICIENCY_SPECTRE_DICHROIC_VISIBLE</span>
+    <span class="n">EFFICIENCY_SPECTRE_DICHROIC_VISIBLE</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_optic_efficiency</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;efficiency_spectre_dichroic_visible.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">global</span> <span class="n">EFFICIENCY_SPECTRE_DICHROIC_NEARIR</span>
+    <span class="n">EFFICIENCY_SPECTRE_DICHROIC_NEARIR</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_optic_efficiency</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;efficiency_spectre_dichroic_nearir.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">global</span> <span class="n">EFFICIENCY_SPECTRE_DICHROIC_MIDIR</span>
+    <span class="n">EFFICIENCY_SPECTRE_DICHROIC_MIDIR</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_optic_efficiency</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;efficiency_spectre_dichroic_midir.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Creating the SPECTRE relay mirror efficiencies.</span>
+    <span class="k">global</span> <span class="n">EFFICIENCY_SPECTRE_RELAY_VISIBLE</span>
+    <span class="n">EFFICIENCY_SPECTRE_RELAY_VISIBLE</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_optic_efficiency</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;efficiency_spectre_relay_mirror_visible.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">global</span> <span class="n">EFFICIENCY_SPECTRE_RELAY_NEARIR</span>
+    <span class="n">EFFICIENCY_SPECTRE_RELAY_NEARIR</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_optic_efficiency</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;efficiency_spectre_relay_mirror_nearir.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">global</span> <span class="n">EFFICIENCY_SPECTRE_RELAY_MIDIR</span>
+    <span class="n">EFFICIENCY_SPECTRE_RELAY_MIDIR</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_optic_efficiency</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;efficiency_spectre_relay_mirror_midir.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Creating the SPECTRE prism efficiencies.</span>
+    <span class="k">global</span> <span class="n">EFFICIENCY_SPECTRE_PRISM_BK7</span>
+    <span class="n">EFFICIENCY_SPECTRE_PRISM_BK7</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_optic_efficiency</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;efficiency_spectre_prism_bk7.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">global</span> <span class="n">EFFICIENCY_SPECTRE_PRISM_SILICA</span>
+    <span class="n">EFFICIENCY_SPECTRE_PRISM_SILICA</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_optic_efficiency</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;efficiency_spectre_prism_silica.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">global</span> <span class="n">EFFICIENCY_SPECTRE_PRISM_ZNSE</span>
+    <span class="n">EFFICIENCY_SPECTRE_PRISM_ZNSE</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_optic_efficiency</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;efficiency_spectre_prism_znse.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">global</span> <span class="n">EFFICIENCY_SPECTRE_PRISM_SAPPHIRE</span>
+    <span class="n">EFFICIENCY_SPECTRE_PRISM_SAPPHIRE</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_optic_efficiency</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;efficiency_spectre_prism_sapphire.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Creating the SPECTRE fold mirror efficiencies.</span>
+    <span class="k">global</span> <span class="n">EFFICIENCY_SPECTRE_FOLD_VISIBLE</span>
+    <span class="n">EFFICIENCY_SPECTRE_FOLD_VISIBLE</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_optic_efficiency</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;efficiency_spectre_fold_mirror_visible.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">global</span> <span class="n">EFFICIENCY_SPECTRE_FOLD_NEARIR</span>
+    <span class="n">EFFICIENCY_SPECTRE_FOLD_NEARIR</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_optic_efficiency</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;efficiency_spectre_fold_mirror_nearir.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">global</span> <span class="n">EFFICIENCY_SPECTRE_FOLD_MIDIR</span>
+    <span class="n">EFFICIENCY_SPECTRE_FOLD_MIDIR</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_optic_efficiency</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;efficiency_spectre_fold_mirror_midir.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># Creating the SPECTRE detector quantum efficiencies.</span>
+    <span class="k">global</span> <span class="n">EFFICIENCY_SPECTRE_CCD_VISIBLE</span>
+    <span class="n">EFFICIENCY_SPECTRE_CCD_VISIBLE</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_optic_efficiency</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;efficiency_spectre_ccd_qe.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">global</span> <span class="n">EFFICIENCY_SPECTRE_H2RG_NEARIR</span>
+    <span class="n">EFFICIENCY_SPECTRE_H2RG_NEARIR</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_optic_efficiency</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;efficiency_spectre_h2rg25_qe.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">global</span> <span class="n">EFFICIENCY_SPECTRE_H2RG_MIDIR</span>
+    <span class="n">EFFICIENCY_SPECTRE_H2RG_MIDIR</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_optic_efficiency</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;efficiency_spectre_h2rg40_qe.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># All done</span>
+    <span class="k">return</span></div>
+
+
+
+<div class="viewcode-block" id="__initialize_data_dispersion_patterns">
+<a class="viewcode-back" href="../../code/lezargus.data.html#lezargus.data.__initialize_data_dispersion_patterns">[docs]</a>
+<span class="k">def</span> <span class="nf">__initialize_data_dispersion_patterns</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize only the spectral/detector dispersion patterns.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># If the initialization of the data is to be skipped.</span>
+    <span class="k">if</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">INTERNAL_DEBUG_SKIP_LOADING_DATA_FILES</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="c1"># The SPECTRE pattern.</span>
+    <span class="k">global</span> <span class="n">DISPERSION_SPECTRE</span>
+    <span class="n">DISPERSION_SPECTRE</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_spectre_dispersion_pattern</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;spectre_slice_dispersion.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span></div>
+
+
+
+<span class="n">__initialize_data_all</span><span class="p">()</span>
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sparrow
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023, Sparrow.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

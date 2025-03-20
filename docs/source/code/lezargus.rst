@@ -7,7 +7,8 @@ Subpackages
 .. toctree::
    :maxdepth: 4
 
-   lezargus.container
+   lezargus.cli
+   lezargus.data
    lezargus.library
    lezargus.simulator
 
@@ -19,7 +20,9 @@ Submodules
 
    lezargus.__main__
    lezargus.__version__
+   lezargus.config
    lezargus.initialize
+   lezargus.terminate
 
 Module contents
 ---------------

@@ -1,0 +1,990 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lezargus.library.container.dispersion &#8212; Lezargus  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/lezargus/library/container/dispersion';</script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Lezargus  documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../user/index.html">User Manual</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../technical/index.html">Technical Manual</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../technical/atmosphere.html">Atmospheric Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../technical/contributing.html">Contributor Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../technical/convention.html">Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../technical/photometry.html">Photometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../technical/uncertainty.html">Uncertainty Propagation</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../code/modules.html">lezargus</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../code/lezargus.html">lezargus package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../code/lezargus.cli.html">lezargus.cli package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.cli.__main__.html">lezargus.cli.__main__ module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.cli.help_.html">lezargus.cli.help_ module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.cli.version.html">lezargus.cli.version module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../code/lezargus.data.html">lezargus.data package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.data._make.html">lezargus.data._make package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../code/lezargus.library.html">lezargus.library package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.container.html">lezargus.library.container package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.array.html">lezargus.library.array module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.atmosphere.html">lezargus.library.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.configuration.html">lezargus.library.configuration module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.conversion.html">lezargus.library.conversion module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.convolution.html">lezargus.library.convolution module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.fits.html">lezargus.library.fits module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.flags.html">lezargus.library.flags module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.hint.html">lezargus.library.hint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.interpolate.html">lezargus.library.interpolate module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.logging.html">lezargus.library.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.math.html">lezargus.library.math module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.path.html">lezargus.library.path module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.sanitize.html">lezargus.library.sanitize module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.stitch.html">lezargus.library.stitch module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.temporary.html">lezargus.library.temporary module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.transform.html">lezargus.library.transform module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../code/lezargus.simulator.html">lezargus.simulator package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.simulator.atmosphere.html">lezargus.simulator.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.simulator.spectre.html">lezargus.simulator.spectre module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.simulator.target.html">lezargus.simulator.target module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.simulator.telescope.html">lezargus.simulator.telescope module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../code/lezargus.__main__.html">lezargus.__main__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../code/lezargus.__version__.html">lezargus.__version__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../code/lezargus.config.html">lezargus.config module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../code/lezargus.initialize.html">lezargus.initialize module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../code/lezargus.terminate.html">lezargus.terminate module</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for lezargus.library.container.dispersion</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Container classes to hold spectral dispersion patterning and pixel locations.</span>
+
+<span class="sd">These class serves as a simpler interface for the spectral dispersion,</span>
+<span class="sd">displaying where light should end up on a detector due to dispersive and</span>
+<span class="sd">imaging elements.</span>
+
+<span class="sd">Note that the dispersion classes are unique to each instrument and its usage</span>
+<span class="sd">must be done carefully.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># isort: split</span>
+<span class="c1"># Import required to remove circular dependencies from type checking.</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">hint</span>
+<span class="c1"># isort: split</span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="kn">import</span> <span class="nn">astropy.table</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">lezargus</span>
+<span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">logging</span>
+
+
+<div class="viewcode-block" id="SpectreDispersionPattern">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.dispersion.html#lezargus.library.container.dispersion.SpectreDispersionPattern">[docs]</a>
+<span class="k">class</span> <span class="nc">SpectreDispersionPattern</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The dispersion pattern for SPECTRE.</span>
+
+<span class="sd">    This dispersion pattern class should only be used for the SPECTRE</span>
+<span class="sd">    instrument! Any other instrument is unsupported with this class.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">dispersion_table</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The dispersion table detailing the spectral dispersion and pattern of</span>
+<span class="sd">    the light on a detector. The format of this table should pass internal</span>
+<span class="sd">    checks and so we do not suggest changing this table manually.&quot;&quot;&quot;</span>
+
+    <span class="n">visible_pixel_size</span><span class="p">:</span> <span class="nb">float</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The pixel size of the visible channel detector, taken from the data</span>
+<span class="sd">    constants.&quot;&quot;&quot;</span>
+
+    <span class="n">nearir_pixel_size</span><span class="p">:</span> <span class="nb">float</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The pixel size of the near IR channel detector, taken from the data</span>
+<span class="sd">    constants.&quot;&quot;&quot;</span>
+
+    <span class="n">midir_pixel_size</span><span class="p">:</span> <span class="nb">float</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The pixel size of the mid IR channel detector, taken from the data</span>
+<span class="sd">    constants.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="SpectreDispersionPattern.__init__">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.dispersion.html#lezargus.library.container.dispersion.SpectreDispersionPattern.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">SpectreDispersionPattern</span><span class="p">,</span>
+        <span class="n">dispersion_table</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the dispersion pattern class.</span>
+
+<span class="sd">        This class should not be invoked directly. Please read in a dispersion</span>
+<span class="sd">        table file via :py:meth:`read_dispersion_table`. The format of the</span>
+<span class="sd">        dispersion table is a bit specific, see</span>
+<span class="sd">        :py:meth:`verify_dispersion_table`.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        dispersion_table : Astropy Table</span>
+<span class="sd">            The dispersion table which holds the locations of the dispersive</span>
+<span class="sd">            points. If the table doesn&#39;t match the expected format, an error</span>
+<span class="sd">            is logged.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We need to make sure the dispersion table can pass checks.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">verify_dispersion_table</span><span class="p">(</span><span class="n">table</span><span class="o">=</span><span class="n">dispersion_table</span><span class="p">):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Dispersion table provided failed verification.&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dispersion_table</span> <span class="o">=</span> <span class="n">dispersion_table</span></div>
+
+        <span class="c1"># All done.</span>
+
+<div class="viewcode-block" id="SpectreDispersionPattern.verify_dispersion_table">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.dispersion.html#lezargus.library.container.dispersion.SpectreDispersionPattern.verify_dispersion_table">[docs]</a>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">verify_dispersion_table</span><span class="p">(</span><span class="n">table</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Verify that the provided dispersion table has the expected fields.</span>
+
+<span class="sd">        We pull the required data for dispersion determination from the table,</span>
+<span class="sd">        and so the format of the table needs to adhere to specific</span>
+<span class="sd">        specifications and assumptions.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        table : Astropy Table</span>
+<span class="sd">            The table we are testing.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        verification : bool</span>
+<span class="sd">            If True, the table passes all of our verification tests and should</span>
+<span class="sd">            be good enough for this class.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Assuming a good table...</span>
+        <span class="n">verification</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="c1"># Needs to be an Astropy table.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">table</span><span class="p">,</span> <span class="n">astropy</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">Table</span><span class="p">):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;Provided dispersion table is not an Astropy table, but&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; is: </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">table</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">verification</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># We just make sure the columns have the expected names.</span>
+        <span class="n">expected_columns</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="s2">&quot;channel&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;slice&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;wavelength&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;center_x&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;center_y&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;top_x&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;top_y&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;bottom_x&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;bottom_y&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;left_x&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;left_y&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;right_x&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;right_y&quot;</span><span class="p">,</span>
+        <span class="p">]</span>
+        <span class="k">for</span> <span class="n">coldex</span> <span class="ow">in</span> <span class="n">expected_columns</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">coldex</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">table</span><span class="o">.</span><span class="n">colnames</span><span class="p">:</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                    <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                    <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;Expected column, </span><span class="si">{</span><span class="n">coldex</span><span class="si">}</span><span class="s2">, does not exist in provided&quot;</span>
+                        <span class="s2">&quot; dispersion table. (Case sensitive.)&quot;</span>
+                    <span class="p">),</span>
+                <span class="p">)</span>
+                <span class="n">verification</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># We check to make sure there are all three channels, with the expected</span>
+        <span class="c1"># names.</span>
+        <span class="n">channel_column</span> <span class="o">=</span> <span class="n">table</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;channel&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">channel_column</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;Channel column in table does not exist, cannot test for&quot;</span>
+                    <span class="s2">&quot; channel entries.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+            <span class="n">verification</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Checking.</span>
+            <span class="n">channel_names</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">channel_column</span><span class="p">)))</span>
+            <span class="n">expected_channel_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;visible&quot;</span><span class="p">,</span> <span class="s2">&quot;nearir&quot;</span><span class="p">,</span> <span class="s2">&quot;midir&quot;</span><span class="p">]</span>
+            <span class="k">for</span> <span class="n">channeldex</span> <span class="ow">in</span> <span class="n">expected_channel_names</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">channeldex</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">channel_names</span><span class="p">:</span>
+                    <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                        <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                        <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                            <span class="sa">f</span><span class="s2">&quot;Expected channel data, </span><span class="si">{</span><span class="n">channeldex</span><span class="si">}</span><span class="s2">, does not&quot;</span>
+                            <span class="s2">&quot; exist in provided dispersion table.&quot;</span>
+                        <span class="p">),</span>
+                    <span class="p">)</span>
+                    <span class="n">verification</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">verification</span></div>
+
+
+<div class="viewcode-block" id="SpectreDispersionPattern.read_dispersion_table">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.dispersion.html#lezargus.library.container.dispersion.SpectreDispersionPattern.read_dispersion_table">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">read_dispersion_table</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">],</span> <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Read a dispersion table file and create the dispersion class.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        filename : str</span>
+<span class="sd">            The filename of the dispersion table we are reading in.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dispersion_class : SpectreDispersionPattern</span>
+<span class="sd">            The dispersion class.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We need to make sure the file even exists in the first place.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">FileError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Dispersion table file does not exit: </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Reading the file.</span>
+        <span class="n">raw_dispersion_table</span> <span class="o">=</span> <span class="n">astropy</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span>
+            <span class="n">filename</span><span class="p">,</span>
+            <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;ascii.mrt&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># We rely on the main instantiation to checking.</span>
+        <span class="n">dispersion_class</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span><span class="n">dispersion_table</span><span class="o">=</span><span class="n">raw_dispersion_table</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">dispersion_class</span></div>
+
+
+<div class="viewcode-block" id="SpectreDispersionPattern._query_dispersion_table">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.dispersion.html#lezargus.library.container.dispersion.SpectreDispersionPattern._query_dispersion_table">[docs]</a>
+    <span class="k">def</span> <span class="nf">_query_dispersion_table</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">channel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">slice_</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">column</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Query the dispersion table, filtering for the right data.</span>
+
+<span class="sd">        This is a helper function for querying the dispersion table. It</span>
+<span class="sd">        serves mostly to act as a wrapper around the filtering mechanisms</span>
+<span class="sd">        as we pull data out of the table. It also has a few checks. We always</span>
+<span class="sd">        do all wavelengths.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        channel : str</span>
+<span class="sd">            The name of the channel which you are getting the dispersion</span>
+<span class="sd">            coordinate for; the map for all three are a little different. Must</span>
+<span class="sd">            be one of: `visible`, `nearir`, `midir`.</span>
+<span class="sd">        slice_ : int</span>
+<span class="sd">            The slice index to indicate which slice you are getting. Must be</span>
+<span class="sd">            within 1-36 (or whatever count of slices there are); this is not</span>
+<span class="sd">            zero indexed.</span>
+<span class="sd">        column : str</span>
+<span class="sd">            The name of the data column of the table you want to query or</span>
+<span class="sd">            # filter to. Available options:</span>
+
+<span class="sd">                - `wavelength`: The wavelength column.</span>
+<span class="sd">                - `center_x` or `center_y`: The X or Y data of the center.</span>
+<span class="sd">                - `top_x` or `top_y`: The X or Y data of the top.</span>
+<span class="sd">                - `bottom_x` or `bottom_y`: The X or Y data of the bottom.</span>
+<span class="sd">                - `left_x` or `left_y`: The X or Y data of the left.</span>
+<span class="sd">                - `right_x` or `right_y`: The X or Y data of the right.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        data : NDarray</span>
+<span class="sd">            The queried and filtered data from the table. Please note, we do</span>
+<span class="sd">            preserve unit objects in the query. As this is an internal</span>
+<span class="sd">            function, the known convention of the input table is enough.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We just filter by boolean indexing. This could be optimized in the</span>
+        <span class="c1"># future if it is an issue.</span>
+        <span class="c1"># Channel...</span>
+        <span class="n">channel</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="n">casefold</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">channel</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;visible&quot;</span><span class="p">,</span> <span class="s2">&quot;nearir&quot;</span><span class="p">,</span> <span class="s2">&quot;midir&quot;</span><span class="p">]:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Channel input not supported: </span><span class="si">{</span><span class="n">channel</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="n">channel_filter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dispersion_table</span><span class="p">[</span><span class="s2">&quot;channel&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">channel</span>
+        <span class="c1"># Slice</span>
+        <span class="n">n_slices</span> <span class="o">=</span> <span class="mi">36</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">slice_</span> <span class="o">&lt;=</span> <span class="n">n_slices</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Slice input not within supported range [1, 36]: </span><span class="si">{</span><span class="n">slice_</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="n">slice_filter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dispersion_table</span><span class="p">[</span><span class="s2">&quot;slice&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">slice_</span>
+
+        <span class="c1"># A simple check to make sure the column data exists.</span>
+        <span class="n">column_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dispersion_table</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">column_data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+                <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;Column provided is not a column in the dispersion table:&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">column</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Otherwise, we try and access the data.</span>
+        <span class="n">full_filter</span> <span class="o">=</span> <span class="n">channel_filter</span> <span class="o">&amp;</span> <span class="n">slice_filter</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">column_data</span><span class="p">[</span><span class="n">full_filter</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">data</span></div>
+
+
+<div class="viewcode-block" id="SpectreDispersionPattern.get_slice_dispersion_coordinate">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.dispersion.html#lezargus.library.container.dispersion.SpectreDispersionPattern.get_slice_dispersion_coordinate">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_slice_dispersion_coordinate</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">channel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">slice_</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">location</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">wavelength</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the coordinate location on the detector, in linear units.</span>
+
+<span class="sd">        Note, this function returns the coordinates in meters, consider using</span>
+<span class="sd">        py:meth:`get_slice_dispersion_pixel` for the pixel coordinates.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        channel : str</span>
+<span class="sd">            The name of the channel which you are getting the dispersion</span>
+<span class="sd">            coordinate for; the map for all three are a little different. Must</span>
+<span class="sd">            be one of: `visible`, `nearir`, `midir`.</span>
+<span class="sd">        slice_ : int</span>
+<span class="sd">            The slice index to indicate which slice you are getting. Must be</span>
+<span class="sd">            within 1-36 (or whatever count of slices there are); this is not</span>
+<span class="sd">            zero indexed.</span>
+<span class="sd">        location : str</span>
+<span class="sd">            The location of the area you want relative to the center of the</span>
+<span class="sd">            slice. Acceptable terms:</span>
+
+<span class="sd">                - `center`: The center of the slice.</span>
+<span class="sd">                - `left` or `right`: The direct left and right from the center.</span>
+<span class="sd">                - `top` or `bottom`: The direct top and bottom from the center.</span>
+<span class="sd">                - `top_left` or `top_right`: The top left and right corners.</span>
+<span class="sd">                - `bottom_left` or `bottom_right`: The bottom corners.</span>
+
+<span class="sd">        wavelength : float | NDArray</span>
+<span class="sd">            The wavelength(s) to get the coordinates for the dispersion for,</span>
+<span class="sd">            required as this is to model spectral dispersion using its</span>
+<span class="sd">            spatial displacement effects.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        coordinate_pairs : list</span>
+<span class="sd">            The list of the (X, Y) coordinate pairs, parallel with the provided</span>
+<span class="sd">            wavelength array.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We need to determine the location desired, specifying which points we</span>
+        <span class="c1"># use to interpolate.</span>
+        <span class="n">location</span> <span class="o">=</span> <span class="n">location</span><span class="o">.</span><span class="n">casefold</span><span class="p">()</span>
+        <span class="c1"># The normal points...</span>
+        <span class="k">if</span> <span class="n">location</span> <span class="o">==</span> <span class="s2">&quot;center&quot;</span><span class="p">:</span>
+            <span class="n">interp_wave</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_dispersion_table</span><span class="p">(</span>
+                <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+                <span class="n">slice_</span><span class="o">=</span><span class="n">slice_</span><span class="p">,</span>
+                <span class="n">column</span><span class="o">=</span><span class="s2">&quot;wavelength&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">interp_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_dispersion_table</span><span class="p">(</span>
+                <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+                <span class="n">slice_</span><span class="o">=</span><span class="n">slice_</span><span class="p">,</span>
+                <span class="n">column</span><span class="o">=</span><span class="s2">&quot;center_x&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">interp_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_dispersion_table</span><span class="p">(</span>
+                <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+                <span class="n">slice_</span><span class="o">=</span><span class="n">slice_</span><span class="p">,</span>
+                <span class="n">column</span><span class="o">=</span><span class="s2">&quot;center_y&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">location</span> <span class="o">==</span> <span class="s2">&quot;left&quot;</span><span class="p">:</span>
+            <span class="n">interp_wave</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_dispersion_table</span><span class="p">(</span>
+                <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+                <span class="n">slice_</span><span class="o">=</span><span class="n">slice_</span><span class="p">,</span>
+                <span class="n">column</span><span class="o">=</span><span class="s2">&quot;wavelength&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">interp_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_dispersion_table</span><span class="p">(</span>
+                <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+                <span class="n">slice_</span><span class="o">=</span><span class="n">slice_</span><span class="p">,</span>
+                <span class="n">column</span><span class="o">=</span><span class="s2">&quot;left_x&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">interp_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_dispersion_table</span><span class="p">(</span>
+                <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+                <span class="n">slice_</span><span class="o">=</span><span class="n">slice_</span><span class="p">,</span>
+                <span class="n">column</span><span class="o">=</span><span class="s2">&quot;left_y&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">location</span> <span class="o">==</span> <span class="s2">&quot;right&quot;</span><span class="p">:</span>
+            <span class="n">interp_wave</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_dispersion_table</span><span class="p">(</span>
+                <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+                <span class="n">slice_</span><span class="o">=</span><span class="n">slice_</span><span class="p">,</span>
+                <span class="n">column</span><span class="o">=</span><span class="s2">&quot;wavelength&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">interp_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_dispersion_table</span><span class="p">(</span>
+                <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+                <span class="n">slice_</span><span class="o">=</span><span class="n">slice_</span><span class="p">,</span>
+                <span class="n">column</span><span class="o">=</span><span class="s2">&quot;right_x&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">interp_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_dispersion_table</span><span class="p">(</span>
+                <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+                <span class="n">slice_</span><span class="o">=</span><span class="n">slice_</span><span class="p">,</span>
+                <span class="n">column</span><span class="o">=</span><span class="s2">&quot;right_y&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">location</span> <span class="o">==</span> <span class="s2">&quot;top&quot;</span><span class="p">:</span>
+            <span class="n">interp_wave</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_dispersion_table</span><span class="p">(</span>
+                <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+                <span class="n">slice_</span><span class="o">=</span><span class="n">slice_</span><span class="p">,</span>
+                <span class="n">column</span><span class="o">=</span><span class="s2">&quot;wavelength&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">interp_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_dispersion_table</span><span class="p">(</span>
+                <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+                <span class="n">slice_</span><span class="o">=</span><span class="n">slice_</span><span class="p">,</span>
+                <span class="n">column</span><span class="o">=</span><span class="s2">&quot;top_x&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">interp_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_dispersion_table</span><span class="p">(</span>
+                <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+                <span class="n">slice_</span><span class="o">=</span><span class="n">slice_</span><span class="p">,</span>
+                <span class="n">column</span><span class="o">=</span><span class="s2">&quot;top_y&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">location</span> <span class="o">==</span> <span class="s2">&quot;bottom&quot;</span><span class="p">:</span>
+            <span class="n">interp_wave</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_dispersion_table</span><span class="p">(</span>
+                <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+                <span class="n">slice_</span><span class="o">=</span><span class="n">slice_</span><span class="p">,</span>
+                <span class="n">column</span><span class="o">=</span><span class="s2">&quot;wavelength&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">interp_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_dispersion_table</span><span class="p">(</span>
+                <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+                <span class="n">slice_</span><span class="o">=</span><span class="n">slice_</span><span class="p">,</span>
+                <span class="n">column</span><span class="o">=</span><span class="s2">&quot;bottom_x&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">interp_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_dispersion_table</span><span class="p">(</span>
+                <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+                <span class="n">slice_</span><span class="o">=</span><span class="n">slice_</span><span class="p">,</span>
+                <span class="n">column</span><span class="o">=</span><span class="s2">&quot;bottom_y&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="c1"># These points are the corners, which we just assume a rectangle and</span>
+        <span class="c1"># switch up the X and Y points accordingly.</span>
+        <span class="k">elif</span> <span class="n">location</span> <span class="o">==</span> <span class="s2">&quot;top_left&quot;</span><span class="p">:</span>
+            <span class="n">interp_wave</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_dispersion_table</span><span class="p">(</span>
+                <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+                <span class="n">slice_</span><span class="o">=</span><span class="n">slice_</span><span class="p">,</span>
+                <span class="n">column</span><span class="o">=</span><span class="s2">&quot;wavelength&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">interp_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_dispersion_table</span><span class="p">(</span>
+                <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+                <span class="n">slice_</span><span class="o">=</span><span class="n">slice_</span><span class="p">,</span>
+                <span class="n">column</span><span class="o">=</span><span class="s2">&quot;left_x&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">interp_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_dispersion_table</span><span class="p">(</span>
+                <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+                <span class="n">slice_</span><span class="o">=</span><span class="n">slice_</span><span class="p">,</span>
+                <span class="n">column</span><span class="o">=</span><span class="s2">&quot;top_y&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">location</span> <span class="o">==</span> <span class="s2">&quot;top_right&quot;</span><span class="p">:</span>
+            <span class="n">interp_wave</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_dispersion_table</span><span class="p">(</span>
+                <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+                <span class="n">slice_</span><span class="o">=</span><span class="n">slice_</span><span class="p">,</span>
+                <span class="n">column</span><span class="o">=</span><span class="s2">&quot;wavelength&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">interp_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_dispersion_table</span><span class="p">(</span>
+                <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+                <span class="n">slice_</span><span class="o">=</span><span class="n">slice_</span><span class="p">,</span>
+                <span class="n">column</span><span class="o">=</span><span class="s2">&quot;right_x&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">interp_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_dispersion_table</span><span class="p">(</span>
+                <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+                <span class="n">slice_</span><span class="o">=</span><span class="n">slice_</span><span class="p">,</span>
+                <span class="n">column</span><span class="o">=</span><span class="s2">&quot;top_y&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">location</span> <span class="o">==</span> <span class="s2">&quot;bottom_left&quot;</span><span class="p">:</span>
+            <span class="n">interp_wave</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_dispersion_table</span><span class="p">(</span>
+                <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+                <span class="n">slice_</span><span class="o">=</span><span class="n">slice_</span><span class="p">,</span>
+                <span class="n">column</span><span class="o">=</span><span class="s2">&quot;wavelength&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">interp_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_dispersion_table</span><span class="p">(</span>
+                <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+                <span class="n">slice_</span><span class="o">=</span><span class="n">slice_</span><span class="p">,</span>
+                <span class="n">column</span><span class="o">=</span><span class="s2">&quot;left_x&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">interp_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_dispersion_table</span><span class="p">(</span>
+                <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+                <span class="n">slice_</span><span class="o">=</span><span class="n">slice_</span><span class="p">,</span>
+                <span class="n">column</span><span class="o">=</span><span class="s2">&quot;bottom_y&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">location</span> <span class="o">==</span> <span class="s2">&quot;bottom_right&quot;</span><span class="p">:</span>
+            <span class="n">interp_wave</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_dispersion_table</span><span class="p">(</span>
+                <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+                <span class="n">slice_</span><span class="o">=</span><span class="n">slice_</span><span class="p">,</span>
+                <span class="n">column</span><span class="o">=</span><span class="s2">&quot;wavelength&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">interp_x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_dispersion_table</span><span class="p">(</span>
+                <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+                <span class="n">slice_</span><span class="o">=</span><span class="n">slice_</span><span class="p">,</span>
+                <span class="n">column</span><span class="o">=</span><span class="s2">&quot;right_x&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">interp_y</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_dispersion_table</span><span class="p">(</span>
+                <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+                <span class="n">slice_</span><span class="o">=</span><span class="n">slice_</span><span class="p">,</span>
+                <span class="n">column</span><span class="o">=</span><span class="s2">&quot;bottom_y&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="c1"># The input was likely not supported.</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">interp_wave</span> <span class="o">=</span> <span class="n">interp_x</span> <span class="o">=</span> <span class="n">interp_y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">])</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Location provided, </span><span class="si">{</span><span class="n">location</span><span class="si">}</span><span class="s2">, does not seem to match&quot;</span>
+                    <span class="s2">&quot; provided options, see documentation.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Now that we have the data we can interpolate to the wavelengths</span>
+        <span class="c1"># desired.</span>
+        <span class="n">interpolator_x</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">interpolate</span><span class="o">.</span><span class="n">Linear1DInterpolate</span><span class="p">(</span>
+            <span class="n">x</span><span class="o">=</span><span class="n">interp_wave</span><span class="p">,</span>
+            <span class="n">v</span><span class="o">=</span><span class="n">interp_x</span><span class="p">,</span>
+            <span class="n">extrapolate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">interpolator_y</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">interpolate</span><span class="o">.</span><span class="n">Linear1DInterpolate</span><span class="p">(</span>
+            <span class="n">x</span><span class="o">=</span><span class="n">interp_wave</span><span class="p">,</span>
+            <span class="n">v</span><span class="o">=</span><span class="n">interp_y</span><span class="p">,</span>
+            <span class="n">extrapolate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># And we get the values.</span>
+        <span class="n">wavelength</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">atleast_1d</span><span class="p">(</span><span class="n">wavelength</span><span class="p">)</span>
+        <span class="n">coordinate_x</span> <span class="o">=</span> <span class="n">interpolator_x</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">wavelength</span><span class="p">)</span>
+        <span class="n">coordinate_y</span> <span class="o">=</span> <span class="n">interpolator_y</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">wavelength</span><span class="p">)</span>
+        <span class="c1"># Creating the pairs.</span>
+
+        <span class="n">coordinate_pairs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">coordinate_x</span><span class="p">,</span> <span class="n">coordinate_y</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+        <span class="k">return</span> <span class="n">coordinate_pairs</span></div>
+
+
+<div class="viewcode-block" id="SpectreDispersionPattern.get_slice_dispersion_pixel">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.dispersion.html#lezargus.library.container.dispersion.SpectreDispersionPattern.get_slice_dispersion_pixel">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_slice_dispersion_pixel</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">channel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">slice_</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="n">location</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">wavelength</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the coordinate location on the detector, in pixels.</span>
+
+<span class="sd">        Note, this function returns the coordinates in pixel units. We convert</span>
+<span class="sd">        from the linear units from the original function</span>
+<span class="sd">        py:meth:`get_slice_dispersion_coordinate` to pixel units based on the</span>
+<span class="sd">        pixel scale of each detector within the channel. This is mostly a</span>
+<span class="sd">        convenience function and the main function is the predominant source</span>
+<span class="sd">        of the documentation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        channel : str</span>
+<span class="sd">            The name of which of the three channels being queried.</span>
+<span class="sd">        slice_ : int</span>
+<span class="sd">            The slice index, 1-36 inclusive, for the slice being queried.</span>
+<span class="sd">        location : str</span>
+<span class="sd">            The location of the area you want relative to the center of the</span>
+<span class="sd">            slice. Acceptable terms:</span>
+
+<span class="sd">                - `center`: The center of the slice.</span>
+<span class="sd">                - `left` or `right`: The direct left and right from the center.</span>
+<span class="sd">                - `top` or `bottom`: The direct top and bottom from the center.</span>
+<span class="sd">                - `top_left` or `top_right`: The top left and right corners.</span>
+<span class="sd">                - `bottom_left` or `bottom_right`: The bottom corners.</span>
+
+<span class="sd">        wavelength : float | NDArray</span>
+<span class="sd">            The wavelength(s) to get the coordinates for the dispersion.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        pixel_coordinate_pairs : list</span>
+<span class="sd">            The list of the (X, Y) coordinate pairs in pixel units, parallel</span>
+<span class="sd">            with the provided wavelength array.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We are mostly just converting the linear coordinates given the</span>
+        <span class="c1"># pixel sizes so we need the linear coordinates first.</span>
+        <span class="n">coordinate_pairs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_slice_dispersion_coordinate</span><span class="p">(</span>
+            <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+            <span class="n">slice_</span><span class="o">=</span><span class="n">slice_</span><span class="p">,</span>
+            <span class="n">location</span><span class="o">=</span><span class="n">location</span><span class="p">,</span>
+            <span class="n">wavelength</span><span class="o">=</span><span class="n">wavelength</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># We need to use the correct pixel size, depending on the channel.</span>
+        <span class="n">channel</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="n">casefold</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;visible&quot;</span><span class="p">:</span>
+            <span class="n">pixel_size</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_VISIBLE_PIXEL_SIZE</span>
+            <span class="n">detector_size</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_VISIBLE_DETECTOR_SIZE</span>
+        <span class="k">elif</span> <span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;nearir&quot;</span><span class="p">:</span>
+            <span class="n">pixel_size</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_NEARIR_PIXEL_SIZE</span>
+            <span class="n">detector_size</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_NEARIR_DETECTOR_SIZE</span>
+        <span class="k">elif</span> <span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;midir&quot;</span><span class="p">:</span>
+            <span class="n">pixel_size</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_MIDIR_PIXEL_SIZE</span>
+            <span class="n">detector_size</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_MIDIR_DETECTOR_SIZE</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Channel provided, </span><span class="si">{</span><span class="n">channel</span><span class="si">}</span><span class="s2">, does not have a pixel size.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Convert the coordinates to pixels.</span>
+        <span class="n">center_pixel_coordinate_pairs</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="n">xdex</span> <span class="o">/</span> <span class="n">pixel_size</span><span class="p">,</span> <span class="n">ydex</span> <span class="o">/</span> <span class="n">pixel_size</span><span class="p">)</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">xdex</span><span class="p">,</span> <span class="n">ydex</span><span class="p">)</span> <span class="ow">in</span> <span class="n">coordinate_pairs</span>
+        <span class="p">]</span>
+
+        <span class="c1"># The values computed are center-origin which is atypical for pixels.</span>
+        <span class="c1"># We shift it so the origin is correctly in a corner.</span>
+        <span class="c1"># We assume a square detector.</span>
+        <span class="n">pixel_coordinate_pairs</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="p">(</span><span class="n">xdex</span> <span class="o">+</span> <span class="n">detector_size</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">ydex</span> <span class="o">+</span> <span class="n">detector_size</span> <span class="o">//</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">xdex</span><span class="p">,</span> <span class="n">ydex</span><span class="p">)</span> <span class="ow">in</span> <span class="n">center_pixel_coordinate_pairs</span>
+        <span class="p">]</span>
+
+        <span class="k">return</span> <span class="n">pixel_coordinate_pairs</span></div>
+</div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sparrow
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023, Sparrow.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,1508 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lezargus.library.container.parent &#8212; Lezargus  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/lezargus/library/container/parent';</script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Lezargus  documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../user/index.html">User Manual</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../technical/index.html">Technical Manual</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../technical/atmosphere.html">Atmospheric Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../technical/contributing.html">Contributor Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../technical/convention.html">Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../technical/photometry.html">Photometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../technical/uncertainty.html">Uncertainty Propagation</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../code/modules.html">lezargus</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../code/lezargus.html">lezargus package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../code/lezargus.cli.html">lezargus.cli package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.cli.__main__.html">lezargus.cli.__main__ module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.cli.help_.html">lezargus.cli.help_ module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.cli.version.html">lezargus.cli.version module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../code/lezargus.data.html">lezargus.data package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.data._make.html">lezargus.data._make package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../code/lezargus.library.html">lezargus.library package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.container.html">lezargus.library.container package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.array.html">lezargus.library.array module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.atmosphere.html">lezargus.library.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.configuration.html">lezargus.library.configuration module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.conversion.html">lezargus.library.conversion module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.convolution.html">lezargus.library.convolution module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.fits.html">lezargus.library.fits module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.flags.html">lezargus.library.flags module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.hint.html">lezargus.library.hint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.interpolate.html">lezargus.library.interpolate module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.logging.html">lezargus.library.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.math.html">lezargus.library.math module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.path.html">lezargus.library.path module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.sanitize.html">lezargus.library.sanitize module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.stitch.html">lezargus.library.stitch module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.temporary.html">lezargus.library.temporary module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.transform.html">lezargus.library.transform module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../code/lezargus.simulator.html">lezargus.simulator package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.simulator.atmosphere.html">lezargus.simulator.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.simulator.spectre.html">lezargus.simulator.spectre module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.simulator.target.html">lezargus.simulator.target module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.simulator.telescope.html">lezargus.simulator.telescope module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../code/lezargus.__main__.html">lezargus.__main__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../code/lezargus.__version__.html">lezargus.__version__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../code/lezargus.config.html">lezargus.config module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../code/lezargus.initialize.html">lezargus.initialize module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../code/lezargus.terminate.html">lezargus.terminate module</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for lezargus.library.container.parent</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Parent class for the containers to implement arithmetic and other functions.</span>
+
+<span class="sd">The Astropy NDArrayData arithmetic class is not wavelength aware, and so we</span>
+<span class="sd">implement our own class with similar functionality to it to allow for</span>
+<span class="sd">wavelength aware operations. Unlike specutils, the interpolation for doing</span>
+<span class="sd">arithmetic operations of spectral classes of different wavelength solutions</span>
+<span class="sd">must be explicit. This is to prevent errors from mis-matched spectra being</span>
+<span class="sd">operated on.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># isort: split</span>
+<span class="c1"># Import required to remove circular dependencies from type checking.</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">hint</span>
+<span class="c1"># isort: split</span>
+
+<span class="kn">import</span> <span class="nn">copy</span>
+
+<span class="kn">import</span> <span class="nn">astropy.io.fits</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">lezargus</span>
+<span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">logging</span>
+
+
+<div class="viewcode-block" id="LezargusContainerArithmetic">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.parent.html#lezargus.library.container.parent.LezargusContainerArithmetic">[docs]</a>
+<span class="k">class</span> <span class="nc">LezargusContainerArithmetic</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Lezargus wavelength-aware arithmetic for the major containers.</span>
+
+<span class="sd">    This is the class which allows for the arithmetic behind the scenes to</span>
+<span class="sd">    work with wavelength knowledge.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    wavelength : ndarray</span>
+
+<span class="sd">    data : ndarray</span>
+<span class="sd">        The data or flux of the spectra cube. The unit of the flux is typically</span>
+<span class="sd">        in W m^-2 m^-1; but, check the :py:attr:`data_unit` value.</span>
+<span class="sd">    uncertainty : ndarray</span>
+<span class="sd">        The uncertainty in the data. The unit of the uncertainty</span>
+<span class="sd">        is the same as the flux value; per :py:attr:`uncertainty_unit`.</span>
+<span class="sd">    wavelength_unit : Astropy Unit</span>
+<span class="sd">        The unit of the wavelength array.</span>
+<span class="sd">    data_unit : Astropy Unit</span>
+<span class="sd">        The unit of the data array.</span>
+<span class="sd">    spectral_scale : float</span>
+<span class="sd">        The spectral scale of the image, as a resolution, in wavelength</span>
+<span class="sd">        separation per pixel. The point spacing on the wavelength axis is not</span>
+<span class="sd">        always the spectral resolution.</span>
+<span class="sd">    pixel_scale : float</span>
+<span class="sd">        The pixel plate scale of the image, in radians per pixel. Typically,</span>
+<span class="sd">        this is the scale in the E-W or &quot;x&quot; direction. See</span>
+<span class="sd">        :py:attr:`slice_scale` for the N-S or &quot;y&quot; direction.</span>
+<span class="sd">    slice_scale : float</span>
+<span class="sd">        The pixel slice scale of the image, in radians per slice. Typically,</span>
+<span class="sd">        this is the scale in the N-S or &quot;y&quot; direction. See</span>
+<span class="sd">        :py:attr:`pixel_scale` for the E-W or &quot;x&quot; direction.</span>
+<span class="sd">    mask : ndarray</span>
+<span class="sd">        A mask of the data, used to remove problematic areas. Where True,</span>
+<span class="sd">        the values of the data is considered masked.</span>
+<span class="sd">    flags : ndarray</span>
+<span class="sd">        Flags of the data. These flags store metadata about the data.</span>
+<span class="sd">    header : Header</span>
+<span class="sd">        The header information, or metadata in general, about the data.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">_wavelength</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Internal variable for storing the wavelength array. Use</span>
+<span class="sd">    :py:attr:`wavelength` instead.&quot;&quot;&quot;</span>
+
+    <span class="n">_data</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Internal variable for storing the data array. Use</span>
+<span class="sd">    :py:attr:`data` instead.&quot;&quot;&quot;</span>
+
+    <span class="n">_uncertainty</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Internal variable for storing the uncertainty array. Use</span>
+<span class="sd">    :py:attr:`uncertainty` instead.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="LezargusContainerArithmetic.__init__">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.parent.html#lezargus.library.container.parent.LezargusContainerArithmetic.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">LezargusContainerArithmetic</span><span class="p">,</span>
+        <span class="n">wavelength</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span> <span class="o">|</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">data</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span> <span class="o">|</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">uncertainty</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">wavelength_unit</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Unit</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">data_unit</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Unit</span> <span class="o">|</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">spectral_scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">pixel_scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">slice_scale</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">mask</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">flags</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">header</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Header</span> <span class="o">|</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Construct a wavelength-aware Lezargus data container.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        wavelength : ndarray</span>
+<span class="sd">            The wavelength axis of the spectral component of the data, if any.</span>
+<span class="sd">            The unit of wavelength is typically in meters; but, check the</span>
+<span class="sd">            :py:attr:`wavelength_unit` value.</span>
+<span class="sd">        data : ndarray</span>
+<span class="sd">            The data stored in this container. The unit of the flux is typically</span>
+<span class="sd">            in W m^-2 m^-1; but, check the :py:attr:`data_unit` value.</span>
+<span class="sd">        uncertainty : ndarray</span>
+<span class="sd">            The uncertainty in the data of the spectra. The unit of the</span>
+<span class="sd">            uncertainty is the same as the data value; per</span>
+<span class="sd">            :py:attr:`uncertainty_unit`.</span>
+<span class="sd">        wavelength_unit : Astropy Unit</span>
+<span class="sd">            The unit of the wavelength array. If None, we assume unit-less.</span>
+<span class="sd">        data_unit : Astropy Unit</span>
+<span class="sd">            The unit of the data array. If None, we assume unit-less.</span>
+<span class="sd">        spectral_scale : float, default = None</span>
+<span class="sd">            The spectral scale, or spectral resolution, of the spectral</span>
+<span class="sd">            component, if any. Must be in meters per pixel. Scale is None if</span>
+<span class="sd">            none is provided.</span>
+<span class="sd">        pixel_scale : float, default = None</span>
+<span class="sd">            The E-W, &quot;x&quot; dimension, pixel plate scale of the spatial component,</span>
+<span class="sd">            if any. Must be in radians per pixel. Scale is None if none</span>
+<span class="sd">            is provided.</span>
+<span class="sd">        slice_scale : float, default = None</span>
+<span class="sd">            The N-S, &quot;y&quot; dimension, pixel slice scale of the spatial component,</span>
+<span class="sd">            if any. Must be in radians per pixel. Scale is None if none</span>
+<span class="sd">            is provided.</span>
+<span class="sd">        mask : ndarray, default = None</span>
+<span class="sd">            A mask of the data, used to remove problematic areas. Where True,</span>
+<span class="sd">            the values of the data is considered masked. If None, we assume</span>
+<span class="sd">            the mask is all clear.</span>
+<span class="sd">        flags : ndarray, default = None</span>
+<span class="sd">            Flags of the data. These flags store metadata about the data. If</span>
+<span class="sd">            None, we assume that there are no harmful flags.</span>
+<span class="sd">        header : Header, default = None</span>
+<span class="sd">            A set of header data describing the data. Note that when saving,</span>
+<span class="sd">            this header is written to disk with minimal processing. We highly</span>
+<span class="sd">            suggest writing of the metadata to conform to the FITS Header</span>
+<span class="sd">            specification as much as possible. If None, we just use an</span>
+<span class="sd">            empty header.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># The data is taken by reference, we don&#39;t want any side effects</span>
+        <span class="c1"># so we just copy it.</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+
+        <span class="c1"># If the uncertainty is broadcast-able, we do so and properly format it</span>
+        <span class="c1"># so it can be used later.</span>
+        <span class="n">uncertainty</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">uncertainty</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">uncertainty</span>
+        <span class="n">uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">uncertainty</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">uncertainty</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="c1"># The uncertainty seems to be single value, we fill it to fit the</span>
+            <span class="c1"># entire array.</span>
+            <span class="n">uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">uncertainty</span><span class="p">))</span>
+
+        <span class="c1"># If there is no mask, we just provide a blank one for convenience.</span>
+        <span class="c1"># Otherwise we need to format the mask so it can be used properly by</span>
+        <span class="c1"># the subclass.</span>
+        <span class="k">if</span> <span class="n">mask</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">mask</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">bool</span><span class="p">(</span><span class="n">mask</span><span class="p">))</span>
+        <span class="c1"># Similarly for the flags.</span>
+        <span class="k">if</span> <span class="n">flags</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">flags</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">flags</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">flags</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">uint</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">flags</span><span class="o">.</span><span class="n">size</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">flags</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">flags</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">uint</span><span class="p">)</span>
+
+        <span class="c1"># The uncertainty must be the same size and shape of the data, else it</span>
+        <span class="c1"># does not make any sense. The mask as well.</span>
+        <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">uncertainty</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+                <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Data array shape: </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">; uncertainty array shape:&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">uncertainty</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">. The arrays need to be the same&quot;</span>
+                    <span class="s2">&quot; shape or broadcast-able to such.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="c1"># Moreover, the mask and flags must be the same shape as well.</span>
+        <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">mask</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+                <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Data array shape: </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">; mask array shape:&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">mask</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">. The arrays need to be the same shape or&quot;</span>
+                    <span class="s2">&quot; broadcast-able to such.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">flags</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+                <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Data array shape: </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">; flag array shape:&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">flags</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">. The arrays need to be the same shape or&quot;</span>
+                    <span class="s2">&quot; broadcast-able to such.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Constructing the original class. We do not deal with WCS here because</span>
+        <span class="c1"># the base class does not support it. We do not involve units here as</span>
+        <span class="c1"># well for speed concerns. Both are handled during reading and writing.</span>
+
+        <span class="c1"># Add the mainstays of the data.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">wavelength</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">uncertainty</span><span class="p">)</span>
+        <span class="c1"># Parsing the units.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wavelength_unit</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">parse_astropy_unit</span><span class="p">(</span>
+            <span class="n">unit_string</span><span class="o">=</span><span class="n">wavelength_unit</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_unit</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">parse_astropy_unit</span><span class="p">(</span>
+            <span class="n">unit_string</span><span class="o">=</span><span class="n">data_unit</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># The spectral, pixel, and slice scale.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">spectral_scale</span> <span class="o">=</span> <span class="n">spectral_scale</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pixel_scale</span> <span class="o">=</span> <span class="n">pixel_scale</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">slice_scale</span> <span class="o">=</span> <span class="n">slice_scale</span>
+
+        <span class="c1"># Metadata.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mask</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span> <span class="k">if</span> <span class="n">mask</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">mask</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">flags</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">flags</span> <span class="ow">is</span> <span class="kc">None</span>
+            <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">flags</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="c1"># We just use a blank header if none has been provided.</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="p">{}</span> <span class="k">if</span> <span class="n">header</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">header</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">header</span> <span class="o">=</span> <span class="n">astropy</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">Header</span><span class="p">(</span><span class="n">header</span><span class="p">)</span></div>
+
+        <span class="c1"># All done.</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">wavelength</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the wavelength array.</span>
+
+<span class="sd">        The wavelength of the spectra. The unit of wavelength is typically</span>
+<span class="sd">        in meters; but, check the :py:attr:`wavelength_unit` value.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        wavelength : NDArray</span>
+<span class="sd">            The wavelength array of the container.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wavelength</span>
+
+    <span class="nd">@wavelength</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">wavelength</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span> <span class="n">wave</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the wavelength array.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        wave : NDArray</span>
+<span class="sd">            The input wavelength data.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Data type conversion to match configuration file.</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">parse_numpy_dtype</span><span class="p">(</span>
+            <span class="n">dtype_string</span><span class="o">=</span><span class="n">lezargus</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">META_CONTAINER_FLOAT_DATA_TYPE</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># Converting.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_wavelength</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">wave</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+
+    <span class="nd">@wavelength</span><span class="o">.</span><span class="n">deleter</span>
+    <span class="k">def</span> <span class="nf">wavelength</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Delete the wavelength array.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Deleting the data.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_wavelength</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the data array.</span>
+
+<span class="sd">        The data of the spectra. The unit of data is typically</span>
+<span class="sd">        in meters; but, check the :py:attr:`data_unit` value.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        data : NDArray</span>
+<span class="sd">            The data array of the container.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span>
+
+    <span class="nd">@data</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span> <span class="n">data_</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the data array.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data_ : NDArray</span>
+<span class="sd">            The input data.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Data type conversion to match configuration file.</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">parse_numpy_dtype</span><span class="p">(</span>
+            <span class="n">dtype_string</span><span class="o">=</span><span class="n">lezargus</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">META_CONTAINER_FLOAT_DATA_TYPE</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">data_</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+
+    <span class="nd">@data</span><span class="o">.</span><span class="n">deleter</span>
+    <span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Delete the data array.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Deleting the data.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">uncertainty</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the uncertainty array.</span>
+
+<span class="sd">        The uncertainty of the spectra. The unit of uncertainty is typically</span>
+<span class="sd">        in meters; but, check the :py:attr:`uncertainty_unit` value.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        uncertainty : NDArray</span>
+<span class="sd">            The uncertainty array of the container.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_uncertainty</span>
+
+    <span class="nd">@uncertainty</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">uncertainty</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span> <span class="n">uncert</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span> <span class="o">|</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Set the uncertainty array.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        uncert : NDArray</span>
+<span class="sd">            The input uncertainty data.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If the uncertainty is a single value, then we need to broadcast it.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">uncert</span><span class="p">,</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">):</span>
+            <span class="n">uncert</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">uncert</span><span class="p">)</span>
+
+        <span class="c1"># Data type conversion to match configuration file.</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">parse_numpy_dtype</span><span class="p">(</span>
+            <span class="n">dtype_string</span><span class="o">=</span><span class="n">lezargus</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">META_CONTAINER_FLOAT_DATA_TYPE</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">uncert</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">dtype</span><span class="p">)</span>
+
+    <span class="nd">@uncertainty</span><span class="o">.</span><span class="n">deleter</span>
+    <span class="k">def</span> <span class="nf">uncertainty</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Delete the uncertainty array.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Deleting the data.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">uncertainty</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">uncertainty_unit</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Unit</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Return the uncertainty unit, i.e. the data unit.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        uncertainty_unit : Unit</span>
+<span class="sd">            The uncertainty unit.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_unit</span>
+
+    <span class="k">def</span> <span class="nf">__verify_arithmetic_operation</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">operand</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span> <span class="o">|</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Verify operations between two objects is valid.</span>
+
+<span class="sd">        Operations done between different instances of the Lezargus data</span>
+<span class="sd">        structure need to keep in mind the wavelength dependence of the data.</span>
+<span class="sd">        We implement simple checks here to formalize if an operation between</span>
+<span class="sd">        this object, and some other operand, can be performed.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        operand : Self-like or float</span>
+<span class="sd">            The container object that we have an operation to apply with.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        verified : bool</span>
+<span class="sd">            The state of the verification test. If it is True, then the</span>
+<span class="sd">            operation can continue, otherwise, False.</span>
+
+<span class="sd">        .. note::</span>
+<span class="sd">            This function will also raise exceptions upon discovery of</span>
+<span class="sd">            incompatible objects. Therefore, the False return case is not</span>
+<span class="sd">            really that impactful.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We assume that the two objects are incompatible, until proven</span>
+        <span class="c1"># otherwise.</span>
+        <span class="n">verified</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="c1"># We first check for appropriate types. Only singular values, and</span>
+        <span class="c1"># equivalent Lezargus containers can be accessed.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">operand</span><span class="p">,</span> <span class="nb">int</span> <span class="o">|</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">np</span><span class="o">.</span><span class="n">number</span><span class="p">):</span>
+            <span class="c1"># The operand is likely a singular value, so it can be properly</span>
+            <span class="c1"># broadcast together. It is a singe value, all other checks</span>
+            <span class="c1"># are unneeded.</span>
+            <span class="n">verified</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">return</span> <span class="n">verified</span>
+
+        <span class="c1"># If the Lezargus data types are the same.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">operand</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)):</span>
+            <span class="c1"># All good.</span>
+            <span class="n">operand_data</span> <span class="o">=</span> <span class="n">operand</span><span class="o">.</span><span class="n">data</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">operand_data</span> <span class="o">=</span> <span class="kc">None</span>
+            <span class="n">verified</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+                <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ArithmeticalError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Arithmetics with Lezargus type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="si">}</span><span class="s2"> and operand&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; type </span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">operand</span><span class="p">)</span><span class="si">}</span><span class="s2"> are not compatible.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Next we check if the data types are broadcast-able in the first place.</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">broadcast_shape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">broadcast_shapes</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+                <span class="n">operand_data</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="c1"># The data is unable to be broadcast together.</span>
+            <span class="n">verified</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+                <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ArithmeticalError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;The Lezargus container data shape </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> is&quot;</span>
+                    <span class="s2">&quot; not broadcast-able to the operand data shape&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">operand_data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># The shapes are broadcast-able, but the container data shape must</span>
+            <span class="c1"># be preserved and it itself cannot be broadcast.</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">broadcast_shape</span><span class="p">:</span>
+                <span class="n">verified</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+                    <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ArithmeticalError</span><span class="p">,</span>
+                    <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                        <span class="sa">f</span><span class="s2">&quot;The Lezargus container shape </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> cannot&quot;</span>
+                        <span class="s2">&quot; be changed. A broadcast with the operand data shape&quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">operand_data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> would force the container shape&quot;</span>
+                        <span class="sa">f</span><span class="s2">&quot; to </span><span class="si">{</span><span class="n">broadcast_shape</span><span class="si">}</span><span class="s2">.&quot;</span>
+                    <span class="p">),</span>
+                <span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># All good.</span>
+                <span class="k">pass</span>
+
+        <span class="c1"># Now we need to check if the wavelengths are compatible. Attempting to</span>
+        <span class="c1"># do math of two Lezargus containers without aligned wavelength values</span>
+        <span class="c1"># is just not proper.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">operand</span><span class="o">.</span><span class="n">wavelength</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+            <span class="n">verified</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+                <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ArithmeticalError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;The wavelength array shape of the Lezargus container&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> and the operand container&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">operand</span><span class="o">.</span><span class="n">wavelength</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> is not the same. Arithmetic&quot;</span>
+                    <span class="s2">&quot; cannot be performed.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">np</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span> <span class="n">operand</span><span class="o">.</span><span class="n">wavelength</span><span class="p">):</span>
+            <span class="c1"># This is a serious problem which can lead to bad results. However,</span>
+            <span class="c1"># it only affects accuracy and not the overall computation of the</span>
+            <span class="c1"># program.</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">AccuracyWarning</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;The wavelength arrays between two Lezargus containers are&quot;</span>
+                    <span class="s2">&quot; not matching; operation had interpolation performed to&quot;</span>
+                    <span class="s2">&quot; account for this.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># If the wavelength or data units are all off, it will lead to</span>
+        <span class="c1"># incorrect results.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">wavelength_unit</span> <span class="o">!=</span> <span class="n">operand</span><span class="o">.</span><span class="n">wavelength_unit</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">AccuracyWarning</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;The Lezargus container wavelength unit&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">wavelength_unit</span><span class="si">}</span><span class="s2"> is not the same as the operand&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; unit </span><span class="si">{</span><span class="n">operand</span><span class="o">.</span><span class="n">wavelength_unit</span><span class="si">}</span><span class="s2">.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># If it survived all of the tests above, then it should be fine.</span>
+        <span class="n">verified</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="n">verified</span>
+
+<div class="viewcode-block" id="LezargusContainerArithmetic.__add__">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.parent.html#lezargus.library.container.parent.LezargusContainerArithmetic.__add__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__add__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span> <span class="n">operand</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform an addition operation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        operand : Self-like</span>
+<span class="sd">            The container object to add to this.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        result : Self-like</span>
+<span class="sd">            A copy of this object with the resultant calculations done.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We need to check the applicability of the operand and the operation</span>
+        <span class="c1"># being attempted. The actual return is likely not needed, but we</span>
+        <span class="c1"># still test for it.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__verify_arithmetic_operation</span><span class="p">(</span><span class="n">operand</span><span class="o">=</span><span class="n">operand</span><span class="p">):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+                <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;The arithmetic justification check returned False, but it&quot;</span>
+                    <span class="s2">&quot; really should have raised an error and should not have&quot;</span>
+                    <span class="s2">&quot; returned here.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># There are two cases, if the operand object is a container, or</span>
+        <span class="c1"># a singular value.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">operand</span><span class="p">,</span> <span class="n">LezargusContainerArithmetic</span><span class="p">):</span>
+            <span class="c1"># It is a container, we perform operations as normal.</span>
+            <span class="n">operand_data</span> <span class="o">=</span> <span class="n">operand</span><span class="o">.</span><span class="n">data</span>
+            <span class="n">operand_uncertainty</span> <span class="o">=</span> <span class="n">operand</span><span class="o">.</span><span class="n">uncertainty</span>
+            <span class="n">operand_unit</span> <span class="o">=</span> <span class="n">operand</span><span class="o">.</span><span class="n">data_unit</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># The operand is just a single value, so, we handle it as so.</span>
+            <span class="c1"># We assume a single value does not have any uncertainty that</span>
+            <span class="c1"># we really care about.</span>
+            <span class="c1"># We trust the addition of non-unit values respect the unit</span>
+            <span class="c1"># of the container.</span>
+            <span class="n">operand_data</span> <span class="o">=</span> <span class="n">operand</span>
+            <span class="n">operand_uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">)</span>
+            <span class="n">operand_unit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_unit</span>
+
+        <span class="c1"># Addition and subtraction are unique in that we need to also check</span>
+        <span class="c1"># the data units.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_unit</span> <span class="o">!=</span> <span class="n">operand_unit</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ArithmeticalError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;The Lezargus container data/flux unit&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">data_unit</span><span class="si">}</span><span class="s2"> is not the same as the operand&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; unit </span><span class="si">{</span><span class="n">operand_unit</span><span class="si">}</span><span class="s2">.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Now we do the addition.</span>
+        <span class="c1"># We do not want to modify our own objects as that goes against the</span>
+        <span class="c1"># the main idea of operator operations.</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">uncertainty</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+            <span class="n">augend</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">addend</span><span class="o">=</span><span class="n">operand_data</span><span class="p">,</span>
+            <span class="n">augend_uncertainty</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">,</span>
+            <span class="n">addend_uncertainty</span><span class="o">=</span><span class="n">operand_uncertainty</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="LezargusContainerArithmetic.__radd__">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.parent.html#lezargus.library.container.parent.LezargusContainerArithmetic.__radd__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__radd__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span> <span class="n">operand</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform an addition operation, commutative with __add__.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        operand : Self-like</span>
+<span class="sd">            The container object to add to this.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        result : Self-like</span>
+<span class="sd">            A copy of this object with the resultant calculations done.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__add__</span><span class="p">(</span><span class="n">operand</span><span class="o">=</span><span class="n">operand</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="LezargusContainerArithmetic.__sub__">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.parent.html#lezargus.library.container.parent.LezargusContainerArithmetic.__sub__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__sub__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span> <span class="n">operand</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform a subtraction operation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        operand : Self-like</span>
+<span class="sd">            The container object to subtract to this.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        result : Self-like</span>
+<span class="sd">            A copy of this object with the resultant calculations done.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We need to check the applicability of the operand and the operation</span>
+        <span class="c1"># being attempted. The actual return is likely not needed, but we</span>
+        <span class="c1"># still test for it.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__verify_arithmetic_operation</span><span class="p">(</span><span class="n">operand</span><span class="o">=</span><span class="n">operand</span><span class="p">):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+                <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;The arithmetic justification check returned False, but it&quot;</span>
+                    <span class="s2">&quot; really should have raised an error and should not have&quot;</span>
+                    <span class="s2">&quot; returned here.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># There are two cases, if the operand object is a container, or</span>
+        <span class="c1"># a singular value.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">operand</span><span class="p">,</span> <span class="n">LezargusContainerArithmetic</span><span class="p">):</span>
+            <span class="c1"># It is a container, we perform operations as normal.</span>
+            <span class="n">operand_data</span> <span class="o">=</span> <span class="n">operand</span><span class="o">.</span><span class="n">data</span>
+            <span class="n">operand_uncertainty</span> <span class="o">=</span> <span class="n">operand</span><span class="o">.</span><span class="n">uncertainty</span>
+            <span class="n">operand_unit</span> <span class="o">=</span> <span class="n">operand</span><span class="o">.</span><span class="n">data_unit</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># The operand is just a single value, so, we handle it as so.</span>
+            <span class="c1"># We assume a single value does not have any uncertainty that</span>
+            <span class="c1"># we really care about.</span>
+            <span class="c1"># We trust the addition of non-unit values respect the unit</span>
+            <span class="c1"># of the container.</span>
+            <span class="n">operand_data</span> <span class="o">=</span> <span class="n">operand</span>
+            <span class="n">operand_uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">)</span>
+            <span class="n">operand_unit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_unit</span>
+
+        <span class="c1"># Addition and subtraction are unique in that we need to also check</span>
+        <span class="c1"># the data units.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_unit</span> <span class="o">!=</span> <span class="n">operand_unit</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ArithmeticalError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;The Lezargus container data/flux unit&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">data_unit</span><span class="si">}</span><span class="s2"> is not the same as the operand&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; unit </span><span class="si">{</span><span class="n">operand_unit</span><span class="si">}</span><span class="s2">.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Now we do the subtraction.</span>
+        <span class="c1"># We do not want to modify our own objects as that goes against the</span>
+        <span class="c1"># the main idea of operator operations.</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">uncertainty</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">subtract</span><span class="p">(</span>
+            <span class="n">minuend</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">subtrahend</span><span class="o">=</span><span class="n">operand_data</span><span class="p">,</span>
+            <span class="n">minuend_uncertainty</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">,</span>
+            <span class="n">subtrahend_uncertainty</span><span class="o">=</span><span class="n">operand_uncertainty</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="LezargusContainerArithmetic.__mul__">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.parent.html#lezargus.library.container.parent.LezargusContainerArithmetic.__mul__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__mul__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span> <span class="n">operand</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform a multiplication operation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        operand : Self-like</span>
+<span class="sd">            The container object to multiply to this.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        result : Self-like</span>
+<span class="sd">            A copy of this object with the resultant calculations done.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We need to check the applicability of the operand and the operation</span>
+        <span class="c1"># being attempted. The actual return is likely not needed, but we</span>
+        <span class="c1"># still test for it.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__verify_arithmetic_operation</span><span class="p">(</span><span class="n">operand</span><span class="o">=</span><span class="n">operand</span><span class="p">):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+                <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;The arithmetic justification check returned False, but it&quot;</span>
+                    <span class="s2">&quot; really should have raised an error and should not have&quot;</span>
+                    <span class="s2">&quot; returned here.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># If the operand is a single value, then we need to take that into</span>
+        <span class="c1"># account.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">operand</span><span class="p">,</span> <span class="n">LezargusContainerArithmetic</span><span class="p">):</span>
+            <span class="n">operand_data</span> <span class="o">=</span> <span class="n">operand</span><span class="o">.</span><span class="n">data</span>
+            <span class="n">operand_unit</span> <span class="o">=</span> <span class="n">operand</span><span class="o">.</span><span class="n">data_unit</span>
+            <span class="n">operand_uncertainty</span> <span class="o">=</span> <span class="n">operand</span><span class="o">.</span><span class="n">uncertainty</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># We assume a single value does not have any uncertainty that</span>
+            <span class="c1"># we really care about.</span>
+            <span class="n">operand_data</span> <span class="o">=</span> <span class="n">operand</span>
+            <span class="n">operand_unit</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">parse_astropy_unit</span><span class="p">(</span>
+                <span class="n">unit_string</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">operand_uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">)</span>
+
+        <span class="c1"># Now we perform the multiplication.</span>
+        <span class="c1"># We do not want to modify our own objects as that goes against the</span>
+        <span class="c1"># the main idea of operator operations.</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">uncertainty</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span>
+            <span class="n">multiplier</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">multiplicand</span><span class="o">=</span><span class="n">operand_data</span><span class="p">,</span>
+            <span class="n">multiplier_uncertainty</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">,</span>
+            <span class="n">multiplicand_uncertainty</span><span class="o">=</span><span class="n">operand_uncertainty</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># We also need to propagate the unit.</span>
+
+        <span class="n">result</span><span class="o">.</span><span class="n">data_unit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_unit</span> <span class="o">*</span> <span class="n">operand_unit</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="LezargusContainerArithmetic.__rmul__">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.parent.html#lezargus.library.container.parent.LezargusContainerArithmetic.__rmul__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__rmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span> <span class="n">operand</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform a multiplication operation, commutative with __mul__.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        operand : Self-like</span>
+<span class="sd">            The container object to multiply to this.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        result : Self-like</span>
+<span class="sd">            A copy of this object with the resultant calculations done.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__mul__</span><span class="p">(</span><span class="n">operand</span><span class="o">=</span><span class="n">operand</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="LezargusContainerArithmetic.__truediv__">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.parent.html#lezargus.library.container.parent.LezargusContainerArithmetic.__truediv__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__truediv__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">operand</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform a true division operation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        operand : Self-like</span>
+<span class="sd">            The container object to true divide to this.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        result : Self-like</span>
+<span class="sd">            A copy of this object with the resultant calculations done.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We need to check the applicability of the operand and the operation</span>
+        <span class="c1"># being attempted. The actual return is likely not needed, but we</span>
+        <span class="c1"># still test for it.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__verify_arithmetic_operation</span><span class="p">(</span><span class="n">operand</span><span class="o">=</span><span class="n">operand</span><span class="p">):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+                <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;The arithmetic justification check returned False, but it&quot;</span>
+                    <span class="s2">&quot; really should have raised an error and should not have&quot;</span>
+                    <span class="s2">&quot; returned here.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># If the operand is a single value, then we need to take that into</span>
+        <span class="c1"># account.</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">operand</span><span class="p">,</span> <span class="n">LezargusContainerArithmetic</span><span class="p">):</span>
+            <span class="n">operand_data</span> <span class="o">=</span> <span class="n">operand</span><span class="o">.</span><span class="n">data</span>
+            <span class="n">operand_unit</span> <span class="o">=</span> <span class="n">operand</span><span class="o">.</span><span class="n">data_unit</span>
+            <span class="n">operand_uncertainty</span> <span class="o">=</span> <span class="n">operand</span><span class="o">.</span><span class="n">uncertainty</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># We assume a single value does not have any uncertainty that</span>
+            <span class="c1"># we really care about.</span>
+            <span class="n">operand_data</span> <span class="o">=</span> <span class="n">operand</span>
+            <span class="n">operand_unit</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">parse_astropy_unit</span><span class="p">(</span>
+                <span class="n">unit_string</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">operand_uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">)</span>
+
+        <span class="c1"># Now we perform the division.</span>
+        <span class="c1"># We do not want to modify our own objects as that goes against the</span>
+        <span class="c1"># the main idea of operator operations.</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">uncertainty</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span>
+            <span class="n">numerator</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">denominator</span><span class="o">=</span><span class="n">operand_data</span><span class="p">,</span>
+            <span class="n">numerator_uncertainty</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">,</span>
+            <span class="n">denominator_uncertainty</span><span class="o">=</span><span class="n">operand_uncertainty</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># We also need to propagate the unit.</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">data_unit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_unit</span> <span class="o">/</span> <span class="n">operand_unit</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="LezargusContainerArithmetic.__pow__">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.parent.html#lezargus.library.container.parent.LezargusContainerArithmetic.__pow__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__pow__</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span> <span class="n">operand</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Perform a true division operation.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        operand : Self-like</span>
+<span class="sd">            The container object to exponentiate to this.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        result : Self-like</span>
+<span class="sd">            A copy of this object with the resultant calculations done.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We need to check the applicability of the operand and the operation</span>
+        <span class="c1"># being attempted. The actual return is likely not needed, but we</span>
+        <span class="c1"># still test for it.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">__verify_arithmetic_operation</span><span class="p">(</span><span class="n">operand</span><span class="o">=</span><span class="n">operand</span><span class="p">):</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+                <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;The arithmetic justification check returned False, but it&quot;</span>
+                    <span class="s2">&quot; really should have raised an error and should not have&quot;</span>
+                    <span class="s2">&quot; returned here.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># If the operand is a single value, then we need to take that into</span>
+        <span class="c1"># account.</span>
+        <span class="n">no_unit</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">parse_astropy_unit</span><span class="p">(</span>
+            <span class="n">unit_string</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">operand</span><span class="p">,</span> <span class="n">LezargusContainerArithmetic</span><span class="p">):</span>
+            <span class="n">operand_data</span> <span class="o">=</span> <span class="n">operand</span><span class="o">.</span><span class="n">data</span>
+            <span class="n">operand_unit</span> <span class="o">=</span> <span class="n">operand</span><span class="o">.</span><span class="n">data_unit</span>
+            <span class="n">operand_uncertainty</span> <span class="o">=</span> <span class="n">operand</span><span class="o">.</span><span class="n">uncertainty</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># We assume a single value does not have any uncertainty that</span>
+            <span class="c1"># we really care about.</span>
+            <span class="n">operand_data</span> <span class="o">=</span> <span class="n">operand</span>
+            <span class="n">operand_unit</span> <span class="o">=</span> <span class="n">no_unit</span>
+            <span class="n">operand_uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">)</span>
+
+        <span class="c1"># Now we perform the exponentiation.</span>
+        <span class="c1"># We do not want to modify our own objects as that goes against the</span>
+        <span class="c1"># the main idea of operator operations.</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">uncertainty</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">exponentiate</span><span class="p">(</span>
+            <span class="n">base</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">exponent</span><span class="o">=</span><span class="n">operand_data</span><span class="p">,</span>
+            <span class="n">base_uncertainty</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">,</span>
+            <span class="n">exponent_uncertainty</span><span class="o">=</span><span class="n">operand_uncertainty</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># We propagate the units; however, by general practice, the exponent</span>
+        <span class="c1"># should not have a unit.</span>
+        <span class="k">if</span> <span class="n">operand_unit</span> <span class="o">!=</span> <span class="n">no_unit</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ArithmeticalError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;The exponent should be unitless, it has units:&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">operand_unit</span><span class="si">}</span><span class="s2">&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">data_unit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data_unit</span><span class="o">**</span><span class="n">operand</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+
+
+<div class="viewcode-block" id="LezargusContainerArithmetic._read_fits_file">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.parent.html#lezargus.library.container.parent.LezargusContainerArithmetic._read_fits_file">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">_read_fits_file</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">],</span>
+        <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Read in a FITS file into an object.</span>
+
+<span class="sd">        This is a wrapper around the main FITS class for uniform handling.</span>
+<span class="sd">        The respective containers should wrap around this for</span>
+<span class="sd">        container-specific handling and should not overwrite this function.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        filename : str</span>
+<span class="sd">            The file to read in.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        container : Self-like</span>
+<span class="sd">            The Lezargus container which was read into the file.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Read in the FITS file.</span>
+        <span class="p">(</span>
+            <span class="n">header</span><span class="p">,</span>
+            <span class="n">wavelength</span><span class="p">,</span>
+            <span class="n">data</span><span class="p">,</span>
+            <span class="n">uncertainty</span><span class="p">,</span>
+            <span class="n">wavelength_unit</span><span class="p">,</span>
+            <span class="n">data_unit</span><span class="p">,</span>
+            <span class="n">spectral_scale</span><span class="p">,</span>
+            <span class="n">pixel_scale</span><span class="p">,</span>
+            <span class="n">slice_scale</span><span class="p">,</span>
+            <span class="n">mask</span><span class="p">,</span>
+            <span class="n">flags</span><span class="p">,</span>
+        <span class="p">)</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">read_lezargus_fits_file</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">)</span>
+        <span class="c1"># Check if the FITS file format is correct for the container.</span>
+        <span class="n">lz_fits_encode</span> <span class="o">=</span> <span class="n">header</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;LZ_FITSF&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">lz_fits_encode</span> <span class="o">!=</span> <span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">FileError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;The following FITS file </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2"> is coded to be a&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">lz_fits_encode</span><span class="si">}</span><span class="s2"> type of FITS file, but it&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; is being loaded with the </span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Loading the file up.</span>
+        <span class="n">container</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">header</span><span class="p">,</span>
+            <span class="n">wavelength</span><span class="o">=</span><span class="n">wavelength</span><span class="p">,</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">uncertainty</span><span class="o">=</span><span class="n">uncertainty</span><span class="p">,</span>
+            <span class="n">wavelength_unit</span><span class="o">=</span><span class="n">wavelength_unit</span><span class="p">,</span>
+            <span class="n">spectral_scale</span><span class="o">=</span><span class="n">spectral_scale</span><span class="p">,</span>
+            <span class="n">data_unit</span><span class="o">=</span><span class="n">data_unit</span><span class="p">,</span>
+            <span class="n">pixel_scale</span><span class="o">=</span><span class="n">pixel_scale</span><span class="p">,</span>
+            <span class="n">slice_scale</span><span class="o">=</span><span class="n">slice_scale</span><span class="p">,</span>
+            <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">,</span>
+            <span class="n">flags</span><span class="o">=</span><span class="n">flags</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">container</span></div>
+
+
+<div class="viewcode-block" id="LezargusContainerArithmetic._write_fits_file">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.parent.html#lezargus.library.container.parent.LezargusContainerArithmetic._write_fits_file">[docs]</a>
+    <span class="k">def</span> <span class="nf">_write_fits_file</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Write a FITS object to disk..</span>
+
+<span class="sd">        This is a wrapper around the main FITS class for uniform handling.</span>
+<span class="sd">        The respective containers should wrap around this for</span>
+<span class="sd">        container-specific handling and should not overwrite this function.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        filename : str</span>
+<span class="sd">            The file to be written out.</span>
+<span class="sd">        overwrite : bool, default = False</span>
+<span class="sd">            If True, overwrite any file conflicts.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># The Lezargus container is the FITS cube format. However, we do not</span>
+        <span class="c1"># want to modify the actual header itself.</span>
+        <span class="n">header_copy</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">header</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">header_copy</span><span class="p">[</span><span class="s2">&quot;LZ_FITSF&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="c1"># We send the file to the library function write.</span>
+        <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">fits</span><span class="o">.</span><span class="n">write_lezargus_fits_file</span><span class="p">(</span>
+            <span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span>
+            <span class="n">header</span><span class="o">=</span><span class="n">header_copy</span><span class="p">,</span>
+            <span class="n">wavelength</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+            <span class="n">data</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">uncertainty</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">,</span>
+            <span class="n">wavelength_unit</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">wavelength_unit</span><span class="p">,</span>
+            <span class="n">data_unit</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data_unit</span><span class="p">,</span>
+            <span class="n">spectral_scale</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">spectral_scale</span><span class="p">,</span>
+            <span class="n">pixel_scale</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">pixel_scale</span><span class="p">,</span>
+            <span class="n">slice_scale</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">slice_scale</span><span class="p">,</span>
+            <span class="n">mask</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mask</span><span class="p">,</span>
+            <span class="n">flags</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">flags</span><span class="p">,</span>
+            <span class="n">overwrite</span><span class="o">=</span><span class="n">overwrite</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+        <span class="c1"># All done.</span>
+
+<div class="viewcode-block" id="LezargusContainerArithmetic.to_unit">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.parent.html#lezargus.library.container.parent.LezargusContainerArithmetic.to_unit">[docs]</a>
+    <span class="k">def</span> <span class="nf">to_unit</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">data_unit</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">hint</span><span class="o">.</span><span class="n">Unit</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">wavelength_unit</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">hint</span><span class="o">.</span><span class="n">Unit</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert the units of the current data to the new set of units.</span>
+
+<span class="sd">        This function only does simple unit conversion. Any equivalency</span>
+<span class="sd">        conversion is not handled.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data_unit : str | Unit</span>
+<span class="sd">            The unit we will be converting to. If the unit is not compatible,</span>
+<span class="sd">            we raise an exception. If None, we default to no data unit</span>
+<span class="sd">            conversion.</span>
+<span class="sd">        wavelength_unit : str | Unit | None, default = None</span>
+<span class="sd">            A new wavelength unit to convert to. If the unit is not compatible,</span>
+<span class="sd">            we raise an exception. If None, we default to no wavelength unit</span>
+<span class="sd">            conversion.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        converted : Self-like</span>
+<span class="sd">            The converted container, after the unit conversion.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We need to handle the default cases where no unit conversion is</span>
+        <span class="c1"># wanted.</span>
+        <span class="n">do_wavelength</span> <span class="o">=</span> <span class="n">wavelength_unit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="n">do_data</span> <span class="o">=</span> <span class="n">data_unit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+
+        <span class="c1"># Parsing the units, in the event that they are strings.</span>
+        <span class="n">wavelength_unit</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">parse_astropy_unit</span><span class="p">(</span>
+            <span class="n">unit_string</span><span class="o">=</span><span class="n">wavelength_unit</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">data_unit</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">parse_astropy_unit</span><span class="p">(</span>
+            <span class="n">unit_string</span><span class="o">=</span><span class="n">data_unit</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># It is easiest to work on a copy.</span>
+        <span class="n">converted</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+        <span class="c1"># Wavelength conversion, if specified.</span>
+        <span class="k">if</span> <span class="n">do_wavelength</span><span class="p">:</span>
+            <span class="n">converted</span><span class="o">.</span><span class="n">wavelength</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">convert_units</span><span class="p">(</span>
+                <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+                <span class="n">value_unit</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">wavelength_unit</span><span class="p">,</span>
+                <span class="n">result_unit</span><span class="o">=</span><span class="n">wavelength_unit</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">converted</span><span class="o">.</span><span class="n">wavelength_unit</span> <span class="o">=</span> <span class="n">wavelength_unit</span>
+
+        <span class="c1"># Data and uncertainty conversion, if specified.</span>
+        <span class="k">if</span> <span class="n">do_data</span><span class="p">:</span>
+            <span class="n">converted</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">convert_units</span><span class="p">(</span>
+                <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+                <span class="n">value_unit</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">data_unit</span><span class="p">,</span>
+                <span class="n">result_unit</span><span class="o">=</span><span class="n">data_unit</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">converted</span><span class="o">.</span><span class="n">uncertainty</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">convert_units</span><span class="p">(</span>
+                <span class="n">value</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">,</span>
+                <span class="n">value_unit</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">uncertainty_unit</span><span class="p">,</span>
+                <span class="n">result_unit</span><span class="o">=</span><span class="n">data_unit</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">converted</span><span class="o">.</span><span class="n">data_unit</span> <span class="o">=</span> <span class="n">data_unit</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">converted</span></div>
+</div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sparrow
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023, Sparrow.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

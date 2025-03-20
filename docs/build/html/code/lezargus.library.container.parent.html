@@ -1,0 +1,1024 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>lezargus.library.container.parent module &#8212; Lezargus  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'code/lezargus.library.container.parent';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="lezargus.library.container.photometry module" href="lezargus.library.container.photometry.html" />
+    <link rel="prev" title="lezargus.library.container.mosaic module" href="lezargus.library.container.mosaic.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Lezargus  documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../user/index.html">User Manual</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../technical/index.html">Technical Manual</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../technical/atmosphere.html">Atmospheric Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/contributing.html">Contributor Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/convention.html">Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/photometry.html">Photometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/uncertainty.html">Uncertainty Propagation</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="modules.html">lezargus</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="lezargus.html">lezargus package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 has-children"><a class="reference internal" href="lezargus.cli.html">lezargus.cli package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.cli.__main__.html">lezargus.cli.__main__ module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.cli.help_.html">lezargus.cli.help_ module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.cli.version.html">lezargus.cli.version module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="lezargus.data.html">lezargus.data package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.data._make.html">lezargus.data._make package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="lezargus.library.html">lezargus.library package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l4 current active"><a class="reference internal" href="lezargus.library.container.html">lezargus.library.container package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.array.html">lezargus.library.array module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.atmosphere.html">lezargus.library.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.configuration.html">lezargus.library.configuration module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.conversion.html">lezargus.library.conversion module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.convolution.html">lezargus.library.convolution module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.fits.html">lezargus.library.fits module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.flags.html">lezargus.library.flags module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.hint.html">lezargus.library.hint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.interpolate.html">lezargus.library.interpolate module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.logging.html">lezargus.library.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.math.html">lezargus.library.math module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.path.html">lezargus.library.path module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.sanitize.html">lezargus.library.sanitize module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.stitch.html">lezargus.library.stitch module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.temporary.html">lezargus.library.temporary module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.transform.html">lezargus.library.transform module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="lezargus.simulator.html">lezargus.simulator package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.simulator.atmosphere.html">lezargus.simulator.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.simulator.spectre.html">lezargus.simulator.spectre module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.simulator.target.html">lezargus.simulator.target module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.simulator.telescope.html">lezargus.simulator.telescope module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="lezargus.__main__.html">lezargus.__main__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lezargus.__version__.html">lezargus.__version__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lezargus.config.html">lezargus.config module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lezargus.initialize.html">lezargus.initialize module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lezargus.terminate.html">lezargus.terminate module</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/code/lezargus.library.container.parent.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>lezargus.library.container.parent module</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.wavelength"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.wavelength</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.data"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.data</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.uncertainty"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.uncertainty</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.wavelength_unit"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.wavelength_unit</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.data_unit"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.data_unit</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.spectral_scale"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.spectral_scale</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.pixel_scale"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.pixel_scale</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.slice_scale"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.slice_scale</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.mask"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.mask</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.flags"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.flags</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.header"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.header</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.__add__"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.__add__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.__init__"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.__mul__"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.__mul__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.__pow__"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.__pow__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.__radd__"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.__radd__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.__rmul__"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.__rmul__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.__sub__"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.__sub__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.__truediv__"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.__truediv__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.__verify_arithmetic_operation"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.__verify_arithmetic_operation()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic._data"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic._data</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic._read_fits_file"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic._read_fits_file()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic._uncertainty"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic._uncertainty</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic._wavelength"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic._wavelength</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic._write_fits_file"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic._write_fits_file()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id0"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.data</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.to_unit"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.to_unit()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.uncertainty</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.uncertainty_unit"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.uncertainty_unit</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.wavelength</span></code></a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-lezargus.library.container.parent">
+<span id="lezargus-library-container-parent-module"></span><h1>lezargus.library.container.parent module<a class="headerlink" href="#module-lezargus.library.container.parent" title="Link to this heading">#</a></h1>
+<p>Parent class for the containers to implement arithmetic and other functions.</p>
+<p>The Astropy NDArrayData arithmetic class is not wavelength aware, and so we
+implement our own class with similar functionality to it to allow for
+wavelength aware operations. Unlike specutils, the interpolation for doing
+arithmetic operations of spectral classes of different wavelength solutions
+must be explicit. This is to prevent errors from mis-matched spectra being
+operated on.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="lezargus.library.container.parent.LezargusContainerArithmetic">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lezargus.library.container.parent.</span></span><span class="sig-name descname"><span class="pre">LezargusContainerArithmetic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wavelength</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.NDArray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.NDArray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uncertainty</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.NDArray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wavelength_unit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.Unit</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_unit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.Unit</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spectral_scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pixel_scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slice_scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.NDArray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.NDArray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.Header</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lezargus/library/container/parent.html#LezargusContainerArithmetic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.container.parent.LezargusContainerArithmetic" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Lezargus wavelength-aware arithmetic for the major containers.</p>
+<p>This is the class which allows for the arithmetic behind the scenes to
+work with wavelength knowledge.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.parent.LezargusContainerArithmetic.wavelength">
+<span class="sig-name descname"><span class="pre">wavelength</span></span><a class="headerlink" href="#lezargus.library.container.parent.LezargusContainerArithmetic.wavelength" title="Link to this definition">#</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.parent.LezargusContainerArithmetic.data">
+<span class="sig-name descname"><span class="pre">data</span></span><a class="headerlink" href="#lezargus.library.container.parent.LezargusContainerArithmetic.data" title="Link to this definition">#</a></dt>
+<dd><p>The data or flux of the spectra cube. The unit of the flux is typically
+in W m^-2 m^-1; but, check the <a class="reference internal" href="#lezargus.library.container.parent.LezargusContainerArithmetic.data_unit" title="lezargus.library.container.parent.LezargusContainerArithmetic.data_unit"><code class="xref py py-attr docutils literal notranslate"><span class="pre">data_unit</span></code></a> value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.parent.LezargusContainerArithmetic.uncertainty">
+<span class="sig-name descname"><span class="pre">uncertainty</span></span><a class="headerlink" href="#lezargus.library.container.parent.LezargusContainerArithmetic.uncertainty" title="Link to this definition">#</a></dt>
+<dd><p>The uncertainty in the data. The unit of the uncertainty
+is the same as the flux value; per <a class="reference internal" href="#lezargus.library.container.parent.LezargusContainerArithmetic.uncertainty_unit" title="lezargus.library.container.parent.LezargusContainerArithmetic.uncertainty_unit"><code class="xref py py-attr docutils literal notranslate"><span class="pre">uncertainty_unit</span></code></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.parent.LezargusContainerArithmetic.wavelength_unit">
+<span class="sig-name descname"><span class="pre">wavelength_unit</span></span><a class="headerlink" href="#lezargus.library.container.parent.LezargusContainerArithmetic.wavelength_unit" title="Link to this definition">#</a></dt>
+<dd><p>The unit of the wavelength array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Astropy Unit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.parent.LezargusContainerArithmetic.data_unit">
+<span class="sig-name descname"><span class="pre">data_unit</span></span><a class="headerlink" href="#lezargus.library.container.parent.LezargusContainerArithmetic.data_unit" title="Link to this definition">#</a></dt>
+<dd><p>The unit of the data array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Astropy Unit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.parent.LezargusContainerArithmetic.spectral_scale">
+<span class="sig-name descname"><span class="pre">spectral_scale</span></span><a class="headerlink" href="#lezargus.library.container.parent.LezargusContainerArithmetic.spectral_scale" title="Link to this definition">#</a></dt>
+<dd><p>The spectral scale of the image, as a resolution, in wavelength
+separation per pixel. The point spacing on the wavelength axis is not
+always the spectral resolution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.parent.LezargusContainerArithmetic.pixel_scale">
+<span class="sig-name descname"><span class="pre">pixel_scale</span></span><a class="headerlink" href="#lezargus.library.container.parent.LezargusContainerArithmetic.pixel_scale" title="Link to this definition">#</a></dt>
+<dd><p>The pixel plate scale of the image, in radians per pixel. Typically,
+this is the scale in the E-W or “x” direction. See
+<a class="reference internal" href="#lezargus.library.container.parent.LezargusContainerArithmetic.slice_scale" title="lezargus.library.container.parent.LezargusContainerArithmetic.slice_scale"><code class="xref py py-attr docutils literal notranslate"><span class="pre">slice_scale</span></code></a> for the N-S or “y” direction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.parent.LezargusContainerArithmetic.slice_scale">
+<span class="sig-name descname"><span class="pre">slice_scale</span></span><a class="headerlink" href="#lezargus.library.container.parent.LezargusContainerArithmetic.slice_scale" title="Link to this definition">#</a></dt>
+<dd><p>The pixel slice scale of the image, in radians per slice. Typically,
+this is the scale in the N-S or “y” direction. See
+<a class="reference internal" href="#lezargus.library.container.parent.LezargusContainerArithmetic.pixel_scale" title="lezargus.library.container.parent.LezargusContainerArithmetic.pixel_scale"><code class="xref py py-attr docutils literal notranslate"><span class="pre">pixel_scale</span></code></a> for the E-W or “x” direction.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.parent.LezargusContainerArithmetic.mask">
+<span class="sig-name descname"><span class="pre">mask</span></span><a class="headerlink" href="#lezargus.library.container.parent.LezargusContainerArithmetic.mask" title="Link to this definition">#</a></dt>
+<dd><p>A mask of the data, used to remove problematic areas. Where True,
+the values of the data is considered masked.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.parent.LezargusContainerArithmetic.flags">
+<span class="sig-name descname"><span class="pre">flags</span></span><a class="headerlink" href="#lezargus.library.container.parent.LezargusContainerArithmetic.flags" title="Link to this definition">#</a></dt>
+<dd><p>Flags of the data. These flags store metadata about the data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.parent.LezargusContainerArithmetic.header">
+<span class="sig-name descname"><span class="pre">header</span></span><a class="headerlink" href="#lezargus.library.container.parent.LezargusContainerArithmetic.header" title="Link to this definition">#</a></dt>
+<dd><p>The header information, or metadata in general, about the data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Header</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.library.container.parent.LezargusContainerArithmetic.__add__">
+<span class="sig-name descname"><span class="pre">__add__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operand</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">hint.Self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">hint.Self</span></span></span><a class="reference internal" href="../_modules/lezargus/library/container/parent.html#LezargusContainerArithmetic.__add__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.container.parent.LezargusContainerArithmetic.__add__" title="Link to this definition">#</a></dt>
+<dd><p>Perform an addition operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>operand</strong> (<em>Self-like</em>) – The container object to add to this.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>result</strong> – A copy of this object with the resultant calculations done.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Self-like</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.library.container.parent.LezargusContainerArithmetic.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wavelength</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.NDArray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.NDArray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uncertainty</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.NDArray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wavelength_unit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.Unit</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data_unit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.Unit</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spectral_scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pixel_scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slice_scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.NDArray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flags</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.NDArray</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">header</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.Header</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">dict</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lezargus/library/container/parent.html#LezargusContainerArithmetic.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.container.parent.LezargusContainerArithmetic.__init__" title="Link to this definition">#</a></dt>
+<dd><p>Construct a wavelength-aware Lezargus data container.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wavelength</strong> (<em>ndarray</em>) – The wavelength axis of the spectral component of the data, if any.
+The unit of wavelength is typically in meters; but, check the
+<a class="reference internal" href="#lezargus.library.container.parent.LezargusContainerArithmetic.wavelength_unit" title="lezargus.library.container.parent.LezargusContainerArithmetic.wavelength_unit"><code class="xref py py-attr docutils literal notranslate"><span class="pre">wavelength_unit</span></code></a> value.</p></li>
+<li><p><strong>data</strong> (<em>ndarray</em>) – The data stored in this container. The unit of the flux is typically
+in W m^-2 m^-1; but, check the <a class="reference internal" href="#lezargus.library.container.parent.LezargusContainerArithmetic.data_unit" title="lezargus.library.container.parent.LezargusContainerArithmetic.data_unit"><code class="xref py py-attr docutils literal notranslate"><span class="pre">data_unit</span></code></a> value.</p></li>
+<li><p><strong>uncertainty</strong> (<em>ndarray</em>) – The uncertainty in the data of the spectra. The unit of the
+uncertainty is the same as the data value; per
+<a class="reference internal" href="#lezargus.library.container.parent.LezargusContainerArithmetic.uncertainty_unit" title="lezargus.library.container.parent.LezargusContainerArithmetic.uncertainty_unit"><code class="xref py py-attr docutils literal notranslate"><span class="pre">uncertainty_unit</span></code></a>.</p></li>
+<li><p><strong>wavelength_unit</strong> (<em>Astropy Unit</em>) – The unit of the wavelength array. If None, we assume unit-less.</p></li>
+<li><p><strong>data_unit</strong> (<em>Astropy Unit</em>) – The unit of the data array. If None, we assume unit-less.</p></li>
+<li><p><strong>spectral_scale</strong> (<em>float</em><em>, </em><em>default = None</em>) – The spectral scale, or spectral resolution, of the spectral
+component, if any. Must be in meters per pixel. Scale is None if
+none is provided.</p></li>
+<li><p><strong>pixel_scale</strong> (<em>float</em><em>, </em><em>default = None</em>) – The E-W, “x” dimension, pixel plate scale of the spatial component,
+if any. Must be in radians per pixel. Scale is None if none
+is provided.</p></li>
+<li><p><strong>slice_scale</strong> (<em>float</em><em>, </em><em>default = None</em>) – The N-S, “y” dimension, pixel slice scale of the spatial component,
+if any. Must be in radians per pixel. Scale is None if none
+is provided.</p></li>
+<li><p><strong>mask</strong> (<em>ndarray</em><em>, </em><em>default = None</em>) – A mask of the data, used to remove problematic areas. Where True,
+the values of the data is considered masked. If None, we assume
+the mask is all clear.</p></li>
+<li><p><strong>flags</strong> (<em>ndarray</em><em>, </em><em>default = None</em>) – Flags of the data. These flags store metadata about the data. If
+None, we assume that there are no harmful flags.</p></li>
+<li><p><strong>header</strong> (<em>Header</em><em>, </em><em>default = None</em>) – A set of header data describing the data. Note that when saving,
+this header is written to disk with minimal processing. We highly
+suggest writing of the metadata to conform to the FITS Header
+specification as much as possible. If None, we just use an
+empty header.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.library.container.parent.LezargusContainerArithmetic.__mul__">
+<span class="sig-name descname"><span class="pre">__mul__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operand</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">hint.Self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">hint.Self</span></span></span><a class="reference internal" href="../_modules/lezargus/library/container/parent.html#LezargusContainerArithmetic.__mul__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.container.parent.LezargusContainerArithmetic.__mul__" title="Link to this definition">#</a></dt>
+<dd><p>Perform a multiplication operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>operand</strong> (<em>Self-like</em>) – The container object to multiply to this.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>result</strong> – A copy of this object with the resultant calculations done.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Self-like</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.library.container.parent.LezargusContainerArithmetic.__pow__">
+<span class="sig-name descname"><span class="pre">__pow__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operand</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">hint.Self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">hint.Self</span></span></span><a class="reference internal" href="../_modules/lezargus/library/container/parent.html#LezargusContainerArithmetic.__pow__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.container.parent.LezargusContainerArithmetic.__pow__" title="Link to this definition">#</a></dt>
+<dd><p>Perform a true division operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>operand</strong> (<em>Self-like</em>) – The container object to exponentiate to this.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>result</strong> – A copy of this object with the resultant calculations done.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Self-like</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.library.container.parent.LezargusContainerArithmetic.__radd__">
+<span class="sig-name descname"><span class="pre">__radd__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operand</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.Self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">hint.Self</span></span></span><a class="reference internal" href="../_modules/lezargus/library/container/parent.html#LezargusContainerArithmetic.__radd__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.container.parent.LezargusContainerArithmetic.__radd__" title="Link to this definition">#</a></dt>
+<dd><p>Perform an addition operation, commutative with __add__.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>operand</strong> (<em>Self-like</em>) – The container object to add to this.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>result</strong> – A copy of this object with the resultant calculations done.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Self-like</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.library.container.parent.LezargusContainerArithmetic.__rmul__">
+<span class="sig-name descname"><span class="pre">__rmul__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operand</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.Self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">hint.Self</span></span></span><a class="reference internal" href="../_modules/lezargus/library/container/parent.html#LezargusContainerArithmetic.__rmul__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.container.parent.LezargusContainerArithmetic.__rmul__" title="Link to this definition">#</a></dt>
+<dd><p>Perform a multiplication operation, commutative with __mul__.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>operand</strong> (<em>Self-like</em>) – The container object to multiply to this.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>result</strong> – A copy of this object with the resultant calculations done.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Self-like</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.library.container.parent.LezargusContainerArithmetic.__sub__">
+<span class="sig-name descname"><span class="pre">__sub__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operand</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">hint.Self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">hint.Self</span></span></span><a class="reference internal" href="../_modules/lezargus/library/container/parent.html#LezargusContainerArithmetic.__sub__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.container.parent.LezargusContainerArithmetic.__sub__" title="Link to this definition">#</a></dt>
+<dd><p>Perform a subtraction operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>operand</strong> (<em>Self-like</em>) – The container object to subtract to this.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>result</strong> – A copy of this object with the resultant calculations done.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Self-like</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.library.container.parent.LezargusContainerArithmetic.__truediv__">
+<span class="sig-name descname"><span class="pre">__truediv__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operand</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">hint.Self</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">hint.Self</span></span></span><a class="reference internal" href="../_modules/lezargus/library/container/parent.html#LezargusContainerArithmetic.__truediv__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.container.parent.LezargusContainerArithmetic.__truediv__" title="Link to this definition">#</a></dt>
+<dd><p>Perform a true division operation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>operand</strong> (<em>Self-like</em>) – The container object to true divide to this.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>result</strong> – A copy of this object with the resultant calculations done.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Self-like</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.library.container.parent.LezargusContainerArithmetic.__verify_arithmetic_operation">
+<span class="sig-name descname"><span class="pre">__verify_arithmetic_operation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">operand</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.Self</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="headerlink" href="#lezargus.library.container.parent.LezargusContainerArithmetic.__verify_arithmetic_operation" title="Link to this definition">#</a></dt>
+<dd><p>Verify operations between two objects is valid.</p>
+<p>Operations done between different instances of the Lezargus data
+structure need to keep in mind the wavelength dependence of the data.
+We implement simple checks here to formalize if an operation between
+this object, and some other operand, can be performed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>operand</strong> (<em>Self-like</em><em> or </em><em>float</em>) – The container object that we have an operation to apply with.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>verified</strong> (<em>bool</em>) – The state of the verification test. If it is True, then the
+operation can continue, otherwise, False.</p></li>
+<li><p><em>.. note::</em> – This function will also raise exceptions upon discovery of
+incompatible objects. Therefore, the False return case is not
+really that impactful.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.parent.LezargusContainerArithmetic._data">
+<span class="sig-name descname"><span class="pre">_data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">hint.NDArray</span></em><a class="headerlink" href="#lezargus.library.container.parent.LezargusContainerArithmetic._data" title="Link to this definition">#</a></dt>
+<dd><p>Internal variable for storing the data array. Use
+<a class="reference internal" href="#id0" title="lezargus.library.container.parent.LezargusContainerArithmetic.data"><code class="xref py py-attr docutils literal notranslate"><span class="pre">data</span></code></a> instead.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.library.container.parent.LezargusContainerArithmetic._read_fits_file">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">_read_fits_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">hint.Self</span></span></span><a class="reference internal" href="../_modules/lezargus/library/container/parent.html#LezargusContainerArithmetic._read_fits_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.container.parent.LezargusContainerArithmetic._read_fits_file" title="Link to this definition">#</a></dt>
+<dd><p>Read in a FITS file into an object.</p>
+<p>This is a wrapper around the main FITS class for uniform handling.
+The respective containers should wrap around this for
+container-specific handling and should not overwrite this function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong> (<em>str</em>) – The file to read in.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>container</strong> – The Lezargus container which was read into the file.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Self-like</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.parent.LezargusContainerArithmetic._uncertainty">
+<span class="sig-name descname"><span class="pre">_uncertainty</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">hint.NDArray</span></em><a class="headerlink" href="#lezargus.library.container.parent.LezargusContainerArithmetic._uncertainty" title="Link to this definition">#</a></dt>
+<dd><p>Internal variable for storing the uncertainty array. Use
+<a class="reference internal" href="#id1" title="lezargus.library.container.parent.LezargusContainerArithmetic.uncertainty"><code class="xref py py-attr docutils literal notranslate"><span class="pre">uncertainty</span></code></a> instead.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.parent.LezargusContainerArithmetic._wavelength">
+<span class="sig-name descname"><span class="pre">_wavelength</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">hint.NDArray</span></em><a class="headerlink" href="#lezargus.library.container.parent.LezargusContainerArithmetic._wavelength" title="Link to this definition">#</a></dt>
+<dd><p>Internal variable for storing the wavelength array. Use
+<a class="reference internal" href="#id2" title="lezargus.library.container.parent.LezargusContainerArithmetic.wavelength"><code class="xref py py-attr docutils literal notranslate"><span class="pre">wavelength</span></code></a> instead.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.library.container.parent.LezargusContainerArithmetic._write_fits_file">
+<span class="sig-name descname"><span class="pre">_write_fits_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lezargus/library/container/parent.html#LezargusContainerArithmetic._write_fits_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.container.parent.LezargusContainerArithmetic._write_fits_file" title="Link to this definition">#</a></dt>
+<dd><p>Write a FITS object to disk..</p>
+<p>This is a wrapper around the main FITS class for uniform handling.
+The respective containers should wrap around this for
+container-specific handling and should not overwrite this function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>str</em>) – The file to be written out.</p></li>
+<li><p><strong>overwrite</strong> (<em>bool</em><em>, </em><em>default = False</em>) – If True, overwrite any file conflicts.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="id0">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">data</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">hint.NDArray</span></em><a class="headerlink" href="#id0" title="Link to this definition">#</a></dt>
+<dd><p>Get the data array.</p>
+<p>The data of the spectra. The unit of data is typically
+in meters; but, check the <a class="reference internal" href="#lezargus.library.container.parent.LezargusContainerArithmetic.data_unit" title="lezargus.library.container.parent.LezargusContainerArithmetic.data_unit"><code class="xref py py-attr docutils literal notranslate"><span class="pre">data_unit</span></code></a> value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>data</strong> – The data array of the container.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>NDArray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.library.container.parent.LezargusContainerArithmetic.to_unit">
+<span class="sig-name descname"><span class="pre">to_unit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data_unit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">hint.Unit</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wavelength_unit</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">hint.Unit</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">hint.Self</span></span></span><a class="reference internal" href="../_modules/lezargus/library/container/parent.html#LezargusContainerArithmetic.to_unit"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.container.parent.LezargusContainerArithmetic.to_unit" title="Link to this definition">#</a></dt>
+<dd><p>Convert the units of the current data to the new set of units.</p>
+<p>This function only does simple unit conversion. Any equivalency
+conversion is not handled.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data_unit</strong> (<em>str</em><em> | </em><em>Unit</em>) – The unit we will be converting to. If the unit is not compatible,
+we raise an exception. If None, we default to no data unit
+conversion.</p></li>
+<li><p><strong>wavelength_unit</strong> (<em>str</em><em> | </em><em>Unit</em><em> | </em><em>None</em><em>, </em><em>default = None</em>) – A new wavelength unit to convert to. If the unit is not compatible,
+we raise an exception. If None, we default to no wavelength unit
+conversion.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>converted</strong> – The converted container, after the unit conversion.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Self-like</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="id1">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">uncertainty</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">hint.NDArray</span></em><a class="headerlink" href="#id1" title="Link to this definition">#</a></dt>
+<dd><p>Get the uncertainty array.</p>
+<p>The uncertainty of the spectra. The unit of uncertainty is typically
+in meters; but, check the <a class="reference internal" href="#lezargus.library.container.parent.LezargusContainerArithmetic.uncertainty_unit" title="lezargus.library.container.parent.LezargusContainerArithmetic.uncertainty_unit"><code class="xref py py-attr docutils literal notranslate"><span class="pre">uncertainty_unit</span></code></a> value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>uncertainty</strong> – The uncertainty array of the container.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>NDArray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lezargus.library.container.parent.LezargusContainerArithmetic.uncertainty_unit">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">uncertainty_unit</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">hint.Unit</span></em><a class="headerlink" href="#lezargus.library.container.parent.LezargusContainerArithmetic.uncertainty_unit" title="Link to this definition">#</a></dt>
+<dd><p>Return the uncertainty unit, i.e. the data unit.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>uncertainty_unit</strong> – The uncertainty unit.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Unit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="id2">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">wavelength</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">hint.NDArray</span></em><a class="headerlink" href="#id2" title="Link to this definition">#</a></dt>
+<dd><p>Get the wavelength array.</p>
+<p>The wavelength of the spectra. The unit of wavelength is typically
+in meters; but, check the <a class="reference internal" href="#lezargus.library.container.parent.LezargusContainerArithmetic.wavelength_unit" title="lezargus.library.container.parent.LezargusContainerArithmetic.wavelength_unit"><code class="xref py py-attr docutils literal notranslate"><span class="pre">wavelength_unit</span></code></a> value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>wavelength</strong> – The wavelength array of the container.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>NDArray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="lezargus.library.container.mosaic.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">lezargus.library.container.mosaic module</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="lezargus.library.container.photometry.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">lezargus.library.container.photometry module</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.wavelength"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.wavelength</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.data"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.data</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.uncertainty"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.uncertainty</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.wavelength_unit"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.wavelength_unit</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.data_unit"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.data_unit</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.spectral_scale"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.spectral_scale</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.pixel_scale"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.pixel_scale</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.slice_scale"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.slice_scale</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.mask"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.mask</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.flags"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.flags</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.header"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.header</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.__add__"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.__add__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.__init__"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.__mul__"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.__mul__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.__pow__"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.__pow__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.__radd__"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.__radd__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.__rmul__"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.__rmul__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.__sub__"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.__sub__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.__truediv__"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.__truediv__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.__verify_arithmetic_operation"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.__verify_arithmetic_operation()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic._data"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic._data</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic._read_fits_file"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic._read_fits_file()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic._uncertainty"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic._uncertainty</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic._wavelength"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic._wavelength</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic._write_fits_file"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic._write_fits_file()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id0"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.data</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.to_unit"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.to_unit()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.uncertainty</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.parent.LezargusContainerArithmetic.uncertainty_unit"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.uncertainty_unit</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2"><code class="docutils literal notranslate"><span class="pre">LezargusContainerArithmetic.wavelength</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sparrow
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023, Sparrow.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

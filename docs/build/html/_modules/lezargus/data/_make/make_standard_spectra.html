@@ -1,0 +1,563 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lezargus.data._make.make_standard_spectra &#8212; Lezargus  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/lezargus/data/_make/make_standard_spectra';</script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Lezargus  documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../user/index.html">User Manual</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../technical/index.html">Technical Manual</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../technical/atmosphere.html">Atmospheric Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../technical/contributing.html">Contributor Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../technical/convention.html">Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../technical/photometry.html">Photometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../technical/uncertainty.html">Uncertainty Propagation</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../code/modules.html">lezargus</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../code/lezargus.html">lezargus package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../code/lezargus.cli.html">lezargus.cli package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.cli.__main__.html">lezargus.cli.__main__ module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.cli.help_.html">lezargus.cli.help_ module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.cli.version.html">lezargus.cli.version module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../code/lezargus.data.html">lezargus.data package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.data._make.html">lezargus.data._make package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../code/lezargus.library.html">lezargus.library package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.container.html">lezargus.library.container package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.array.html">lezargus.library.array module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.atmosphere.html">lezargus.library.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.configuration.html">lezargus.library.configuration module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.conversion.html">lezargus.library.conversion module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.convolution.html">lezargus.library.convolution module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.fits.html">lezargus.library.fits module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.flags.html">lezargus.library.flags module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.hint.html">lezargus.library.hint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.interpolate.html">lezargus.library.interpolate module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.logging.html">lezargus.library.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.math.html">lezargus.library.math module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.path.html">lezargus.library.path module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.sanitize.html">lezargus.library.sanitize module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.stitch.html">lezargus.library.stitch module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.temporary.html">lezargus.library.temporary module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.transform.html">lezargus.library.transform module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../code/lezargus.simulator.html">lezargus.simulator package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.simulator.atmosphere.html">lezargus.simulator.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.simulator.spectre.html">lezargus.simulator.spectre module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.simulator.target.html">lezargus.simulator.target module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.simulator.telescope.html">lezargus.simulator.telescope module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../code/lezargus.__main__.html">lezargus.__main__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../code/lezargus.__version__.html">lezargus.__version__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../code/lezargus.config.html">lezargus.config module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../code/lezargus.initialize.html">lezargus.initialize module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../code/lezargus.terminate.html">lezargus.terminate module</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for lezargus.data._make.make_standard_spectra</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Make functions to create the LezargusSpectrum objects for star spectra.</span>
+
+<span class="sd">This module is just the part of the data making procedure to make the star</span>
+<span class="sd">spectra objects. We only support a limited selection of stars because we also</span>
+<span class="sd">load other metadata from the tables.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># isort: split</span>
+<span class="c1"># Import required to remove circular dependencies from type checking.</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">hint</span>
+<span class="c1"># isort: split</span>
+
+<span class="kn">import</span> <span class="nn">astropy.table</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">import</span> <span class="nn">lezargus</span>
+<span class="kn">from</span> <span class="nn">lezargus.data._make</span> <span class="kn">import</span> <span class="n">functionality</span>
+<span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">logging</span>
+
+
+<div class="viewcode-block" id="make_standard_spectrum">
+<a class="viewcode-back" href="../../../../code/lezargus.data._make.make_standard_spectra.html#lezargus.data._make.make_standard_spectra.make_standard_spectrum">[docs]</a>
+<span class="k">def</span> <span class="nf">make_standard_spectrum</span><span class="p">(</span><span class="n">basename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load a spectrum data file and make a LezargusSpectrum class from it.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    basename : str</span>
+<span class="sd">        The basename of the internal data file of the spectrum. The paths are</span>
+<span class="sd">        handled automatically.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    spectrum : LezargusSpectrum</span>
+<span class="sd">        The spectrum class.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># We need to load the data file.</span>
+    <span class="n">spectrum_table</span> <span class="o">=</span> <span class="n">load_spectrum_mrt_file</span><span class="p">(</span><span class="n">basename</span><span class="o">=</span><span class="n">basename</span><span class="p">)</span>
+    <span class="n">wavelength</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">spectrum_table</span><span class="p">[</span><span class="s2">&quot;wavelength&quot;</span><span class="p">])</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">spectrum_table</span><span class="p">[</span><span class="s2">&quot;data&quot;</span><span class="p">])</span>
+    <span class="n">uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">spectrum_table</span><span class="p">[</span><span class="s2">&quot;uncertainty&quot;</span><span class="p">])</span>
+
+    <span class="c1"># We also need to load any potential metadata.</span>
+    <span class="n">header_table</span> <span class="o">=</span> <span class="n">load_spectrum_header_file</span><span class="p">()</span>
+    <span class="n">basename_tag</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">get_filename_without_extension</span><span class="p">(</span>
+        <span class="n">pathname</span><span class="o">=</span><span class="n">basename</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">header_keys</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">header_table</span><span class="p">[</span><span class="s2">&quot;key&quot;</span><span class="p">])</span>
+        <span class="n">header_values</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">header_table</span><span class="p">[</span><span class="n">basename_tag</span><span class="p">])</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+            <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Internal header data for spectrum </span><span class="si">{</span><span class="n">basename_tag</span><span class="si">}</span><span class="s2"> does not&quot;</span>
+                <span class="s2">&quot; exist in header table.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">header_keys</span><span class="p">,</span> <span class="n">header_values</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+
+    <span class="c1"># Creating the spectrum object.</span>
+    <span class="n">spectrum</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">(</span>
+        <span class="n">wavelength</span><span class="o">=</span><span class="n">wavelength</span><span class="p">,</span>
+        <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+        <span class="n">uncertainty</span><span class="o">=</span><span class="n">uncertainty</span><span class="p">,</span>
+        <span class="n">wavelength_unit</span><span class="o">=</span><span class="s2">&quot;m&quot;</span><span class="p">,</span>
+        <span class="n">data_unit</span><span class="o">=</span><span class="s2">&quot;W m^-2 m^-1&quot;</span><span class="p">,</span>
+        <span class="n">spectral_scale</span><span class="o">=</span><span class="n">header</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;LZDSPECS&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+        <span class="n">pixel_scale</span><span class="o">=</span><span class="n">header</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;LZDPIXPS&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+        <span class="n">slice_scale</span><span class="o">=</span><span class="n">header</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;LZDSLIPS&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">),</span>
+        <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">flags</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+        <span class="n">header</span><span class="o">=</span><span class="n">header</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">spectrum</span></div>
+
+
+
+<div class="viewcode-block" id="load_spectrum_mrt_file">
+<a class="viewcode-back" href="../../../../code/lezargus.data._make.make_standard_spectra.html#lezargus.data._make.make_standard_spectra.load_spectrum_mrt_file">[docs]</a>
+<span class="k">def</span> <span class="nf">load_spectrum_mrt_file</span><span class="p">(</span><span class="n">basename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load a AAS MRT spectrum file to a standard table format to use.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    basename : str</span>
+<span class="sd">        The MRT spectrum filename to load, paths are handled automatically.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    spectrum_table : Table</span>
+<span class="sd">        The Astropy table of the spectrum object.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Parsing the filename.</span>
+    <span class="n">spectrum_filename</span> <span class="o">=</span> <span class="n">functionality</span><span class="o">.</span><span class="n">parse_basename</span><span class="p">(</span><span class="n">basename</span><span class="o">=</span><span class="n">basename</span><span class="p">)</span>
+    <span class="n">mrt_table</span> <span class="o">=</span> <span class="n">astropy</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">spectrum_filename</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;ascii.mrt&quot;</span><span class="p">)</span>
+    <span class="c1"># We format it to a standard table.</span>
+    <span class="n">wavelength_column</span> <span class="o">=</span> <span class="n">mrt_table</span><span class="p">[</span><span class="s2">&quot;wavelength&quot;</span><span class="p">]</span>
+    <span class="n">data_column</span> <span class="o">=</span> <span class="n">mrt_table</span><span class="p">[</span><span class="s2">&quot;flux&quot;</span><span class="p">]</span>
+    <span class="n">uncertainty_column</span> <span class="o">=</span> <span class="n">mrt_table</span><span class="p">[</span><span class="s2">&quot;uncertainty&quot;</span><span class="p">]</span>
+    <span class="c1"># Parsing the table.</span>
+    <span class="n">spectrum_table</span> <span class="o">=</span> <span class="n">astropy</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">Table</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">wavelength_column</span><span class="p">,</span> <span class="n">data_column</span><span class="p">,</span> <span class="n">uncertainty_column</span><span class="p">],</span>
+        <span class="n">names</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;wavelength&quot;</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">,</span> <span class="s2">&quot;uncertainty&quot;</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">spectrum_table</span></div>
+
+
+
+<div class="viewcode-block" id="load_spectrum_header_file">
+<a class="viewcode-back" href="../../../../code/lezargus.data._make.make_standard_spectra.html#lezargus.data._make.make_standard_spectra.load_spectrum_header_file">[docs]</a>
+<span class="k">def</span> <span class="nf">load_spectrum_header_file</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Table</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load a header spectrum file to a standard table format to use.</span>
+
+<span class="sd">    The spectrum header file is a single file with a set name.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    header_table : Table</span>
+<span class="sd">        The Astropy table of the header information for all star spectrums.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># We load in the table.</span>
+    <span class="n">header_filename</span> <span class="o">=</span> <span class="n">functionality</span><span class="o">.</span><span class="n">parse_basename</span><span class="p">(</span><span class="n">basename</span><span class="o">=</span><span class="s2">&quot;star_header.dat&quot;</span><span class="p">)</span>
+    <span class="n">raw_header_table</span> <span class="o">=</span> <span class="n">astropy</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span>
+        <span class="n">header_filename</span><span class="p">,</span>
+        <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;ascii.fixed_width&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># We need to fix some of the data types to better format it to a proper</span>
+    <span class="c1"># table.</span>
+    <span class="c1"># We first need to generalize the data type.</span>
+    <span class="k">for</span> <span class="n">columndex</span> <span class="ow">in</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">raw_header_table</span><span class="o">.</span><span class="n">colnames</span><span class="p">):</span>
+        <span class="c1"># We keep the string type of the key column.</span>
+        <span class="k">if</span> <span class="n">columndex</span> <span class="o">==</span> <span class="s2">&quot;key&quot;</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="c1"># Otherwise we convert.</span>
+        <span class="n">temp_new_column</span> <span class="o">=</span> <span class="n">raw_header_table</span><span class="p">[</span><span class="n">columndex</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>
+        <span class="n">raw_header_table</span><span class="p">[</span><span class="n">columndex</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp_new_column</span>
+
+    <span class="k">for</span> <span class="n">stardex</span><span class="p">,</span> <span class="n">headerdex</span> <span class="ow">in</span> <span class="n">raw_header_table</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">valuedex</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">headerdex</span><span class="p">):</span>
+            <span class="c1"># Not all of the tests we have can be done via an &quot;if&quot; statement, so</span>
+            <span class="c1"># we need to keep track if we already found a valid conversion.</span>
+            <span class="n">converted</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">new_value</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="c1"># If the value is empty.</span>
+            <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">converted</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">valuedex</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="n">valuedex</span> <span class="o">==</span> <span class="s2">&quot;None&quot;</span><span class="p">):</span>
+                <span class="n">converted</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">new_value</span> <span class="o">=</span> <span class="kc">None</span>
+
+            <span class="c1"># If the value is a boolean type.</span>
+            <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">converted</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">valuedex</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;True&quot;</span><span class="p">,</span> <span class="s2">&quot;False&quot;</span><span class="p">)):</span>
+                <span class="n">converted</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">new_value</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">valuedex</span><span class="p">)</span>
+
+            <span class="c1"># If the value is a number.</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">converted</span><span class="p">:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">new_value</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">valuedex</span><span class="p">)</span>
+                <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                    <span class="n">converted</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">converted</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="c1"># If none of the checks above find the proper type, we assume a</span>
+            <span class="c1"># string.</span>
+            <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">converted</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">valuedex</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">new_value</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">valuedex</span><span class="p">)</span>
+                <span class="n">converted</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="c1"># Replacing the record with the new converted object.</span>
+            <span class="n">raw_header_table</span><span class="p">[</span><span class="n">stardex</span><span class="p">][</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="n">new_value</span>
+
+    <span class="c1"># All done.</span>
+    <span class="n">header_table</span> <span class="o">=</span> <span class="n">raw_header_table</span>
+    <span class="k">return</span> <span class="n">header_table</span></div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sparrow
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023, Sparrow.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
