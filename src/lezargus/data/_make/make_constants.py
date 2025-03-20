@@ -9,6 +9,10 @@ of the configuration file.
 # Import required to remove circular dependencies from type checking.
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from lezargus.library import hint
 # isort: split
 
 
@@ -19,7 +23,7 @@ from lezargus.library import logging
 def make_constant(
     key: str,
     basename: str = "constants.txt",
-) -> None | int | float | str:
+) -> hint.Any:
     """Load a single constant value from the main file, based on the key.
 
     Parameters

@@ -126,12 +126,15 @@ class ConfigurationError(LezargusError):
     """
 
 
-class DeprecationError(LezargusError):
+class DeprecatedError(LezargusError):
     """An error used to note that something is deprecated with a replacement.
 
     This error should be used to note that is a function is deprecated and to
     use the documented replacement. There must always be a replacement for
     the deprecated functionality except for extraneous circumstances.
+
+    Note, this is named DeprecatedError to match DeprecatedWarning, which 
+    itself was renamed to avoid shadowing a built-in.
     """
 
 
@@ -196,7 +199,7 @@ class AccuracyWarning(LezargusWarning):
     """A warning for inaccurate results.
 
     This warning is used when some elements of the simulation or data
-    reduction would yield less than desireable results. In general, a brief
+    reduction would yield less than desirable results. In general, a brief
     description on how bad the accuracy issue is, is desired. We trust that,
     for the most part, a user will take the messages into account.
     """
@@ -232,7 +235,7 @@ class DataLossWarning(LezargusWarning):
     """
 
 
-class DeprecationWarning(LezargusWarning):  # noqa: A001
+class DeprecatedWarning(LezargusWarning):
     """A warning for deprecated functions.
 
     This warning is used when a deprecated function is being used. This is used
@@ -240,8 +243,8 @@ class DeprecationWarning(LezargusWarning):  # noqa: A001
     should be something similar which can be used, but it is not guaranteed to
     a drop and replace.
 
-    Note, this shadows the built-in DeprecationWarning. However, this should
-    not be an issue as this class is only exposed for Lezargus.
+    Note, this is named DeprecatedWarning to avoid shadowing the built-in 
+    DeprecationWarning.
     """
 
 

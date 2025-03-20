@@ -19,6 +19,17 @@ import os
 # You should pass your own configuration.yaml file when running this software.
 
 
+# <BEGIN META>
+# # # Lezargus Meta Parameter Configuration
+# # # # # # # # # # # # # # # # # # # #
+
+META_CONTAINER_FLOAT_DATA_TYPE = "float"
+
+# # # # # # # # # # # # # # # # # # # #
+# </END META>
+
+
+
 
 # <BEGIN TEMPORARY>
 # # # Lezargus Temporary Directory Configuration

@@ -1,0 +1,3 @@
+The NASA IRTF reflectivity files were obtained from the following.
+
+We are just using dummy data for now, see #29

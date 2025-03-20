@@ -28,6 +28,9 @@ dependencies = [
     "pyyaml>=6.0.0",
     "matplotlib>=3.9.0",
     "PySide6>=6.8.0",
+    "opencv-python",
+    # Secondary dependencies...
+    
 ]
 
 [project.urls]
@@ -50,8 +53,8 @@ path = "src/lezargus/__version__.py"
 
 [tool.hatch.build]
 exclude = [
-    # We do not want to package the utility scripts and files in a build.
-    "./auxiliary/*"
+    # For the source build, we cannot allow any legally protected files.
+    "auxiliary/base_secret/"
 ]
 
 [tool.hatch.envs.default]

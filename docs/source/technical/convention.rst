@@ -15,8 +15,18 @@ We use the simple following conventions with our array indexes.
 - We default to using C-order array indexing. This is the Numpy default, but 
 this default is opposite of Fortran and IDL indexing. 
 - For multidimensional images and cubes, we use the following indexing order:
-images, (x, y); cubes, (x, y, λ). Here, "x" is width and "y" is height. Special conversions may be needed as some image plotting conventions may be different.
+images, (y, x); cubes, (y, x, λ). Here, "x" is width (across columns) and "y" 
+is height (across rows). Special conversions may be needed as some image 
+plotting conventions may be different.
 
+Point Indexing
+--------------
+
+However, you may noticed that point pairs are still labeled as (x, y, z/λ).
+This is because we align with the Numpy conventions when it comes to images 
+and mathematics when it comes to points. Such split is required to maintain 
+the basic requirement of an image being able to have a representable 
+coordinate grid like a standard mathematical Cartesian coordinate system.
 
 
 Units

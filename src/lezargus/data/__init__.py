@@ -59,6 +59,8 @@ def __initialize_data_constants() -> None:
         return
 
     # Otherwise...
+
+    # Mirror solid angles.
     global CONST_ENTRANCE_WINDOW_SOLID_ANGLE
     CONST_ENTRANCE_WINDOW_SOLID_ANGLE = _make.make_constant(
         key="CONST_ENTRANCE_WINDOW_SOLID_ANGLE",
@@ -74,8 +76,50 @@ def __initialize_data_constants() -> None:
         key="CONST_SECONDARY_MIRROR_SOLID_ANGLE",
     )
 
+    # Pixel and slice sizes and widths.
     global CONST_SPECTRE_SLICES
     CONST_SPECTRE_SLICES = _make.make_constant(key="CONST_SPECTRE_SLICES")
+    global CONST_VISIBLE_DETECTOR_SIZE
+    CONST_VISIBLE_DETECTOR_SIZE = _make.make_constant(
+        key="CONST_VISIBLE_DETECTOR_SIZE",
+    )
+    global CONST_NEARIR_DETECTOR_SIZE
+    CONST_NEARIR_DETECTOR_SIZE = _make.make_constant(
+        key="CONST_NEARIR_DETECTOR_SIZE",
+    )
+    global CONST_MIDIR_DETECTOR_SIZE
+    CONST_MIDIR_DETECTOR_SIZE = _make.make_constant(
+        key="CONST_MIDIR_DETECTOR_SIZE",
+    )
+
+    global CONST_VISIBLE_PIXEL_SIZE
+    CONST_VISIBLE_PIXEL_SIZE = _make.make_constant(
+        key="CONST_VISIBLE_PIXEL_SIZE",
+    )
+    global CONST_NEARIR_PIXEL_SIZE
+    CONST_NEARIR_PIXEL_SIZE = _make.make_constant(key="CONST_NEARIR_PIXEL_SIZE")
+    global CONST_MIDIR_PIXEL_SIZE
+    CONST_MIDIR_PIXEL_SIZE = _make.make_constant(key="CONST_MIDIR_PIXEL_SIZE")
+
+    # Cosmic ray parameters.
+    global CONST_COSMIC_RAY_VALUE
+    CONST_COSMIC_RAY_VALUE = _make.make_constant(key="CONST_COSMIC_RAY_VALUE")
+    global CONST_COSMIC_RAY_RATE
+    CONST_COSMIC_RAY_RATE = _make.make_constant(key="CONST_COSMIC_RAY_RATE")
+
+    # Detector gain values.
+    global CONST_VISIBLE_DETECTOR_GAIN
+    CONST_VISIBLE_DETECTOR_GAIN = _make.make_constant(
+        key="CONST_VISIBLE_DETECTOR_GAIN",
+    )
+    global CONST_NEARIR_DETECTOR_GAIN
+    CONST_NEARIR_DETECTOR_GAIN = _make.make_constant(
+        key="CONST_NEARIR_DETECTOR_GAIN",
+    )
+    global CONST_MIDIR_DETECTOR_GAIN
+    CONST_MIDIR_DETECTOR_GAIN = _make.make_constant(
+        key="CONST_MIDIR_DETECTOR_GAIN",
+    )
 
     # All done.
     return

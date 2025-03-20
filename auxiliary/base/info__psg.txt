@@ -1,0 +1,30 @@
+All PSG files are generated from the NASA Planetary Spectrum Generator web interface:
+https://psg.gsfc.nasa.gov/
+
+PSG Models made by Adwin Boogert.
+
+We generated atmospheric transmission and emission/radiance values for simulating SPECTRE observations.
+The file format for the data is as follows:
+
+psg_cfg_telluric_za{1}_h2o{2}pwv_0p3-4p2um.cfg
+psg_cfg_telluric_za{1}_h2o{2}pwv_0p3-4p2um_{3}.txt
+
+Parameter legend:
+
+{1} - The zenith angle number, in degrees. Current generation is normally 0, 30, 45, and 60 degrees.
+{2} - The precipitable water vapor (PWV), in millimeters, formatted as #p# for a value of #.#. 
+      For example, 1p0 is 1.0 mm PWV. Current generation is 0.5, 1.0, 2.0, and 3.0 mm PWV.
+{3} - The mode of the data; either "trn" for transmission or "rad" for radiance. 
+
+The configuration files which are used to generate these files can be found in the corresponding .cfg files.
+
+These files are used to build the interpolator for atmospheric spectra.
+
+
+
+The output files are structured as, see the parameter legend: psg_telluric_za{1}_{3}.txt
+
+We have the PWV incorperated into the data file. A small header is provided.
+The wavelength is in `m`, the precipitable water vapor (PWV) is in `mm` and 
+the PSG radiance is in `W m^-2 sr^-1 m^-1` while the transmission is dimensionless `1`.
+

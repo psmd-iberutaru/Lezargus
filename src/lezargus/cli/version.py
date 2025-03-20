@@ -9,6 +9,10 @@ import lezargus
 from lezargus.library import hint
 from lezargus.library import logging
 
+# isort: split
+
+# We need to import the version number anyways.
+from lezargus.__version__ import __version__
 
 def version(parser: hint.ArgumentParser, arguments: dict) -> None:
     """Execute: `version ... ... ... ...`; the version number.
@@ -28,9 +32,6 @@ def version(parser: hint.ArgumentParser, arguments: dict) -> None:
     """
     # We still need the parser and arguments.
     lezargus.library.wrapper.do_nothing(parser, arguments)
-
-    # We need to import the version number.
-    from lezargus.__version__ import __version__
 
     # Just print it.
     version_string = f"lezargus-{__version__}"

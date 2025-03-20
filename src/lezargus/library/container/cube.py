@@ -112,7 +112,7 @@ class LezargusCube(LezargusContainerArithmetic):
                     f"Wavelength array shape: {wavelength.shape}; flux cube"
                     f" array shape: {data.shape}. The cube wavelength dimension"
                     f" length {data.shape[2]} is not compatible with the"
-                    f" wavelength length {wavelength.shape[2]}."
+                    f" wavelength length {wavelength.shape[0]}."
                 ),
             )
 

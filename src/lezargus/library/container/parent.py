@@ -36,8 +36,7 @@ class LezargusContainerArithmetic:
     Attributes
     ----------
     wavelength : ndarray
-        The wavelength of the spectra. The unit of wavelength is typically
-        in meters; but, check the :py:attr:`wavelength_unit` value.
+
     data : ndarray
         The data or flux of the spectra cube. The unit of the flux is typically
         in W m^-2 m^-1; but, check the :py:attr:`data_unit` value.
@@ -69,6 +68,18 @@ class LezargusContainerArithmetic:
         The header information, or metadata in general, about the data.
 
     """
+
+    _wavelength: hint.NDArray
+    """Internal variable for storing the wavelength array. Use
+    :py:attr:`wavelength` instead."""
+
+    _data: hint.NDArray
+    """Internal variable for storing the data array. Use
+    :py:attr:`data` instead."""
+
+    _uncertainty: hint.NDArray
+    """Internal variable for storing the uncertainty array. Use
+    :py:attr:`uncertainty` instead."""
 
     def __init__(
         self: LezargusContainerArithmetic,
@@ -231,6 +242,179 @@ class LezargusContainerArithmetic:
         # All done.
 
     @property
+    def wavelength(self: hint.Self) -> hint.NDArray:
+        """Get the wavelength array.
+
+        The wavelength of the spectra. The unit of wavelength is typically
+        in meters; but, check the :py:attr:`wavelength_unit` value.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        wavelength : NDArray
+            The wavelength array of the container.
+
+        """
+        return self._wavelength
+
+    @wavelength.setter
+    def wavelength(self: hint.Self, wave: hint.NDArray) -> None:
+        """Set the wavelength array.
+
+        Parameters
+        ----------
+        wave : NDArray
+            The input wavelength data.
+
+        Returns
+        -------
+        None
+
+        """
+        # Data type conversion to match configuration file.
+        dtype = lezargus.library.conversion.parse_numpy_dtype(
+            dtype_string=lezargus.config.META_CONTAINER_FLOAT_DATA_TYPE,
+        )
+        # Converting.
+        self._wavelength = np.asarray(wave, dtype=dtype)
+
+    @wavelength.deleter
+    def wavelength(self: hint.Self) -> None:
+        """Delete the wavelength array.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+
+        """
+        # Deleting the data.
+        self._wavelength = np.full(1, np.nan)
+        del self.wavelength
+
+    @property
+    def data(self: hint.Self) -> hint.NDArray:
+        """Get the data array.
+
+        The data of the spectra. The unit of data is typically
+        in meters; but, check the :py:attr:`data_unit` value.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        data : NDArray
+            The data array of the container.
+
+        """
+        return self._data
+
+    @data.setter
+    def data(self: hint.Self, data_: hint.NDArray) -> None:
+        """Set the data array.
+
+        Parameters
+        ----------
+        data_ : NDArray
+            The input data.
+
+        Returns
+        -------
+        None
+
+        """
+        # Data type conversion to match configuration file.
+        dtype = lezargus.library.conversion.parse_numpy_dtype(
+            dtype_string=lezargus.config.META_CONTAINER_FLOAT_DATA_TYPE,
+        )
+        self._data = np.asarray(data_, dtype=dtype)
+
+    @data.deleter
+    def data(self: hint.Self) -> None:
+        """Delete the data array.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+
+        """
+        # Deleting the data.
+        self._data = np.full(1, np.nan)
+        del self.data
+
+    @property
+    def uncertainty(self: hint.Self) -> hint.NDArray:
+        """Get the uncertainty array.
+
+        The uncertainty of the spectra. The unit of uncertainty is typically
+        in meters; but, check the :py:attr:`uncertainty_unit` value.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        uncertainty : NDArray
+            The uncertainty array of the container.
+
+        """
+        return self._uncertainty
+
+    @uncertainty.setter
+    def uncertainty(self: hint.Self, uncert: hint.NDArray | float) -> None:
+        """Set the uncertainty array.
+
+        Parameters
+        ----------
+        uncert : NDArray
+            The input uncertainty data.
+
+        Returns
+        -------
+        None
+
+        """
+        # If the uncertainty is a single value, then we need to broadcast it.
+        if isinstance(uncert, int | float | np.number):
+            uncert = np.full_like(self.data, uncert)
+
+        # Data type conversion to match configuration file.
+        dtype = lezargus.library.conversion.parse_numpy_dtype(
+            dtype_string=lezargus.config.META_CONTAINER_FLOAT_DATA_TYPE,
+        )
+        self._uncertainty = np.asarray(uncert, dtype=dtype)
+
+    @uncertainty.deleter
+    def uncertainty(self: hint.Self) -> None:
+        """Delete the uncertainty array.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        None
+
+        """
+        # Deleting the data.
+        self._uncertainty = np.full(1, np.nan)
+        del self.uncertainty
+
+    @property
     def uncertainty_unit(self: hint.Self) -> hint.Unit:
         """Return the uncertainty unit, i.e. the data unit.
 
@@ -253,7 +437,7 @@ class LezargusContainerArithmetic:
         """Verify operations between two objects is valid.
 
         Operations done between different instances of the Lezargus data
-        structure need to keep in mind the wavelength dependance of the data.
+        structure need to keep in mind the wavelength dependence of the data.
         We implement simple checks here to formalize if an operation between
         this object, and some other operand, can be performed.
 
@@ -292,6 +476,7 @@ class LezargusContainerArithmetic:
             # All good.
             operand_data = operand.data
         else:
+            operand_data = None
             verified = False
             logging.critical(
                 critical_type=logging.ArithmeticalError,
@@ -417,11 +602,11 @@ class LezargusContainerArithmetic:
             # The operand is just a single value, so, we handle it as so.
             # We assume a single value does not have any uncertainty that
             # we really care about.
+            # We trust the addition of non-unit values respect the unit
+            # of the container.
             operand_data = operand
             operand_uncertainty = np.zeros_like(self.uncertainty)
-            operand_unit = lezargus.library.conversion.parse_astropy_unit(
-                unit_string="",
-            )
+            operand_unit = self.data_unit
 
         # Addition and subtraction are unique in that we need to also check
         # the data units.
@@ -502,11 +687,11 @@ class LezargusContainerArithmetic:
             # The operand is just a single value, so, we handle it as so.
             # We assume a single value does not have any uncertainty that
             # we really care about.
+            # We trust the addition of non-unit values respect the unit
+            # of the container.
             operand_data = operand
             operand_uncertainty = np.zeros_like(self.uncertainty)
-            operand_unit = lezargus.library.conversion.parse_astropy_unit(
-                unit_string="",
-            )
+            operand_unit = self.data_unit
 
         # Addition and subtraction are unique in that we need to also check
         # the data units.

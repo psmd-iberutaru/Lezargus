@@ -26,7 +26,8 @@ This guide (and development in general) requires the following:
    See `<https://docs.github.com/en/get-started/start-your-journey/creating-an-account-on-github>`_
 4. (Optional) Install a full install of (La)TeX, usually a TeXLive install is 
    good enough. We only recommend this if you are the main developer of this 
-   package. See `<https://tug.org/texlive/>`_.
+   package and therefore need to build the LaTeX documentation. 
+   See `<https://tug.org/texlive/>`_.
 
 After Python has been installed, you can install other Python packages using 
 ``pip`` via:
@@ -72,9 +73,10 @@ on the matter. A great resource on Git can be found in
 a full tutorial on Git(Hub) itself is a little beyond this guide.
 
 .. note::
-    If you are a staff member of IRTF or similarly related, by convention, we 
-    will/must give you write access to the main Lezargus repository. Please 
-    contact the main developers for such permission.
+    If you are a developer staff member with IRTF or similarly related, 
+    by convention, we will/must give you write access to the main 
+    Lezargus repository. Please contact the main developers for such 
+    permission.
 
 There are many ways to clone a repository, but the easiest way is via HTTPS:
 
@@ -126,16 +128,16 @@ adding to Lezargus. However, please keep the following in mind.
 
     - See :ref:`technical-conventions`.
 
-- Please utilize the Lezargus library as much as possible. We list below some 
-  helpful modules which you will most likely need.
+- Please utilize the Lezargus library ``lezargus.library`` as much as possible. 
+  We list below some helpful modules which you will most likely need.
 
     - Logging and exception handling: ``lezargus.library.logging``, usually 
       aliased to ``logging``.
     - Math and uncertainty propagation: ``lezargus.library.math``.
-    - Configuration: ``lezargus.library.config`` and the file 
-      ``Lezargus/src/lezargus/configuration.yaml``.
+    - Configuration: ``lezargus.library.config`` and the configuration file 
+      ``Lezargus/src/lezargus/config.py``.
     - Extra data files: ``lezargus.library.data``.
-    - Container structures for spectra, images, and cubes: ``lezargus.container``.
+    - Container structures for spectra, images, and cubes: ``lezargus.library.container``.
     - Type hinting: ``lezargus.library.hint`` usually aliased to ``hint``.
 
 - Formatting, linting, and basic code cleanliness conventions are all handled 
@@ -146,7 +148,7 @@ adding to Lezargus. However, please keep the following in mind.
     - Please have proper docstrings for all your files, functions, and classes. 
       We require this but sometimes the automatic tools don't catch every case. 
       We (generally) follow the 
-      `Google/numpydoc <https://numpydoc.readthedocs.io/en/latest/format.html>`_ 
+      `Numpydoc <https://numpydoc.readthedocs.io/en/latest/format.html>`_ 
       style guide. (Note if you find a violation of the guide in our 
       documentation, feel free to fix it if it is minor or reach out and 
       submit an issue.)
@@ -219,7 +221,7 @@ development checks before opening a pull request.
 
     hatch run format
 
-3. Python linting is done by another job: ``lint``. We use 
+3. Python linting is done by another job: ``check``. We use 
    `Ruff <https://docs.astral.sh/ruff/>`_ and 
    `Pylint <https://pylint.readthedocs.io/en/latest/>`_ for linting. When you 
    get linting errors, consult their documentation for more information. Ruff 
@@ -229,7 +231,7 @@ development checks before opening a pull request.
 
 .. code-block:: bash
 
-    hatch run lint    (or lintfix)
+    hatch run check    (or checkfix)
 
 4. You can test your code (or all of the repository code in general) against 
    our test suite using the ``test`` job. This leverages 
@@ -259,9 +261,6 @@ development checks before opening a pull request.
    how to document your feature and build the documentation, see 
    :ref:`technical-contributing-documenting`.
 
-
-The hatch job ``aux`` or ``auxiliary`` does all of the non-build/install 
-steps (i.e. 2 through 7).
 
 
 .. _technical-contributing-submit-pull-request:
@@ -338,6 +337,8 @@ the hatch job:
 If you want to also build the LaTeX version of the documentation, you will 
 need to have an installation of LaTeX and you will also need to uncomment out 
 the LaTeX build line of the job in the ``Lezargus/pyproject.toml`` file. 
+Normal developers do not typically need to worry about this as the main 
+developer, from time to time, build the LaTeX documentation.
 
 Please make sure that your documentation properly builds without any errors or 
 warnings before submitting it via a pull request.

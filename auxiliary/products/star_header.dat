@@ -1,0 +1,21 @@
+|      key | star_spectra_Sun | star_spectra_Vega |      star_spectra_A0V | star_spectra_109Vir | star_spectra_16CygB |
+| LZI_INST |    STScI CALSPEC |     STScI CALSPEC |         STScI CALSPEC |       STScI CALSPEC |       STScI CALSPEC |
+| LZO_NAME |              Sun |              Vega |                   A0V |             109 Vir |            16 Cyg B |
+| LZPM_2Ks |            -28.3 |             0.129 | -0.014000000000000002 |               3.646 |               4.651 |
+| LZPM_2_H |           -28.25 |            -0.029 |                 0.035 |               3.628 |               4.695 |
+| LZPM_2_J |            -27.9 |            -0.177 | -0.018000000000000002 |               3.683 |               4.993 |
+| LZPM_GGB |             None |              None |                  None |              3.7358 |              6.4007 |
+| LZPM_GGR |             None |              None |                  None |              3.6791 |              5.5746 |
+| LZPM_G_G |             None |              None |                  None |              3.7284 |              6.0734 |
+| LZPM_J_B |           -26.13 |              0.02 |                  0.02 |                3.72 |                6.86 |
+| LZPM_J_U |           -25.97 |              0.02 |                  0.02 |                3.69 |                7.07 |
+| LZPM_J_V |           -26.76 |              0.03 |                  0.03 |                3.73 |                 6.2 |
+| LZPU_2Ks |             None |             0.185 |                 0.005 |                0.19 |               0.016 |
+| LZPU_2_H |             None |             0.146 |                 0.007 |               0.202 |               0.036 |
+| LZPU_2_J |             None |             0.206 |                 0.005 |               0.244 |               0.037 |
+| LZPU_GGB |             None |              None |                  None |              0.0086 |              0.0008 |
+| LZPU_GGR |             None |              None |                  None |              0.0024 |               0.001 |
+| LZPU_G_G |             None |              None |                  None |              0.0028 |              0.0003 |
+| LZPU_J_B |             None |              None |                  None |                None |                None |
+| LZPU_J_U |             None |              None |                  None |                None |                None |
+| LZPU_J_V |             None |              None |                  None |                None |                None |

@@ -276,8 +276,8 @@ def divide(
 
 
 def modulo(
-    numerator: hint.NDArray,
-    denominator: hint.NDArray,
+    numerator: hint.NDArray | float,
+    denominator: hint.NDArray | float,
     numerator_uncertainty: hint.NDArray | float | None = None,
     denominator_uncertainty: hint.NDArray | float | None = None,
 ) -> tuple[hint.NDArray, hint.NDArray]:

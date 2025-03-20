@@ -17,6 +17,7 @@ if TYPE_CHECKING:
 
 import astropy.io.fits
 import astropy.units
+import numpy as np
 
 from lezargus.library import logging
 
@@ -68,6 +69,79 @@ def convert_units(
     # Applying the conversion.
     result = value * conversion_factor
     return result
+
+
+def parse_numpy_dtype(dtype_string: str | type) -> type:
+    """Parse a data type string to an Numpy data type.
+
+    We only support built-in normal Python types and the Numpy types.
+    Unsupported types will not be converted by this function, and will raise
+    an error.
+
+    Parameters
+    ----------
+    dtype_string : str
+        The data type, either as a string representation (typical) or a type
+        (for compatibility reasons). Only Numpy canonical names are accepted.
+
+    Returns
+    -------
+    numpy_type : type
+        The data type after the conversion.
+
+    """
+    # We need to determine the type. If a type has been provided, it is easy
+    # to just go through all of the same process.
+    if isinstance(dtype_string, type):
+        dtype_string = dtype_string.__name__
+    elif isinstance(dtype_string, str):
+        # All good.
+        pass
+    else:
+        logging.critical(
+            critical_type=logging.InputError,
+            message=(
+                f"Object of type {type(dtype_string)} is not supported for data"
+                " type interpretation."
+            ),
+        )
+    dtype_string = str(dtype_string).casefold()
+
+    # To avoid PLR0912, and to make it easier to add new options, a full
+    # dictionary is used instead.
+    type_dictionary = {
+        "int": int,
+        "int64": np.int64,
+        "int32": np.int32,
+        # Floats...
+        "float": float,
+        "float64": np.float64,
+        "float32": np.float32,
+        "float16": np.float16,
+        # Strings...
+        "str": str,
+        # Other things?
+        "object": object,
+    }
+
+    # Getting the type. Note, because None itself is also a valid type,
+    # we need to be more creative for the case of a missing entry.
+    numpy_type = type_dictionary.get(dtype_string, logging.ExpectedCaughtError)
+    if numpy_type == logging.ExpectedCaughtError:
+        logging.error(
+            error_type=logging.InputError,
+            message=f"Data type string {dtype_string} not implemented.",
+        )
+        logging.critical(
+            critical_type=logging.DevelopmentError,
+            message=(
+                f"Data type string {dtype_string} does not have a"
+                " conversion, it could implemented."
+            ),
+        )
+
+    # All done.
+    return numpy_type
 
 
 def parse_astropy_unit(unit_string: str | hint.Unit | None) -> hint.Unit:

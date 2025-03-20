@@ -39,6 +39,18 @@ class SpectreDispersionPattern:
     the light on a detector. The format of this table should pass internal
     checks and so we do not suggest changing this table manually."""
 
+    visible_pixel_size: float
+    """The pixel size of the visible channel detector, taken from the data
+    constants."""
+
+    nearir_pixel_size: float
+    """The pixel size of the near IR channel detector, taken from the data
+    constants."""
+
+    midir_pixel_size: float
+    """The pixel size of the mid IR channel detector, taken from the data
+    constants."""
+
     def __init__(
         self: SpectreDispersionPattern,
         dispersion_table: hint.Table,
@@ -123,7 +135,6 @@ class SpectreDispersionPattern:
         ]
         for coldex in expected_columns:
             if coldex not in table.colnames:
-                print(coldex, table.colnames)
                 logging.error(
                     error_type=logging.InputError,
                     message=(
@@ -248,7 +259,8 @@ class SpectreDispersionPattern:
             )
         channel_filter = self.dispersion_table["channel"] == channel
         # Slice
-        if not (1 <= slice_ <= 36):
+        n_slices = 36
+        if not 1 <= slice_ <= n_slices:
             logging.error(
                 error_type=logging.DevelopmentError,
                 message=(
@@ -280,7 +292,7 @@ class SpectreDispersionPattern:
         location: str,
         wavelength: hint.NDArray,
     ) -> list[tuple[float, float]]:
-        """Get the coordinate location on the detector.
+        """Get the coordinate location on the detector, in linear units.
 
         Note, this function returns the coordinates in meters, consider using
         py:meth:`get_slice_dispersion_pixel` for the pixel coordinates.
@@ -469,9 +481,7 @@ class SpectreDispersionPattern:
             )
         # The input was likely not supported.
         else:
-            interp_wave = np.array([])
-            interp_x = np.array([])
-            interp_y = np.array([])
+            interp_wave = interp_x = interp_y = np.array([np.nan, np.nan])
             logging.error(
                 error_type=logging.InputError,
                 message=(
@@ -482,17 +492,107 @@ class SpectreDispersionPattern:
 
         # Now that we have the data we can interpolate to the wavelengths
         # desired.
-        interpolator_x = lezargus.library.interpolate.Spline1DInterpolate(
+        interpolator_x = lezargus.library.interpolate.Linear1DInterpolate(
             x=interp_wave,
             v=interp_x,
+            extrapolate=True,
         )
-        interpolator_y = lezargus.library.interpolate.Spline1DInterpolate(
+        interpolator_y = lezargus.library.interpolate.Linear1DInterpolate(
             x=interp_wave,
             v=interp_y,
+            extrapolate=True,
         )
         # And we get the values.
+        wavelength = np.atleast_1d(wavelength)
         coordinate_x = interpolator_x(x=wavelength)
         coordinate_y = interpolator_y(x=wavelength)
         # Creating the pairs.
+
         coordinate_pairs = list(zip(coordinate_x, coordinate_y, strict=True))
         return coordinate_pairs
+
+    def get_slice_dispersion_pixel(
+        self: hint.Self,
+        channel: str,
+        slice_: int,
+        location: str,
+        wavelength: hint.NDArray,
+    ) -> list[tuple[float, float]]:
+        """Get the coordinate location on the detector, in pixels.
+
+        Note, this function returns the coordinates in pixel units. We convert
+        from the linear units from the original function
+        py:meth:`get_slice_dispersion_coordinate` to pixel units based on the
+        pixel scale of each detector within the channel. This is mostly a
+        convenience function and the main function is the predominant source
+        of the documentation.
+
+        Parameters
+        ----------
+        channel : str
+            The name of which of the three channels being queried.
+        slice_ : int
+            The slice index, 1-36 inclusive, for the slice being queried.
+        location : str
+            The location of the area you want relative to the center of the
+            slice. Acceptable terms:
+
+                - `center`: The center of the slice.
+                - `left` or `right`: The direct left and right from the center.
+                - `top` or `bottom`: The direct top and bottom from the center.
+                - `top_left` or `top_right`: The top left and right corners.
+                - `bottom_left` or `bottom_right`: The bottom corners.
+
+        wavelength : float | NDArray
+            The wavelength(s) to get the coordinates for the dispersion.
+
+        Returns
+        -------
+        pixel_coordinate_pairs : list
+            The list of the (X, Y) coordinate pairs in pixel units, parallel
+            with the provided wavelength array.
+
+        """
+        # We are mostly just converting the linear coordinates given the
+        # pixel sizes so we need the linear coordinates first.
+        coordinate_pairs = self.get_slice_dispersion_coordinate(
+            channel=channel,
+            slice_=slice_,
+            location=location,
+            wavelength=wavelength,
+        )
+
+        # We need to use the correct pixel size, depending on the channel.
+        channel = channel.casefold()
+        if channel == "visible":
+            pixel_size = lezargus.data.CONST_VISIBLE_PIXEL_SIZE
+            detector_size = lezargus.data.CONST_VISIBLE_DETECTOR_SIZE
+        elif channel == "nearir":
+            pixel_size = lezargus.data.CONST_NEARIR_PIXEL_SIZE
+            detector_size = lezargus.data.CONST_NEARIR_DETECTOR_SIZE
+        elif channel == "midir":
+            pixel_size = lezargus.data.CONST_MIDIR_PIXEL_SIZE
+            detector_size = lezargus.data.CONST_MIDIR_DETECTOR_SIZE
+        else:
+            logging.error(
+                error_type=logging.InputError,
+                message=(
+                    f"Channel provided, {channel}, does not have a pixel size."
+                ),
+            )
+
+        # Convert the coordinates to pixels.
+        center_pixel_coordinate_pairs = [
+            (xdex / pixel_size, ydex / pixel_size)
+            for (xdex, ydex) in coordinate_pairs
+        ]
+
+        # The values computed are center-origin which is atypical for pixels.
+        # We shift it so the origin is correctly in a corner.
+        # We assume a square detector.
+        pixel_coordinate_pairs = [
+            (xdex + detector_size // 2, ydex + detector_size // 2)
+            for (xdex, ydex) in center_pixel_coordinate_pairs
+        ]
+
+        return pixel_coordinate_pairs

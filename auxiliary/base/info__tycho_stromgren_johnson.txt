@@ -1,0 +1,80 @@
+The original data files were obtained from the following publication.
+
+For ease, we split the files to one file per filter so it is easier to 
+process.
+
+++++++++++++++++++++++++
+
+J/AJ/131/1184    A recalibration of optical photometry   (Maiz-Apellaniz+, 2006)
+================================================================================
+A recalibration of optical photometry: Tycho-2, Stromgren, and Johnson systems.
+    Maiz-Apellaniz J.
+   <Astron. J., 131, 1184-1199 (2006)>
+   =2006AJ....131.1184M
+================================================================================
+ADC_Keywords: Photometry, sensitivity functions ; Photometry, UBV ;
+              Photometry, uvby
+Keywords: space vehicles: instruments - stars: fundamental parameters -
+          techniques: photometric - techniques: spectroscopic
+
+Abstract:
+    I use high-quality Hubble Space Telescope (HST) spectrophotometry to
+    analyze the calibration of three popular optical photometry systems:
+    Tycho-2 B_T_ and V_T_, Stromgren uvby, and Johnson UBV.
+
+File Summary:
+--------------------------------------------------------------------------------
+ FileName          Lrecl  Records   Explanations
+--------------------------------------------------------------------------------
+ReadMe                80        .   This file
+filter_tycho2.dat     21       42   Recommended photon-counting sensitivity curves
+                                    for the Tycho B_T_V_T_ system
+filter_stromgren.dat  43       29   Recommended photon-counting sensitivity curves
+                                    for the Stromgren uvby standard system
+filter_johnson.dat    32       47   Recommended photon-counting sensitivity curves
+                                    for the Johnson UBV standard system
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: filter_tycho2.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  4  I4    0.1nm   BTlambda  ? Tycho B_T_ filter wavelength in Angstroms
+   6- 10  F5.3  ---     BTph      ? Tycho B_T_ filter sensitivity
+  12- 15  I4    0.1nm   VTlambda  Tycho V_T_ filter wavelength in Angstroms
+  17- 21  F5.3  ---     VTph      Tycho V_T_ filter sensitivity
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: filter_stromgren.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  4  I4    0.1nm   ulambda   ? Stromgren u filter wavelength in Angstroms
+   6- 10  F5.3  ---     uph       ? Stromgren u filter sensitivity
+  12- 15  I4    0.1nm   vlambda   Stromgren v filter wavelength in Angstroms
+  17- 21  F5.3  ---     vph       Stromgren v filter sensitivity
+  23- 26  I4    0.1nm   blambda   Stromgren b filter wavelength in Angstroms
+  28- 32  F5.3  ---     bph       Stromgren b filter sensitivity
+  34- 37  I4    0.1nm   ylambda   Stromgren y filter wavelength in Angstroms
+  39- 43  F5.3  ---     yph       Stromgren y filter sensitivity
+--------------------------------------------------------------------------------
+
+Byte-by-byte Description of file: filter_johnson.dat
+--------------------------------------------------------------------------------
+   Bytes Format Units   Label     Explanations
+--------------------------------------------------------------------------------
+   1-  4  I4    0.1nm   Ulambda   ? Johnson U filter wavelength in Angstroms
+   6- 10  F5.3  ---     Uph       ? Johnson U filter sensitivity
+  12- 15  I4    0.1nm   Blambda   ? Johnson B filter wavelength in Angstroms
+  17- 21  F5.3  ---     Bph       ? Johnson B filter sensitivity
+  23- 26  I4    0.1nm   Vlambda   Johnson V filter wavelength in Angstroms
+  28- 32  F5.3  ---     Vph       Johnson V filter sensitivity
+--------------------------------------------------------------------------------
+
+History:
+    From electronic version of the journal
+
+References:
+  Maiz-Apellaniz J., Paper I     2005PASP..117..615M
+================================================================================
+(End)                   Greg Schwarz [AAS], Marianne Brouty [CDS]    09-Jan-2007

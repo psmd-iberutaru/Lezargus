@@ -46,7 +46,7 @@ def execute_primary_action(
         case "list":
             available_actions = [
                 "help",
-                "version"
+                "version",
                 # Other commands go above, in order.
                 "list",
             ]
