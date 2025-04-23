@@ -14,6 +14,7 @@ from lezargus.library import logging
 # We need to import the version number anyways.
 from lezargus.__version__ import __version__
 
+
 def version(parser: hint.ArgumentParser, arguments: dict) -> None:
     """Execute: `version ... ... ... ...`; the version number.
 

@@ -133,7 +133,7 @@ class DeprecatedError(LezargusError):
     use the documented replacement. There must always be a replacement for
     the deprecated functionality except for extraneous circumstances.
 
-    Note, this is named DeprecatedError to match DeprecatedWarning, which 
+    Note, this is named DeprecatedError to match DeprecatedWarning, which
     itself was renamed to avoid shadowing a built-in.
     """
 
@@ -243,7 +243,7 @@ class DeprecatedWarning(LezargusWarning):
     should be something similar which can be used, but it is not guaranteed to
     a drop and replace.
 
-    Note, this is named DeprecatedWarning to avoid shadowing the built-in 
+    Note, this is named DeprecatedWarning to avoid shadowing the built-in
     DeprecationWarning.
     """
 

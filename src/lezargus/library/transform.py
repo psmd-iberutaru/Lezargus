@@ -323,7 +323,7 @@ def affine_transform(
     augmented_matrix = np.insert(warp_matrix, 2, offset_vector, axis=1)
 
     # The border constant.
-    border_constant = (0,0,0,0)
+    border_constant = (0, 0, 0, 0)
     if isinstance(constant, tuple | list):
         # The border constant is likely a OpenCV scaler value.
         open_cv_scalar_length = 4

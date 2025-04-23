@@ -51,6 +51,10 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 
+# Profiling reports.
+auxiliary/_profile.py
+*.profile
+
 # Translations
 *.mo
 *.pot
@@ -78,6 +82,7 @@ target/
 # IPython
 profile_default/
 ipython_config.py
+
 # Testing files.
 _*.ipynb
 
@@ -134,3 +139,4 @@ dmypy.json
 # Legally controlled files.
 auxiliary/base_secret/
 !auxiliary/base_secret/README.txt
+
