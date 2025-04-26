@@ -51,10 +51,6 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 
-# Profiling reports.
-auxiliary/_profile.py
-*.profile
-
 # Translations
 *.mo
 *.pot
@@ -140,3 +136,5 @@ dmypy.json
 auxiliary/base_secret/
 !auxiliary/base_secret/README.txt
 
+# Debugging and testing development files.
+debug/

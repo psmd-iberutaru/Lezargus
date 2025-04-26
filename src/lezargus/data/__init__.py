@@ -268,6 +268,47 @@ def __initialize_data_photometric_filters() -> None:
         magnitude_uncertainty=0,
     )
 
+    # WISE 1 2 3 4 Filters.
+    global FILTER_WISE_1
+    FILTER_WISE_1 = _make.make_vega_photometric_filter(
+        basename="filter_WISE_1.dat",
+    )
+    FILTER_WISE_1.add_standard_star_spectrum(
+        spectrum=STAR_A0V,
+        magnitude=0,
+        magnitude_uncertainty=0,
+    )
+
+    global FILTER_WISE_2
+    FILTER_WISE_2 = _make.make_vega_photometric_filter(
+        basename="filter_WISE_2.dat",
+    )
+    FILTER_WISE_2.add_standard_star_spectrum(
+        spectrum=STAR_A0V,
+        magnitude=0,
+        magnitude_uncertainty=0,
+    )
+
+    global FILTER_WISE_3
+    FILTER_WISE_3 = _make.make_vega_photometric_filter(
+        basename="filter_WISE_3.dat",
+    )
+    FILTER_WISE_3.add_standard_star_spectrum(
+        spectrum=STAR_A0V,
+        magnitude=0,
+        magnitude_uncertainty=0,
+    )
+
+    global FILTER_WISE_4
+    FILTER_WISE_4 = _make.make_vega_photometric_filter(
+        basename="filter_WISE_4.dat",
+    )
+    FILTER_WISE_4.add_standard_star_spectrum(
+        spectrum=STAR_A0V,
+        magnitude=0,
+        magnitude_uncertainty=0,
+    )
+
 
 def __initialize_data_atmosphere_generators() -> None:
     """Initialize only the atmospheric generators.

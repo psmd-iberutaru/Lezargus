@@ -102,11 +102,13 @@ class LezargusImage(LezargusContainerArithmetic):
             )
 
         # The wavelength parameter is more metadata describing the image. It is
-        # completely optional. If provided, we add it.
+        # completely optional. If provided, we add it. Otherwise we use a
+        # None-like value which is can be more properly handled by the other
+        # parts of Lezargus.
         if wavelength is not None:
-            set_wavelength = np.array(float(wavelength))
+            set_wavelength = np.array([float(wavelength)])
         else:
-            set_wavelength = np.array(None)
+            set_wavelength = np.array([np.nan])
 
         # Constructing the original class. We do not deal with WCS here because
         # the base class does not support it. We do not involve units here as

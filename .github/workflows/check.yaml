@@ -25,7 +25,7 @@ jobs:
         pip install hatch
     - name: Analyzing the code with pylint via hatchling.
       run: |
-        hatch run lint
+        hatch run check
 
   pylint-windows:
     runs-on: windows-latest
