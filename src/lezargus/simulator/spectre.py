@@ -75,10 +75,12 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
     """Co-adds are a way to combine multiple exposures into a single file,
     giving better signal to noise without saturating."""
 
-    use_cache = True
+    use_cache: bool = True
     """If True, we cache calculated values so that they do not need to
     be calculated every time when not needed. If False, caches are never
     returned and instead everything is always recomputed."""
+
+    _cache_spectral_dispersion: hint.LezargusImage | None = None
 
     def __init__(
         self: SpectreSimulator,
@@ -1566,6 +1568,42 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             spectral dispersion onto the detector.
 
         """
+        # The default parameters of the advanced function is considered the
+        # "default" of the simulation.
+        current_state = self.at_advanced_spectral_dispersion()
+        return current_state
+
+    def at_advanced_spectral_dispersion(
+        self: hint.Self,
+        quick_translation: bool = False,
+    ) -> hint.LezargusImage:
+        """State of simulation after modeling spectral dispersion on detector.
+
+        This is the advanced function and allow for more customization of the
+        simulation of spectral dispersion. The standard spectral dispersion
+        function calls this function, with the standard mode being the
+        provided defaults here. We cache the results to ensure that a
+        call to the base property provides the advanced computation, should
+        it exist.
+
+        Parameters
+        ----------
+        quick_translation : bool, default = False
+            If True, we simplify the translation. Instead of an affine
+            translation, we physically place the array based on the
+            coordinates after doing a much smaller translation.
+
+        Returns
+        -------
+        current_state : LezargusImage
+            The state of the simulation after applying the effects of
+            spectral dispersion onto the detector.
+
+        """
+        # We use a cached value if there exists one.
+        if self._cache_spectral_dispersion is not None and self.use_cache:
+            return self._cache_spectral_dispersion
+
         # No cached value, we calculate it from the previous state.
         previous_state = self.at_detector_quantum_efficiency
 
@@ -1574,7 +1612,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # and we assume they are square.
         if self.channel == "visible":
             detector_size = int(lezargus.data.CONST_VISIBLE_DETECTOR_SIZE)
-        elif self.channel == "nearif":
+        elif self.channel == "nearir":
             detector_size = int(lezargus.data.CONST_NEARIR_DETECTOR_SIZE)
         elif self.channel == "midir":
             detector_size = int(lezargus.data.CONST_MIDIR_DETECTOR_SIZE)
@@ -1622,6 +1660,137 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         )
         detector_data = np.zeros(detector_shape)
 
+        # We seperate the slice transformation function to something a little
+        # seperate because it is a little cleaner.
+        def translate_slice_to_detector(
+            slice_array: hint.NDArray,
+            detector_shape: tuple,
+            dispersive_corners: hint.NDArray,
+        ) -> hint.NDArray:
+            """Translate slice on the detector via quick an affine transform.
+
+            This function does the leg-work of computing an affine
+            transformation to emulate the spectral dispersion of mono-chromatic
+            slice images. However, default transformations take a while so we
+            short cut it by doing a smaller transform on a smaller array and
+            putting the smaller array in the right place to emulate the
+            full affine transform.
+
+            Parameters
+            ----------
+            slice_array : NDArray
+                The mono-chromatic slice array data.
+            detector_shape : tuple
+                The shape of the detector that we are applying the slices to.
+            dispersive_corners : NDArray
+                The corner locations of where the slice should end up on the
+                detector array to properly simulate its dispersion.
+
+            """
+            # Sightly pad out the slice array. We need the small extra padding
+            # for the non-integer part of the translation.
+            pad_width = 3
+            padded_slice = np.pad(
+                slice_array,
+                pad_width=pad_width,
+                mode="constant",
+                constant_values=0,
+            )
+
+            # The location of the corners of the slice in this new padded array
+            # needs to be determined. We can assume their locations based on the
+            # pad.
+            slice_height, slice_width = slice_array.shape
+            # Determining the edge values makes the corners easier to define.
+            # Assuming an origin point of 0,0.
+            base_bottom_edge = 0 + pad_width
+            base_top_edge = base_bottom_edge + slice_height
+            base_left_edge = 0 + pad_width
+            base_right_edge = base_left_edge + slice_width
+            # And then defining the corners from there.
+            base_bottom_left = (base_left_edge, base_bottom_edge)
+            base_bottom_right = (base_right_edge, base_bottom_edge)
+            base_top_left = (base_left_edge, base_top_edge)
+            base_top_right = (base_right_edge, base_top_edge)
+            base_corners = np.array(
+                [
+                    base_bottom_left,
+                    base_bottom_right,
+                    base_top_left,
+                    base_top_right,
+                ],
+            )
+
+            # The affine transformation calculaton with the two sets of points.
+            affine_transform_matrix = (
+                lezargus.library.transform.calculate_affine_matrix(
+                    in_points=base_corners,
+                    out_points=dispersive_corners,
+                )
+            )
+
+            # To speed up the transformations, we break up the transformation
+            # into one large translation (which will be manually done via
+            # indexing)...
+            x_shift = int(np.floor(affine_transform_matrix[0, 2])) - 1
+            y_shift = int(np.floor(affine_transform_matrix[1, 2])) - 1
+            # ...and the leftover affine transformation with a translation
+            # reduction based on the aformentioned large translation.
+            reduced_transform_matrix = np.array(
+                affine_transform_matrix,
+                copy=True,
+            )
+            reduced_transform_matrix[0, 2] = (
+                affine_transform_matrix[0, 2] - x_shift
+            )
+            reduced_transform_matrix[1, 2] = (
+                affine_transform_matrix[1, 2] - y_shift
+            )
+
+            # First, the affine transformation to deal with any higher order
+            # transformations and the decimal part of the translation.
+            # Though, if a quick translation is wanted instead, we do that.
+            if quick_translation:
+                # A quick translation just does the fractional portion of
+                # the translation. It skips the other things.
+                quick_x_shift = reduced_transform_matrix[0, 2]
+                quick_y_shift = reduced_transform_matrix[1, 2]
+                transformed_data = lezargus.library.transform.translate_2d(
+                    array=padded_slice,
+                    x_shift=quick_x_shift,
+                    y_shift=quick_y_shift,
+                    order=2,
+                    mode="constant",
+                    constant=0,
+                )
+            else:
+                transformed_data = lezargus.library.transform.affine_transform(
+                    array=padded_slice,
+                    matrix=reduced_transform_matrix,
+                    offset=None,
+                    constant=0,
+                )
+
+            # Next, we manually put this transformed data onto a detector based
+            # on the provided detector shape, emulating the translation by
+            # placing it in the right location.
+            detector_data = np.zeros(detector_shape)
+            # The original location of the array is the origin, so we assign the
+            # new coordinates, adapting for the pad.
+            transform_height, transform_width = transformed_data.shape
+            transform_bottom_edge = y_shift - pad_width
+            transform_top_edge = transform_bottom_edge + transform_height
+            transform_left_edge = x_shift - pad_width
+            transform_right_edge = transform_left_edge + transform_width
+            # Placing the new data on the detector, simulating the translation.
+            detector_data[
+                transform_bottom_edge:transform_top_edge,
+                transform_left_edge:transform_right_edge,
+            ] = transformed_data
+
+            # All done.
+            return detector_data
+
         # Going over every single slice, we need to put it on the detector.
         for sliceindex, slicedex in enumerate(previous_state):
             # Each wavelength slice of the cubes is integrated over their
@@ -1645,29 +1814,6 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
                 datadex = slicedex.data[:, :, index]
                 # We also integrate over the wavelength range.
                 integrated_data = datadex * wdeldex
-
-                # We pad the data to have it the same size, shape, and scale
-                # of the detector data. We track the corners of the data
-                # so we can transform the data per dispersion.
-                padded_data = np.zeros(detector_shape)
-                full_height, full_width = detector_shape
-                # Manually placing it on the detector.
-                slice_height, slice_width = integrated_data.shape
-                base_bottom_edge = full_height // 2 - slice_height // 2
-                base_top_edge = base_bottom_edge + slice_height
-                base_left_edge = full_width // 2 - slice_width // 2
-                base_right_edge = base_left_edge + slice_width
-                # Placing the detector data on the array.
-                padded_data[
-                    base_bottom_edge:base_top_edge,
-                    base_left_edge:base_right_edge,
-                ] = integrated_data
-
-                # The defining four base coordinates.
-                base_bottom_left = (base_left_edge, base_bottom_edge)
-                base_bottom_right = (base_right_edge, base_bottom_edge)
-                base_top_left = (base_left_edge, base_top_edge)
-                base_top_right = (base_right_edge, base_top_edge)
 
                 # We determine where this data should be put on the array.
                 new_bottom_left = (
@@ -1703,16 +1849,6 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
                     )
                 )
 
-                # Given the coordinates, we compute the transformation needed
-                # to move it to the right location.
-                base_coord = np.array(
-                    [
-                        base_bottom_left,
-                        base_bottom_right,
-                        base_top_left,
-                        base_top_right,
-                    ],
-                )
                 # The needed coordinates are nested so we need to bring it out.
                 new_coord = np.array(
                     [
@@ -1726,22 +1862,10 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
                 # scale of the current simualted data.
                 new_scaled_coord = np.array(new_coord) * bin_factor
 
-                # Calculating the transform matrix given our points.
-                affine_transform_matrix = (
-                    lezargus.library.transform.calculate_affine_matrix(
-                        in_points=base_coord,
-                        out_points=new_scaled_coord,
-                    )
-                )
-
-                # And we actually do the transformation; we are using
-                # homogenous coordinates as the typical output of the
-                # calculation.
-                dispersed_data = lezargus.library.transform.affine_transform(
-                    array=padded_data,
-                    matrix=affine_transform_matrix,
-                    offset=None,
-                    constant=0,
+                dispersed_data = translate_slice_to_detector(
+                    slice_array=integrated_data,
+                    detector_shape=detector_shape,
+                    dispersive_corners=new_scaled_coord,
                 )
 
                 # We are ignoring masks and flags for now.
@@ -1774,6 +1898,10 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             header=previous_state[0].header,
         )
         current_state = detector_image
+
+        # Saving the result later in the cache.
+        if self.use_cache:
+            self._cache_spectral_dispersion = current_state
 
         return current_state
 

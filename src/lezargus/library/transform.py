@@ -26,6 +26,7 @@ def translate_2d(
     array: hint.NDArray,
     x_shift: float,
     y_shift: float,
+    order: int = 3,
     mode: str = "constant",
     constant: float = np.nan,
 ) -> hint.NDArray:
@@ -41,9 +42,11 @@ def translate_2d(
         The number of pixels that the array is shifted in the x-axis.
     y_shift : float
         The number of pixels that the array is shifted in the y-axis.
+    order : int
+        The spline order for the interpolation of the translation function.
     mode : str, default = "constant"
         The padding mode of the translation. It must be one of the following.
-        The implimentation detail is similar to Scipy's. See
+        The implementation detail is similar to Scipy's. See
         :py:func:`scipy.ndimage.shift` for more information.
     constant : float, default = np.nan
         If the `mode` is constant, the constant value used is this value.
@@ -72,6 +75,7 @@ def translate_2d(
     shifted_array = scipy.ndimage.shift(
         array,
         (y_shift, x_shift),
+        order=order,
         mode=mode,
         cval=constant,
     )
@@ -341,11 +345,16 @@ def affine_transform(
         # It is likely a single value at this point.
         border_constant = (constant, constant, constant, constant)
 
+    # OpenCV, for the shape parameter, uses a (width, height) convention,
+    # while Numpy uses a (height, width) convention. We just need to adapt for
+    # it.
+    opencv_dsize = (array.shape[1], array.shape[0])
+
     # Transforming.
     transformed_array = cv2.warpAffine(
         src=array,
         M=augmented_matrix,
-        dsize=array.shape,
+        dsize=opencv_dsize,
         borderMode=cv2.BORDER_CONSTANT,
         borderValue=border_constant,
     )

@@ -96,7 +96,7 @@ class LezargusImage(LezargusContainerArithmetic):
                 error_type=logging.InputError,
                 message=(
                     "The input data for a LezargusImage instantiation has a"
-                    " shape {data.shape}, which is not the expected two"
+                    f" shape {data.shape}, which is not the expected two"
                     " dimension."
                 ),
             )
