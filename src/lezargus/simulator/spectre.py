@@ -161,10 +161,270 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
                     " nearir, midir."
                 ),
             )
+
         # All done.
+        return None
 
     @classmethod
     def from_advanced_parameters(
+        cls: type[hint.Self],
+        target:hint.TargetSimulator,
+        channel: str,
+        exposure_time: float,
+        coadds: int=1,
+        atmosphere_temperature: float = 275.15,
+        atmosphere_pressure: float=61500,
+        atmosphere_ppw: float=230,
+        atmosphere_pwv: float=0.001,
+        atmosphere_seeing: float=0.8 / 206265,
+        zenith_angle: float=0,
+        parallactic_angle: float=0,
+        reference_wavelength: float=0.550e-6,
+        telescope_temperature: float=275.15,
+        transmission_generator: hint.AtmosphereSpectrumGenerator | None = None,
+        radiance_generator: hint.AtmosphereSpectrumGenerator | None = None,
+    ) -> hint.Self:
+        """Initialize the SPECTRE simulator, only using parameter values.
+
+        By default, the initialization of the SPECTRE simulator requires the
+        creation of three different inner simulator classes. This convenience
+        function does that for the user for two, as long as they provide the
+        environmental parameters for the atmosphere and telescope. Note, 
+        default parameters are for typical conditions where available.
+
+        Parameters
+        ----------
+        channel : str
+            The name of the channel that will be simulated; one of three
+            channels: visible, nearir, and midir.
+        target : TargetSimulator
+            The observed target which we are simulating. The creation of this 
+            target can be done manually for via other convenience functions.
+        exposure_time : float
+            The exposure time of the observation integration, in seconds.
+        coadds : int, default = 1
+            The number of co-adds of the provided exposure time for the
+            observation.
+        atmosphere_temperature : float, default = 275.15
+            The temperature of the intervening atmosphere, in Kelvin.
+        atmosphere_pressure : float, default = 61500
+            The pressure of the intervening atmosphere, in Pascal.
+        atmosphere_ppw : float, default = 230
+            The partial pressure of water in the atmosphere, in Pascal.
+        atmosphere_pwv : float, default = 0.001
+            The precipitable water vapor in the atmosphere, in meters.
+        atmosphere_seeing : float, default = 0.8 / 206265
+            The seeing of the atmosphere, given as the FWHM of the seeing disk,
+            often approximated as a Gaussian distribution, at zenith and at
+            the reference wavelength. The units are in radians.
+        zenith_angle : float, default = 0
+            The zenith angle of the simulated object, at the reference
+            wavelength in radians; primarily used to determine airmass.
+        parallactic_angle : float, default = 0
+            The parallactic angle of the simulated object, in radians; primarily
+            used to atmospheric dispersion direction.
+        reference_wavelength : float, default = 0.550e-6
+            The reference wavelength which defines the seeing and zenith angle
+            parameters. Assumed to be in the same units as the provided
+            wavelength axis.
+        telescope_temperature : float, default = 275.15
+            The local temperature of the telescope, usually the temperatures
+            of the primary and other mirrors; in Kelvin.
+        transmission_generator : AtmosphereSpectrumGenerator, default = None
+            The transmission spectrum generator used to generate the
+            specific transmission spectra. If None, we default to the built-in
+            generators.
+        radiance_generator : AtmosphereSpectrumGenerator, default = None
+            The transmission spectrum generator used to generate the
+            specific transmission spectra. If None, we default to the built-in
+            generators.
+
+        Returns
+        -------
+        spectre_simulator : SpectreSimulator
+            The simulator, with the properties provided from the parameters.
+
+        """
+
+        # Creating the three simulator objects.
+        # The target.
+        using_target = target
+
+        # The atmosphere.
+        using_atmosphere = lezargus.simulator.AtmosphereSimulator(
+            temperature=atmosphere_temperature,
+            pressure=atmosphere_pressure,
+            ppw=atmosphere_ppw,
+            pwv=atmosphere_pwv,
+            seeing=atmosphere_seeing,
+            zenith_angle=zenith_angle,
+            parallactic_angle=parallactic_angle,
+            reference_wavelength=reference_wavelength,
+            transmission_generator=transmission_generator,
+            radiance_generator=radiance_generator,
+        )
+        # The telescope.
+        using_telescope = lezargus.simulator.IrtfTelescopeSimulator(
+            temperature=telescope_temperature,
+        )
+
+        # Creating the main simulator class, using the above three component
+        # simulators.
+        spectre_simulator = cls(
+            target=using_target,
+            telescope=using_telescope,
+            channel=channel,
+            exposure_time=exposure_time,
+            coadds=coadds,
+            atmosphere=using_atmosphere,
+        )
+
+        # All done.
+        return spectre_simulator
+
+    @staticmethod
+    def __calculate_field_view_spatial_sampling(spatial_oversample:int) -> tuple:
+        """Calculate the field of view and spatial sampling values.
+        
+        We just separate the computation of these values into this function
+        to make it a little cleaner and to repeat less. These values really
+        only depend on the spatial oversampling value anyways.
+        
+        Parameters
+        ----------
+        spatial_oversample : int
+            The spatial oversampling ratio of the detector which we are using 
+            to determine the target simulation spatial grid.
+
+        Returns
+        -------
+        field_of_view : tuple
+            The field of view parameter for this simulator's target class.
+        spatial_shape : tuple
+            The spatial shape parameter for this simulator's target class.
+        location : str
+            The location, this really is just extra fluff and makes changing 
+            it easy should it ever need to be changed.
+        """
+        # First, we define the field-of-view and appropriate sampling values
+        # to generate our target. These values are based on more fundamental 
+        # SPECTRE parameters and should not be changed.
+        const_spectre_field_of_view_arcsec = 7.2
+        const_spectre_plate_scale_arcsec = 0.1
+
+        # It is good to have a buffer to the default field of view to deal 
+        # with atmospheric refraction and can be changed should the situation
+        # require.
+        field_of_view_buffer = 1.6
+
+        # Determining the appropriate grid parameters.
+        field_of_view_side = const_spectre_field_of_view_arcsec + field_of_view_buffer
+        spatial_shape_side = (field_of_view_side / const_spectre_plate_scale_arcsec) * spatial_oversample
+
+        # Assembling the grid parameters. The field of view is in radians.
+        spatial_shape=(spatial_shape_side, spatial_shape_side),
+        field_of_view=(field_of_view_side / 206265, field_of_view_side / 206265),
+        location = "center"
+        return field_of_view, spatial_shape, location
+
+    @classmethod
+    def from_spectrum(cls: type[hint.Self], spectrum:hint.LezargusSpectrum, channel:str, exposure_time:float, spatial_oversample:int, **kwargs:hint.Any) -> hint.Self:
+        """Initialize a SPECTRE simulator via a spectrum.
+        
+        This is a convenience function to create a simulator using a single 
+        spectrum with typical default environmental parameters. The spatial 
+        sampling is determined based on an oversampling ratio of the detector
+        pixels.
+
+        Parameters
+        ----------
+        spectrum : LezargusSpectrum
+            The spectra of a point source object which we are attempting to 
+            simulate. 
+        channel : str
+            The spectroscopic channel which we are simulating.
+        exposure_time : float
+            The exposure time of the observation integration, in seconds.
+        spatial_oversample : int
+            The spatial oversampling ratio of the detector which we are using 
+            to determine the target simulation spatial grid.
+        **kwargs : Any
+            Keyword arguments passed to the advanced parameter call.
+
+        Returns
+        -------
+        spectre_simulator : SpectreSimulator
+            The simulator, with the properties provided from the parameters.
+
+        """
+        # Calculating the field of view and spatial shape parameters.
+        field_of_view, spatial_shape, location = cls.__calculate_field_view_spatial_sampling(spatial_oversample=spatial_oversample)
+
+        # Assembling the target.
+        using_target = lezargus.simulator.TargetSimulator.from_spectrum(spectrum=spectrum, spatial_grid_shape=spatial_shape, spatial_fov_shape=field_of_view, location=location)
+
+        # Assembling everything else.
+        return cls.from_advanced_parameters(target=using_target, channel=channel, exposure_time=exposure_time, **kwargs)
+
+
+    @classmethod
+    def from_blackbody(        cls: type[hint.Self],wavelength: hint.NDArray,
+        blackbody_temperature: float,
+        magnitude: float,
+        photometric_filter: (
+            hint.PhotometricABFilter | hint.PhotometricVegaFilter
+        ),                spectral_scale: float,     channel: str,   exposure_time: float, spatial_oversample:int, **kwargs) -> hint.Self:
+        """Initialize a SPECTRE simulator via a blackbody temperature.
+        
+        This is a convenience function to create a simulator using a single 
+        spectrum with typical default environmental parameters. The spatial 
+        sampling is determined based on an oversampling ratio of the detector
+        pixels.
+
+        Parameters
+        ----------
+        wavelength : ndarray
+            The wavelength basis of the simulator; this defines the wavelength
+            axis and are its values.
+        blackbody_temperature : float
+            The blackbody temperature of the object that we are simulating,
+            in Kelvin.
+        magnitude : float
+            The simulated magnitude of the object. The photometric filter
+            system this magnitude is in must match the inputted photometric
+            filter.
+        photometric_filter : PhotometricABFilter or PhotometricVegaFilter
+            The photometric filter (system) that the inputted magnitude is in.
+        spectral_scale : float
+            The spectral scale of the simulated spectra, as a resolution,
+            in wavelength separation (in meters) per pixel.
+        channel : str
+            The spectroscopic channel which we are simulating.
+        exposure_time : float
+            The exposure time of the observation integration, in seconds.
+        spatial_oversample : int
+            The spatial oversampling ratio of the detector which we are using 
+            to determine the target simulation spatial grid.
+        **kwargs : Any
+            Keyword arguments passed to the advanced parameter call.
+
+        Returns
+        -------
+        spectre_simulator : SpectreSimulator
+            The simulator, with the properties provided from the parameters.
+
+        """
+        # Calculating the field of view and spatial shape parameters.
+        field_of_view, spatial_shape, location = cls.__calculate_field_view_spatial_sampling(spatial_oversample=spatial_oversample)
+
+        # Assembling the target.
+        using_target = lezargus.simulator.TargetSimulator.from_blackbody(wavelength=wavelength, temperature=blackbody_temperature, magnitude=magnitude, photometric_filter=photometric_filter, spatial_grid_shape=spatial_shape, spatial_fov_shape=field_of_view, spectral_scale=spectral_scale, location=location)
+
+        # Assembling everything else.
+        return cls.from_advanced_parameters(target=using_target, channel=channel, exposure_time=exposure_time, **kwargs)
+
+    @classmethod
+    def old_from_advanced_parameters(
         cls: type[hint.Self],
         channel: str,
         wavelength: hint.NDArray,
@@ -275,6 +535,8 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             The simulator, with the properties provided from the parameters.
 
         """
+
+
         # Creating the three simulator objects.
         # The target.
         using_target = lezargus.simulator.TargetSimulator.from_blackbody(
@@ -1701,6 +1963,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             # needs to be determined. We can assume their locations based on the
             # pad.
             slice_height, slice_width = slice_array.shape
+            padded_height, padded_width = padded_slice.shape
             # Determining the edge values makes the corners easier to define.
             # Assuming an origin point of 0,0.
             base_bottom_edge = 0 + pad_width
@@ -1749,22 +2012,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
 
             # First, the affine transformation to deal with any higher order
             # transformations and the decimal part of the translation.
-            # Though, if a quick translation is wanted instead, we do that.
-            if quick_translation:
-                # A quick translation just does the fractional portion of
-                # the translation. It skips the other things.
-                quick_x_shift = reduced_transform_matrix[0, 2]
-                quick_y_shift = reduced_transform_matrix[1, 2]
-                transformed_data = lezargus.library.transform.translate_2d(
-                    array=padded_slice,
-                    x_shift=quick_x_shift,
-                    y_shift=quick_y_shift,
-                    order=2,
-                    mode="constant",
-                    constant=0,
-                )
-            else:
-                transformed_data = lezargus.library.transform.affine_transform(
+            transformed_data = lezargus.library.transform.affine_transform(
                     array=padded_slice,
                     matrix=reduced_transform_matrix,
                     offset=None,
@@ -1775,6 +2023,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             # on the provided detector shape, emulating the translation by
             # placing it in the right location.
             detector_data = np.zeros(detector_shape)
+
             # The original location of the array is the origin, so we assign the
             # new coordinates, adapting for the pad.
             transform_height, transform_width = transformed_data.shape
@@ -1783,10 +2032,34 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             transform_left_edge = x_shift - pad_width
             transform_right_edge = transform_left_edge + transform_width
             # Placing the new data on the detector, simulating the translation.
-            detector_data[
-                transform_bottom_edge:transform_top_edge,
-                transform_left_edge:transform_right_edge,
-            ] = transformed_data
+            try:
+                detector_data[
+                    transform_bottom_edge:transform_top_edge,
+                    transform_left_edge:transform_right_edge,
+                ] = transformed_data
+            except ValueError:
+                # Sometimes there is this error if the slice is off the 
+                # original detector.
+                if transform_bottom_edge <= 0 or detector_shape[0] <= transform_top_edge or transform_left_edge<=0 or detector_shape[1] <= transform_right_edge:
+                    # The slice is off the array. 
+                    # Warning about it.
+                    logging.warning(warning_type=logging.AccuracyWarning, message=f"Dispersion for slice ends off the detector, doing a full affine transform.")
+                    # It is best just to compute 
+                    # the transformation in full.
+                    expanded_slice = np.zeros(detector_shape)
+                    expanded_slice[
+                        0:padded_height, 0:padded_width
+                    ] = padded_slice
+                    detector_data = lezargus.library.transform.affine_transform(
+                    array=expanded_slice,
+                    matrix=affine_transform_matrix,
+                    offset=None,
+                    constant=0,
+                )
+                else:
+                    # The error is something else...
+                    raise
+
 
             # All done.
             return detector_data
