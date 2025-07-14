@@ -37,6 +37,7 @@ def __initialize_data_all() -> None:
     __initialize_data_constants()
     __initialize_data_star_spectra()
     __initialize_data_photometric_filters()
+    __initialize_data_detectors()
     __initialize_data_atmosphere_generators()
     __initialize_data_optic_efficiency_functions()
     __initialize_data_dispersion_patterns()
@@ -308,6 +309,36 @@ def __initialize_data_photometric_filters() -> None:
         magnitude=0,
         magnitude_uncertainty=0,
     )
+
+
+def __initialize_data_detectors() -> None:
+    """Initialize only the detector specifications.
+
+    Parameters
+    ----------
+    None
+
+    Returns
+    -------
+    None
+
+    """
+    # If the initialization of the data is to be skipped.
+    if lezargus.config.INTERNAL_DEBUG_SKIP_LOADING_DATA_FILES:
+        return
+
+    # Otherwise...
+    global DETECTOR_SPECTRE_VISIBLE
+    DETECTOR_SPECTRE_VISIBLE = _make.make_detector()
+
+    global DETECTOR_SPECTRE_NEARIR
+    DETECTOR_SPECTRE_NEARIR = _make.make_detector()
+
+    global DETECTOR_SPECTRE_MIDIR
+    DETECTOR_SPECTRE_MIDIR = _make.make_detector()
+
+    # All done.
+    return
 
 
 def __initialize_data_atmosphere_generators() -> None:

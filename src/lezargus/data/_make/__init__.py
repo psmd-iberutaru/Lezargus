@@ -15,6 +15,9 @@ from lezargus.data._make.make_atmosphere_generators import (
 # Constant values.
 from lezargus.data._make.make_constants import make_constant
 
+# Detector values.
+from lezargus.data._make.make_detectors import make_detector
+
 # Dispersion patterns.
 from lezargus.data._make.make_dispersion_patterns import (
     make_spectre_dispersion_pattern,

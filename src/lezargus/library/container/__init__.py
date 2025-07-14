@@ -25,6 +25,7 @@ from lezargus.library.container.spectrum import LezargusSpectrum
 # The minor classes for dimensional data, with a very specific implementation
 # details.
 from lezargus.library.container.atmosphere import AtmosphereSpectrumGenerator
+from lezargus.library.container.detector import DetectorArray
 from lezargus.library.container.dispersion import SpectreDispersionPattern
 from lezargus.library.container.photometry import PhotometricABFilter
 from lezargus.library.container.photometry import PhotometricVegaFilter

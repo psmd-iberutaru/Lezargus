@@ -63,6 +63,10 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
     """The inputted atmosphere simulation. We store this original copy as
     the actual working copy is being modified in place."""
 
+    detector: hint.DetectorArray | None
+    """The instance of the detector for the simulation. Each channel has 
+    their own detector instance and this is it, based on the channel."""
+
     channel: hint.Literal["visible", "nearir", "midir"]  # noqa: F821, UP037
     """The specific channel of the three channels of SPECTRE that we are
     simulating."""
@@ -162,25 +166,41 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
                 ),
             )
 
+        # And the detector for the channel.
+        if self.channel == "visible":
+            self.detector = lezargus.data.DETECTOR_SPECTRE_VISIBLE
+        elif self.channel == "nearir":
+            self.detector = lezargus.data.DETECTOR_SPECTRE_NEARIR
+        elif self.channel == "midir":
+            self.detector = lezargus.data.DETECTOR_SPECTRE_MIDIR
+        else:
+            self.detector = None
+            logging.error(
+                error_type=logging.InputError,
+                message=f"Detector cannot be determined for channel {channel}",
+            )
+        # Just making sure the detector is up to date.
+        if self.detector is not None:
+            self.detector.recalculate_detector()
+
         # All done.
-        return None
 
     @classmethod
     def from_advanced_parameters(
         cls: type[hint.Self],
-        target:hint.TargetSimulator,
+        target: hint.TargetSimulator,
         channel: str,
         exposure_time: float,
-        coadds: int=1,
+        coadds: int = 1,
         atmosphere_temperature: float = 275.15,
-        atmosphere_pressure: float=61500,
-        atmosphere_ppw: float=230,
-        atmosphere_pwv: float=0.001,
-        atmosphere_seeing: float=0.8 / 206265,
-        zenith_angle: float=0,
-        parallactic_angle: float=0,
-        reference_wavelength: float=0.550e-6,
-        telescope_temperature: float=275.15,
+        atmosphere_pressure: float = 61500,
+        atmosphere_ppw: float = 230,
+        atmosphere_pwv: float = 0.001,
+        atmosphere_seeing: float = 0.8 / 206265,
+        zenith_angle: float = 0,
+        parallactic_angle: float = 0,
+        reference_wavelength: float = 0.550e-6,
+        telescope_temperature: float = 275.15,
         transmission_generator: hint.AtmosphereSpectrumGenerator | None = None,
         radiance_generator: hint.AtmosphereSpectrumGenerator | None = None,
     ) -> hint.Self:
@@ -189,7 +209,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         By default, the initialization of the SPECTRE simulator requires the
         creation of three different inner simulator classes. This convenience
         function does that for the user for two, as long as they provide the
-        environmental parameters for the atmosphere and telescope. Note, 
+        environmental parameters for the atmosphere and telescope. Note,
         default parameters are for typical conditions where available.
 
         Parameters
@@ -198,7 +218,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             The name of the channel that will be simulated; one of three
             channels: visible, nearir, and midir.
         target : TargetSimulator
-            The observed target which we are simulating. The creation of this 
+            The observed target which we are simulating. The creation of this
             target can be done manually for via other convenience functions.
         exposure_time : float
             The exposure time of the observation integration, in seconds.
@@ -245,7 +265,6 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             The simulator, with the properties provided from the parameters.
 
         """
-
         # Creating the three simulator objects.
         # The target.
         using_target = target
@@ -283,17 +302,19 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         return spectre_simulator
 
     @staticmethod
-    def __calculate_field_view_spatial_sampling(spatial_oversample:int) -> tuple:
+    def __calculate_field_view_spatial_sampling(
+        spatial_oversample: int,
+    ) -> tuple:
         """Calculate the field of view and spatial sampling values.
-        
+
         We just separate the computation of these values into this function
         to make it a little cleaner and to repeat less. These values really
         only depend on the spatial oversampling value anyways.
-        
+
         Parameters
         ----------
         spatial_oversample : int
-            The spatial oversampling ratio of the detector which we are using 
+            The spatial oversampling ratio of the detector which we are using
             to determine the target simulation spatial grid.
 
         Returns
@@ -303,50 +324,66 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         spatial_shape : tuple
             The spatial shape parameter for this simulator's target class.
         location : str
-            The location, this really is just extra fluff and makes changing 
+            The location, this really is just extra fluff and makes changing
             it easy should it ever need to be changed.
+
         """
         # First, we define the field-of-view and appropriate sampling values
-        # to generate our target. These values are based on more fundamental 
+        # to generate our target. These values are based on more fundamental
         # SPECTRE parameters and should not be changed.
         const_spectre_field_of_view_arcsec = 7.2
         const_spectre_plate_scale_arcsec = 0.1
 
-        # It is good to have a buffer to the default field of view to deal 
+        # It is good to have a buffer to the default field of view to deal
         # with atmospheric refraction and can be changed should the situation
         # require.
         field_of_view_buffer = 1.6
 
         # Determining the appropriate grid parameters.
-        field_of_view_side = const_spectre_field_of_view_arcsec + field_of_view_buffer
-        spatial_shape_side = (field_of_view_side / const_spectre_plate_scale_arcsec) * spatial_oversample
+        field_of_view_side = (
+            const_spectre_field_of_view_arcsec + field_of_view_buffer
+        )
+        spatial_shape_side = (
+            int(field_of_view_side / const_spectre_plate_scale_arcsec)
+            * spatial_oversample
+        )
 
         # Assembling the grid parameters. The field of view is in radians.
-        spatial_shape=(spatial_shape_side, spatial_shape_side),
-        field_of_view=(field_of_view_side / 206265, field_of_view_side / 206265),
+        spatial_shape = (spatial_shape_side, spatial_shape_side)
+        field_of_view = (
+            field_of_view_side / 206265,
+            field_of_view_side / 206265,
+        )
         location = "center"
         return field_of_view, spatial_shape, location
 
     @classmethod
-    def from_spectrum(cls: type[hint.Self], spectrum:hint.LezargusSpectrum, channel:str, exposure_time:float, spatial_oversample:int, **kwargs:hint.Any) -> hint.Self:
+    def from_spectrum(
+        cls: type[hint.Self],
+        spectrum: hint.LezargusSpectrum,
+        channel: str,
+        exposure_time: float,
+        spatial_oversample: int,
+        **kwargs: hint.Any,
+    ) -> hint.Self:
         """Initialize a SPECTRE simulator via a spectrum.
-        
-        This is a convenience function to create a simulator using a single 
-        spectrum with typical default environmental parameters. The spatial 
+
+        This is a convenience function to create a simulator using a single
+        spectrum with typical default environmental parameters. The spatial
         sampling is determined based on an oversampling ratio of the detector
         pixels.
 
         Parameters
         ----------
         spectrum : LezargusSpectrum
-            The spectra of a point source object which we are attempting to 
-            simulate. 
+            The spectra of a point source object which we are attempting to
+            simulate.
         channel : str
             The spectroscopic channel which we are simulating.
         exposure_time : float
             The exposure time of the observation integration, in seconds.
         spatial_oversample : int
-            The spatial oversampling ratio of the detector which we are using 
+            The spatial oversampling ratio of the detector which we are using
             to determine the target simulation spatial grid.
         **kwargs : Any
             Keyword arguments passed to the advanced parameter call.
@@ -358,26 +395,47 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
 
         """
         # Calculating the field of view and spatial shape parameters.
-        field_of_view, spatial_shape, location = cls.__calculate_field_view_spatial_sampling(spatial_oversample=spatial_oversample)
+        field_of_view, spatial_shape, location = (
+            cls.__calculate_field_view_spatial_sampling(
+                spatial_oversample=spatial_oversample,
+            )
+        )
 
         # Assembling the target.
-        using_target = lezargus.simulator.TargetSimulator.from_spectrum(spectrum=spectrum, spatial_grid_shape=spatial_shape, spatial_fov_shape=field_of_view, location=location)
+        using_target = lezargus.simulator.TargetSimulator.from_spectrum(
+            spectrum=spectrum,
+            spatial_grid_shape=spatial_shape,
+            spatial_fov_shape=field_of_view,
+            location=location,
+        )
 
         # Assembling everything else.
-        return cls.from_advanced_parameters(target=using_target, channel=channel, exposure_time=exposure_time, **kwargs)
-
+        return cls.from_advanced_parameters(
+            target=using_target,
+            channel=channel,
+            exposure_time=exposure_time,
+            **kwargs,
+        )
 
     @classmethod
-    def from_blackbody(        cls: type[hint.Self],wavelength: hint.NDArray,
+    def from_blackbody(
+        cls: type[hint.Self],
+        wavelength: hint.NDArray,
         blackbody_temperature: float,
         magnitude: float,
         photometric_filter: (
             hint.PhotometricABFilter | hint.PhotometricVegaFilter
-        ),                spectral_scale: float,     channel: str,   exposure_time: float, spatial_oversample:int, **kwargs) -> hint.Self:
+        ),
+        spectral_scale: float,
+        channel: str,
+        exposure_time: float,
+        spatial_oversample: int,
+        **kwargs: hint.Any,
+    ) -> hint.Self:
         """Initialize a SPECTRE simulator via a blackbody temperature.
-        
-        This is a convenience function to create a simulator using a single 
-        spectrum with typical default environmental parameters. The spatial 
+
+        This is a convenience function to create a simulator using a single
+        spectrum with typical default environmental parameters. The spatial
         sampling is determined based on an oversampling ratio of the detector
         pixels.
 
@@ -403,7 +461,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         exposure_time : float
             The exposure time of the observation integration, in seconds.
         spatial_oversample : int
-            The spatial oversampling ratio of the detector which we are using 
+            The spatial oversampling ratio of the detector which we are using
             to determine the target simulation spatial grid.
         **kwargs : Any
             Keyword arguments passed to the advanced parameter call.
@@ -415,13 +473,31 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
 
         """
         # Calculating the field of view and spatial shape parameters.
-        field_of_view, spatial_shape, location = cls.__calculate_field_view_spatial_sampling(spatial_oversample=spatial_oversample)
+        field_of_view, spatial_shape, location = (
+            cls.__calculate_field_view_spatial_sampling(
+                spatial_oversample=spatial_oversample,
+            )
+        )
 
         # Assembling the target.
-        using_target = lezargus.simulator.TargetSimulator.from_blackbody(wavelength=wavelength, temperature=blackbody_temperature, magnitude=magnitude, photometric_filter=photometric_filter, spatial_grid_shape=spatial_shape, spatial_fov_shape=field_of_view, spectral_scale=spectral_scale, location=location)
+        using_target = lezargus.simulator.TargetSimulator.from_blackbody(
+            wavelength=wavelength,
+            temperature=blackbody_temperature,
+            magnitude=magnitude,
+            photometric_filter=photometric_filter,
+            spatial_grid_shape=spatial_shape,
+            spatial_fov_shape=field_of_view,
+            spectral_scale=spectral_scale,
+            location=location,
+        )
 
         # Assembling everything else.
-        return cls.from_advanced_parameters(target=using_target, channel=channel, exposure_time=exposure_time, **kwargs)
+        return cls.from_advanced_parameters(
+            target=using_target,
+            channel=channel,
+            exposure_time=exposure_time,
+            **kwargs,
+        )
 
     @classmethod
     def old_from_advanced_parameters(
@@ -535,8 +611,6 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             The simulator, with the properties provided from the parameters.
 
         """
-
-
         # Creating the three simulator objects.
         # The target.
         using_target = lezargus.simulator.TargetSimulator.from_blackbody(
@@ -1772,25 +1846,13 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # No cached value, we calculate it from the previous state.
         previous_state = self.at_fold_mirror
 
-        # We get the quantum efficiency profile of the channel's detector.
-        if self.channel == "visible":
-            detector_efficiency = lezargus.data.EFFICIENCY_SPECTRE_CCD_VISIBLE
-        elif self.channel == "nearir":
-            detector_efficiency = lezargus.data.EFFICIENCY_SPECTRE_H2RG_NEARIR
-        elif self.channel == "midir":
-            detector_efficiency = lezargus.data.EFFICIENCY_SPECTRE_H2RG_MIDIR
-        else:
-            logging.error(
-                error_type=logging.DevelopmentError,
-                message=(
-                    f"Channel name is {self.channel}, which is not a supported"
-                    " channel."
-                ),
-            )
-
-        # Interpolating it to the wavelength grid.
-        detector_efficiency_spectrum = detector_efficiency.interpolate_spectrum(
-            wavelength=previous_state[0].wavelength,
+        # We get the quantum efficiency profile of the channel's detector,
+        # as based on the detector. Compiling it into a single spectrum, so
+        # that we may broadcast it out.
+        efficiency_wavelength = previous_state[0].wavelength
+        detector_efficiency_spectrum = self.detector.efficiency_spectrum(
+            wavelength=efficiency_wavelength,
+            spectral_scale=previous_state[0].spectral_scale,
         )
 
         # And, broadcasting the emission spectra to allow us to apply it
@@ -2013,11 +2075,11 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             # First, the affine transformation to deal with any higher order
             # transformations and the decimal part of the translation.
             transformed_data = lezargus.library.transform.affine_transform(
-                    array=padded_slice,
-                    matrix=reduced_transform_matrix,
-                    offset=None,
-                    constant=0,
-                )
+                array=padded_slice,
+                matrix=reduced_transform_matrix,
+                offset=None,
+                constant=0,
+            )
 
             # Next, we manually put this transformed data onto a detector based
             # on the provided detector shape, emulating the translation by
@@ -2038,28 +2100,38 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
                     transform_left_edge:transform_right_edge,
                 ] = transformed_data
             except ValueError:
-                # Sometimes there is this error if the slice is off the 
+                # Sometimes there is this error if the slice is off the
                 # original detector.
-                if transform_bottom_edge <= 0 or detector_shape[0] <= transform_top_edge or transform_left_edge<=0 or detector_shape[1] <= transform_right_edge:
-                    # The slice is off the array. 
+                if (
+                    transform_bottom_edge <= 0
+                    or detector_shape[0] <= transform_top_edge
+                    or transform_left_edge <= 0
+                    or detector_shape[1] <= transform_right_edge
+                ):
+                    # The slice is off the array.
                     # Warning about it.
-                    logging.warning(warning_type=logging.AccuracyWarning, message=f"Dispersion for slice ends off the detector, doing a full affine transform.")
-                    # It is best just to compute 
+                    logging.warning(
+                        warning_type=logging.AccuracyWarning,
+                        message=(
+                            "Dispersion for slice ends off the detector, doing"
+                            " a full affine transform."
+                        ),
+                    )
+                    # It is best just to compute
                     # the transformation in full.
                     expanded_slice = np.zeros(detector_shape)
-                    expanded_slice[
-                        0:padded_height, 0:padded_width
-                    ] = padded_slice
+                    expanded_slice[0:padded_height, 0:padded_width] = (
+                        padded_slice
+                    )
                     detector_data = lezargus.library.transform.affine_transform(
-                    array=expanded_slice,
-                    matrix=affine_transform_matrix,
-                    offset=None,
-                    constant=0,
-                )
+                        array=expanded_slice,
+                        matrix=affine_transform_matrix,
+                        offset=None,
+                        constant=0,
+                    )
                 else:
                     # The error is something else...
                     raise
-
 
             # All done.
             return detector_data
@@ -2274,43 +2346,12 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # No cached value, we calculate it from the previous state.
         previous_state = self.at_photon_poisson_noise
 
-        # If a cosmic ray hits, it gets typically a hot value.
-        cosmic_ray_value = lezargus.data.CONST_COSMIC_RAY_VALUE
-
-        # We need to determine which pixels have a cosmic ray.
-        # Starting with the expected number of cosmic rays per pixel,
-        # and the area of each pixel. The expected count is likely much
-        # less than 1, but non-zero.
-        if self.channel == "visible":
-            pixel_size = lezargus.data.CONST_VISIBLE_PIXEL_SIZE
-        elif self.channel == "nearir":
-            pixel_size = lezargus.data.CONST_NEARIR_PIXEL_SIZE
-        elif self.channel == "midir":
-            pixel_size = lezargus.data.CONST_MIDIR_PIXEL_SIZE
-        else:
-            logging.error(
-                error_type=logging.DevelopmentError,
-                message=(
-                    f"Channel {self.channel}, is not one of the available"
-                    " three."
-                ),
-            )
-        pixel_area = pixel_size**2
-        expected_rate = lezargus.data.CONST_COSMIC_RAY_RATE
-        expected_count = expected_rate * pixel_area * self.exposure_time
-
-        # We use Poisson statistics to generate the prediction, and have it
-        # as a sort of mask.
-        # Generally speaking, cosmic rays also impart a huge uncertainty but
-        # cosmic rays themselves don't have any intrinisic uncertainty.
-        cosmic_ray_mask = np.array(
-            scipy.stats.poisson.rvs(
-                expected_count,
-                size=previous_state.data.shape,
-            ),
-            dtype=int,
+        # We can generate the cosmic ray map provided by the detector
+        # simulation itself. There is no real uncertinity aspect to the
+        # cosmic rays themselves, at least, one that matters.
+        cosmic_ray_data = self.detector.simulate_cosmic_ray_frame(
+            exposure_time=self.exposure_time,
         )
-        cosmic_ray_data = cosmic_ray_mask * cosmic_ray_value
         cosmic_ray_uncertainty = 0
 
         # Just adding the cosmic ray information to the current state.
@@ -2344,23 +2385,10 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         previous_state = self.at_cosmic_rays
 
         # We need to determine the detector gain.
-        if self.channel == "visible":
-            gain_factor = lezargus.data.CONST_VISIBLE_DETECTOR_GAIN
-        elif self.channel == "nearir":
-            gain_factor = lezargus.data.CONST_NEARIR_DETECTOR_GAIN
-        elif self.channel == "midir":
-            gain_factor = lezargus.data.CONST_MIDIR_DETECTOR_GAIN
-        else:
-            logging.error(
-                error_type=logging.DevelopmentError,
-                message=(
-                    f"Channel {self.channel}, is not one of the available"
-                    " three."
-                ),
-            )
+        detector_gain_factor = self.detector.detector_gain
 
         # Applying the gain.
-        current_state = previous_state * gain_factor
+        current_state = previous_state * detector_gain_factor
 
         # All done.
         return current_state
@@ -2385,34 +2413,22 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # No cached value, we calculate it from the previous state.
         previous_state = self.at_detector_gain
 
-        # We derive the flat field variations from the theorical "perfect"
-        # flat. This may also just be a historical flat. Each channel is likely
-        # a little different
-        if self.channel == "visible":
-            perfect_flat = lezargus.data.CONST_VISIBLE_FLAT_FIELD
-            flat_stddev = lezargus.data.CONST_VISIBLE_FLAT_FIELD_STDDEV
-        elif self.channel == "nearir":
-            perfect_flat = lezargus.data.CONST_NEARIR_FLAT_FIELD
-            flat_stddev = lezargus.data.CONST_NEARIR_FLAT_FIELD_STDDEV
-        elif self.channel == "midir":
-            perfect_flat = lezargus.data.CONST_MIDIR_FLAT_FIELD
-            flat_stddev = lezargus.data.CONST_MIDIR_FLAT_FIELD_STDDEV
-        else:
-            logging.error(
-                error_type=logging.DevelopmentError,
-                message=(
-                    f"Channel {self.channel}, is not one of the available"
-                    " three."
-                ),
-            )
-
-        # We generate a flat field from the perfect flat field, simulating
-        # an observation and some variance with regards to it. Applying the
-        # variations via a Gaussian/normal distribution should be good enough.
-        flat_field = scipy.stats.norm.rvs(loc=perfect_flat, scale=flat_stddev)
+        # We generate a new flat field from the detector simulation.
+        flat_field = self.detector.simulate_flat_frame()
 
         # Applying the flat field.
-        current_state = previous_state * flat_field
+        flat_data, flat_uncertinity = lezargus.library.math.divide(
+            numerator=previous_state.data,
+            denominator=flat_field,
+            numerator_uncertainty=previous_state.uncertainty,
+            denominator_uncertainty=0,
+        )
+
+        # Rebuilding the image from the new data.
+        current_state = copy.deepcopy(previous_state)
+        current_state.data = np.asarray(flat_data)
+        current_state.uncertainty = np.asarray(flat_uncertinity)
+        current_state.data_unit = previous_state.data_unit
 
         # All done.
         return current_state
@@ -2437,42 +2453,22 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # No cached value, we calculate it from the previous state.
         previous_state = self.at_detector_flat_field
 
-        # The detector bias level (either as a file or for the entire field)
-        # is different per detector. This may be a historical bias level as
-        # well.
-        if self.channel == "visible":
-            perfect_bias = lezargus.data.CONST_VISIBLE_BIAS_LEVEL
-            bias_stddev = lezargus.data.CONST_VISIBLE_BIAS_LEVEL_STDDEV
-        elif self.channel == "nearir":
-            perfect_bias = lezargus.data.CONST_NEARIR_BIAS_LEVEL
-            bias_stddev = lezargus.data.CONST_NEARIR_BIAS_LEVEL_STDDEV
-        elif self.channel == "midir":
-            perfect_bias = lezargus.data.CONST_MIDIR_BIAS_LEVEL
-            bias_stddev = lezargus.data.CONST_MIDIR_BIAS_LEVEL_STDDEV
-        else:
-            logging.error(
-                error_type=logging.DevelopmentError,
-                message=(
-                    f"Channel {self.channel}, is not one of the available"
-                    " three."
-                ),
-            )
-
-        # We generate a the detector bias image, simulating an observation
-        # and some variance with regards to it. Applying the
-        # variations via a Gaussian/normal distribution should be good enough.
-        total_bias_level = np.zeros_like(previous_state.data)
-        for __ in range(self.coadds):
-            # Every readout (co-add) adds a new bias level to the overall
-            # total for the FITS file.
-            single_bias_level = scipy.stats.norm.rvs(
-                loc=perfect_bias,
-                scale=bias_stddev,
-            )
-            total_bias_level = total_bias_level + single_bias_level
+        # The detector can generate the bias level for us.
+        total_bias_level = self.detector.simulate_bias_frame()
 
         # Applying the bias.
-        current_state = previous_state + total_bias_level
+        bias_data, bias_uncertinity = lezargus.library.math.add(
+            augend=previous_state.data,
+            addend=total_bias_level,
+            augend_uncertainty=previous_state.uncertainty,
+            addend_uncertainty=0,
+        )
+
+        # Rebuilding the image from the new data.
+        current_state = copy.deepcopy(previous_state)
+        current_state.data = np.asarray(bias_data)
+        current_state.uncertainty = np.asarray(bias_uncertinity)
+        current_state.data_unit = previous_state.data_unit
 
         # All done.
         return current_state
@@ -2497,40 +2493,23 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # No cached value, we calculate it from the previous state.
         previous_state = self.at_detector_bias
 
-        # The detector detector dark current, either as a value or a map.
-        # The dark current itself may vary from its actual value. We model
-        # such variations using a Gaussian. These values may also be
-        # calculated from actual darks.
-        if self.channel == "visible":
-            perfect_dark_current = lezargus.data.CONST_VISIBLE_DARK_CURRENT
-            dark_current_stddev = (
-                lezargus.data.CONST_VISIBLE_DARK_CURRENT_STDDEV
-            )
-        elif self.channel == "nearir":
-            perfect_dark_current = lezargus.data.CONST_NEARIR_DARK_CURRENT
-            dark_current_stddev = lezargus.data.CONST_NEARIR_DARK_CURRENT_STDDEV
-        elif self.channel == "midir":
-            perfect_dark_current = lezargus.data.CONST_MIDIR_DARK_CURRENT
-            dark_current_stddev = lezargus.data.CONST_MIDIR_DARK_CURRENT_STDDEV
-        else:
-            logging.error(
-                error_type=logging.DevelopmentError,
-                message=(
-                    f"Channel {self.channel}, is not one of the available"
-                    " three."
-                ),
-            )
-
-        # We generate a dark current of the image, simulating an observation
-        # and some variance with regards to it. Applying the
-        # variations via a Gaussian/normal distribution should be good enough.
-        dark_current = scipy.stats.norm.rvs(
-            loc=perfect_dark_current,
-            scale=dark_current_stddev,
-        )
+        # The dark current can be simulated from the detector's simulation.
+        dark_current_rate = self.detector.simulate_dark_current_frame()
+        dark_current_data = dark_current_rate * self.exposure_time
 
         # Applying the dark current.
-        current_state = previous_state + dark_current * self.exposure_time
+        dark_data, dark_uncertinity = lezargus.library.math.add(
+            augend=previous_state.data,
+            addend=dark_current_data,
+            augend_uncertainty=previous_state.uncertainty,
+            addend_uncertainty=0,
+        )
+
+        # Rebuilding the image from the new data.
+        current_state = copy.deepcopy(previous_state)
+        current_state.data = np.asarray(dark_data)
+        current_state.uncertainty = np.asarray(dark_uncertinity)
+        current_state.data_unit = previous_state.data_unit
 
         # All done.
         return current_state
@@ -2562,24 +2541,12 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # each linearity on each co-add. Though we already combined them
         # together given the dark current and espeically the bias, this is
         # just an approximation.
-        if self.channel == "visible":
-            linearity = lezargus.data.FUNCTION_SPECTRE_VISIBLE_LINEARITY
-        elif self.channel == "nearir":
-            linearity = lezargus.data.FUNCTION_SPECTRE_NEARIR_LINEARITY
-        elif self.channel == "midir":
-            linearity = lezargus.data.FUNCTION_SPECTRE_MIDIR_LINEARITY
-        else:
-            logging.error(
-                error_type=logging.DevelopmentError,
-                message=(
-                    f"Channel {self.channel}, is not one of the available"
-                    " three."
-                ),
-            )
+        # The detector instance itself should have the linearity function.
+        linearity = self.detector.linearity_function
 
         # Calculating the linearity function.
         current_data = self.coadds * linearity(
-            data=previous_state.data / self.coadds,
+            previous_state.data / self.coadds,
         )
         current_uncertainty = previous_state.uncertainty
 
@@ -2611,75 +2578,12 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # No cached value, we calculate it from the previous state.
         previous_state = self.at_detector_linearity
 
-        # Computing read noise as a positive only gaussian distribution.
-        def positive_gaussian_generator(
-            center: float | hint.NDArray,
-            stddev: float | hint.NDArray,
-            shape: tuple[int],
-        ) -> hint.NDArray:
-            """Generate only possitive values with a Gaussian distribution.
-
-            Parameters
-            ----------
-            center : float | NDArray
-                The center of the distribution.
-            stddev : float | NDarray
-                The stddev of the Gaussian distribution.
-            shape : tuple
-                The shape of the output of the generated numbers, determines
-                how many numbers are being made.
-
-            Returns
-            -------
-            positive_gaussian_values : NDArray
-                The generated numbers.
-
-            """
-            # Usually Gaussian distribution.
-            gaussian_values = scipy.stats.norm.rvs(center, stddev, size=shape)
-            # Positive only.
-            positive_gaussian_values = np.where(
-                gaussian_values <= 0,
-                0,
-                gaussian_values,
-            )
-            return positive_gaussian_values
-
-        # Non-destructive reads reduce the detector read noise, and each of
-        # the three detectors have different values.
-        if self.channel == "visible":
-            perfect_read_noise = lezargus.data.CONST_VISIBLE_READ_NOISE
-            read_noise_stddev = lezargus.data.CONST_VISIBLE_READ_NOISE_STDDEV
-            ndr = lezargus.data.CONST_VISIBLE_NONDESTRUCTIVE_READS
-        elif self.channel == "nearir":
-            perfect_read_noise = lezargus.data.CONST_NEARIR_READ_NOISE
-            read_noise_stddev = lezargus.data.CONST_NEARIR_READ_NOISE_STDDEV
-            ndr = lezargus.data.CONST_NEARIR_NONDESTRUCTIVE_READS
-        elif self.channel == "midir":
-            perfect_read_noise = lezargus.data.CONST_MIDIR_READ_NOISE
-            read_noise_stddev = lezargus.data.CONST_MIDIR_READ_NOISE_STDDEV
-            ndr = lezargus.data.CONST_MIDIR_NONDESTRUCTIVE_READS
-        else:
-            logging.error(
-                error_type=logging.DevelopmentError,
-                message=(
-                    f"Channel {self.channel}, is not one of the available"
-                    " three."
-                ),
-            )
-
-        # Calculating read noise given the co-adds.
-        full_read_noise = np.zeros_like(previous_state.data)
+        # Calculating read noise given the co-adds. The NDR factor is already
+        # taken care of.
+        read_noise = np.zeros_like(previous_state.data)
         for __ in range(self.coadds):
-            temp_read_noise = positive_gaussian_generator(
-                center=perfect_read_noise,
-                stddev=read_noise_stddev,
-                shape=full_read_noise.shape,
-            )
-            full_read_noise = full_read_noise + temp_read_noise
-
-        # Applying the NDR factor.
-        read_noise = full_read_noise / np.sqrt(ndr)
+            temp_read_noise = self.detector.simulate_read_noise_frame()
+            read_noise = read_noise + temp_read_noise
 
         # Applying the noise.
         current_state = copy.deepcopy(previous_state)
@@ -2708,28 +2612,13 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # No cached value, we calculate it from the previous state.
         previous_state = self.at_detector_read_noise
 
-        # We just pull cached hot and dead pixels maps.
-        if self.channel == "visible":
-            hot_pixel_map = lezargus.data.CONST_VISIBLE_HOT_PIXEL_MAP
-            dead_pixel_map = lezargus.data.CONST_VISIBLE_DEAD_PIXEL_MAP
-        elif self.channel == "nearir":
-            hot_pixel_map = lezargus.data.CONST_NEARIR_HOT_PIXEL_MAP
-            dead_pixel_map = lezargus.data.CONST_NEARIR_DEAD_PIXEL_MAP
-        elif self.channel == "midir":
-            hot_pixel_map = lezargus.data.CONST_MIDIR_HOT_PIXEL_MAP
-            dead_pixel_map = lezargus.data.CONST_MIDIR_DEAD_PIXEL_MAP
-        else:
-            logging.error(
-                error_type=logging.DevelopmentError,
-                message=(
-                    f"Channel {self.channel}, is not one of the available"
-                    " three."
-                ),
-            )
-
+        # We generated the hot and dead pixel maps from the detector instance.
+        # It is easier to just pull the application from it.
+        hot_pixel_map = self.detector.hot_pixel_map
+        dead_pixel_map = self.detector.dead_pixel_map
         # And the values.
-        hot_pixel_value = lezargus.data.CONST_HOT_PIXEL_VALUE
-        dead_pixel_value = lezargus.data.CONST_DEAD_PIXEL_VALUE
+        hot_pixel_value = self.detector.hot_pixel_value
+        dead_pixel_value = self.detector.dead_pixel_value
 
         # Applying them.
         current_state = copy.deepcopy(previous_state)

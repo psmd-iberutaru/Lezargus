@@ -4,4 +4,4 @@ Please do not manually edit this value.
 """
 
 # DO NOT EDIT MANUALLY.
-__version__ = "0.1.2.dev1"
+__version__ = "0.1.3"
