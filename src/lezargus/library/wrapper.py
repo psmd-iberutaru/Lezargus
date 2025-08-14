@@ -18,6 +18,7 @@ if TYPE_CHECKING:
 # isort: split
 
 import collections.abc
+import time
 
 import astropy.modeling.models
 import astropy.units
@@ -26,15 +27,25 @@ import numpy as np
 from lezargus.library import logging
 
 
-def do_nothing(*args: hint.Any, **kwargs: hint.Any) -> None:
+def do_nothing(
+    sleep_seconds: float | None = None,
+    *args: hint.Any,
+    **kwargs: hint.Any,
+) -> None:
     """Do nothing, accepts arguments to prevent unused argument lint error.
 
     This function is just a fancy way of doing absolutely nothing. It serves
     as a way to "use" arguments for stub functions, templates, etc., so that
     the linter does not complain about such semantics.
 
+    Although, alternatively, this function also allows for some sleep, just
+    as a wrapper around the time function.
+
     Parameters
     ----------
+    sleep_seconds : float, default = None
+        The number of seconds to sleep, if anything. If None, then the sleep
+        function itself is never called or referenced.
     *args : Any
         Positional arguments, which nothing will be done to them.
     **kwargs : Any
@@ -45,11 +56,14 @@ def do_nothing(*args: hint.Any, **kwargs: hint.Any) -> None:
     None
 
     """
-    # We just do nothing.
+    # We just do nothing, but maybe sleep.
     args = (None,)
     kwargs = {"None": None}
     __ = type(args)()
     __ = type(kwargs)()
+    # Sleeping.
+    if sleep_seconds is not None:
+        time.sleep(sleep_seconds)
 
 
 def blackbody_function(

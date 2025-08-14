@@ -64,12 +64,20 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
     the actual working copy is being modified in place."""
 
     detector: hint.DetectorArray | None
-    """The instance of the detector for the simulation. Each channel has 
+    """The instance of the detector for the simulation. Each channel has
     their own detector instance and this is it, based on the channel."""
 
     channel: hint.Literal["visible", "nearir", "midir"]  # noqa: F821, UP037
     """The specific channel of the three channels of SPECTRE that we are
     simulating."""
+
+    flat_lamp_in: bool = False
+    """If True, the calibration apparatus flat lamp is considered in and on, 
+    and so the simulation injects it into the light path where required."""
+
+    arc_lamp_in: bool = False
+    """If True, the calibration apparatus arc lamp is considered in and on, 
+    and so the simulation injects it into the light path where required."""
 
     exposure_time: float
     """The exposure time of the integration, used near the end for Poisson
@@ -874,7 +882,12 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
 
         # Multiplying by the area of the telescope.
         telescope_area = self.telescope.telescope_area
+        telescope_area_unit = lezargus.library.conversion.parse_astropy_unit(
+            unit_string="m^2",
+        )
+        # Multiplying by the area, and adapting the unit.
         current_state = previous_state * telescope_area
+        current_state.data_unit = previous_state.data_unit * telescope_area_unit
 
         return current_state
 
@@ -1051,6 +1064,116 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         return current_state
 
     @property
+    def at_calibration_apparatus(self: hint.Self) -> hint.LezargusCube:
+        """State of simulation after the calibration lamp aparatus.
+
+        The calibration apparatus comprises of the arc and flat lamps of the
+        insturment. If a normal object is being simulated/observed, then
+        the data is passed through. Otherwise, the simulation emulates
+        the calibration lamp in the field of view.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        current_state : LezargusCube
+            The state of the simulation after applying the effects of
+            the secondary mirror emission.
+
+        """
+        # Both the arc lamp and the flat lamp cannot physcially be in the
+        # light path at the same time.
+        if self.arc_lamp_in and self.flat_lamp_in:
+            logging.error(
+                error_type=logging.InstrumentError,
+                message=(
+                    f"Arc lamp mode: {self.arc_lamp_in}; flat lamp mode:"
+                    f" {self.flat_lamp_in}. Both lamps cannot be in at the same"
+                    " time."
+                ),
+            )
+        # If neither are inside, then we just do a pass through.
+        if not (self.arc_lamp_in or self.flat_lamp_in):
+            # No cached value, we calculate it from the previous state.
+            previous_state = self.at_secondary_emission
+            return previous_state
+            
+
+        # In order to define the arc and flat lamps in a self-consisitant
+        # way, we base some parameters on the defined target for
+        # the simulation.
+        # We do not want to calculate things we do not need.
+        reference_state = self.at_target
+
+        # Otherwise, we calculate the arc or flat lamp.
+        # Both are simulated using a specific spectrum of uniform spatial
+        # distribution.
+        # ... The arc lamp.
+        if self.arc_lamp_in:
+            calibration_spectrum = 0
+        # ... The flat lamp.
+        elif self.flat_lamp_in:
+            # The lamp is just a simple blackbody; but we need to integrate it.
+            lamp_temperature = 3000
+            solid_angle = np.pi
+            area_integrate = 1e-20
+            blackbody_function = lezargus.library.wrapper.blackbody_function(
+                temperature=lamp_temperature,
+            )
+            blackbody_wavelength = reference_state.wavelength
+            blackbody_flux = (
+                blackbody_function(blackbody_wavelength)
+                * solid_angle
+                * area_integrate
+            )
+            # Parsing the lamp spectrum from previous known data upwards.
+            lamp_spectrum = lezargus.library.container.LezargusSpectrum(
+                wavelength=blackbody_wavelength,
+                data=blackbody_flux,
+                uncertainty=None,
+                wavelength_unit=reference_state.wavelength_unit,
+                data_unit=reference_state.data_unit,
+                spectral_scale=reference_state.spectral_scale,
+                pixel_scale=reference_state.pixel_scale,
+                slice_scale=reference_state.slice_scale,
+                mask=None,
+                flags=None,
+                header=reference_state.header,
+            )
+            calibration_spectrum = lamp_spectrum
+        else:
+            logging.critical(
+                critical_type=logging.LogicFlowError,
+                message=(
+                    "Neither calibrations are in; the pass through should have"
+                    " already happened."
+                ),
+            )
+
+        # With the needed spectrum, we can just spatially broadcast it.
+        calibration_cube = (
+            lezargus.library.container.functionality.broadcast_spectrum_to_cube(
+                input_spectrum=calibration_spectrum,
+                shape=reference_state.data.shape,
+                location="full",
+                fill_value=0,
+                fill_uncertainty=0,
+            )
+        )
+
+        # Our spectrums are in energy units while at this stage we are already
+        # dealing with photon units.
+        calibration_photon_cube = self._convert_to_photon(
+            container=calibration_cube,
+        )
+
+        # The new lamp state is ready.
+        current_state = calibration_photon_cube
+        return current_state
+
+    @property
     def at_window_transmission(self: hint.Self) -> hint.LezargusCube:
         """State of simulation after entrance window transmission.
 
@@ -1066,7 +1189,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
 
         """
         # No cached value, we calculate it from the previous state.
-        previous_state = self.at_secondary_emission
+        previous_state = self.at_calibration_apparatus
 
         # We get the window transmission spectrum.
         window_transmission = lezargus.data.EFFICIENCY_SPECTRE_WINDOW
@@ -1136,13 +1259,16 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             window_area * solid_angle
         )
 
-        # We want this emission in photon counting form.
+        # We want this emission in photon counting form. As we multiplied by
+        # the science beam's area, we need to reflect that in the units. We
+        # are explict here for the sake of clarity; the inner code handles it
+        # upon the conversion to photons.
         window_emission_spectrum = lezargus.library.container.LezargusSpectrum(
             wavelength=common_wavelength,
             data=window_emission,
             uncertainty=0,
             wavelength_unit=previous_state.wavelength_unit,
-            data_unit="W m^-2 m^-1",
+            data_unit="W m^-2 m^-1 m^2",
         )
         window_photon_emission = self._convert_to_photon(
             container=window_emission_spectrum,
@@ -1982,14 +2108,122 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             detector_size * bin_factor,
             detector_size * bin_factor,
         )
-        detector_data = np.zeros(detector_shape)
 
-        # We seperate the slice transformation function to something a little
+        # We seperate the slice transformation functions to something a little
         # seperate because it is a little cleaner.
-        def translate_slice_to_detector(
+        # But, these functions really don't need to be outside anywhere else
+        # so it is fine to define them here.
+        def __disperse_slice_to_detector(
+            slice_cube: hint.LezargusCube,
+            slice_index: int,
+        ) -> hint.NDArray:
+            """Compute a slice dispersion onto a full detector.
+
+            This method is a method used in the calculation of spectral dispersion.
+            We break it out of the main function for ease. This function an entire
+            slice individually and seperately from all of the slices, and so
+            this computation can be paralleized to some degree.
+
+            To simulate the dispersion of the slice on the detector, we find
+            where a monochromatic image of the slice would be on the detector and
+            add it to the rest. We go over all of the wavelengths.
+
+            Parameters
+            ----------
+            slice_cube : LezargusCube
+                The slice object which we are dispersing over the detector
+                space.
+            slice_index : int
+                The slice index (or number) which we are computing for.
+
+            Returns
+            -------
+            dispersed_slice_detector : NDArray
+                The dispersed slice data as an array. Higher functions should
+                utilize this data and properly pack it into its output.
+
+            """
+            # The output arrays are large, it is faster to work with arrays in
+            # place so we define the output.
+            dispersed_slice_detector = np.zeros(detector_shape)
+
+            # Each wavelength slice of the cubes is integrated over their
+            # wavelength spread. We compute it here and extend it for the
+            # last wavelength point.
+            slice_wavelength = np.asarray(slice_cube.wavelength)
+            wavelength_delta = slice_wavelength[1:] - slice_wavelength[:-1]
+            wavelength_delta = np.append(wavelength_delta, wavelength_delta[-1])
+
+            # We need to determine where each of the monochromatic slices end up
+            # in the detector array; simulating dispersion.
+            spectre_disperser = lezargus.data.DISPERSION_SPECTRE
+            new_bottom_left = spectre_disperser.get_slice_dispersion_pixel(
+                channel=self.channel,
+                slice_=slice_index,
+                location="bottom_left",
+                wavelength=slice_wavelength,
+            )
+            new_bottom_right = spectre_disperser.get_slice_dispersion_pixel(
+                channel=self.channel,
+                slice_=slice_index,
+                location="bottom_right",
+                wavelength=slice_wavelength,
+            )
+            new_top_left = spectre_disperser.get_slice_dispersion_pixel(
+                channel=self.channel,
+                slice_=slice_index,
+                location="top_left",
+                wavelength=slice_wavelength,
+            )
+            new_top_right = spectre_disperser.get_slice_dispersion_pixel(
+                channel=self.channel,
+                slice_=slice_index,
+                location="top_right",
+                wavelength=slice_wavelength,
+            )
+            # We structure the new coordinates in a way that makes the
+            # main wavelength loop look a little better.
+            new_coordinates_list = [
+                [bl_dex, br_dex, tl_dex, tr_dex]
+                for (bl_dex, br_dex, tl_dex, tr_dex) in zip(
+                    new_bottom_left,
+                    new_bottom_right,
+                    new_top_left,
+                    new_top_right,
+                    strict=True,
+                )
+            ]
+
+            # Going over every single wavelength, we need to put it on the
+            # detector.
+            for index, (wdeldex, coorddex) in enumerate(
+                zip(wavelength_delta, new_coordinates_list, strict=False),
+            ):
+                # We also need to integrate the photon flux over the
+                # wavelength range of the "monochromatic" image.
+                datadex = slice_cube.data[:, :, index]
+                integrated_data = datadex * wdeldex
+
+                # We need to adapt the coordinates to the increased binning
+                # scale of the current simualted data.
+                new_scaled_coordinates = np.array(coorddex) * bin_factor
+
+                # Now we compute the dispersed data.
+                dispersed_slice_detector = __translate_slice_to_detector(
+                    slice_array=integrated_data,
+                    dispersive_corners=new_scaled_coordinates,
+                    detector_shape=detector_shape,
+                    detector_data=dispersed_slice_detector,
+                )
+
+            # All done.
+            return dispersed_slice_detector
+
+        def __translate_slice_to_detector(
             slice_array: hint.NDArray,
-            detector_shape: tuple,
             dispersive_corners: hint.NDArray,
+            detector_shape: tuple,
+            detector_data: hint.NDArray | None = None,
         ) -> hint.NDArray:
             """Translate slice on the detector via quick an affine transform.
 
@@ -2000,17 +2234,47 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             putting the smaller array in the right place to emulate the
             full affine transform.
 
+            Moreover, we find that the sheer act of addition is a bit of a
+            bottleneck. So, we only add over the regions which the slice
+            is actually being applied to, which, by definition, is also
+            the same smaller array region for the affine transform.
+
             Parameters
             ----------
             slice_array : NDArray
                 The mono-chromatic slice array data.
-            detector_shape : tuple
-                The shape of the detector that we are applying the slices to.
             dispersive_corners : NDArray
                 The corner locations of where the slice should end up on the
                 detector array to properly simulate its dispersion.
+            detector_shape : tuple
+                The shape of the detector that we are applying the slices to.
+                If `detector_data` is provided, this parameter is ignored in
+                favor of its shape.
+            detector_data : NDArray, default = None
+                The current detector data. When the monochromatic slice is
+                added to the detector, we only add to the portion that matters
+                but to do that, we need the previous data as well which this
+                is. If None, we default to an all-zeros detector data based
+                on the provided shape.
+
+            Returns
+            -------
+            current_detector_data : NDArray
+                The current data of the detector with the transformation
+                applied.
 
             """
+            # We are either working on a previous detector or a fresh detector.
+            # The transformed slice data will be put applied based
+            # on the provided detector shape or the actual previous detector
+            # data, emulating the translation by placing it in the right
+            # location.
+            if detector_data is not None:
+                current_detector_data = detector_data
+                detector_shape = detector_data.shape
+            else:
+                current_detector_data = np.zeros(detector_shape)
+
             # Sightly pad out the slice array. We need the small extra padding
             # for the non-integer part of the translation.
             pad_width = 3
@@ -2081,11 +2345,6 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
                 constant=0,
             )
 
-            # Next, we manually put this transformed data onto a detector based
-            # on the provided detector shape, emulating the translation by
-            # placing it in the right location.
-            detector_data = np.zeros(detector_shape)
-
             # The original location of the array is the origin, so we assign the
             # new coordinates, adapting for the pad.
             transform_height, transform_width = transformed_data.shape
@@ -2093,12 +2352,13 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             transform_top_edge = transform_bottom_edge + transform_height
             transform_left_edge = x_shift - pad_width
             transform_right_edge = transform_left_edge + transform_width
-            # Placing the new data on the detector, simulating the translation.
+            # Adding the data to the detector, simulating the placing of the
+            # monochromatic slice on the detector.
             try:
-                detector_data[
+                current_detector_data[
                     transform_bottom_edge:transform_top_edge,
                     transform_left_edge:transform_right_edge,
-                ] = transformed_data
+                ] += transformed_data
             except ValueError:
                 # Sometimes there is this error if the slice is off the
                 # original detector.
@@ -2123,106 +2383,41 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
                     expanded_slice[0:padded_height, 0:padded_width] = (
                         padded_slice
                     )
-                    detector_data = lezargus.library.transform.affine_transform(
-                        array=expanded_slice,
-                        matrix=affine_transform_matrix,
-                        offset=None,
-                        constant=0,
+                    expanded_transformed_data = (
+                        lezargus.library.transform.affine_transform(
+                            array=expanded_slice,
+                            matrix=affine_transform_matrix,
+                            offset=None,
+                            constant=0,
+                        )
                     )
+                    current_detector_data += expanded_transformed_data
                 else:
                     # The error is something else...
                     raise
 
             # All done.
-            return detector_data
+            return current_detector_data
+
+        # We tabulate all of the data here.
+        total_detector_data = np.zeros(detector_shape)
 
         # Going over every single slice, we need to put it on the detector.
         for sliceindex, slicedex in enumerate(previous_state):
-            # Each wavelength slice of the cubes is integrated over their
-            # wavelength spread. We compute it here and extend it for the
-            # last wavelength point.
-            wavelength_delta = (
-                slicedex.wavelength[1:] - slicedex.wavelength[:-1]
+            # We compute the dispersion for a given slice.
+            dispersed_slice_detector = __disperse_slice_to_detector(
+                slice_cube=slicedex,
+                slice_index=sliceindex + 1,
             )
-            wavelength_delta = np.append(wavelength_delta, wavelength_delta[-1])
 
-            # We need to "integrate" the slice observation's monochromatic
-            # image, so we loop over all of them.
-            for index, (wavedex, wdeldex) in enumerate(
-                zip(
-                    slicedex.wavelength,
-                    wavelength_delta,
-                    strict=True,
-                ),
-            ):
-                # The image data at this wavelength.
-                datadex = slicedex.data[:, :, index]
-                # We also integrate over the wavelength range.
-                integrated_data = datadex * wdeldex
-
-                # We determine where this data should be put on the array.
-                new_bottom_left = (
-                    lezargus.data.DISPERSION_SPECTRE.get_slice_dispersion_pixel(
-                        channel=self.channel,
-                        slice_=sliceindex + 1,
-                        location="bottom_left",
-                        wavelength=wavedex,
-                    )
-                )
-                new_bottom_right = (
-                    lezargus.data.DISPERSION_SPECTRE.get_slice_dispersion_pixel(
-                        channel=self.channel,
-                        slice_=sliceindex + 1,
-                        location="bottom_right",
-                        wavelength=wavedex,
-                    )
-                )
-                new_top_left = (
-                    lezargus.data.DISPERSION_SPECTRE.get_slice_dispersion_pixel(
-                        channel=self.channel,
-                        slice_=sliceindex + 1,
-                        location="top_left",
-                        wavelength=wavedex,
-                    )
-                )
-                new_top_right = (
-                    lezargus.data.DISPERSION_SPECTRE.get_slice_dispersion_pixel(
-                        channel=self.channel,
-                        slice_=sliceindex + 1,
-                        location="top_right",
-                        wavelength=wavedex,
-                    )
-                )
-
-                # The needed coordinates are nested so we need to bring it out.
-                new_coord = np.array(
-                    [
-                        *new_bottom_left,
-                        *new_bottom_right,
-                        *new_top_left,
-                        *new_top_right,
-                    ],
-                )
-                # We need to adapt the coordinates to the increased binning
-                # scale of the current simualted data.
-                new_scaled_coord = np.array(new_coord) * bin_factor
-
-                dispersed_data = translate_slice_to_detector(
-                    slice_array=integrated_data,
-                    detector_shape=detector_shape,
-                    dispersive_corners=new_scaled_coord,
-                )
-
-                # We are ignoring masks and flags for now.
-
-                # Putting it on the detector.
-                detector_data = detector_data + dispersed_data
+            # Putting it on the detector.
+            total_detector_data += dispersed_slice_detector
 
         # Finally, we bin the resulting data down to the expected size.
         # Binning the current slice to match the resolution of the
         # detector.
         binned_detector_data = lezargus.library.array.bin_image_array(
-            image=detector_data,
+            image=total_detector_data,
             x_bin=bin_factor,
             y_bin=bin_factor,
             mode="add",
@@ -2682,3 +2877,30 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # All done.
         current_state = previous_state
         return current_state
+
+    def at_write_disk(
+        self: hint.Self,
+        filename: str,
+        overwrite: bool = False,
+    ) -> None:
+        """Write out the full state of the simulation, to disk.
+
+        This is mostly a convience function. It takes the final read out of
+        the function and allows for it to be read out as a FITS file, as
+        typical of an instrument. Nothing is returned as the result is
+        wrote to disk.
+
+        Parameters
+        ----------
+        filename : str
+            The FITS filename which we are writing the file out to.
+        overwrite : bool
+            If the file already exists, we overwrite it. Else, an error will
+            be likely be raised.
+
+        Returns
+        -------
+        None
+
+        """
+        # TODO

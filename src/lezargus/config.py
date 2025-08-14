@@ -23,6 +23,11 @@ import os
 # # # Lezargus Meta Parameter Configuration
 # # # # # # # # # # # # # # # # # # # #
 
+# This is the data type for the Lezargus containers. Typically, this should be
+# changed based on how much memory your current computer has, or how precise
+# the floating point values need to be. The data type names are the same as
+# the Numpy canonical python API name, with some built-in Python types named
+# as well.
 META_CONTAINER_FLOAT_DATA_TYPE = "float"
 
 # # # # # # # # # # # # # # # # # # # #

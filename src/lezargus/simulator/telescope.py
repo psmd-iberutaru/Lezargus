@@ -195,7 +195,7 @@ class IrtfTelescopeSimulator:
         -------
         emission : NDArray
             The spectral flux emission of the primary mirror at the
-            wavelengths provided.
+            wavelengths provided, in W / m.
 
         """
         # We assume a blackbody emission function.
@@ -285,7 +285,7 @@ class IrtfTelescopeSimulator:
         -------
         emission : NDArray
             The spectral flux emission of the secondary mirror at the
-            wavelengths provided.
+            wavelengths provided, , in W / m.
 
         """
         # We assume a blackbody emission function.
@@ -382,7 +382,7 @@ class IrtfTelescopeSimulator:
             ),
             uncertainty=None,
             wavelength_unit="m",
-            data_unit="W m^-2 m^-1",
+            data_unit="W m^-1",
             spectral_scale=None,
             pixel_scale=None,
             slice_scale=None,
@@ -459,7 +459,7 @@ class IrtfTelescopeSimulator:
             ),
             uncertainty=None,
             wavelength_unit="m",
-            data_unit="W m^-2 m^-1",
+            data_unit="W m^-1",
             spectral_scale=None,
             pixel_scale=None,
             slice_scale=None,

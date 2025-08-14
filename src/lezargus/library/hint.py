@@ -17,6 +17,7 @@ imports and other nasty things.
 from argparse import ArgumentParser
 from argparse import Namespace
 from collections.abc import Callable
+from logging import LogRecord
 from subprocess import CompletedProcess
 from typing import Any
 from typing import Literal

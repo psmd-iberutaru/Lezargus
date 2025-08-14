@@ -29,11 +29,11 @@ class DetectorArray:
     """The detector class."""
 
     detector_shape: tuple
-    """The shape of the detector, described as a tuple shape of the number 
+    """The shape of the detector, described as a tuple shape of the number
     of pixels."""
 
     pixel_size: float
-    """The length or the size of the pixels, in meters. We assume the pixels 
+    """The length or the size of the pixels, in meters. We assume the pixels
     are square and so only one measurement is needed."""
 
     detector_gain: float = 1
@@ -42,116 +42,116 @@ class DetectorArray:
     nondestructive_reads: int = 1
     """The number of nondestructive reads made to obtain a given observation.
     This value is intrinsic to the detector and it mostly affects read noise.
-    Though this is valid for only H2RG-based detectors, for CCDs a value of 1 
+    Though this is valid for only H2RG-based detectors, for CCDs a value of 1
     is appropriate."""
 
     raw_bias_frames: list[hint.NDArray] | None = None
-    """The list of bias frames added to the detector to derive simulated 
-    bias values from. If None, should no bias frames be provided, we default 
+    """The list of bias frames added to the detector to derive simulated
+    bias values from. If None, should no bias frames be provided, we default
     to a zero bias frame for calculations. The bias is in ADUs."""
 
     bias_frame: hint.NDArray
-    """The averaged bias frame for the detector. This value is typically 
+    """The averaged bias frame for the detector. This value is typically
     computed from the provided raw bias frames."""
 
     bias_stddev_frame: hint.NDArray
-    """The standard deviation of the average bias frame. This value is 
+    """The standard deviation of the average bias frame. This value is
     typically computed from the provided raw bias frames."""
 
     raw_flat_frames: list[hint.NDArray] | None = None
-    """The list of flat frames added to the detector to derive simulated 
-    flat values from. If None, should no flat frames be provided, we default 
-    to a unity flat frame for calculations. The flat is unit-less, as an 
+    """The list of flat frames added to the detector to derive simulated
+    flat values from. If None, should no flat frames be provided, we default
+    to a unity flat frame for calculations. The flat is unit-less, as an
     efficiency factor."""
 
     flat_frame: hint.NDArray
-    """The averaged flat frame for the detector. This value is typically 
+    """The averaged flat frame for the detector. This value is typically
     computed from the provided raw flat frames."""
 
     flat_stddev_frame: hint.NDArray
-    """The standard deviation of the average flat frame. This value is 
+    """The standard deviation of the average flat frame. This value is
     typically computed from the provided raw flat frames."""
 
     raw_dark_current_frames: list[hint.NDArray] | None = None
-    """The list of dark current frames added to the detector to derive 
-    simulated dark current values from. If None, should no dark current 
-    frames be provided, we default to a zero dark current frame for 
+    """The list of dark current frames added to the detector to derive
+    simulated dark current values from. If None, should no dark current
+    frames be provided, we default to a zero dark current frame for
     calculations. The dark current is in ADUs per second."""
 
     dark_current_frame: hint.NDArray
-    """The averaged dark current frame for the detector. This value is 
+    """The averaged dark current frame for the detector. This value is
     typically computed from the provided raw dark current frames."""
 
     dark_current_stddev_frame: hint.NDArray
-    """The standard deviation of the average dark current frame. This value is 
+    """The standard deviation of the average dark current frame. This value is
     typically computed from the provided raw dark current frames."""
 
     raw_linearity_function: (
         hint.Callable[[hint.NDArray], hint.NDArray] | None
     ) = None
-    """The added linearity of the detector. If not provided, this is None, and 
+    """The added linearity of the detector. If not provided, this is None, and
     we default to a linear linearity function."""
 
     raw_efficiency_function: (
         hint.Callable[[hint.NDArray], hint.NDArray] | None
     ) = None
-    """The added efficiency function of the detector. This is the function 
-    which determines the efficiency of the detector at a provided wavelength. 
-    If not provided, this is None, and we default to a perfect, 1, efficiency 
+    """The added efficiency function of the detector. This is the function
+    which determines the efficiency of the detector at a provided wavelength.
+    If not provided, this is None, and we default to a perfect, 1, efficiency
     function."""
 
     read_noise: float = 0
-    """The read noise of the detector's pixels. If not otherwise provided, 
+    """The read noise of the detector's pixels. If not otherwise provided,
     we default to a zero read noise detector."""
 
     read_noise_stddev: float = 0
-    """The standard deviation of the read noise of the detector's pixels. If 
-    not otherwise provided, we default to a zero read noise detector (thus 
+    """The standard deviation of the read noise of the detector's pixels. If
+    not otherwise provided, we default to a zero read noise detector (thus
     the standard deviation is also zero)."""
 
     raw_hot_pixel_maps: list[hint.NDArray] | None = None
-    """The list of raw hot pixel maps added to the detector to derive 
+    """The list of raw hot pixel maps added to the detector to derive
     the simulated hot pixel map. If None, we assume no hot pixels at all.
     """
 
     hot_pixel_map: hint.NDArray
-    """The hot pixel map of the detector. Where True, the pixel is considered 
-    a "hot" pixel, and will have its value substituted by the typical hot 
+    """The hot pixel map of the detector. Where True, the pixel is considered
+    a "hot" pixel, and will have its value substituted by the typical hot
     pixel value. """
 
     hot_pixel_value: float = +np.inf
-    """The value of a hot pixel, where the hot pixel map determines which are 
-    hot. The value is in ADUs. By default, we just use infinity, but there 
+    """The value of a hot pixel, where the hot pixel map determines which are
+    hot. The value is in ADUs. By default, we just use infinity, but there
     should be much better values."""
 
     raw_dead_pixel_maps: list[hint.NDArray] | None = None
-    """The list of raw dead pixel maps added to the detector to derive 
+    """The list of raw dead pixel maps added to the detector to derive
     the simulated dead pixel map. If None, we assume no dead pixels at all.
     """
 
     dead_pixel_map: hint.NDArray
-    """The dead pixel map of the detector. Where True, the pixel is considered 
-    a "dead" pixel, and will have its value substituted by the typical dead 
+    """The dead pixel map of the detector. Where True, the pixel is considered
+    a "dead" pixel, and will have its value substituted by the typical dead
     pixel value. If None, we assume no dead pixels at all."""
 
     dead_pixel_value: float = 0
-    """The value of a dead pixel, where the hot pixel map determines which are 
-    hot. The value is in ADUs. By default, we assume 0, but there should be 
+    """The value of a dead pixel, where the hot pixel map determines which are
+    hot. The value is in ADUs. By default, we assume 0, but there should be
     much better values."""
 
     cosmic_ray_rate: float = 0
-    """The rate that cosmic rays hit the surface of the Earth/detector. 
-    This is used to compute a cosmic ray pixel map for where cosmic rays 
+    """The rate that cosmic rays hit the surface of the Earth/detector.
+    This is used to compute a cosmic ray pixel map for where cosmic rays
     hit the pixels. This is in cosmic rays per second per square meter."""
 
     cosmic_ray_value: float = +np.inf
-    """The detector value for when a cosmic ray hits the detector. Though 
+    """The detector value for when a cosmic ray hits the detector. Though
     we assume a near typical high value, given the variance of cosmic rays."""
 
     random_state_seed: int | None = None
-    """The random state seed for all of the functions which need to have 
-    a random number generator used. This is mostly for generating new 
-    detector frames. If None, which is suggested, we always use a different 
+    """The random state seed for all of the functions which need to have
+    a random number generator used. This is mostly for generating new
+    detector frames. If None, which is suggested, we always use a different
     random state."""
 
     def __init__(
@@ -821,7 +821,7 @@ class DetectorArray:
         self: hint.Self,
         counts: hint.NDArray,
     ) -> hint.NDArray:
-        """The linearity function of the detector.
+        """Compute the linearity response of the detector.
 
         The linearity function of the detector is used to determine actual
         ADUs from an expected ADU input, given the lack of linearity at very
@@ -847,7 +847,7 @@ class DetectorArray:
         if self.raw_linearity_function is None:
             # Assuming a perfect function.
             def perfect_linearity(input_: hint.NDArray) -> hint.NDArray:
-                """A perfect linearity function; same input as output."""
+                """Returning perfect linearity; same input as output."""
                 return np.asarray(input_)
 
             using_linearity_function = perfect_linearity
@@ -862,7 +862,7 @@ class DetectorArray:
         self: hint.Self,
         wavelength: hint.NDArray,
     ) -> hint.NDArray:
-        """The efficiency function of the detector.
+        """Compute the efficiency of the detector.
 
         The efficiency function of the detector. This is the function which
         determines the efficiency of the detector at a provided wavelength.

@@ -169,6 +169,15 @@ class InputError(LezargusError):
     """
 
 
+class InstrumentError(LezargusError):
+    """An error used for issues with the instrument configurations.
+
+    If there is something wrong with how an instrument is configured, which
+    is not directly based on a direct input to a function. Then this error
+    should be used.
+    """
+
+
 class ReadOnlyError(LezargusError):
     """An error used for problems with read-only files and variables.
 

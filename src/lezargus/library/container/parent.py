@@ -411,7 +411,7 @@ class LezargusContainerArithmetic:
 
         """
         # Deleting the data.
-        self._uncertainty = np.full(1, np.nan)
+        self._uncertainty = np.full(1, 0)
         del self.uncertainty
 
     @property

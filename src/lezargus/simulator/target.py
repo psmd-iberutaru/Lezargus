@@ -379,8 +379,8 @@ class TargetSimulator:
 
         """
         # It is easiest to work in SI units.
-        si_wavelength_unit = "m"
-        si_data_unit = "W m^-2 m^-1"
+        si_wavelength_unit = container.wavelength_unit.si
+        si_data_unit = container.data_unit.si
         si_container = container.to_unit(
             data_unit=si_data_unit,
             wavelength_unit=si_wavelength_unit,
