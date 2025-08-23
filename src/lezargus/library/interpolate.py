@@ -221,7 +221,7 @@ class Generic1DInterpolate:
         # All done.
         return lower_bounds, upper_bounds
 
-    def interpolate(self: hint.Self, x: hint.NDArray) -> hint.NDArray:
+    def interpolate(self: hint.Self, x: float | hint.NDArray) -> hint.NDArray:
         """Interpolate the input value.
 
         Parameters

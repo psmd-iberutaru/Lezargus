@@ -417,13 +417,15 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             location=location,
         )
 
-        # Assembling everything else.
-        return cls.from_advanced_parameters(
+        spectre_simulator = cls.from_advanced_parameters(
             target=using_target,
             channel=channel,
             exposure_time=exposure_time,
             **kwargs,
         )
+
+        # Assembling everything else.
+        return spectre_simulator
 
     @classmethod
     def from_blackbody(
