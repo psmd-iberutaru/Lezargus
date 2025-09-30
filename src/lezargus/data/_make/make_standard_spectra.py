@@ -96,7 +96,7 @@ def load_spectrum_mrt_file(basename: str) -> hint.Table:
 
     """
     # Parsing the filename.
-    spectrum_filename = functionality.parse_basename(basename=basename)
+    spectrum_filename = functionality.find_data_filename(basename=basename)
     mrt_table = astropy.table.Table.read(spectrum_filename, format="ascii.mrt")
     # We format it to a standard table.
     wavelength_column = mrt_table["wavelength"]
@@ -126,7 +126,9 @@ def load_spectrum_header_file() -> hint.Table:
 
     """
     # We load in the table.
-    header_filename = functionality.parse_basename(basename="star_header.dat")
+    header_filename = functionality.find_data_filename(
+        basename="star_header.dat",
+    )
     raw_header_table = astropy.table.Table.read(
         header_filename,
         format="ascii.fixed_width",

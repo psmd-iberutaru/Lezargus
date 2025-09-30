@@ -102,7 +102,7 @@ def load_photometric_filter_mrt_file(basename: str) -> hint.Table:
 
     """
     # We parse the data file and load it.
-    filter_filename = functionality.parse_basename(basename=basename)
+    filter_filename = functionality.find_data_filename(basename=basename)
     mrt_table = astropy.table.Table.read(filter_filename, format="ascii.mrt")
     # We format it to a standard table.
     wavelength_column = mrt_table["wavelength"]

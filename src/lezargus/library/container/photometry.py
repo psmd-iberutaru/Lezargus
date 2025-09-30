@@ -299,8 +299,11 @@ class PhotometricVegaFilter:
                 ),
             )
 
+        # Need to have the correct wavelength units to align with the filter.
+        spectrum_reunit = spectrum.to_unit(data_unit=None, wavelength_unit=self.wavelength_unit)
+
         # Adding the new standard.
-        self.standard_spectrum = spectrum
+        self.standard_spectrum = spectrum_reunit
         self.standard_magnitude = magnitude
         self.standard_magnitude_uncertainty = magnitude_uncertainty
 
@@ -466,11 +469,14 @@ class PhotometricVegaFilter:
                 ),
             )
 
+        # Need to have the correct units.
+        spectrum_reunit = spectrum.to_unit(data_unit=self.standard_spectrum.data_unit, wavelength_unit=self.standard_spectrum.wavelength_unit)
+
         # We assume that the target star has data covering the entire filter
         # range as otherwise, you cannot really calculate an accurate magnitude.
         # However, we should still warn otherwise.
         overlap = lezargus.library.wrapper.wavelength_overlap_fraction(
-            base=spectrum.wavelength,
+            base=spectrum_reunit.wavelength,
             contain=self.wavelength,
         )
         if overlap < 1:
@@ -485,7 +491,7 @@ class PhotometricVegaFilter:
 
         # Computing the total filter-weighted flux, using usual integration
         # methods.
-        star_flux, star_uncertainty, __, __ = spectrum.interpolate(
+        star_flux, star_uncertainty, __, __ = spectrum_reunit.interpolate(
             wavelength=self.wavelength,
             skip_mask=True,
             skip_flags=True,

@@ -37,7 +37,7 @@ def make_optic_efficiency(basename: str) -> hint.LezargusSpectrum:
 
     """
     # Parsing the filename.
-    optic_filename = functionality.parse_basename(basename=basename)
+    optic_filename = functionality.find_data_filename(basename=basename)
     mrt_table = astropy.table.Table.read(optic_filename, format="ascii.mrt")
     # Extracting the needed data.
     wavelength = mrt_table["wavelength"]

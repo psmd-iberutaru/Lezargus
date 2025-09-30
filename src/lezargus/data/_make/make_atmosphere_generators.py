@@ -53,7 +53,7 @@ def make_atmosphere_transmission_generator(
     psg_spectral_scale = 1e-9
 
     # Loading the transmission file.
-    filename = functionality.parse_basename(basename=basename)
+    filename = functionality.find_data_filename(basename=basename)
     transmission_table = astropy.table.Table.read(filename, format="ascii.mrt")
 
     # The domain is the zenith angles, PWV, and wavelength. The filenames use
@@ -129,7 +129,7 @@ def make_atmosphere_radiance_generator(
     psg_spectral_scale = 1e-9
 
     # Loading the transmission file.
-    filename = functionality.parse_basename(basename=basename)
+    filename = functionality.find_data_filename(basename=basename)
     radiance_table = astropy.table.Table.read(filename, format="ascii.mrt")
 
     # The domain is the zenith angles, PWV, and wavelength. The filenames use

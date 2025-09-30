@@ -238,6 +238,68 @@ def __initialize_data_photometric_filters() -> None:
         magnitude_uncertainty=0,
     )
 
+    # TYCHO-2 Filters
+    global FILTER_TYCHO2_BT
+    FILTER_TYCHO2_BT = _make.make_vega_photometric_filter(
+        basename="filter_TYCHO2_BT.dat",
+    )
+    FILTER_TYCHO2_BT.add_standard_star_spectrum(
+        spectrum=STAR_A0V,
+        magnitude=0,
+        magnitude_uncertainty=0,
+    )
+
+    global FILTER_TYCHO2_VT
+    FILTER_TYCHO2_VT = _make.make_vega_photometric_filter(
+        basename="filter_TYCHO2_VT.dat",
+    )
+    FILTER_TYCHO2_VT.add_standard_star_spectrum(
+        spectrum=STAR_A0V,
+        magnitude=0,
+        magnitude_uncertainty=0,
+    )
+
+    # GAIA Filters
+    global FILTER_GAIA_BP
+    FILTER_GAIA_BP = _make.make_vega_photometric_filter(
+        basename="filter_GAIA_BP.dat",
+    )
+    FILTER_GAIA_BP.add_standard_star_spectrum(
+        spectrum=STAR_A0V,
+        magnitude=0,
+        magnitude_uncertainty=0,
+    )
+
+    global FILTER_GAIA_G
+    FILTER_GAIA_G = _make.make_vega_photometric_filter(
+        basename="filter_GAIA_G.dat",
+    )
+    FILTER_GAIA_G.add_standard_star_spectrum(
+        spectrum=STAR_A0V,
+        magnitude=0,
+        magnitude_uncertainty=0,
+    )
+
+    global FILTER_GAIA_RP
+    FILTER_GAIA_RP = _make.make_vega_photometric_filter(
+        basename="filter_GAIA_RP.dat",
+    )
+    FILTER_GAIA_RP.add_standard_star_spectrum(
+        spectrum=STAR_A0V,
+        magnitude=0,
+        magnitude_uncertainty=0,
+    )
+
+    global FILTER_GAIA_RVS
+    FILTER_GAIA_RVS = _make.make_vega_photometric_filter(
+        basename="filter_GAIA_RVS.dat",
+    )
+    FILTER_GAIA_RVS.add_standard_star_spectrum(
+        spectrum=STAR_A0V,
+        magnitude=0,
+        magnitude_uncertainty=0,
+    )
+
     # 2MASS J H Ks filters.
     global FILTER_2MASS_J
     FILTER_2MASS_J = _make.make_vega_photometric_filter(

@@ -43,7 +43,7 @@ def make_constant(
 
     """
     # Parsing the filename.
-    constants_filename = functionality.parse_basename(basename=basename)
+    constants_filename = functionality.find_data_filename(basename=basename)
     # Sanitizing the key input.
     clean_key = key.upper().strip()
     if not clean_key.startswith("CONST_"):

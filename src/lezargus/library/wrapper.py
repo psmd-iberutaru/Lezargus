@@ -28,8 +28,8 @@ from lezargus.library import logging
 
 
 def do_nothing(
-    sleep_seconds: float | None = None,
     *args: hint.Any,
+    sleep_seconds: float | None = None,
     **kwargs: hint.Any,
 ) -> None:
     """Do nothing, accepts arguments to prevent unused argument lint error.

@@ -19,7 +19,7 @@ import lezargus
 from lezargus.library import logging
 
 
-def make_detector() -> hint.DetectorSimulator:
+def make_detector() -> hint.DetectorArray:
     """Load a detector generator file to make the detector object.
 
     Note, the format of the detector generator file is
@@ -33,7 +33,7 @@ def make_detector() -> hint.DetectorSimulator:
 
     Returns
     -------
-    detector : DetectorSimulator
+    detector : DetectorArray
         The detector simulation object.
 
     """

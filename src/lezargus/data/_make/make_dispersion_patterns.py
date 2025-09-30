@@ -37,7 +37,7 @@ def make_spectre_dispersion_pattern(
 
     """
     # Loading the dispersion file.
-    filename = functionality.parse_basename(basename=basename)
+    filename = functionality.find_data_filename(basename=basename)
 
     # And, just reading it in.
     dispersion_class = lezargus.library.container.SpectreDispersionPattern

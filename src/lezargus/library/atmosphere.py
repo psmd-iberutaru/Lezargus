@@ -275,7 +275,7 @@ def absolute_atmospheric_refraction_function(
     temperature: float,
     pressure: float,
     water_pressure: float,
-    wavelength_grid: hint.NDArray |None = None,
+    wavelength_grid: hint.NDArray | None = None,
 ) -> hint.Callable[[hint.NDArray], hint.NDArray]:
     """Compute the absolute atmospheric refraction function.
 
@@ -298,7 +298,7 @@ def absolute_atmospheric_refraction_function(
         being computed over, in meters. If None, we default to a rather broad
         wavelength grid to ensure coverage over the visible and near-infrared
         region.
-        
+
     Returns
     -------
     refraction_function : Callable
@@ -307,7 +307,7 @@ def absolute_atmospheric_refraction_function(
         radians.
 
     """
-    # Checking if we default to a broad visible and near-ir wavelength grid 
+    # Checking if we default to a broad visible and near-ir wavelength grid
     # for atmospheric refraction; units in meters.
     if wavelength_grid is None:
         blue_limit = 0.3 * 1e-6
@@ -324,9 +324,9 @@ def absolute_atmospheric_refraction_function(
         water_pressure=water_pressure,
     )
 
-    # Creating the function itself. We want to avoid extrapolation of 
-    # atmospheric refraction as the functional form of it is not really a 
-    # spline-able extrapolation. A longer wavelength grid should be provided 
+    # Creating the function itself. We want to avoid extrapolation of
+    # atmospheric refraction as the functional form of it is not really a
+    # spline-able extrapolation. A longer wavelength grid should be provided
     # if the region ought to be expanded.
     refraction_function = lezargus.library.interpolate.Spline1DInterpolate(
         x=wavelength_grid,
@@ -374,10 +374,17 @@ def relative_atmospheric_refraction(
         The computed relative refraction at the input wavelengths, in radians.
 
     """
-    # We just need the refraction function, and then we compute it where 
+    # We just need the refraction function, and then we compute it where
     # specified.
     # The default wavelength grid should be good enough.
-    relative_refraction_function = relative_atmospheric_refraction_function(reference_wavelength=reference_wavelength, zenith_angle=zenith_angle, temperature=temperature, pressure=pressure, water_pressure=water_pressure, wavelength_grid=None)
+    relative_refraction_function = relative_atmospheric_refraction_function(
+        reference_wavelength=reference_wavelength,
+        zenith_angle=zenith_angle,
+        temperature=temperature,
+        pressure=pressure,
+        water_pressure=water_pressure,
+        wavelength_grid=None,
+    )
 
     # Computing the refraction.
     relative_refraction = relative_refraction_function(wavelength)
@@ -390,8 +397,7 @@ def relative_atmospheric_refraction_function(
     temperature: float,
     pressure: float,
     water_pressure: float,
-    wavelength_grid: hint.NDArray |None = None,
-
+    wavelength_grid: hint.NDArray | None = None,
 ) -> hint.Callable[[hint.NDArray], hint.NDArray]:
     """Compute the relative atmospheric refraction function.
 
@@ -425,26 +431,33 @@ def relative_atmospheric_refraction_function(
         radians.
 
     """
-    # Of course, the relative atmospheric refraction is derived from the 
+    # Of course, the relative atmospheric refraction is derived from the
     # absolute refraction.
-    absolute_refraction_function = absolute_atmospheric_refraction_function(zenith_angle=zenith_angle, temperature=temperature, pressure=pressure, water_pressure=water_pressure, wavelength_grid=wavelength_grid)
+    absolute_refraction_function = absolute_atmospheric_refraction_function(
+        zenith_angle=zenith_angle,
+        temperature=temperature,
+        pressure=pressure,
+        water_pressure=water_pressure,
+        wavelength_grid=wavelength_grid,
+    )
 
     # We are relative to the reference wavelength atmospheric refraction.
     reference_refraction = absolute_refraction_function(reference_wavelength)
 
     # Returning the function with the offset built in.
-    def refraction_function(wavelength:hint.NDArray) -> hint.NDArray:
+    def refraction_function(wavelength: hint.NDArray) -> hint.NDArray:
         """Compute relative refraction.
-        
+
         Parameters
         ----------
         wavelength : NDArray
             The wavelength of where the refraction is to be computed, in meters.
-            
+
         Returns
         -------
         relative_refraction : NDArray
             The relative refraction.
+
         """
         # Computing...
         absolute_refraction = absolute_refraction_function(wavelength)

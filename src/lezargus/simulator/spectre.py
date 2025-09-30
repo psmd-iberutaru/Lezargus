@@ -63,7 +63,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
     """The inputted atmosphere simulation. We store this original copy as
     the actual working copy is being modified in place."""
 
-    detector: hint.DetectorArray | None
+    detector: hint.DetectorArray
     """The instance of the detector for the simulation. Each channel has
     their own detector instance and this is it, based on the channel."""
 
@@ -72,11 +72,11 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
     simulating."""
 
     flat_lamp_in: bool = False
-    """If True, the calibration apparatus flat lamp is considered in and on, 
+    """If True, the calibration apparatus flat lamp is considered in and on,
     and so the simulation injects it into the light path where required."""
 
     arc_lamp_in: bool = False
-    """If True, the calibration apparatus arc lamp is considered in and on, 
+    """If True, the calibration apparatus arc lamp is considered in and on,
     and so the simulation injects it into the light path where required."""
 
     exposure_time: float
@@ -157,14 +157,18 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             self.atmosphere = atmosphere
             self.target.add_atmosphere(atmosphere=self.atmosphere)
 
-        # Parsing the channel name.
+        # Select the channel that this instance is simulating, and assign the
+        # other parameters per the correct channel.
         channel = channel.casefold()
         if channel == "visible":
             self.channel = "visible"
+            self.detector = lezargus.data.DETECTOR_SPECTRE_VISIBLE
         elif channel == "nearir":
             self.channel = "nearir"
+            self.detector = lezargus.data.DETECTOR_SPECTRE_NEARIR
         elif channel == "midir":
             self.channel = "midir"
+            self.detector = lezargus.data.DETECTOR_SPECTRE_MIDIR
         else:
             logging.error(
                 error_type=logging.InputError,
@@ -174,22 +178,8 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
                 ),
             )
 
-        # And the detector for the channel.
-        if self.channel == "visible":
-            self.detector = lezargus.data.DETECTOR_SPECTRE_VISIBLE
-        elif self.channel == "nearir":
-            self.detector = lezargus.data.DETECTOR_SPECTRE_NEARIR
-        elif self.channel == "midir":
-            self.detector = lezargus.data.DETECTOR_SPECTRE_MIDIR
-        else:
-            self.detector = None
-            logging.error(
-                error_type=logging.InputError,
-                message=f"Detector cannot be determined for channel {channel}",
-            )
         # Just making sure the detector is up to date.
-        if self.detector is not None:
-            self.detector.recalculate_detector()
+        self.detector.recalculate_detector()
 
         # All done.
 
@@ -1101,7 +1091,6 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             # No cached value, we calculate it from the previous state.
             previous_state = self.at_secondary_emission
             return previous_state
-            
 
         # In order to define the arc and flat lamps in a self-consisitant
         # way, we base some parameters on the defined target for
@@ -2025,7 +2014,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         current_state = self.at_advanced_spectral_dispersion()
         return current_state
 
-    def at_advanced_spectral_dispersion(
+    def at_advanced_spectral_dispersion(  # noqa: PLR0915
         self: hint.Self,
         quick_translation: bool = False,
     ) -> hint.LezargusImage:
@@ -2121,14 +2110,15 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         ) -> hint.NDArray:
             """Compute a slice dispersion onto a full detector.
 
-            This method is a method used in the calculation of spectral dispersion.
-            We break it out of the main function for ease. This function an entire
-            slice individually and seperately from all of the slices, and so
-            this computation can be paralleized to some degree.
+            This method is a method used in the calculation of spectral
+            dispersion. We break it out of the main function for ease. This
+            function an entire slice individually and seperately from all of
+            the slices, and so this computation can be paralleized to some
+            degree.
 
             To simulate the dispersion of the slice on the detector, we find
-            where a monochromatic image of the slice would be on the detector and
-            add it to the rest. We go over all of the wavelengths.
+            where a monochromatic image of the slice would be on the detector
+            and add it to the rest. We go over all of the wavelengths.
 
             Parameters
             ----------
@@ -2906,3 +2896,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
 
         """
         # TODO
+        logging.critical(
+            critical_type=logging.ToDoError,
+            message="Writing to disk is to be done.",
+        )

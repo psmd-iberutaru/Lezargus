@@ -847,7 +847,7 @@ class DetectorArray:
         if self.raw_linearity_function is None:
             # Assuming a perfect function.
             def perfect_linearity(input_: hint.NDArray) -> hint.NDArray:
-                """Returning perfect linearity; same input as output."""
+                """Perfect linearity; same input as output."""
                 return np.asarray(input_)
 
             using_linearity_function = perfect_linearity
@@ -890,7 +890,7 @@ class DetectorArray:
         if self.raw_efficiency_function is None:
             # Assuming a perfect function.
             def perfect_efficiency(wave: hint.NDArray) -> hint.NDArray:
-                """A perfect efficiency function; 100%."""
+                """Perfect efficiency function; 100%."""
                 return np.ones_like(wave)
 
             using_efficiency_function = perfect_efficiency
@@ -906,7 +906,7 @@ class DetectorArray:
         wavelength: hint.NDArray,
         **kwargs: hint.Any,
     ) -> hint.LezargusSpectrum:
-        """The efficiency function of the detector, except as a spectrum.
+        """Efficiency function of the detector, as a spectrum class.
 
         As a convenience function, we package the efficiency data as a
         full LezargusSpectrum.

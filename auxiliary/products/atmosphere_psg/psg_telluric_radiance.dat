@@ -6,23 +6,23 @@ Byte-by-byte Description of file: table.dat
 --------------------------------------------------------------------------------
  Bytes Format Units  Label     Explanations
 --------------------------------------------------------------------------------
-  1- 13  E13.8  ---    wavelength  [0.0/0.01] Description of wavelength 
- 15- 27  E13.8  ---    za0_pwv0.5  [0.0/0.01] Description of za0_pwv0.5 
- 29- 41  E13.8  ---    za0_pwv1.0  [0.0/0.01] Description of za0_pwv1.0 
- 43- 55  E13.8  ---    za0_pwv2.0  [0.0/0.01] Description of za0_pwv2.0 
- 57- 69  E13.8  ---    za0_pwv3.0  [0.0/0.01] Description of za0_pwv3.0 
- 71- 83  E13.8  ---    za30_pwv0.5 [0.0/0.01] Description of za30_pwv0.5
- 85- 97  E13.8  ---    za30_pwv1.0 [0.0/0.01] Description of za30_pwv1.0
- 99-111  E13.8  ---    za30_pwv2.0 [0.0/0.01] Description of za30_pwv2.0
-113-125  E13.8  ---    za30_pwv3.0 [0.0/0.01] Description of za30_pwv3.0
-127-139  E13.8  ---    za45_pwv0.5 [0.0/0.01] Description of za45_pwv0.5
-141-153  E13.8  ---    za45_pwv1.0 [0.0/0.01] Description of za45_pwv1.0
-155-167  E13.8  ---    za45_pwv2.0 [0.0/0.01] Description of za45_pwv2.0
-169-181  E13.8  ---    za45_pwv3.0 [0.0/0.01] Description of za45_pwv3.0
-183-195  E13.8  ---    za60_pwv0.5 [0.0/0.01] Description of za60_pwv0.5
-197-209  E13.8  ---    za60_pwv1.0 [0.0/0.01] Description of za60_pwv1.0
-211-223  E13.8  ---    za60_pwv2.0 [0.0/0.01] Description of za60_pwv2.0
-225-237  E13.8  ---    za60_pwv3.0 [0.0/0.01] Description of za60_pwv3.0
+  1- 13  E13.8      ---    wavelength  [0.0/0.01] Description of wavelength 
+ 15- 27  E13.8  W.sr-1.m-3 za0_pwv0.5  [0.0/0.01] Description of za0_pwv0.5 
+ 29- 41  E13.8  W.sr-1.m-3 za0_pwv1.0  [0.0/0.01] Description of za0_pwv1.0 
+ 43- 55  E13.8  W.sr-1.m-3 za0_pwv2.0  [0.0/0.01] Description of za0_pwv2.0 
+ 57- 69  E13.8  W.sr-1.m-3 za0_pwv3.0  [0.0/0.01] Description of za0_pwv3.0 
+ 71- 83  E13.8  W.sr-1.m-3 za30_pwv0.5 [0.0/0.01] Description of za30_pwv0.5
+ 85- 97  E13.8  W.sr-1.m-3 za30_pwv1.0 [0.0/0.01] Description of za30_pwv1.0
+ 99-111  E13.8  W.sr-1.m-3 za30_pwv2.0 [0.0/0.01] Description of za30_pwv2.0
+113-125  E13.8  W.sr-1.m-3 za30_pwv3.0 [0.0/0.01] Description of za30_pwv3.0
+127-139  E13.8  W.sr-1.m-3 za45_pwv0.5 [0.0/0.01] Description of za45_pwv0.5
+141-153  E13.8  W.sr-1.m-3 za45_pwv1.0 [0.0/0.01] Description of za45_pwv1.0
+155-167  E13.8  W.sr-1.m-3 za45_pwv2.0 [0.0/0.01] Description of za45_pwv2.0
+169-181  E13.8  W.sr-1.m-3 za45_pwv3.0 [0.0/0.01] Description of za45_pwv3.0
+183-195  E13.8  W.sr-1.m-3 za60_pwv0.5 [0.0/0.01] Description of za60_pwv0.5
+197-209  E13.8  W.sr-1.m-3 za60_pwv1.0 [0.0/0.01] Description of za60_pwv1.0
+211-223  E13.8  W.sr-1.m-3 za60_pwv2.0 [0.0/0.01] Description of za60_pwv2.0
+225-237  E13.8  W.sr-1.m-3 za60_pwv3.0 [0.0/0.01] Description of za60_pwv3.0
 --------------------------------------------------------------------------------
 Notes:
 --------------------------------------------------------------------------------
