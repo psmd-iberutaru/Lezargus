@@ -326,6 +326,6 @@ class SpectreExtractor:
 
     def __calculate_initial_slice_corners_flat(
         self: hint.Self,
-        flat_image: hint.NDArray,
+        flat_array: hint.NDArray,
     ) -> hint.Table:
         """Hi."""
