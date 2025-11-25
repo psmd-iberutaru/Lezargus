@@ -196,6 +196,8 @@ INTERNAL_MODULE_DATA_FILE_DIRECTORY = os.path.join(
 # <BEGIN DEBUG>
 # # # SPECTRE Simulation Instrument Configuration
 # # # # # # # # # # # # # # # # # # # #
+# By policy, all of these should be False when releasing a new version. These
+# configuration flags are for development only.
 
 # Due to the nature of loading data files, sometimes, loading data files needs
 # to be disabled when creating the data files themselves. This parameter means

@@ -367,9 +367,21 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The inputted atmosphere simulation. We store this original copy as</span>
 <span class="sd">    the actual working copy is being modified in place.&quot;&quot;&quot;</span>
 
+    <span class="n">detector</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">DetectorArray</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The instance of the detector for the simulation. Each channel has</span>
+<span class="sd">    their own detector instance and this is it, based on the channel.&quot;&quot;&quot;</span>
+
     <span class="n">channel</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;visible&quot;</span><span class="p">,</span> <span class="s2">&quot;nearir&quot;</span><span class="p">,</span> <span class="s2">&quot;midir&quot;</span><span class="p">]</span>  <span class="c1"># noqa: F821, UP037</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The specific channel of the three channels of SPECTRE that we are</span>
 <span class="sd">    simulating.&quot;&quot;&quot;</span>
+
+    <span class="n">flat_lamp_in</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;If True, the calibration apparatus flat lamp is considered in and on,</span>
+<span class="sd">    and so the simulation injects it into the light path where required.&quot;&quot;&quot;</span>
+
+    <span class="n">arc_lamp_in</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;If True, the calibration apparatus arc lamp is considered in and on,</span>
+<span class="sd">    and so the simulation injects it into the light path where required.&quot;&quot;&quot;</span>
 
     <span class="n">exposure_time</span><span class="p">:</span> <span class="nb">float</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;The exposure time of the integration, used near the end for Poisson</span>
@@ -379,10 +391,12 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Co-adds are a way to combine multiple exposures into a single file,</span>
 <span class="sd">    giving better signal to noise without saturating.&quot;&quot;&quot;</span>
 
-    <span class="n">use_cache</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">use_cache</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;If True, we cache calculated values so that they do not need to</span>
 <span class="sd">    be calculated every time when not needed. If False, caches are never</span>
 <span class="sd">    returned and instead everything is always recomputed.&quot;&quot;&quot;</span>
+
+    <span class="n">_cache_spectral_dispersion</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusImage</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 
 <div class="viewcode-block" id="SpectreSimulator.__init__">
 <a class="viewcode-back" href="../../../code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.__init__">[docs]</a>
@@ -449,14 +463,18 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">atmosphere</span> <span class="o">=</span> <span class="n">atmosphere</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">target</span><span class="o">.</span><span class="n">add_atmosphere</span><span class="p">(</span><span class="n">atmosphere</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">atmosphere</span><span class="p">)</span>
 
-        <span class="c1"># Parsing the channel name.</span>
+        <span class="c1"># Select the channel that this instance is simulating, and assign the</span>
+        <span class="c1"># other parameters per the correct channel.</span>
         <span class="n">channel</span> <span class="o">=</span> <span class="n">channel</span><span class="o">.</span><span class="n">casefold</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;visible&quot;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">=</span> <span class="s2">&quot;visible&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">detector</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DETECTOR_SPECTRE_VISIBLE</span>
         <span class="k">elif</span> <span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;nearir&quot;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">=</span> <span class="s2">&quot;nearir&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">detector</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DETECTOR_SPECTRE_NEARIR</span>
         <span class="k">elif</span> <span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;midir&quot;</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">=</span> <span class="s2">&quot;midir&quot;</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">detector</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DETECTOR_SPECTRE_MIDIR</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
                 <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
@@ -464,7 +482,11 @@
                     <span class="sa">f</span><span class="s2">&quot;Channel name input </span><span class="si">{</span><span class="n">channel</span><span class="si">}</span><span class="s2"> does not match: visible,&quot;</span>
                     <span class="s2">&quot; nearir, midir.&quot;</span>
                 <span class="p">),</span>
-            <span class="p">)</span></div>
+            <span class="p">)</span>
+
+        <span class="c1"># Just making sure the detector is up to date.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">detector</span><span class="o">.</span><span class="n">recalculate_detector</span><span class="p">()</span></div>
+
 
         <span class="c1"># All done.</span>
 
@@ -472,6 +494,331 @@
 <a class="viewcode-back" href="../../../code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.from_advanced_parameters">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_advanced_parameters</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">],</span>
+        <span class="n">target</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">TargetSimulator</span><span class="p">,</span>
+        <span class="n">channel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">exposure_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">coadds</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">atmosphere_temperature</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">275.15</span><span class="p">,</span>
+        <span class="n">atmosphere_pressure</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">61500</span><span class="p">,</span>
+        <span class="n">atmosphere_ppw</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">230</span><span class="p">,</span>
+        <span class="n">atmosphere_pwv</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.001</span><span class="p">,</span>
+        <span class="n">atmosphere_seeing</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.8</span> <span class="o">/</span> <span class="mi">206265</span><span class="p">,</span>
+        <span class="n">zenith_angle</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">parallactic_angle</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="n">reference_wavelength</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">0.550e-6</span><span class="p">,</span>
+        <span class="n">telescope_temperature</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">275.15</span><span class="p">,</span>
+        <span class="n">transmission_generator</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">AtmosphereSpectrumGenerator</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="n">radiance_generator</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">AtmosphereSpectrumGenerator</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the SPECTRE simulator, only using parameter values.</span>
+
+<span class="sd">        By default, the initialization of the SPECTRE simulator requires the</span>
+<span class="sd">        creation of three different inner simulator classes. This convenience</span>
+<span class="sd">        function does that for the user for two, as long as they provide the</span>
+<span class="sd">        environmental parameters for the atmosphere and telescope. Note,</span>
+<span class="sd">        default parameters are for typical conditions where available.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        channel : str</span>
+<span class="sd">            The name of the channel that will be simulated; one of three</span>
+<span class="sd">            channels: visible, nearir, and midir.</span>
+<span class="sd">        target : TargetSimulator</span>
+<span class="sd">            The observed target which we are simulating. The creation of this</span>
+<span class="sd">            target can be done manually for via other convenience functions.</span>
+<span class="sd">        exposure_time : float</span>
+<span class="sd">            The exposure time of the observation integration, in seconds.</span>
+<span class="sd">        coadds : int, default = 1</span>
+<span class="sd">            The number of co-adds of the provided exposure time for the</span>
+<span class="sd">            observation.</span>
+<span class="sd">        atmosphere_temperature : float, default = 275.15</span>
+<span class="sd">            The temperature of the intervening atmosphere, in Kelvin.</span>
+<span class="sd">        atmosphere_pressure : float, default = 61500</span>
+<span class="sd">            The pressure of the intervening atmosphere, in Pascal.</span>
+<span class="sd">        atmosphere_ppw : float, default = 230</span>
+<span class="sd">            The partial pressure of water in the atmosphere, in Pascal.</span>
+<span class="sd">        atmosphere_pwv : float, default = 0.001</span>
+<span class="sd">            The precipitable water vapor in the atmosphere, in meters.</span>
+<span class="sd">        atmosphere_seeing : float, default = 0.8 / 206265</span>
+<span class="sd">            The seeing of the atmosphere, given as the FWHM of the seeing disk,</span>
+<span class="sd">            often approximated as a Gaussian distribution, at zenith and at</span>
+<span class="sd">            the reference wavelength. The units are in radians.</span>
+<span class="sd">        zenith_angle : float, default = 0</span>
+<span class="sd">            The zenith angle of the simulated object, at the reference</span>
+<span class="sd">            wavelength in radians; primarily used to determine airmass.</span>
+<span class="sd">        parallactic_angle : float, default = 0</span>
+<span class="sd">            The parallactic angle of the simulated object, in radians; primarily</span>
+<span class="sd">            used to atmospheric dispersion direction.</span>
+<span class="sd">        reference_wavelength : float, default = 0.550e-6</span>
+<span class="sd">            The reference wavelength which defines the seeing and zenith angle</span>
+<span class="sd">            parameters. Assumed to be in the same units as the provided</span>
+<span class="sd">            wavelength axis.</span>
+<span class="sd">        telescope_temperature : float, default = 275.15</span>
+<span class="sd">            The local temperature of the telescope, usually the temperatures</span>
+<span class="sd">            of the primary and other mirrors; in Kelvin.</span>
+<span class="sd">        transmission_generator : AtmosphereSpectrumGenerator, default = None</span>
+<span class="sd">            The transmission spectrum generator used to generate the</span>
+<span class="sd">            specific transmission spectra. If None, we default to the built-in</span>
+<span class="sd">            generators.</span>
+<span class="sd">        radiance_generator : AtmosphereSpectrumGenerator, default = None</span>
+<span class="sd">            The transmission spectrum generator used to generate the</span>
+<span class="sd">            specific transmission spectra. If None, we default to the built-in</span>
+<span class="sd">            generators.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        spectre_simulator : SpectreSimulator</span>
+<span class="sd">            The simulator, with the properties provided from the parameters.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Creating the three simulator objects.</span>
+        <span class="c1"># The target.</span>
+        <span class="n">using_target</span> <span class="o">=</span> <span class="n">target</span>
+
+        <span class="c1"># The atmosphere.</span>
+        <span class="n">using_atmosphere</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">simulator</span><span class="o">.</span><span class="n">AtmosphereSimulator</span><span class="p">(</span>
+            <span class="n">temperature</span><span class="o">=</span><span class="n">atmosphere_temperature</span><span class="p">,</span>
+            <span class="n">pressure</span><span class="o">=</span><span class="n">atmosphere_pressure</span><span class="p">,</span>
+            <span class="n">ppw</span><span class="o">=</span><span class="n">atmosphere_ppw</span><span class="p">,</span>
+            <span class="n">pwv</span><span class="o">=</span><span class="n">atmosphere_pwv</span><span class="p">,</span>
+            <span class="n">seeing</span><span class="o">=</span><span class="n">atmosphere_seeing</span><span class="p">,</span>
+            <span class="n">zenith_angle</span><span class="o">=</span><span class="n">zenith_angle</span><span class="p">,</span>
+            <span class="n">parallactic_angle</span><span class="o">=</span><span class="n">parallactic_angle</span><span class="p">,</span>
+            <span class="n">reference_wavelength</span><span class="o">=</span><span class="n">reference_wavelength</span><span class="p">,</span>
+            <span class="n">transmission_generator</span><span class="o">=</span><span class="n">transmission_generator</span><span class="p">,</span>
+            <span class="n">radiance_generator</span><span class="o">=</span><span class="n">radiance_generator</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># The telescope.</span>
+        <span class="n">using_telescope</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">simulator</span><span class="o">.</span><span class="n">IrtfTelescopeSimulator</span><span class="p">(</span>
+            <span class="n">temperature</span><span class="o">=</span><span class="n">telescope_temperature</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Creating the main simulator class, using the above three component</span>
+        <span class="c1"># simulators.</span>
+        <span class="n">spectre_simulator</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span>
+            <span class="n">target</span><span class="o">=</span><span class="n">using_target</span><span class="p">,</span>
+            <span class="n">telescope</span><span class="o">=</span><span class="n">using_telescope</span><span class="p">,</span>
+            <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+            <span class="n">exposure_time</span><span class="o">=</span><span class="n">exposure_time</span><span class="p">,</span>
+            <span class="n">coadds</span><span class="o">=</span><span class="n">coadds</span><span class="p">,</span>
+            <span class="n">atmosphere</span><span class="o">=</span><span class="n">using_atmosphere</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">spectre_simulator</span></div>
+
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">__calculate_field_view_spatial_sampling</span><span class="p">(</span>
+        <span class="n">spatial_oversample</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Calculate the field of view and spatial sampling values.</span>
+
+<span class="sd">        We just separate the computation of these values into this function</span>
+<span class="sd">        to make it a little cleaner and to repeat less. These values really</span>
+<span class="sd">        only depend on the spatial oversampling value anyways.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        spatial_oversample : int</span>
+<span class="sd">            The spatial oversampling ratio of the detector which we are using</span>
+<span class="sd">            to determine the target simulation spatial grid.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        field_of_view : tuple</span>
+<span class="sd">            The field of view parameter for this simulator&#39;s target class.</span>
+<span class="sd">        spatial_shape : tuple</span>
+<span class="sd">            The spatial shape parameter for this simulator&#39;s target class.</span>
+<span class="sd">        location : str</span>
+<span class="sd">            The location, this really is just extra fluff and makes changing</span>
+<span class="sd">            it easy should it ever need to be changed.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># First, we define the field-of-view and appropriate sampling values</span>
+        <span class="c1"># to generate our target. These values are based on more fundamental</span>
+        <span class="c1"># SPECTRE parameters and should not be changed.</span>
+        <span class="n">const_spectre_field_of_view_arcsec</span> <span class="o">=</span> <span class="mf">7.2</span>
+        <span class="n">const_spectre_plate_scale_arcsec</span> <span class="o">=</span> <span class="mf">0.1</span>
+
+        <span class="c1"># It is good to have a buffer to the default field of view to deal</span>
+        <span class="c1"># with atmospheric refraction and can be changed should the situation</span>
+        <span class="c1"># require.</span>
+        <span class="n">field_of_view_buffer</span> <span class="o">=</span> <span class="mf">1.6</span>
+
+        <span class="c1"># Determining the appropriate grid parameters.</span>
+        <span class="n">field_of_view_side</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">const_spectre_field_of_view_arcsec</span> <span class="o">+</span> <span class="n">field_of_view_buffer</span>
+        <span class="p">)</span>
+        <span class="n">spatial_shape_side</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="nb">int</span><span class="p">(</span><span class="n">field_of_view_side</span> <span class="o">/</span> <span class="n">const_spectre_plate_scale_arcsec</span><span class="p">)</span>
+            <span class="o">*</span> <span class="n">spatial_oversample</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Assembling the grid parameters. The field of view is in radians.</span>
+        <span class="n">spatial_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">spatial_shape_side</span><span class="p">,</span> <span class="n">spatial_shape_side</span><span class="p">)</span>
+        <span class="n">field_of_view</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">field_of_view_side</span> <span class="o">/</span> <span class="mi">206265</span><span class="p">,</span>
+            <span class="n">field_of_view_side</span> <span class="o">/</span> <span class="mi">206265</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">location</span> <span class="o">=</span> <span class="s2">&quot;center&quot;</span>
+        <span class="k">return</span> <span class="n">field_of_view</span><span class="p">,</span> <span class="n">spatial_shape</span><span class="p">,</span> <span class="n">location</span>
+
+<div class="viewcode-block" id="SpectreSimulator.from_spectrum">
+<a class="viewcode-back" href="../../../code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.from_spectrum">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_spectrum</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">],</span>
+        <span class="n">spectrum</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">,</span>
+        <span class="n">channel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">exposure_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">spatial_oversample</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize a SPECTRE simulator via a spectrum.</span>
+
+<span class="sd">        This is a convenience function to create a simulator using a single</span>
+<span class="sd">        spectrum with typical default environmental parameters. The spatial</span>
+<span class="sd">        sampling is determined based on an oversampling ratio of the detector</span>
+<span class="sd">        pixels.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        spectrum : LezargusSpectrum</span>
+<span class="sd">            The spectra of a point source object which we are attempting to</span>
+<span class="sd">            simulate.</span>
+<span class="sd">        channel : str</span>
+<span class="sd">            The spectroscopic channel which we are simulating.</span>
+<span class="sd">        exposure_time : float</span>
+<span class="sd">            The exposure time of the observation integration, in seconds.</span>
+<span class="sd">        spatial_oversample : int</span>
+<span class="sd">            The spatial oversampling ratio of the detector which we are using</span>
+<span class="sd">            to determine the target simulation spatial grid.</span>
+<span class="sd">        **kwargs : Any</span>
+<span class="sd">            Keyword arguments passed to the advanced parameter call.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        spectre_simulator : SpectreSimulator</span>
+<span class="sd">            The simulator, with the properties provided from the parameters.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Calculating the field of view and spatial shape parameters.</span>
+        <span class="n">field_of_view</span><span class="p">,</span> <span class="n">spatial_shape</span><span class="p">,</span> <span class="n">location</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">__calculate_field_view_spatial_sampling</span><span class="p">(</span>
+                <span class="n">spatial_oversample</span><span class="o">=</span><span class="n">spatial_oversample</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Assembling the target.</span>
+        <span class="n">using_target</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">simulator</span><span class="o">.</span><span class="n">TargetSimulator</span><span class="o">.</span><span class="n">from_spectrum</span><span class="p">(</span>
+            <span class="n">spectrum</span><span class="o">=</span><span class="n">spectrum</span><span class="p">,</span>
+            <span class="n">spatial_grid_shape</span><span class="o">=</span><span class="n">spatial_shape</span><span class="p">,</span>
+            <span class="n">spatial_fov_shape</span><span class="o">=</span><span class="n">field_of_view</span><span class="p">,</span>
+            <span class="n">location</span><span class="o">=</span><span class="n">location</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">spectre_simulator</span> <span class="o">=</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_advanced_parameters</span><span class="p">(</span>
+            <span class="n">target</span><span class="o">=</span><span class="n">using_target</span><span class="p">,</span>
+            <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+            <span class="n">exposure_time</span><span class="o">=</span><span class="n">exposure_time</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Assembling everything else.</span>
+        <span class="k">return</span> <span class="n">spectre_simulator</span></div>
+
+
+<div class="viewcode-block" id="SpectreSimulator.from_blackbody">
+<a class="viewcode-back" href="../../../code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.from_blackbody">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_blackbody</span><span class="p">(</span>
+        <span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">],</span>
+        <span class="n">wavelength</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">,</span>
+        <span class="n">blackbody_temperature</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">magnitude</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">photometric_filter</span><span class="p">:</span> <span class="p">(</span>
+            <span class="n">hint</span><span class="o">.</span><span class="n">PhotometricABFilter</span> <span class="o">|</span> <span class="n">hint</span><span class="o">.</span><span class="n">PhotometricVegaFilter</span>
+        <span class="p">),</span>
+        <span class="n">spectral_scale</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">channel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">exposure_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">spatial_oversample</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize a SPECTRE simulator via a blackbody temperature.</span>
+
+<span class="sd">        This is a convenience function to create a simulator using a single</span>
+<span class="sd">        spectrum with typical default environmental parameters. The spatial</span>
+<span class="sd">        sampling is determined based on an oversampling ratio of the detector</span>
+<span class="sd">        pixels.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        wavelength : ndarray</span>
+<span class="sd">            The wavelength basis of the simulator; this defines the wavelength</span>
+<span class="sd">            axis and are its values.</span>
+<span class="sd">        blackbody_temperature : float</span>
+<span class="sd">            The blackbody temperature of the object that we are simulating,</span>
+<span class="sd">            in Kelvin.</span>
+<span class="sd">        magnitude : float</span>
+<span class="sd">            The simulated magnitude of the object. The photometric filter</span>
+<span class="sd">            system this magnitude is in must match the inputted photometric</span>
+<span class="sd">            filter.</span>
+<span class="sd">        photometric_filter : PhotometricABFilter or PhotometricVegaFilter</span>
+<span class="sd">            The photometric filter (system) that the inputted magnitude is in.</span>
+<span class="sd">        spectral_scale : float</span>
+<span class="sd">            The spectral scale of the simulated spectra, as a resolution,</span>
+<span class="sd">            in wavelength separation (in meters) per pixel.</span>
+<span class="sd">        channel : str</span>
+<span class="sd">            The spectroscopic channel which we are simulating.</span>
+<span class="sd">        exposure_time : float</span>
+<span class="sd">            The exposure time of the observation integration, in seconds.</span>
+<span class="sd">        spatial_oversample : int</span>
+<span class="sd">            The spatial oversampling ratio of the detector which we are using</span>
+<span class="sd">            to determine the target simulation spatial grid.</span>
+<span class="sd">        **kwargs : Any</span>
+<span class="sd">            Keyword arguments passed to the advanced parameter call.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        spectre_simulator : SpectreSimulator</span>
+<span class="sd">            The simulator, with the properties provided from the parameters.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Calculating the field of view and spatial shape parameters.</span>
+        <span class="n">field_of_view</span><span class="p">,</span> <span class="n">spatial_shape</span><span class="p">,</span> <span class="n">location</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">__calculate_field_view_spatial_sampling</span><span class="p">(</span>
+                <span class="n">spatial_oversample</span><span class="o">=</span><span class="n">spatial_oversample</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Assembling the target.</span>
+        <span class="n">using_target</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">simulator</span><span class="o">.</span><span class="n">TargetSimulator</span><span class="o">.</span><span class="n">from_blackbody</span><span class="p">(</span>
+            <span class="n">wavelength</span><span class="o">=</span><span class="n">wavelength</span><span class="p">,</span>
+            <span class="n">temperature</span><span class="o">=</span><span class="n">blackbody_temperature</span><span class="p">,</span>
+            <span class="n">magnitude</span><span class="o">=</span><span class="n">magnitude</span><span class="p">,</span>
+            <span class="n">photometric_filter</span><span class="o">=</span><span class="n">photometric_filter</span><span class="p">,</span>
+            <span class="n">spatial_grid_shape</span><span class="o">=</span><span class="n">spatial_shape</span><span class="p">,</span>
+            <span class="n">spatial_fov_shape</span><span class="o">=</span><span class="n">field_of_view</span><span class="p">,</span>
+            <span class="n">spectral_scale</span><span class="o">=</span><span class="n">spectral_scale</span><span class="p">,</span>
+            <span class="n">location</span><span class="o">=</span><span class="n">location</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Assembling everything else.</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_advanced_parameters</span><span class="p">(</span>
+            <span class="n">target</span><span class="o">=</span><span class="n">using_target</span><span class="p">,</span>
+            <span class="n">channel</span><span class="o">=</span><span class="n">channel</span><span class="p">,</span>
+            <span class="n">exposure_time</span><span class="o">=</span><span class="n">exposure_time</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SpectreSimulator.old_from_advanced_parameters">
+<a class="viewcode-back" href="../../../code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.old_from_advanced_parameters">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">old_from_advanced_parameters</span><span class="p">(</span>
         <span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">],</span>
         <span class="n">channel</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
         <span class="n">wavelength</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">,</span>
@@ -852,7 +1199,12 @@
 
         <span class="c1"># Multiplying by the area of the telescope.</span>
         <span class="n">telescope_area</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">telescope</span><span class="o">.</span><span class="n">telescope_area</span>
+        <span class="n">telescope_area_unit</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">conversion</span><span class="o">.</span><span class="n">parse_astropy_unit</span><span class="p">(</span>
+            <span class="n">unit_string</span><span class="o">=</span><span class="s2">&quot;m^2&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># Multiplying by the area, and adapting the unit.</span>
         <span class="n">current_state</span> <span class="o">=</span> <span class="n">previous_state</span> <span class="o">*</span> <span class="n">telescope_area</span>
+        <span class="n">current_state</span><span class="o">.</span><span class="n">data_unit</span> <span class="o">=</span> <span class="n">previous_state</span><span class="o">.</span><span class="n">data_unit</span> <span class="o">*</span> <span class="n">telescope_area_unit</span>
 
         <span class="k">return</span> <span class="n">current_state</span>
 
@@ -1029,6 +1381,115 @@
         <span class="k">return</span> <span class="n">current_state</span>
 
     <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">at_calibration_apparatus</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusCube</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;State of simulation after the calibration lamp aparatus.</span>
+
+<span class="sd">        The calibration apparatus comprises of the arc and flat lamps of the</span>
+<span class="sd">        insturment. If a normal object is being simulated/observed, then</span>
+<span class="sd">        the data is passed through. Otherwise, the simulation emulates</span>
+<span class="sd">        the calibration lamp in the field of view.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        current_state : LezargusCube</span>
+<span class="sd">            The state of the simulation after applying the effects of</span>
+<span class="sd">            the secondary mirror emission.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Both the arc lamp and the flat lamp cannot physcially be in the</span>
+        <span class="c1"># light path at the same time.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">arc_lamp_in</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">flat_lamp_in</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InstrumentError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="sa">f</span><span class="s2">&quot;Arc lamp mode: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">arc_lamp_in</span><span class="si">}</span><span class="s2">; flat lamp mode:&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">flat_lamp_in</span><span class="si">}</span><span class="s2">. Both lamps cannot be in at the same&quot;</span>
+                    <span class="s2">&quot; time.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+        <span class="c1"># If neither are inside, then we just do a pass through.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">arc_lamp_in</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">flat_lamp_in</span><span class="p">):</span>
+            <span class="c1"># No cached value, we calculate it from the previous state.</span>
+            <span class="n">previous_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">at_secondary_emission</span>
+            <span class="k">return</span> <span class="n">previous_state</span>
+
+        <span class="c1"># In order to define the arc and flat lamps in a self-consisitant</span>
+        <span class="c1"># way, we base some parameters on the defined target for</span>
+        <span class="c1"># the simulation.</span>
+        <span class="c1"># We do not want to calculate things we do not need.</span>
+        <span class="n">reference_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">at_target</span>
+
+        <span class="c1"># Otherwise, we calculate the arc or flat lamp.</span>
+        <span class="c1"># Both are simulated using a specific spectrum of uniform spatial</span>
+        <span class="c1"># distribution.</span>
+        <span class="c1"># ... The arc lamp.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">arc_lamp_in</span><span class="p">:</span>
+            <span class="n">calibration_spectrum</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># ... The flat lamp.</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">flat_lamp_in</span><span class="p">:</span>
+            <span class="c1"># The lamp is just a simple blackbody; but we need to integrate it.</span>
+            <span class="n">lamp_temperature</span> <span class="o">=</span> <span class="mi">3000</span>
+            <span class="n">solid_angle</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span>
+            <span class="n">area_integrate</span> <span class="o">=</span> <span class="mf">1e-20</span>
+            <span class="n">blackbody_function</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">blackbody_function</span><span class="p">(</span>
+                <span class="n">temperature</span><span class="o">=</span><span class="n">lamp_temperature</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">blackbody_wavelength</span> <span class="o">=</span> <span class="n">reference_state</span><span class="o">.</span><span class="n">wavelength</span>
+            <span class="n">blackbody_flux</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">blackbody_function</span><span class="p">(</span><span class="n">blackbody_wavelength</span><span class="p">)</span>
+                <span class="o">*</span> <span class="n">solid_angle</span>
+                <span class="o">*</span> <span class="n">area_integrate</span>
+            <span class="p">)</span>
+            <span class="c1"># Parsing the lamp spectrum from previous known data upwards.</span>
+            <span class="n">lamp_spectrum</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">(</span>
+                <span class="n">wavelength</span><span class="o">=</span><span class="n">blackbody_wavelength</span><span class="p">,</span>
+                <span class="n">data</span><span class="o">=</span><span class="n">blackbody_flux</span><span class="p">,</span>
+                <span class="n">uncertainty</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">wavelength_unit</span><span class="o">=</span><span class="n">reference_state</span><span class="o">.</span><span class="n">wavelength_unit</span><span class="p">,</span>
+                <span class="n">data_unit</span><span class="o">=</span><span class="n">reference_state</span><span class="o">.</span><span class="n">data_unit</span><span class="p">,</span>
+                <span class="n">spectral_scale</span><span class="o">=</span><span class="n">reference_state</span><span class="o">.</span><span class="n">spectral_scale</span><span class="p">,</span>
+                <span class="n">pixel_scale</span><span class="o">=</span><span class="n">reference_state</span><span class="o">.</span><span class="n">pixel_scale</span><span class="p">,</span>
+                <span class="n">slice_scale</span><span class="o">=</span><span class="n">reference_state</span><span class="o">.</span><span class="n">slice_scale</span><span class="p">,</span>
+                <span class="n">mask</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">flags</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">header</span><span class="o">=</span><span class="n">reference_state</span><span class="o">.</span><span class="n">header</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">calibration_spectrum</span> <span class="o">=</span> <span class="n">lamp_spectrum</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+                <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">LogicFlowError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;Neither calibrations are in; the pass through should have&quot;</span>
+                    <span class="s2">&quot; already happened.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+
+        <span class="c1"># With the needed spectrum, we can just spatially broadcast it.</span>
+        <span class="n">calibration_cube</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">functionality</span><span class="o">.</span><span class="n">broadcast_spectrum_to_cube</span><span class="p">(</span>
+                <span class="n">input_spectrum</span><span class="o">=</span><span class="n">calibration_spectrum</span><span class="p">,</span>
+                <span class="n">shape</span><span class="o">=</span><span class="n">reference_state</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+                <span class="n">location</span><span class="o">=</span><span class="s2">&quot;full&quot;</span><span class="p">,</span>
+                <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                <span class="n">fill_uncertainty</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Our spectrums are in energy units while at this stage we are already</span>
+        <span class="c1"># dealing with photon units.</span>
+        <span class="n">calibration_photon_cube</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert_to_photon</span><span class="p">(</span>
+            <span class="n">container</span><span class="o">=</span><span class="n">calibration_cube</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># The new lamp state is ready.</span>
+        <span class="n">current_state</span> <span class="o">=</span> <span class="n">calibration_photon_cube</span>
+        <span class="k">return</span> <span class="n">current_state</span>
+
+    <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">at_window_transmission</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusCube</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;State of simulation after entrance window transmission.</span>
 
@@ -1044,7 +1505,7 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># No cached value, we calculate it from the previous state.</span>
-        <span class="n">previous_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">at_secondary_emission</span>
+        <span class="n">previous_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">at_calibration_apparatus</span>
 
         <span class="c1"># We get the window transmission spectrum.</span>
         <span class="n">window_transmission</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">EFFICIENCY_SPECTRE_WINDOW</span>
@@ -1114,13 +1575,16 @@
             <span class="n">window_area</span> <span class="o">*</span> <span class="n">solid_angle</span>
         <span class="p">)</span>
 
-        <span class="c1"># We want this emission in photon counting form.</span>
+        <span class="c1"># We want this emission in photon counting form. As we multiplied by</span>
+        <span class="c1"># the science beam&#39;s area, we need to reflect that in the units. We</span>
+        <span class="c1"># are explict here for the sake of clarity; the inner code handles it</span>
+        <span class="c1"># upon the conversion to photons.</span>
         <span class="n">window_emission_spectrum</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">(</span>
             <span class="n">wavelength</span><span class="o">=</span><span class="n">common_wavelength</span><span class="p">,</span>
             <span class="n">data</span><span class="o">=</span><span class="n">window_emission</span><span class="p">,</span>
             <span class="n">uncertainty</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
             <span class="n">wavelength_unit</span><span class="o">=</span><span class="n">previous_state</span><span class="o">.</span><span class="n">wavelength_unit</span><span class="p">,</span>
-            <span class="n">data_unit</span><span class="o">=</span><span class="s2">&quot;W m^-2 m^-1&quot;</span><span class="p">,</span>
+            <span class="n">data_unit</span><span class="o">=</span><span class="s2">&quot;W m^-2 m^-1 m^2&quot;</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">window_photon_emission</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_convert_to_photon</span><span class="p">(</span>
             <span class="n">container</span><span class="o">=</span><span class="n">window_emission_spectrum</span><span class="p">,</span>
@@ -1824,25 +2288,13 @@
         <span class="c1"># No cached value, we calculate it from the previous state.</span>
         <span class="n">previous_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">at_fold_mirror</span>
 
-        <span class="c1"># We get the quantum efficiency profile of the channel&#39;s detector.</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;visible&quot;</span><span class="p">:</span>
-            <span class="n">detector_efficiency</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">EFFICIENCY_SPECTRE_CCD_VISIBLE</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;nearir&quot;</span><span class="p">:</span>
-            <span class="n">detector_efficiency</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">EFFICIENCY_SPECTRE_H2RG_NEARIR</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;midir&quot;</span><span class="p">:</span>
-            <span class="n">detector_efficiency</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">EFFICIENCY_SPECTRE_H2RG_MIDIR</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">,</span>
-                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Channel name is </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">, which is not a supported&quot;</span>
-                    <span class="s2">&quot; channel.&quot;</span>
-                <span class="p">),</span>
-            <span class="p">)</span>
-
-        <span class="c1"># Interpolating it to the wavelength grid.</span>
-        <span class="n">detector_efficiency_spectrum</span> <span class="o">=</span> <span class="n">detector_efficiency</span><span class="o">.</span><span class="n">interpolate_spectrum</span><span class="p">(</span>
-            <span class="n">wavelength</span><span class="o">=</span><span class="n">previous_state</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+        <span class="c1"># We get the quantum efficiency profile of the channel&#39;s detector,</span>
+        <span class="c1"># as based on the detector. Compiling it into a single spectrum, so</span>
+        <span class="c1"># that we may broadcast it out.</span>
+        <span class="n">efficiency_wavelength</span> <span class="o">=</span> <span class="n">previous_state</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">wavelength</span>
+        <span class="n">detector_efficiency_spectrum</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detector</span><span class="o">.</span><span class="n">efficiency_spectrum</span><span class="p">(</span>
+            <span class="n">wavelength</span><span class="o">=</span><span class="n">efficiency_wavelength</span><span class="p">,</span>
+            <span class="n">spectral_scale</span><span class="o">=</span><span class="n">previous_state</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">spectral_scale</span><span class="p">,</span>
         <span class="p">)</span>
 
         <span class="c1"># And, broadcasting the emission spectra to allow us to apply it</span>
@@ -1882,6 +2334,44 @@
 <span class="sd">            spectral dispersion onto the detector.</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># The default parameters of the advanced function is considered the</span>
+        <span class="c1"># &quot;default&quot; of the simulation.</span>
+        <span class="n">current_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">at_advanced_spectral_dispersion</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">current_state</span>
+
+<div class="viewcode-block" id="SpectreSimulator.at_advanced_spectral_dispersion">
+<a class="viewcode-back" href="../../../code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_advanced_spectral_dispersion">[docs]</a>
+    <span class="k">def</span> <span class="nf">at_advanced_spectral_dispersion</span><span class="p">(</span>  <span class="c1"># noqa: PLR0915</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">quick_translation</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusImage</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;State of simulation after modeling spectral dispersion on detector.</span>
+
+<span class="sd">        This is the advanced function and allow for more customization of the</span>
+<span class="sd">        simulation of spectral dispersion. The standard spectral dispersion</span>
+<span class="sd">        function calls this function, with the standard mode being the</span>
+<span class="sd">        provided defaults here. We cache the results to ensure that a</span>
+<span class="sd">        call to the base property provides the advanced computation, should</span>
+<span class="sd">        it exist.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        quick_translation : bool, default = False</span>
+<span class="sd">            If True, we simplify the translation. Instead of an affine</span>
+<span class="sd">            translation, we physically place the array based on the</span>
+<span class="sd">            coordinates after doing a much smaller translation.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        current_state : LezargusImage</span>
+<span class="sd">            The state of the simulation after applying the effects of</span>
+<span class="sd">            spectral dispersion onto the detector.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We use a cached value if there exists one.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_spectral_dispersion</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_cache</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_cache_spectral_dispersion</span>
+
         <span class="c1"># No cached value, we calculate it from the previous state.</span>
         <span class="n">previous_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">at_detector_quantum_efficiency</span>
 
@@ -1890,7 +2380,7 @@
         <span class="c1"># and we assume they are square.</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;visible&quot;</span><span class="p">:</span>
             <span class="n">detector_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_VISIBLE_DETECTOR_SIZE</span><span class="p">)</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;nearif&quot;</span><span class="p">:</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;nearir&quot;</span><span class="p">:</span>
             <span class="n">detector_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_NEARIR_DETECTOR_SIZE</span><span class="p">)</span>
         <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;midir&quot;</span><span class="p">:</span>
             <span class="n">detector_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_MIDIR_DETECTOR_SIZE</span><span class="p">)</span>
@@ -1936,140 +2426,317 @@
             <span class="n">detector_size</span> <span class="o">*</span> <span class="n">bin_factor</span><span class="p">,</span>
             <span class="n">detector_size</span> <span class="o">*</span> <span class="n">bin_factor</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="n">detector_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">detector_shape</span><span class="p">)</span>
 
-        <span class="c1"># Going over every single slice, we need to put it on the detector.</span>
-        <span class="k">for</span> <span class="n">sliceindex</span><span class="p">,</span> <span class="n">slicedex</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">previous_state</span><span class="p">):</span>
+        <span class="c1"># We seperate the slice transformation functions to something a little</span>
+        <span class="c1"># seperate because it is a little cleaner.</span>
+        <span class="c1"># But, these functions really don&#39;t need to be outside anywhere else</span>
+        <span class="c1"># so it is fine to define them here.</span>
+        <span class="k">def</span> <span class="nf">__disperse_slice_to_detector</span><span class="p">(</span>
+            <span class="n">slice_cube</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusCube</span><span class="p">,</span>
+            <span class="n">slice_index</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+        <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">:</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;Compute a slice dispersion onto a full detector.</span>
+
+<span class="sd">            This method is a method used in the calculation of spectral</span>
+<span class="sd">            dispersion. We break it out of the main function for ease. This</span>
+<span class="sd">            function an entire slice individually and seperately from all of</span>
+<span class="sd">            the slices, and so this computation can be paralleized to some</span>
+<span class="sd">            degree.</span>
+
+<span class="sd">            To simulate the dispersion of the slice on the detector, we find</span>
+<span class="sd">            where a monochromatic image of the slice would be on the detector</span>
+<span class="sd">            and add it to the rest. We go over all of the wavelengths.</span>
+
+<span class="sd">            Parameters</span>
+<span class="sd">            ----------</span>
+<span class="sd">            slice_cube : LezargusCube</span>
+<span class="sd">                The slice object which we are dispersing over the detector</span>
+<span class="sd">                space.</span>
+<span class="sd">            slice_index : int</span>
+<span class="sd">                The slice index (or number) which we are computing for.</span>
+
+<span class="sd">            Returns</span>
+<span class="sd">            -------</span>
+<span class="sd">            dispersed_slice_detector : NDArray</span>
+<span class="sd">                The dispersed slice data as an array. Higher functions should</span>
+<span class="sd">                utilize this data and properly pack it into its output.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="c1"># The output arrays are large, it is faster to work with arrays in</span>
+            <span class="c1"># place so we define the output.</span>
+            <span class="n">dispersed_slice_detector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">detector_shape</span><span class="p">)</span>
+
             <span class="c1"># Each wavelength slice of the cubes is integrated over their</span>
             <span class="c1"># wavelength spread. We compute it here and extend it for the</span>
             <span class="c1"># last wavelength point.</span>
-            <span class="n">wavelength_delta</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="n">slicedex</span><span class="o">.</span><span class="n">wavelength</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">slicedex</span><span class="o">.</span><span class="n">wavelength</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-            <span class="p">)</span>
+            <span class="n">slice_wavelength</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">slice_cube</span><span class="o">.</span><span class="n">wavelength</span><span class="p">)</span>
+            <span class="n">wavelength_delta</span> <span class="o">=</span> <span class="n">slice_wavelength</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">slice_wavelength</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
             <span class="n">wavelength_delta</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">wavelength_delta</span><span class="p">,</span> <span class="n">wavelength_delta</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
 
-            <span class="c1"># We need to &quot;integrate&quot; the slice observation&#39;s monochromatic</span>
-            <span class="c1"># image, so we loop over all of them.</span>
-            <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="p">(</span><span class="n">wavedex</span><span class="p">,</span> <span class="n">wdeldex</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span>
-                <span class="nb">zip</span><span class="p">(</span>
-                    <span class="n">slicedex</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
-                    <span class="n">wavelength_delta</span><span class="p">,</span>
+            <span class="c1"># We need to determine where each of the monochromatic slices end up</span>
+            <span class="c1"># in the detector array; simulating dispersion.</span>
+            <span class="n">spectre_disperser</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DISPERSION_SPECTRE</span>
+            <span class="n">new_bottom_left</span> <span class="o">=</span> <span class="n">spectre_disperser</span><span class="o">.</span><span class="n">get_slice_dispersion_pixel</span><span class="p">(</span>
+                <span class="n">channel</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="p">,</span>
+                <span class="n">slice_</span><span class="o">=</span><span class="n">slice_index</span><span class="p">,</span>
+                <span class="n">location</span><span class="o">=</span><span class="s2">&quot;bottom_left&quot;</span><span class="p">,</span>
+                <span class="n">wavelength</span><span class="o">=</span><span class="n">slice_wavelength</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">new_bottom_right</span> <span class="o">=</span> <span class="n">spectre_disperser</span><span class="o">.</span><span class="n">get_slice_dispersion_pixel</span><span class="p">(</span>
+                <span class="n">channel</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="p">,</span>
+                <span class="n">slice_</span><span class="o">=</span><span class="n">slice_index</span><span class="p">,</span>
+                <span class="n">location</span><span class="o">=</span><span class="s2">&quot;bottom_right&quot;</span><span class="p">,</span>
+                <span class="n">wavelength</span><span class="o">=</span><span class="n">slice_wavelength</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">new_top_left</span> <span class="o">=</span> <span class="n">spectre_disperser</span><span class="o">.</span><span class="n">get_slice_dispersion_pixel</span><span class="p">(</span>
+                <span class="n">channel</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="p">,</span>
+                <span class="n">slice_</span><span class="o">=</span><span class="n">slice_index</span><span class="p">,</span>
+                <span class="n">location</span><span class="o">=</span><span class="s2">&quot;top_left&quot;</span><span class="p">,</span>
+                <span class="n">wavelength</span><span class="o">=</span><span class="n">slice_wavelength</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">new_top_right</span> <span class="o">=</span> <span class="n">spectre_disperser</span><span class="o">.</span><span class="n">get_slice_dispersion_pixel</span><span class="p">(</span>
+                <span class="n">channel</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="p">,</span>
+                <span class="n">slice_</span><span class="o">=</span><span class="n">slice_index</span><span class="p">,</span>
+                <span class="n">location</span><span class="o">=</span><span class="s2">&quot;top_right&quot;</span><span class="p">,</span>
+                <span class="n">wavelength</span><span class="o">=</span><span class="n">slice_wavelength</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="c1"># We structure the new coordinates in a way that makes the</span>
+            <span class="c1"># main wavelength loop look a little better.</span>
+            <span class="n">new_coordinates_list</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="p">[</span><span class="n">bl_dex</span><span class="p">,</span> <span class="n">br_dex</span><span class="p">,</span> <span class="n">tl_dex</span><span class="p">,</span> <span class="n">tr_dex</span><span class="p">]</span>
+                <span class="k">for</span> <span class="p">(</span><span class="n">bl_dex</span><span class="p">,</span> <span class="n">br_dex</span><span class="p">,</span> <span class="n">tl_dex</span><span class="p">,</span> <span class="n">tr_dex</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span>
+                    <span class="n">new_bottom_left</span><span class="p">,</span>
+                    <span class="n">new_bottom_right</span><span class="p">,</span>
+                    <span class="n">new_top_left</span><span class="p">,</span>
+                    <span class="n">new_top_right</span><span class="p">,</span>
                     <span class="n">strict</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-                <span class="p">),</span>
+                <span class="p">)</span>
+            <span class="p">]</span>
+
+            <span class="c1"># Going over every single wavelength, we need to put it on the</span>
+            <span class="c1"># detector.</span>
+            <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="p">(</span><span class="n">wdeldex</span><span class="p">,</span> <span class="n">coorddex</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span>
+                <span class="nb">zip</span><span class="p">(</span><span class="n">wavelength_delta</span><span class="p">,</span> <span class="n">new_coordinates_list</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
             <span class="p">):</span>
-                <span class="c1"># The image data at this wavelength.</span>
-                <span class="n">datadex</span> <span class="o">=</span> <span class="n">slicedex</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">index</span><span class="p">]</span>
-                <span class="c1"># We also integrate over the wavelength range.</span>
+                <span class="c1"># We also need to integrate the photon flux over the</span>
+                <span class="c1"># wavelength range of the &quot;monochromatic&quot; image.</span>
+                <span class="n">datadex</span> <span class="o">=</span> <span class="n">slice_cube</span><span class="o">.</span><span class="n">data</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">index</span><span class="p">]</span>
                 <span class="n">integrated_data</span> <span class="o">=</span> <span class="n">datadex</span> <span class="o">*</span> <span class="n">wdeldex</span>
 
-                <span class="c1"># We pad the data to have it the same size, shape, and scale</span>
-                <span class="c1"># of the detector data. We track the corners of the data</span>
-                <span class="c1"># so we can transform the data per dispersion.</span>
-                <span class="n">padded_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">detector_shape</span><span class="p">)</span>
-                <span class="n">full_height</span><span class="p">,</span> <span class="n">full_width</span> <span class="o">=</span> <span class="n">detector_shape</span>
-                <span class="c1"># Manually placing it on the detector.</span>
-                <span class="n">slice_height</span><span class="p">,</span> <span class="n">slice_width</span> <span class="o">=</span> <span class="n">integrated_data</span><span class="o">.</span><span class="n">shape</span>
-                <span class="n">base_bottom_edge</span> <span class="o">=</span> <span class="n">full_height</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">slice_height</span> <span class="o">//</span> <span class="mi">2</span>
-                <span class="n">base_top_edge</span> <span class="o">=</span> <span class="n">base_bottom_edge</span> <span class="o">+</span> <span class="n">slice_height</span>
-                <span class="n">base_left_edge</span> <span class="o">=</span> <span class="n">full_width</span> <span class="o">//</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">slice_width</span> <span class="o">//</span> <span class="mi">2</span>
-                <span class="n">base_right_edge</span> <span class="o">=</span> <span class="n">base_left_edge</span> <span class="o">+</span> <span class="n">slice_width</span>
-                <span class="c1"># Placing the detector data on the array.</span>
-                <span class="n">padded_data</span><span class="p">[</span>
-                    <span class="n">base_bottom_edge</span><span class="p">:</span><span class="n">base_top_edge</span><span class="p">,</span>
-                    <span class="n">base_left_edge</span><span class="p">:</span><span class="n">base_right_edge</span><span class="p">,</span>
-                <span class="p">]</span> <span class="o">=</span> <span class="n">integrated_data</span>
-
-                <span class="c1"># The defining four base coordinates.</span>
-                <span class="n">base_bottom_left</span> <span class="o">=</span> <span class="p">(</span><span class="n">base_left_edge</span><span class="p">,</span> <span class="n">base_bottom_edge</span><span class="p">)</span>
-                <span class="n">base_bottom_right</span> <span class="o">=</span> <span class="p">(</span><span class="n">base_right_edge</span><span class="p">,</span> <span class="n">base_bottom_edge</span><span class="p">)</span>
-                <span class="n">base_top_left</span> <span class="o">=</span> <span class="p">(</span><span class="n">base_left_edge</span><span class="p">,</span> <span class="n">base_top_edge</span><span class="p">)</span>
-                <span class="n">base_top_right</span> <span class="o">=</span> <span class="p">(</span><span class="n">base_right_edge</span><span class="p">,</span> <span class="n">base_top_edge</span><span class="p">)</span>
-
-                <span class="c1"># We determine where this data should be put on the array.</span>
-                <span class="n">new_bottom_left</span> <span class="o">=</span> <span class="p">(</span>
-                    <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DISPERSION_SPECTRE</span><span class="o">.</span><span class="n">get_slice_dispersion_pixel</span><span class="p">(</span>
-                        <span class="n">channel</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="p">,</span>
-                        <span class="n">slice_</span><span class="o">=</span><span class="n">sliceindex</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
-                        <span class="n">location</span><span class="o">=</span><span class="s2">&quot;bottom_left&quot;</span><span class="p">,</span>
-                        <span class="n">wavelength</span><span class="o">=</span><span class="n">wavedex</span><span class="p">,</span>
-                    <span class="p">)</span>
-                <span class="p">)</span>
-                <span class="n">new_bottom_right</span> <span class="o">=</span> <span class="p">(</span>
-                    <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DISPERSION_SPECTRE</span><span class="o">.</span><span class="n">get_slice_dispersion_pixel</span><span class="p">(</span>
-                        <span class="n">channel</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="p">,</span>
-                        <span class="n">slice_</span><span class="o">=</span><span class="n">sliceindex</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
-                        <span class="n">location</span><span class="o">=</span><span class="s2">&quot;bottom_right&quot;</span><span class="p">,</span>
-                        <span class="n">wavelength</span><span class="o">=</span><span class="n">wavedex</span><span class="p">,</span>
-                    <span class="p">)</span>
-                <span class="p">)</span>
-                <span class="n">new_top_left</span> <span class="o">=</span> <span class="p">(</span>
-                    <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DISPERSION_SPECTRE</span><span class="o">.</span><span class="n">get_slice_dispersion_pixel</span><span class="p">(</span>
-                        <span class="n">channel</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="p">,</span>
-                        <span class="n">slice_</span><span class="o">=</span><span class="n">sliceindex</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
-                        <span class="n">location</span><span class="o">=</span><span class="s2">&quot;top_left&quot;</span><span class="p">,</span>
-                        <span class="n">wavelength</span><span class="o">=</span><span class="n">wavedex</span><span class="p">,</span>
-                    <span class="p">)</span>
-                <span class="p">)</span>
-                <span class="n">new_top_right</span> <span class="o">=</span> <span class="p">(</span>
-                    <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">DISPERSION_SPECTRE</span><span class="o">.</span><span class="n">get_slice_dispersion_pixel</span><span class="p">(</span>
-                        <span class="n">channel</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="p">,</span>
-                        <span class="n">slice_</span><span class="o">=</span><span class="n">sliceindex</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
-                        <span class="n">location</span><span class="o">=</span><span class="s2">&quot;top_right&quot;</span><span class="p">,</span>
-                        <span class="n">wavelength</span><span class="o">=</span><span class="n">wavedex</span><span class="p">,</span>
-                    <span class="p">)</span>
-                <span class="p">)</span>
-
-                <span class="c1"># Given the coordinates, we compute the transformation needed</span>
-                <span class="c1"># to move it to the right location.</span>
-                <span class="n">base_coord</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-                    <span class="p">[</span>
-                        <span class="n">base_bottom_left</span><span class="p">,</span>
-                        <span class="n">base_bottom_right</span><span class="p">,</span>
-                        <span class="n">base_top_left</span><span class="p">,</span>
-                        <span class="n">base_top_right</span><span class="p">,</span>
-                    <span class="p">],</span>
-                <span class="p">)</span>
-                <span class="c1"># The needed coordinates are nested so we need to bring it out.</span>
-                <span class="n">new_coord</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-                    <span class="p">[</span>
-                        <span class="o">*</span><span class="n">new_bottom_left</span><span class="p">,</span>
-                        <span class="o">*</span><span class="n">new_bottom_right</span><span class="p">,</span>
-                        <span class="o">*</span><span class="n">new_top_left</span><span class="p">,</span>
-                        <span class="o">*</span><span class="n">new_top_right</span><span class="p">,</span>
-                    <span class="p">],</span>
-                <span class="p">)</span>
                 <span class="c1"># We need to adapt the coordinates to the increased binning</span>
                 <span class="c1"># scale of the current simualted data.</span>
-                <span class="n">new_scaled_coord</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">new_coord</span><span class="p">)</span> <span class="o">*</span> <span class="n">bin_factor</span>
+                <span class="n">new_scaled_coordinates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">coorddex</span><span class="p">)</span> <span class="o">*</span> <span class="n">bin_factor</span>
 
-                <span class="c1"># Calculating the transform matrix given our points.</span>
-                <span class="n">affine_transform_matrix</span> <span class="o">=</span> <span class="p">(</span>
-                    <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">calculate_affine_matrix</span><span class="p">(</span>
-                        <span class="n">in_points</span><span class="o">=</span><span class="n">base_coord</span><span class="p">,</span>
-                        <span class="n">out_points</span><span class="o">=</span><span class="n">new_scaled_coord</span><span class="p">,</span>
+                <span class="c1"># Now we compute the dispersed data.</span>
+                <span class="n">dispersed_slice_detector</span> <span class="o">=</span> <span class="n">__translate_slice_to_detector</span><span class="p">(</span>
+                    <span class="n">slice_array</span><span class="o">=</span><span class="n">integrated_data</span><span class="p">,</span>
+                    <span class="n">dispersive_corners</span><span class="o">=</span><span class="n">new_scaled_coordinates</span><span class="p">,</span>
+                    <span class="n">detector_shape</span><span class="o">=</span><span class="n">detector_shape</span><span class="p">,</span>
+                    <span class="n">detector_data</span><span class="o">=</span><span class="n">dispersed_slice_detector</span><span class="p">,</span>
+                <span class="p">)</span>
+
+            <span class="c1"># All done.</span>
+            <span class="k">return</span> <span class="n">dispersed_slice_detector</span>
+
+        <span class="k">def</span> <span class="nf">__translate_slice_to_detector</span><span class="p">(</span>
+            <span class="n">slice_array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">,</span>
+            <span class="n">dispersive_corners</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">,</span>
+            <span class="n">detector_shape</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span>
+            <span class="n">detector_data</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+        <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">:</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;Translate slice on the detector via quick an affine transform.</span>
+
+<span class="sd">            This function does the leg-work of computing an affine</span>
+<span class="sd">            transformation to emulate the spectral dispersion of mono-chromatic</span>
+<span class="sd">            slice images. However, default transformations take a while so we</span>
+<span class="sd">            short cut it by doing a smaller transform on a smaller array and</span>
+<span class="sd">            putting the smaller array in the right place to emulate the</span>
+<span class="sd">            full affine transform.</span>
+
+<span class="sd">            Moreover, we find that the sheer act of addition is a bit of a</span>
+<span class="sd">            bottleneck. So, we only add over the regions which the slice</span>
+<span class="sd">            is actually being applied to, which, by definition, is also</span>
+<span class="sd">            the same smaller array region for the affine transform.</span>
+
+<span class="sd">            Parameters</span>
+<span class="sd">            ----------</span>
+<span class="sd">            slice_array : NDArray</span>
+<span class="sd">                The mono-chromatic slice array data.</span>
+<span class="sd">            dispersive_corners : NDArray</span>
+<span class="sd">                The corner locations of where the slice should end up on the</span>
+<span class="sd">                detector array to properly simulate its dispersion.</span>
+<span class="sd">            detector_shape : tuple</span>
+<span class="sd">                The shape of the detector that we are applying the slices to.</span>
+<span class="sd">                If `detector_data` is provided, this parameter is ignored in</span>
+<span class="sd">                favor of its shape.</span>
+<span class="sd">            detector_data : NDArray, default = None</span>
+<span class="sd">                The current detector data. When the monochromatic slice is</span>
+<span class="sd">                added to the detector, we only add to the portion that matters</span>
+<span class="sd">                but to do that, we need the previous data as well which this</span>
+<span class="sd">                is. If None, we default to an all-zeros detector data based</span>
+<span class="sd">                on the provided shape.</span>
+
+<span class="sd">            Returns</span>
+<span class="sd">            -------</span>
+<span class="sd">            current_detector_data : NDArray</span>
+<span class="sd">                The current data of the detector with the transformation</span>
+<span class="sd">                applied.</span>
+
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="c1"># We are either working on a previous detector or a fresh detector.</span>
+            <span class="c1"># The transformed slice data will be put applied based</span>
+            <span class="c1"># on the provided detector shape or the actual previous detector</span>
+            <span class="c1"># data, emulating the translation by placing it in the right</span>
+            <span class="c1"># location.</span>
+            <span class="k">if</span> <span class="n">detector_data</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">current_detector_data</span> <span class="o">=</span> <span class="n">detector_data</span>
+                <span class="n">detector_shape</span> <span class="o">=</span> <span class="n">detector_data</span><span class="o">.</span><span class="n">shape</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">current_detector_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">detector_shape</span><span class="p">)</span>
+
+            <span class="c1"># Sightly pad out the slice array. We need the small extra padding</span>
+            <span class="c1"># for the non-integer part of the translation.</span>
+            <span class="n">pad_width</span> <span class="o">=</span> <span class="mi">3</span>
+            <span class="n">padded_slice</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span>
+                <span class="n">slice_array</span><span class="p">,</span>
+                <span class="n">pad_width</span><span class="o">=</span><span class="n">pad_width</span><span class="p">,</span>
+                <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;constant&quot;</span><span class="p">,</span>
+                <span class="n">constant_values</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="p">)</span>
+
+            <span class="c1"># The location of the corners of the slice in this new padded array</span>
+            <span class="c1"># needs to be determined. We can assume their locations based on the</span>
+            <span class="c1"># pad.</span>
+            <span class="n">slice_height</span><span class="p">,</span> <span class="n">slice_width</span> <span class="o">=</span> <span class="n">slice_array</span><span class="o">.</span><span class="n">shape</span>
+            <span class="n">padded_height</span><span class="p">,</span> <span class="n">padded_width</span> <span class="o">=</span> <span class="n">padded_slice</span><span class="o">.</span><span class="n">shape</span>
+            <span class="c1"># Determining the edge values makes the corners easier to define.</span>
+            <span class="c1"># Assuming an origin point of 0,0.</span>
+            <span class="n">base_bottom_edge</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">+</span> <span class="n">pad_width</span>
+            <span class="n">base_top_edge</span> <span class="o">=</span> <span class="n">base_bottom_edge</span> <span class="o">+</span> <span class="n">slice_height</span>
+            <span class="n">base_left_edge</span> <span class="o">=</span> <span class="mi">0</span> <span class="o">+</span> <span class="n">pad_width</span>
+            <span class="n">base_right_edge</span> <span class="o">=</span> <span class="n">base_left_edge</span> <span class="o">+</span> <span class="n">slice_width</span>
+            <span class="c1"># And then defining the corners from there.</span>
+            <span class="n">base_bottom_left</span> <span class="o">=</span> <span class="p">(</span><span class="n">base_left_edge</span><span class="p">,</span> <span class="n">base_bottom_edge</span><span class="p">)</span>
+            <span class="n">base_bottom_right</span> <span class="o">=</span> <span class="p">(</span><span class="n">base_right_edge</span><span class="p">,</span> <span class="n">base_bottom_edge</span><span class="p">)</span>
+            <span class="n">base_top_left</span> <span class="o">=</span> <span class="p">(</span><span class="n">base_left_edge</span><span class="p">,</span> <span class="n">base_top_edge</span><span class="p">)</span>
+            <span class="n">base_top_right</span> <span class="o">=</span> <span class="p">(</span><span class="n">base_right_edge</span><span class="p">,</span> <span class="n">base_top_edge</span><span class="p">)</span>
+            <span class="n">base_corners</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="p">[</span>
+                    <span class="n">base_bottom_left</span><span class="p">,</span>
+                    <span class="n">base_bottom_right</span><span class="p">,</span>
+                    <span class="n">base_top_left</span><span class="p">,</span>
+                    <span class="n">base_top_right</span><span class="p">,</span>
+                <span class="p">],</span>
+            <span class="p">)</span>
+
+            <span class="c1"># The affine transformation calculaton with the two sets of points.</span>
+            <span class="n">affine_transform_matrix</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">calculate_affine_matrix</span><span class="p">(</span>
+                    <span class="n">in_points</span><span class="o">=</span><span class="n">base_corners</span><span class="p">,</span>
+                    <span class="n">out_points</span><span class="o">=</span><span class="n">dispersive_corners</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+            <span class="c1"># To speed up the transformations, we break up the transformation</span>
+            <span class="c1"># into one large translation (which will be manually done via</span>
+            <span class="c1"># indexing)...</span>
+            <span class="n">x_shift</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">affine_transform_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]))</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="n">y_shift</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">affine_transform_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]))</span> <span class="o">-</span> <span class="mi">1</span>
+            <span class="c1"># ...and the leftover affine transformation with a translation</span>
+            <span class="c1"># reduction based on the aformentioned large translation.</span>
+            <span class="n">reduced_transform_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
+                <span class="n">affine_transform_matrix</span><span class="p">,</span>
+                <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">reduced_transform_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">affine_transform_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">x_shift</span>
+            <span class="p">)</span>
+            <span class="n">reduced_transform_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                <span class="n">affine_transform_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">y_shift</span>
+            <span class="p">)</span>
+
+            <span class="c1"># First, the affine transformation to deal with any higher order</span>
+            <span class="c1"># transformations and the decimal part of the translation.</span>
+            <span class="n">transformed_data</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">affine_transform</span><span class="p">(</span>
+                <span class="n">array</span><span class="o">=</span><span class="n">padded_slice</span><span class="p">,</span>
+                <span class="n">matrix</span><span class="o">=</span><span class="n">reduced_transform_matrix</span><span class="p">,</span>
+                <span class="n">offset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                <span class="n">constant</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="p">)</span>
+
+            <span class="c1"># The original location of the array is the origin, so we assign the</span>
+            <span class="c1"># new coordinates, adapting for the pad.</span>
+            <span class="n">transform_height</span><span class="p">,</span> <span class="n">transform_width</span> <span class="o">=</span> <span class="n">transformed_data</span><span class="o">.</span><span class="n">shape</span>
+            <span class="n">transform_bottom_edge</span> <span class="o">=</span> <span class="n">y_shift</span> <span class="o">-</span> <span class="n">pad_width</span>
+            <span class="n">transform_top_edge</span> <span class="o">=</span> <span class="n">transform_bottom_edge</span> <span class="o">+</span> <span class="n">transform_height</span>
+            <span class="n">transform_left_edge</span> <span class="o">=</span> <span class="n">x_shift</span> <span class="o">-</span> <span class="n">pad_width</span>
+            <span class="n">transform_right_edge</span> <span class="o">=</span> <span class="n">transform_left_edge</span> <span class="o">+</span> <span class="n">transform_width</span>
+            <span class="c1"># Adding the data to the detector, simulating the placing of the</span>
+            <span class="c1"># monochromatic slice on the detector.</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">current_detector_data</span><span class="p">[</span>
+                    <span class="n">transform_bottom_edge</span><span class="p">:</span><span class="n">transform_top_edge</span><span class="p">,</span>
+                    <span class="n">transform_left_edge</span><span class="p">:</span><span class="n">transform_right_edge</span><span class="p">,</span>
+                <span class="p">]</span> <span class="o">+=</span> <span class="n">transformed_data</span>
+            <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+                <span class="c1"># Sometimes there is this error if the slice is off the</span>
+                <span class="c1"># original detector.</span>
+                <span class="k">if</span> <span class="p">(</span>
+                    <span class="n">transform_bottom_edge</span> <span class="o">&lt;=</span> <span class="mi">0</span>
+                    <span class="ow">or</span> <span class="n">detector_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">transform_top_edge</span>
+                    <span class="ow">or</span> <span class="n">transform_left_edge</span> <span class="o">&lt;=</span> <span class="mi">0</span>
+                    <span class="ow">or</span> <span class="n">detector_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">transform_right_edge</span>
+                <span class="p">):</span>
+                    <span class="c1"># The slice is off the array.</span>
+                    <span class="c1"># Warning about it.</span>
+                    <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                        <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">AccuracyWarning</span><span class="p">,</span>
+                        <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                            <span class="s2">&quot;Dispersion for slice ends off the detector, doing&quot;</span>
+                            <span class="s2">&quot; a full affine transform.&quot;</span>
+                        <span class="p">),</span>
                     <span class="p">)</span>
-                <span class="p">)</span>
+                    <span class="c1"># It is best just to compute</span>
+                    <span class="c1"># the transformation in full.</span>
+                    <span class="n">expanded_slice</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">detector_shape</span><span class="p">)</span>
+                    <span class="n">expanded_slice</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="n">padded_height</span><span class="p">,</span> <span class="mi">0</span><span class="p">:</span><span class="n">padded_width</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
+                        <span class="n">padded_slice</span>
+                    <span class="p">)</span>
+                    <span class="n">expanded_transformed_data</span> <span class="o">=</span> <span class="p">(</span>
+                        <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">affine_transform</span><span class="p">(</span>
+                            <span class="n">array</span><span class="o">=</span><span class="n">expanded_slice</span><span class="p">,</span>
+                            <span class="n">matrix</span><span class="o">=</span><span class="n">affine_transform_matrix</span><span class="p">,</span>
+                            <span class="n">offset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                            <span class="n">constant</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                        <span class="p">)</span>
+                    <span class="p">)</span>
+                    <span class="n">current_detector_data</span> <span class="o">+=</span> <span class="n">expanded_transformed_data</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="c1"># The error is something else...</span>
+                    <span class="k">raise</span>
 
-                <span class="c1"># And we actually do the transformation; we are using</span>
-                <span class="c1"># homogenous coordinates as the typical output of the</span>
-                <span class="c1"># calculation.</span>
-                <span class="n">dispersed_data</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">transform</span><span class="o">.</span><span class="n">affine_transform</span><span class="p">(</span>
-                    <span class="n">array</span><span class="o">=</span><span class="n">padded_data</span><span class="p">,</span>
-                    <span class="n">matrix</span><span class="o">=</span><span class="n">affine_transform_matrix</span><span class="p">,</span>
-                    <span class="n">offset</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
-                    <span class="n">constant</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
-                <span class="p">)</span>
+            <span class="c1"># All done.</span>
+            <span class="k">return</span> <span class="n">current_detector_data</span>
 
-                <span class="c1"># We are ignoring masks and flags for now.</span>
+        <span class="c1"># We tabulate all of the data here.</span>
+        <span class="n">total_detector_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">detector_shape</span><span class="p">)</span>
 
-                <span class="c1"># Putting it on the detector.</span>
-                <span class="n">detector_data</span> <span class="o">=</span> <span class="n">detector_data</span> <span class="o">+</span> <span class="n">dispersed_data</span>
+        <span class="c1"># Going over every single slice, we need to put it on the detector.</span>
+        <span class="k">for</span> <span class="n">sliceindex</span><span class="p">,</span> <span class="n">slicedex</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">previous_state</span><span class="p">):</span>
+            <span class="c1"># We compute the dispersion for a given slice.</span>
+            <span class="n">dispersed_slice_detector</span> <span class="o">=</span> <span class="n">__disperse_slice_to_detector</span><span class="p">(</span>
+                <span class="n">slice_cube</span><span class="o">=</span><span class="n">slicedex</span><span class="p">,</span>
+                <span class="n">slice_index</span><span class="o">=</span><span class="n">sliceindex</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="p">)</span>
+
+            <span class="c1"># Putting it on the detector.</span>
+            <span class="n">total_detector_data</span> <span class="o">+=</span> <span class="n">dispersed_slice_detector</span>
 
         <span class="c1"># Finally, we bin the resulting data down to the expected size.</span>
         <span class="c1"># Binning the current slice to match the resolution of the</span>
         <span class="c1"># detector.</span>
         <span class="n">binned_detector_data</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">array</span><span class="o">.</span><span class="n">bin_image_array</span><span class="p">(</span>
-            <span class="n">image</span><span class="o">=</span><span class="n">detector_data</span><span class="p">,</span>
+            <span class="n">image</span><span class="o">=</span><span class="n">total_detector_data</span><span class="p">,</span>
             <span class="n">x_bin</span><span class="o">=</span><span class="n">bin_factor</span><span class="p">,</span>
             <span class="n">y_bin</span><span class="o">=</span><span class="n">bin_factor</span><span class="p">,</span>
             <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;add&quot;</span><span class="p">,</span>
@@ -2091,7 +2758,12 @@
         <span class="p">)</span>
         <span class="n">current_state</span> <span class="o">=</span> <span class="n">detector_image</span>
 
-        <span class="k">return</span> <span class="n">current_state</span>
+        <span class="c1"># Saving the result later in the cache.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">use_cache</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_cache_spectral_dispersion</span> <span class="o">=</span> <span class="n">current_state</span>
+
+        <span class="k">return</span> <span class="n">current_state</span></div>
+
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">at_scattered_light</span><span class="p">(</span>
@@ -2189,43 +2861,12 @@
         <span class="c1"># No cached value, we calculate it from the previous state.</span>
         <span class="n">previous_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">at_photon_poisson_noise</span>
 
-        <span class="c1"># If a cosmic ray hits, it gets typically a hot value.</span>
-        <span class="n">cosmic_ray_value</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_COSMIC_RAY_VALUE</span>
-
-        <span class="c1"># We need to determine which pixels have a cosmic ray.</span>
-        <span class="c1"># Starting with the expected number of cosmic rays per pixel,</span>
-        <span class="c1"># and the area of each pixel. The expected count is likely much</span>
-        <span class="c1"># less than 1, but non-zero.</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;visible&quot;</span><span class="p">:</span>
-            <span class="n">pixel_size</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_VISIBLE_PIXEL_SIZE</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;nearir&quot;</span><span class="p">:</span>
-            <span class="n">pixel_size</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_NEARIR_PIXEL_SIZE</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;midir&quot;</span><span class="p">:</span>
-            <span class="n">pixel_size</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_MIDIR_PIXEL_SIZE</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">,</span>
-                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Channel </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">, is not one of the available&quot;</span>
-                    <span class="s2">&quot; three.&quot;</span>
-                <span class="p">),</span>
-            <span class="p">)</span>
-        <span class="n">pixel_area</span> <span class="o">=</span> <span class="n">pixel_size</span><span class="o">**</span><span class="mi">2</span>
-        <span class="n">expected_rate</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_COSMIC_RAY_RATE</span>
-        <span class="n">expected_count</span> <span class="o">=</span> <span class="n">expected_rate</span> <span class="o">*</span> <span class="n">pixel_area</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">exposure_time</span>
-
-        <span class="c1"># We use Poisson statistics to generate the prediction, and have it</span>
-        <span class="c1"># as a sort of mask.</span>
-        <span class="c1"># Generally speaking, cosmic rays also impart a huge uncertainty but</span>
-        <span class="c1"># cosmic rays themselves don&#39;t have any intrinisic uncertainty.</span>
-        <span class="n">cosmic_ray_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span>
-            <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">poisson</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span>
-                <span class="n">expected_count</span><span class="p">,</span>
-                <span class="n">size</span><span class="o">=</span><span class="n">previous_state</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
-            <span class="p">),</span>
-            <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span>
+        <span class="c1"># We can generate the cosmic ray map provided by the detector</span>
+        <span class="c1"># simulation itself. There is no real uncertinity aspect to the</span>
+        <span class="c1"># cosmic rays themselves, at least, one that matters.</span>
+        <span class="n">cosmic_ray_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detector</span><span class="o">.</span><span class="n">simulate_cosmic_ray_frame</span><span class="p">(</span>
+            <span class="n">exposure_time</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">exposure_time</span><span class="p">,</span>
         <span class="p">)</span>
-        <span class="n">cosmic_ray_data</span> <span class="o">=</span> <span class="n">cosmic_ray_mask</span> <span class="o">*</span> <span class="n">cosmic_ray_value</span>
         <span class="n">cosmic_ray_uncertainty</span> <span class="o">=</span> <span class="mi">0</span>
 
         <span class="c1"># Just adding the cosmic ray information to the current state.</span>
@@ -2259,23 +2900,10 @@
         <span class="n">previous_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">at_cosmic_rays</span>
 
         <span class="c1"># We need to determine the detector gain.</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;visible&quot;</span><span class="p">:</span>
-            <span class="n">gain_factor</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_VISIBLE_DETECTOR_GAIN</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;nearir&quot;</span><span class="p">:</span>
-            <span class="n">gain_factor</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_NEARIR_DETECTOR_GAIN</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;midir&quot;</span><span class="p">:</span>
-            <span class="n">gain_factor</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_MIDIR_DETECTOR_GAIN</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">,</span>
-                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Channel </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">, is not one of the available&quot;</span>
-                    <span class="s2">&quot; three.&quot;</span>
-                <span class="p">),</span>
-            <span class="p">)</span>
+        <span class="n">detector_gain_factor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detector</span><span class="o">.</span><span class="n">detector_gain</span>
 
         <span class="c1"># Applying the gain.</span>
-        <span class="n">current_state</span> <span class="o">=</span> <span class="n">previous_state</span> <span class="o">*</span> <span class="n">gain_factor</span>
+        <span class="n">current_state</span> <span class="o">=</span> <span class="n">previous_state</span> <span class="o">*</span> <span class="n">detector_gain_factor</span>
 
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="n">current_state</span>
@@ -2300,34 +2928,22 @@
         <span class="c1"># No cached value, we calculate it from the previous state.</span>
         <span class="n">previous_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">at_detector_gain</span>
 
-        <span class="c1"># We derive the flat field variations from the theorical &quot;perfect&quot;</span>
-        <span class="c1"># flat. This may also just be a historical flat. Each channel is likely</span>
-        <span class="c1"># a little different</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;visible&quot;</span><span class="p">:</span>
-            <span class="n">perfect_flat</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_VISIBLE_FLAT_FIELD</span>
-            <span class="n">flat_stddev</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_VISIBLE_FLAT_FIELD_STDDEV</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;nearir&quot;</span><span class="p">:</span>
-            <span class="n">perfect_flat</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_NEARIR_FLAT_FIELD</span>
-            <span class="n">flat_stddev</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_NEARIR_FLAT_FIELD_STDDEV</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;midir&quot;</span><span class="p">:</span>
-            <span class="n">perfect_flat</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_MIDIR_FLAT_FIELD</span>
-            <span class="n">flat_stddev</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_MIDIR_FLAT_FIELD_STDDEV</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">,</span>
-                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Channel </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">, is not one of the available&quot;</span>
-                    <span class="s2">&quot; three.&quot;</span>
-                <span class="p">),</span>
-            <span class="p">)</span>
-
-        <span class="c1"># We generate a flat field from the perfect flat field, simulating</span>
-        <span class="c1"># an observation and some variance with regards to it. Applying the</span>
-        <span class="c1"># variations via a Gaussian/normal distribution should be good enough.</span>
-        <span class="n">flat_field</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="n">perfect_flat</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="n">flat_stddev</span><span class="p">)</span>
+        <span class="c1"># We generate a new flat field from the detector simulation.</span>
+        <span class="n">flat_field</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detector</span><span class="o">.</span><span class="n">simulate_flat_frame</span><span class="p">()</span>
 
         <span class="c1"># Applying the flat field.</span>
-        <span class="n">current_state</span> <span class="o">=</span> <span class="n">previous_state</span> <span class="o">*</span> <span class="n">flat_field</span>
+        <span class="n">flat_data</span><span class="p">,</span> <span class="n">flat_uncertinity</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">divide</span><span class="p">(</span>
+            <span class="n">numerator</span><span class="o">=</span><span class="n">previous_state</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">denominator</span><span class="o">=</span><span class="n">flat_field</span><span class="p">,</span>
+            <span class="n">numerator_uncertainty</span><span class="o">=</span><span class="n">previous_state</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">,</span>
+            <span class="n">denominator_uncertainty</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Rebuilding the image from the new data.</span>
+        <span class="n">current_state</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">previous_state</span><span class="p">)</span>
+        <span class="n">current_state</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">flat_data</span><span class="p">)</span>
+        <span class="n">current_state</span><span class="o">.</span><span class="n">uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">flat_uncertinity</span><span class="p">)</span>
+        <span class="n">current_state</span><span class="o">.</span><span class="n">data_unit</span> <span class="o">=</span> <span class="n">previous_state</span><span class="o">.</span><span class="n">data_unit</span>
 
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="n">current_state</span>
@@ -2352,42 +2968,22 @@
         <span class="c1"># No cached value, we calculate it from the previous state.</span>
         <span class="n">previous_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">at_detector_flat_field</span>
 
-        <span class="c1"># The detector bias level (either as a file or for the entire field)</span>
-        <span class="c1"># is different per detector. This may be a historical bias level as</span>
-        <span class="c1"># well.</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;visible&quot;</span><span class="p">:</span>
-            <span class="n">perfect_bias</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_VISIBLE_BIAS_LEVEL</span>
-            <span class="n">bias_stddev</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_VISIBLE_BIAS_LEVEL_STDDEV</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;nearir&quot;</span><span class="p">:</span>
-            <span class="n">perfect_bias</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_NEARIR_BIAS_LEVEL</span>
-            <span class="n">bias_stddev</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_NEARIR_BIAS_LEVEL_STDDEV</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;midir&quot;</span><span class="p">:</span>
-            <span class="n">perfect_bias</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_MIDIR_BIAS_LEVEL</span>
-            <span class="n">bias_stddev</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_MIDIR_BIAS_LEVEL_STDDEV</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">,</span>
-                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Channel </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">, is not one of the available&quot;</span>
-                    <span class="s2">&quot; three.&quot;</span>
-                <span class="p">),</span>
-            <span class="p">)</span>
-
-        <span class="c1"># We generate a the detector bias image, simulating an observation</span>
-        <span class="c1"># and some variance with regards to it. Applying the</span>
-        <span class="c1"># variations via a Gaussian/normal distribution should be good enough.</span>
-        <span class="n">total_bias_level</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">previous_state</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">__</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coadds</span><span class="p">):</span>
-            <span class="c1"># Every readout (co-add) adds a new bias level to the overall</span>
-            <span class="c1"># total for the FITS file.</span>
-            <span class="n">single_bias_level</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span>
-                <span class="n">loc</span><span class="o">=</span><span class="n">perfect_bias</span><span class="p">,</span>
-                <span class="n">scale</span><span class="o">=</span><span class="n">bias_stddev</span><span class="p">,</span>
-            <span class="p">)</span>
-            <span class="n">total_bias_level</span> <span class="o">=</span> <span class="n">total_bias_level</span> <span class="o">+</span> <span class="n">single_bias_level</span>
+        <span class="c1"># The detector can generate the bias level for us.</span>
+        <span class="n">total_bias_level</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detector</span><span class="o">.</span><span class="n">simulate_bias_frame</span><span class="p">()</span>
 
         <span class="c1"># Applying the bias.</span>
-        <span class="n">current_state</span> <span class="o">=</span> <span class="n">previous_state</span> <span class="o">+</span> <span class="n">total_bias_level</span>
+        <span class="n">bias_data</span><span class="p">,</span> <span class="n">bias_uncertinity</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+            <span class="n">augend</span><span class="o">=</span><span class="n">previous_state</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">addend</span><span class="o">=</span><span class="n">total_bias_level</span><span class="p">,</span>
+            <span class="n">augend_uncertainty</span><span class="o">=</span><span class="n">previous_state</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">,</span>
+            <span class="n">addend_uncertainty</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Rebuilding the image from the new data.</span>
+        <span class="n">current_state</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">previous_state</span><span class="p">)</span>
+        <span class="n">current_state</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">bias_data</span><span class="p">)</span>
+        <span class="n">current_state</span><span class="o">.</span><span class="n">uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">bias_uncertinity</span><span class="p">)</span>
+        <span class="n">current_state</span><span class="o">.</span><span class="n">data_unit</span> <span class="o">=</span> <span class="n">previous_state</span><span class="o">.</span><span class="n">data_unit</span>
 
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="n">current_state</span>
@@ -2412,40 +3008,23 @@
         <span class="c1"># No cached value, we calculate it from the previous state.</span>
         <span class="n">previous_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">at_detector_bias</span>
 
-        <span class="c1"># The detector detector dark current, either as a value or a map.</span>
-        <span class="c1"># The dark current itself may vary from its actual value. We model</span>
-        <span class="c1"># such variations using a Gaussian. These values may also be</span>
-        <span class="c1"># calculated from actual darks.</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;visible&quot;</span><span class="p">:</span>
-            <span class="n">perfect_dark_current</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_VISIBLE_DARK_CURRENT</span>
-            <span class="n">dark_current_stddev</span> <span class="o">=</span> <span class="p">(</span>
-                <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_VISIBLE_DARK_CURRENT_STDDEV</span>
-            <span class="p">)</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;nearir&quot;</span><span class="p">:</span>
-            <span class="n">perfect_dark_current</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_NEARIR_DARK_CURRENT</span>
-            <span class="n">dark_current_stddev</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_NEARIR_DARK_CURRENT_STDDEV</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;midir&quot;</span><span class="p">:</span>
-            <span class="n">perfect_dark_current</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_MIDIR_DARK_CURRENT</span>
-            <span class="n">dark_current_stddev</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_MIDIR_DARK_CURRENT_STDDEV</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">,</span>
-                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Channel </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">, is not one of the available&quot;</span>
-                    <span class="s2">&quot; three.&quot;</span>
-                <span class="p">),</span>
-            <span class="p">)</span>
-
-        <span class="c1"># We generate a dark current of the image, simulating an observation</span>
-        <span class="c1"># and some variance with regards to it. Applying the</span>
-        <span class="c1"># variations via a Gaussian/normal distribution should be good enough.</span>
-        <span class="n">dark_current</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span>
-            <span class="n">loc</span><span class="o">=</span><span class="n">perfect_dark_current</span><span class="p">,</span>
-            <span class="n">scale</span><span class="o">=</span><span class="n">dark_current_stddev</span><span class="p">,</span>
-        <span class="p">)</span>
+        <span class="c1"># The dark current can be simulated from the detector&#39;s simulation.</span>
+        <span class="n">dark_current_rate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detector</span><span class="o">.</span><span class="n">simulate_dark_current_frame</span><span class="p">()</span>
+        <span class="n">dark_current_data</span> <span class="o">=</span> <span class="n">dark_current_rate</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">exposure_time</span>
 
         <span class="c1"># Applying the dark current.</span>
-        <span class="n">current_state</span> <span class="o">=</span> <span class="n">previous_state</span> <span class="o">+</span> <span class="n">dark_current</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">exposure_time</span>
+        <span class="n">dark_data</span><span class="p">,</span> <span class="n">dark_uncertinity</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">math</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+            <span class="n">augend</span><span class="o">=</span><span class="n">previous_state</span><span class="o">.</span><span class="n">data</span><span class="p">,</span>
+            <span class="n">addend</span><span class="o">=</span><span class="n">dark_current_data</span><span class="p">,</span>
+            <span class="n">augend_uncertainty</span><span class="o">=</span><span class="n">previous_state</span><span class="o">.</span><span class="n">uncertainty</span><span class="p">,</span>
+            <span class="n">addend_uncertainty</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Rebuilding the image from the new data.</span>
+        <span class="n">current_state</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">previous_state</span><span class="p">)</span>
+        <span class="n">current_state</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">dark_data</span><span class="p">)</span>
+        <span class="n">current_state</span><span class="o">.</span><span class="n">uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">dark_uncertinity</span><span class="p">)</span>
+        <span class="n">current_state</span><span class="o">.</span><span class="n">data_unit</span> <span class="o">=</span> <span class="n">previous_state</span><span class="o">.</span><span class="n">data_unit</span>
 
         <span class="c1"># All done.</span>
         <span class="k">return</span> <span class="n">current_state</span>
@@ -2477,24 +3056,12 @@
         <span class="c1"># each linearity on each co-add. Though we already combined them</span>
         <span class="c1"># together given the dark current and espeically the bias, this is</span>
         <span class="c1"># just an approximation.</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;visible&quot;</span><span class="p">:</span>
-            <span class="n">linearity</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">FUNCTION_SPECTRE_VISIBLE_LINEARITY</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;nearir&quot;</span><span class="p">:</span>
-            <span class="n">linearity</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">FUNCTION_SPECTRE_NEARIR_LINEARITY</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;midir&quot;</span><span class="p">:</span>
-            <span class="n">linearity</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">FUNCTION_SPECTRE_MIDIR_LINEARITY</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">,</span>
-                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Channel </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">, is not one of the available&quot;</span>
-                    <span class="s2">&quot; three.&quot;</span>
-                <span class="p">),</span>
-            <span class="p">)</span>
+        <span class="c1"># The detector instance itself should have the linearity function.</span>
+        <span class="n">linearity</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detector</span><span class="o">.</span><span class="n">linearity_function</span>
 
         <span class="c1"># Calculating the linearity function.</span>
         <span class="n">current_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">coadds</span> <span class="o">*</span> <span class="n">linearity</span><span class="p">(</span>
-            <span class="n">data</span><span class="o">=</span><span class="n">previous_state</span><span class="o">.</span><span class="n">data</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">coadds</span><span class="p">,</span>
+            <span class="n">previous_state</span><span class="o">.</span><span class="n">data</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">coadds</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="n">current_uncertainty</span> <span class="o">=</span> <span class="n">previous_state</span><span class="o">.</span><span class="n">uncertainty</span>
 
@@ -2526,75 +3093,12 @@
         <span class="c1"># No cached value, we calculate it from the previous state.</span>
         <span class="n">previous_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">at_detector_linearity</span>
 
-        <span class="c1"># Computing read noise as a positive only gaussian distribution.</span>
-        <span class="k">def</span> <span class="nf">positive_gaussian_generator</span><span class="p">(</span>
-            <span class="n">center</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">,</span>
-            <span class="n">stddev</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">,</span>
-            <span class="n">shape</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
-        <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">:</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;Generate only possitive values with a Gaussian distribution.</span>
-
-<span class="sd">            Parameters</span>
-<span class="sd">            ----------</span>
-<span class="sd">            center : float | NDArray</span>
-<span class="sd">                The center of the distribution.</span>
-<span class="sd">            stddev : float | NDarray</span>
-<span class="sd">                The stddev of the Gaussian distribution.</span>
-<span class="sd">            shape : tuple</span>
-<span class="sd">                The shape of the output of the generated numbers, determines</span>
-<span class="sd">                how many numbers are being made.</span>
-
-<span class="sd">            Returns</span>
-<span class="sd">            -------</span>
-<span class="sd">            positive_gaussian_values : NDArray</span>
-<span class="sd">                The generated numbers.</span>
-
-<span class="sd">            &quot;&quot;&quot;</span>
-            <span class="c1"># Usually Gaussian distribution.</span>
-            <span class="n">gaussian_values</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">stddev</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">shape</span><span class="p">)</span>
-            <span class="c1"># Positive only.</span>
-            <span class="n">positive_gaussian_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
-                <span class="n">gaussian_values</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">,</span>
-                <span class="mi">0</span><span class="p">,</span>
-                <span class="n">gaussian_values</span><span class="p">,</span>
-            <span class="p">)</span>
-            <span class="k">return</span> <span class="n">positive_gaussian_values</span>
-
-        <span class="c1"># Non-destructive reads reduce the detector read noise, and each of</span>
-        <span class="c1"># the three detectors have different values.</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;visible&quot;</span><span class="p">:</span>
-            <span class="n">perfect_read_noise</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_VISIBLE_READ_NOISE</span>
-            <span class="n">read_noise_stddev</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_VISIBLE_READ_NOISE_STDDEV</span>
-            <span class="n">ndr</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_VISIBLE_NONDESTRUCTIVE_READS</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;nearir&quot;</span><span class="p">:</span>
-            <span class="n">perfect_read_noise</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_NEARIR_READ_NOISE</span>
-            <span class="n">read_noise_stddev</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_NEARIR_READ_NOISE_STDDEV</span>
-            <span class="n">ndr</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_NEARIR_NONDESTRUCTIVE_READS</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;midir&quot;</span><span class="p">:</span>
-            <span class="n">perfect_read_noise</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_MIDIR_READ_NOISE</span>
-            <span class="n">read_noise_stddev</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_MIDIR_READ_NOISE_STDDEV</span>
-            <span class="n">ndr</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_MIDIR_NONDESTRUCTIVE_READS</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">,</span>
-                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Channel </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">, is not one of the available&quot;</span>
-                    <span class="s2">&quot; three.&quot;</span>
-                <span class="p">),</span>
-            <span class="p">)</span>
-
-        <span class="c1"># Calculating read noise given the co-adds.</span>
-        <span class="n">full_read_noise</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">previous_state</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+        <span class="c1"># Calculating read noise given the co-adds. The NDR factor is already</span>
+        <span class="c1"># taken care of.</span>
+        <span class="n">read_noise</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">previous_state</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">__</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coadds</span><span class="p">):</span>
-            <span class="n">temp_read_noise</span> <span class="o">=</span> <span class="n">positive_gaussian_generator</span><span class="p">(</span>
-                <span class="n">center</span><span class="o">=</span><span class="n">perfect_read_noise</span><span class="p">,</span>
-                <span class="n">stddev</span><span class="o">=</span><span class="n">read_noise_stddev</span><span class="p">,</span>
-                <span class="n">shape</span><span class="o">=</span><span class="n">full_read_noise</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
-            <span class="p">)</span>
-            <span class="n">full_read_noise</span> <span class="o">=</span> <span class="n">full_read_noise</span> <span class="o">+</span> <span class="n">temp_read_noise</span>
-
-        <span class="c1"># Applying the NDR factor.</span>
-        <span class="n">read_noise</span> <span class="o">=</span> <span class="n">full_read_noise</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">ndr</span><span class="p">)</span>
+            <span class="n">temp_read_noise</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detector</span><span class="o">.</span><span class="n">simulate_read_noise_frame</span><span class="p">()</span>
+            <span class="n">read_noise</span> <span class="o">=</span> <span class="n">read_noise</span> <span class="o">+</span> <span class="n">temp_read_noise</span>
 
         <span class="c1"># Applying the noise.</span>
         <span class="n">current_state</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">previous_state</span><span class="p">)</span>
@@ -2623,28 +3127,13 @@
         <span class="c1"># No cached value, we calculate it from the previous state.</span>
         <span class="n">previous_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">at_detector_read_noise</span>
 
-        <span class="c1"># We just pull cached hot and dead pixels maps.</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;visible&quot;</span><span class="p">:</span>
-            <span class="n">hot_pixel_map</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_VISIBLE_HOT_PIXEL_MAP</span>
-            <span class="n">dead_pixel_map</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_VISIBLE_DEAD_PIXEL_MAP</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;nearir&quot;</span><span class="p">:</span>
-            <span class="n">hot_pixel_map</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_NEARIR_HOT_PIXEL_MAP</span>
-            <span class="n">dead_pixel_map</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_NEARIR_DEAD_PIXEL_MAP</span>
-        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">channel</span> <span class="o">==</span> <span class="s2">&quot;midir&quot;</span><span class="p">:</span>
-            <span class="n">hot_pixel_map</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_MIDIR_HOT_PIXEL_MAP</span>
-            <span class="n">dead_pixel_map</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_MIDIR_DEAD_PIXEL_MAP</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
-                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">,</span>
-                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
-                    <span class="sa">f</span><span class="s2">&quot;Channel </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">channel</span><span class="si">}</span><span class="s2">, is not one of the available&quot;</span>
-                    <span class="s2">&quot; three.&quot;</span>
-                <span class="p">),</span>
-            <span class="p">)</span>
-
+        <span class="c1"># We generated the hot and dead pixel maps from the detector instance.</span>
+        <span class="c1"># It is easier to just pull the application from it.</span>
+        <span class="n">hot_pixel_map</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detector</span><span class="o">.</span><span class="n">hot_pixel_map</span>
+        <span class="n">dead_pixel_map</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detector</span><span class="o">.</span><span class="n">dead_pixel_map</span>
         <span class="c1"># And the values.</span>
-        <span class="n">hot_pixel_value</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_HOT_PIXEL_VALUE</span>
-        <span class="n">dead_pixel_value</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">CONST_DEAD_PIXEL_VALUE</span>
+        <span class="n">hot_pixel_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detector</span><span class="o">.</span><span class="n">hot_pixel_value</span>
+        <span class="n">dead_pixel_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detector</span><span class="o">.</span><span class="n">dead_pixel_value</span>
 
         <span class="c1"># Applying them.</span>
         <span class="n">current_state</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">deepcopy</span><span class="p">(</span><span class="n">previous_state</span><span class="p">)</span>
@@ -2707,7 +3196,41 @@
         <span class="n">previous_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">at_fits_file</span>
         <span class="c1"># All done.</span>
         <span class="n">current_state</span> <span class="o">=</span> <span class="n">previous_state</span>
-        <span class="k">return</span> <span class="n">current_state</span></div>
+        <span class="k">return</span> <span class="n">current_state</span>
+
+<div class="viewcode-block" id="SpectreSimulator.at_write_disk">
+<a class="viewcode-back" href="../../../code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_write_disk">[docs]</a>
+    <span class="k">def</span> <span class="nf">at_write_disk</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+        <span class="n">overwrite</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Write out the full state of the simulation, to disk.</span>
+
+<span class="sd">        This is mostly a convience function. It takes the final read out of</span>
+<span class="sd">        the function and allows for it to be read out as a FITS file, as</span>
+<span class="sd">        typical of an instrument. Nothing is returned as the result is</span>
+<span class="sd">        wrote to disk.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        filename : str</span>
+<span class="sd">            The FITS filename which we are writing the file out to.</span>
+<span class="sd">        overwrite : bool</span>
+<span class="sd">            If the file already exists, we overwrite it. Else, an error will</span>
+<span class="sd">            be likely be raised.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+            <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">ToDoError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Writing to disk is to be done.&quot;</span><span class="p">,</span>
+        <span class="p">)</span></div>
+</div>
 
 </pre></div>
 

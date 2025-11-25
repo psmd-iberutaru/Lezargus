@@ -298,6 +298,11 @@ def calculate_photometric_correction_factor_vega(
         The uncertainty on the correction factor.
 
     """
+    logging.critical(
+        critical_type=logging.DevelopmentError,
+        message="This function should not be used, use the filter's version.",
+    )
+
     # We assume that the target star has data covering the entire filter
     # range as otherwise, you cannot really calculate an accurate magnitude.
     # However, we should still warn otherwise.

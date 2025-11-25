@@ -346,7 +346,7 @@
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.data._make.functionality.parse_basename"><code class="docutils literal notranslate"><span class="pre">parse_basename()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.data._make.functionality.find_data_filename"><code class="docutils literal notranslate"><span class="pre">find_data_filename()</span></code></a></li>
 </ul>
             </nav>
         </div>
@@ -363,9 +363,14 @@
 <p>Common functionality to the making data functions.</p>
 <p>There are not that many common functions, so a single module is fine.</p>
 <dl class="py function">
-<dt class="sig sig-object py" id="lezargus.data._make.functionality.parse_basename">
-<span class="sig-prename descclassname"><span class="pre">lezargus.data._make.functionality.</span></span><span class="sig-name descname"><span class="pre">parse_basename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">basename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/lezargus/data/_make/functionality.html#parse_basename"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.data._make.functionality.parse_basename" title="Link to this definition">#</a></dt>
-<dd><p>Parse and expand the basename to the full path of the data file.</p>
+<dt class="sig sig-object py" id="lezargus.data._make.functionality.find_data_filename">
+<span class="sig-prename descclassname"><span class="pre">lezargus.data._make.functionality.</span></span><span class="sig-name descname"><span class="pre">find_data_filename</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">basename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="../_modules/lezargus/data/_make/functionality.html#find_data_filename"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.data._make.functionality.find_data_filename" title="Link to this definition">#</a></dt>
+<dd><p>Find the full data filename provided its basename and conventions.</p>
+<p>We use this function to find the full filename of a data file. By
+convention, every datafile is separated into organizing folders which may
+change with development. However, the actual basenames, which by
+should be unique, should not. So, we can use that to be lazy and find the
+needed file.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>basename</strong> (<em>str</em>) – The basename of the file which we are going to parse.</p>
@@ -427,7 +432,7 @@
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.data._make.functionality.parse_basename"><code class="docutils literal notranslate"><span class="pre">parse_basename()</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.data._make.functionality.find_data_filename"><code class="docutils literal notranslate"><span class="pre">find_data_filename()</span></code></a></li>
 </ul>
   </nav></div>
 

@@ -43,6 +43,7 @@
     <script src="../_static/doctools.js?v=9bcbadda"></script>
     <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'technical/photometry';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -323,7 +324,9 @@
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
 </div></div>
       
     </div>
@@ -339,6 +342,17 @@
     <div id="print-main-content">
         <div id="jb-print-toc">
             
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-counting-and-photon-counting-convention">Energy Counting and Photon Counting Convention</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#photometric-standard-star">Photometric Standard Star</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#synthetic-magnitudes">Synthetic Magnitudes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zero-point-calculation">Zero Point Calculation</a></li>
+</ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -349,8 +363,115 @@
                 <article class="bd-article">
                   
   <section id="photometry">
-<h1>Photometry<a class="headerlink" href="#photometry" title="Link to this heading">#</a></h1>
-<p>TODO</p>
+<span id="technical-photometry"></span><h1>Photometry<a class="headerlink" href="#photometry" title="Link to this heading">#</a></h1>
+<p>Measuring photometry in Lezargus is done using first principles and the
+following assumptions in this section. Most, if not all, of the filters we
+use are Vega-based filters, and so the treatment here assumes Vega-based
+filters. AB-magnitudes, where relevant, have different treatments which we
+also add briefly here.</p>
+<p>See [[NOTE]]</p>
+<section id="energy-counting-and-photon-counting-convention">
+<h2>Energy Counting and Photon Counting Convention<a class="headerlink" href="#energy-counting-and-photon-counting-convention" title="Link to this heading">#</a></h2>
+<p>Photometric filter response curves found in the literature is often given
+as either energy integrating or photon counting conventions. More specifically,
+for photon counting detectors, like CCDs, there is an extra wavelength term
+to convert to the energy of a photon. As expected, they can be converted
+between each other:</p>
+<div class="math notranslate nohighlight">
+\[\int F(\lambda) T_\gamma \mathrm{d}\lambda = \int F(\lambda) T_E \left(\frac{hc}{\lambda}\right)^{-1} \mathrm{d}\lambda
+T_\gamma \simeq T_E \lambda\]</div>
+<p>More details can be found in
+<a class="reference external" href="https://doi.org/10.1093/mnras/stu1476">Casagrande et. al. 2014</a>. Overall,
+we follow their conventions here. We assume and keep the photometric filter
+response functions in their energy integrating form <span class="math notranslate nohighlight">\(T_E\)</span> and leave the
+wavelength component <span class="math notranslate nohighlight">\(\lambda\)</span> explicit. In the literature, some of the
+photometric response functions use the photon-counting formalism
+<span class="math notranslate nohighlight">\(T_\gamma\)</span>; Lezargus converts them to the energy-integrating formalism
+to align with the procedures documented here. The photometry operations here
+are all done to wavelength-based spectra <span class="math notranslate nohighlight">\(F(\lambda)\)</span>, with assumed
+units.</p>
+</section>
+<section id="photometric-standard-star">
+<h2>Photometric Standard Star<a class="headerlink" href="#photometric-standard-star" title="Link to this heading">#</a></h2>
+<p>Photometry is a relative system, measurements of brightness are done relative
+to a photometric standard star. There are a number to choose from
+<a class="reference external" href="https://doi.org/10.1088/0004-6256/137/5/4186">Landolt 2009</a>, but, we pick
+Vega as our defining photometric standard star. We use the CALSPEC Vega
+spectrum
+(<a class="reference external" href="https://archive.stsci.edu/hlsps/reference-atlases/cdbs/current_calspec/alpha_lyr_stis_011.fits">alpha_lyr_stis_011.fits</a>);
+though should updated versions of said spectrum be available, we suggest
+updating to said versions. We cut the CALSPEC Vega spectrum to the wavelength
+limits that matter for Lezargus.</p>
+<p>The relevant photometry magnitudes for Vega is as follows:</p>
+<p>Johnson U   0.03   +/-   ???    2002yCat.2237….0D
+Johnson B   0.03   +/-   ???    2002yCat.2237….0D
+Johnson V   0.03   +/-   ???    2002yCat.2237….0D</p>
+<p>Tycho2 BT
+Tycho2 VT   0.087  +/-   ???    2000A&amp;A…355L..27H</p>
+<p>GAIA G      0.029  +/-   ???    2018MNRAS.479L.102C
+GAIA BP     0.039  +/-   ???    2018MNRAS.479L.102C
+GAIA RP     0.023  +/-   ???    2018MNRAS.479L.102C</p>
+<p>2MASS J    -0.177  +/-  0.206    2003yCat.2246….0C
+2MASS H    -0.029  +/-  0.146    2003yCat.2246….0C
+2MASS Ks    0.129  +/-  0.186    2003yCat.2246….0C</p>
+<p>WISE 1      1.452  +/-           2012wise.rept….1C
+WISE 2      1.143  +/-  0.019    2012wise.rept….1C
+WISE 3     -0.067  +/-  0.008    2012wise.rept….1C
+WISE 4     -0.127  +/-  0.006    2012wise.rept….1C</p>
+</section>
+<section id="synthetic-magnitudes">
+<h2>Synthetic Magnitudes<a class="headerlink" href="#synthetic-magnitudes" title="Link to this heading">#</a></h2>
+<p>The definition of magnitudes was set by convention from
+<cite>Pogson 1856 &lt;https://doi.org/10.1093%2Fmnras%2F17.1.12&gt;</cite>. Namely for a given
+filter profile <span class="math notranslate nohighlight">\(T_E\)</span>, the magnitude <span class="math notranslate nohighlight">\(m\)</span> of a star
+<span class="math notranslate nohighlight">\(F(\lambda)\)</span> (relative to a photometric standard star
+<span class="math notranslate nohighlight">\(F_0(\lambda)\)</span> of magnitude <span class="math notranslate nohighlight">\(m_0\)</span>):</p>
+<div class="math notranslate nohighlight">
+\[m - m_0 = -2.5 \log \left(\frac{\int F(\lambda) T_E\mathrm{d}\lambda}{\int F_0(\lambda) T_E\mathrm{d}\lambda}\right)\]</div>
+<p>Fundamentally, as synthetic magnitudes are a weighted average of flux
+<a class="reference external" href="https://doi.org/10.1093/mnras/stu1476">Casagrande et. al. 2014</a>, it is
+appropriate to normalize over <span class="math notranslate nohighlight">\(T_E\)</span>. Moreover, in the optical and
+infrared most detectors are photon-counting in nature (i.e. optical CCDs
+and infrared detectors <a class="reference external" href="https://doi.org/10.1117/12.790382">Beletic et. al. 2008</a>),
+we will adapt our form accordingly. (Conveniently, normalizing removes the
+<span class="math notranslate nohighlight">\(hc\)</span> constant.) The apparent magnitude relation can be rewritten as
+follows.</p>
+<div class="math notranslate nohighlight">
+\[m - m_0 = -2.5 \log \frac{\int F(\lambda) T_E \lambda \mathrm{d}\lambda}{\int T_E \lambda \mathrm{d}\lambda} + 2.5 \log \frac{\int F_0(\lambda) T_E \lambda \mathrm{d}\lambda}{\int T_E \lambda \mathrm{d}\lambda}\]</div>
+<p>Note, the factor of <span class="math notranslate nohighlight">\(2.5\)</span> here is technically <span class="math notranslate nohighlight">\(10^\frac{2}{5}\)</span>,
+per <cite>Pogson 1856 &lt;https://doi.org/10.1093%2Fmnras%2F17.1.12&gt;</cite>, but most
+literature rounds said factor. The units must all be self-consistent else
+taking the logarithm with a unit is impossible
+<cite>Matta et. al. 2010 &lt;https://doi.org/10.1021/ed1000476&gt;</cite>. Otherwise, the
+full equation below must be used, combining the logarithms, so that the
+result is unitless.</p>
+<div class="math notranslate nohighlight">
+\[m - m_0 = -2.5 \log \left[ \frac{\int F(\lambda) T_E \lambda \mathrm{d}\lambda}{\int T_E \lambda \mathrm{d}\lambda} \left(\frac{\int F_0(\lambda) T_E \lambda \mathrm{d}\lambda}{\int T_E \lambda \mathrm{d}\lambda} \right)^{-1} \right]\]</div>
+</section>
+<section id="zero-point-calculation">
+<h2>Zero Point Calculation<a class="headerlink" href="#zero-point-calculation" title="Link to this heading">#</a></h2>
+<p>An alternative, but more useful and common, formulation of synthetic magnitudes
+start by defining the zero point <span class="math notranslate nohighlight">\(Z\)</span>. (Other literature may have it
+noted as <span class="math notranslate nohighlight">\(ZP\)</span>, but we use single letters here for clarity.) The zero
+point is defined solely by the filter profile <span class="math notranslate nohighlight">\(T_E\)</span> and the
+photometric standard star <span class="math notranslate nohighlight">\(F_0(\lambda)\)</span> and <span class="math notranslate nohighlight">\(m_0\)</span>.</p>
+<div class="math notranslate nohighlight">
+\[Z \triangleq m_0 + 2.5 \log \frac{\int F_0(\lambda) T_E \lambda \mathrm{d}\lambda}{\int T_E \lambda \mathrm{d}\lambda} = m_0 + 2.5 \log \bar{F_0}\]</div>
+<p>Note that <span class="math notranslate nohighlight">\(\bar{F_0}\)</span> is called the absolute calibration of the
+photometric system and is sometimes also called the zero point in some
+tables. Again, keeping in mind equivalent units. The zero point values
+published have units, and the unit system provided must be used for future
+calculations using that zero point. Most pertinent, is the determination of
+synthetic magnitudes.</p>
+<p>Synthetic magnitudes using the zero point is calculated as follows, assuming
+standard units.</p>
+<div class="math notranslate nohighlight">
+\[m = -2.5 \log \left( \frac{\int F(\lambda) T_E \lambda \mathrm{d}\lambda}{\int T_E \lambda \mathrm{d}\lambda} \right) + Z + \epsilon\]</div>
+<p>Where <span class="math notranslate nohighlight">\(\epsilon\)</span> is a “fudge” factor sometimes added as a corrective
+term to replicate the definition of the photometric system more accurately.
+This may be done in cases where the photometric standard star given is not of
+sufficient quality.</p>
+</section>
 </section>
 
 
@@ -388,6 +509,25 @@
             </div>
             
             
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#energy-counting-and-photon-counting-convention">Energy Counting and Photon Counting Convention</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#photometric-standard-star">Photometric Standard Star</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#synthetic-magnitudes">Synthetic Magnitudes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#zero-point-calculation">Zero Point Calculation</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
               
             
           </div>

@@ -1,0 +1,1174 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>lezargus.library.container.detector module &#8212; Lezargus  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'code/lezargus.library.container.detector';</script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="lezargus.library.container.dispersion module" href="lezargus.library.container.dispersion.html" />
+    <link rel="prev" title="lezargus.library.container.cube module" href="lezargus.library.container.cube.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Lezargus  documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../user/index.html">User Manual</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../technical/index.html">Technical Manual</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../technical/atmosphere.html">Atmospheric Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/contributing.html">Contributor Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/convention.html">Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/photometry.html">Photometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../technical/uncertainty.html">Uncertainty Propagation</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="modules.html">lezargus</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l2 current active has-children"><a class="reference internal" href="lezargus.html">lezargus package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l3 has-children"><a class="reference internal" href="lezargus.cli.html">lezargus.cli package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.cli.__main__.html">lezargus.cli.__main__ module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.cli.help_.html">lezargus.cli.help_ module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.cli.version.html">lezargus.cli.version module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="lezargus.data.html">lezargus.data package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.data._make.html">lezargus.data._make package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 current active has-children"><a class="reference internal" href="lezargus.library.html">lezargus.library package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="current">
+<li class="toctree-l4 current active"><a class="reference internal" href="lezargus.library.container.html">lezargus.library.container package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.array.html">lezargus.library.array module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.atmosphere.html">lezargus.library.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.configuration.html">lezargus.library.configuration module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.conversion.html">lezargus.library.conversion module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.convolution.html">lezargus.library.convolution module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.fits.html">lezargus.library.fits module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.flags.html">lezargus.library.flags module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.hint.html">lezargus.library.hint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.interpolate.html">lezargus.library.interpolate module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.logging.html">lezargus.library.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.math.html">lezargus.library.math module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.path.html">lezargus.library.path module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.sanitize.html">lezargus.library.sanitize module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.stitch.html">lezargus.library.stitch module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.temporary.html">lezargus.library.temporary module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.transform.html">lezargus.library.transform module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="lezargus.simulator.html">lezargus.simulator package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.simulator.atmosphere.html">lezargus.simulator.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.simulator.spectre.html">lezargus.simulator.spectre module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.simulator.target.html">lezargus.simulator.target module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.simulator.telescope.html">lezargus.simulator.telescope module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="lezargus.__main__.html">lezargus.__main__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lezargus.__version__.html">lezargus.__version__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lezargus.config.html">lezargus.config module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lezargus.initialize.html">lezargus.initialize module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lezargus.terminate.html">lezargus.terminate module</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/code/lezargus.library.container.detector.rst" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.rst</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>lezargus.library.container.detector module</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray"><code class="docutils literal notranslate"><span class="pre">DetectorArray</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.__init__"><code class="docutils literal notranslate"><span class="pre">DetectorArray.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.add_bias_frame"><code class="docutils literal notranslate"><span class="pre">DetectorArray.add_bias_frame()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.add_cosmic_ray_rates"><code class="docutils literal notranslate"><span class="pre">DetectorArray.add_cosmic_ray_rates()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.add_dark_current_frame"><code class="docutils literal notranslate"><span class="pre">DetectorArray.add_dark_current_frame()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.add_dead_pixel_map"><code class="docutils literal notranslate"><span class="pre">DetectorArray.add_dead_pixel_map()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.add_efficiency_function"><code class="docutils literal notranslate"><span class="pre">DetectorArray.add_efficiency_function()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.add_flat_frame"><code class="docutils literal notranslate"><span class="pre">DetectorArray.add_flat_frame()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.add_hot_pixel_map"><code class="docutils literal notranslate"><span class="pre">DetectorArray.add_hot_pixel_map()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.add_linearity_function"><code class="docutils literal notranslate"><span class="pre">DetectorArray.add_linearity_function()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.add_read_noise"><code class="docutils literal notranslate"><span class="pre">DetectorArray.add_read_noise()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.bias_frame"><code class="docutils literal notranslate"><span class="pre">DetectorArray.bias_frame</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.bias_stddev_frame"><code class="docutils literal notranslate"><span class="pre">DetectorArray.bias_stddev_frame</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.cosmic_ray_rate"><code class="docutils literal notranslate"><span class="pre">DetectorArray.cosmic_ray_rate</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.cosmic_ray_value"><code class="docutils literal notranslate"><span class="pre">DetectorArray.cosmic_ray_value</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.dark_current_frame"><code class="docutils literal notranslate"><span class="pre">DetectorArray.dark_current_frame</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.dark_current_stddev_frame"><code class="docutils literal notranslate"><span class="pre">DetectorArray.dark_current_stddev_frame</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.dead_pixel_map"><code class="docutils literal notranslate"><span class="pre">DetectorArray.dead_pixel_map</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.dead_pixel_value"><code class="docutils literal notranslate"><span class="pre">DetectorArray.dead_pixel_value</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.detector_gain"><code class="docutils literal notranslate"><span class="pre">DetectorArray.detector_gain</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.detector_shape"><code class="docutils literal notranslate"><span class="pre">DetectorArray.detector_shape</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.efficiency_function"><code class="docutils literal notranslate"><span class="pre">DetectorArray.efficiency_function()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.efficiency_spectrum"><code class="docutils literal notranslate"><span class="pre">DetectorArray.efficiency_spectrum()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.flat_frame"><code class="docutils literal notranslate"><span class="pre">DetectorArray.flat_frame</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.flat_stddev_frame"><code class="docutils literal notranslate"><span class="pre">DetectorArray.flat_stddev_frame</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.get_random_state"><code class="docutils literal notranslate"><span class="pre">DetectorArray.get_random_state()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.hot_pixel_map"><code class="docutils literal notranslate"><span class="pre">DetectorArray.hot_pixel_map</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.hot_pixel_value"><code class="docutils literal notranslate"><span class="pre">DetectorArray.hot_pixel_value</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.linearity_function"><code class="docutils literal notranslate"><span class="pre">DetectorArray.linearity_function()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.nondestructive_reads"><code class="docutils literal notranslate"><span class="pre">DetectorArray.nondestructive_reads</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.pixel_size"><code class="docutils literal notranslate"><span class="pre">DetectorArray.pixel_size</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.random_state_seed"><code class="docutils literal notranslate"><span class="pre">DetectorArray.random_state_seed</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.raw_bias_frames"><code class="docutils literal notranslate"><span class="pre">DetectorArray.raw_bias_frames</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.raw_dark_current_frames"><code class="docutils literal notranslate"><span class="pre">DetectorArray.raw_dark_current_frames</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.raw_dead_pixel_maps"><code class="docutils literal notranslate"><span class="pre">DetectorArray.raw_dead_pixel_maps</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.raw_efficiency_function"><code class="docutils literal notranslate"><span class="pre">DetectorArray.raw_efficiency_function</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.raw_flat_frames"><code class="docutils literal notranslate"><span class="pre">DetectorArray.raw_flat_frames</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.raw_hot_pixel_maps"><code class="docutils literal notranslate"><span class="pre">DetectorArray.raw_hot_pixel_maps</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.raw_linearity_function"><code class="docutils literal notranslate"><span class="pre">DetectorArray.raw_linearity_function</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.read_noise"><code class="docutils literal notranslate"><span class="pre">DetectorArray.read_noise</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.read_noise_stddev"><code class="docutils literal notranslate"><span class="pre">DetectorArray.read_noise_stddev</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.recalculate_detector"><code class="docutils literal notranslate"><span class="pre">DetectorArray.recalculate_detector()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.simulate_bias_frame"><code class="docutils literal notranslate"><span class="pre">DetectorArray.simulate_bias_frame()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.simulate_cosmic_ray_frame"><code class="docutils literal notranslate"><span class="pre">DetectorArray.simulate_cosmic_ray_frame()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.simulate_cosmic_ray_map"><code class="docutils literal notranslate"><span class="pre">DetectorArray.simulate_cosmic_ray_map()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.simulate_dark_current_frame"><code class="docutils literal notranslate"><span class="pre">DetectorArray.simulate_dark_current_frame()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.simulate_flat_frame"><code class="docutils literal notranslate"><span class="pre">DetectorArray.simulate_flat_frame()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.simulate_read_noise_frame"><code class="docutils literal notranslate"><span class="pre">DetectorArray.simulate_read_noise_frame()</span></code></a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-lezargus.library.container.detector">
+<span id="lezargus-library-container-detector-module"></span><h1>lezargus.library.container.detector module<a class="headerlink" href="#module-lezargus.library.container.detector" title="Link to this heading">#</a></h1>
+<p>Simulation code for modeling a detector.</p>
+<p>We constrain ourselves to model CCD and H2RG detectors; or, more specifically,
+we design the model off of simple CCD detectors and constrain H2RG parameters
+to model that of a CCD-like detector.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lezargus.library.container.detector.</span></span><span class="sig-name descname"><span class="pre">DetectorArray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">detector_shape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pixel_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detector_gain</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nondestructive_reads</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state_seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/lezargus/library/container/detector.html#DetectorArray"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The detector class.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">detector_shape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pixel_size</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">detector_gain</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nondestructive_reads</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">random_state_seed</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lezargus/library/container/detector.html#DetectorArray.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.__init__" title="Link to this definition">#</a></dt>
+<dd><p>Initialize the detector simulator.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>detector_shape</strong> (<em>tuple</em>) – The shape of the detector, in pixels. Typically they are squares
+so the shape may be the same.</p></li>
+<li><p><strong>pixel_size</strong> (<em>float</em>) – The length or size of a pixel, in meters. Note, we assume square
+pixels.</p></li>
+<li><p><strong>detector_gain</strong> (<em>float</em><em>, </em><em>default = 1</em>) – The gain value of the detector, stored for later usage.</p></li>
+<li><p><strong>nondestructive_reads</strong> (<em>int</em><em>, </em><em>default = 1</em>) – The number of nondestructive reads the detector does for typical
+exposures. If a CCD, use 1.</p></li>
+<li><p><strong>random_state_seed</strong> (<em>int</em><em>, </em><em>default = None</em>) – The random state seed for the random number generator. If None,
+we just pick one at random.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.add_bias_frame">
+<span class="sig-name descname"><span class="pre">add_bias_frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bias_frame</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.NDArray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lezargus/library/container/detector.html#DetectorArray.add_bias_frame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.add_bias_frame" title="Link to this definition">#</a></dt>
+<dd><p>Add a detector bias frame to the simulated detector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>bias_frame</strong> (<em>NDArray</em>) – The bias frame which we are going to add.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.add_cosmic_ray_rates">
+<span class="sig-name descname"><span class="pre">add_cosmic_ray_rates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">cosmic_ray_rate</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">cosmic_ray_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lezargus/library/container/detector.html#DetectorArray.add_cosmic_ray_rates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.add_cosmic_ray_rates" title="Link to this definition">#</a></dt>
+<dd><p>Add the rate of cosmic rays hitting the detector’s pixels.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cosmic_ray_rate</strong> (<em>float</em>) – The rate that cosmic rays are hitting the detector. The units
+are cosmic ray per second per square meter.</p></li>
+<li><p><strong>cosmic_ray_value</strong> (<em>float</em><em>, </em><em>default = None</em>) – If a cosmic ray does hit the detector, then we add this value;
+the expected detector value a cosmic ray imparts on the detector.
+If None, then we assume an arbitrary high value.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.add_dark_current_frame">
+<span class="sig-name descname"><span class="pre">add_dark_current_frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dark_current_frame</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.NDArray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lezargus/library/container/detector.html#DetectorArray.add_dark_current_frame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.add_dark_current_frame" title="Link to this definition">#</a></dt>
+<dd><p>Add a detector dark current frame to the simulated detector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>dark_current_frame</strong> (<em>NDArray</em>) – The dark current frame which we are going to add.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.add_dead_pixel_map">
+<span class="sig-name descname"><span class="pre">add_dead_pixel_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dead_pixel_map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.NDArray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dead_pixel_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lezargus/library/container/detector.html#DetectorArray.add_dead_pixel_map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.add_dead_pixel_map" title="Link to this definition">#</a></dt>
+<dd><p>Add the detector dead pixel map to the simulated detector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dead_pixel_map</strong> (<em>NDArray</em>) – The dead pixel map as a boolean array. Where True, the pixel is
+considered dead.</p></li>
+<li><p><strong>dead_pixel_value</strong> (<em>float</em><em>, </em><em>default = None</em>) – The dead pixel value, used when a pixel is dead. If not provided,
+we default to the current dead pixel value.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.add_efficiency_function">
+<span class="sig-name descname"><span class="pre">add_efficiency_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">efficiency_function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lezargus/library/container/detector.html#DetectorArray.add_efficiency_function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.add_efficiency_function" title="Link to this definition">#</a></dt>
+<dd><p>Add an efficiency function to the simulated detector.</p>
+<p>The efficiency function is a function of the efficiency of the
+detector over wavelength. The efficiency of the detector is typically
+due to the quantum efficiency function of the detector but it
+nessecilarily need not be limited to it. Any efficiency detriment
+is provided here.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>efficiency_function</strong> (<em>NDArray</em>) – The efficiency function which we are going to add.
+The input of</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.add_flat_frame">
+<span class="sig-name descname"><span class="pre">add_flat_frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">flat_frame</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.NDArray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lezargus/library/container/detector.html#DetectorArray.add_flat_frame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.add_flat_frame" title="Link to this definition">#</a></dt>
+<dd><p>Add a detector flat frame to the simulated detector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>flat_frame</strong> (<em>NDArray</em>) – The flat frame which we are going to add.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.add_hot_pixel_map">
+<span class="sig-name descname"><span class="pre">add_hot_pixel_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">hot_pixel_map</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.NDArray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hot_pixel_value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lezargus/library/container/detector.html#DetectorArray.add_hot_pixel_map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.add_hot_pixel_map" title="Link to this definition">#</a></dt>
+<dd><p>Add the detector hot pixel map to the simulated detector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>hot_pixel_map</strong> (<em>NDArray</em>) – The hot pixel map as a boolean array. Where True, the pixel is
+considered hot.</p></li>
+<li><p><strong>hot_pixel_value</strong> (<em>float</em><em>, </em><em>default = None</em>) – The hot pixel value, used when a pixel is hot. If not provided,
+we default to the current hot pixel value.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.add_linearity_function">
+<span class="sig-name descname"><span class="pre">add_linearity_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">linearity_function</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lezargus/library/container/detector.html#DetectorArray.add_linearity_function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.add_linearity_function" title="Link to this definition">#</a></dt>
+<dd><p>Add a detector linearity function to the simulated detector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>linearity_function</strong> (<em>NDArray</em>) – The linearity function which we are going to add.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.add_read_noise">
+<span class="sig-name descname"><span class="pre">add_read_noise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">read_noise</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">read_noise_stddev</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lezargus/library/container/detector.html#DetectorArray.add_read_noise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.add_read_noise" title="Link to this definition">#</a></dt>
+<dd><p>Add the detector read noise to the simulated detector.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>read_noise</strong> (<em>float</em>) – The read noise of a given pixel within the simulated detector.</p></li>
+<li><p><strong>read_noise_stddev</strong> (<em>float</em><em>, </em><em>default = 0</em>) – The standard deviation of the read noise of a single pixel within
+the simulated detector.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.bias_frame">
+<span class="sig-name descname"><span class="pre">bias_frame</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">hint.NDArray</span></em><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.bias_frame" title="Link to this definition">#</a></dt>
+<dd><p>The averaged bias frame for the detector. This value is typically
+computed from the provided raw bias frames.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.bias_stddev_frame">
+<span class="sig-name descname"><span class="pre">bias_stddev_frame</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">hint.NDArray</span></em><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.bias_stddev_frame" title="Link to this definition">#</a></dt>
+<dd><p>The standard deviation of the average bias frame. This value is
+typically computed from the provided raw bias frames.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.cosmic_ray_rate">
+<span class="sig-name descname"><span class="pre">cosmic_ray_rate</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.cosmic_ray_rate" title="Link to this definition">#</a></dt>
+<dd><p>The rate that cosmic rays hit the surface of the Earth/detector.
+This is used to compute a cosmic ray pixel map for where cosmic rays
+hit the pixels. This is in cosmic rays per second per square meter.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.cosmic_ray_value">
+<span class="sig-name descname"><span class="pre">cosmic_ray_value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">inf</span></em><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.cosmic_ray_value" title="Link to this definition">#</a></dt>
+<dd><p>The detector value for when a cosmic ray hits the detector. Though
+we assume a near typical high value, given the variance of cosmic rays.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.dark_current_frame">
+<span class="sig-name descname"><span class="pre">dark_current_frame</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">hint.NDArray</span></em><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.dark_current_frame" title="Link to this definition">#</a></dt>
+<dd><p>The averaged dark current frame for the detector. This value is
+typically computed from the provided raw dark current frames.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.dark_current_stddev_frame">
+<span class="sig-name descname"><span class="pre">dark_current_stddev_frame</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">hint.NDArray</span></em><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.dark_current_stddev_frame" title="Link to this definition">#</a></dt>
+<dd><p>The standard deviation of the average dark current frame. This value is
+typically computed from the provided raw dark current frames.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.dead_pixel_map">
+<span class="sig-name descname"><span class="pre">dead_pixel_map</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">hint.NDArray</span></em><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.dead_pixel_map" title="Link to this definition">#</a></dt>
+<dd><p>The dead pixel map of the detector. Where True, the pixel is considered
+a “dead” pixel, and will have its value substituted by the typical dead
+pixel value. If None, we assume no dead pixels at all.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.dead_pixel_value">
+<span class="sig-name descname"><span class="pre">dead_pixel_value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.dead_pixel_value" title="Link to this definition">#</a></dt>
+<dd><p>The value of a dead pixel, where the hot pixel map determines which are
+hot. The value is in ADUs. By default, we assume 0, but there should be
+much better values.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.detector_gain">
+<span class="sig-name descname"><span class="pre">detector_gain</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.detector_gain" title="Link to this definition">#</a></dt>
+<dd><p>The detector gain value.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.detector_shape">
+<span class="sig-name descname"><span class="pre">detector_shape</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">tuple</span></em><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.detector_shape" title="Link to this definition">#</a></dt>
+<dd><p>The shape of the detector, described as a tuple shape of the number
+of pixels.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.efficiency_function">
+<span class="sig-name descname"><span class="pre">efficiency_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wavelength</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.NDArray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">hint.NDArray</span></span></span><a class="reference internal" href="../_modules/lezargus/library/container/detector.html#DetectorArray.efficiency_function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.efficiency_function" title="Link to this definition">#</a></dt>
+<dd><p>Compute the efficiency of the detector.</p>
+<p>The efficiency function of the detector. This is the function which
+determines the efficiency of the detector at a provided wavelength.
+The quantum efficiency function should be contained within this
+function along with any other wavelength-dependent efficiency
+considerations. If no raw efficiency function has been
+provided, <a href="#id1"><span class="problematic" id="id2">:py:method:`add_efficiency_function`</span></a>, then we default to
+a perfect efficiency function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>wavelength</strong> (<em>NDArray</em>) – The wavelength to determine the efficiency of the detector at, as
+a function of wavelength. The units of the wavelength should be
+in meters.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>efficiency</strong> – The output efficiency per the detector.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>NDArray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.efficiency_spectrum">
+<span class="sig-name descname"><span class="pre">efficiency_spectrum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wavelength</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.NDArray</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">hint.LezargusSpectrum</span></span></span><a class="reference internal" href="../_modules/lezargus/library/container/detector.html#DetectorArray.efficiency_spectrum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.efficiency_spectrum" title="Link to this definition">#</a></dt>
+<dd><p>Efficiency function of the detector, as a spectrum class.</p>
+<p>As a convenience function, we package the efficiency data as a
+full LezargusSpectrum.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wavelength</strong> (<em>NDArray</em>) – The wavelength to determine the efficiency of the detector at, as
+a function of wavelength. The units of the wavelength should be
+in meters.</p></li>
+<li><p><strong>**kwargs</strong> (<em>Any</em>) – Any additional keywords are passed to LezargusSpectrum. Note,
+the uncertainty, units, and masks are already handled and
+duplicate entries will raise an error.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>efficiency_spectrum</strong> – The efficiency data, except as a spectrum.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="lezargus.library.container.spectrum.html#lezargus.library.container.spectrum.LezargusSpectrum" title="lezargus.library.container.spectrum.LezargusSpectrum">LezargusSpectrum</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.flat_frame">
+<span class="sig-name descname"><span class="pre">flat_frame</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">hint.NDArray</span></em><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.flat_frame" title="Link to this definition">#</a></dt>
+<dd><p>The averaged flat frame for the detector. This value is typically
+computed from the provided raw flat frames.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.flat_stddev_frame">
+<span class="sig-name descname"><span class="pre">flat_stddev_frame</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">hint.NDArray</span></em><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.flat_stddev_frame" title="Link to this definition">#</a></dt>
+<dd><p>The standard deviation of the average flat frame. This value is
+typically computed from the provided raw flat frames.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.get_random_state">
+<span class="sig-name descname"><span class="pre">get_random_state</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="../_modules/lezargus/library/container/detector.html#DetectorArray.get_random_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.get_random_state" title="Link to this definition">#</a></dt>
+<dd><p>Get the random state seed for processing.</p>
+<p>This function acts as a middleman where if the random state is set,
+we just use that, otherwise, we make sure that random numbers can
+continue to be random numbers.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>random_state</strong> – The random state to use.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.hot_pixel_map">
+<span class="sig-name descname"><span class="pre">hot_pixel_map</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">hint.NDArray</span></em><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.hot_pixel_map" title="Link to this definition">#</a></dt>
+<dd><p>The hot pixel map of the detector. Where True, the pixel is considered
+a “hot” pixel, and will have its value substituted by the typical hot
+pixel value.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.hot_pixel_value">
+<span class="sig-name descname"><span class="pre">hot_pixel_value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">inf</span></em><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.hot_pixel_value" title="Link to this definition">#</a></dt>
+<dd><p>The value of a hot pixel, where the hot pixel map determines which are
+hot. The value is in ADUs. By default, we just use infinity, but there
+should be much better values.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.linearity_function">
+<span class="sig-name descname"><span class="pre">linearity_function</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">counts</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.NDArray</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">hint.NDArray</span></span></span><a class="reference internal" href="../_modules/lezargus/library/container/detector.html#DetectorArray.linearity_function"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.linearity_function" title="Link to this definition">#</a></dt>
+<dd><p>Compute the linearity response of the detector.</p>
+<p>The linearity function of the detector is used to determine actual
+ADUs from an expected ADU input, given the lack of linearity at very
+low and very high values. If no raw linearity function has been
+provided, <a href="#id3"><span class="problematic" id="id4">:py:method:`add_linearity_function`</span></a>, then we default to
+a perfect linearity function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>counts</strong> (<em>NDArray</em>) – The input counts which we will use to determine the real output
+counts on the detector.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>output</strong> – The output counts after the detector linearity has been taken
+into account.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>NDArray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.nondestructive_reads">
+<span class="sig-name descname"><span class="pre">nondestructive_reads</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.nondestructive_reads" title="Link to this definition">#</a></dt>
+<dd><p>The number of nondestructive reads made to obtain a given observation.
+This value is intrinsic to the detector and it mostly affects read noise.
+Though this is valid for only H2RG-based detectors, for CCDs a value of 1
+is appropriate.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.pixel_size">
+<span class="sig-name descname"><span class="pre">pixel_size</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.pixel_size" title="Link to this definition">#</a></dt>
+<dd><p>The length or the size of the pixels, in meters. We assume the pixels
+are square and so only one measurement is needed.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.random_state_seed">
+<span class="sig-name descname"><span class="pre">random_state_seed</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">int</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.random_state_seed" title="Link to this definition">#</a></dt>
+<dd><p>The random state seed for all of the functions which need to have
+a random number generator used. This is mostly for generating new
+detector frames. If None, which is suggested, we always use a different
+random state.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.raw_bias_frames">
+<span class="sig-name descname"><span class="pre">raw_bias_frames</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">hint.NDArray</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.raw_bias_frames" title="Link to this definition">#</a></dt>
+<dd><p>The list of bias frames added to the detector to derive simulated
+bias values from. If None, should no bias frames be provided, we default
+to a zero bias frame for calculations. The bias is in ADUs.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.raw_dark_current_frames">
+<span class="sig-name descname"><span class="pre">raw_dark_current_frames</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">hint.NDArray</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.raw_dark_current_frames" title="Link to this definition">#</a></dt>
+<dd><p>The list of dark current frames added to the detector to derive
+simulated dark current values from. If None, should no dark current
+frames be provided, we default to a zero dark current frame for
+calculations. The dark current is in ADUs per second.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.raw_dead_pixel_maps">
+<span class="sig-name descname"><span class="pre">raw_dead_pixel_maps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">hint.NDArray</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.raw_dead_pixel_maps" title="Link to this definition">#</a></dt>
+<dd><p>The list of raw dead pixel maps added to the detector to derive
+the simulated dead pixel map. If None, we assume no dead pixels at all.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.raw_efficiency_function">
+<span class="sig-name descname"><span class="pre">raw_efficiency_function</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">hint.Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">hint.NDArray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">hint.NDArray</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.raw_efficiency_function" title="Link to this definition">#</a></dt>
+<dd><p>The added efficiency function of the detector. This is the function
+which determines the efficiency of the detector at a provided wavelength.
+If not provided, this is None, and we default to a perfect, 1, efficiency
+function.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.raw_flat_frames">
+<span class="sig-name descname"><span class="pre">raw_flat_frames</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">hint.NDArray</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.raw_flat_frames" title="Link to this definition">#</a></dt>
+<dd><p>The list of flat frames added to the detector to derive simulated
+flat values from. If None, should no flat frames be provided, we default
+to a unity flat frame for calculations. The flat is unit-less, as an
+efficiency factor.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.raw_hot_pixel_maps">
+<span class="sig-name descname"><span class="pre">raw_hot_pixel_maps</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">hint.NDArray</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.raw_hot_pixel_maps" title="Link to this definition">#</a></dt>
+<dd><p>The list of raw hot pixel maps added to the detector to derive
+the simulated hot pixel map. If None, we assume no hot pixels at all.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.raw_linearity_function">
+<span class="sig-name descname"><span class="pre">raw_linearity_function</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">hint.Callable</span><span class="p"><span class="pre">[</span></span><span class="p"><span class="pre">[</span></span><span class="pre">hint.NDArray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">hint.NDArray</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.raw_linearity_function" title="Link to this definition">#</a></dt>
+<dd><p>The added linearity of the detector. If not provided, this is None, and
+we default to a linear linearity function.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.read_noise">
+<span class="sig-name descname"><span class="pre">read_noise</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.read_noise" title="Link to this definition">#</a></dt>
+<dd><p>The read noise of the detector’s pixels. If not otherwise provided,
+we default to a zero read noise detector.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.read_noise_stddev">
+<span class="sig-name descname"><span class="pre">read_noise_stddev</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.read_noise_stddev" title="Link to this definition">#</a></dt>
+<dd><p>The standard deviation of the read noise of the detector’s pixels. If
+not otherwise provided, we default to a zero read noise detector (thus
+the standard deviation is also zero).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.recalculate_detector">
+<span class="sig-name descname"><span class="pre">recalculate_detector</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lezargus/library/container/detector.html#DetectorArray.recalculate_detector"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.recalculate_detector" title="Link to this definition">#</a></dt>
+<dd><p>Recalculate the detector frames from the input raw frames.</p>
+<p>Typically, only the average frame data is needed. However, we do not
+want to always recalculate the average frame data from the raw
+data every time. It would take too much time and it would also not
+allow any overwrites. So, we do it here.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.simulate_bias_frame">
+<span class="sig-name descname"><span class="pre">simulate_bias_frame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">hint.NDArray</span></span></span><a class="reference internal" href="../_modules/lezargus/library/container/detector.html#DetectorArray.simulate_bias_frame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.simulate_bias_frame" title="Link to this definition">#</a></dt>
+<dd><p>Generate a new simulated bias frame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>bias_frame</strong> – The simulated bias frame.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>NDArray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.simulate_cosmic_ray_frame">
+<span class="sig-name descname"><span class="pre">simulate_cosmic_ray_frame</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exposure_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">hint.NDArray</span></span></span><a class="reference internal" href="../_modules/lezargus/library/container/detector.html#DetectorArray.simulate_cosmic_ray_frame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.simulate_cosmic_ray_frame" title="Link to this definition">#</a></dt>
+<dd><p>Generate a new simulated cosmic ray frame, detailing where rays hit.</p>
+<p>Note, cosmic rays often hit multiple pixels at once. We currently
+do not simulate this. The cosmic ray map is created by
+<a class="reference internal" href="#lezargus.library.container.detector.DetectorArray.simulate_cosmic_ray_map" title="lezargus.library.container.detector.DetectorArray.simulate_cosmic_ray_map"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simulate_cosmic_ray_map()</span></code></a>, while this function applies the
+cosmic ray values to this map and returns the additive component of
+cosmic rays to the detector frame data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>exposure_time</strong> (<em>float</em>) – The exposure time, in seconds. This is pertinent as cosmic rays
+are a rate and if one hit or not depends on the integration time.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>cosmic_ray_frame</strong> – The simulated cosmic ray frame based on the map.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>NDArray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.simulate_cosmic_ray_map">
+<span class="sig-name descname"><span class="pre">simulate_cosmic_ray_map</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exposure_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">hint.NDArray</span></span></span><a class="reference internal" href="../_modules/lezargus/library/container/detector.html#DetectorArray.simulate_cosmic_ray_map"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.simulate_cosmic_ray_map" title="Link to this definition">#</a></dt>
+<dd><p>Generate a new simulated cosmic ray map, detailing where rays hit.</p>
+<p>Note, cosmic rays often hit multiple pixels at once. We currently
+do not simulate this. The cosmic ray map is created by
+this function, while the <a class="reference internal" href="#lezargus.library.container.detector.DetectorArray.simulate_cosmic_ray_frame" title="lezargus.library.container.detector.DetectorArray.simulate_cosmic_ray_frame"><code class="xref py py-meth docutils literal notranslate"><span class="pre">simulate_cosmic_ray_frame()</span></code></a>
+function applies the cosmic ray values of this map and returns the
+additive component of cosmic rays to the detector frame data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>exposure_time</strong> (<em>float</em>) – The exposure time, in seconds. This is pertinent as cosmic rays
+are a rate and if one hit or not depends on the integration time.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>cosmic_ray_map</strong> – The simulated cosmic ray map.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>NDArray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.simulate_dark_current_frame">
+<span class="sig-name descname"><span class="pre">simulate_dark_current_frame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">hint.NDArray</span></span></span><a class="reference internal" href="../_modules/lezargus/library/container/detector.html#DetectorArray.simulate_dark_current_frame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.simulate_dark_current_frame" title="Link to this definition">#</a></dt>
+<dd><p>Generate a new simulated dark current frame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>dark_current_frame</strong> – The simulated dark current frame.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>NDArray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.simulate_flat_frame">
+<span class="sig-name descname"><span class="pre">simulate_flat_frame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">hint.NDArray</span></span></span><a class="reference internal" href="../_modules/lezargus/library/container/detector.html#DetectorArray.simulate_flat_frame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.simulate_flat_frame" title="Link to this definition">#</a></dt>
+<dd><p>Generate a new simulated flat frame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>flat_frame</strong> – The simulated flat frame.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>NDArray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.library.container.detector.DetectorArray.simulate_read_noise_frame">
+<span class="sig-name descname"><span class="pre">simulate_read_noise_frame</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">hint.NDArray</span></span></span><a class="reference internal" href="../_modules/lezargus/library/container/detector.html#DetectorArray.simulate_read_noise_frame"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.container.detector.DetectorArray.simulate_read_noise_frame" title="Link to this definition">#</a></dt>
+<dd><p>Generate a new simulated read noise frame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>read_noise_frame</strong> – The simulated read noise frame.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>NDArray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="lezargus.library.container.cube.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">lezargus.library.container.cube module</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="lezargus.library.container.dispersion.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">lezargus.library.container.dispersion module</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray"><code class="docutils literal notranslate"><span class="pre">DetectorArray</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.__init__"><code class="docutils literal notranslate"><span class="pre">DetectorArray.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.add_bias_frame"><code class="docutils literal notranslate"><span class="pre">DetectorArray.add_bias_frame()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.add_cosmic_ray_rates"><code class="docutils literal notranslate"><span class="pre">DetectorArray.add_cosmic_ray_rates()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.add_dark_current_frame"><code class="docutils literal notranslate"><span class="pre">DetectorArray.add_dark_current_frame()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.add_dead_pixel_map"><code class="docutils literal notranslate"><span class="pre">DetectorArray.add_dead_pixel_map()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.add_efficiency_function"><code class="docutils literal notranslate"><span class="pre">DetectorArray.add_efficiency_function()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.add_flat_frame"><code class="docutils literal notranslate"><span class="pre">DetectorArray.add_flat_frame()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.add_hot_pixel_map"><code class="docutils literal notranslate"><span class="pre">DetectorArray.add_hot_pixel_map()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.add_linearity_function"><code class="docutils literal notranslate"><span class="pre">DetectorArray.add_linearity_function()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.add_read_noise"><code class="docutils literal notranslate"><span class="pre">DetectorArray.add_read_noise()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.bias_frame"><code class="docutils literal notranslate"><span class="pre">DetectorArray.bias_frame</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.bias_stddev_frame"><code class="docutils literal notranslate"><span class="pre">DetectorArray.bias_stddev_frame</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.cosmic_ray_rate"><code class="docutils literal notranslate"><span class="pre">DetectorArray.cosmic_ray_rate</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.cosmic_ray_value"><code class="docutils literal notranslate"><span class="pre">DetectorArray.cosmic_ray_value</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.dark_current_frame"><code class="docutils literal notranslate"><span class="pre">DetectorArray.dark_current_frame</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.dark_current_stddev_frame"><code class="docutils literal notranslate"><span class="pre">DetectorArray.dark_current_stddev_frame</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.dead_pixel_map"><code class="docutils literal notranslate"><span class="pre">DetectorArray.dead_pixel_map</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.dead_pixel_value"><code class="docutils literal notranslate"><span class="pre">DetectorArray.dead_pixel_value</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.detector_gain"><code class="docutils literal notranslate"><span class="pre">DetectorArray.detector_gain</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.detector_shape"><code class="docutils literal notranslate"><span class="pre">DetectorArray.detector_shape</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.efficiency_function"><code class="docutils literal notranslate"><span class="pre">DetectorArray.efficiency_function()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.efficiency_spectrum"><code class="docutils literal notranslate"><span class="pre">DetectorArray.efficiency_spectrum()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.flat_frame"><code class="docutils literal notranslate"><span class="pre">DetectorArray.flat_frame</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.flat_stddev_frame"><code class="docutils literal notranslate"><span class="pre">DetectorArray.flat_stddev_frame</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.get_random_state"><code class="docutils literal notranslate"><span class="pre">DetectorArray.get_random_state()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.hot_pixel_map"><code class="docutils literal notranslate"><span class="pre">DetectorArray.hot_pixel_map</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.hot_pixel_value"><code class="docutils literal notranslate"><span class="pre">DetectorArray.hot_pixel_value</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.linearity_function"><code class="docutils literal notranslate"><span class="pre">DetectorArray.linearity_function()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.nondestructive_reads"><code class="docutils literal notranslate"><span class="pre">DetectorArray.nondestructive_reads</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.pixel_size"><code class="docutils literal notranslate"><span class="pre">DetectorArray.pixel_size</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.random_state_seed"><code class="docutils literal notranslate"><span class="pre">DetectorArray.random_state_seed</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.raw_bias_frames"><code class="docutils literal notranslate"><span class="pre">DetectorArray.raw_bias_frames</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.raw_dark_current_frames"><code class="docutils literal notranslate"><span class="pre">DetectorArray.raw_dark_current_frames</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.raw_dead_pixel_maps"><code class="docutils literal notranslate"><span class="pre">DetectorArray.raw_dead_pixel_maps</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.raw_efficiency_function"><code class="docutils literal notranslate"><span class="pre">DetectorArray.raw_efficiency_function</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.raw_flat_frames"><code class="docutils literal notranslate"><span class="pre">DetectorArray.raw_flat_frames</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.raw_hot_pixel_maps"><code class="docutils literal notranslate"><span class="pre">DetectorArray.raw_hot_pixel_maps</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.raw_linearity_function"><code class="docutils literal notranslate"><span class="pre">DetectorArray.raw_linearity_function</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.read_noise"><code class="docutils literal notranslate"><span class="pre">DetectorArray.read_noise</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.read_noise_stddev"><code class="docutils literal notranslate"><span class="pre">DetectorArray.read_noise_stddev</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.recalculate_detector"><code class="docutils literal notranslate"><span class="pre">DetectorArray.recalculate_detector()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.simulate_bias_frame"><code class="docutils literal notranslate"><span class="pre">DetectorArray.simulate_bias_frame()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.simulate_cosmic_ray_frame"><code class="docutils literal notranslate"><span class="pre">DetectorArray.simulate_cosmic_ray_frame()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.simulate_cosmic_ray_map"><code class="docutils literal notranslate"><span class="pre">DetectorArray.simulate_cosmic_ray_map()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.simulate_dark_current_frame"><code class="docutils literal notranslate"><span class="pre">DetectorArray.simulate_dark_current_frame()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.simulate_flat_frame"><code class="docutils literal notranslate"><span class="pre">DetectorArray.simulate_flat_frame()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.container.detector.DetectorArray.simulate_read_noise_frame"><code class="docutils literal notranslate"><span class="pre">DetectorArray.simulate_read_noise_frame()</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sparrow
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023, Sparrow.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

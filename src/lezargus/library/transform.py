@@ -1,7 +1,9 @@
-"""Array or image transformations, typically affine transformations.
+"""Array or image transformations, typically affine; and computer vision tools.
 
 The transform of images and arrays are important, and here we separate many
-similar functions into this module.
+similar functions into this module. Other related functions are stored in
+this module as well including computer vision tools like corner detection,
+[[BLAW]], and [[BLAW]] among other things.
 """
 
 # isort: split
@@ -142,7 +144,6 @@ def crop_2d(
     array: hint.NDArray,
     new_shape: tuple,
     location: str | tuple = "center",
-    use_pillow: bool = False,
 ) -> hint.NDArray:
     """Crop a 2D image array.
 
@@ -157,8 +158,6 @@ def crop_2d(
         or an instruction as follows:
 
         - center : The center of the array.
-    use_pillow : bool, default = False
-        If True, we use the PIL/Pillow module to determine the crop.
 
     Returns
     -------
@@ -166,9 +165,6 @@ def crop_2d(
         The cropped array.
 
     """
-    # Keeping.
-    lezargus.library.wrapper.do_nothing(use_pillow)
-
     # Basic properties.
     current_shape = array.shape
 
@@ -414,3 +410,117 @@ def calculate_affine_matrix(
 
     # All done.
     return homogeneous_matrix
+
+
+def corner_detection(
+    array: hint.NDArray,
+    max_corners: int = -1,
+    quality_level: float | None = None,
+    minimum_distance: float = 1,
+    use_harris: bool = False,
+) -> list[tuple]:
+    """Detect corners in an gray image array.
+
+    This function is a half-wrapper of the Shi-Tomasi corner detection
+    algorithm per OpenCV's implementation. (Though, a flag exists to use
+    the Harris 1988 corner detection algorithm instead as per OpenCV's
+    function.) See `cv2.goodFeaturesToTrack()` for more information.
+
+    Parameters
+    ----------
+    array : NDArray
+        The image array which we will be using to detect the corners.
+        This should be either an 8-bit int or a 32-bit float array.
+    max_corners : int | None, default = None
+        The maximum number of corners to find. If provided only the "best"
+        corners, based on the detection metric, up to the maximum will be
+        provided. If 0 or a negative value (default), all valid
+        corners will be returned instead as per OpenCV.
+    quality_level : float | None, default = None
+        The minimum quality level required for the corners. This value is a
+        factor and establishes the quality floor of detected corners as a
+        ratio to the highest quality corner found. If None, the default
+        value will be exceedingly low ensuring `max_corners` find the
+        required corners. This should be set if `max_corners` is not set.
+    minimum_distance : float, default = 1
+        The minimum Euclidean distance between the detected corners, in
+        units of pixels. By default, we use 1, to prevent the same corner
+        being detected multiple times.
+    use_harris : bool, default = False
+        If True, we use the Harris method instead of the Shi-Tomasi method
+        per OpenCV. Default is False, that is, to use the method as per
+        usual.
+
+    Returns
+    -------
+    corners : list
+        A list of the (x, y) coordinate tuple pairs of the corners found.
+        The tuple is ranked in order of the quality of the corners.
+
+    """
+    # Defaults.
+    # A negative value expressly asks for all corners found. However, a
+    # current bug in OpenCV or its documentation requires the flag to be
+    # exactly 0.
+    max_corners = int(max(0, max_corners))
+    # The quality level cannot be 0 but we can make it really close to it.
+    # Using the 32-bit float just to be quick.
+    quality_level = float(2e-38 if quality_level is None else quality_level)
+    # And the minimum distance, should be greater than 1.
+    minimum_distance = max(1, minimum_distance)
+
+    # Some warnings about if too many corners are to be made...
+    low_quality_level = 1e-20
+    if (max_corners <= 0) and (quality_level <= low_quality_level):
+        logging.warning(
+            warning_type=logging.AlgorithmWarning,
+            message=(
+                f"No `max_corners` and a low quality level {quality_level} will"
+                " likely provide useless corners."
+            ),
+        )
+
+    # OpenCV requires the data type of the array to be specific; either
+    # 8-bit integers or 32-bit floats. Though customary, it is not required
+    # for the float array to be normalized so we do not do it here.
+    array_dtype = array.dtype
+    if np.isdtype(array_dtype, np.dtype(np.int8)) or np.isdtype(
+        array_dtype,
+        np.dtype(np.float32),
+    ):
+        # All good.
+        valid_array = array
+    # It is not one of the valid arrays... We can see if we can convert it
+    # to one.
+    # Starting with integers first as floats are more "lenient".
+    elif np.can_cast(array_dtype, np.dtype(np.int8)):
+        valid_array = np.asarray(array, dtype=np.dtype(np.int8))
+    elif np.can_cast(array_dtype, np.dtype(np.float32)):
+        valid_array = np.asarray(array, dtype=np.dtype(np.float32))
+    else:
+        # The program is highly likely to error.
+        logging.error(
+            error_type=logging.InputError,
+            message=(
+                f"Array with type {array_dtype} cannot be converted to"
+                " expected 8-bit int or 32-bit float as expected by"
+                " OpenCV."
+            ),
+        )
+        valid_array = array
+
+    # Finding the corners using OpenCV.
+    # For some reason, the corners are embedded in a too-high a dimension pair
+    # group.
+    raw_corner_output = cv2.goodFeaturesToTrack(
+        image=valid_array,
+        maxCorners=max_corners,
+        qualityLevel=quality_level,
+        minDistance=minimum_distance,
+        useHarrisDetector=use_harris,
+    )
+    corner_output = np.squeeze(raw_corner_output)
+
+    # We repackage the output per the documentation.
+    corners = [(int(xdex), int(ydex)) for (xdex, ydex) in corner_output]
+    return corners

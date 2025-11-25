@@ -186,10 +186,26 @@ class TargetSimulator:
 
         # We scale the flux, applying a photometric correction for the
         # provided filter profile, zero point, and filter magnitude.
-        # We do not really care about the error term.
+        # As we are using a blackbody, we can derive a photometric correction
+        # factor outside of the provided wavelengths. (The full wavelength
+        # should be in meters, but the notation here makes it easier to read.)
+        photo_wavelength = np.linspace(0.1e-6, 10.0e-6, int(1e5))
+        photo_blackbody_flux = (
+            blackbody_function(photo_wavelength) * solid_angle
+        )
+        photometric_blackbody_spectra = (
+            lezargus.library.container.LezargusSpectrum(
+                wavelength=photo_wavelength,
+                data=photo_blackbody_flux,
+                uncertainty=None,
+                wavelength_unit="m",
+                data_unit="W m^-2 m^-1",
+                spectral_scale=spectral_scale,
+            )
+        )
         correction_factor, __ = (
             photometric_filter.calculate_photometric_correction(
-                spectrum=blackbody_spectra,
+                spectrum=photometric_blackbody_spectra,
                 magnitude=magnitude,
                 magnitude_uncertainty=0,
             )
@@ -630,7 +646,7 @@ class TargetSimulator:
 
         # We integrate the radiance to provide a proper photon spectral
         # irradiance which can be added.
-        solid_angle = np.pi
+        solid_angle = previous_state.pixel_scale**2
         solid_angle_unit = lezargus.library.conversion.parse_astropy_unit("sr")
         irradiance_cube = radiance_cube * solid_angle
         irradiance_cube.data_unit = radiance_cube.data_unit * solid_angle_unit

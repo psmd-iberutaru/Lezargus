@@ -1,0 +1,1388 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>lezargus.library.container.detector &#8212; Lezargus  documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../../../../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../../../_static/styles/sphinx-book-theme.css?v=a3416100" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+
+    <script src="../../../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = '_modules/lezargus/library/container/detector';</script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+        
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../../index.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Lezargus  documentation</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">User Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../user/index.html">User Manual</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul class="simple">
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Technical Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../technical/index.html">Technical Manual</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../../technical/atmosphere.html">Atmospheric Properties</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../technical/contributing.html">Contributor Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../technical/convention.html">Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../technical/photometry.html">Photometry</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../../technical/uncertainty.html">Uncertainty Propagation</a></li>
+</ul>
+</details></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Code Manual</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../../code/modules.html">lezargus</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../../../code/lezargus.html">lezargus package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../code/lezargus.cli.html">lezargus.cli package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.cli.__main__.html">lezargus.cli.__main__ module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.cli.help_.html">lezargus.cli.help_ module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.cli.version.html">lezargus.cli.version module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../code/lezargus.data.html">lezargus.data package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.data._make.html">lezargus.data._make package</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../code/lezargus.library.html">lezargus.library package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.container.html">lezargus.library.container package</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.array.html">lezargus.library.array module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.atmosphere.html">lezargus.library.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.configuration.html">lezargus.library.configuration module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.conversion.html">lezargus.library.conversion module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.convolution.html">lezargus.library.convolution module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.fits.html">lezargus.library.fits module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.flags.html">lezargus.library.flags module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.hint.html">lezargus.library.hint module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.interpolate.html">lezargus.library.interpolate module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.logging.html">lezargus.library.logging module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.math.html">lezargus.library.math module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.path.html">lezargus.library.path module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.photometry.html">lezargus.library.photometry module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.sanitize.html">lezargus.library.sanitize module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.stitch.html">lezargus.library.stitch module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.temporary.html">lezargus.library.temporary module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.transform.html">lezargus.library.transform module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../../../code/lezargus.simulator.html">lezargus.simulator package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.simulator.atmosphere.html">lezargus.simulator.atmosphere module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.simulator.spectre.html">lezargus.simulator.spectre module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.simulator.target.html">lezargus.simulator.target module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../../../code/lezargus.simulator.telescope.html">lezargus.simulator.telescope module</a></li>
+</ul>
+</details></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../code/lezargus.__main__.html">lezargus.__main__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../code/lezargus.__version__.html">lezargus.__version__ module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../code/lezargus.config.html">lezargus.config module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../code/lezargus.initialize.html">lezargus.initialize module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../../../../code/lezargus.terminate.html">lezargus.terminate module</a></li>
+</ul>
+</details></li>
+</ul>
+</details></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <h1>Source code for lezargus.library.container.detector</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Simulation code for modeling a detector.</span>
+
+<span class="sd">We constrain ourselves to model CCD and H2RG detectors; or, more specifically,</span>
+<span class="sd">we design the model off of simple CCD detectors and constrain H2RG parameters</span>
+<span class="sd">to model that of a CCD-like detector.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c1"># isort: split</span>
+<span class="c1"># Import required to remove circular dependencies from type checking.</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="k">if</span> <span class="n">TYPE_CHECKING</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">hint</span>
+<span class="c1"># isort: split</span>
+
+
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">scipy.stats</span>
+
+<span class="kn">import</span> <span class="nn">lezargus</span>
+<span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">logging</span>
+
+
+<div class="viewcode-block" id="DetectorArray">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray">[docs]</a>
+<span class="k">class</span> <span class="nc">DetectorArray</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The detector class.&quot;&quot;&quot;</span>
+
+    <span class="n">detector_shape</span><span class="p">:</span> <span class="nb">tuple</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The shape of the detector, described as a tuple shape of the number</span>
+<span class="sd">    of pixels.&quot;&quot;&quot;</span>
+
+    <span class="n">pixel_size</span><span class="p">:</span> <span class="nb">float</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The length or the size of the pixels, in meters. We assume the pixels</span>
+<span class="sd">    are square and so only one measurement is needed.&quot;&quot;&quot;</span>
+
+    <span class="n">detector_gain</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The detector gain value.&quot;&quot;&quot;</span>
+
+    <span class="n">nondestructive_reads</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The number of nondestructive reads made to obtain a given observation.</span>
+<span class="sd">    This value is intrinsic to the detector and it mostly affects read noise.</span>
+<span class="sd">    Though this is valid for only H2RG-based detectors, for CCDs a value of 1</span>
+<span class="sd">    is appropriate.&quot;&quot;&quot;</span>
+
+    <span class="n">raw_bias_frames</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The list of bias frames added to the detector to derive simulated</span>
+<span class="sd">    bias values from. If None, should no bias frames be provided, we default</span>
+<span class="sd">    to a zero bias frame for calculations. The bias is in ADUs.&quot;&quot;&quot;</span>
+
+    <span class="n">bias_frame</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The averaged bias frame for the detector. This value is typically</span>
+<span class="sd">    computed from the provided raw bias frames.&quot;&quot;&quot;</span>
+
+    <span class="n">bias_stddev_frame</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The standard deviation of the average bias frame. This value is</span>
+<span class="sd">    typically computed from the provided raw bias frames.&quot;&quot;&quot;</span>
+
+    <span class="n">raw_flat_frames</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The list of flat frames added to the detector to derive simulated</span>
+<span class="sd">    flat values from. If None, should no flat frames be provided, we default</span>
+<span class="sd">    to a unity flat frame for calculations. The flat is unit-less, as an</span>
+<span class="sd">    efficiency factor.&quot;&quot;&quot;</span>
+
+    <span class="n">flat_frame</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The averaged flat frame for the detector. This value is typically</span>
+<span class="sd">    computed from the provided raw flat frames.&quot;&quot;&quot;</span>
+
+    <span class="n">flat_stddev_frame</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The standard deviation of the average flat frame. This value is</span>
+<span class="sd">    typically computed from the provided raw flat frames.&quot;&quot;&quot;</span>
+
+    <span class="n">raw_dark_current_frames</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The list of dark current frames added to the detector to derive</span>
+<span class="sd">    simulated dark current values from. If None, should no dark current</span>
+<span class="sd">    frames be provided, we default to a zero dark current frame for</span>
+<span class="sd">    calculations. The dark current is in ADUs per second.&quot;&quot;&quot;</span>
+
+    <span class="n">dark_current_frame</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The averaged dark current frame for the detector. This value is</span>
+<span class="sd">    typically computed from the provided raw dark current frames.&quot;&quot;&quot;</span>
+
+    <span class="n">dark_current_stddev_frame</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The standard deviation of the average dark current frame. This value is</span>
+<span class="sd">    typically computed from the provided raw dark current frames.&quot;&quot;&quot;</span>
+
+    <span class="n">raw_linearity_function</span><span class="p">:</span> <span class="p">(</span>
+        <span class="n">hint</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">],</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The added linearity of the detector. If not provided, this is None, and</span>
+<span class="sd">    we default to a linear linearity function.&quot;&quot;&quot;</span>
+
+    <span class="n">raw_efficiency_function</span><span class="p">:</span> <span class="p">(</span>
+        <span class="n">hint</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">],</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span>
+    <span class="p">)</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The added efficiency function of the detector. This is the function</span>
+<span class="sd">    which determines the efficiency of the detector at a provided wavelength.</span>
+<span class="sd">    If not provided, this is None, and we default to a perfect, 1, efficiency</span>
+<span class="sd">    function.&quot;&quot;&quot;</span>
+
+    <span class="n">read_noise</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The read noise of the detector&#39;s pixels. If not otherwise provided,</span>
+<span class="sd">    we default to a zero read noise detector.&quot;&quot;&quot;</span>
+
+    <span class="n">read_noise_stddev</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The standard deviation of the read noise of the detector&#39;s pixels. If</span>
+<span class="sd">    not otherwise provided, we default to a zero read noise detector (thus</span>
+<span class="sd">    the standard deviation is also zero).&quot;&quot;&quot;</span>
+
+    <span class="n">raw_hot_pixel_maps</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The list of raw hot pixel maps added to the detector to derive</span>
+<span class="sd">    the simulated hot pixel map. If None, we assume no hot pixels at all.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">hot_pixel_map</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The hot pixel map of the detector. Where True, the pixel is considered</span>
+<span class="sd">    a &quot;hot&quot; pixel, and will have its value substituted by the typical hot</span>
+<span class="sd">    pixel value. &quot;&quot;&quot;</span>
+
+    <span class="n">hot_pixel_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The value of a hot pixel, where the hot pixel map determines which are</span>
+<span class="sd">    hot. The value is in ADUs. By default, we just use infinity, but there</span>
+<span class="sd">    should be much better values.&quot;&quot;&quot;</span>
+
+    <span class="n">raw_dead_pixel_maps</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The list of raw dead pixel maps added to the detector to derive</span>
+<span class="sd">    the simulated dead pixel map. If None, we assume no dead pixels at all.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">dead_pixel_map</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The dead pixel map of the detector. Where True, the pixel is considered</span>
+<span class="sd">    a &quot;dead&quot; pixel, and will have its value substituted by the typical dead</span>
+<span class="sd">    pixel value. If None, we assume no dead pixels at all.&quot;&quot;&quot;</span>
+
+    <span class="n">dead_pixel_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The value of a dead pixel, where the hot pixel map determines which are</span>
+<span class="sd">    hot. The value is in ADUs. By default, we assume 0, but there should be</span>
+<span class="sd">    much better values.&quot;&quot;&quot;</span>
+
+    <span class="n">cosmic_ray_rate</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The rate that cosmic rays hit the surface of the Earth/detector.</span>
+<span class="sd">    This is used to compute a cosmic ray pixel map for where cosmic rays</span>
+<span class="sd">    hit the pixels. This is in cosmic rays per second per square meter.&quot;&quot;&quot;</span>
+
+    <span class="n">cosmic_ray_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">inf</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The detector value for when a cosmic ray hits the detector. Though</span>
+<span class="sd">    we assume a near typical high value, given the variance of cosmic rays.&quot;&quot;&quot;</span>
+
+    <span class="n">random_state_seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;The random state seed for all of the functions which need to have</span>
+<span class="sd">    a random number generator used. This is mostly for generating new</span>
+<span class="sd">    detector frames. If None, which is suggested, we always use a different</span>
+<span class="sd">    random state.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="DetectorArray.__init__">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.__init__">[docs]</a>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">DetectorArray</span><span class="p">,</span>
+        <span class="n">detector_shape</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">,</span>
+        <span class="n">pixel_size</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">detector_gain</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">nondestructive_reads</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="n">random_state_seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the detector simulator.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        detector_shape : tuple</span>
+<span class="sd">            The shape of the detector, in pixels. Typically they are squares</span>
+<span class="sd">            so the shape may be the same.</span>
+<span class="sd">        pixel_size : float</span>
+<span class="sd">            The length or size of a pixel, in meters. Note, we assume square</span>
+<span class="sd">            pixels.</span>
+<span class="sd">        detector_gain : float, default = 1</span>
+<span class="sd">            The gain value of the detector, stored for later usage.</span>
+<span class="sd">        nondestructive_reads : int, default = 1</span>
+<span class="sd">            The number of nondestructive reads the detector does for typical</span>
+<span class="sd">            exposures. If a CCD, use 1.</span>
+<span class="sd">        random_state_seed : int, default = None</span>
+<span class="sd">            The random state seed for the random number generator. If None,</span>
+<span class="sd">            we just pick one at random.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Storing the values.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">detector_shape</span> <span class="o">=</span> <span class="n">detector_shape</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pixel_size</span> <span class="o">=</span> <span class="n">pixel_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">detector_gain</span> <span class="o">=</span> <span class="n">detector_gain</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">nondestructive_reads</span> <span class="o">=</span> <span class="n">nondestructive_reads</span>
+
+        <span class="c1"># The random state seed.</span>
+        <span class="k">if</span> <span class="n">random_state_seed</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Just a warning...</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span>
+                <span class="n">warning_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">AccuracyWarning</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;The random state seed is statically set. Detector&quot;</span>
+                    <span class="s2">&quot; simulations are no longer random.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">random_state_seed</span> <span class="o">=</span> <span class="n">random_state_seed</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">random_state_seed</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+
+        <span class="c1"># All done.</span>
+
+<div class="viewcode-block" id="DetectorArray.get_random_state">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.get_random_state">[docs]</a>
+    <span class="k">def</span> <span class="nf">get_random_state</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Get the random state seed for processing.</span>
+
+<span class="sd">        This function acts as a middleman where if the random state is set,</span>
+<span class="sd">        we just use that, otherwise, we make sure that random numbers can</span>
+<span class="sd">        continue to be random numbers.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        random_state : int</span>
+<span class="sd">            The random state to use.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If the random state is provided, then the user likely wants</span>
+        <span class="c1"># repeatable data.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">random_state_seed</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">random_state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">random_state_seed</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Otherwise, we can emulate random numbers by supplying random seeds</span>
+            <span class="c1"># with each function call. The overhead is minimal and this makes</span>
+            <span class="c1"># sure that we can keep the RNG mode up-to-date. Scipy is likely to</span>
+            <span class="c1"># shift how they do RNG numbers to keep up with Numpy&#39;s generator</span>
+            <span class="c1"># changes.</span>
+            <span class="n">min_seed</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">max_seed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time_ns</span><span class="p">()</span> <span class="o">%</span> <span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="mi">32</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">random_generator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">()</span>
+            <span class="n">random_integer</span> <span class="o">=</span> <span class="n">random_generator</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="n">min_seed</span><span class="p">,</span> <span class="n">max_seed</span><span class="p">)</span>
+            <span class="n">random_state</span> <span class="o">=</span> <span class="n">random_integer</span>
+        <span class="k">return</span> <span class="n">random_state</span></div>
+
+
+<div class="viewcode-block" id="DetectorArray.add_bias_frame">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.add_bias_frame">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_bias_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span> <span class="n">bias_frame</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a detector bias frame to the simulated detector.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        bias_frame : NDArray</span>
+<span class="sd">            The bias frame which we are going to add.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We just need to check it is of proper shape.</span>
+        <span class="n">input_bias_frame</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">bias_frame</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">input_bias_frame</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detector_shape</span><span class="p">:</span>
+            <span class="c1"># It is wrong, we do not do anything as we cannot add it.</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;Input bias frame shape&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">input_bias_frame</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> mismatches the detector shape&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">detector_shape</span><span class="si">}</span><span class="s2">. Will not add frame.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw_bias_frames</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># This is the first frame.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">raw_bias_frames</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">input_bias_frame</span><span class="p">,</span>
+            <span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># We just add it to the rest.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">raw_bias_frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">input_bias_frame</span><span class="p">)</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span></div>
+
+
+<div class="viewcode-block" id="DetectorArray.add_flat_frame">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.add_flat_frame">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_flat_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span> <span class="n">flat_frame</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a detector flat frame to the simulated detector.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        flat_frame : NDArray</span>
+<span class="sd">            The flat frame which we are going to add.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We just need to check it is of proper shape.</span>
+        <span class="n">input_flat_frame</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">flat_frame</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">input_flat_frame</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detector_shape</span><span class="p">:</span>
+            <span class="c1"># It is wrong, we do not do anything as we cannot add it.</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;Input flat frame shape&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">input_flat_frame</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> mismatches the detector shape&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">detector_shape</span><span class="si">}</span><span class="s2">. Will not add frame.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw_flat_frames</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># This is the first frame.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">raw_flat_frames</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">input_flat_frame</span><span class="p">,</span>
+            <span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># We just add it to the rest.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">raw_flat_frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">input_flat_frame</span><span class="p">)</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span></div>
+
+
+<div class="viewcode-block" id="DetectorArray.add_dark_current_frame">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.add_dark_current_frame">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_dark_current_frame</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">dark_current_frame</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a detector dark current frame to the simulated detector.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        dark_current_frame : NDArray</span>
+<span class="sd">            The dark current frame which we are going to add.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We just need to check it is of proper shape.</span>
+        <span class="n">input_dark_current_frame</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dark_current_frame</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">input_dark_current_frame</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detector_shape</span><span class="p">:</span>
+            <span class="c1"># It is wrong, we do not do anything as we cannot add it.</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;Input dark current frame shape&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">input_dark_current_frame</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> mismatches the detector&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; shape </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">detector_shape</span><span class="si">}</span><span class="s2">. Will not add frame.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw_dark_current_frames</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># This is the first frame.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">raw_dark_current_frames</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">input_dark_current_frame</span><span class="p">,</span>
+            <span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># We just add it to the rest.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">raw_dark_current_frames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">input_dark_current_frame</span><span class="p">)</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span></div>
+
+
+<div class="viewcode-block" id="DetectorArray.add_linearity_function">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.add_linearity_function">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_linearity_function</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">linearity_function</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="nb">float</span><span class="p">],</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add a detector linearity function to the simulated detector.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        linearity_function : NDArray</span>
+<span class="sd">            The linearity function which we are going to add.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># It is kind of hard to test a linearity function. We assume the</span>
+        <span class="c1"># user knows what they are doing.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">raw_linearity_function</span> <span class="o">=</span> <span class="n">linearity_function</span></div>
+
+
+<div class="viewcode-block" id="DetectorArray.add_efficiency_function">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.add_efficiency_function">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_efficiency_function</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">efficiency_function</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="nb">float</span><span class="p">],</span> <span class="nb">float</span><span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add an efficiency function to the simulated detector.</span>
+
+<span class="sd">        The efficiency function is a function of the efficiency of the</span>
+<span class="sd">        detector over wavelength. The efficiency of the detector is typically</span>
+<span class="sd">        due to the quantum efficiency function of the detector but it</span>
+<span class="sd">        nessecilarily need not be limited to it. Any efficiency detriment</span>
+<span class="sd">        is provided here.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        efficiency_function : NDArray</span>
+<span class="sd">            The efficiency function which we are going to add.</span>
+<span class="sd">            The input of</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># It is kind of hard to test a efficiency function. We assume</span>
+        <span class="c1"># the user knows what they are doing.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">raw_efficiency_function</span> <span class="o">=</span> <span class="n">efficiency_function</span></div>
+
+
+<div class="viewcode-block" id="DetectorArray.add_read_noise">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.add_read_noise">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_read_noise</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">read_noise</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">read_noise_stddev</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add the detector read noise to the simulated detector.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        read_noise : float</span>
+<span class="sd">            The read noise of a given pixel within the simulated detector.</span>
+<span class="sd">        read_noise_stddev : float, default = 0</span>
+<span class="sd">            The standard deviation of the read noise of a single pixel within</span>
+<span class="sd">            the simulated detector.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Adding the parameters.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">read_noise</span> <span class="o">=</span> <span class="n">read_noise</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">read_noise_stddev</span> <span class="o">=</span> <span class="n">read_noise_stddev</span></div>
+
+
+<div class="viewcode-block" id="DetectorArray.add_hot_pixel_map">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.add_hot_pixel_map">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_hot_pixel_map</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">hot_pixel_map</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">,</span>
+        <span class="n">hot_pixel_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add the detector hot pixel map to the simulated detector.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        hot_pixel_map : NDArray</span>
+<span class="sd">            The hot pixel map as a boolean array. Where True, the pixel is</span>
+<span class="sd">            considered hot.</span>
+<span class="sd">        hot_pixel_value : float, default = None</span>
+<span class="sd">            The hot pixel value, used when a pixel is hot. If not provided,</span>
+<span class="sd">            we default to the current hot pixel value.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Determining what the hot pixel value provided is.</span>
+        <span class="k">if</span> <span class="n">hot_pixel_value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># None provided so we just stick with the default.</span>
+            <span class="n">input_hot_pixel_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hot_pixel_value</span>
+
+        <span class="c1"># We just need to check it is of proper shape.</span>
+        <span class="n">input_hot_pixel_map</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">hot_pixel_map</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">input_hot_pixel_map</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detector_shape</span><span class="p">:</span>
+            <span class="c1"># It is wrong, we do not do anything as we cannot add it.</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;Input hot pixel map shape&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">input_hot_pixel_map</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> mismatches the detector&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; shape </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">detector_shape</span><span class="si">}</span><span class="s2">. Will not add the map.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Otherwise.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw_hot_pixel_maps</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># This is the first frame.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">raw_hot_pixel_maps</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">input_hot_pixel_map</span><span class="p">,</span>
+            <span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># We just add it to the rest.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">raw_hot_pixel_maps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">input_hot_pixel_map</span><span class="p">)</span>
+        <span class="c1"># And the value.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hot_pixel_value</span> <span class="o">=</span> <span class="n">input_hot_pixel_value</span></div>
+
+
+<div class="viewcode-block" id="DetectorArray.add_dead_pixel_map">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.add_dead_pixel_map">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_dead_pixel_map</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">dead_pixel_map</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">,</span>
+        <span class="n">dead_pixel_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add the detector dead pixel map to the simulated detector.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        dead_pixel_map : NDArray</span>
+<span class="sd">            The dead pixel map as a boolean array. Where True, the pixel is</span>
+<span class="sd">            considered dead.</span>
+<span class="sd">        dead_pixel_value : float, default = None</span>
+<span class="sd">            The dead pixel value, used when a pixel is dead. If not provided,</span>
+<span class="sd">            we default to the current dead pixel value.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Determining what the dead pixel value provided is.</span>
+        <span class="k">if</span> <span class="n">dead_pixel_value</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># None provided so we just stick with the default.</span>
+            <span class="n">input_dead_pixel_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dead_pixel_value</span>
+
+        <span class="c1"># We just need to check it is of proper shape.</span>
+        <span class="n">input_dead_pixel_map</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">dead_pixel_map</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">input_dead_pixel_map</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">detector_shape</span><span class="p">:</span>
+            <span class="c1"># It is wrong, we do not do anything as we cannot add it.</span>
+            <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+                <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
+                <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                    <span class="s2">&quot;Input dead pixel map shape&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; </span><span class="si">{</span><span class="n">input_dead_pixel_map</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2"> mismatches the detector&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; shape </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">detector_shape</span><span class="si">}</span><span class="s2">. Will not add the map.&quot;</span>
+                <span class="p">),</span>
+            <span class="p">)</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Otherwise.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw_dead_pixel_maps</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># This is the first frame.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">raw_dead_pixel_maps</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">input_dead_pixel_map</span><span class="p">,</span>
+            <span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># We just add it to the rest.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">raw_dead_pixel_maps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">input_dead_pixel_map</span><span class="p">)</span>
+        <span class="c1"># And the value.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dead_pixel_value</span> <span class="o">=</span> <span class="n">input_dead_pixel_value</span></div>
+
+
+<div class="viewcode-block" id="DetectorArray.add_cosmic_ray_rates">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.add_cosmic_ray_rates">[docs]</a>
+    <span class="k">def</span> <span class="nf">add_cosmic_ray_rates</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">cosmic_ray_rate</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+        <span class="n">cosmic_ray_value</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Add the rate of cosmic rays hitting the detector&#39;s pixels.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        cosmic_ray_rate : float</span>
+<span class="sd">            The rate that cosmic rays are hitting the detector. The units</span>
+<span class="sd">            are cosmic ray per second per square meter.</span>
+<span class="sd">        cosmic_ray_value : float, default = None</span>
+<span class="sd">            If a cosmic ray does hit the detector, then we add this value;</span>
+<span class="sd">            the expected detector value a cosmic ray imparts on the detector.</span>
+<span class="sd">            If None, then we assume an arbitrary high value.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Adding the rate.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cosmic_ray_rate</span> <span class="o">=</span> <span class="n">cosmic_ray_rate</span>
+        <span class="c1"># And, if provided, the value.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cosmic_ray_value</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="o">+</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span> <span class="k">if</span> <span class="n">cosmic_ray_value</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">cosmic_ray_value</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DetectorArray.recalculate_detector">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.recalculate_detector">[docs]</a>
+    <span class="k">def</span> <span class="nf">recalculate_detector</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Recalculate the detector frames from the input raw frames.</span>
+
+<span class="sd">        Typically, only the average frame data is needed. However, we do not</span>
+<span class="sd">        want to always recalculate the average frame data from the raw</span>
+<span class="sd">        data every time. It would take too much time and it would also not</span>
+<span class="sd">        allow any overwrites. So, we do it here.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We need to recalculate all of the frames. We do it in order...</span>
+
+        <span class="c1"># Averaging the bias frame...</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw_bias_frames</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_bias_frames</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># There is no raw bias frames to use to compute.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias_frame</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">detector_shape</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias_stddev_frame</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">detector_shape</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Computing the average bias and its deviation.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias_frame</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_bias_frames</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">bias_stddev_frame</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanstd</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_bias_frames</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># Averaging the flat frame...</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw_flat_frames</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_flat_frames</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># There is no raw flat frames to use to compute.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">flat_frame</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">detector_shape</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">flat_stddev_frame</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">detector_shape</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Computing the average bias and its deviation.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">flat_frame</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_flat_frames</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">flat_stddev_frame</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanstd</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_flat_frames</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># Averaging the dark current frame...</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">raw_dark_current_frames</span> <span class="ow">is</span> <span class="kc">None</span>
+            <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_dark_current_frames</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="p">):</span>
+            <span class="c1"># There is no raw flat frames to use to compute.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dark_current_frame</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">detector_shape</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dark_current_stddev_frame</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">detector_shape</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Computing the average bias and its deviation.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dark_current_frame</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmean</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">raw_dark_current_frames</span><span class="p">,</span>
+                <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dark_current_stddev_frame</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nanstd</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">raw_dark_current_frames</span><span class="p">,</span>
+                <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="p">)</span>
+
+        <span class="c1"># Summing the hot pixel maps...</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw_hot_pixel_maps</span> <span class="ow">is</span> <span class="kc">None</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_hot_pixel_maps</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="c1"># There is no raw hot pixel maps to use to compute.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hot_pixel_map</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">detector_shape</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Computing the average bias and its deviation.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">hot_pixel_map</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_hot_pixel_maps</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+        <span class="c1"># Summing the dead pixel maps...</span>
+        <span class="k">if</span> <span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">raw_dead_pixel_maps</span> <span class="ow">is</span> <span class="kc">None</span>
+            <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_dead_pixel_maps</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="p">):</span>
+            <span class="c1"># There is no raw hot pixel maps to use to compute.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dead_pixel_map</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">detector_shape</span><span class="p">,</span>
+                <span class="kc">False</span><span class="p">,</span>
+                <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Computing the average bias and its deviation.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">dead_pixel_map</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">raw_dead_pixel_maps</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span></div>
+
+
+        <span class="c1"># All done.</span>
+
+<div class="viewcode-block" id="DetectorArray.simulate_bias_frame">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.simulate_bias_frame">[docs]</a>
+    <span class="k">def</span> <span class="nf">simulate_bias_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate a new simulated bias frame.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bias_frame : NDArray</span>
+<span class="sd">            The simulated bias frame.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We attempt to compute a bias frame.</span>
+        <span class="n">bias_frame</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span>
+            <span class="n">size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">detector_shape</span><span class="p">,</span>
+            <span class="n">loc</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bias_frame</span><span class="p">,</span>
+            <span class="n">scale</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">bias_stddev_frame</span><span class="p">,</span>
+            <span class="n">random_state</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_random_state</span><span class="p">(),</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">bias_frame</span></div>
+
+
+<div class="viewcode-block" id="DetectorArray.simulate_flat_frame">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.simulate_flat_frame">[docs]</a>
+    <span class="k">def</span> <span class="nf">simulate_flat_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate a new simulated flat frame.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        flat_frame : NDArray</span>
+<span class="sd">            The simulated flat frame.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We attempt to compute a flat frame.</span>
+        <span class="n">flat_frame</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span>
+            <span class="n">size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">detector_shape</span><span class="p">,</span>
+            <span class="n">loc</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">flat_frame</span><span class="p">,</span>
+            <span class="n">scale</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">flat_stddev_frame</span><span class="p">,</span>
+            <span class="n">random_state</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_random_state</span><span class="p">(),</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">flat_frame</span></div>
+
+
+<div class="viewcode-block" id="DetectorArray.simulate_dark_current_frame">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.simulate_dark_current_frame">[docs]</a>
+    <span class="k">def</span> <span class="nf">simulate_dark_current_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate a new simulated dark current frame.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dark_current_frame : NDArray</span>
+<span class="sd">            The simulated dark current frame.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We attempt to compute a dark current frame.</span>
+        <span class="c1"># The detector detector dark current, either as a value or a map.</span>
+        <span class="c1"># The dark current itself may vary from its actual value. We model</span>
+        <span class="c1"># such variations using a Gaussian. These values may also be</span>
+        <span class="c1"># calculated from actual darks.</span>
+        <span class="n">dark_current_frame</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span>
+            <span class="n">size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">detector_shape</span><span class="p">,</span>
+            <span class="n">loc</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dark_current_frame</span><span class="p">,</span>
+            <span class="n">scale</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">dark_current_stddev_frame</span><span class="p">,</span>
+            <span class="n">random_state</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_random_state</span><span class="p">(),</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">dark_current_frame</span></div>
+
+
+<div class="viewcode-block" id="DetectorArray.simulate_read_noise_frame">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.simulate_read_noise_frame">[docs]</a>
+    <span class="k">def</span> <span class="nf">simulate_read_noise_frame</span><span class="p">(</span><span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate a new simulated read noise frame.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        None</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        read_noise_frame : NDArray</span>
+<span class="sd">            The simulated read noise frame.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We attempt to compute a the read noise frame.</span>
+        <span class="n">full_read_noise_frame</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">norm</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span>
+            <span class="n">size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">detector_shape</span><span class="p">,</span>
+            <span class="n">loc</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">read_noise</span><span class="p">,</span>
+            <span class="n">scale</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">read_noise_stddev</span><span class="p">,</span>
+            <span class="n">random_state</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_random_state</span><span class="p">(),</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Applying the NDR factor.</span>
+        <span class="n">read_noise_frame</span> <span class="o">=</span> <span class="n">full_read_noise_frame</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">nondestructive_reads</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="k">return</span> <span class="n">read_noise_frame</span></div>
+
+
+<div class="viewcode-block" id="DetectorArray.simulate_cosmic_ray_map">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.simulate_cosmic_ray_map">[docs]</a>
+    <span class="k">def</span> <span class="nf">simulate_cosmic_ray_map</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">exposure_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate a new simulated cosmic ray map, detailing where rays hit.</span>
+
+<span class="sd">        Note, cosmic rays often hit multiple pixels at once. We currently</span>
+<span class="sd">        do not simulate this. The cosmic ray map is created by</span>
+<span class="sd">        this function, while the :py:meth:`simulate_cosmic_ray_frame`</span>
+<span class="sd">        function applies the cosmic ray values of this map and returns the</span>
+<span class="sd">        additive component of cosmic rays to the detector frame data.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        exposure_time : float</span>
+<span class="sd">            The exposure time, in seconds. This is pertinent as cosmic rays</span>
+<span class="sd">            are a rate and if one hit or not depends on the integration time.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        cosmic_ray_map : NDArray</span>
+<span class="sd">            The simulated cosmic ray map.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># The area we are looking over, statistically, is a pixel. We handle</span>
+        <span class="c1"># each one differently.</span>
+        <span class="n">pixel_area</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pixel_size</span><span class="o">**</span><span class="mi">2</span>
+
+        <span class="c1"># Cosmic rays can be modeled by Poisson statistics, so we determine</span>
+        <span class="c1"># which pixels got hit within the exposure time.</span>
+        <span class="n">expected_cray_count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cosmic_ray_rate</span> <span class="o">*</span> <span class="n">exposure_time</span> <span class="o">*</span> <span class="n">pixel_area</span>
+        <span class="n">cosmic_ray_hit_map</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">poisson</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span>
+            <span class="n">mu</span><span class="o">=</span><span class="n">expected_cray_count</span><span class="p">,</span>
+            <span class="n">loc</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+            <span class="n">size</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">detector_shape</span><span class="p">,</span>
+            <span class="n">random_state</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">get_random_state</span><span class="p">(),</span>
+        <span class="p">)</span>
+        <span class="n">cosmic_ray_map</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">cosmic_ray_hit_map</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">cosmic_ray_map</span></div>
+
+
+<div class="viewcode-block" id="DetectorArray.simulate_cosmic_ray_frame">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.simulate_cosmic_ray_frame">[docs]</a>
+    <span class="k">def</span> <span class="nf">simulate_cosmic_ray_frame</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">exposure_time</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate a new simulated cosmic ray frame, detailing where rays hit.</span>
+
+<span class="sd">        Note, cosmic rays often hit multiple pixels at once. We currently</span>
+<span class="sd">        do not simulate this. The cosmic ray map is created by</span>
+<span class="sd">        :py:meth:`simulate_cosmic_ray_map`, while this function applies the</span>
+<span class="sd">        cosmic ray values to this map and returns the additive component of</span>
+<span class="sd">        cosmic rays to the detector frame data.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        exposure_time : float</span>
+<span class="sd">            The exposure time, in seconds. This is pertinent as cosmic rays</span>
+<span class="sd">            are a rate and if one hit or not depends on the integration time.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        cosmic_ray_frame : NDArray</span>
+<span class="sd">            The simulated cosmic ray frame based on the map.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We first need to get the cosmic ray map.</span>
+        <span class="n">cosmic_ray_map</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">simulate_cosmic_ray_map</span><span class="p">(</span>
+            <span class="n">exposure_time</span><span class="o">=</span><span class="n">exposure_time</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># Applying the cosmic ray values...</span>
+        <span class="n">cosmic_ray_frame</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">cosmic_ray_map</span><span class="p">)</span>
+        <span class="n">cosmic_ray_frame</span><span class="p">[</span><span class="n">cosmic_ray_map</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cosmic_ray_value</span>
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">cosmic_ray_frame</span></div>
+
+
+<div class="viewcode-block" id="DetectorArray.linearity_function">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.linearity_function">[docs]</a>
+    <span class="k">def</span> <span class="nf">linearity_function</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">counts</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the linearity response of the detector.</span>
+
+<span class="sd">        The linearity function of the detector is used to determine actual</span>
+<span class="sd">        ADUs from an expected ADU input, given the lack of linearity at very</span>
+<span class="sd">        low and very high values. If no raw linearity function has been</span>
+<span class="sd">        provided, :py:method:`add_linearity_function`, then we default to</span>
+<span class="sd">        a perfect linearity function.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        counts : NDArray</span>
+<span class="sd">            The input counts which we will use to determine the real output</span>
+<span class="sd">            counts on the detector.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        output : NDArray</span>
+<span class="sd">            The output counts after the detector linearity has been taken</span>
+<span class="sd">            into account.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If there is no added raw linearity function, we are forced to assume</span>
+        <span class="c1"># a completely perfect function.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw_linearity_function</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Assuming a perfect function.</span>
+            <span class="k">def</span> <span class="nf">perfect_linearity</span><span class="p">(</span><span class="n">input_</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">:</span>
+<span class="w">                </span><span class="sd">&quot;&quot;&quot;Perfect linearity; same input as output.&quot;&quot;&quot;</span>
+                <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">input_</span><span class="p">)</span>
+
+            <span class="n">using_linearity_function</span> <span class="o">=</span> <span class="n">perfect_linearity</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">using_linearity_function</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw_linearity_function</span>
+
+        <span class="c1"># Applying the linearity function.</span>
+        <span class="n">output</span> <span class="o">=</span> <span class="n">using_linearity_function</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">output</span></div>
+
+
+<div class="viewcode-block" id="DetectorArray.efficiency_function">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.efficiency_function">[docs]</a>
+    <span class="k">def</span> <span class="nf">efficiency_function</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">wavelength</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute the efficiency of the detector.</span>
+
+<span class="sd">        The efficiency function of the detector. This is the function which</span>
+<span class="sd">        determines the efficiency of the detector at a provided wavelength.</span>
+<span class="sd">        The quantum efficiency function should be contained within this</span>
+<span class="sd">        function along with any other wavelength-dependent efficiency</span>
+<span class="sd">        considerations. If no raw efficiency function has been</span>
+<span class="sd">        provided, :py:method:`add_efficiency_function`, then we default to</span>
+<span class="sd">        a perfect efficiency function.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        wavelength : NDArray</span>
+<span class="sd">            The wavelength to determine the efficiency of the detector at, as</span>
+<span class="sd">            a function of wavelength. The units of the wavelength should be</span>
+<span class="sd">            in meters.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        efficiency : NDArray</span>
+<span class="sd">            The output efficiency per the detector.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># If there is no added raw efficiency function, we are forced to assume</span>
+        <span class="c1"># a completely perfect function.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw_efficiency_function</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># Assuming a perfect function.</span>
+            <span class="k">def</span> <span class="nf">perfect_efficiency</span><span class="p">(</span><span class="n">wave</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">:</span>
+<span class="w">                </span><span class="sd">&quot;&quot;&quot;Perfect efficiency function; 100%.&quot;&quot;&quot;</span>
+                <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">wave</span><span class="p">)</span>
+
+            <span class="n">using_efficiency_function</span> <span class="o">=</span> <span class="n">perfect_efficiency</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">using_efficiency_function</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">raw_efficiency_function</span>
+
+        <span class="c1"># Applying the linearity function.</span>
+        <span class="n">efficiency</span> <span class="o">=</span> <span class="n">using_efficiency_function</span><span class="p">(</span><span class="n">wavelength</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">efficiency</span></div>
+
+
+<div class="viewcode-block" id="DetectorArray.efficiency_spectrum">
+<a class="viewcode-back" href="../../../../code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.efficiency_spectrum">[docs]</a>
+    <span class="k">def</span> <span class="nf">efficiency_spectrum</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Self</span><span class="p">,</span>
+        <span class="n">wavelength</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">,</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Efficiency function of the detector, as a spectrum class.</span>
+
+<span class="sd">        As a convenience function, we package the efficiency data as a</span>
+<span class="sd">        full LezargusSpectrum.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        wavelength : NDArray</span>
+<span class="sd">            The wavelength to determine the efficiency of the detector at, as</span>
+<span class="sd">            a function of wavelength. The units of the wavelength should be</span>
+<span class="sd">            in meters.</span>
+<span class="sd">        **kwargs : Any</span>
+<span class="sd">            Any additional keywords are passed to LezargusSpectrum. Note,</span>
+<span class="sd">            the uncertainty, units, and masks are already handled and</span>
+<span class="sd">            duplicate entries will raise an error.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        efficiency_spectrum : LezargusSpectrum</span>
+<span class="sd">            The efficiency data, except as a spectrum.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># We take the data, assuming next to no uncertainty.</span>
+        <span class="n">efficiency_wavelength</span> <span class="o">=</span> <span class="n">wavelength</span>
+        <span class="n">efficiency_data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">efficiency_function</span><span class="p">(</span><span class="n">wavelength</span><span class="o">=</span><span class="n">wavelength</span><span class="p">)</span>
+        <span class="n">efficiency_uncertainty</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">efficiency_wavelength</span><span class="p">)</span>
+
+        <span class="c1"># As assume no mask either.</span>
+        <span class="n">efficiency_mask</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">efficiency_wavelength</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">bool</span><span class="p">)</span>
+
+        <span class="c1"># Packaging it as a spectrum.</span>
+        <span class="n">efficiency_spectrum</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">container</span><span class="o">.</span><span class="n">LezargusSpectrum</span><span class="p">(</span>
+            <span class="n">wavelength</span><span class="o">=</span><span class="n">efficiency_wavelength</span><span class="p">,</span>
+            <span class="n">data</span><span class="o">=</span><span class="n">efficiency_data</span><span class="p">,</span>
+            <span class="n">uncertainty</span><span class="o">=</span><span class="n">efficiency_uncertainty</span><span class="p">,</span>
+            <span class="n">wavelength_unit</span><span class="o">=</span><span class="s2">&quot;m&quot;</span><span class="p">,</span>
+            <span class="n">data_unit</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="n">mask</span><span class="o">=</span><span class="n">efficiency_mask</span><span class="p">,</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="c1"># All done.</span>
+        <span class="k">return</span> <span class="n">efficiency_spectrum</span></div>
+</div>
+
+</pre></div>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Sparrow
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023, Sparrow.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../../../../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

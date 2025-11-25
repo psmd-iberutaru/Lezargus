@@ -357,7 +357,7 @@
     <span class="n">psg_spectral_scale</span> <span class="o">=</span> <span class="mf">1e-9</span>
 
     <span class="c1"># Loading the transmission file.</span>
-    <span class="n">filename</span> <span class="o">=</span> <span class="n">functionality</span><span class="o">.</span><span class="n">parse_basename</span><span class="p">(</span><span class="n">basename</span><span class="o">=</span><span class="n">basename</span><span class="p">)</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">functionality</span><span class="o">.</span><span class="n">find_data_filename</span><span class="p">(</span><span class="n">basename</span><span class="o">=</span><span class="n">basename</span><span class="p">)</span>
     <span class="n">transmission_table</span> <span class="o">=</span> <span class="n">astropy</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;ascii.mrt&quot;</span><span class="p">)</span>
 
     <span class="c1"># The domain is the zenith angles, PWV, and wavelength. The filenames use</span>
@@ -436,7 +436,7 @@
     <span class="n">psg_spectral_scale</span> <span class="o">=</span> <span class="mf">1e-9</span>
 
     <span class="c1"># Loading the transmission file.</span>
-    <span class="n">filename</span> <span class="o">=</span> <span class="n">functionality</span><span class="o">.</span><span class="n">parse_basename</span><span class="p">(</span><span class="n">basename</span><span class="o">=</span><span class="n">basename</span><span class="p">)</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="n">functionality</span><span class="o">.</span><span class="n">find_data_filename</span><span class="p">(</span><span class="n">basename</span><span class="o">=</span><span class="n">basename</span><span class="p">)</span>
     <span class="n">radiance_table</span> <span class="o">=</span> <span class="n">astropy</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;ascii.mrt&quot;</span><span class="p">)</span>
 
     <span class="c1"># The domain is the zenith angles, PWV, and wavelength. The filenames use</span>

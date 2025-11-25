@@ -623,8 +623,11 @@
                 <span class="p">),</span>
             <span class="p">)</span>
 
+        <span class="c1"># Need to have the correct wavelength units to align with the filter.</span>
+        <span class="n">spectrum_reunit</span> <span class="o">=</span> <span class="n">spectrum</span><span class="o">.</span><span class="n">to_unit</span><span class="p">(</span><span class="n">data_unit</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">wavelength_unit</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">wavelength_unit</span><span class="p">)</span>
+
         <span class="c1"># Adding the new standard.</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">standard_spectrum</span> <span class="o">=</span> <span class="n">spectrum</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">standard_spectrum</span> <span class="o">=</span> <span class="n">spectrum_reunit</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">standard_magnitude</span> <span class="o">=</span> <span class="n">magnitude</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">standard_magnitude_uncertainty</span> <span class="o">=</span> <span class="n">magnitude_uncertainty</span>
 
@@ -793,11 +796,14 @@
                 <span class="p">),</span>
             <span class="p">)</span>
 
+        <span class="c1"># Need to have the correct units.</span>
+        <span class="n">spectrum_reunit</span> <span class="o">=</span> <span class="n">spectrum</span><span class="o">.</span><span class="n">to_unit</span><span class="p">(</span><span class="n">data_unit</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">standard_spectrum</span><span class="o">.</span><span class="n">data_unit</span><span class="p">,</span> <span class="n">wavelength_unit</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">standard_spectrum</span><span class="o">.</span><span class="n">wavelength_unit</span><span class="p">)</span>
+
         <span class="c1"># We assume that the target star has data covering the entire filter</span>
         <span class="c1"># range as otherwise, you cannot really calculate an accurate magnitude.</span>
         <span class="c1"># However, we should still warn otherwise.</span>
         <span class="n">overlap</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">wrapper</span><span class="o">.</span><span class="n">wavelength_overlap_fraction</span><span class="p">(</span>
-            <span class="n">base</span><span class="o">=</span><span class="n">spectrum</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
+            <span class="n">base</span><span class="o">=</span><span class="n">spectrum_reunit</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
             <span class="n">contain</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">if</span> <span class="n">overlap</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
@@ -812,7 +818,7 @@
 
         <span class="c1"># Computing the total filter-weighted flux, using usual integration</span>
         <span class="c1"># methods.</span>
-        <span class="n">star_flux</span><span class="p">,</span> <span class="n">star_uncertainty</span><span class="p">,</span> <span class="n">__</span><span class="p">,</span> <span class="n">__</span> <span class="o">=</span> <span class="n">spectrum</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span>
+        <span class="n">star_flux</span><span class="p">,</span> <span class="n">star_uncertainty</span><span class="p">,</span> <span class="n">__</span><span class="p">,</span> <span class="n">__</span> <span class="o">=</span> <span class="n">spectrum_reunit</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span>
             <span class="n">wavelength</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">wavelength</span><span class="p">,</span>
             <span class="n">skip_mask</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
             <span class="n">skip_flags</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>

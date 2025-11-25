@@ -17,6 +17,7 @@ Submodules
 
    lezargus.library.container.atmosphere
    lezargus.library.container.cube
+   lezargus.library.container.detector
    lezargus.library.container.dispersion
    lezargus.library.container.image
    lezargus.library.container.mosaic

@@ -499,161 +499,6 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             **kwargs,
         )
 
-    @classmethod
-    def old_from_advanced_parameters(
-        cls: type[hint.Self],
-        channel: str,
-        wavelength: hint.NDArray,
-        blackbody_temperature: float,
-        magnitude: float,
-        photometric_filter: (
-            hint.PhotometricABFilter | hint.PhotometricVegaFilter
-        ),
-        exposure_time: float,
-        coadds: int,
-        spatial_shape: tuple,
-        field_of_view: tuple,
-        spectral_scale: float,
-        atmosphere_temperature: float,
-        atmosphere_pressure: float,
-        atmosphere_ppw: float,
-        atmosphere_pwv: float,
-        atmosphere_seeing: float,
-        zenith_angle: float,
-        parallactic_angle: float,
-        reference_wavelength: float,
-        telescope_temperature: float,
-        transmission_generator: hint.AtmosphereSpectrumGenerator | None = None,
-        radiance_generator: hint.AtmosphereSpectrumGenerator | None = None,
-    ) -> hint.Self:
-        """Initialize the SPECTRE simulator, only using parameter values.
-
-        By default, the initialization of the SPECTRE simulator requires the
-        creation of three different inner simulator classes. This convenience
-        function does that for the user, as long as they provide the
-        environmental parameters for all three.
-
-        We assume a blackbody simulated target, an Earth-like atmosphere, and
-        the IRTF telescope. The parameters modify just the specifics. For a
-        more detailed approach, please construct the classes instead.
-
-        Parameters
-        ----------
-        channel : str
-            The name of the channel that will be simulated; one of three
-            channels: visible, nearir, and midir.
-        wavelength : ndarray
-            The wavelength basis of the simulator; this defines the wavelength
-            axis and are its values.
-        blackbody_temperature : float
-            The blackbody temperature of the object that we are simulating,
-            in Kelvin.
-        magnitude : float
-            The simulated magnitude of the object. The photometric filter
-            system this magnitude is in must match the inputted photometric
-            filter.
-        photometric_filter : PhotometricABFilter or PhotometricVegaFilter
-            The photometric filter (system) that the inputted magnitude is in.
-        exposure_time : float
-            The exposure time of the observation integration, in seconds.
-        coadds : int
-            The number of co-adds of the provided exposure time for the
-            observation.
-        spatial_shape : tuple
-            The spatial shape of the simulation array, the units are in pixels.
-            This parameter should not be confused with the field of view
-            parameter.
-        field_of_view : tuple
-            A tuple describing the field of view of the spatial area of the
-            simulation array, the units are in radians. We suggest oversizing
-            this a little more than the traditional 7.2 by 7.2 arcseconds.
-        spectral_scale : float
-            The spectral scale of the simulated spectra, as a resolution,
-            in wavelength separation (in meters) per pixel.
-        atmosphere_temperature : float
-            The temperature of the intervening atmosphere, in Kelvin.
-        atmosphere_pressure : float
-            The pressure of the intervening atmosphere, in Pascal.
-        atmosphere_ppw : float
-            The partial pressure of water in the atmosphere, in Pascal.
-        atmosphere_pwv : float
-            The precipitable water vapor in the atmosphere, in meters.
-        atmosphere_seeing : float
-            The seeing of the atmosphere, given as the FWHM of the seeing disk,
-            often approximated as a Gaussian distribution, at zenith and at
-            the reference wavelength. The units are in radians.
-        zenith_angle : float
-            The zenith angle of the simulated object, at the reference
-            wavelength in radians; primarily used to determine airmass.
-        parallactic_angle : float
-            The parallactic angle of the simulated object, in radians; primarily
-            used to atmospheric dispersion direction.
-        reference_wavelength : float
-            The reference wavelength which defines the seeing and zenith angle
-            parameters. Assumed to be in the same units as the provided
-            wavelength axis.
-        telescope_temperature : float
-            The local temperature of the telescope, usually the temperatures
-            of the primary and other mirrors; in Kelvin.
-        transmission_generator : AtmosphereSpectrumGenerator, default = None
-            The transmission spectrum generator used to generate the
-            specific transmission spectra. If None, we default to the built-in
-            generators.
-        radiance_generator : AtmosphereSpectrumGenerator, default = None
-            The transmission spectrum generator used to generate the
-            specific transmission spectra. If None, we default to the built-in
-            generators.
-
-
-        Returns
-        -------
-        spectre_simulator : SpectreSimulator
-            The simulator, with the properties provided from the parameters.
-
-        """
-        # Creating the three simulator objects.
-        # The target.
-        using_target = lezargus.simulator.TargetSimulator.from_blackbody(
-            wavelength=wavelength,
-            temperature=blackbody_temperature,
-            magnitude=magnitude,
-            photometric_filter=photometric_filter,
-            spatial_grid_shape=spatial_shape,
-            spatial_fov_shape=field_of_view,
-            spectral_scale=spectral_scale,
-        )
-        # The atmosphere.
-        using_atmosphere = lezargus.simulator.AtmosphereSimulator(
-            temperature=atmosphere_temperature,
-            pressure=atmosphere_pressure,
-            ppw=atmosphere_ppw,
-            pwv=atmosphere_pwv,
-            seeing=atmosphere_seeing,
-            zenith_angle=zenith_angle,
-            parallactic_angle=parallactic_angle,
-            reference_wavelength=reference_wavelength,
-            transmission_generator=transmission_generator,
-            radiance_generator=radiance_generator,
-        )
-        # The telescope.
-        using_telescope = lezargus.simulator.IrtfTelescopeSimulator(
-            temperature=telescope_temperature,
-        )
-
-        # Creating the main simulator class, using the above three component
-        # simulators.
-        spectre_simulator = cls(
-            target=using_target,
-            telescope=using_telescope,
-            channel=channel,
-            exposure_time=exposure_time,
-            coadds=coadds,
-            atmosphere=using_atmosphere,
-        )
-
-        # All done.
-        return spectre_simulator
-
     def clear_cache(self: hint.Self) -> None:
         """Clear the cache of computed result objects.
 
@@ -938,7 +783,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         previous_state = self.at_primary_reflectivity
 
         # We need to obtain the emission.
-        solid_angle = 0
+        solid_angle = previous_state.pixel_scale**2
         primary_emission = self.telescope.primary_emission_spectrum(
             wavelength=previous_state.wavelength,
             solid_angle=solid_angle,
@@ -961,6 +806,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # The integrated primary emission spectrum is calculated as the entire
         # area, and we assume that each pixel has an equal contribution.
         n_pixels = np.prod(broadcast_shape)
+        n_pixels = 1
         primary_photon_emission_pixel = (
             primary_photon_emission_broadcast / n_pixels
         )
@@ -1024,7 +870,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         previous_state = self.at_secondary_reflectivity
 
         # We need to obtain the emission.
-        solid_angle = 0
+        solid_angle = previous_state.pixel_scale**2
         secondary_emission = self.telescope.secondary_emission_spectrum(
             wavelength=previous_state.wavelength,
             solid_angle=solid_angle,
@@ -1047,6 +893,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # The integrated secondary emission spectrum is calculated as the
         # entire area, and we assume that each pixel has an equal contribution.
         n_pixels = np.prod(broadcast_shape)
+        n_pixels = 1
         secondary_photon_emission_pixel = (
             secondary_photon_emission_broadcast / n_pixels
         )
@@ -1109,23 +956,25 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             # The lamp is just a simple blackbody; but we need to integrate it.
             lamp_temperature = 3000
             solid_angle = np.pi
-            area_integrate = 1e-20
+            lamp_area = 1e-20
             blackbody_function = lezargus.library.wrapper.blackbody_function(
                 temperature=lamp_temperature,
             )
             blackbody_wavelength = reference_state.wavelength
-            blackbody_flux = (
-                blackbody_function(blackbody_wavelength)
-                * solid_angle
-                * area_integrate
-            )
+            blackbody_flux = blackbody_function(blackbody_wavelength)
+            blackbody_flux_unit = "W m^-2 m^-1 sr^-1"
+            # And integrating over the lamp itself.
+            flatlamp_wavelength = blackbody_wavelength
+            flatlamp_wavelength_unit = "m"
+            flatlamp_flux = blackbody_flux * solid_angle * lamp_area
+            flatlamp_flux_units = blackbody_flux_unit + " sr " + " m^2 "
             # Parsing the lamp spectrum from previous known data upwards.
-            lamp_spectrum = lezargus.library.container.LezargusSpectrum(
-                wavelength=blackbody_wavelength,
-                data=blackbody_flux,
+            flatlamp_spectrum = lezargus.library.container.LezargusSpectrum(
+                wavelength=flatlamp_wavelength,
+                data=flatlamp_flux,
                 uncertainty=None,
-                wavelength_unit=reference_state.wavelength_unit,
-                data_unit=reference_state.data_unit,
+                wavelength_unit=flatlamp_wavelength_unit,
+                data_unit=flatlamp_flux_units,
                 spectral_scale=reference_state.spectral_scale,
                 pixel_scale=reference_state.pixel_scale,
                 slice_scale=reference_state.slice_scale,
@@ -1133,8 +982,9 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
                 flags=None,
                 header=reference_state.header,
             )
-            calibration_spectrum = lamp_spectrum
+            calibration_spectrum = flatlamp_spectrum
         else:
+            calibration_spectrum = None
             logging.critical(
                 critical_type=logging.LogicFlowError,
                 message=(
@@ -1155,7 +1005,8 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         )
 
         # Our spectrums are in energy units while at this stage we are already
-        # dealing with photon units.
+        # dealing with photon units. It is easiest to go to the
+        # previous unit system then convert to photons.
         calibration_photon_cube = self._convert_to_photon(
             container=calibration_cube,
         )
@@ -1222,8 +1073,10 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # We need to obtain the window emission. The basic parameters which
         # are needed.
         window_temperature = 273
-        science_beam_diameter = 1.0
-        solid_angle = 1.0
+        science_beam_diameter = 0.025
+        # Temporary fix, correct for the fact the window is closer to focal
+        # plane; use ratio of primary/window distances
+        solid_angle = previous_state.pixel_scale**2 * (16.369 / 0.363) ** 2
         common_wavelength = previous_state.wavelength
         # We assume a blackbody emission function.
         window_blackbody = lezargus.library.wrapper.blackbody_function(
@@ -1278,6 +1131,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # The integrated window emission spectrum is calculated as the
         # entire area, and we assume that each pixel has an equal contribution.
         n_pixels = np.prod(broadcast_shape)
+        n_pixels = 1
         window_photon_emission_pixel = (
             window_photon_emission_broadcast / n_pixels
         )
@@ -1705,6 +1559,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
                 lezargus.data.EFFICIENCY_SPECTRE_DICHROIC_MIDIR
             )
         else:
+            dichroic_transmission = None
             logging.error(
                 error_type=logging.DevelopmentError,
                 message=(
@@ -1767,6 +1622,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         elif self.channel == "midir":
             relay_transmission = lezargus.data.EFFICIENCY_SPECTRE_RELAY_MIDIR
         else:
+            relay_transmission = None
             logging.error(
                 error_type=logging.DevelopmentError,
                 message=(
@@ -1841,6 +1697,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             )
             prism_transmission = sapphire_transmission * sapphire_transmission
         else:
+            prism_transmission = None
             logging.error(
                 error_type=logging.DevelopmentError,
                 message=(
@@ -1908,6 +1765,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         elif self.channel == "midir":
             fold_transmission = lezargus.data.EFFICIENCY_SPECTRE_FOLD_MIDIR
         else:
+            fold_transmission = None
             logging.error(
                 error_type=logging.DevelopmentError,
                 message=(
@@ -2016,7 +1874,6 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
 
     def at_advanced_spectral_dispersion(  # noqa: PLR0915
         self: hint.Self,
-        quick_translation: bool = False,
     ) -> hint.LezargusImage:
         """State of simulation after modeling spectral dispersion on detector.
 
@@ -2029,10 +1886,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
 
         Parameters
         ----------
-        quick_translation : bool, default = False
-            If True, we simplify the translation. Instead of an affine
-            translation, we physically place the array based on the
-            coordinates after doing a much smaller translation.
+        None
 
         Returns
         -------
@@ -2051,20 +1905,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # We need to apply all of the slice images to the same detector image.
         # However, it must have the same dimensions of the channel's detector
         # and we assume they are square.
-        if self.channel == "visible":
-            detector_size = int(lezargus.data.CONST_VISIBLE_DETECTOR_SIZE)
-        elif self.channel == "nearir":
-            detector_size = int(lezargus.data.CONST_NEARIR_DETECTOR_SIZE)
-        elif self.channel == "midir":
-            detector_size = int(lezargus.data.CONST_MIDIR_DETECTOR_SIZE)
-        else:
-            logging.error(
-                error_type=logging.DevelopmentError,
-                message=(
-                    f"Channel {self.channel}, is not one of the available"
-                    " three."
-                ),
-            )
+        detector_size = int(self.detector.detector_shape[0])
 
         # We need to determine the binning factor. We bin the data after
         # it has been dispersed, simulating pixels. We assume all pixel scales
@@ -2078,6 +1919,9 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
                     "Simulated images need a pixel scale, this one does not."
                 ),
             )
+            # Dummy values.
+            actual_pixel_scale = np.nan
+            bin_factor_modulo = np.nan
         else:
             bin_factor_modulo, __ = lezargus.library.math.modulo(
                 numerator=expected_pixel_scale,
@@ -2601,7 +2445,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         previous_state = self.at_detector_gain
 
         # We generate a new flat field from the detector simulation.
-        flat_field = self.detector.simulate_flat_frame()
+        flat_field = self.detector.simulate_full_flat_frame()
 
         # Applying the flat field.
         flat_data, flat_uncertinity = lezargus.library.math.divide(
@@ -2895,7 +2739,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         None
 
         """
-        # TODO
+        lezargus.library.wrapper.do_nothing(filename, overwrite)
         logging.critical(
             critical_type=logging.ToDoError,
             message="Writing to disk is to be done.",

@@ -351,6 +351,7 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.data.__initialize_data_all"><code class="docutils literal notranslate"><span class="pre">__initialize_data_all()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.data.__initialize_data_atmosphere_generators"><code class="docutils literal notranslate"><span class="pre">__initialize_data_atmosphere_generators()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.data.__initialize_data_constants"><code class="docutils literal notranslate"><span class="pre">__initialize_data_constants()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.data.__initialize_data_detectors"><code class="docutils literal notranslate"><span class="pre">__initialize_data_detectors()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.data.__initialize_data_dispersion_patterns"><code class="docutils literal notranslate"><span class="pre">__initialize_data_dispersion_patterns()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.data.__initialize_data_optic_efficiency_functions"><code class="docutils literal notranslate"><span class="pre">__initialize_data_optic_efficiency_functions()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.data.__initialize_data_photometric_filters"><code class="docutils literal notranslate"><span class="pre">__initialize_data_photometric_filters()</span></code></a></li>
@@ -377,7 +378,7 @@
 <li class="toctree-l1"><a class="reference internal" href="lezargus.data._make.html">lezargus.data._make package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="lezargus.data._make.html#submodules">Submodules</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="lezargus.data._make.functionality.html">lezargus.data._make.functionality module</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="lezargus.data._make.functionality.html#lezargus.data._make.functionality.parse_basename"><code class="docutils literal notranslate"><span class="pre">parse_basename()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.data._make.functionality.html#lezargus.data._make.functionality.find_data_filename"><code class="docutils literal notranslate"><span class="pre">find_data_filename()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="lezargus.data._make.make_atmosphere_generators.html">lezargus.data._make.make_atmosphere_generators module</a><ul>
@@ -387,6 +388,10 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="lezargus.data._make.make_constants.html">lezargus.data._make.make_constants module</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.data._make.make_constants.html#lezargus.data._make.make_constants.make_constant"><code class="docutils literal notranslate"><span class="pre">make_constant()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lezargus.data._make.make_detectors.html">lezargus.data._make.make_detectors module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.data._make.make_detectors.html#lezargus.data._make.make_detectors.make_detector"><code class="docutils literal notranslate"><span class="pre">make_detector()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="lezargus.data._make.make_dispersion_patterns.html">lezargus.data._make.make_dispersion_patterns module</a><ul>
@@ -456,6 +461,20 @@ enables the objects to be the global space of this module anyways.</p>
 <dt class="sig sig-object py" id="lezargus.data.__initialize_data_constants">
 <span class="sig-prename descclassname"><span class="pre">lezargus.data.</span></span><span class="sig-name descname"><span class="pre">__initialize_data_constants</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lezargus/data.html#__initialize_data_constants"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.data.__initialize_data_constants" title="Link to this definition">#</a></dt>
 <dd><p>Initialize only the constant value data.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="lezargus.data.__initialize_data_detectors">
+<span class="sig-prename descclassname"><span class="pre">lezargus.data.</span></span><span class="sig-name descname"><span class="pre">__initialize_data_detectors</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lezargus/data.html#__initialize_data_detectors"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.data.__initialize_data_detectors" title="Link to this definition">#</a></dt>
+<dd><p>Initialize only the detector specifications.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>None</strong></p>
@@ -576,6 +595,7 @@ enables the objects to be the global space of this module anyways.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.data.__initialize_data_all"><code class="docutils literal notranslate"><span class="pre">__initialize_data_all()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.data.__initialize_data_atmosphere_generators"><code class="docutils literal notranslate"><span class="pre">__initialize_data_atmosphere_generators()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.data.__initialize_data_constants"><code class="docutils literal notranslate"><span class="pre">__initialize_data_constants()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.data.__initialize_data_detectors"><code class="docutils literal notranslate"><span class="pre">__initialize_data_detectors()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.data.__initialize_data_dispersion_patterns"><code class="docutils literal notranslate"><span class="pre">__initialize_data_dispersion_patterns()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.data.__initialize_data_optic_efficiency_functions"><code class="docutils literal notranslate"><span class="pre">__initialize_data_optic_efficiency_functions()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.data.__initialize_data_photometric_filters"><code class="docutils literal notranslate"><span class="pre">__initialize_data_photometric_filters()</span></code></a></li>

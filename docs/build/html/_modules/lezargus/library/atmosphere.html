@@ -590,11 +590,11 @@
 <div class="viewcode-block" id="absolute_atmospheric_refraction_function">
 <a class="viewcode-back" href="../../../code/lezargus.library.atmosphere.html#lezargus.library.atmosphere.absolute_atmospheric_refraction_function">[docs]</a>
 <span class="k">def</span> <span class="nf">absolute_atmospheric_refraction_function</span><span class="p">(</span>
-    <span class="n">wavelength</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">,</span>
     <span class="n">zenith_angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">temperature</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">pressure</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">water_pressure</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">wavelength_grid</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">],</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the absolute atmospheric refraction function.</span>
 
@@ -604,9 +604,6 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    wavelength : ndarray</span>
-<span class="sd">        The wavelength over which the absolute atmospheric refraction is</span>
-<span class="sd">        being computed over, in meters.</span>
 <span class="sd">    zenith_angle : float</span>
 <span class="sd">        The zenith angle of the sight line, in radians.</span>
 <span class="sd">    temperature : float</span>
@@ -615,6 +612,11 @@
 <span class="sd">        The pressure of the atmosphere, in Pascals.</span>
 <span class="sd">    water_pressure : float</span>
 <span class="sd">        The partial pressure of water in the atmosphere, Pascals.</span>
+<span class="sd">    wavelength_grid : ndarray, default = None</span>
+<span class="sd">        The wavelength grid over which the absolute atmospheric refraction is</span>
+<span class="sd">        being computed over, in meters. If None, we default to a rather broad</span>
+<span class="sd">        wavelength grid to ensure coverage over the visible and near-infrared</span>
+<span class="sd">        region.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -624,21 +626,31 @@
 <span class="sd">        radians.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Checking if we default to a broad visible and near-ir wavelength grid</span>
+    <span class="c1"># for atmospheric refraction; units in meters.</span>
+    <span class="k">if</span> <span class="n">wavelength_grid</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">blue_limit</span> <span class="o">=</span> <span class="mf">0.3</span> <span class="o">*</span> <span class="mf">1e-6</span>
+        <span class="n">red_limit</span> <span class="o">=</span> <span class="mf">5.0</span> <span class="o">*</span> <span class="mf">1e-6</span>
+        <span class="n">wavelength_grid</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">blue_limit</span><span class="p">,</span> <span class="n">red_limit</span><span class="p">,</span> <span class="mi">3000</span><span class="p">)</span>
+
     <span class="c1"># We compute the absolute refraction which we build an interpolating</span>
     <span class="c1"># function for.</span>
     <span class="n">absolute_refraction</span> <span class="o">=</span> <span class="n">absolute_atmospheric_refraction</span><span class="p">(</span>
-        <span class="n">wavelength</span><span class="o">=</span><span class="n">wavelength</span><span class="p">,</span>
+        <span class="n">wavelength</span><span class="o">=</span><span class="n">wavelength_grid</span><span class="p">,</span>
         <span class="n">zenith_angle</span><span class="o">=</span><span class="n">zenith_angle</span><span class="p">,</span>
         <span class="n">temperature</span><span class="o">=</span><span class="n">temperature</span><span class="p">,</span>
         <span class="n">pressure</span><span class="o">=</span><span class="n">pressure</span><span class="p">,</span>
         <span class="n">water_pressure</span><span class="o">=</span><span class="n">water_pressure</span><span class="p">,</span>
     <span class="p">)</span>
 
-    <span class="c1"># Creating the function itself.</span>
+    <span class="c1"># Creating the function itself. We want to avoid extrapolation of</span>
+    <span class="c1"># atmospheric refraction as the functional form of it is not really a</span>
+    <span class="c1"># spline-able extrapolation. A longer wavelength grid should be provided</span>
+    <span class="c1"># if the region ought to be expanded.</span>
     <span class="n">refraction_function</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">interpolate</span><span class="o">.</span><span class="n">Spline1DInterpolate</span><span class="p">(</span>
-        <span class="n">x</span><span class="o">=</span><span class="n">wavelength</span><span class="p">,</span>
+        <span class="n">x</span><span class="o">=</span><span class="n">wavelength_grid</span><span class="p">,</span>
         <span class="n">v</span><span class="o">=</span><span class="n">absolute_refraction</span><span class="p">,</span>
-        <span class="n">extrapolate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">extrapolate</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
     <span class="p">)</span>
 
     <span class="k">return</span> <span class="n">refraction_function</span></div>
@@ -684,23 +696,20 @@
 <span class="sd">        The computed relative refraction at the input wavelengths, in radians.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># We need the absolute refraction function first. We use the functional</span>
-    <span class="c1"># form so that we can determine a more accurate absolute refraction at the</span>
-    <span class="c1"># provided wavelength.</span>
-    <span class="n">absolute_refraction_function</span> <span class="o">=</span> <span class="n">absolute_atmospheric_refraction_function</span><span class="p">(</span>
-        <span class="n">wavelength</span><span class="o">=</span><span class="n">wavelength</span><span class="p">,</span>
+    <span class="c1"># We just need the refraction function, and then we compute it where</span>
+    <span class="c1"># specified.</span>
+    <span class="c1"># The default wavelength grid should be good enough.</span>
+    <span class="n">relative_refraction_function</span> <span class="o">=</span> <span class="n">relative_atmospheric_refraction_function</span><span class="p">(</span>
+        <span class="n">reference_wavelength</span><span class="o">=</span><span class="n">reference_wavelength</span><span class="p">,</span>
         <span class="n">zenith_angle</span><span class="o">=</span><span class="n">zenith_angle</span><span class="p">,</span>
-        <span class="n">pressure</span><span class="o">=</span><span class="n">pressure</span><span class="p">,</span>
         <span class="n">temperature</span><span class="o">=</span><span class="n">temperature</span><span class="p">,</span>
+        <span class="n">pressure</span><span class="o">=</span><span class="n">pressure</span><span class="p">,</span>
         <span class="n">water_pressure</span><span class="o">=</span><span class="n">water_pressure</span><span class="p">,</span>
+        <span class="n">wavelength_grid</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
     <span class="p">)</span>
 
-    <span class="c1"># The absolute refraction, and the refraction at the reference wavelength.</span>
-    <span class="n">absolute_refraction</span> <span class="o">=</span> <span class="n">absolute_refraction_function</span><span class="p">(</span><span class="n">wavelength</span><span class="p">)</span>
-    <span class="n">reference_refraction</span> <span class="o">=</span> <span class="n">absolute_refraction_function</span><span class="p">(</span><span class="n">reference_wavelength</span><span class="p">)</span>
-
-    <span class="c1"># Computing the refraction relative to the reference.</span>
-    <span class="n">relative_refraction</span> <span class="o">=</span> <span class="n">absolute_refraction</span> <span class="o">-</span> <span class="n">reference_refraction</span>
+    <span class="c1"># Computing the refraction.</span>
+    <span class="n">relative_refraction</span> <span class="o">=</span> <span class="n">relative_refraction_function</span><span class="p">(</span><span class="n">wavelength</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">relative_refraction</span></div>
 
 
@@ -708,12 +717,12 @@
 <div class="viewcode-block" id="relative_atmospheric_refraction_function">
 <a class="viewcode-back" href="../../../code/lezargus.library.atmosphere.html#lezargus.library.atmosphere.relative_atmospheric_refraction_function">[docs]</a>
 <span class="k">def</span> <span class="nf">relative_atmospheric_refraction_function</span><span class="p">(</span>
-    <span class="n">wavelength</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">,</span>
     <span class="n">reference_wavelength</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">zenith_angle</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">temperature</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">pressure</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">water_pressure</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">wavelength_grid</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">Callable</span><span class="p">[[</span><span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">],</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the relative atmospheric refraction function.</span>
 
@@ -722,9 +731,6 @@
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
-<span class="sd">    wavelength : ndarray</span>
-<span class="sd">        The wavelength over which the absolute atmospheric refraction is</span>
-<span class="sd">        being computed over, in meters.</span>
 <span class="sd">    reference_wavelength : float</span>
 <span class="sd">        The reference wavelength which the relative refraction is computed</span>
 <span class="sd">        against, in meters.</span>
@@ -736,6 +742,11 @@
 <span class="sd">        The pressure of the atmosphere, in Pascals.</span>
 <span class="sd">    water_pressure : float</span>
 <span class="sd">        The partial pressure of water in the atmosphere, Pascals.</span>
+<span class="sd">    wavelength_grid : ndarray, default = None</span>
+<span class="sd">        The wavelength grid over which the absolute atmospheric refraction is</span>
+<span class="sd">        being computed over, in meters. If None, we default to a rather broad</span>
+<span class="sd">        wavelength grid to ensure coverage over the visible and near-infrared</span>
+<span class="sd">        region.</span>
 
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
@@ -745,23 +756,38 @@
 <span class="sd">        radians.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># We compute the relative refraction which we build an interpolating</span>
-    <span class="c1"># function for.</span>
-    <span class="n">relative_refraction</span> <span class="o">=</span> <span class="n">relative_atmospheric_refraction</span><span class="p">(</span>
-        <span class="n">wavelength</span><span class="o">=</span><span class="n">wavelength</span><span class="p">,</span>
-        <span class="n">reference_wavelength</span><span class="o">=</span><span class="n">reference_wavelength</span><span class="p">,</span>
+    <span class="c1"># Of course, the relative atmospheric refraction is derived from the</span>
+    <span class="c1"># absolute refraction.</span>
+    <span class="n">absolute_refraction_function</span> <span class="o">=</span> <span class="n">absolute_atmospheric_refraction_function</span><span class="p">(</span>
         <span class="n">zenith_angle</span><span class="o">=</span><span class="n">zenith_angle</span><span class="p">,</span>
         <span class="n">temperature</span><span class="o">=</span><span class="n">temperature</span><span class="p">,</span>
         <span class="n">pressure</span><span class="o">=</span><span class="n">pressure</span><span class="p">,</span>
         <span class="n">water_pressure</span><span class="o">=</span><span class="n">water_pressure</span><span class="p">,</span>
+        <span class="n">wavelength_grid</span><span class="o">=</span><span class="n">wavelength_grid</span><span class="p">,</span>
     <span class="p">)</span>
 
-    <span class="c1"># Creating the function itself.</span>
-    <span class="n">refraction_function</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">interpolate</span><span class="o">.</span><span class="n">Spline1DInterpolate</span><span class="p">(</span>
-        <span class="n">x</span><span class="o">=</span><span class="n">wavelength</span><span class="p">,</span>
-        <span class="n">v</span><span class="o">=</span><span class="n">relative_refraction</span><span class="p">,</span>
-        <span class="n">extrapolate</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-    <span class="p">)</span>
+    <span class="c1"># We are relative to the reference wavelength atmospheric refraction.</span>
+    <span class="n">reference_refraction</span> <span class="o">=</span> <span class="n">absolute_refraction_function</span><span class="p">(</span><span class="n">reference_wavelength</span><span class="p">)</span>
+
+    <span class="c1"># Returning the function with the offset built in.</span>
+    <span class="k">def</span> <span class="nf">refraction_function</span><span class="p">(</span><span class="n">wavelength</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Compute relative refraction.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        wavelength : NDArray</span>
+<span class="sd">            The wavelength of where the refraction is to be computed, in meters.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        relative_refraction : NDArray</span>
+<span class="sd">            The relative refraction.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># Computing...</span>
+        <span class="n">absolute_refraction</span> <span class="o">=</span> <span class="n">absolute_refraction_function</span><span class="p">(</span><span class="n">wavelength</span><span class="p">)</span>
+        <span class="n">relative_refraction</span> <span class="o">=</span> <span class="n">absolute_refraction</span> <span class="o">-</span> <span class="n">reference_refraction</span>
+        <span class="k">return</span> <span class="n">relative_refraction</span>
 
     <span class="k">return</span> <span class="n">refraction_function</span></div>
 

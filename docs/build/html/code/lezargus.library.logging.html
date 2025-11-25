@@ -372,6 +372,7 @@
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.FileWarning"><code class="docutils literal notranslate"><span class="pre">FileWarning</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.InputError"><code class="docutils literal notranslate"><span class="pre">InputError</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.InputWarning"><code class="docutils literal notranslate"><span class="pre">InputWarning</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.InstrumentError"><code class="docutils literal notranslate"><span class="pre">InstrumentError</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.LezargusBaseError"><code class="docutils literal notranslate"><span class="pre">LezargusBaseError</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.LezargusError"><code class="docutils literal notranslate"><span class="pre">LezargusError</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.LezargusWarning"><code class="docutils literal notranslate"><span class="pre">LezargusWarning</span></code></a></li>
@@ -680,6 +681,16 @@ and do not match the expectations of that function.</p>
 <p>A warning for a weird input.</p>
 <p>This warning is used when the input of a function or a field is not
 expected, but may be able to be handled.</p>
+</dd></dl>
+
+<dl class="py exception">
+<dt class="sig sig-object py" id="lezargus.library.logging.InstrumentError">
+<em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">lezargus.library.logging.</span></span><span class="sig-name descname"><span class="pre">InstrumentError</span></span><a class="reference internal" href="../_modules/lezargus/library/logging.html#InstrumentError"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.library.logging.InstrumentError" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#lezargus.library.logging.LezargusError" title="lezargus.library.logging.LezargusError"><code class="xref py py-class docutils literal notranslate"><span class="pre">LezargusError</span></code></a></p>
+<p>An error used for issues with the instrument configurations.</p>
+<p>If there is something wrong with how an instrument is configured, which
+is not directly based on a direct input to a function. Then this error
+should be used.</p>
 </dd></dl>
 
 <dl class="py exception">
@@ -1047,6 +1058,7 @@ use the configuration value.</p></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.FileWarning"><code class="docutils literal notranslate"><span class="pre">FileWarning</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.InputError"><code class="docutils literal notranslate"><span class="pre">InputError</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.InputWarning"><code class="docutils literal notranslate"><span class="pre">InputWarning</span></code></a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.InstrumentError"><code class="docutils literal notranslate"><span class="pre">InstrumentError</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.LezargusBaseError"><code class="docutils literal notranslate"><span class="pre">LezargusBaseError</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.LezargusError"><code class="docutils literal notranslate"><span class="pre">LezargusError</span></code></a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.library.logging.LezargusWarning"><code class="docutils literal notranslate"><span class="pre">LezargusWarning</span></code></a></li>

@@ -330,6 +330,7 @@
     <span class="n">array</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">,</span>
     <span class="n">x_shift</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
     <span class="n">y_shift</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">order</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">3</span><span class="p">,</span>
     <span class="n">mode</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;constant&quot;</span><span class="p">,</span>
     <span class="n">constant</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">hint</span><span class="o">.</span><span class="n">NDArray</span><span class="p">:</span>
@@ -345,9 +346,11 @@
 <span class="sd">        The number of pixels that the array is shifted in the x-axis.</span>
 <span class="sd">    y_shift : float</span>
 <span class="sd">        The number of pixels that the array is shifted in the y-axis.</span>
+<span class="sd">    order : int</span>
+<span class="sd">        The spline order for the interpolation of the translation function.</span>
 <span class="sd">    mode : str, default = &quot;constant&quot;</span>
 <span class="sd">        The padding mode of the translation. It must be one of the following.</span>
-<span class="sd">        The implimentation detail is similar to Scipy&#39;s. See</span>
+<span class="sd">        The implementation detail is similar to Scipy&#39;s. See</span>
 <span class="sd">        :py:func:`scipy.ndimage.shift` for more information.</span>
 <span class="sd">    constant : float, default = np.nan</span>
 <span class="sd">        If the `mode` is constant, the constant value used is this value.</span>
@@ -376,6 +379,7 @@
     <span class="n">shifted_array</span> <span class="o">=</span> <span class="n">scipy</span><span class="o">.</span><span class="n">ndimage</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span>
         <span class="n">array</span><span class="p">,</span>
         <span class="p">(</span><span class="n">y_shift</span><span class="p">,</span> <span class="n">x_shift</span><span class="p">),</span>
+        <span class="n">order</span><span class="o">=</span><span class="n">order</span><span class="p">,</span>
         <span class="n">mode</span><span class="o">=</span><span class="n">mode</span><span class="p">,</span>
         <span class="n">cval</span><span class="o">=</span><span class="n">constant</span><span class="p">,</span>
     <span class="p">)</span>
@@ -639,7 +643,7 @@
     <span class="n">augmented_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">warp_matrix</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">offset_vector</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
     <span class="c1"># The border constant.</span>
-    <span class="n">border_constant</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">border_constant</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">constant</span><span class="p">,</span> <span class="nb">tuple</span> <span class="o">|</span> <span class="nb">list</span><span class="p">):</span>
         <span class="c1"># The border constant is likely a OpenCV scaler value.</span>
         <span class="n">open_cv_scalar_length</span> <span class="o">=</span> <span class="mi">4</span>
@@ -657,11 +661,16 @@
         <span class="c1"># It is likely a single value at this point.</span>
         <span class="n">border_constant</span> <span class="o">=</span> <span class="p">(</span><span class="n">constant</span><span class="p">,</span> <span class="n">constant</span><span class="p">,</span> <span class="n">constant</span><span class="p">,</span> <span class="n">constant</span><span class="p">)</span>
 
+    <span class="c1"># OpenCV, for the shape parameter, uses a (width, height) convention,</span>
+    <span class="c1"># while Numpy uses a (height, width) convention. We just need to adapt for</span>
+    <span class="c1"># it.</span>
+    <span class="n">opencv_dsize</span> <span class="o">=</span> <span class="p">(</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
     <span class="c1"># Transforming.</span>
     <span class="n">transformed_array</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">warpAffine</span><span class="p">(</span>
         <span class="n">src</span><span class="o">=</span><span class="n">array</span><span class="p">,</span>
         <span class="n">M</span><span class="o">=</span><span class="n">augmented_matrix</span><span class="p">,</span>
-        <span class="n">dsize</span><span class="o">=</span><span class="n">array</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span>
+        <span class="n">dsize</span><span class="o">=</span><span class="n">opencv_dsize</span><span class="p">,</span>
         <span class="n">borderMode</span><span class="o">=</span><span class="n">cv2</span><span class="o">.</span><span class="n">BORDER_CONSTANT</span><span class="p">,</span>
         <span class="n">borderValue</span><span class="o">=</span><span class="n">border_constant</span><span class="p">,</span>
     <span class="p">)</span>

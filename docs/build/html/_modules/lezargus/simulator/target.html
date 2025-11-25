@@ -700,8 +700,8 @@
 
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="c1"># It is easiest to work in SI units.</span>
-        <span class="n">si_wavelength_unit</span> <span class="o">=</span> <span class="s2">&quot;m&quot;</span>
-        <span class="n">si_data_unit</span> <span class="o">=</span> <span class="s2">&quot;W m^-2 m^-1&quot;</span>
+        <span class="n">si_wavelength_unit</span> <span class="o">=</span> <span class="n">container</span><span class="o">.</span><span class="n">wavelength_unit</span><span class="o">.</span><span class="n">si</span>
+        <span class="n">si_data_unit</span> <span class="o">=</span> <span class="n">container</span><span class="o">.</span><span class="n">data_unit</span><span class="o">.</span><span class="n">si</span>
         <span class="n">si_container</span> <span class="o">=</span> <span class="n">container</span><span class="o">.</span><span class="n">to_unit</span><span class="p">(</span>
             <span class="n">data_unit</span><span class="o">=</span><span class="n">si_data_unit</span><span class="p">,</span>
             <span class="n">wavelength_unit</span><span class="o">=</span><span class="n">si_wavelength_unit</span><span class="p">,</span>

@@ -470,7 +470,7 @@
 <span class="sd">    use the documented replacement. There must always be a replacement for</span>
 <span class="sd">    the deprecated functionality except for extraneous circumstances.</span>
 
-<span class="sd">    Note, this is named DeprecatedError to match DeprecatedWarning, which </span>
+<span class="sd">    Note, this is named DeprecatedError to match DeprecatedWarning, which</span>
 <span class="sd">    itself was renamed to avoid shadowing a built-in.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
@@ -515,6 +515,18 @@
 
 <span class="sd">    This is the error to be used when the inputs to a function are not valid</span>
 <span class="sd">    and do not match the expectations of that function.</span>
+<span class="sd">    &quot;&quot;&quot;</span></div>
+
+
+
+<div class="viewcode-block" id="InstrumentError">
+<a class="viewcode-back" href="../../../code/lezargus.library.logging.html#lezargus.library.logging.InstrumentError">[docs]</a>
+<span class="k">class</span> <span class="nc">InstrumentError</span><span class="p">(</span><span class="n">LezargusError</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;An error used for issues with the instrument configurations.</span>
+
+<span class="sd">    If there is something wrong with how an instrument is configured, which</span>
+<span class="sd">    is not directly based on a direct input to a function. Then this error</span>
+<span class="sd">    should be used.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
@@ -616,7 +628,7 @@
 <span class="sd">    should be something similar which can be used, but it is not guaranteed to</span>
 <span class="sd">    a drop and replace.</span>
 
-<span class="sd">    Note, this is named DeprecatedWarning to avoid shadowing the built-in </span>
+<span class="sd">    Note, this is named DeprecatedWarning to avoid shadowing the built-in</span>
 <span class="sd">    DeprecationWarning.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 

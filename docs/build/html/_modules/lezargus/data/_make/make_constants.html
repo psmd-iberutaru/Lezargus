@@ -347,7 +347,7 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Parsing the filename.</span>
-    <span class="n">constants_filename</span> <span class="o">=</span> <span class="n">functionality</span><span class="o">.</span><span class="n">parse_basename</span><span class="p">(</span><span class="n">basename</span><span class="o">=</span><span class="n">basename</span><span class="p">)</span>
+    <span class="n">constants_filename</span> <span class="o">=</span> <span class="n">functionality</span><span class="o">.</span><span class="n">find_data_filename</span><span class="p">(</span><span class="n">basename</span><span class="o">=</span><span class="n">basename</span><span class="p">)</span>
     <span class="c1"># Sanitizing the key input.</span>
     <span class="n">clean_key</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">clean_key</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;CONST_&quot;</span><span class="p">):</span>

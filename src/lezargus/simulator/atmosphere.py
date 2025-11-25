@@ -490,10 +490,16 @@ class AtmosphereSimulator:
             slice_seeing,
             strict=True,
         ):
+            # The seeing values are in FWHM; so we need to convert it to
+            # the Gaussian standard deviation as we are using Gaussians,
+            fwhm_sigma_constant = 2.35482
+            pix_std_dex = pix_see_dex / fwhm_sigma_constant
+            sli_std_dex = sli_see_dex / fwhm_sigma_constant
+
             kernel_layer = lezargus.library.convolution.kernel_2d_gaussian(
                 shape=kernel_shape,
-                x_stddev=pix_see_dex,
-                y_stddev=sli_see_dex,
+                x_stddev=pix_std_dex,
+                y_stddev=sli_std_dex,
                 rotation=self.parallactic_angle,
             )
             seeing_kernels_list.append(kernel_layer)

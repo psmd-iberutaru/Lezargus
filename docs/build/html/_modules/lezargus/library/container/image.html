@@ -402,17 +402,19 @@
                 <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">InputError</span><span class="p">,</span>
                 <span class="n">message</span><span class="o">=</span><span class="p">(</span>
                     <span class="s2">&quot;The input data for a LezargusImage instantiation has a&quot;</span>
-                    <span class="s2">&quot; shape </span><span class="si">{data.shape}</span><span class="s2">, which is not the expected two&quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot; shape </span><span class="si">{</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">, which is not the expected two&quot;</span>
                     <span class="s2">&quot; dimension.&quot;</span>
                 <span class="p">),</span>
             <span class="p">)</span>
 
         <span class="c1"># The wavelength parameter is more metadata describing the image. It is</span>
-        <span class="c1"># completely optional. If provided, we add it.</span>
+        <span class="c1"># completely optional. If provided, we add it. Otherwise we use a</span>
+        <span class="c1"># None-like value which is can be more properly handled by the other</span>
+        <span class="c1"># parts of Lezargus.</span>
         <span class="k">if</span> <span class="n">wavelength</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="n">set_wavelength</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">wavelength</span><span class="p">))</span>
+            <span class="n">set_wavelength</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="nb">float</span><span class="p">(</span><span class="n">wavelength</span><span class="p">)])</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="n">set_wavelength</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span>
+            <span class="n">set_wavelength</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">])</span>
 
         <span class="c1"># Constructing the original class. We do not deal with WCS here because</span>
         <span class="c1"># the base class does not support it. We do not involve units here as</span>

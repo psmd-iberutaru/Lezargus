@@ -279,7 +279,6 @@ class SpectreDispersionPattern:
                     f" {column}"
                 ),
             )
-
         # Otherwise, we try and access the data.
         full_filter = channel_filter & slice_filter
         data = np.array(column_data[full_filter])
@@ -290,7 +289,7 @@ class SpectreDispersionPattern:
         channel: str,
         slice_: int,
         location: str,
-        wavelength: hint.NDArray,
+        wavelength: float | hint.NDArray,
     ) -> list[tuple[float, float]]:
         """Get the coordinate location on the detector, in linear units.
 
@@ -491,13 +490,15 @@ class SpectreDispersionPattern:
             )
 
         # Now that we have the data we can interpolate to the wavelengths
-        # desired.
+        # desired. The actual changing variable is the y-coordinate; so using
+        # a more complicated interpolator for the x-coordinate will likely
+        # cause numerical errors.
         interpolator_x = lezargus.library.interpolate.Linear1DInterpolate(
             x=interp_wave,
             v=interp_x,
             extrapolate=True,
         )
-        interpolator_y = lezargus.library.interpolate.Linear1DInterpolate(
+        interpolator_y = lezargus.library.interpolate.Spline1DInterpolate(
             x=interp_wave,
             v=interp_y,
             extrapolate=True,
@@ -506,8 +507,8 @@ class SpectreDispersionPattern:
         wavelength = np.atleast_1d(wavelength)
         coordinate_x = interpolator_x(x=wavelength)
         coordinate_y = interpolator_y(x=wavelength)
-        # Creating the pairs.
 
+        # Creating the pairs.
         coordinate_pairs = list(zip(coordinate_x, coordinate_y, strict=True))
         return coordinate_pairs
 
@@ -516,7 +517,7 @@ class SpectreDispersionPattern:
         channel: str,
         slice_: int,
         location: str,
-        wavelength: hint.NDArray,
+        wavelength: float | hint.NDArray,
     ) -> list[tuple[float, float]]:
         """Get the coordinate location on the detector, in pixels.
 

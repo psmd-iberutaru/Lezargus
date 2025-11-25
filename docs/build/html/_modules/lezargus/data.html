@@ -341,6 +341,7 @@
     <span class="n">__initialize_data_constants</span><span class="p">()</span>
     <span class="n">__initialize_data_star_spectra</span><span class="p">()</span>
     <span class="n">__initialize_data_photometric_filters</span><span class="p">()</span>
+    <span class="n">__initialize_data_detectors</span><span class="p">()</span>
     <span class="n">__initialize_data_atmosphere_generators</span><span class="p">()</span>
     <span class="n">__initialize_data_optic_efficiency_functions</span><span class="p">()</span>
     <span class="n">__initialize_data_dispersion_patterns</span><span class="p">()</span></div>
@@ -550,6 +551,68 @@
         <span class="n">magnitude_uncertainty</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
     <span class="p">)</span>
 
+    <span class="c1"># TYCHO-2 Filters</span>
+    <span class="k">global</span> <span class="n">FILTER_TYCHO2_BT</span>
+    <span class="n">FILTER_TYCHO2_BT</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_vega_photometric_filter</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;filter_TYCHO2_BT.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">FILTER_TYCHO2_BT</span><span class="o">.</span><span class="n">add_standard_star_spectrum</span><span class="p">(</span>
+        <span class="n">spectrum</span><span class="o">=</span><span class="n">STAR_A0V</span><span class="p">,</span>
+        <span class="n">magnitude</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">magnitude_uncertainty</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">global</span> <span class="n">FILTER_TYCHO2_VT</span>
+    <span class="n">FILTER_TYCHO2_VT</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_vega_photometric_filter</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;filter_TYCHO2_VT.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">FILTER_TYCHO2_VT</span><span class="o">.</span><span class="n">add_standard_star_spectrum</span><span class="p">(</span>
+        <span class="n">spectrum</span><span class="o">=</span><span class="n">STAR_A0V</span><span class="p">,</span>
+        <span class="n">magnitude</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">magnitude_uncertainty</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># GAIA Filters</span>
+    <span class="k">global</span> <span class="n">FILTER_GAIA_BP</span>
+    <span class="n">FILTER_GAIA_BP</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_vega_photometric_filter</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;filter_GAIA_BP.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">FILTER_GAIA_BP</span><span class="o">.</span><span class="n">add_standard_star_spectrum</span><span class="p">(</span>
+        <span class="n">spectrum</span><span class="o">=</span><span class="n">STAR_A0V</span><span class="p">,</span>
+        <span class="n">magnitude</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">magnitude_uncertainty</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">global</span> <span class="n">FILTER_GAIA_G</span>
+    <span class="n">FILTER_GAIA_G</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_vega_photometric_filter</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;filter_GAIA_G.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">FILTER_GAIA_G</span><span class="o">.</span><span class="n">add_standard_star_spectrum</span><span class="p">(</span>
+        <span class="n">spectrum</span><span class="o">=</span><span class="n">STAR_A0V</span><span class="p">,</span>
+        <span class="n">magnitude</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">magnitude_uncertainty</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">global</span> <span class="n">FILTER_GAIA_RP</span>
+    <span class="n">FILTER_GAIA_RP</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_vega_photometric_filter</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;filter_GAIA_RP.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">FILTER_GAIA_RP</span><span class="o">.</span><span class="n">add_standard_star_spectrum</span><span class="p">(</span>
+        <span class="n">spectrum</span><span class="o">=</span><span class="n">STAR_A0V</span><span class="p">,</span>
+        <span class="n">magnitude</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">magnitude_uncertainty</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">global</span> <span class="n">FILTER_GAIA_RVS</span>
+    <span class="n">FILTER_GAIA_RVS</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_vega_photometric_filter</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;filter_GAIA_RVS.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">FILTER_GAIA_RVS</span><span class="o">.</span><span class="n">add_standard_star_spectrum</span><span class="p">(</span>
+        <span class="n">spectrum</span><span class="o">=</span><span class="n">STAR_A0V</span><span class="p">,</span>
+        <span class="n">magnitude</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">magnitude_uncertainty</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span>
+
     <span class="c1"># 2MASS J H Ks filters.</span>
     <span class="k">global</span> <span class="n">FILTER_2MASS_J</span>
     <span class="n">FILTER_2MASS_J</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_vega_photometric_filter</span><span class="p">(</span>
@@ -579,7 +642,81 @@
         <span class="n">spectrum</span><span class="o">=</span><span class="n">STAR_A0V</span><span class="p">,</span>
         <span class="n">magnitude</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
         <span class="n">magnitude_uncertainty</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="c1"># WISE 1 2 3 4 Filters.</span>
+    <span class="k">global</span> <span class="n">FILTER_WISE_1</span>
+    <span class="n">FILTER_WISE_1</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_vega_photometric_filter</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;filter_WISE_1.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">FILTER_WISE_1</span><span class="o">.</span><span class="n">add_standard_star_spectrum</span><span class="p">(</span>
+        <span class="n">spectrum</span><span class="o">=</span><span class="n">STAR_A0V</span><span class="p">,</span>
+        <span class="n">magnitude</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">magnitude_uncertainty</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">global</span> <span class="n">FILTER_WISE_2</span>
+    <span class="n">FILTER_WISE_2</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_vega_photometric_filter</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;filter_WISE_2.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">FILTER_WISE_2</span><span class="o">.</span><span class="n">add_standard_star_spectrum</span><span class="p">(</span>
+        <span class="n">spectrum</span><span class="o">=</span><span class="n">STAR_A0V</span><span class="p">,</span>
+        <span class="n">magnitude</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">magnitude_uncertainty</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">global</span> <span class="n">FILTER_WISE_3</span>
+    <span class="n">FILTER_WISE_3</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_vega_photometric_filter</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;filter_WISE_3.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">FILTER_WISE_3</span><span class="o">.</span><span class="n">add_standard_star_spectrum</span><span class="p">(</span>
+        <span class="n">spectrum</span><span class="o">=</span><span class="n">STAR_A0V</span><span class="p">,</span>
+        <span class="n">magnitude</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">magnitude_uncertainty</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="k">global</span> <span class="n">FILTER_WISE_4</span>
+    <span class="n">FILTER_WISE_4</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_vega_photometric_filter</span><span class="p">(</span>
+        <span class="n">basename</span><span class="o">=</span><span class="s2">&quot;filter_WISE_4.dat&quot;</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">FILTER_WISE_4</span><span class="o">.</span><span class="n">add_standard_star_spectrum</span><span class="p">(</span>
+        <span class="n">spectrum</span><span class="o">=</span><span class="n">STAR_A0V</span><span class="p">,</span>
+        <span class="n">magnitude</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">magnitude_uncertainty</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
     <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="__initialize_data_detectors">
+<a class="viewcode-back" href="../../code/lezargus.data.html#lezargus.data.__initialize_data_detectors">[docs]</a>
+<span class="k">def</span> <span class="nf">__initialize_data_detectors</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Initialize only the detector specifications.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    None</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># If the initialization of the data is to be skipped.</span>
+    <span class="k">if</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">INTERNAL_DEBUG_SKIP_LOADING_DATA_FILES</span><span class="p">:</span>
+        <span class="k">return</span>
+
+    <span class="c1"># Otherwise...</span>
+    <span class="k">global</span> <span class="n">DETECTOR_SPECTRE_VISIBLE</span>
+    <span class="n">DETECTOR_SPECTRE_VISIBLE</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_detector</span><span class="p">()</span>
+
+    <span class="k">global</span> <span class="n">DETECTOR_SPECTRE_NEARIR</span>
+    <span class="n">DETECTOR_SPECTRE_NEARIR</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_detector</span><span class="p">()</span>
+
+    <span class="k">global</span> <span class="n">DETECTOR_SPECTRE_MIDIR</span>
+    <span class="n">DETECTOR_SPECTRE_MIDIR</span> <span class="o">=</span> <span class="n">_make</span><span class="o">.</span><span class="n">make_detector</span><span class="p">()</span>
+
+    <span class="c1"># All done.</span>
+    <span class="k">return</span></div>
 
 
 

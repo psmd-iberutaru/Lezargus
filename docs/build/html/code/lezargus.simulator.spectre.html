@@ -347,8 +347,13 @@
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.__calculate_field_view_spatial_sampling"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.__calculate_field_view_spatial_sampling()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.__init__"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator._cache_spectral_dispersion"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator._cache_spectral_dispersion</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator._convert_to_photon"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator._convert_to_photon()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.arc_lamp_in"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.arc_lamp_in</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.at_advanced_spectral_dispersion"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_advanced_spectral_dispersion()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.at_calibration_apparatus"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_calibration_apparatus</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.at_cosmic_rays"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_cosmic_rays</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.at_detector_bias"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_detector_bias</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.at_detector_dark_current"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_detector_dark_current</span></code></a></li>
@@ -388,15 +393,21 @@
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.at_window_emission"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_window_emission</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.at_window_ghost"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_window_ghost</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.at_window_transmission"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_window_transmission</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.at_write_disk"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_write_disk()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.atmosphere"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.atmosphere</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.channel"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.channel</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.clear_cache"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.clear_cache()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.coadds"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.coadds</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.detector"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.detector</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.exposure_time"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.exposure_time</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.flat_lamp_in"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.flat_lamp_in</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.from_advanced_parameters"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.from_advanced_parameters()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.from_blackbody"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.from_blackbody()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.from_spectrum"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.from_spectrum()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.input_atmosphere"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.input_atmosphere</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.input_target"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.input_target</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.input_telescope"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.input_telescope</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.old_from_advanced_parameters"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.old_from_advanced_parameters()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.target"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.target</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.telescope"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.telescope</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.use_cache"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.use_cache</span></code></a></li>
@@ -434,6 +445,30 @@ stage is named.</p>
 <cite>at_[stage]</cite> where the result is the simulated result right after
 simulating whichever stage is named.</p>
 <dl class="py method">
+<dt class="sig sig-object py" id="lezargus.simulator.spectre.SpectreSimulator.__calculate_field_view_spatial_sampling">
+<span class="sig-name descname"><span class="pre">__calculate_field_view_spatial_sampling</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span></span></span><a class="headerlink" href="#lezargus.simulator.spectre.SpectreSimulator.__calculate_field_view_spatial_sampling" title="Link to this definition">#</a></dt>
+<dd><p>Calculate the field of view and spatial sampling values.</p>
+<p>We just separate the computation of these values into this function
+to make it a little cleaner and to repeat less. These values really
+only depend on the spatial oversampling value anyways.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>spatial_oversample</strong> (<em>int</em>) – The spatial oversampling ratio of the detector which we are using
+to determine the target simulation spatial grid.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>field_of_view</strong> (<em>tuple</em>) – The field of view parameter for this simulator’s target class.</p></li>
+<li><p><strong>spatial_shape</strong> (<em>tuple</em>) – The spatial shape parameter for this simulator’s target class.</p></li>
+<li><p><strong>location</strong> (<em>str</em>) – The location, this really is just extra fluff and makes changing
+it easy should it ever need to be changed.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="lezargus.simulator.spectre.SpectreSimulator.__init__">
 <span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.TargetSimulator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">telescope</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.IrtfTelescopeSimulator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exposure_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coadds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atmosphere</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.AtmosphereSimulator</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lezargus/simulator/spectre.html#SpectreSimulator.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.simulator.spectre.SpectreSimulator.__init__" title="Link to this definition">#</a></dt>
 <dd><p>Initialize the SPECTRE simulator.</p>
@@ -459,6 +494,11 @@ the correct atmosphere applied.</p></li>
 </dl>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.simulator.spectre.SpectreSimulator._cache_spectral_dispersion">
+<span class="sig-name descname"><span class="pre">_cache_spectral_dispersion</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">hint.LezargusImage</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#lezargus.simulator.spectre.SpectreSimulator._cache_spectral_dispersion" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="lezargus.simulator.spectre.SpectreSimulator._convert_to_photon">
 <span class="sig-name descname"><span class="pre">_convert_to_photon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">container</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.LezargusContainerArithmetic</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">hint.LezargusContainerArithmetic</span></span></span><a class="reference internal" href="../_modules/lezargus/simulator/spectre.html#SpectreSimulator._convert_to_photon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.simulator.spectre.SpectreSimulator._convert_to_photon" title="Link to this definition">#</a></dt>
@@ -476,6 +516,61 @@ However, please note that the units may change in unexpected ways.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="lezargus.library.container.parent.html#lezargus.library.container.parent.LezargusContainerArithmetic" title="lezargus.library.container.parent.LezargusContainerArithmetic">LezargusContainerArithmetic</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.simulator.spectre.SpectreSimulator.arc_lamp_in">
+<span class="sig-name descname"><span class="pre">arc_lamp_in</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#lezargus.simulator.spectre.SpectreSimulator.arc_lamp_in" title="Link to this definition">#</a></dt>
+<dd><p>If True, the calibration apparatus arc lamp is considered in and on,
+and so the simulation injects it into the light path where required.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.simulator.spectre.SpectreSimulator.at_advanced_spectral_dispersion">
+<span class="sig-name descname"><span class="pre">at_advanced_spectral_dispersion</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">quick_translation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">hint.LezargusImage</span></span></span><a class="reference internal" href="../_modules/lezargus/simulator/spectre.html#SpectreSimulator.at_advanced_spectral_dispersion"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.simulator.spectre.SpectreSimulator.at_advanced_spectral_dispersion" title="Link to this definition">#</a></dt>
+<dd><p>State of simulation after modeling spectral dispersion on detector.</p>
+<p>This is the advanced function and allow for more customization of the
+simulation of spectral dispersion. The standard spectral dispersion
+function calls this function, with the standard mode being the
+provided defaults here. We cache the results to ensure that a
+call to the base property provides the advanced computation, should
+it exist.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>quick_translation</strong> (<em>bool</em><em>, </em><em>default = False</em>) – If True, we simplify the translation. Instead of an affine
+translation, we physically place the array based on the
+coordinates after doing a much smaller translation.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>current_state</strong> – The state of the simulation after applying the effects of
+spectral dispersion onto the detector.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="lezargus.library.container.image.html#lezargus.library.container.image.LezargusImage" title="lezargus.library.container.image.LezargusImage">LezargusImage</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="lezargus.simulator.spectre.SpectreSimulator.at_calibration_apparatus">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">at_calibration_apparatus</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">hint.LezargusCube</span></em><a class="headerlink" href="#lezargus.simulator.spectre.SpectreSimulator.at_calibration_apparatus" title="Link to this definition">#</a></dt>
+<dd><p>State of simulation after the calibration lamp aparatus.</p>
+<p>The calibration apparatus comprises of the arc and flat lamps of the
+insturment. If a normal object is being simulated/observed, then
+the data is passed through. Otherwise, the simulation emulates
+the calibration lamp in the field of view.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>None</strong></p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>current_state</strong> – The state of the simulation after applying the effects of
+the secondary mirror emission.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="lezargus.library.container.cube.html#lezargus.library.container.cube.LezargusCube" title="lezargus.library.container.cube.LezargusCube">LezargusCube</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -1160,6 +1255,28 @@ the secondary mirror emission.</p>
 </dl>
 </dd></dl>
 
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.simulator.spectre.SpectreSimulator.at_write_disk">
+<span class="sig-name descname"><span class="pre">at_write_disk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">overwrite</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="../_modules/lezargus/simulator/spectre.html#SpectreSimulator.at_write_disk"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.simulator.spectre.SpectreSimulator.at_write_disk" title="Link to this definition">#</a></dt>
+<dd><p>Write out the full state of the simulation, to disk.</p>
+<p>This is mostly a convience function. It takes the final read out of
+the function and allows for it to be read out as a FITS file, as
+typical of an instrument. Nothing is returned as the result is
+wrote to disk.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>str</em>) – The FITS filename which we are writing the file out to.</p></li>
+<li><p><strong>overwrite</strong> (<em>bool</em>) – If the file already exists, we overwrite it. Else, an error will
+be likely be raised.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py attribute">
 <dt class="sig sig-object py" id="lezargus.simulator.spectre.SpectreSimulator.atmosphere">
 <span class="sig-name descname"><span class="pre">atmosphere</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">hint.AtmosphereSimulator</span></em><a class="headerlink" href="#lezargus.simulator.spectre.SpectreSimulator.atmosphere" title="Link to this definition">#</a></dt>
@@ -1198,15 +1315,168 @@ giving better signal to noise without saturating.</p>
 </dd></dl>
 
 <dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.simulator.spectre.SpectreSimulator.detector">
+<span class="sig-name descname"><span class="pre">detector</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">hint.DetectorArray</span></em><a class="headerlink" href="#lezargus.simulator.spectre.SpectreSimulator.detector" title="Link to this definition">#</a></dt>
+<dd><p>The instance of the detector for the simulation. Each channel has
+their own detector instance and this is it, based on the channel.</p>
+</dd></dl>
+
+<dl class="py attribute">
 <dt class="sig sig-object py" id="lezargus.simulator.spectre.SpectreSimulator.exposure_time">
 <span class="sig-name descname"><span class="pre">exposure_time</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></em><a class="headerlink" href="#lezargus.simulator.spectre.SpectreSimulator.exposure_time" title="Link to this definition">#</a></dt>
 <dd><p>The exposure time of the integration, used near the end for Poisson
 statistics on the observation.</p>
 </dd></dl>
 
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.simulator.spectre.SpectreSimulator.flat_lamp_in">
+<span class="sig-name descname"><span class="pre">flat_lamp_in</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#lezargus.simulator.spectre.SpectreSimulator.flat_lamp_in" title="Link to this definition">#</a></dt>
+<dd><p>If True, the calibration apparatus flat lamp is considered in and on,
+and so the simulation injects it into the light path where required.</p>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="lezargus.simulator.spectre.SpectreSimulator.from_advanced_parameters">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_advanced_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wavelength</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.NDArray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blackbody_temperature</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">magnitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">photometric_filter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.PhotometricABFilter</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">hint.PhotometricVegaFilter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exposure_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coadds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spatial_shape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_of_view</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spectral_scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atmosphere_temperature</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atmosphere_pressure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atmosphere_ppw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atmosphere_pwv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atmosphere_seeing</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zenith_angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parallactic_angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_wavelength</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">telescope_temperature</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transmission_generator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.AtmosphereSpectrumGenerator</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radiance_generator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.AtmosphereSpectrumGenerator</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">hint.Self</span></span></span><a class="reference internal" href="../_modules/lezargus/simulator/spectre.html#SpectreSimulator.from_advanced_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.simulator.spectre.SpectreSimulator.from_advanced_parameters" title="Link to this definition">#</a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_advanced_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">target</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.TargetSimulator</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exposure_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coadds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atmosphere_temperature</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">275.15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atmosphere_pressure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">61500</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atmosphere_ppw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">230</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atmosphere_pwv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atmosphere_seeing</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">3.878505805638378e-06</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zenith_angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parallactic_angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_wavelength</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">5.5e-07</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">telescope_temperature</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">275.15</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transmission_generator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.AtmosphereSpectrumGenerator</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radiance_generator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.AtmosphereSpectrumGenerator</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">hint.Self</span></span></span><a class="reference internal" href="../_modules/lezargus/simulator/spectre.html#SpectreSimulator.from_advanced_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.simulator.spectre.SpectreSimulator.from_advanced_parameters" title="Link to this definition">#</a></dt>
+<dd><p>Initialize the SPECTRE simulator, only using parameter values.</p>
+<p>By default, the initialization of the SPECTRE simulator requires the
+creation of three different inner simulator classes. This convenience
+function does that for the user for two, as long as they provide the
+environmental parameters for the atmosphere and telescope. Note,
+default parameters are for typical conditions where available.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel</strong> (<em>str</em>) – The name of the channel that will be simulated; one of three
+channels: visible, nearir, and midir.</p></li>
+<li><p><strong>target</strong> (<a class="reference internal" href="lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator" title="lezargus.simulator.target.TargetSimulator"><em>TargetSimulator</em></a>) – The observed target which we are simulating. The creation of this
+target can be done manually for via other convenience functions.</p></li>
+<li><p><strong>exposure_time</strong> (<em>float</em>) – The exposure time of the observation integration, in seconds.</p></li>
+<li><p><strong>coadds</strong> (<em>int</em><em>, </em><em>default = 1</em>) – The number of co-adds of the provided exposure time for the
+observation.</p></li>
+<li><p><strong>atmosphere_temperature</strong> (<em>float</em><em>, </em><em>default = 275.15</em>) – The temperature of the intervening atmosphere, in Kelvin.</p></li>
+<li><p><strong>atmosphere_pressure</strong> (<em>float</em><em>, </em><em>default = 61500</em>) – The pressure of the intervening atmosphere, in Pascal.</p></li>
+<li><p><strong>atmosphere_ppw</strong> (<em>float</em><em>, </em><em>default = 230</em>) – The partial pressure of water in the atmosphere, in Pascal.</p></li>
+<li><p><strong>atmosphere_pwv</strong> (<em>float</em><em>, </em><em>default = 0.001</em>) – The precipitable water vapor in the atmosphere, in meters.</p></li>
+<li><p><strong>atmosphere_seeing</strong> (<em>float</em><em>, </em><em>default = 0.8 / 206265</em>) – The seeing of the atmosphere, given as the FWHM of the seeing disk,
+often approximated as a Gaussian distribution, at zenith and at
+the reference wavelength. The units are in radians.</p></li>
+<li><p><strong>zenith_angle</strong> (<em>float</em><em>, </em><em>default = 0</em>) – The zenith angle of the simulated object, at the reference
+wavelength in radians; primarily used to determine airmass.</p></li>
+<li><p><strong>parallactic_angle</strong> (<em>float</em><em>, </em><em>default = 0</em>) – The parallactic angle of the simulated object, in radians; primarily
+used to atmospheric dispersion direction.</p></li>
+<li><p><strong>reference_wavelength</strong> (<em>float</em><em>, </em><em>default = 0.550e-6</em>) – The reference wavelength which defines the seeing and zenith angle
+parameters. Assumed to be in the same units as the provided
+wavelength axis.</p></li>
+<li><p><strong>telescope_temperature</strong> (<em>float</em><em>, </em><em>default = 275.15</em>) – The local temperature of the telescope, usually the temperatures
+of the primary and other mirrors; in Kelvin.</p></li>
+<li><p><strong>transmission_generator</strong> (<a class="reference internal" href="lezargus.library.container.atmosphere.html#lezargus.library.container.atmosphere.AtmosphereSpectrumGenerator" title="lezargus.library.container.atmosphere.AtmosphereSpectrumGenerator"><em>AtmosphereSpectrumGenerator</em></a><em>, </em><em>default = None</em>) – The transmission spectrum generator used to generate the
+specific transmission spectra. If None, we default to the built-in
+generators.</p></li>
+<li><p><strong>radiance_generator</strong> (<a class="reference internal" href="lezargus.library.container.atmosphere.html#lezargus.library.container.atmosphere.AtmosphereSpectrumGenerator" title="lezargus.library.container.atmosphere.AtmosphereSpectrumGenerator"><em>AtmosphereSpectrumGenerator</em></a><em>, </em><em>default = None</em>) – The transmission spectrum generator used to generate the
+specific transmission spectra. If None, we default to the built-in
+generators.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>spectre_simulator</strong> – The simulator, with the properties provided from the parameters.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#lezargus.simulator.spectre.SpectreSimulator" title="lezargus.simulator.spectre.SpectreSimulator">SpectreSimulator</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.simulator.spectre.SpectreSimulator.from_blackbody">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_blackbody</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wavelength</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.NDArray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blackbody_temperature</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">magnitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">photometric_filter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.PhotometricABFilter</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">hint.PhotometricVegaFilter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spectral_scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exposure_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spatial_oversample</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">hint.Self</span></span></span><a class="reference internal" href="../_modules/lezargus/simulator/spectre.html#SpectreSimulator.from_blackbody"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.simulator.spectre.SpectreSimulator.from_blackbody" title="Link to this definition">#</a></dt>
+<dd><p>Initialize a SPECTRE simulator via a blackbody temperature.</p>
+<p>This is a convenience function to create a simulator using a single
+spectrum with typical default environmental parameters. The spatial
+sampling is determined based on an oversampling ratio of the detector
+pixels.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wavelength</strong> (<em>ndarray</em>) – The wavelength basis of the simulator; this defines the wavelength
+axis and are its values.</p></li>
+<li><p><strong>blackbody_temperature</strong> (<em>float</em>) – The blackbody temperature of the object that we are simulating,
+in Kelvin.</p></li>
+<li><p><strong>magnitude</strong> (<em>float</em>) – The simulated magnitude of the object. The photometric filter
+system this magnitude is in must match the inputted photometric
+filter.</p></li>
+<li><p><strong>photometric_filter</strong> (<a class="reference internal" href="lezargus.library.container.photometry.html#lezargus.library.container.photometry.PhotometricABFilter" title="lezargus.library.container.photometry.PhotometricABFilter"><em>PhotometricABFilter</em></a><em> or </em><a class="reference internal" href="lezargus.library.container.photometry.html#lezargus.library.container.photometry.PhotometricVegaFilter" title="lezargus.library.container.photometry.PhotometricVegaFilter"><em>PhotometricVegaFilter</em></a>) – The photometric filter (system) that the inputted magnitude is in.</p></li>
+<li><p><strong>spectral_scale</strong> (<em>float</em>) – The spectral scale of the simulated spectra, as a resolution,
+in wavelength separation (in meters) per pixel.</p></li>
+<li><p><strong>channel</strong> (<em>str</em>) – The spectroscopic channel which we are simulating.</p></li>
+<li><p><strong>exposure_time</strong> (<em>float</em>) – The exposure time of the observation integration, in seconds.</p></li>
+<li><p><strong>spatial_oversample</strong> (<em>int</em>) – The spatial oversampling ratio of the detector which we are using
+to determine the target simulation spatial grid.</p></li>
+<li><p><strong>**kwargs</strong> (<em>Any</em>) – Keyword arguments passed to the advanced parameter call.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>spectre_simulator</strong> – The simulator, with the properties provided from the parameters.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#lezargus.simulator.spectre.SpectreSimulator" title="lezargus.simulator.spectre.SpectreSimulator">SpectreSimulator</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.simulator.spectre.SpectreSimulator.from_spectrum">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_spectrum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spectrum</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.LezargusSpectrum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exposure_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spatial_oversample</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.Any</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">hint.Self</span></span></span><a class="reference internal" href="../_modules/lezargus/simulator/spectre.html#SpectreSimulator.from_spectrum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.simulator.spectre.SpectreSimulator.from_spectrum" title="Link to this definition">#</a></dt>
+<dd><p>Initialize a SPECTRE simulator via a spectrum.</p>
+<p>This is a convenience function to create a simulator using a single
+spectrum with typical default environmental parameters. The spatial
+sampling is determined based on an oversampling ratio of the detector
+pixels.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>spectrum</strong> (<a class="reference internal" href="lezargus.library.container.spectrum.html#lezargus.library.container.spectrum.LezargusSpectrum" title="lezargus.library.container.spectrum.LezargusSpectrum"><em>LezargusSpectrum</em></a>) – The spectra of a point source object which we are attempting to
+simulate.</p></li>
+<li><p><strong>channel</strong> (<em>str</em>) – The spectroscopic channel which we are simulating.</p></li>
+<li><p><strong>exposure_time</strong> (<em>float</em>) – The exposure time of the observation integration, in seconds.</p></li>
+<li><p><strong>spatial_oversample</strong> (<em>int</em>) – The spatial oversampling ratio of the detector which we are using
+to determine the target simulation spatial grid.</p></li>
+<li><p><strong>**kwargs</strong> (<em>Any</em>) – Keyword arguments passed to the advanced parameter call.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>spectre_simulator</strong> – The simulator, with the properties provided from the parameters.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#lezargus.simulator.spectre.SpectreSimulator" title="lezargus.simulator.spectre.SpectreSimulator">SpectreSimulator</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.simulator.spectre.SpectreSimulator.input_atmosphere">
+<span class="sig-name descname"><span class="pre">input_atmosphere</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">hint.AtmosphereSimulator</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#lezargus.simulator.spectre.SpectreSimulator.input_atmosphere" title="Link to this definition">#</a></dt>
+<dd><p>The inputted atmosphere simulation. We store this original copy as
+the actual working copy is being modified in place.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.simulator.spectre.SpectreSimulator.input_target">
+<span class="sig-name descname"><span class="pre">input_target</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">hint.TargetSimulator</span></em><a class="headerlink" href="#lezargus.simulator.spectre.SpectreSimulator.input_target" title="Link to this definition">#</a></dt>
+<dd><p>The inputted target object simulation. We store this
+original copy as the actual working copy is being modified in place.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="lezargus.simulator.spectre.SpectreSimulator.input_telescope">
+<span class="sig-name descname"><span class="pre">input_telescope</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">hint.IrtfTelescopeSimulator</span></em><a class="headerlink" href="#lezargus.simulator.spectre.SpectreSimulator.input_telescope" title="Link to this definition">#</a></dt>
+<dd><p>The inputted telescope simulation. We store this original copy as
+the actual working copy is being modified in place.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="lezargus.simulator.spectre.SpectreSimulator.old_from_advanced_parameters">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">old_from_advanced_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wavelength</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.NDArray</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blackbody_temperature</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">magnitude</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">photometric_filter</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.PhotometricABFilter</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">hint.PhotometricVegaFilter</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exposure_time</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coadds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spatial_shape</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">field_of_view</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spectral_scale</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atmosphere_temperature</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atmosphere_pressure</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atmosphere_ppw</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atmosphere_pwv</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">atmosphere_seeing</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zenith_angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parallactic_angle</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reference_wavelength</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">telescope_temperature</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">transmission_generator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.AtmosphereSpectrumGenerator</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">radiance_generator</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">hint.AtmosphereSpectrumGenerator</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">hint.Self</span></span></span><a class="reference internal" href="../_modules/lezargus/simulator/spectre.html#SpectreSimulator.old_from_advanced_parameters"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#lezargus.simulator.spectre.SpectreSimulator.old_from_advanced_parameters" title="Link to this definition">#</a></dt>
 <dd><p>Initialize the SPECTRE simulator, only using parameter values.</p>
 <p>By default, the initialization of the SPECTRE simulator requires the
 creation of three different inner simulator classes. This convenience
@@ -1273,27 +1543,6 @@ generators.</p></li>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="lezargus.simulator.spectre.SpectreSimulator.input_atmosphere">
-<span class="sig-name descname"><span class="pre">input_atmosphere</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">hint.AtmosphereSimulator</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></em><a class="headerlink" href="#lezargus.simulator.spectre.SpectreSimulator.input_atmosphere" title="Link to this definition">#</a></dt>
-<dd><p>The inputted atmosphere simulation. We store this original copy as
-the actual working copy is being modified in place.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="lezargus.simulator.spectre.SpectreSimulator.input_target">
-<span class="sig-name descname"><span class="pre">input_target</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">hint.TargetSimulator</span></em><a class="headerlink" href="#lezargus.simulator.spectre.SpectreSimulator.input_target" title="Link to this definition">#</a></dt>
-<dd><p>The inputted target object simulation. We store this
-original copy as the actual working copy is being modified in place.</p>
-</dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="lezargus.simulator.spectre.SpectreSimulator.input_telescope">
-<span class="sig-name descname"><span class="pre">input_telescope</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">hint.IrtfTelescopeSimulator</span></em><a class="headerlink" href="#lezargus.simulator.spectre.SpectreSimulator.input_telescope" title="Link to this definition">#</a></dt>
-<dd><p>The inputted telescope simulation. We store this original copy as
-the actual working copy is being modified in place.</p>
-</dd></dl>
-
-<dl class="py attribute">
 <dt class="sig sig-object py" id="lezargus.simulator.spectre.SpectreSimulator.target">
 <span class="sig-name descname"><span class="pre">target</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">hint.TargetSimulator</span></em><a class="headerlink" href="#lezargus.simulator.spectre.SpectreSimulator.target" title="Link to this definition">#</a></dt>
 <dd><p>The target object simulation. This is the working copy.</p>
@@ -1307,7 +1556,7 @@ the actual working copy is being modified in place.</p>
 
 <dl class="py attribute">
 <dt class="sig sig-object py" id="lezargus.simulator.spectre.SpectreSimulator.use_cache">
-<span class="sig-name descname"><span class="pre">use_cache</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#lezargus.simulator.spectre.SpectreSimulator.use_cache" title="Link to this definition">#</a></dt>
+<span class="sig-name descname"><span class="pre">use_cache</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></em><a class="headerlink" href="#lezargus.simulator.spectre.SpectreSimulator.use_cache" title="Link to this definition">#</a></dt>
 <dd><p>If True, we cache calculated values so that they do not need to
 be calculated every time when not needed. If False, caches are never
 returned and instead everything is always recomputed.</p>
@@ -1364,8 +1613,13 @@ returned and instead everything is always recomputed.</p>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.__calculate_field_view_spatial_sampling"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.__calculate_field_view_spatial_sampling()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.__init__"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.__init__()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator._cache_spectral_dispersion"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator._cache_spectral_dispersion</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator._convert_to_photon"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator._convert_to_photon()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.arc_lamp_in"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.arc_lamp_in</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.at_advanced_spectral_dispersion"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_advanced_spectral_dispersion()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.at_calibration_apparatus"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_calibration_apparatus</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.at_cosmic_rays"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_cosmic_rays</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.at_detector_bias"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_detector_bias</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.at_detector_dark_current"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_detector_dark_current</span></code></a></li>
@@ -1405,15 +1659,21 @@ returned and instead everything is always recomputed.</p>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.at_window_emission"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_window_emission</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.at_window_ghost"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_window_ghost</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.at_window_transmission"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_window_transmission</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.at_write_disk"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_write_disk()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.atmosphere"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.atmosphere</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.channel"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.channel</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.clear_cache"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.clear_cache()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.coadds"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.coadds</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.detector"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.detector</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.exposure_time"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.exposure_time</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.flat_lamp_in"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.flat_lamp_in</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.from_advanced_parameters"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.from_advanced_parameters()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.from_blackbody"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.from_blackbody()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.from_spectrum"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.from_spectrum()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.input_atmosphere"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.input_atmosphere</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.input_target"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.input_target</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.input_telescope"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.input_telescope</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.old_from_advanced_parameters"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.old_from_advanced_parameters()</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.target"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.target</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.telescope"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.telescope</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#lezargus.simulator.spectre.SpectreSimulator.use_cache"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.use_cache</span></code></a></li>

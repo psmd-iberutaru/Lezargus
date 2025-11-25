@@ -311,16 +311,23 @@
 
 <span class="c1"># isort: split</span>
 
+<span class="kn">import</span> <span class="nn">glob</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
 <span class="kn">import</span> <span class="nn">lezargus</span>
 <span class="kn">from</span> <span class="nn">lezargus.library</span> <span class="kn">import</span> <span class="n">logging</span>
 
 
-<div class="viewcode-block" id="parse_basename">
-<a class="viewcode-back" href="../../../../code/lezargus.data._make.functionality.html#lezargus.data._make.functionality.parse_basename">[docs]</a>
-<span class="k">def</span> <span class="nf">parse_basename</span><span class="p">(</span><span class="n">basename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parse and expand the basename to the full path of the data file.</span>
+<div class="viewcode-block" id="find_data_filename">
+<a class="viewcode-back" href="../../../../code/lezargus.data._make.functionality.html#lezargus.data._make.functionality.find_data_filename">[docs]</a>
+<span class="k">def</span> <span class="nf">find_data_filename</span><span class="p">(</span><span class="n">basename</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Find the full data filename provided its basename and conventions.</span>
+
+<span class="sd">    We use this function to find the full filename of a data file. By</span>
+<span class="sd">    convention, every datafile is separated into organizing folders which may</span>
+<span class="sd">    change with development. However, the actual basenames, which by</span>
+<span class="sd">    should be unique, should not. So, we can use that to be lazy and find the</span>
+<span class="sd">    needed file.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -333,17 +340,39 @@
 <span class="sd">        The full data file filename.</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># We parse the filename.</span>
-    <span class="n">filename</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
-        <span class="n">directory</span><span class="o">=</span><span class="n">lezargus</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">INTERNAL_MODULE_DATA_FILE_DIRECTORY</span><span class="p">,</span>
-        <span class="n">filename</span><span class="o">=</span><span class="n">basename</span><span class="p">,</span>
-        <span class="n">extension</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="c1"># Getting all of the files...</span>
+    <span class="n">data_glob_pattern</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">merge_pathname</span><span class="p">(</span>
+        <span class="n">directory</span><span class="o">=</span><span class="p">[</span><span class="n">lezargus</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">INTERNAL_MODULE_DATA_FILE_DIRECTORY</span><span class="p">,</span> <span class="s2">&quot;**&quot;</span><span class="p">],</span>
+        <span class="n">filename</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span>
+        <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="c1"># As a double check, we make sure the data file exists.</span>
-    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="n">data_filename_list</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">data_glob_pattern</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># Attempting to find the file...</span>
+    <span class="n">potential_filenames</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">filedex</span> <span class="ow">in</span> <span class="n">data_filename_list</span><span class="p">:</span>
+        <span class="c1"># Getting the basename to compare to.</span>
+        <span class="n">test_basename</span> <span class="o">=</span> <span class="n">lezargus</span><span class="o">.</span><span class="n">library</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">get_filename_with_extension</span><span class="p">(</span>
+            <span class="n">pathname</span><span class="o">=</span><span class="n">filedex</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="c1"># Windows and some Linux distributions don&#39;t care about case.</span>
+        <span class="n">basename_casefold</span> <span class="o">=</span> <span class="n">basename</span><span class="o">.</span><span class="n">casefold</span><span class="p">()</span>
+        <span class="n">test_basename</span> <span class="o">=</span> <span class="n">test_basename</span><span class="o">.</span><span class="n">casefold</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">basename_casefold</span> <span class="o">==</span> <span class="n">test_basename</span><span class="p">:</span>
+            <span class="c1"># This file is a potential match.</span>
+            <span class="n">potential_filenames</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">filedex</span><span class="p">)</span>
+
+    <span class="c1"># There should only be one data filename...</span>
+    <span class="c1"># Dumb stuff to satisfy the linter.</span>
+    <span class="n">too_many_files</span> <span class="o">=</span> <span class="mi">2</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">potential_filenames</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="c1"># There was no matching data file.</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
             <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">FileError</span><span class="p">,</span>
-            <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Data file </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2"> does not exist.&quot;</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Data file </span><span class="si">{</span><span class="n">basename</span><span class="si">}</span><span class="s2"> does not exist in the data file&quot;</span>
+                <span class="s2">&quot; directories.&quot;</span>
+            <span class="p">),</span>
         <span class="p">)</span>
         <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
             <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">,</span>
@@ -352,6 +381,36 @@
                 <span class="s2">&quot; not point to a data file.&quot;</span>
             <span class="p">),</span>
         <span class="p">)</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;None&quot;</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">potential_filenames</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="c1"># All good.</span>
+        <span class="n">found_filename</span> <span class="o">=</span> <span class="n">potential_filenames</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">found_filename</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">filename</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">potential_filenames</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="n">too_many_files</span><span class="p">:</span>
+        <span class="c1"># Too many files.</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span>
+            <span class="n">error_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">FileError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Too many matching data files for </span><span class="si">{</span><span class="n">basename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+        <span class="p">)</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+            <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DevelopmentError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Internal data file loading failed; basename </span><span class="si">{</span><span class="n">basename</span><span class="si">}</span><span class="s2"> &quot;</span>
+                <span class="s2">&quot;points to too many files..&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;Too Many&quot;</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># The code should not reach here.</span>
+        <span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span>
+            <span class="n">critical_type</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">LogicFlowError</span><span class="p">,</span>
+            <span class="n">message</span><span class="o">=</span><span class="p">(</span>
+                <span class="s2">&quot;All of the cases for the potential data filenames should have&quot;</span>
+                <span class="s2">&quot; been caught.&quot;</span>
+            <span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">filename</span> <span class="o">=</span> <span class="s2">&quot;LogicFlowError&quot;</span>
     <span class="c1"># All done.</span>
     <span class="k">return</span> <span class="n">filename</span></div>
 

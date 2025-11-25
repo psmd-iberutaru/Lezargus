@@ -320,6 +320,7 @@
 <span class="c1"># isort: split</span>
 
 <span class="kn">import</span> <span class="nn">collections.abc</span>
+<span class="kn">import</span> <span class="nn">time</span>
 
 <span class="kn">import</span> <span class="nn">astropy.modeling.models</span>
 <span class="kn">import</span> <span class="nn">astropy.units</span>
@@ -330,15 +331,25 @@
 
 <div class="viewcode-block" id="do_nothing">
 <a class="viewcode-back" href="../../../code/lezargus.library.wrapper.html#lezargus.library.wrapper.do_nothing">[docs]</a>
-<span class="k">def</span> <span class="nf">do_nothing</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">do_nothing</span><span class="p">(</span>
+    <span class="o">*</span><span class="n">args</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span>
+    <span class="n">sleep_seconds</span><span class="p">:</span> <span class="nb">float</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">hint</span><span class="o">.</span><span class="n">Any</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Do nothing, accepts arguments to prevent unused argument lint error.</span>
 
 <span class="sd">    This function is just a fancy way of doing absolutely nothing. It serves</span>
 <span class="sd">    as a way to &quot;use&quot; arguments for stub functions, templates, etc., so that</span>
 <span class="sd">    the linter does not complain about such semantics.</span>
 
+<span class="sd">    Although, alternatively, this function also allows for some sleep, just</span>
+<span class="sd">    as a wrapper around the time function.</span>
+
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
+<span class="sd">    sleep_seconds : float, default = None</span>
+<span class="sd">        The number of seconds to sleep, if anything. If None, then the sleep</span>
+<span class="sd">        function itself is never called or referenced.</span>
 <span class="sd">    *args : Any</span>
 <span class="sd">        Positional arguments, which nothing will be done to them.</span>
 <span class="sd">    **kwargs : Any</span>
@@ -349,11 +360,14 @@
 <span class="sd">    None</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c1"># We just do nothing.</span>
+    <span class="c1"># We just do nothing, but maybe sleep.</span>
     <span class="n">args</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,)</span>
     <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;None&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
     <span class="n">__</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">args</span><span class="p">)()</span>
-    <span class="n">__</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)()</span></div>
+    <span class="n">__</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)()</span>
+    <span class="c1"># Sleeping.</span>
+    <span class="k">if</span> <span class="n">sleep_seconds</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">sleep_seconds</span><span class="p">)</span></div>
 
 
 

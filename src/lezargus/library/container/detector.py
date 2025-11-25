@@ -451,9 +451,9 @@ class DetectorArray:
 
         """
         # Determining what the hot pixel value provided is.
-        if hot_pixel_value is None:
-            # None provided so we just stick with the default.
-            input_hot_pixel_value = self.hot_pixel_value
+        input_hot_pixel_value = (
+            self.hot_pixel_value if hot_pixel_value is None else hot_pixel_value
+        )
 
         # We just need to check it is of proper shape.
         input_hot_pixel_map = np.array(hot_pixel_map, copy=True, dtype=bool)
@@ -502,10 +502,13 @@ class DetectorArray:
         None
 
         """
-        # Determining what the dead pixel value provided is.
-        if dead_pixel_value is None:
-            # None provided so we just stick with the default.
-            input_dead_pixel_value = self.dead_pixel_value
+        # Determining what the dead pixel value provided is. If not provided,
+        # then default.
+        input_dead_pixel_value = (
+            self.dead_pixel_value
+            if dead_pixel_value is None
+            else dead_pixel_value
+        )
 
         # We just need to check it is of proper shape.
         input_dead_pixel_map = np.array(dead_pixel_map, copy=True, dtype=bool)
@@ -667,7 +670,7 @@ class DetectorArray:
         )
         return bias_frame
 
-    def simulate_flat_frame(self: hint.Self) -> hint.NDArray:
+    def simulate_full_flat_frame(self: hint.Self) -> hint.NDArray:
         """Generate a new simulated flat frame.
 
         Parameters

@@ -300,7 +300,10 @@ class PhotometricVegaFilter:
             )
 
         # Need to have the correct wavelength units to align with the filter.
-        spectrum_reunit = spectrum.to_unit(data_unit=None, wavelength_unit=self.wavelength_unit)
+        spectrum_reunit = spectrum.to_unit(
+            data_unit=None,
+            wavelength_unit=self.wavelength_unit,
+        )
 
         # Adding the new standard.
         self.standard_spectrum = spectrum_reunit
@@ -470,7 +473,10 @@ class PhotometricVegaFilter:
             )
 
         # Need to have the correct units.
-        spectrum_reunit = spectrum.to_unit(data_unit=self.standard_spectrum.data_unit, wavelength_unit=self.standard_spectrum.wavelength_unit)
+        spectrum_reunit = spectrum.to_unit(
+            data_unit=self.standard_spectrum.data_unit,
+            wavelength_unit=self.standard_spectrum.wavelength_unit,
+        )
 
         # We assume that the target star has data covering the entire filter
         # range as otherwise, you cannot really calculate an accurate magnitude.
@@ -613,7 +619,7 @@ class PhotometricVegaFilter:
                 warning_type=logging.AccuracyWarning,
                 message=(
                     "A photometric correction factor is being computed where "
-                    " the star sptrum does not cover the entire filter. The "
+                    " the star spectrum does not cover the entire filter. The "
                     f" overlap fraction is {overlap}"
                 ),
             )

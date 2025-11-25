@@ -168,7 +168,7 @@ def __initialize_data_star_spectra() -> None:
     return
 
 
-def __initialize_data_photometric_filters() -> None:
+def __initialize_data_photometric_filters() -> None:  # noqa: PLR0915
     """Initialize only the photometric filters.
 
     Parameters

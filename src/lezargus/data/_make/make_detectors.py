@@ -37,7 +37,6 @@ def make_detector() -> hint.DetectorArray:
         The detector simulation object.
 
     """
-    # TODO
     logging.error(
         error_type=logging.ToDoError,
         message=(

@@ -412,7 +412,7 @@
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># We parse the data file and load it.</span>
-    <span class="n">filter_filename</span> <span class="o">=</span> <span class="n">functionality</span><span class="o">.</span><span class="n">parse_basename</span><span class="p">(</span><span class="n">basename</span><span class="o">=</span><span class="n">basename</span><span class="p">)</span>
+    <span class="n">filter_filename</span> <span class="o">=</span> <span class="n">functionality</span><span class="o">.</span><span class="n">find_data_filename</span><span class="p">(</span><span class="n">basename</span><span class="o">=</span><span class="n">basename</span><span class="p">)</span>
     <span class="n">mrt_table</span> <span class="o">=</span> <span class="n">astropy</span><span class="o">.</span><span class="n">table</span><span class="o">.</span><span class="n">Table</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">filter_filename</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;ascii.mrt&quot;</span><span class="p">)</span>
     <span class="c1"># We format it to a standard table.</span>
     <span class="n">wavelength_column</span> <span class="o">=</span> <span class="n">mrt_table</span><span class="p">[</span><span class="s2">&quot;wavelength&quot;</span><span class="p">]</span>

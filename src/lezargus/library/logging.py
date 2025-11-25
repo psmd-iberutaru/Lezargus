@@ -48,16 +48,6 @@ class LogicFlowError(LezargusBaseError):
     """
 
 
-class ExpectedCaughtError(LezargusBaseError):
-    """An error used when raising an error to be caught later is needed.
-
-    This error should only be used when an error is needed to be raised which
-    will be caught later. The user should not see this error at all as
-    any time it is used, it should be caught. This name also conveniently
-    provides an obvious and unique error name.
-    """
-
-
 class NotSupportedError(LezargusBaseError):
     """An error used for something which is beyond the scope of work.
 
@@ -149,6 +139,16 @@ class ElevatedError(LezargusError):
     """An error used when elevating warnings or errors to critical level.
 
     Only to be used when elevating via the configuration property.
+    """
+
+
+class ExpectedCaughtError(LezargusError):
+    """An error used when raising an error to be caught later is needed.
+
+    This error should only be used when an error is needed to be raised which
+    will be caught later. The user should not see this error at all as
+    any time it is used, it should be caught. This name also conveniently
+    provides an obvious and unique error name.
     """
 
 
