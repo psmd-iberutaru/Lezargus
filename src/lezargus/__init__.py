@@ -17,6 +17,7 @@ from lezargus import library
 # isort: split
 # Data files and objects, we need the library to create these objects.
 from lezargus import data
+from lezargus import pipeline
 from lezargus import simulator
 
 # isort: split
@@ -25,7 +26,8 @@ from lezargus import initialize
 from lezargus import terminate
 
 # isort: split
-# User-based functionality, the actual commands which call the above functions.
+# User-based functionality, the actual commands and interfaces which call 
+# the above functions.
 from lezargus import cli
 
 # Lastly, the main file. We only do this so that Sphinx correctly builds the

@@ -484,10 +484,10 @@ def corner_detection(
     # 8-bit integers or 32-bit floats. Though customary, it is not required
     # for the float array to be normalized so we do not do it here.
     array_dtype = array.dtype
-    if np.isdtype(array_dtype, np.dtype(np.int8)) or np.isdtype(
-        array_dtype,
-        np.dtype(np.float32),
-    ):
+    if np.isdtype(array_dtype, np.dtype(np.int8)):
+        # All good.
+        valid_array = array
+    elif np.isdtype(array_dtype, np.dtype(np.float32)):
         # All good.
         valid_array = array
     # It is not one of the valid arrays... We can see if we can convert it
@@ -498,16 +498,23 @@ def corner_detection(
     elif np.can_cast(array_dtype, np.dtype(np.float32)):
         valid_array = np.asarray(array, dtype=np.dtype(np.float32))
     else:
-        # The program is highly likely to error.
-        logging.error(
-            error_type=logging.InputError,
-            message=(
-                f"Array with type {array_dtype} cannot be converted to"
-                " expected 8-bit int or 32-bit float as expected by"
-                " OpenCV."
-            ),
-        )
-        valid_array = array
+        # We try our best with 32 bit floats... But it is useful to let the 
+        # user know of the bad types.
+        logging.warning(warning_type=logging.AccuracyWarning, message=f"Casting {array_dtype} to 32-bit float for OpenCV corner detection.")
+        try:
+            valid_array = np.array(array, dtype=np.dtype(np.float32))
+        except TypeError:
+            # Even the problematic cast to float 32 is wrong. This will more 
+            # than likely be a problem.
+            logging.error(
+                error_type=logging.InputError,
+                message=(
+                    f"Array with type {array_dtype} cannot be converted to"
+                    " expected 8-bit int or 32-bit float as expected by"
+                    " OpenCV."
+                ),
+            )
+            valid_array = array
 
     # Finding the corners using OpenCV.
     # For some reason, the corners are embedded in a too-high a dimension pair

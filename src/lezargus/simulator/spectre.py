@@ -2113,7 +2113,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
 
             # Sightly pad out the slice array. We need the small extra padding
             # for the non-integer part of the translation.
-            pad_width = 3
+            pad_width = 5
             padded_slice = np.pad(
                 slice_array,
                 pad_width=pad_width,
@@ -2157,8 +2157,8 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             # To speed up the transformations, we break up the transformation
             # into one large translation (which will be manually done via
             # indexing)...
-            x_shift = int(np.floor(affine_transform_matrix[0, 2])) - 1
-            y_shift = int(np.floor(affine_transform_matrix[1, 2])) - 1
+            x_shift = int(np.floor(affine_transform_matrix[0, 2]))
+            y_shift = int(np.floor(affine_transform_matrix[1, 2]))
             # ...and the leftover affine transformation with a translation
             # reduction based on the aformentioned large translation.
             reduced_transform_matrix = np.array(
@@ -2181,12 +2181,12 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
                 constant=0,
             )
 
-            # The original location of the array is the origin, so we assign the
-            # new coordinates, adapting for the pad.
+            # The original location of the array is the origin, so we assign 
+            # the new coordinates.
             transform_height, transform_width = transformed_data.shape
-            transform_bottom_edge = y_shift - pad_width
+            transform_bottom_edge = y_shift
             transform_top_edge = transform_bottom_edge + transform_height
-            transform_left_edge = x_shift - pad_width
+            transform_left_edge = x_shift
             transform_right_edge = transform_left_edge + transform_width
             # Adding the data to the detector, simulating the placing of the
             # monochromatic slice on the detector.

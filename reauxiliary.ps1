@@ -22,7 +22,7 @@ python -m jupyter nbconvert --to notebook --execute "./photometric_filters.ipynb
 if ( -not ($?)) { Exit }
 python -m jupyter nbconvert --to notebook --execute "./spectre_dispersion.ipynb"
 if ( -not ($?)) { Exit }
-python -m jupyter nbconvert --to notebook --execute "./spectre_specification.ipynb"
+python -m jupyter nbconvert --to notebook --execute "./spectre_optics.ipynb"
 if ( -not ($?)) { Exit }
 python -m jupyter nbconvert --to notebook --execute "./standard_stars.ipynb"
 if ( -not ($?)) { Exit }

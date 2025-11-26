@@ -21,6 +21,7 @@ import os
 
 import astropy.table
 import numpy as np
+import copy
 
 import lezargus
 from lezargus.library import logging
@@ -93,7 +94,7 @@ class SpectreExtractor:
 
         # All done.
 
-    def __calculate_initial_slice_corners_simulation(
+    def _calculate_initial_slice_corners_simulation(
         self: hint.Self,
     ) -> hint.Table:
         """Derive the slice corners from the SPECTRE simulation defaults.
@@ -117,7 +118,7 @@ class SpectreExtractor:
         # Number of slices...
         n_slices = lezargus.data.CONST_SPECTRE_SLICES
         # And the disperser we are working with.
-        dispersion_spectre = lezargus.data.DISPERSION_SPECTRE
+        spectre_disperser = lezargus.data.DISPERSION_SPECTRE
 
         # Depending on the channel we are in, the blue and red wavelength ends
         # of the slice range differs.
@@ -155,13 +156,13 @@ class SpectreExtractor:
             slice_index = slicedex + 1
             # The top coordinates are defined by the upper level of the
             # blue-most wavelength end.
-            top_left = dispersion_spectre.get_slice_dispersion_pixel(
+            top_left = spectre_disperser.get_slice_dispersion_pixel(
                 channel=self.channel,
                 slice_=slice_index,
                 location="top_left",
                 wavelength=min_wave,
             )
-            top_right = dispersion_spectre.get_slice_dispersion_pixel(
+            top_right = spectre_disperser.get_slice_dispersion_pixel(
                 channel=self.channel,
                 slice_=slice_index,
                 location="top_right",
@@ -169,16 +170,16 @@ class SpectreExtractor:
             )
             # And the bottom coordinates are defined by the lower level of the
             # red-most wavelength end.
-            bot_left = dispersion_spectre.get_slice_dispersion_pixel(
+            bot_left = spectre_disperser.get_slice_dispersion_pixel(
                 channel=self.channel,
                 slice_=slice_index,
-                location="bot_left",
+                location="bottom_left",
                 wavelength=max_wave,
             )
-            bot_right = dispersion_spectre.get_slice_dispersion_pixel(
+            bot_right = spectre_disperser.get_slice_dispersion_pixel(
                 channel=self.channel,
                 slice_=slice_index,
-                location="bot_right",
+                location="bottom_right",
                 wavelength=max_wave,
             )
 
@@ -196,24 +197,27 @@ class SpectreExtractor:
         bot_left_x, bot_left_y = np.array(bot_left_corners).transpose()
         bot_right_x, bot_right_y = np.array(bot_right_corners).transpose()
 
-        # And creating the table.
+        # And creating the table. For some reason, the corner coordinates have 
+        # unneeded dimensions.
         table_columns = {
             "slice": slice_index_list,
             "top_left_x": top_left_x,
             "top_left_y": top_left_y,
             "top_right_x": top_right_x,
             "top_right_y": top_right_y,
-            "bot_left_x": bot_left_x,
-            "bot_left_y": bot_left_y,
-            "bot_right_x": bot_right_x,
-            "bot_right_y": bot_right_y,
+            "bottom_left_x": bot_left_x,
+            "bottom_left_y": bot_left_y,
+            "bottom_right_x": bot_right_x,
+            "bottom_right_y": bot_right_y,
         }
+        table_columns = {keydex:np.squeeze(valuedex) for keydex, valuedex in table_columns.items()}
+
         initial_slice_corners = astropy.table.Table(table_columns)
 
         # All done.
         return initial_slice_corners
 
-    def __calculate_initial_slice_corners_table(
+    def _calculate_initial_slice_corners_table(
         self: hint.Self,
         filename: str,
     ) -> hint.Table:
@@ -282,8 +286,8 @@ class SpectreExtractor:
                 # And getting the corners.
                 top_left = (raw_row["top_left_x"], raw_row["top_left_y"])
                 top_right = (raw_row["top_right_x"], raw_row["top_right_y"])
-                bot_left = (raw_row["bot_left_x"], raw_row["bot_left_y"])
-                bot_right = (raw_row["bot_right_x"], raw_row["bot_right_y"])
+                bot_left = (raw_row["bottom_left_x"], raw_row["bottom_left_y"])
+                bot_right = (raw_row["bottom_right_x"], raw_row["bottom_right_y"])
             except KeyError:
                 logging.error(
                     error_type=logging.InputError,
@@ -307,25 +311,91 @@ class SpectreExtractor:
         bot_left_x, bot_left_y = np.array(bot_left_corners).transpose()
         bot_right_x, bot_right_y = np.array(bot_right_corners).transpose()
 
-        # And creating the table.
+        # And creating the table. For some reason, the corner coordinates have 
+        # unneeded dimensions.
         table_columns = {
             "slice": slice_index_list,
             "top_left_x": top_left_x,
             "top_left_y": top_left_y,
             "top_right_x": top_right_x,
             "top_right_y": top_right_y,
-            "bot_left_x": bot_left_x,
-            "bot_left_y": bot_left_y,
-            "bot_right_x": bot_right_x,
-            "bot_right_y": bot_right_y,
+            "bottom_left_x": bot_left_x,
+            "bottom_left_y": bot_left_y,
+            "bottom_right_x": bot_right_x,
+            "bottom_right_y": bot_right_y,
         }
+        table_columns = {keydex:np.squeeze(valuedex) for keydex, valuedex in table_columns.items()}
         initial_slice_corners = astropy.table.Table(table_columns)
 
         # All done.
         return initial_slice_corners
 
-    def __calculate_initial_slice_corners_flat(
+    def _calculate_initial_slice_corners_flat(
         self: hint.Self,
         flat_array: hint.NDArray,
     ) -> hint.Table:
-        """Hi."""
+        """Derive the slice corners from a flat field image.
+
+        This method determines the slice corners via corner detection of the 
+        flat field image. We use other initial corner methods (table first, 
+        then simulation) to determine the order of the points. Corner detection
+        algorithms do not typically keep and named order to the points found.
+
+        Parameters
+        ----------
+        flat_array : NDArray
+            The array containing the flat field image data. The initial corners
+            are determined from this array.
+
+        Returns
+        -------
+        initial_slice_corners : Table
+            The initial slice corners as derived from reading the file.
+
+        """
+        # If needed, thresholding of the array should be done here.
+        threshold_array = flat_array
+
+        # Now, we determine the corners.
+        n_slices = lezargus.data.CONST_SPECTRE_SLICES
+        n_corners = n_slices * 4
+        raw_corners = lezargus.library.transform.corner_detection(array=threshold_array, max_corners=n_corners, quality_level=0.001, minimum_distance=3)
+        # It is probably easier to have it as separate values.
+        raw_corner_x, raw_corner_y = np.transpose(raw_corners)
+
+        # The corners are unordered so we use the simulation corners to help us
+        # determine which corners are which. We attempt to the table first.
+        try:
+            table_filename = None
+            labeled_corners = self._calculate_initial_slice_corners_table(filename=table_filename)
+        except Exception:
+            # Using the simulation instead as something is wrong with the file.
+            labeled_corners = self._calculate_initial_slice_corners_simulation()
+
+        # Assuming the closest found corner to the simulation corner is the 
+        # correct way to go. We go through all corners and slices.
+        corner_names = ["top_left", "top_right", "bottom_left", "bottom_right"]
+        # We find the point and just repopulate the labeled corner table.
+        initial_slice_corners = copy.deepcopy(labeled_corners)
+        for slicedex in range(n_slices):
+            # The slices are 1-based indexed.
+            slice_index = slicedex  + 1
+            for cornerdex in corner_names:
+                # The expected location for this specific corner.
+                labeled_rowdex = labeled_corners[labeled_corners["slice"] == slice_index]
+                expect_x = np.array(labeled_rowdex[f"{cornerdex}_x"])
+                expect_y = np.array(labeled_rowdex[f"{cornerdex}_y"])
+                # The (Euclidean) separation.
+                separation = (raw_corner_x - expect_x)**2 + (raw_corner_y - expect_y)**2
+                # And whichever point is the minimum is likely the matching
+                # point.
+                min_sep_index = np.argmin(separation)
+                matched_x = raw_corner_x[min_sep_index]
+                matched_y = raw_corner_y[min_sep_index]
+
+                # Applying the values to the current table.
+                initial_slice_corners[f"{cornerdex}_x"][slicedex] = matched_x
+                initial_slice_corners[f"{cornerdex}_y"][slicedex] = matched_y
+
+        # All done.
+        return initial_slice_corners
