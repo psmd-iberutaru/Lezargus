@@ -216,10 +216,10 @@ class LezargusContainerArithmetic:
         self.uncertainty = np.asarray(uncertainty)
         # Parsing the units.
         self.wavelength_unit = lezargus.library.conversion.parse_astropy_unit(
-            unit_string=wavelength_unit,
+            unit_input=wavelength_unit,
         )
         self.data_unit = lezargus.library.conversion.parse_astropy_unit(
-            unit_string=data_unit,
+            unit_input=data_unit,
         )
 
         # The spectral, pixel, and slice scale.
@@ -756,7 +756,7 @@ class LezargusContainerArithmetic:
             # we really care about.
             operand_data = operand
             operand_unit = lezargus.library.conversion.parse_astropy_unit(
-                unit_string="",
+                unit_input="",
             )
             operand_uncertainty = np.zeros_like(self.uncertainty)
 
@@ -833,7 +833,7 @@ class LezargusContainerArithmetic:
             # we really care about.
             operand_data = operand
             operand_unit = lezargus.library.conversion.parse_astropy_unit(
-                unit_string="",
+                unit_input="",
             )
             operand_uncertainty = np.zeros_like(self.uncertainty)
 
@@ -882,7 +882,7 @@ class LezargusContainerArithmetic:
         # If the operand is a single value, then we need to take that into
         # account.
         no_unit = lezargus.library.conversion.parse_astropy_unit(
-            unit_string="",
+            unit_input="",
         )
         if isinstance(operand, LezargusContainerArithmetic):
             operand_data = operand.data
@@ -1065,10 +1065,10 @@ class LezargusContainerArithmetic:
 
         # Parsing the units, in the event that they are strings.
         wavelength_unit = lezargus.library.conversion.parse_astropy_unit(
-            unit_string=wavelength_unit,
+            unit_input=wavelength_unit,
         )
         data_unit = lezargus.library.conversion.parse_astropy_unit(
-            unit_string=data_unit,
+            unit_input=data_unit,
         )
 
         # It is easiest to work on a copy.

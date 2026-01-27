@@ -212,7 +212,7 @@ def read_lezargus_fits_file(
         if wavelength_unit_str is None:
             wavelength_unit_str = header.get("CUNIT3", None)
         wavelength_unit = lezargus.library.conversion.parse_astropy_unit(
-            unit_string=wavelength_unit_str,
+            unit_input=wavelength_unit_str,
         )
         # The data is stored in the primary extension. The Lezargus axis
         # convention and some visualization conventions have the axis reversed;
@@ -224,7 +224,7 @@ def read_lezargus_fits_file(
         if data_unit_str is None:
             data_unit_str = header.get("BUNIT", None)
         data_unit = lezargus.library.conversion.parse_astropy_unit(
-            unit_string=data_unit_str,
+            unit_input=data_unit_str,
         )
         # We also attempt to get any stored spectral and spatial information.
         # Note, the headers and the input specify different scales so we need
@@ -420,7 +420,7 @@ def write_lezargus_fits_file(
     wave_index = astropy.io.fits.Column(
         name="WAVEINDEX",
         array=np.arange(n_wave).reshape(1, 1, n_wave),
-        format=f"{n_wave}J",
+        format=f"{n_wave}E",
         dim=f"(1,{n_wave})",
     )
     wave_value = astropy.io.fits.Column(

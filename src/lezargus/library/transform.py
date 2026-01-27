@@ -87,6 +87,7 @@ def translate_2d(
 def rotate_2d(
     array: hint.NDArray,
     rotation: float,
+    order: int = 3,
     mode: str = "constant",
     constant: float = np.nan,
 ) -> hint.NDArray:
@@ -100,6 +101,9 @@ def rotate_2d(
         The input array to be rotated.
     rotation : float
         The rotation angle, in radians.
+    order : int, default = 3
+        The order of the spline interpolation, default is 3. The order has
+        to be in the range 0-5.
     mode : str, default = "constant"
         The padding mode of the translation. It must be one of the following.
         The implementation detail is similar to Scipy's. See
@@ -134,6 +138,7 @@ def rotate_2d(
     rotated_array = scipy.ndimage.rotate(
         array,
         rotation_deg,
+        order=order,
         mode=mode,
         cval=constant,
     )
@@ -484,10 +489,10 @@ def corner_detection(
     # 8-bit integers or 32-bit floats. Though customary, it is not required
     # for the float array to be normalized so we do not do it here.
     array_dtype = array.dtype
-    if np.isdtype(array_dtype, np.dtype(np.int8)):
-        # All good.
-        valid_array = array
-    elif np.isdtype(array_dtype, np.dtype(np.float32)):
+    if np.isdtype(array_dtype, np.dtype(np.int8)) or np.isdtype(
+        array_dtype,
+        np.dtype(np.float32),
+    ):
         # All good.
         valid_array = array
     # It is not one of the valid arrays... We can see if we can convert it
@@ -498,19 +503,25 @@ def corner_detection(
     elif np.can_cast(array_dtype, np.dtype(np.float32)):
         valid_array = np.asarray(array, dtype=np.dtype(np.float32))
     else:
-        # We try our best with 32 bit floats... But it is useful to let the 
+        # We try our best with 32 bit floats... But it is useful to let the
         # user know of the bad types.
-        logging.warning(warning_type=logging.AccuracyWarning, message=f"Casting {array_dtype} to 32-bit float for OpenCV corner detection.")
+        logging.warning(
+            warning_type=logging.AccuracyWarning,
+            message=(
+                f"Casting {array_dtype} to 32-bit float for OpenCV corner"
+                " detection."
+            ),
+        )
         try:
             valid_array = np.array(array, dtype=np.dtype(np.float32))
         except TypeError:
-            # Even the problematic cast to float 32 is wrong. This will more 
+            # Even the problematic cast to float 32 is wrong. This will more
             # than likely be a problem.
             logging.error(
                 error_type=logging.InputError,
                 message=(
                     f"Array with type {array_dtype} cannot be converted to"
-                    " expected 8-bit int or 32-bit float as expected by"
+                    " the expected 8-bit int or 32-bit float as expected by"
                     " OpenCV."
                 ),
             )
@@ -531,3 +542,124 @@ def corner_detection(
     # We repackage the output per the documentation.
     corners = [(int(xdex), int(ydex)) for (xdex, ydex) in corner_output]
     return corners
+
+
+def corner_detection_subpixel_refinement(
+    array: hint.NDArray,
+    initial_corners: list,
+    search_radius: int,
+    iterations: int = 1000,
+) -> list[tuple]:
+    """Refine the initial detected corners with sub-pixel accuracy.
+
+    This function does not detect corners themselves, but refines already
+    made detections with subpixel accuracy. This function is a half-wrapper
+    of the OpenCV `cv2.cornerSubPix()` function. See their documentation
+    for more information.
+
+    Parameters
+    ----------
+    array : NDAarray
+        The image array which we will be using to refine the corner detection.
+        This should be a 32-bit float array, or convertible to 32-bit float.
+    initial_corners : list
+        The initial corners which we will be refining with this method,
+        provided as a list of (x, y) tuple points.
+    search_radius : int
+        The pixel search radius around which the function will look for a
+        better corner. This is technically a half-width that defines the
+        search bounding square centered on the initial corner.
+    iterations : int, default = 1000
+        The number of iterations of the corner refinement method. This is
+        passed straight to OpenCV.
+
+    Returns
+    -------
+    refined_corners : list
+        A list of the (x, y) refined coordinate tuple pairs of the corners
+        found after the subpixel refinement. The order of the points is the
+        same as the order as the input initial corners.
+
+    """
+    # We need to make sure that the array data is in the right data type,
+    # as OpenCV requires (it seems) that both the data and the initial points
+    # are 32-bit float.
+    array_dtype = array.dtype
+    if np.isdtype(array_dtype, np.dtype(np.float32)):
+        # All good.
+        valid_array = array
+    elif np.can_cast(array_dtype, np.dtype(np.float32)):
+        # The data can be cast to the right type so it is okay.
+        valid_array = np.asarray(array, dtype=np.dtype(np.float32))
+    else:
+        # We try our best with 32-bit floats... But it is useful to let the
+        # user know of the bad types.
+        logging.warning(
+            warning_type=logging.AccuracyWarning,
+            message=(
+                f"Casting {array_dtype} to 32-bit float for OpenCV corner"
+                " detection refinement."
+            ),
+        )
+        try:
+            valid_array = np.array(array, dtype=np.dtype(np.float32))
+        except TypeError:
+            # Even the problematic cast to float 32 is wrong. This will more
+            # than likely be a problem.
+            logging.error(
+                error_type=logging.InputError,
+                message=(
+                    f"Array with type {array_dtype} cannot be converted to"
+                    " the expected 32-bit float as expected by OpenCV."
+                ),
+            )
+            valid_array = array
+
+    # We need to make sure the initial points are also of the right type.
+    # Using much less care as they are just initial conditions for the points.
+    try:
+        using_initial_corners = np.array(initial_corners, dtype=np.float32)
+    except ValueError:
+        # The corners cannot be cast to float for some reason?
+        using_initial_corners = initial_corners
+        logging.error(
+            error_type=logging.InputError,
+            message=(
+                "The initial corners provided cannot be cast to a single"
+                " 32-bit float array, as expected by OpenCV."
+            ),
+        )
+
+    # Defining the criteria of the corner detection optimization. We stop
+    # when either maximum iterations have been met, or epsilon change is
+    # small enough, so we use both flags for the criteria type.
+    criteria_type = cv2.TERM_CRITERIA_MAX_ITER + cv2.TERM_CRITERIA_EPS
+    max_iterations = iterations
+    max_epsilon = 0.0001
+    criteria = (criteria_type, max_iterations, max_epsilon)
+
+    # The bounding box window, the real search window in OpenCV is (2w, 2w).
+    # The dead zone is the region where it will not search in, though it is
+    # rare for us to use this region so we define no such size.
+    half_width_window = (search_radius, search_radius)
+    half_width_dead_zone = (-1, -1)
+
+    # Finding the refined points. This function overwrites the initial corner
+    # variable as a way to output the data too, which is not normal Python.
+    # We make sure it does it just here.
+    __initial_corners = np.array(using_initial_corners, copy=True)
+    raw_refined_output = cv2.cornerSubPix(
+        valid_array,
+        __initial_corners,
+        half_width_window,
+        half_width_dead_zone,
+        criteria,
+    )
+    raw_refined_output = np.squeeze(raw_refined_output)
+
+    # We repackage the output per the documentation.
+    refined_corners = [
+        (float(xdex), float(ydex)) for (xdex, ydex) in raw_refined_output
+    ]
+    # All done.
+    return refined_corners

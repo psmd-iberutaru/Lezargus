@@ -720,7 +720,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # Multiplying by the area of the telescope.
         telescope_area = self.telescope.telescope_area
         telescope_area_unit = lezargus.library.conversion.parse_astropy_unit(
-            unit_string="m^2",
+            unit_input="m^2",
         )
         # Multiplying by the area, and adapting the unit.
         current_state = previous_state * telescope_area
@@ -904,10 +904,10 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
 
     @property
     def at_calibration_apparatus(self: hint.Self) -> hint.LezargusCube:
-        """State of simulation after the calibration lamp aparatus.
+        """State of simulation after the calibration lamp apparatus.
 
         The calibration apparatus comprises of the arc and flat lamps of the
-        insturment. If a normal object is being simulated/observed, then
+        instrument. If a normal object is being simulated/observed, then
         the data is passed through. Otherwise, the simulation emulates
         the calibration lamp in the field of view.
 
@@ -922,11 +922,11 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             the secondary mirror emission.
 
         """
-        # Both the arc lamp and the flat lamp cannot physcially be in the
+        # Both the arc lamp and the flat lamp cannot physically be in the
         # light path at the same time.
         if self.arc_lamp_in and self.flat_lamp_in:
             logging.error(
-                error_type=logging.InstrumentError,
+                error_type=logging.WrongOrderError,
                 message=(
                     f"Arc lamp mode: {self.arc_lamp_in}; flat lamp mode:"
                     f" {self.flat_lamp_in}. Both lamps cannot be in at the same"
@@ -939,13 +939,13 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             previous_state = self.at_secondary_emission
             return previous_state
 
-        # In order to define the arc and flat lamps in a self-consisitant
+        # In order to define the arc and flat lamps in a self-consistent
         # way, we base some parameters on the defined target for
         # the simulation.
         # We do not want to calculate things we do not need.
         reference_state = self.at_target
 
-        # Otherwise, we calculate the arc or flat lamp.
+        # Then, we calculate the arc or flat lamp.
         # Both are simulated using a specific spectrum of uniform spatial
         # distribution.
         # ... The arc lamp.
@@ -2181,7 +2181,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
                 constant=0,
             )
 
-            # The original location of the array is the origin, so we assign 
+            # The original location of the array is the origin, so we assign
             # the new coordinates.
             transform_height, transform_width = transformed_data.shape
             transform_bottom_edge = y_shift

@@ -99,7 +99,7 @@ class PhotometricVegaFilter:
 
         # We parse the unit.
         wavelength_unit = lezargus.library.conversion.parse_astropy_unit(
-            unit_string=wavelength_unit,
+            unit_input=wavelength_unit,
         )
 
         # We add the wavelength and transmission to the filter.

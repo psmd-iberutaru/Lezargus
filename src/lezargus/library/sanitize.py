@@ -218,3 +218,78 @@ def verify_broadcastability(
         broadcast = None
     # All done.
     return verify, broadcast
+
+
+def rescale_values(
+    input_data: hint.NDArray, out_min: float = 0, out_max: float = 1
+) -> hint.NDArray:
+    """Rescale input values to a new minimum and maximum.
+
+    We use a variant of min-max normalization to rescale the values based on
+    the minimum and maximum of the data itself and the provided input.
+
+    Parameters
+    ----------
+    input_data : NDArray
+        The input data which will be rescaled.
+    out_min : float, default = 0
+        The minimum anchor value of the output after rescaling. For traditional
+        min-max scaling, this is 0, by default.
+    out_max : float, default = 1
+        The maximum anchor value of the output after rescaling. For traditional
+        min-max scaling, this is 1, by default.
+
+    Returns
+    -------
+    rescaled_data : NDArray
+        The rescaled and renormalized data within the provided range.
+    """
+    # We need the minimum and maximum of the data array, taking into account
+    # any NaNs and similar problems.
+    in_min = np.nanmin(input_data)
+    in_max = np.nanmax(input_data)
+
+    # We cannot deal with infinites and those cannot be rescaled.
+    has_infinites = False
+    if not np.isfinite(in_min):
+        logging.error(
+            error_type=logging.AlgorithmError,
+            message=(
+                f"Minimum of input data is not finite, cannot determine"
+                f" rescaling."
+            ),
+        )
+        has_infinites = True
+    if not np.isfinite(in_max):
+        logging.error(
+            error_type=logging.AlgorithmError,
+            message=(
+                f"Maximum of input data is not finite, cannot determine"
+                f" rescaling."
+            ),
+        )
+        has_infinites = True
+    if not (np.isfinite(out_min) and np.isfinite(out_max)):
+        logging.error(
+            error_type=logging.AlgorithmError,
+            message=(
+                f"Rescaling bounds are not finite, cannot determine rescaling."
+            ),
+        )
+        has_infinites = True
+    # Final message for this.
+    if has_infinites:
+        logging.warning(
+            warning_type=logging.AccuracyWarning,
+            message=(
+                f"Rescaling results are wrong as some anchor values are not"
+                f" finite."
+            ),
+        )
+
+    # Rescaling.
+    rescaled_data = out_min + ((input_data - in_min) / (in_max - in_min)) * (
+        out_max - out_min
+    )
+    # All done.
+    return rescaled_data

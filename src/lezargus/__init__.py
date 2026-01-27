@@ -26,7 +26,7 @@ from lezargus import initialize
 from lezargus import terminate
 
 # isort: split
-# User-based functionality, the actual commands and interfaces which call 
+# User-based functionality, the actual commands and interfaces which call
 # the above functions.
 from lezargus import cli
 

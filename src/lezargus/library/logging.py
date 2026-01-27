@@ -88,6 +88,16 @@ class LezargusError(Exception):
     """
 
 
+class AlgorithmError(LezargusError):
+    """An error to be used for issues with algorithms or methods.
+
+    This error should be used when something went wrong with an algorithm.
+    This error usually should be used when something unexpected is wrong with
+    the method (but is not wholly unexpected). This error ought ought to be
+    used with other errors and warnings to give a full picture of the issue.
+    """
+
+
 class ArithmeticalError(LezargusError):
     """An error to be used when undefined arithmetic operations are attempted.
 
@@ -166,15 +176,6 @@ class InputError(LezargusError):
 
     This is the error to be used when the inputs to a function are not valid
     and do not match the expectations of that function.
-    """
-
-
-class InstrumentError(LezargusError):
-    """An error used for issues with the instrument configurations.
-
-    If there is something wrong with how an instrument is configured, which
-    is not directly based on a direct input to a function. Then this error
-    should be used.
     """
 
 
@@ -437,8 +438,8 @@ def add_console_logging_handler(
 
     This differs from the main stream implementation in that a specific check
     is done to see if there is a logging handler which is specific to this
-    console or console output. If there is, this function does not make a new
-    one. This is helpful for Jupyter Notebooks.
+    console or console output. If there is, this function replaces it.
+    This is helpful for Jupyter Notebooks.
 
     Parameters
     ----------
@@ -456,19 +457,24 @@ def add_console_logging_handler(
 
     """
     # We first check if there already exists a console handler.
-    __lhn = lezargus.config.LOGGING_SPECIFIC_CONSOLE_HANDLER_FLAG_NAME
+    console_handler_name = (
+        lezargus.config.LOGGING_SPECIFIC_CONSOLE_HANDLER_FLAG_NAME
+    )
+    duplicate_handler = None
     for handlerdex in __lezargus_logger.handlers:
-        if handlerdex.name == __lhn:
+        if handlerdex.name == console_handler_name:
             # There already exists a Lezargus console handler, there is no
-            # need to make a new one.
-            return
+            # need to have two.
+            duplicate_handler = handlerdex
+    if duplicate_handler is not None:
+        # We found a Lezargus console handler, and we don't need two so we
+        # delete the old one.
+        __lezargus_logger.removeHandler(duplicate_handler)
 
     console_handler = logging.StreamHandler(console)
     console_handler.setLevel(log_level)
     # We use an overly specific name to avoid any overlap or namespace clashes.
-    console_handler.name = (
-        lezargus.config.LOGGING_SPECIFIC_CONSOLE_HANDLER_FLAG_NAME
-    )
+    console_handler.name = console_handler_name
     # Get the format from the specified configuration.
     color_format_dict = {
         LOGGING_DEBUG_LEVEL: (lezargus.config.LOGGING_STREAM_DEBUG_COLOR_HEX),

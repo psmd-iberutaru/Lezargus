@@ -429,7 +429,7 @@ class TargetSimulator:
         # As the actual "photon" unit was implicit this entire time, we add it
         # to be explicit.
         photon_unit = lezargus.library.conversion.parse_astropy_unit(
-            unit_string="photon",
+            unit_input="photon",
         )
         si_container.data_unit = (
             si_container.data_unit * photon_unit

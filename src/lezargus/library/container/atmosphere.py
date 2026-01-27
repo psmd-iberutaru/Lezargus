@@ -105,10 +105,10 @@ class AtmosphereSpectrumGenerator:
 
         # Meta data information.
         self.wavelength_unit = lezargus.library.conversion.parse_astropy_unit(
-            unit_string=wavelength_unit,
+            unit_input=wavelength_unit,
         )
         self.data_unit = lezargus.library.conversion.parse_astropy_unit(
-            unit_string=data_unit,
+            unit_input=data_unit,
         )
         self.spectral_scale = spectral_scale
 

@@ -14,6 +14,7 @@ if TYPE_CHECKING:
     from lezargus.library import hint
 # isort: split
 
+import copy
 import numpy as np
 
 from lezargus.library import logging
@@ -181,3 +182,38 @@ class LezargusImage(LezargusContainerArithmetic):
         self._write_fits_file(filename=filename, overwrite=overwrite)
         # Any post-processing is done here.
         # All done.
+
+    def subimage(self: hint.Self, x_span: list, y_span: list) -> hint.Self:
+        """Return a subimage provided the bounding coordinates.
+
+        This function returns a sub-image of the current image based on the
+        provided coordinate span provided.
+
+        Parameters
+        ----------
+        x_span : list
+            The x-coordinate index range of the sub image.
+        y_span : list
+            The y-coordinate index range of the sub image.
+
+        Returns
+        -------
+        subimage : LezargusImage
+            The subimage defined by the provided ranges.
+        """
+        # Define the true range, just in case of bad input.
+        x_min = int(min(x_span))
+        x_max = int(max(x_span))
+        y_min = int(min(y_span))
+        y_max = int(max(y_span))
+
+        # Retrieving the subimage.
+        subimage = copy.deepcopy(self)
+        # All of the areas for the sub-image.
+        subimage.data = self.data[y_min:y_max, x_min:x_max]
+        subimage.uncertainty = self.data[y_min:y_max, x_min:x_max]
+        subimage.mask = self.mask[y_min:y_max, x_min:x_max]
+        subimage.flags = self.flags[y_min:y_max, x_min:x_max]
+
+        # All done.
+        return subimage

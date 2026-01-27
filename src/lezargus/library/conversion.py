@@ -52,8 +52,8 @@ def convert_units(
 
     """
     # We parse the units so we can use Astropy to do the unit conversions.
-    value_unit = parse_astropy_unit(unit_string=value_unit)
-    result_unit = parse_astropy_unit(unit_string=result_unit)
+    value_unit = parse_astropy_unit(unit_input=value_unit)
+    result_unit = parse_astropy_unit(unit_input=result_unit)
 
     # Determine the conversion factor and convert between the two.
     try:
@@ -144,7 +144,7 @@ def parse_numpy_dtype(dtype_string: str | type) -> type:
     return numpy_type
 
 
-def parse_astropy_unit(unit_string: str | hint.Unit | None) -> hint.Unit:
+def parse_astropy_unit(unit_input: str | hint.Unit | None) -> hint.Unit:
     """Parse a unit string to an Astropy Unit class.
 
     Although for most cases, it is easier to use the Unit instantiation class
@@ -154,9 +154,9 @@ def parse_astropy_unit(unit_string: str | hint.Unit | None) -> hint.Unit:
 
     Parameters
     ----------
-    unit_string : str or Astropy Unit or None.
-        The unit string to parse into an Astropy unit. If it is None, then we
-        return a dimensionless quantity unit.
+    unit_input : str or Astropy Unit or None.
+        The unit input (typically a string) to parse into an Astropy unit.
+        If it is None, then we return a dimensionless quantity unit.
 
     Returns
     -------
@@ -165,26 +165,26 @@ def parse_astropy_unit(unit_string: str | hint.Unit | None) -> hint.Unit:
 
     """
     # If it is already a unit, just return it.
-    if isinstance(unit_string, astropy.units.UnitBase):
-        return unit_string
+    if isinstance(unit_input, astropy.units.UnitBase):
+        return unit_input
 
     # We check for a few input cases which Astropy does not natively know
     # but we do.
     # ...for dimensionless unit entries...
-    unit_string = "" if unit_string is None else unit_string
+    unit_input = "" if unit_input is None else unit_input
     # ...for flams, the unit of spectral density over wavelength...
-    unit_string = "erg / (AA cm^2 s)" if unit_string == "flam" else unit_string
+    unit_input = "erg / (AA cm^2 s)" if unit_input == "flam" else unit_input
 
     # Finally, converting the string.
     try:
-        unit_instance = astropy.units.Unit(unit_string, parse_strict="raise")
+        unit_instance = astropy.units.Unit(unit_input, parse_strict="raise")
     except ValueError:
         # The unit string provided is likely not something we can parse.
         logging.critical(
             critical_type=logging.InputError,
             message=(
                 "Input unit string cannot be parsed to an Astropy unit"
-                f" {unit_string}."
+                f" {unit_input}."
             ),
         )
     # All done.
