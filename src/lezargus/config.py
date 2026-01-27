@@ -51,16 +51,13 @@ LEZARGUS_TEMPORARY_DIRECTORY_FLAG_FILENAME = "lezargus_temporary_directory"
 # is currently inside of it.
 LEZARGUS_TEMPORARY_OVERWRITE_DIRECTORY = False
 
-# We usually clean up temporary directory by deleting it afterwards. Set to
+# We usually clean up the temporary directory by deleting it afterwards. Set to
 # True to skip the deletion. We also make specific checks to ensure we are not
 # deleting anything bad by mistake, but the deletion can be forced to skip the
 # checks.
 LEZARGUS_TEMPORARY_SKIP_DELETION = False
 LEZARGUS_TEMPORARY_FORCE_DELETION = False
 
-# If set to True, we do not delete the temporary directory upon program
-# termination. We make no guarantees of the state of the temporary directory.
-LEZARGUS_TEMPORARY_SKIP_DELETION = False
 
 # # # # # # # # # # # # # # # # # # # #
 # </END TEMPORARY>

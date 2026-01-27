@@ -399,7 +399,7 @@ def calculate_affine_matrix(
     # Determining the method.
 
     # Determining the registration. We use OpenCV here and given that most of
-    # out points will be considered as inliers, we don't need to fiddle with
+    # our points will be considered as inliers, we don't need to fiddle with
     # the RANSAC criterion.
     # We don't need the information about the inliers and outliers.
     augmented_matrix, __ = cv2.estimateAffine2D(

@@ -1872,7 +1872,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         current_state = self.at_advanced_spectral_dispersion()
         return current_state
 
-    def at_advanced_spectral_dispersion(  # noqa: PLR0915
+    def at_advanced_spectral_dispersion(  # noqa: PLR0915 # pylint: disable=too-many-statements
         self: hint.Self,
     ) -> hint.LezargusImage:
         """State of simulation after modeling spectral dispersion on detector.
@@ -1947,7 +1947,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # We seperate the slice transformation functions to something a little
         # seperate because it is a little cleaner.
         # But, these functions really don't need to be outside anywhere else
-        # so it is fine to define them here.
+        # so it is fine to define them here and borrow some variables.
         def __disperse_slice_to_detector(
             slice_cube: hint.LezargusCube,
             slice_index: int,

@@ -221,7 +221,9 @@ def verify_broadcastability(
 
 
 def rescale_values(
-    input_data: hint.NDArray, out_min: float = 0, out_max: float = 1
+    input_data: hint.NDArray,
+    out_min: float = 0,
+    out_max: float = 1,
 ) -> hint.NDArray:
     """Rescale input values to a new minimum and maximum.
 
@@ -243,6 +245,7 @@ def rescale_values(
     -------
     rescaled_data : NDArray
         The rescaled and renormalized data within the provided range.
+
     """
     # We need the minimum and maximum of the data array, taking into account
     # any NaNs and similar problems.
@@ -255,8 +258,8 @@ def rescale_values(
         logging.error(
             error_type=logging.AlgorithmError,
             message=(
-                f"Minimum of input data is not finite, cannot determine"
-                f" rescaling."
+                "Minimum of input data is not finite, cannot determine"
+                " rescaling."
             ),
         )
         has_infinites = True
@@ -264,8 +267,8 @@ def rescale_values(
         logging.error(
             error_type=logging.AlgorithmError,
             message=(
-                f"Maximum of input data is not finite, cannot determine"
-                f" rescaling."
+                "Maximum of input data is not finite, cannot determine"
+                " rescaling."
             ),
         )
         has_infinites = True
@@ -273,7 +276,7 @@ def rescale_values(
         logging.error(
             error_type=logging.AlgorithmError,
             message=(
-                f"Rescaling bounds are not finite, cannot determine rescaling."
+                "Rescaling bounds are not finite, cannot determine rescaling."
             ),
         )
         has_infinites = True
@@ -282,8 +285,8 @@ def rescale_values(
         logging.warning(
             warning_type=logging.AccuracyWarning,
             message=(
-                f"Rescaling results are wrong as some anchor values are not"
-                f" finite."
+                "Rescaling results are wrong as some anchor values are not"
+                " finite."
             ),
         )
 

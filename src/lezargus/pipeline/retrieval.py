@@ -182,7 +182,6 @@ class SpectreRetrieval:
         self.arc_image = new_arc_image
 
         # All done.
-        return None
 
     def _calculate_initial_slice_corners_simulation(
         self: hint.Self,
@@ -512,9 +511,9 @@ class SpectreRetrieval:
             # We are using the simulation as a backup.
             logging.info(
                 message=(
-                    f"Using the labeled corner table from simulation as a"
-                    f" backup."
-                )
+                    "Using the labeled corner table from simulation as a"
+                    " backup."
+                ),
             )
             labeled_corners = self._calculate_initial_slice_corners_simulation()
 
@@ -857,6 +856,7 @@ class SpectreRetrieval:
         fetched_slice : LezargusImage
             The image that contains the slice based on the corners detected
             by the predefined slice and further preprocessing.
+
         """
         # For the given slice, we need to find the corner.
         # Just making sure it exists, though this check is also done later
@@ -887,16 +887,18 @@ class SpectreRetrieval:
             logging.error(
                 error_type=logging.AlgorithmError,
                 message=(
-                    f"Without rebinning, we cannot force a slice to have a"
-                    f" specific width. For point-cloud based extraction, see"
-                    f" `retrieve_point_cloud`."
+                    "Without rebinning, we cannot force a slice to have a"
+                    " specific width. For point-cloud based extraction, see"
+                    " `retrieve_point_cloud`."
                 ),
             )
 
         # We first rough retrieve the slice so we know what we are working
         # with. We also need the flat field itself.
         rough_slice_image = self.rough_retrieve_slice(
-            image=image, slice_index=slice_index, buffer_width=buffer_width
+            image=image,
+            slice_index=slice_index,
+            buffer_width=buffer_width,
         )
         rough_flat_image = self.rough_retrieve_slice(
             image=self.flat_image,
@@ -911,7 +913,7 @@ class SpectreRetrieval:
 
         # The slice may be rotated, we attempt to find this rotation.
         slice_rotation = self.find_slice_flat_rotation(
-            flat_slice=rough_flat_image
+            flat_slice=rough_flat_image,
         )
         # And try and fix this rotation.
         rotated_slice_array = lezargus.library.transform.rotate_2d(
@@ -1013,22 +1015,22 @@ class SpectreRetrieval:
 
         # Fetching the corner coordinates, and removing any excess dimensions.
         top_left_corner = np.array(
-            [slice_corner_row["top_left_x"], slice_corner_row["top_left_y"]]
+            [slice_corner_row["top_left_x"], slice_corner_row["top_left_y"]],
         ).squeeze()
         top_right_corner = np.array(
-            [slice_corner_row["top_right_x"], slice_corner_row["top_right_y"]]
+            [slice_corner_row["top_right_x"], slice_corner_row["top_right_y"]],
         ).squeeze()
         bottom_left_corner = np.array(
             [
                 slice_corner_row["bottom_left_x"],
                 slice_corner_row["bottom_left_y"],
-            ]
+            ],
         ).squeeze()
         bottom_right_corner = np.array(
             [
                 slice_corner_row["bottom_right_x"],
                 slice_corner_row["bottom_right_y"],
-            ]
+            ],
         ).squeeze()
 
         # Adding the buffer specified, taking into account the coordinates
@@ -1041,14 +1043,14 @@ class SpectreRetrieval:
         # Of course, the corners actually do not matter so much as the furthest
         # right and left, and top and bottom.
         left_edge = np.floor(
-            np.min([top_left_corner[0], bottom_left_corner[0]])
+            np.min([top_left_corner[0], bottom_left_corner[0]]),
         )
         right_edge = np.ceil(
-            np.max([top_right_corner[0], bottom_right_corner[0]])
+            np.max([top_right_corner[0], bottom_right_corner[0]]),
         )
         top_edge = np.ceil(np.max([top_left_corner[1], top_left_corner[1]]))
         bottom_edge = np.floor(
-            np.min([bottom_left_corner[1], bottom_left_corner[1]])
+            np.min([bottom_left_corner[1], bottom_left_corner[1]]),
         )
 
         # Ensuring integers.
@@ -1059,7 +1061,8 @@ class SpectreRetrieval:
 
         # Provided the corner edges, we can now sub-image the image array.
         fetched_slice = image.subimage(
-            x_span=[left_edge, right_edge], y_span=[bottom_edge, top_edge]
+            x_span=[left_edge, right_edge],
+            y_span=[bottom_edge, top_edge],
         )
 
         # All done.
@@ -1099,6 +1102,7 @@ class SpectreRetrieval:
         -------
         trim_slice : NDArray
             The trimmed slice data array.
+
         """
         # Ensuring they are arrays.
         slice_array = np.asarray(slice_array)
@@ -1134,7 +1138,9 @@ class SpectreRetrieval:
         # care about the count for the mode.
         raw_row_widths = np.array(raw_row_widths, dtype=int)
         main_row_width, __ = scipy.stats.mode(
-            raw_row_widths, axis=None, nan_policy="omit"
+            raw_row_widths,
+            axis=None,
+            nan_policy="omit",
         )
         main_row_width = int(main_row_width)
 
@@ -1191,6 +1197,7 @@ class SpectreRetrieval:
         trim_slice_row : NDArray
             The trimmed slice data row, with the size determined based on if
             it was forced or not.
+
         """
         # We check if the force width was provided, ensuring its type.
         force_width = int(force_width) if force_width is not None else None
@@ -1255,13 +1262,14 @@ class SpectreRetrieval:
 
         Parameters
         ----------
-        slice_array : NDArray
-            The rough retrieved slice data array. This is the data we are
-            rebinning.
-        flat_array : NDArray
-            The rough retrieved slice flat array. The flat is used to determine
-            which parts are relevant data and which parts are background and
-            the fractional pixel light we are going to rebin.
+        slice_row : NDArray
+            The rough retrieved slice data array wavelength row. This is the
+            data we are rebinning.
+        flat_row : NDArray
+            The rough retrieved slice flat array wavelength row. The flat is
+            used to determine which parts are relevant data and which parts
+            are background and the fractional pixel light we are going to
+            rebin.
         slice_width : int
             The width of the slice which we are rebinning to.
 
@@ -1269,13 +1277,14 @@ class SpectreRetrieval:
         -------
         rebin_slice : NDArray
             The rebinned trimmed slice data array.
+
         """
         # To do...
         logging.error(
             error_type=logging.ToDoError,
             message=(
-                f"Trim slice rebinning needs to be done. Doing a bad"
-                f" interpolation job."
+                "Trim slice rebinning needs to be done. Doing a bad"
+                " interpolation job."
             ),
         )
         # Just simple dumb interpolation to "get it to work".
@@ -1298,7 +1307,7 @@ class SpectreRetrieval:
 
         For more information on the ISODATA algorithm, see:
         - https://doi.org/10.1109/TSMC.1980.4308400
-        - https://staff.fnwi.uva.nl/r.vandenboomgaard/IPCV20162017/LectureNotes/IP/PointOperators/Thresholding.html
+        -
 
         Parameters
         ----------
@@ -1309,6 +1318,7 @@ class SpectreRetrieval:
         -------
         threshold : float
             The ISODATA threshold value.
+
         """
         # Ensuring it is an array.
         array = np.asarray(array)
@@ -1336,8 +1346,7 @@ class SpectreRetrieval:
                 # No change in groups, partition threshold found.
                 threshold = new_threshold
                 break
-            else:
-                current_threshold = new_threshold
+            current_threshold = new_threshold
 
         # Check to see if we need to warn about a threshold not found.
         if threshold is None:
@@ -1355,7 +1364,8 @@ class SpectreRetrieval:
         return threshold
 
     def find_slice_flat_rotation(
-        self: hint.Self, flat_slice: hint.LezargusImage
+        self: hint.Self,
+        flat_slice: hint.LezargusImage,
     ) -> float:
         """Find the image rotation of a slice image.
 
@@ -1365,7 +1375,7 @@ class SpectreRetrieval:
 
         Parameters
         ----------
-        flat_array : LezargusImage
+        flat_slice : LezargusImage
             The slice flat image data which we are going to find the
             rotation for.
 
@@ -1374,6 +1384,7 @@ class SpectreRetrieval:
         rotation : float
             The rotation of the slice image, in radians. This value is
             typically small.
+
         """
         # We only need the data array to determine the flat slice rotation,
         # the other parts of the data are not too useful.
@@ -1393,7 +1404,7 @@ class SpectreRetrieval:
             current_iterations += 1
             # Attempt to find the next rotation iteration.
             current_rotation = self._rough_find_slice_flat_rotation(
-                flat_array=current_array
+                flat_array=current_array,
             )
             rotation_steps.append(current_rotation)
 
@@ -1426,7 +1437,8 @@ class SpectreRetrieval:
         return rotation
 
     def _rough_find_slice_flat_rotation(
-        self: hint.Self, flat_array: hint.NDArray
+        self: hint.Self,
+        flat_array: hint.NDArray,
     ) -> float:
         """Find the rough image rotation of a slice flat image.
 
@@ -1476,7 +1488,9 @@ class SpectreRetrieval:
         # should be only one.
         binary_array_uint8 = np.array(binary_array, dtype=np.uint8)
         contours, __ = cv2.findContours(
-            binary_array_uint8, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE
+            binary_array_uint8,
+            cv2.RETR_LIST,
+            cv2.CHAIN_APPROX_SIMPLE,
         )
 
         # Checking if we have just the expected one contour.
@@ -1487,13 +1501,14 @@ class SpectreRetrieval:
                 error_type=logging.AlgorithmError,
                 message=(
                     "There should only be 1 valid contour for a slice flat"
-                    f" lamp, there are {len(contours)}."
+                    f" lamp, there are {len(contours)}. Otsu's method is"
+                    " currently unreliable."
                 ),
             )
             logging.warning(
                 warning_type=logging.AlgorithmWarning,
                 message=(
-                    f"Switching from Otsu threshold to Edge border threshold."
+                    "Switching from Otsu threshold to Edge border threshold."
                 ),
             )
             # We try again with thresholds defined by the very edge of the
@@ -1504,7 +1519,7 @@ class SpectreRetrieval:
                     flat_array_uint16[0, :].ravel().tolist()
                     + flat_array_uint16[-1, :].ravel().tolist()
                     + flat_array_uint16[:, 0].ravel().tolist()
-                    + flat_array_uint16[:, -1].ravel().tolist()
+                    + flat_array_uint16[:, -1].ravel().tolist(),
                 ],
                 dtype=flat_array_uint16.dtype,
             )
@@ -1516,7 +1531,7 @@ class SpectreRetrieval:
             )
             # The new partition.
             threshold_partition = int(
-                np.nanmedian(threshold_data) + threshold_offset
+                np.nanmedian(threshold_data) + threshold_offset,
             )
             threshold_partition, binary_array = cv2.threshold(
                 flat_array_uint16,
@@ -1527,21 +1542,23 @@ class SpectreRetrieval:
             # And we try again.
             binary_array_uint8 = np.array(binary_array, dtype=np.uint8)
             contours, __ = cv2.findContours(
-                binary_array_uint8, cv2.RETR_LIST, cv2.CHAIN_APPROX_SIMPLE
+                binary_array_uint8,
+                cv2.RETR_LIST,
+                cv2.CHAIN_APPROX_SIMPLE,
             )
             if len(contours) != 1:
                 logging.error(
                     error_type=logging.AlgorithmError,
                     message=(
-                        f"Cannot find appropriate contours via thresholding."
-                        f" Rotation found is likely inaccurate."
+                        "Cannot find appropriate contours via thresholding."
+                        " Rotation found is likely inaccurate."
                     ),
                 )
                 logging.warning(
                     warning_type=logging.AccuracyWarning,
                     message=(
-                        f"Rotation inaccurate due to poor contours found."
-                        f" Increasing buffer width may help."
+                        "Rotation inaccurate due to poor contours found."
+                        " Increasing buffer width may help."
                     ),
                 )
         # The main contour we will be using, even if there are more than one.
@@ -1555,15 +1572,16 @@ class SpectreRetrieval:
         # The rotation has degeneracies across the 90 degree rotations of a
         # rectangle. It should, by that nature as well, be no more than 90
         # degrees in either direction
-        if np.isclose(rotation_degree, -90):
+        right_angle = 90.0
+        if np.isclose(rotation_degree, -right_angle):
             # By the OpenCV documentation, this is the 0-rotation case as
             # It cannot be 0 itself due to the [-90, 0) defined range.
             rotation_degree = 0.0
-        elif np.isclose(rotation_degree, +90):
+        elif np.isclose(rotation_degree, +right_angle):
             # The positive case is what usually happens but is confusing
             # to Sparrow.
             rotation_degree = 0.0
-        elif np.abs(rotation_degree) >= 90.0:
+        elif np.abs(rotation_degree) >= right_angle:
             # The angle should still be zero but may have not been caught due
             # to floating point issues. We warn just in case it is something
             # else.
@@ -1574,80 +1592,39 @@ class SpectreRetrieval:
                     " degrees or more; most likely it is actually 0."
                 ),
             )
-            rotation_degree = rotation_degree % 90.0
+            rotation_degree = rotation_degree % right_angle
         elif rotation_degree < 0:
             logging.error(
                 error_type=logging.AlgorithmError,
                 message=(
-                    f"Initial slice rotation output from OpenCV should not be"
-                    f" negative."
+                    "Initial slice rotation output from OpenCV should not be"
+                    " negative."
                 ),
             )
             logging.error(
                 error_type=logging.DevelopmentError,
                 message=(
-                    f"OpenCV function minAreaRect may have changed, code needs"
-                    f" updating."
+                    "OpenCV function minAreaRect may have changed, code needs"
+                    " updating."
                 ),
             )
 
         # OpenCV has the bound of angles between 0 and 90; for a negative
         # rotation, the rotation is read from 90. We assume a 45 degree angle
         # is the main demarcation between a positive or negative rotation.
-        if rotation_degree <= 45:
+        if rotation_degree <= right_angle / 2:
             signed_rotation_degree = rotation_degree
-        elif rotation_degree >= 45:
-            signed_rotation_degree = rotation_degree - 90
+        elif rotation_degree >= right_angle / 2:
+            signed_rotation_degree = rotation_degree - right_angle
         else:
             logging.error(
                 error_type=logging.LogicFlowError,
-                message=f"Rotation angle octant has no covering case.",
+                message="Rotation angle octant has no covering case.",
             )
+            signed_rotation_degree = np.nan
 
         # Converting to radians, the unit convention for angles.
         rotation = np.deg2rad(signed_rotation_degree)
 
         # All done.
         return rotation
-
-    def retrieve_point_cloud(
-        self: hint.Self,
-        image: hint.LezargusImage,
-        slice_index: int,
-        buffer_width: int,
-        rotation: bool = False,
-    ) -> list:
-        """Extract a slice as a point cloud as opposed to a normal image.
-
-        This function extracts a slice from the image as a (x, y, wave, flux)
-        point cloud tuple list. The point of this function is to avoid any
-        rebinning or interpolation which spatially or spectrally re-grids
-        the image.
-
-        Parameters
-        ----------
-        image : LezargusImage
-            The image which we are using to fetching the slice data from.
-        slice_index : int
-            The slice index which we are fetching from. This is a 1-indexed
-            slice index number.
-        buffer_width : int, default = 0
-            The number of pixels to buffer on each side from the pixel corners.
-            We default to not having a buffer but it is a bad idea.
-        rotation : bool, default = False
-            If True, we attempt to remove any rotation present in a slice,
-            which requires an interpolation under the hood.
-
-        Returns
-        -------
-        slice_point_cloud : list
-            The point cloud of the array which can later be used to construct
-            a data cube, when paired with all of the other slice point clouds.
-        """
-        logging.critical(
-            critical_type=logging.ToDoError,
-            message=(
-                f"Creating a proper point cloud for a slice is a work in"
-                f" progress."
-            ),
-        )

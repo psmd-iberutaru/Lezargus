@@ -8,9 +8,10 @@ from lezargus.data import _make
 from lezargus.library import logging
 
 # Globals are how this entire module works, and it is readable as compared to
-# using the globals dictionary.
+# using the globals dictionary. It is fine if a data statement has many
+# statements as well, as long as they are related.
 # ruff: noqa: PLW0603
-# pylint: disable=global-variable-undefined
+# pylint: disable=global-variable-undefined, too-many-statements
 
 
 def __initialize_data_all() -> None:

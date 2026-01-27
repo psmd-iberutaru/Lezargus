@@ -41,6 +41,7 @@ def _verify_wavelength(container_1: hint.Any, container_2: hint.Any) -> bool:
     verification : bool
         If True, then the verification of the wavelengths were complete and
         the containers are considered compatible.
+
     """
     # We need to get the wavelengths from the objects.
     wavelength_1 = getattr(container_1, "wavelength", None)
@@ -64,10 +65,10 @@ def _verify_wavelength(container_1: hint.Any, container_2: hint.Any) -> bool:
     wavelength_1 = np.asarray(wavelength_1)
     wavelength_2 = np.asarray(wavelength_2)
     wavelength_unit_1 = lezargus.library.conversion.parse_astropy_unit(
-        unit_input=wavelength_unit_1
+        unit_input=wavelength_unit_1,
     )
     wavelength_unit_2 = lezargus.library.conversion.parse_astropy_unit(
-        unit_input=wavelength_unit_2
+        unit_input=wavelength_unit_2,
     )
 
     # The units must have the same units.
@@ -102,7 +103,7 @@ def _verify_wavelength(container_1: hint.Any, container_2: hint.Any) -> bool:
         logging.error(
             error_type=logging.ArithmeticalError,
             message=(
-                f"Container arithmetic wavelength grid values are not similar."
+                "Container arithmetic wavelength grid values are not similar."
             ),
         )
         verification = False
@@ -133,6 +134,7 @@ def _verify_units(container_1: hint.Any, container_2: hint.Any) -> bool:
     verification : bool
         If True, then the verification of the data units were complete and
         the containers are considered compatible.
+
     """
     # We need to get the units from the objects.
     wavelength_unit_1 = getattr(container_1, "wavelength_unit", None)
@@ -144,22 +146,22 @@ def _verify_units(container_1: hint.Any, container_2: hint.Any) -> bool:
 
     # We parse the units to a more mature unit library, just in case.
     wavelength_unit_1 = lezargus.library.conversion.parse_astropy_unit(
-        unit_input=wavelength_unit_1
+        unit_input=wavelength_unit_1,
     )
     wavelength_unit_2 = lezargus.library.conversion.parse_astropy_unit(
-        unit_input=wavelength_unit_2
+        unit_input=wavelength_unit_2,
     )
     data_unit_1 = lezargus.library.conversion.parse_astropy_unit(
-        unit_input=data_unit_1
+        unit_input=data_unit_1,
     )
     data_unit_2 = lezargus.library.conversion.parse_astropy_unit(
-        unit_input=data_unit_2
+        unit_input=data_unit_2,
     )
     uncertainty_unit_1 = lezargus.library.conversion.parse_astropy_unit(
-        unit_input=uncertainty_unit_1
+        unit_input=uncertainty_unit_1,
     )
     uncertainty_unit_2 = lezargus.library.conversion.parse_astropy_unit(
-        unit_input=uncertainty_unit_2
+        unit_input=uncertainty_unit_2,
     )
 
     # And we just need to make sure all of the units are matching.
@@ -222,6 +224,7 @@ def _verify_shape(container_1: hint.Any, container_2: hint.Any) -> bool:
     verification : bool
         If True, then the verification of the data shapes were complete and
         the containers are considered compatible.
+
     """
     # We need to get the data (and the array shapes for the data) from the
     # objects. Propagation of masks and flags should be done so the check is
@@ -238,68 +241,72 @@ def _verify_shape(container_1: hint.Any, container_2: hint.Any) -> bool:
     # Checking the shapes are equal to each other. These objects should be
     # Numpy-based arrays. A wrapper function to handle the None defaults if
     # the object does not exist.
-    def _get_numpy_shape(input: hint.Any | None) -> tuple:
+    def _get_numpy_shape(input_: hint.Any | None) -> tuple:
         """Get the Numpy shape of the array, handling strange objects."""
-        if input is None:
+        if input_ is None:
             # There is no shape.
-            return tuple()
-        try:
-            shape = getattr(input, "shape")
-        except AttributeError:
-            logging.error(
-                error_type=logging.DevelopmentError,
-                message=(
-                    f"Object of type {type(input)} does not have a shape"
-                    " attribute, cannot verify shape for container arithmetic."
-                ),
-            )
+            shape = ()
+        else:
+            try:
+                shape = input_.shape
+            except AttributeError:
+                logging.error(
+                    error_type=logging.DevelopmentError,
+                    message=(
+                        f"Object of type {type(input_)} does not have a shape"
+                        " attribute, cannot verify shape for container"
+                        " arithmetic."
+                    ),
+                )
+        # All done.
+        return shape
 
     # Checking all of the shapes.
-    if _get_numpy_shape(input=data_1) != _get_numpy_shape(input=data_2):
+    if _get_numpy_shape(input_=data_1) != _get_numpy_shape(input_=data_2):
         logging.error(
             error_type=logging.ArithmeticalError,
             message=(
                 "Container data shapes do not have the same shape:"
-                f" {_get_numpy_shape(input=data_1)} versus"
-                f" {_get_numpy_shape(input=data_2)}."
+                f" {_get_numpy_shape(input_=data_1)} versus"
+                f" {_get_numpy_shape(input_=data_2)}."
             ),
         )
         verification = False
         return verification
 
-    if _get_numpy_shape(input=uncertainty_1) != _get_numpy_shape(
-        input=uncertainty_2
+    if _get_numpy_shape(input_=uncertainty_1) != _get_numpy_shape(
+        input_=uncertainty_2,
     ):
         logging.error(
             error_type=logging.ArithmeticalError,
             message=(
                 "Container uncertainty shapes do not have the same shape:"
-                f" {_get_numpy_shape(input=uncertainty_1)} versus"
-                f" {_get_numpy_shape(input=uncertainty_2)}."
+                f" {_get_numpy_shape(input_=uncertainty_1)} versus"
+                f" {_get_numpy_shape(input_=uncertainty_2)}."
             ),
         )
         verification = False
         return verification
 
-    if _get_numpy_shape(input=mask_1) != _get_numpy_shape(input=mask_2):
+    if _get_numpy_shape(input_=mask_1) != _get_numpy_shape(input_=mask_2):
         logging.error(
             error_type=logging.ArithmeticalError,
             message=(
                 "Container mask shapes do not have the same shape:"
-                f" {_get_numpy_shape(input=mask_1)} versus"
-                f" {_get_numpy_shape(input=mask_2)}."
+                f" {_get_numpy_shape(input_=mask_1)} versus"
+                f" {_get_numpy_shape(input_=mask_2)}."
             ),
         )
         verification = False
         return verification
 
-    if _get_numpy_shape(input=flags_1) != _get_numpy_shape(input=flags_2):
+    if _get_numpy_shape(input_=flags_1) != _get_numpy_shape(input_=flags_2):
         logging.error(
             error_type=logging.ArithmeticalError,
             message=(
                 "Container flags shapes do not have the same shape:"
-                f" {_get_numpy_shape(input=flags_1)} versus"
-                f" {_get_numpy_shape(input=flags_2)}."
+                f" {_get_numpy_shape(input_=flags_1)} versus"
+                f" {_get_numpy_shape(input_=flags_2)}."
             ),
         )
         verification = False
@@ -315,7 +322,7 @@ def lezargus_spectrum_spectrum_arithmetic(
     spectrum_1: hint.LezargusSpectrum,
     spectrum_2: hint.LezargusSpectrum,
     operation: str,
-):
+) -> hint.LezargusSpectrum:
     """Perform a provided operation between two spectra.
 
     This function adds two Lezargus spectra together, after appropriate checks
@@ -335,4 +342,7 @@ def lezargus_spectrum_spectrum_arithmetic(
     -------
     result_spectrum : LezargusSpectrum
         The resulting spectrum after the addition.
+
     """
+    # For later.
+    lezargus.library.wrapper.do_nothing(spectrum_1, spectrum_2, operation)

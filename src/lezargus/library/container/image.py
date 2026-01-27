@@ -15,6 +15,7 @@ if TYPE_CHECKING:
 # isort: split
 
 import copy
+
 import numpy as np
 
 from lezargus.library import logging
@@ -200,6 +201,7 @@ class LezargusImage(LezargusContainerArithmetic):
         -------
         subimage : LezargusImage
             The subimage defined by the provided ranges.
+
         """
         # Define the true range, just in case of bad input.
         x_min = int(min(x_span))
