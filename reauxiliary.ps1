@@ -16,9 +16,11 @@ python -m jupyter nbconvert --to notebook --execute "./constants.ipynb"
 if ( -not ($?)) { Exit }
 #python -m jupyter nbconvert --to notebook --execute "./gemini_data.ipynb"
 if ( -not ($?)) { Exit }
-python -m jupyter nbconvert --to notebook --execute "./irtf_specification.ipynb"
+python -m jupyter nbconvert --to notebook --execute "./irtf_optics.ipynb"
 if ( -not ($?)) { Exit }
 python -m jupyter nbconvert --to notebook --execute "./photometric_filters.ipynb"
+if ( -not ($?)) { Exit }
+python -m jupyter nbconvert --to notebook --execute "./spectre_calibrations.ipynb"
 if ( -not ($?)) { Exit }
 python -m jupyter nbconvert --to notebook --execute "./spectre_dispersion.ipynb"
 if ( -not ($?)) { Exit }

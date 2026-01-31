@@ -70,6 +70,11 @@ dependencies = [
     "sphinx-book-theme>=1.1.0",
 ]
 [tool.hatch.envs.default.scripts]
+build = [
+    "hatch clean",
+    "hatch build"
+]
+
 test = "pytest tests"
 format = [
     "black . --enable-unstable-feature=string_processing",

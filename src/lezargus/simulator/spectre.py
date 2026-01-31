@@ -162,13 +162,13 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         channel = channel.casefold()
         if channel == "visible":
             self.channel = "visible"
-            self.detector = lezargus.data.DETECTOR_SPECTRE_VISIBLE
+            self.detector = lezargus.data.SPECTRE_DETECTOR_VISIBLE
         elif channel == "nearir":
             self.channel = "nearir"
-            self.detector = lezargus.data.DETECTOR_SPECTRE_NEARIR
+            self.detector = lezargus.data.SPECTRE_DETECTOR_NEARIR
         elif channel == "midir":
             self.channel = "midir"
-            self.detector = lezargus.data.DETECTOR_SPECTRE_MIDIR
+            self.detector = lezargus.data.SPECTRE_DETECTOR_MIDIR
         else:
             logging.error(
                 error_type=logging.InputError,
@@ -950,7 +950,21 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # distribution.
         # ... The arc lamp.
         if self.arc_lamp_in:
-            calibration_spectrum = 0
+            # Pulling the right of the three arc lamps.
+            logging.error(error_type=logging.ToDoError, message=f"Simulated arc lamps are broken into 3 channels; but there is only one arc lamp. A full spectrum one should be used.")
+            if self.channel == 'visible':
+                raw_arclamp_spectrum=lezargus.data.SPECTRE_ARCLAMP_SIMULATION_VISIBLE
+            elif self.channel == 'nearir':
+                raw_arclamp_spectrum=lezargus.data.SPECTRE_ARCLAMP_SIMULATION_NEARIR
+            elif self.channel == 'midir':
+                raw_arclamp_spectrum=lezargus.data.SPECTRE_ARCLAMP_SIMULATION_MIDIR
+            else:
+                logging.error(error_type=logging.InputError, message=f"SPECTRE channel {self.channel}is not as expected.")
+            # Ensuring SI to same unit compatability.
+            raw_arclamp_spectrum_si = raw_arclamp_spectrum.to_unit(data_unit="W m^-1", wavelength_unit=reference_state.wavelength_unit)
+            # Need to rebase to the reference wavelength.
+            arclamp_spectrum = raw_arclamp_spectrum_si.interpolate_spectrum(wavelength=reference_state.wavelength, extrapolate=False)
+            calibration_spectrum = arclamp_spectrum
         # ... The flat lamp.
         elif self.flat_lamp_in:
             # The lamp is just a simple blackbody; but we need to integrate it.
@@ -965,7 +979,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             blackbody_flux_unit = "W m^-2 m^-1 sr^-1"
             # And integrating over the lamp itself.
             flatlamp_wavelength = blackbody_wavelength
-            flatlamp_wavelength_unit = "m"
+            flatlamp_wavelength_unit = reference_state.wavelength_unit
             flatlamp_flux = blackbody_flux * solid_angle * lamp_area
             flatlamp_flux_units = blackbody_flux_unit + " sr " + " m^2 "
             # Parsing the lamp spectrum from previous known data upwards.
@@ -1034,7 +1048,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         previous_state = self.at_calibration_apparatus
 
         # We get the window transmission spectrum.
-        window_transmission = lezargus.data.EFFICIENCY_SPECTRE_WINDOW
+        window_transmission = lezargus.data.SPECTRE_EFFICIENCY_WINDOW
         window_transmission_spectrum = window_transmission.interpolate_spectrum(
             wavelength=previous_state.wavelength,
         )
@@ -1086,7 +1100,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
 
         # The blackbody is modulated by...
         # ...the window's own transmission,
-        window_transmission = lezargus.data.EFFICIENCY_SPECTRE_WINDOW
+        window_transmission = lezargus.data.SPECTRE_EFFICIENCY_WINDOW
         window_transmission_data, __, __, __ = window_transmission.interpolate(
             wavelength=common_wavelength,
             extrapolate=False,
@@ -1187,13 +1201,13 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
 
         # We get the transmission (or reflectivity) spectra for the collimator
         # and camera mirrors of the fore-optics.
-        collimator_transmission = lezargus.data.EFFICIENCY_SPECTRE_COLLIMATOR
+        collimator_transmission = lezargus.data.SPECTRE_EFFICIENCY_COLLIMATOR
         collimator_transmission_spectrum = (
             collimator_transmission.interpolate_spectrum(
                 wavelength=previous_state.wavelength,
             )
         )
-        camera_transmission = lezargus.data.EFFICIENCY_SPECTRE_CAMERA
+        camera_transmission = lezargus.data.SPECTRE_EFFICIENCY_CAMERA
         camera_transmission_spectrum = camera_transmission.interpolate_spectrum(
             wavelength=previous_state.wavelength,
         )
@@ -1234,7 +1248,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
 
         # We get the transmission (or reflectivity) spectra for the image
         # slicer portion of the IFU.
-        slicer_transmission = lezargus.data.EFFICIENCY_SPECTRE_IMAGE_SLICER
+        slicer_transmission = lezargus.data.SPECTRE_EFFICIENCY_IMAGE_SLICER
         slicer_transmission_spectrum = slicer_transmission.interpolate_spectrum(
             wavelength=previous_state.wavelength,
         )
@@ -1470,7 +1484,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # We get the transmission (or reflectivity) spectra pupil mirrors.
         # For now, we assume a single transmission spectra.
         pupil_mirror_transmission = (
-            lezargus.data.EFFICIENCY_SPECTRE_PUPIL_MIRROR
+            lezargus.data.SPECTRE_EFFICIENCY_PUPIL_MIRROR
         )
         pupil_mirror_transmission_spectrum = (
             pupil_mirror_transmission.interpolate_spectrum(
@@ -1548,15 +1562,15 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # dichroic, which of course depends on the channel.
         if self.channel == "visible":
             dichroic_transmission = (
-                lezargus.data.EFFICIENCY_SPECTRE_DICHROIC_VISIBLE
+                lezargus.data.SPECTRE_EFFICIENCY_DICHROIC_VISIBLE
             )
         elif self.channel == "nearir":
             dichroic_transmission = (
-                lezargus.data.EFFICIENCY_SPECTRE_DICHROIC_NEARIR
+                lezargus.data.SPECTRE_EFFICIENCY_DICHROIC_NEARIR
             )
         elif self.channel == "midir":
             dichroic_transmission = (
-                lezargus.data.EFFICIENCY_SPECTRE_DICHROIC_MIDIR
+                lezargus.data.SPECTRE_EFFICIENCY_DICHROIC_MIDIR
             )
         else:
             dichroic_transmission = None
@@ -1616,11 +1630,11 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # We get the transmission (or reflectivity) spectra of the channel
         # dichroic, which of course depends on the channel.
         if self.channel == "visible":
-            relay_transmission = lezargus.data.EFFICIENCY_SPECTRE_RELAY_VISIBLE
+            relay_transmission = lezargus.data.SPECTRE_EFFICIENCY_RELAY_VISIBLE
         elif self.channel == "nearir":
-            relay_transmission = lezargus.data.EFFICIENCY_SPECTRE_RELAY_NEARIR
+            relay_transmission = lezargus.data.SPECTRE_EFFICIENCY_RELAY_NEARIR
         elif self.channel == "midir":
-            relay_transmission = lezargus.data.EFFICIENCY_SPECTRE_RELAY_MIDIR
+            relay_transmission = lezargus.data.SPECTRE_EFFICIENCY_RELAY_MIDIR
         else:
             relay_transmission = None
             logging.error(
@@ -1685,15 +1699,15 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # We get the transmission (or reflectivity) spectra of the channel
         # prisms. They are sometimes different materials.
         if self.channel == "visible":
-            bk7_transmission = lezargus.data.EFFICIENCY_SPECTRE_PRISM_BK7
+            bk7_transmission = lezargus.data.SPECTRE_EFFICIENCY_PRISM_BK7
             prism_transmission = bk7_transmission * bk7_transmission
         elif self.channel == "nearir":
-            silica_transmission = lezargus.data.EFFICIENCY_SPECTRE_PRISM_SILICA
-            znse_transmission = lezargus.data.EFFICIENCY_SPECTRE_PRISM_ZNSE
+            silica_transmission = lezargus.data.SPECTRE_EFFICIENCY_PRISM_SILICA
+            znse_transmission = lezargus.data.SPECTRE_EFFICIENCY_PRISM_ZNSE
             prism_transmission = silica_transmission * znse_transmission
         elif self.channel == "midir":
             sapphire_transmission = (
-                lezargus.data.EFFICIENCY_SPECTRE_PRISM_SAPPHIRE
+                lezargus.data.SPECTRE_EFFICIENCY_PRISM_SAPPHIRE
             )
             prism_transmission = sapphire_transmission * sapphire_transmission
         else:
@@ -1759,11 +1773,11 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # We get the transmission (or reflectivity) spectra of the channel
         # fold mirror, which of course depends on the channel.
         if self.channel == "visible":
-            fold_transmission = lezargus.data.EFFICIENCY_SPECTRE_FOLD_VISIBLE
+            fold_transmission = lezargus.data.SPECTRE_EFFICIENCY_FOLD_VISIBLE
         elif self.channel == "nearir":
-            fold_transmission = lezargus.data.EFFICIENCY_SPECTRE_FOLD_NEARIR
+            fold_transmission = lezargus.data.SPECTRE_EFFICIENCY_FOLD_NEARIR
         elif self.channel == "midir":
-            fold_transmission = lezargus.data.EFFICIENCY_SPECTRE_FOLD_MIDIR
+            fold_transmission = lezargus.data.SPECTRE_EFFICIENCY_FOLD_MIDIR
         else:
             fold_transmission = None
             logging.error(
@@ -1992,7 +2006,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
 
             # We need to determine where each of the monochromatic slices end up
             # in the detector array; simulating dispersion.
-            spectre_disperser = lezargus.data.DISPERSION_SPECTRE
+            spectre_disperser = lezargus.data.SPECTRE_DISPERSION
             new_bottom_left = spectre_disperser.get_slice_dispersion_pixel(
                 channel=self.channel,
                 slice_=slice_index,
@@ -2230,7 +2244,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
                     current_detector_data += expanded_transformed_data
                 else:
                     # The error is something else...
-                    raise
+                    logging.critical(critical_type=logging.UndiscoveredError, message=f"Unknown ValueError for dispersion simulation slice translation.")
 
             # All done.
             return current_detector_data

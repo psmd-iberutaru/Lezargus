@@ -208,7 +208,7 @@ class SpectreRetrieval:
         # Number of slices...
         n_slices = lezargus.data.CONST_SPECTRE_SLICES
         # And the simulation disperser we are working with.
-        spectre_disperser = lezargus.data.DISPERSION_SPECTRE
+        spectre_disperser = lezargus.data.SPECTRE_DISPERSION
 
         # Depending on the channel we are in, the blue and red wavelength ends
         # of the slice range differs.
@@ -357,13 +357,6 @@ class SpectreRetrieval:
                     f" {error!s}"
                 ),
             )
-            logging.warning(
-                warning_type=logging.AlgorithmWarning,
-                message=(
-                    "Exiting early with no table, no valid table can be"
-                    " read in."
-                ),
-            )
             return None
 
         # Number of slices...
@@ -493,23 +486,17 @@ class SpectreRetrieval:
         # The corners are unordered so we use the table or simulation corners
         # to help us determine which corners are which. We attempt to the
         # table first.
-        try:
-            table_filename = "Dummy"
-            labeled_corners = self._calculate_initial_slice_corners_file(
+        labeled_corners = None
+        table_filename = "Dummy"
+        labeled_corners = self._calculate_initial_slice_corners_file(
                 filename=table_filename,
-            )
-        except (FileNotFoundError, logging.FileError) as error:
-            # Something went wrong with loading the initial slice corners.
-            logging.error(
-                error_type=logging.FileError,
-                message=(
-                    "Could not get labeled corner table from corner file"
-                    f" table, it errored with: {type(error).__name__} :"
-                    f" {error!s}"
-                ),
-            )
+        )
+        # If there is no labeled corners, that means something went wrong with
+        # determining the labels from the file, and we go to a backup method.
+        if labeled_corners is None:
             # We are using the simulation as a backup.
-            logging.info(
+            logging.warning(
+                warning_type=logging.AlgorithmWarning,
                 message=(
                     "Using the labeled corner table from simulation as a"
                     " backup."
@@ -517,8 +504,9 @@ class SpectreRetrieval:
             )
             labeled_corners = self._calculate_initial_slice_corners_simulation()
 
-        # If we cannot get a labeled table, then there is no possible way to
-        # get the corner table.
+
+        # If there still is no labeled corner table...we just cannot get a 
+        # labeled table. There is no possible way to get the corner table.
         if labeled_corners is None:
             logging.error(
                 error_type=logging.AlgorithmError,
@@ -698,35 +686,41 @@ class SpectreRetrieval:
                         f" with: {type(error).__name__} : {error!s}"
                     ),
                 )
-                logging.debug(
+                initial_corners = None
+            # We may need to move on to the next method.
+            if initial_corners is None:
+                logging.info(
                     message=(
                         "Flat field failed, moving on to next method of corner"
                         " retrieval: a stored corner file."
                     ),
                 )
-                initial_corners = None
+                
         # Via a stored corner file.
         if initial_corners is None or initial_method == "file":
             try:
-                corner_filename = ""
+                corner_filename = "Dummy"
                 initial_corners = self._calculate_initial_slice_corners_file(
                     filename=corner_filename,
                 )
             except logging.UndiscoveredError as error:
-                logging.warning(
-                    warning_type=logging.AlgorithmWarning,
+                logging.error(
+                    error_type=logging.AlgorithmError,
                     message=(
                         "Initial corner detection via a file table failed"
                         f" with: {type(error).__name__} : {error!s}"
                     ),
                 )
-                logging.debug(
+                initial_corners = None
+            # We may need to move on to the next method.
+            if initial_corners is None:
+                logging.info(
                     message=(
                         "Corner file failed, moving on to next method of corner"
                         " retrieval: the simulation."
                     ),
                 )
-                initial_corners = None
+
         # Via the simulation itself.
         if initial_corners is None or initial_method == "simulation":
             try:
@@ -741,13 +735,15 @@ class SpectreRetrieval:
                         f" with: {type(error).__name__} : {error!s}"
                     ),
                 )
-                logging.debug(
+                initial_corners = None
+            # We may need to move on to the next method.
+            if initial_corners is None:
+                logging.info(
                     message=(
                         "The simulation failed, moving on to next method of"
                         " corner retrieval: rasing an error."
                     ),
                 )
-                initial_corners = None
 
         # If the corners were still not found, something is wrong.
         if initial_corners is None:
@@ -1458,7 +1454,7 @@ class SpectreRetrieval:
         -------
         rotation : float
             The rotation of the slice image, in radians. This value is
-            typically small.
+            typically small. 
 
         """
         # The axis conventions of OpenCV/images and Numpy arrays require the
@@ -1593,12 +1589,12 @@ class SpectreRetrieval:
                 ),
             )
             rotation_degree = rotation_degree % right_angle
-        elif rotation_degree < 0:
+        elif rotation_degree > 0:
             logging.error(
                 error_type=logging.AlgorithmError,
                 message=(
-                    "Initial slice rotation output from OpenCV should not be"
-                    " negative."
+                    f"Initial slice rotation output from OpenCV should be"
+                    f" negative due to the range: {rotation_degree}"
                 ),
             )
             logging.error(
@@ -1612,10 +1608,10 @@ class SpectreRetrieval:
         # OpenCV has the bound of angles between 0 and 90; for a negative
         # rotation, the rotation is read from 90. We assume a 45 degree angle
         # is the main demarcation between a positive or negative rotation.
-        if rotation_degree <= right_angle / 2:
+        if np.abs(rotation_degree) <= right_angle / 2:
             signed_rotation_degree = rotation_degree
-        elif rotation_degree >= right_angle / 2:
-            signed_rotation_degree = rotation_degree - right_angle
+        elif np.abs(rotation_degree) >= right_angle / 2:
+            signed_rotation_degree = rotation_degree + right_angle
         else:
             logging.error(
                 error_type=logging.LogicFlowError,

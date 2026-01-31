@@ -376,6 +376,7 @@ class LezargusSpectrum(LezargusContainerArithmetic):
         extrapolate: bool = False,
         skip_mask: bool = True,
         skip_flags: bool = True,
+        conserve_flux: bool=True,
     ) -> tuple[
         hint.NDArray,
         hint.NDArray,
@@ -402,6 +403,9 @@ class LezargusSpectrum(LezargusContainerArithmetic):
             If provided, the propagation of data flags through the
             interpolation is skipped. It is computationally a little expensive
             otherwise.
+        conserve_flux : bool, default = True
+            If provided, we use a flux conserving interpolation routine. 
+            Otherwise, we default to a simple spline-based interpolation.
 
         Returns
         -------
@@ -458,20 +462,29 @@ class LezargusSpectrum(LezargusContainerArithmetic):
                 ),
             )
 
+        # If we want to conserve the flux in this interpolation, then we 
+        # cannot use the standard interpolation function.
+        if conserve_flux:
+            logging.error(error_type=logging.ToDoError, message=f"Flux conserving interpolation is needed to be implemented; defaulting to Splines.")
+            # || interpolation = lezargus.library.interpolate.FluxConserve1DInterpolate
+            interpolation = lezargus.library.interpolate.Spline1DInterpolate
+        else:
+            interpolation = lezargus.library.interpolate.Spline1DInterpolate
+
         # The interpolated data for both the data itself and uncertainty.
         # We use gaps to remove any unwanted data, assuming the cleaned
         # wavelength is perfect.
         gap_size = lezargus.library.interpolate.get_smallest_gap(
             wavelength=clean_wavelength,
         )
-        interp_data = lezargus.library.interpolate.Spline1DInterpolate(
+        interp_data = interpolation(
             x=clean_wavelength,
             v=clean_data,
             extrapolate=extrapolate,
             extrapolate_fill=np.nan,
             gap=gap_size,
         )(wavelength)
-        interp_uncertainty = lezargus.library.interpolate.Spline1DInterpolate(
+        interp_uncertainty = interpolation(
             x=clean_wavelength,
             v=clean_uncertainty,
             extrapolate=extrapolate,

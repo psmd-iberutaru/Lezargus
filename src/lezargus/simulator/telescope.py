@@ -71,12 +71,12 @@ class IrtfTelescopeSimulator:
 
         # By default, we use the default reflectivity data. The user
         # is free to change the interpolators as they wish.
-        primary_wavelength = lezargus.data.EFFICIENCY_IRTF_PRIMARY.wavelength
-        primary_reflectivity = lezargus.data.EFFICIENCY_IRTF_PRIMARY.data
+        primary_wavelength = lezargus.data.IRTF_EFFICIENCY_PRIMARY.wavelength
+        primary_reflectivity = lezargus.data.IRTF_EFFICIENCY_PRIMARY.data
         secondary_wavelength = (
-            lezargus.data.EFFICIENCY_IRTF_SECONDARY.wavelength
+            lezargus.data.IRTF_EFFICIENCY_SECONDARY.wavelength
         )
-        secondary_reflectivity = lezargus.data.EFFICIENCY_IRTF_SECONDARY.data
+        secondary_reflectivity = lezargus.data.IRTF_EFFICIENCY_SECONDARY.data
         # Building the interpolators.
         self._primary_reflectivity_interpolator = (
             lezargus.library.interpolate.Spline1DInterpolate(
