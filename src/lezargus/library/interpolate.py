@@ -237,7 +237,9 @@ class Generic1DInterpolate:
 
         """
         # We generally do not touch the input, including sanitization.
-        interp_x = np.asarray(x).copy()
+        # We type cast the input to the most compatible between the inputs.
+        cast_type = np.result_type(x, self.x, self.v)
+        interp_x = np.array(x, dtype=cast_type, copy=True)
         # We first calculate the interpolated data.
         interp_v = self.raw_interpolator(interp_x)
         # Then we apply all of the criteria if specified.

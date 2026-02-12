@@ -629,6 +629,4 @@ def __initialize_data_spectre_calibrations() -> None:
     )
 
 
-
-
 __initialize_data_all()

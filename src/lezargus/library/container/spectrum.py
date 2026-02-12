@@ -346,11 +346,11 @@ class LezargusSpectrum(LezargusContainerArithmetic):
         Parameters
         ----------
         kernel : ndarray, default = None
-            The static 2D kernel.
+            The static 1D kernel.
         kernel_stack : ndarray, default = None
-            The variable 2D kernel stack.
+            The variable 1D kernel stack.
         kernel_function : Callable, default = None
-            The dynamic 2D kernel function.
+            The dynamic 1D kernel function.
 
         Returns
         -------
@@ -376,7 +376,7 @@ class LezargusSpectrum(LezargusContainerArithmetic):
         extrapolate: bool = False,
         skip_mask: bool = True,
         skip_flags: bool = True,
-        conserve_flux: bool=True,
+        interpolation_method: hint.Generic1DInterpolate | None = None,
     ) -> tuple[
         hint.NDArray,
         hint.NDArray,
@@ -403,9 +403,10 @@ class LezargusSpectrum(LezargusContainerArithmetic):
             If provided, the propagation of data flags through the
             interpolation is skipped. It is computationally a little expensive
             otherwise.
-        conserve_flux : bool, default = True
-            If provided, we use a flux conserving interpolation routine. 
-            Otherwise, we default to a simple spline-based interpolation.
+        interpolation_method : Generic1DInterpolate, default = None
+            The interpolation method to use. If None, we default to using
+            the FluxConserve1DInterpolate method.
+
 
         Returns
         -------
@@ -462,14 +463,36 @@ class LezargusSpectrum(LezargusContainerArithmetic):
                 ),
             )
 
-        # If we want to conserve the flux in this interpolation, then we 
+        # If we want to conserve the flux in this interpolation, then we
         # cannot use the standard interpolation function.
-        if conserve_flux:
-            logging.error(error_type=logging.ToDoError, message=f"Flux conserving interpolation is needed to be implemented; defaulting to Splines.")
-            # || interpolation = lezargus.library.interpolate.FluxConserve1DInterpolate
-            interpolation = lezargus.library.interpolate.Spline1DInterpolate
+        if interpolation_method is None:
+            logging.error(
+                error_type=logging.ToDoError,
+                message=(
+                    "Flux conserving interpolation is needed to be"
+                    " implemented; defaulting to Linear."
+                ),
+            )
+            # || interpolation_method = lezargus.library.interpolate.FluxConserve1DInterpolate
+            using_interpolation = (
+                lezargus.library.interpolate.Linear1DInterpolate
+            )
+        elif isinstance(
+            interpolation_method,
+            lezargus.library.interpolate.Generic1DInterpolate,
+        ):
+            # Likely a valid interpolation method as provided.
+            using_interpolation = interpolation_method
         else:
-            interpolation = lezargus.library.interpolate.Spline1DInterpolate
+            logging.warning(
+                warning_type=logging.AccuracyWarning,
+                message=(
+                    "Spectrum interpolation method type"
+                    f" {interpolation_method} is not as expected."
+                ),
+            )
+            # But, we shall still let it go just in case.
+            using_interpolation = interpolation_method
 
         # The interpolated data for both the data itself and uncertainty.
         # We use gaps to remove any unwanted data, assuming the cleaned
@@ -477,14 +500,14 @@ class LezargusSpectrum(LezargusContainerArithmetic):
         gap_size = lezargus.library.interpolate.get_smallest_gap(
             wavelength=clean_wavelength,
         )
-        interp_data = interpolation(
+        interp_data = using_interpolation(
             x=clean_wavelength,
             v=clean_data,
             extrapolate=extrapolate,
             extrapolate_fill=np.nan,
             gap=gap_size,
         )(wavelength)
-        interp_uncertainty = interpolation(
+        interp_uncertainty = using_interpolation(
             x=clean_wavelength,
             v=clean_uncertainty,
             extrapolate=extrapolate,
@@ -526,6 +549,7 @@ class LezargusSpectrum(LezargusContainerArithmetic):
         extrapolate: bool = False,
         skip_mask: bool = True,
         skip_flags: bool = True,
+        interpolation_method: hint.Generic1DInterpolate | None = None,
     ) -> hint.LezargusSpectrum:
         """Interpolation calling function for spectrum.
 
@@ -547,6 +571,9 @@ class LezargusSpectrum(LezargusContainerArithmetic):
             If provided, the propagation of data flags through the
             interpolation is skipped. It is computationally a little expensive
             otherwise.
+        interpolation_method : Generic1DInterpolate, default = None
+            The interpolation method to use. If None, we default to using
+            the FluxConserve1DInterpolate method.
 
         Returns
         -------
@@ -561,6 +588,7 @@ class LezargusSpectrum(LezargusContainerArithmetic):
                 extrapolate=extrapolate,
                 skip_mask=skip_mask,
                 skip_flags=skip_flags,
+                interpolation_method=interpolation_method,
             )
         )
         # Repackaging it.

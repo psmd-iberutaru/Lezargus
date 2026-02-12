@@ -54,6 +54,7 @@ from lezargus.library.container import AtmosphereSpectrumGenerator
 from lezargus.library.container import DetectorArray
 from lezargus.library.container import LezargusContainerArithmetic
 from lezargus.library.container import LezargusCube
+from lezargus.library.container import LezargusFailure
 from lezargus.library.container import LezargusImage
 from lezargus.library.container import LezargusMosaic
 from lezargus.library.container import LezargusSpectrum

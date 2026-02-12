@@ -951,20 +951,57 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # ... The arc lamp.
         if self.arc_lamp_in:
             # Pulling the right of the three arc lamps.
-            logging.error(error_type=logging.ToDoError, message=f"Simulated arc lamps are broken into 3 channels; but there is only one arc lamp. A full spectrum one should be used.")
-            if self.channel == 'visible':
-                raw_arclamp_spectrum=lezargus.data.SPECTRE_ARCLAMP_SIMULATION_VISIBLE
-            elif self.channel == 'nearir':
-                raw_arclamp_spectrum=lezargus.data.SPECTRE_ARCLAMP_SIMULATION_NEARIR
-            elif self.channel == 'midir':
-                raw_arclamp_spectrum=lezargus.data.SPECTRE_ARCLAMP_SIMULATION_MIDIR
+            logging.error(
+                error_type=logging.ToDoError,
+                message=(
+                    "Simulated arc lamps are broken into 3 channels; but there"
+                    " is only one arc lamp. A full spectrum one should be"
+                    " used."
+                ),
+            )
+            if self.channel == "visible":
+                raw_arclamp_spectrum = (
+                    lezargus.data.SPECTRE_ARCLAMP_SIMULATION_VISIBLE
+                )
+            elif self.channel == "nearir":
+                raw_arclamp_spectrum = (
+                    lezargus.data.SPECTRE_ARCLAMP_SIMULATION_NEARIR
+                )
+            elif self.channel == "midir":
+                raw_arclamp_spectrum = (
+                    lezargus.data.SPECTRE_ARCLAMP_SIMULATION_MIDIR
+                )
             else:
-                logging.error(error_type=logging.InputError, message=f"SPECTRE channel {self.channel}is not as expected.")
+                logging.error(
+                    error_type=logging.InputError,
+                    message=(
+                        f"SPECTRE channel {self.channel} is not as expected."
+                    ),
+                )
             # Ensuring SI to same unit compatability.
-            raw_arclamp_spectrum_si = raw_arclamp_spectrum.to_unit(data_unit="W m^-1", wavelength_unit=reference_state.wavelength_unit)
+            raw_arclamp_spectrum_si = raw_arclamp_spectrum.to_unit(
+                data_unit="W m^-1",
+                wavelength_unit=reference_state.wavelength_unit,
+            )
             # Need to rebase to the reference wavelength.
-            arclamp_spectrum = raw_arclamp_spectrum_si.interpolate_spectrum(wavelength=reference_state.wavelength, extrapolate=False)
-            calibration_spectrum = arclamp_spectrum
+            arclamp_spectrum = raw_arclamp_spectrum_si.interpolate_spectrum(
+                wavelength=reference_state.wavelength,
+                extrapolate=False,
+            )
+            # Parsing the arc lamp spectrum from previous known data upwards.
+            calibration_spectrum = lezargus.library.container.LezargusSpectrum(
+                wavelength=arclamp_spectrum.wavelength,
+                data=arclamp_spectrum.data,
+                uncertainty=None,
+                wavelength_unit=arclamp_spectrum.wavelength_unit,
+                data_unit=arclamp_spectrum.data_unit,
+                spectral_scale=reference_state.spectral_scale,
+                pixel_scale=reference_state.pixel_scale,
+                slice_scale=reference_state.slice_scale,
+                mask=None,
+                flags=None,
+                header=reference_state.header,
+            )
         # ... The flat lamp.
         elif self.flat_lamp_in:
             # The lamp is just a simple blackbody; but we need to integrate it.
@@ -1288,7 +1325,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # supply a slice number.
         def image_slice_array(
             array: hint.NDArray,
-            slice_index: int,
+            slice__: int,
         ) -> hint.NDArray:
             """Slice an image array based on the slice index.
 
@@ -1297,7 +1334,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             array : NDArray
                 The array which we are going to slice, should be the 3D array
                 of data, uncertainties, or something similar.
-            slice_index : int
+            slice__ : int
                 The slice which we are slicing out. We follow the general
                 slice numbering convention.
 
@@ -1398,9 +1435,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
 
             # Slicing the array based on the slice index.
             sliced_array = crop_array[
-                pixel_per_slice
-                * slice_index : pixel_per_slice
-                * (slice_index + 1),
+                pixel_per_slice * slice__ : pixel_per_slice * (slice__ + 1),
                 :,
                 :,
             ]
@@ -1413,19 +1448,19 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             # Slicing the important parts of the cube.
             data_slice = image_slice_array(
                 array=previous_state.data,
-                slice_index=slicedex,
+                slice__=slicedex,
             )
             uncertainty_slice = image_slice_array(
                 array=previous_state.uncertainty,
-                slice_index=slicedex,
+                slice__=slicedex,
             )
             mask_slice = image_slice_array(
                 array=previous_state.mask,
-                slice_index=slicedex,
+                slice__=slicedex,
             )
             flag_slice = image_slice_array(
                 array=previous_state.flags,
-                slice_index=slicedex,
+                slice__=slicedex,
             )
             # We copy over all of the other parts of the data that are not
             # sliced.
@@ -1964,7 +1999,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # so it is fine to define them here and borrow some variables.
         def __disperse_slice_to_detector(
             slice_cube: hint.LezargusCube,
-            slice_index: int,
+            slice__: int,
         ) -> hint.NDArray:
             """Compute a slice dispersion onto a full detector.
 
@@ -1983,7 +2018,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             slice_cube : LezargusCube
                 The slice object which we are dispersing over the detector
                 space.
-            slice_index : int
+            slice__ : int
                 The slice index (or number) which we are computing for.
 
             Returns
@@ -2009,25 +2044,25 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             spectre_disperser = lezargus.data.SPECTRE_DISPERSION
             new_bottom_left = spectre_disperser.get_slice_dispersion_pixel(
                 channel=self.channel,
-                slice_=slice_index,
+                slice_=slice__,
                 location="bottom_left",
                 wavelength=slice_wavelength,
             )
             new_bottom_right = spectre_disperser.get_slice_dispersion_pixel(
                 channel=self.channel,
-                slice_=slice_index,
+                slice_=slice__,
                 location="bottom_right",
                 wavelength=slice_wavelength,
             )
             new_top_left = spectre_disperser.get_slice_dispersion_pixel(
                 channel=self.channel,
-                slice_=slice_index,
+                slice_=slice__,
                 location="top_left",
                 wavelength=slice_wavelength,
             )
             new_top_right = spectre_disperser.get_slice_dispersion_pixel(
                 channel=self.channel,
-                slice_=slice_index,
+                slice_=slice__,
                 location="top_right",
                 wavelength=slice_wavelength,
             )
@@ -2244,7 +2279,13 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
                     current_detector_data += expanded_transformed_data
                 else:
                     # The error is something else...
-                    logging.critical(critical_type=logging.UndiscoveredError, message=f"Unknown ValueError for dispersion simulation slice translation.")
+                    logging.critical(
+                        critical_type=logging.UndiscoveredError,
+                        message=(
+                            "Unknown ValueError for dispersion simulation"
+                            " slice translation."
+                        ),
+                    )
 
             # All done.
             return current_detector_data
@@ -2257,7 +2298,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             # We compute the dispersion for a given slice.
             dispersed_slice_detector = __disperse_slice_to_detector(
                 slice_cube=slicedex,
-                slice_index=sliceindex + 1,
+                slice__=sliceindex + 1,
             )
 
             # Putting it on the detector.
@@ -2296,6 +2337,45 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         return current_state
 
     @property
+    def at_detector_exposure_time(self: hint.Self) -> hint.LezargusImage:
+        """State of the simulation after exposure time integration.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        current_state : LezargusImage
+            The state of the simulation after accounting for detector
+            integration time from the exposure time.
+
+        """
+        # No cached value, we calculate it from the previous state.
+        previous_state = self.at_spectral_dispersion
+
+        # Integrating the observation via time.
+        integrated_data, integrated_uncertainty = (
+            lezargus.library.math.multiply(
+                multiplier=previous_state.data,
+                multiplicand=self.exposure_time,
+                multiplier_uncertainty=previous_state.uncertainty,
+                multiplicand_uncertainty=0,
+            )
+        )
+        # Units.
+        integrated_unit = previous_state.data_unit * astropy.units.Unit("s")
+
+        # Rebuilding the image from the new data.
+        current_state = copy.deepcopy(previous_state)
+        current_state.data = np.asarray(integrated_data)
+        current_state.uncertainty = np.asarray(integrated_uncertainty)
+        current_state.data_unit = integrated_unit
+
+        # All done.
+        return current_state
+
+    @property
     def at_scattered_light(
         self: hint.Self,
     ) -> hint.LezargusImage:
@@ -2313,7 +2393,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
 
         """
         # No cached value, we calculate it from the previous state.
-        previous_state = self.at_spectral_dispersion
+        previous_state = self.at_detector_exposure_time
 
         # We are just skipping it for now.
         logging.error(
@@ -2344,24 +2424,12 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # No cached value, we calculate it from the previous state.
         previous_state = self.at_scattered_light
 
-        # Integrating the observation via time.
-        integrated_data, integrated_uncertainty = (
-            lezargus.library.math.multiply(
-                multiplier=previous_state.data,
-                multiplicand=self.exposure_time,
-                multiplier_uncertainty=previous_state.uncertainty,
-                multiplicand_uncertainty=0,
-            )
-        )
-        # Units.
-        integrated_unit = previous_state.data_unit * astropy.units.Unit("s")
-
         # We apply photon poisson statstics on the expected value: integrrated
         # flux values.
-        poisson_data = scipy.stats.poisson.rvs(integrated_data)
-        poisson_uncertainty = integrated_uncertainty
+        poisson_data = scipy.stats.poisson.rvs(previous_state.data)
+        poisson_uncertainty = previous_state.uncertainty
         # No change needed.
-        poisson_unit = integrated_unit
+        poisson_unit = previous_state.data_unit
 
         # Rebuilding the image from the new data.
         current_state = copy.deepcopy(previous_state)

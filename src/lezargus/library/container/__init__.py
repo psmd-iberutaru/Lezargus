@@ -32,6 +32,12 @@ from lezargus.library.container.photometry import PhotometricVegaFilter
 
 # isort: split
 
+# Etcetera classes. There are quite specific and more minor than the
+# aforementioned minor classes.
+from lezargus.library.container.failure import LezargusFailure
+
+# isort: split
+
 # Extra and utility functions which operate on containers. Though user facing,
 # it is more likely the user would not directly use these functions.
 from lezargus.library.container import functionality

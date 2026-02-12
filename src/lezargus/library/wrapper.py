@@ -158,7 +158,7 @@ def wavelength_overlap_fraction(
     # First off, if the contain array is larger than the base array, by
     # default, it covers the base array, but, this sort of comparison does not
     # make much sense so we warn the user.
-    if contain_min < base_min and base_max < contain_max:
+    if (contain_min < base_min) and (base_max < contain_max):
         fraction = 1
         logging.warning(
             warning_type=logging.InputWarning,
@@ -169,7 +169,7 @@ def wavelength_overlap_fraction(
             ),
         )
     # Second, we check if the contain array is fully within the base array.
-    elif base_min <= contain_min and contain_max <= base_max:
+    elif (base_min <= contain_min) and (contain_max <= base_max):
         fraction = 1
     # Third, we check if the contain array is outside of the array on the
     # lower section. And, we check if the contain array is outside of the

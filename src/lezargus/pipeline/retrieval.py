@@ -55,21 +55,34 @@ class SpectreRetrieval:
     data image itself will also contribute to the determination of the
     wavelength solution."""
 
-    slice_corners: hint.Table
+    slice_corners: hint.Table | None = None
     """Corner coordinates of each of the slices; as arranged in a table. The
     corners are defined as an (x, y) pair based on the labeled slice and the
-    location of the corner per the table."""
+    location of the corner per the table. If None, it likely has not been
+    created yet from the flat field."""
 
     channel: hint.Literal["visible", "nearir", "midir"]  # noqa: F821, UP037
     """The specific channel of the three channels of SPECTRE which the image
     is in. The channel is needed to define the initial conditions for
     finding the location of the slices."""
 
+    _visible_slice_corner_filename: str = "VisDummy"
+    """The default filename for the SPECTRE visible channel corners file.
+    This is often read by the file-based initial slice corners function."""
+
+    _nearir_slice_corner_filename: str = "NearDummy"
+    """The default filename for the SPECTRE near-infrared channel corners file.
+    This is often read by the file-based initial slice corners function."""
+
+    _midir_slice_corner_filename: str = "MidDummy"
+    """The default filename for the SPECTRE mid-infrared channel corners file.
+    This is often read by the file-based initial slice corners function."""
+
     def __init__(
         self: SpectreRetrieval,
-        flat_image: hint.LezargusImage,
-        arc_image: hint.LezargusImage,
         channel: str,
+        flat_image: hint.LezargusImage | None = None,
+        arc_image: hint.LezargusImage | None = None,
         image: hint.LezargusImage | None = None,
     ) -> None:
         """Initialize the SPECTRE retrieval class.
@@ -115,8 +128,10 @@ class SpectreRetrieval:
 
         # Adding the flats and arc images. It is easy to just use the
         # built-in replacement functions here as the handle everything we need.
-        self.replace_flat_image(new_flat_image=flat_image)
-        self.replace_arc_image(new_arc_image=arc_image)
+        if flat_image is not None:
+            self.replace_flat_image(new_flat_image=flat_image)
+        if arc_image is not None:
+            self.replace_arc_image(new_arc_image=arc_image)
 
         # If provided, we can also store the data image.
         if image is not None:
@@ -185,7 +200,7 @@ class SpectreRetrieval:
 
     def _calculate_initial_slice_corners_simulation(
         self: hint.Self,
-    ) -> hint.Table | None:
+    ) -> hint.Table | hint.LezargusFailure:
         """Derive the slice corners from the SPECTRE simulation defaults.
 
         One option to derive the slice corners is to use the simulation to
@@ -199,10 +214,10 @@ class SpectreRetrieval:
 
         Returns
         -------
-        initial_slice_corners : Table | None
+        initial_slice_corners : Table | LezargusFailure
             The initial slice corners as derived from the SPECTRE simulation
-            slice pattern. If None, then the calculation of the initial
-            corners failed.
+            slice pattern. If LezargusFailure, then the calculation of the
+            initial corners failed.
 
         """
         # Number of slices...
@@ -312,8 +327,8 @@ class SpectreRetrieval:
 
     def _calculate_initial_slice_corners_file(
         self: hint.Self,
-        filename: str,
-    ) -> hint.Table | None:
+        filename: str | None = None,
+    ) -> hint.Table | hint.LezargusFailure:
         """Derive the slice corners from a file containing the coordinates.
 
         If there exists already a file table with the corners laid out,
@@ -321,17 +336,41 @@ class SpectreRetrieval:
 
         Parameters
         ----------
-        filename : str
+        filename : str, default = None
             The filename of the file which has the table which we will read in
-            for the slice corners.
+            for the slice corners. If None, we use a default slice corners
+            filename which comes this package.
 
         Returns
         -------
-        initial_slice_corners : Table | None
+        initial_slice_corners : Table | LezargusFailure
             The initial slice corners as derived from reading the file. If
-            None, then the calculation of the initial corners failed.
+            LezargusFailure, then the calculation of the initial corners
+            failed.
 
         """
+        # We need to see if the filename is to be the default one or not.
+        if filename is None:
+            # The default is wanted. The default filename will change with
+            # the channel.
+            if self.channel == "visible":
+                filename = self._visible_slice_corner_filename
+            elif self.channel == "nearir":
+                filename = self._nearir_slice_corner_filename
+            elif self.channel == "midir":
+                filename = self._midir_slice_corner_filename
+            else:
+                # Wrong channel?
+                logging.error(
+                    error_type=logging.InputError,
+                    message=(
+                        f"Channel {self.channel} is not one of the supported"
+                        " channels."
+                    ),
+                )
+                # No valid channel.
+                return lezargus.library.container.LezargusFailure()
+
         # We need to make sure the file actually exists.
         if not os.path.exists(filename):
             logging.error(
@@ -357,7 +396,7 @@ class SpectreRetrieval:
                     f" {error!s}"
                 ),
             )
-            return None
+            return lezargus.library.container.LezargusFailure()
 
         # Number of slices...
         n_slices = lezargus.data.CONST_SPECTRE_SLICES
@@ -438,8 +477,9 @@ class SpectreRetrieval:
     def _calculate_initial_slice_corners_flat(
         self: hint.Self,
         flat_array: hint.NDArray,
+        full_search: bool = False,
         use_harris: bool = False,
-    ) -> hint.Table | None:
+    ) -> hint.Table | hint.LezargusFailure:
         """Derive the slice corners from a flat field image.
 
         This method determines the slice corners via corner detection of the
@@ -452,99 +492,190 @@ class SpectreRetrieval:
         flat_array : NDArray
             The array containing the flat field image data. The initial corners
             are determined from this array.
+        full_search : bool, default = False
+            If True, we attempt to find the slice corners using the full array
+            itself as opposed to refining based on a file or the simulation.
+            This may be needed if the file or simulation is horribly out of
+            date.
         use_harris : bool, default = False
             Argument passed to the corner detection algorithm. If True, we use
             the Harris corner detection method as opposed to the default
             Shi-Tomasi method.
+            This flag is ignored if `full_search` is False.
 
         Returns
         -------
-        initial_slice_corners : Table
+        initial_slice_corners : Table | LezargusFailure
             The initial slice corners as derived from reading the file. If
-            None, then the calculation of the initial corners failed.
+            LezargusFailure, then the calculation of the initial corners
+            failed.
 
         """
-        # If needed, thresholding of the array should be done here.
-        threshold_array = flat_array
-
-        # Now, we determine the corners.
-        n_slices = lezargus.data.CONST_SPECTRE_SLICES
-        n_corners = n_slices * 4
-        # Quality level and minimum distance is mostly just heuristic, and
-        # are just dummy levels. We need to change the data type of the arrays.
-        threshold_array_float32 = np.asarray(threshold_array, dtype=np.float32)
-        raw_corners = lezargus.library.transform.corner_detection(
-            array=threshold_array_float32,
-            max_corners=n_corners,
-            quality_level=0.001,
-            minimum_distance=3,
-            use_harris=use_harris,
+        # The corners found in this module are unordered so we use the file
+        # or simulation corners to help us determine which corners are which.
+        # We attempt to the file first.
+        failure_class = lezargus.library.container.LezargusFailure
+        file_corners = self.__get_labeled_corner_table(method="file")
+        simulation_corners = self.__get_labeled_corner_table(
+            method="simulation",
         )
-        # It is probably easier to have it as separate values.
-        raw_corner_x, raw_corner_y = np.transpose(raw_corners)
-
-        # The corners are unordered so we use the table or simulation corners
-        # to help us determine which corners are which. We attempt to the
-        # table first.
-        labeled_corners = None
-        table_filename = "Dummy"
-        labeled_corners = self._calculate_initial_slice_corners_file(
-                filename=table_filename,
-        )
-        # If there is no labeled corners, that means something went wrong with
-        # determining the labels from the file, and we go to a backup method.
-        if labeled_corners is None:
-            # We are using the simulation as a backup.
-            logging.warning(
-                warning_type=logging.AlgorithmWarning,
-                message=(
-                    "Using the labeled corner table from simulation as a"
-                    " backup."
-                ),
-            )
-            labeled_corners = self._calculate_initial_slice_corners_simulation()
-
-
-        # If there still is no labeled corner table...we just cannot get a 
-        # labeled table. There is no possible way to get the corner table.
-        if labeled_corners is None:
+        if not isinstance(file_corners, failure_class):
+            # Using file corners.
+            labeled_corner_table = file_corners
+        elif not isinstance(simulation_corners, failure_class):
+            # Using simulation corners.
+            labeled_corner_table = simulation_corners
+        else:
+            # We cannot actually determine any search without something to
+            # base off of.
             logging.error(
                 error_type=logging.AlgorithmError,
                 message=(
-                    "No labeled corner table, not found via file or"
-                    " simulation. Corner table from flat cannot be made."
+                    "Failed to find labeled corners from file or simulation;"
+                    " flat field corners cannot be found."
                 ),
             )
-            return None
+            return failure_class()
 
-        # Assuming the closest found corner to the simulation corner is the
-        # correct way to go. We go through all corners and slices.
-        corner_names = ["top_left", "top_right", "bottom_left", "bottom_right"]
-        # We find the point and just repopulate the labeled corner table.
-        initial_slice_corners = copy.deepcopy(labeled_corners)
-        for slicedex in range(n_slices):
-            # The slices are 1-based indexed.
-            slice_index = slicedex + 1
-            for cornerdex in corner_names:
-                # The expected location for this specific corner.
-                labeled_rowdex = labeled_corners[
-                    labeled_corners["slice"] == slice_index
-                ]
-                expect_x = np.array(labeled_rowdex[f"{cornerdex}_x"])
-                expect_y = np.array(labeled_rowdex[f"{cornerdex}_y"])
-                # The (Euclidean) separation.
-                separation = (raw_corner_x - expect_x) ** 2 + (
-                    raw_corner_y - expect_y
-                ) ** 2
-                # And whichever point is the minimum separation is likely the
-                # matching point.
-                min_sep_index = np.nanargmin(separation)
-                matched_x = raw_corner_x[min_sep_index]
-                matched_y = raw_corner_y[min_sep_index]
+        # A simple percentile cut should be okay if the flat is bright enough
+        # and covers the space it usually does properly.
+        # We do a first pass to determine approximately the area coverage of
+        # the flat to the background.
+        rough_background_level = np.nanpercentile(flat_array, 100 - 68.27)
+        rough_minimum = 50
+        first_pass_partition = rough_background_level + rough_minimum
+        first_pass_mask = flat_array <= first_pass_partition
+        first_pass_area_percent = np.sum(first_pass_mask) / flat_array.size
+        # The second pass uses the area and its mask to determine a good
+        # threshold. We add to it a "flat jump" which is a gauge of the
+        # height between the background and the slice signal.
+        second_pass_partition = np.nanpercentile(
+            flat_array,
+            first_pass_area_percent,
+        )
+        second_pass_flat_jump = np.nanpercentile(
+            flat_array[~first_pass_mask],
+            10,
+        )
+        threshold_partition = second_pass_partition + second_pass_flat_jump / 2
 
-                # Applying the values to the current table.
-                initial_slice_corners[f"{cornerdex}_x"][slicedex] = matched_x
-                initial_slice_corners[f"{cornerdex}_y"][slicedex] = matched_y
+        # Thresholding the actual data. Truncation thresholding matches what
+        # we are trying to accomplish here to ensure the flat is uniform while
+        # keeping the edges.
+        two_sigma = 95
+        threshold_fill_value = np.nanpercentile(flat_array, two_sigma)
+        threshold_array = np.where(
+            threshold_partition <= flat_array,
+            threshold_fill_value,
+            flat_array,
+        )
+
+        # We find that rescaling the array is helpful for determining the
+        # corners. It is especially needed if a full flat field search is to
+        # done due to data type restrictions on OpenCV functions. The maximum
+        # and minimums are mostly just sane values here.
+        float32_min = max(0.0, np.nanmin(threshold_array))
+        float32_max = min(10000000000.0, np.nanmax(threshold_array))
+        threshold_array_float32 = lezargus.library.sanitize.rescale_values(
+            threshold_array,
+            out_min=float32_min,
+            out_max=float32_max,
+        )
+        threshold_array_float32 = np.asarray(
+            threshold_array_float32,
+            dtype=np.float32,
+        )
+
+        # If we need to do a full search of the array, we compute the corners
+        # using pure corner detection.
+        guess_corners = lezargus.library.container.LezargusFailure
+        if full_search:
+            # The number of corners to find...
+            n_slices = lezargus.data.CONST_SPECTRE_SLICES
+            n_corners = n_slices * 4
+            # Quality level and minimum distance is mostly just heuristic, and
+            # are just dummy levels.
+            raw_corners = lezargus.library.transform.corner_detection(
+                array=threshold_array_float32,
+                max_corners=n_corners,
+                quality_level=0.001,
+                minimum_distance=7,
+                use_harris=use_harris,
+            )
+            # There should be "n_corners"... Else, some corners were missed.
+            if len(raw_corners) < n_corners:
+                logging.error(
+                    error_type=logging.AlgorithmError,
+                    message=(
+                        f"Amount of found corners {len(raw_corners)} less than"
+                        f" expected {n_corners}."
+                    ),
+                )
+            # The corners are unordered so we use the table or simulation
+            # corners to help us determine which corners are which.
+            guess_corners = self._match_points_to_corner_table(
+                point_coordinates=raw_corners,
+                labeled_corner_table=labeled_corner_table,
+            )
+            return guess_corners
+
+        # If a full search is not needed, then perhaps finding the corners
+        # by corner refinement using previously known corners from the
+        # file or the simulation is better.
+        guess_corners = self._calculate_initial_slice_corners_file(
+            filename=None,
+        )
+        if isinstance(
+            guess_corners,
+            lezargus.library.container.LezargusFailure,
+        ):
+            # Attempting the simulation.
+            logging.info(
+                message=(
+                    "Guessing flat field slice corners using file failed,"
+                    " falling back to simulation."
+                ),
+            )
+            guess_corners = self._calculate_initial_slice_corners_simulation()
+        if isinstance(
+            guess_corners,
+            lezargus.library.container.LezargusFailure,
+        ):
+            # Finding the corners using either the file or the simulation
+            # failed. The only thing left to try is a full search.
+            logging.warning(
+                warning_type=logging.AlgorithmWarning,
+                message=(
+                    "Guessing corners using the file or simulation failed;"
+                    " attempting a full search."
+                ),
+            )
+            guess_corners = self._calculate_initial_slice_corners_flat(
+                flat_array=flat_array,
+                full_search=True,
+                use_harris=use_harris,
+            )
+
+        # In either mode, we refine the corners based on the
+        # thresholded flat field, this is appropriate for the initial slice
+        # corners themselves.
+        # Though we cannot do that if the corner guessing failed.
+        if isinstance(
+            guess_corners,
+            lezargus.library.container.LezargusFailure,
+        ):
+            logging.critical(
+                critical_type=logging.AlgorithmError,
+                message=(
+                    "Could not find initial or guess corners from flat field."
+                ),
+            )
+            initial_slice_corners = lezargus.library.container.LezargusFailure()
+        else:
+            initial_slice_corners = self._refine_initial_slice_corners(
+                initial_slice_corners=guess_corners,
+                flat_array=threshold_array_float32,
+            )
 
         # All done.
         return initial_slice_corners
@@ -593,43 +724,15 @@ class SpectreRetrieval:
             )
         )
 
-        # It is easier to have it as separate values for the next step of
-        # labeling.
-        raw_refined_x, raw_refined_y = np.transpose(refined_corner_points)
-
         # The refined points does not have the labeling typical with the
         # corner tables, so we find the refined points and normal corner
         # points correspondence.
-        # Assuming the closest found corner to the simulation corner is the
-        # correct way to go. We go through all corners and slices.
-        n_slices = lezargus.data.CONST_SPECTRE_SLICES
-        corner_names = ["top_left", "top_right", "bottom_left", "bottom_right"]
-        labeled_corners = initial_slice_corners
-        # We find the point and just repopulate the labeled corner table.
-        refined_slice_corners = copy.deepcopy(labeled_corners)
-        for slicedex in range(n_slices):
-            # The slices are 1-based indexed.
-            slice_index = slicedex + 1
-            for cornerdex in corner_names:
-                # The expected location for this specific corner.
-                labeled_rowdex = labeled_corners[
-                    labeled_corners["slice"] == slice_index
-                ]
-                expect_x = np.array(labeled_rowdex[f"{cornerdex}_x"])
-                expect_y = np.array(labeled_rowdex[f"{cornerdex}_y"])
-                # The (Euclidean) separation.
-                separation = (raw_refined_x - expect_x) ** 2 + (
-                    raw_refined_y - expect_y
-                ) ** 2
-                # And whichever point is the minimum separation is likely the
-                # matching point.
-                min_sep_index = np.nanargmin(separation)
-                matched_x = raw_refined_x[min_sep_index]
-                matched_y = raw_refined_y[min_sep_index]
-
-                # Applying the values to the current table.
-                refined_slice_corners[f"{cornerdex}_x"][slicedex] = matched_x
-                refined_slice_corners[f"{cornerdex}_y"][slicedex] = matched_y
+        # The refined points better be close enough that the initial slice
+        # corners are close enough.
+        refined_slice_corners = self._match_points_to_corner_table(
+            point_coordinates=refined_corner_points,
+            labeled_corner_table=initial_slice_corners,
+        )
 
         # All done.
         return refined_slice_corners
@@ -638,7 +741,7 @@ class SpectreRetrieval:
         self: hint.Self,
         flat_image: hint.LezargusImage,
         initial_method: str | None = None,
-    ) -> hint.Table:
+    ) -> hint.Table | hint.LezargusFailure:
         """Recompute the slice corners from an image flat.
 
         Parameters
@@ -671,9 +774,13 @@ class SpectreRetrieval:
 
         # We need to find the initial corners (we refine them later). We
         # go through the methods by accuracy.
-        initial_corners = None
+        failure_class = lezargus.library.container.LezargusFailure
+        initial_corners = failure_class()
         # Via the flat field itself...
-        if initial_corners is None or initial_method == "flat":
+        if (
+            isinstance(initial_corners, failure_class)
+            or initial_method == "flat"
+        ):
             try:
                 initial_corners = self._calculate_initial_slice_corners_flat(
                     flat_array=flat_data,
@@ -686,18 +793,21 @@ class SpectreRetrieval:
                         f" with: {type(error).__name__} : {error!s}"
                     ),
                 )
-                initial_corners = None
+                initial_corners = failure_class()
             # We may need to move on to the next method.
-            if initial_corners is None:
+            if isinstance(initial_corners, failure_class):
                 logging.info(
                     message=(
                         "Flat field failed, moving on to next method of corner"
                         " retrieval: a stored corner file."
                     ),
                 )
-                
+
         # Via a stored corner file.
-        if initial_corners is None or initial_method == "file":
+        if (
+            isinstance(initial_corners, failure_class)
+            or initial_method == "file"
+        ):
             try:
                 corner_filename = "Dummy"
                 initial_corners = self._calculate_initial_slice_corners_file(
@@ -711,9 +821,9 @@ class SpectreRetrieval:
                         f" with: {type(error).__name__} : {error!s}"
                     ),
                 )
-                initial_corners = None
+                initial_corners = failure_class()
             # We may need to move on to the next method.
-            if initial_corners is None:
+            if isinstance(initial_corners, failure_class):
                 logging.info(
                     message=(
                         "Corner file failed, moving on to next method of corner"
@@ -722,7 +832,10 @@ class SpectreRetrieval:
                 )
 
         # Via the simulation itself.
-        if initial_corners is None or initial_method == "simulation":
+        if (
+            isinstance(initial_corners, failure_class)
+            or initial_method == "simulation"
+        ):
             try:
                 initial_corners = (
                     self._calculate_initial_slice_corners_simulation()
@@ -735,9 +848,9 @@ class SpectreRetrieval:
                         f" with: {type(error).__name__} : {error!s}"
                     ),
                 )
-                initial_corners = None
+                initial_corners = failure_class()
             # We may need to move on to the next method.
-            if initial_corners is None:
+            if isinstance(initial_corners, failure_class):
                 logging.info(
                     message=(
                         "The simulation failed, moving on to next method of"
@@ -746,7 +859,7 @@ class SpectreRetrieval:
                 )
 
         # If the corners were still not found, something is wrong.
-        if initial_corners is None:
+        if isinstance(initial_corners, failure_class):
             # The corner was not found, not sure why.
             logging.critical(
                 critical_type=logging.AlgorithmError,
@@ -756,6 +869,7 @@ class SpectreRetrieval:
                     " slice corners are."
                 ),
             )
+            return failure_class()
 
         # Otherwise, we need to refine where the slice corners are as the
         # provided methods above mostly only give a rough estimate as to where
@@ -774,7 +888,7 @@ class SpectreRetrieval:
     def _corner_table_to_points(
         self: hint.Self,
         corner_table: hint.Table,
-    ) -> list(tuple):
+    ) -> list[tuple]:
         """Convert a table of slice corners to just the corner points.
 
         The table of slice corners has some labeling information which allows
@@ -813,12 +927,273 @@ class SpectreRetrieval:
         point_coordinates = list(zip(x_coordinate, y_coordinate, strict=True))
         return point_coordinates
 
+    def _match_points_to_corner_table(
+        self: hint.Self,
+        point_coordinates: list,
+        labeled_corner_table: hint.Table | None = None,
+    ) -> hint.Table | hint.LezargusFailure:
+        """Match coordinate points to a labeled slice corner table.
+
+        This function takes a set of coordinate points and labels them using
+        the slice corner table. The slice corner table here is the labeled
+        form of the slice corners. A labeled corner table can be provided, or
+        it can be derived from the file or simulation.
+
+        This algorithm is simple. We assume that the closest labeled point any
+        given point coordinate is to, is that labeled point.
+
+        Parameters
+        ----------
+        point_coordinates : list
+            A list of the coordinate points, given as an (x, y) tuple pair
+            which we will be pairing to the labeled corner table.
+        labeled_corner_table : Table, default = None
+            The labeled corner table which provides approximations to the
+            proper labels of the corners. If None, we derive the labeled
+            corner table from a corner file or the simulation, in that order.
+
+        Returns
+        -------
+        slice_corner_table : Table
+            The proper labeled slice corner table derived from matching the
+            determined points to the initial labeled corner table.
+
+        """
+        # It is better to work with arrays.
+        point_coordinates = np.array(point_coordinates)
+
+        # We need to see if the labeled corner table is needed to be obtained.
+        # If not, we can attempt to find it from a file or a simulation.
+        if labeled_corner_table is None:
+            template_corner_table = self.__get_labeled_corner_table(method=None)
+        else:
+            template_corner_table = labeled_corner_table
+
+        # We need a template corner table to actually figure out how to
+        # map the raw coordinate points to the labeled points of the
+        # slice corner table.
+        failure_class = lezargus.library.container.LezargusFailure
+        if isinstance(template_corner_table, failure_class):
+            logging.critical(
+                critical_type=logging.AlgorithmError,
+                message=(
+                    "No labeled table could be found to use as a template for"
+                    " coordinate point matching."
+                ),
+            )
+            return failure_class()
+
+        # We start with the template corner table. The table, as formatted,
+        # is not really useful for what we are trying to do here. So we
+        # reform it to a better method, a dictionary.
+        n_slices = lezargus.data.CONST_SPECTRE_SLICES
+        corner_names = ["top_left", "top_right", "bottom_left", "bottom_right"]
+        template_corner_dict = {}
+        for index in range(n_slices):
+            # The slices are 1-indexed.
+            slice_index = index + 1
+            # The information for this current slice from the template table.
+            template_slice_row = template_corner_table[
+                template_corner_table["slice"] == slice_index
+            ]
+            # Breaking it down for every corner as well.
+            for cornerdex in corner_names:
+                temp_x = template_slice_row[f"{cornerdex}_x"]
+                temp_y = template_slice_row[f"{cornerdex}_y"]
+                # Adding the entry...
+                temp_key = f"{slice_index}+++{cornerdex}"
+                temp_data = [temp_x, temp_y]
+                template_corner_dict[temp_key] = temp_data
+
+        # The output table. It is easy to replace the values in-place as
+        # opposed to rebuilding the table. But, we do not want any values
+        # from the template bleeding over.
+        slice_corner_table = copy.deepcopy(template_corner_table)
+        for rowindex in range(len(slice_corner_table)):
+            for cornerdex in corner_names:
+                slice_corner_table[f"{cornerdex}_x"][rowindex] = np.nan
+                slice_corner_table[f"{cornerdex}_y"][rowindex] = np.nan
+
+        # Now, for each point provided, we need to find the closest point.
+        # We use a variation of Euclidian seperation, allowing for
+        # more vertical displacement due to the dispersion direction.
+        x_cost = 7
+        x_max_travel = 5
+        y_cost = 2
+        y_max_travel = +np.inf
+        logging.info(
+            message=(
+                f"Matching point to corners, using x-cost {x_cost} and y-cost"
+                f" {y_cost}."
+            ),
+        )
+        for coorddex in point_coordinates:
+            # Determine the x and y points.
+            point_x = float(coorddex[0])
+            point_y = float(coorddex[1])
+
+            # Now, we need to search the entire template for the point of
+            # least seperation.
+            point_keys = []
+            seperation = []
+            for keydex, itemdex in template_corner_dict.items():
+                template_x = float(itemdex[0])
+                template_y = float(itemdex[1])
+                # Computing the cost-weighted distance.
+                x_travel = np.abs(point_x - template_x)
+                y_travel = np.abs(point_y - template_y)
+                # If the travel is too high, we consider it as forbidden and
+                # so just using a very high cost.
+                x_travel = x_travel if x_travel <= x_max_travel else +np.inf
+                y_travel = y_travel if y_travel <= y_max_travel else +np.inf
+                # Computing the cost distance.
+                cost_distance = np.sqrt(
+                    x_cost * x_travel**2 + y_cost * y_travel**2,
+                )
+                point_keys.append(keydex)
+                seperation.append(cost_distance)
+
+            # From there, we find the minimum speration, and the appropriate
+            # label for it.
+            closest_index = np.nanargmin(seperation)
+            closest_label = point_keys[closest_index]
+            # From the key, deriving where this point actually goes.
+            closest_slice, closest_corner = closest_label.split("+++")
+            closest_slice = int(closest_slice)
+            slice_corner_table[f"{closest_corner}_x"][
+                closest_slice - 1
+            ] = point_x
+            slice_corner_table[f"{closest_corner}_y"][
+                closest_slice - 1
+            ] = point_y
+
+        # All done.
+        return slice_corner_table
+
+    def __get_labeled_corner_table(
+        self: hint.Self,
+        method: str | None = None,
+    ) -> hint.Table | hint.LezargusFailure:
+        """Get the most accurate labeled corner table.
+
+        The labeled corner table can from from four different sources.
+        The first is the current corner table itself, else from the
+        flat field, else from a file, else from the simulation; in that
+        order. However, special considerations need to be taken into account
+        as some of the methods described above themselves require the
+        labeled corner table.
+
+        This function serves as a catch all to ensure the correct labeled
+        corner table is provided.
+
+        Parameters
+        ----------
+        method : str, default = None
+            The method to use to get the labeled corner table. If not provided,
+            we try all of the methods in order.
+
+        Returns
+        -------
+        labeled_corner_table : Table
+            The labeled corner table, found out of the best possible ways,
+            while taking the considerations into account. If we fail, we inform
+            with both an error and the failure class.
+
+        """
+        # Case...
+        method = str(method).casefold() if method is not None else None
+
+        # We need to check at times if finding the labeled corner table
+        # failed in specific ways.
+        failure_class = lezargus.library.container.LezargusFailure
+        labeled_corner_table = failure_class()
+        final_labeled_corner_table = None
+
+        # First, if the labeled corner table already exists from this own
+        # class.
+        stored_corners = self.slice_corners
+        if not isinstance(
+            stored_corners,
+            (type(None) | failure_class),
+        ) and isinstance(labeled_corner_table, failure_class):
+            # The current best.
+            labeled_corner_table = stored_corners
+        # And if the method is set...
+        if method == "stored":
+            final_labeled_corner_table = labeled_corner_table
+
+        # Second, if the labeled corner table can be found via a flat field.
+        # The flat field however depends on this method for its own
+        # corner table.
+        if (method is None or method == "flat") and isinstance(
+            labeled_corner_table,
+            failure_class,
+        ):
+            flat_corners = self._calculate_initial_slice_corners_flat(
+                flat_array=self.flat_image,
+                full_search=True,
+                use_harris=False,
+            )
+        else:
+            # Automatically fail this method.
+            flat_corners = failure_class()
+        if not isinstance(
+            flat_corners,
+            (type(None) | failure_class),
+        ) and isinstance(labeled_corner_table, failure_class):
+            # The current best.
+            labeled_corner_table = flat_corners
+        # And if the method is set...
+        if method == "flat":
+            final_labeled_corner_table = labeled_corner_table
+
+        # Third, if the labeled corner table can be found via a corner file.
+        # We assume the class can handle the filename best.
+        file_corners = self._calculate_initial_slice_corners_file(filename=None)
+        if not isinstance(file_corners, failure_class) and isinstance(
+            labeled_corner_table,
+            failure_class,
+        ):
+            # The current best.
+            labeled_corner_table = file_corners
+        # And if the method is set...
+        if method == "file":
+            final_labeled_corner_table = labeled_corner_table
+
+        # Fourth and finally, if the labeled corner table can be found via
+        # the simulation.
+        simulation_corners = self._calculate_initial_slice_corners_simulation()
+        if not isinstance(simulation_corners, failure_class) and isinstance(
+            labeled_corner_table,
+            failure_class,
+        ):
+            # The current best.
+            labeled_corner_table = simulation_corners
+        # And if the method is set...
+        if method == "simulation":
+            final_labeled_corner_table = labeled_corner_table
+
+        # If we get here, the current labeled corner table is the final labeled
+        # corner table.
+        if final_labeled_corner_table is None:
+            final_labeled_corner_table = labeled_corner_table
+
+        # We need to make sure to warn if we are giving a bad table.
+        if isinstance(final_labeled_corner_table, failure_class):
+            logging.error(
+                error_type=logging.AlgorithmError,
+                message="Failed to get a good labeled corner table.",
+            )
+
+        return final_labeled_corner_table
+
     def retrieve_slice(
         self: hint.Self,
         image: hint.LezargusImage,
-        slice_index: int,
+        slice_: int,
         buffer_width: int = 0,
         rebin: bool = True,
+        rotate: bool = True,
         force_width: int | None = None,
     ) -> hint.LezargusImage:
         """Fetch/retrieve the slice based on the slice corners.
@@ -833,7 +1208,7 @@ class SpectreRetrieval:
         image : LezargusImage
             The image which we are using to fetching the slice data from.
             Typically a data image, it can be a flat or an arc lamp image.
-        slice_index : int
+        slice_ : int
             The slice index which we are fetching from. This is a 1-indexed
             slice index number.
         buffer_width : int, default = 0
@@ -842,6 +1217,9 @@ class SpectreRetrieval:
         rebin : bool, default = True
             If True, we rebin each wavelength slice to take into account
             fractional pixel light and/or the forced width.
+        rotate : bool, default = True
+            If True, we rotate the slice to take out any inherent roll or
+            rotation the slice may have.
         force_width : int, default = None
             The width of the slice after trimming the buffer is determined
             automatically but may be forced to a specific width using this
@@ -867,12 +1245,24 @@ class SpectreRetrieval:
             )
 
         # A buffer is highly suggested to avoid any data loss.
-        if buffer_width <= 1:
+        too_small_buffer = 1
+        small_buffer = 3
+        if buffer_width <= too_small_buffer:
+            logging.error(
+                error_type=logging.AlgorithmError,
+                message=(
+                    f"The buffer {buffer_width} is very small (i.e. <="
+                    f" {too_small_buffer}) and may cause failure of some"
+                    " retrival methods."
+                ),
+            )
+        if buffer_width <= small_buffer:
             logging.warning(
                 warning_type=logging.AccuracyWarning,
                 message=(
-                    f"The buffer {buffer_width} is small (i.e. <= 1) and may"
-                    " result in edge artifacts in the retrieved slice."
+                    f"The buffer {buffer_width} is small (i.e. <="
+                    f" {small_buffer}) and may result in edge artifacts in the"
+                    " retrieved slice."
                 ),
             )
 
@@ -893,12 +1283,12 @@ class SpectreRetrieval:
         # with. We also need the flat field itself.
         rough_slice_image = self.rough_retrieve_slice(
             image=image,
-            slice_index=slice_index,
+            slice_=slice_,
             buffer_width=buffer_width,
         )
         rough_flat_image = self.rough_retrieve_slice(
             image=self.flat_image,
-            slice_index=slice_index,
+            slice_=slice_,
             buffer_width=buffer_width,
         )
 
@@ -907,23 +1297,27 @@ class SpectreRetrieval:
         rough_slice_array = rough_slice_image.data
         rough_flat_array = rough_flat_image.data
 
-        # The slice may be rotated, we attempt to find this rotation.
-        slice_rotation = self.find_slice_flat_rotation(
-            flat_slice=rough_flat_image,
-        )
-        # And try and fix this rotation.
-        rotated_slice_array = lezargus.library.transform.rotate_2d(
-            array=rough_slice_array,
-            rotation=-slice_rotation,
-            order=1,
-            mode="nearest",
-        )
-        rotated_flat_array = lezargus.library.transform.rotate_2d(
-            array=rough_flat_array,
-            rotation=-slice_rotation,
-            order=1,
-            mode="nearest",
-        )
+        if rotate:
+            slice_rotation = self.find_slice_flat_rotation(
+                flat_slice=rough_flat_image,
+            )
+            # And try and fix this rotation.
+            rotated_slice_array = lezargus.library.transform.rotate_2d(
+                array=rough_slice_array,
+                rotation=-slice_rotation,
+                order=1,
+                mode="nearest",
+            )
+            rotated_flat_array = lezargus.library.transform.rotate_2d(
+                array=rough_flat_array,
+                rotation=-slice_rotation,
+                order=1,
+                mode="nearest",
+            )
+        else:
+            # No rotation fixing.
+            rotated_slice_array = rough_slice_array
+            rotated_flat_array = rough_flat_array
 
         # Next, we trim out any of the buffer.
         trimmed_slice_array = self._trim_slice_buffer(
@@ -953,7 +1347,7 @@ class SpectreRetrieval:
     def rough_retrieve_slice(
         self: hint.Self,
         image: hint.LezargusImage,
-        slice_index: int,
+        slice_: int,
         buffer_width: int = 0,
     ) -> hint.LezargusImage:
         """Fetch/retrieve the rough slice based on the slice corners.
@@ -971,7 +1365,7 @@ class SpectreRetrieval:
         image : LezargusImage
             The image which we are using to fetching the slice data from.
             Typically a data image, it can be a flat or an arc lamp image.
-        slice_index : int
+        slice_ : int
             The slice index which we are fetching from. This is a 1-indexed
             slice index number.
         buffer_width : int, default = 0
@@ -998,13 +1392,13 @@ class SpectreRetrieval:
         # Otherwise, we just need to search the table for the slice corner
         # coordinates.
         slice_corner_row = self.slice_corners[
-            self.slice_corners["slice"] == slice_index
+            self.slice_corners["slice"] == slice_
         ]
         if len(slice_corner_row) == 0:
             logging.error(
                 error_type=logging.InputError,
                 message=(
-                    f"Invalid slice index {slice_index}, no matching entry in"
+                    f"Invalid slice index {slice_}, no matching entry in"
                     " slice corner table."
                 ),
             )
@@ -1214,7 +1608,7 @@ class SpectreRetrieval:
         # starting point; however, it can be a little high for the edge
         # pixels so we adjust it a little.
         correction_factor = 1 / 2
-        raw_threshold = self.__isodata_threshold_algorithm(array=flat_row)
+        raw_threshold = self._isodata_threshold_algorithm(array=flat_row)
         threshold = raw_threshold * correction_factor
 
         # The finding the pixels which are to be included using the threshold.
@@ -1293,7 +1687,7 @@ class SpectreRetrieval:
         return slice_row
 
     @staticmethod
-    def __isodata_threshold_algorithm(array: hint.NDArray) -> float:
+    def _isodata_threshold_algorithm(array: hint.NDArray) -> float:
         """Compute the ISODATA threshold value.
 
         This is a wrapper function for the ISODATA algorithm for determining
@@ -1303,7 +1697,6 @@ class SpectreRetrieval:
 
         For more information on the ISODATA algorithm, see:
         - https://doi.org/10.1109/TSMC.1980.4308400
-        -
 
         Parameters
         ----------
@@ -1454,7 +1847,7 @@ class SpectreRetrieval:
         -------
         rotation : float
             The rotation of the slice image, in radians. This value is
-            typically small. 
+            typically small.
 
         """
         # The axis conventions of OpenCV/images and Numpy arrays require the
@@ -1593,7 +1986,7 @@ class SpectreRetrieval:
             logging.error(
                 error_type=logging.AlgorithmError,
                 message=(
-                    f"Initial slice rotation output from OpenCV should be"
+                    "Initial slice rotation output from OpenCV should be"
                     f" negative due to the range: {rotation_degree}"
                 ),
             )
@@ -1624,3 +2017,85 @@ class SpectreRetrieval:
 
         # All done.
         return rotation
+
+    def _rough_assign_wavelength_calibration(
+        self: hint.Self,
+        raw_arclamp: hint.NDArray,
+        wavelength: hint.NDArray,
+        wave_arclamp: hint.NDArray,
+        pixel_shift_correct: int | None = None,
+    ) -> hint.NDArray:
+        """Assign a wavelength calibration to an arc lamp array spectrum.
+
+        Note, this function assumes arc lamp spectrums, not images of the
+        arc lines themselves. This function simply assigns the wavelengths
+        to a raw arc lamp spectrum based on an already known calibrated
+        arc lamp, and the pixel shift between the two.
+
+        Parameters
+        ----------
+        raw_arclamp : NDArray
+            The raw arc lamp spectrum we are assigning a wavelength too.
+        wavelength : NDArray
+            The wavelength array of the calibriated arc lamp spectrum
+            given as `wave_arclamp`.
+        wave_arclamp : NDArray
+            The calibriated arc lamp spectrum data, parallel with the
+            provided wavelength array. This and the `raw_arclamp` should be
+            shifted copies of each other.
+        pixel_shift_correct : int, defualt = None
+            The pixel shift correction value. This value is the amount the
+            raw arc lamp needs to be shifted to line up with the calibrated
+            arc lamp. That is typically found via cross correlation, and
+            this value is corrective (i.e. negative) of that. If None, we
+            attempt to calculate this value for you.
+
+        Returns
+        -------
+        assigned_wavelength : NDArray
+            The wavelength array assigned to the raw arc lamp based on the
+            shift. This wavelength array is parallel with the raw arc lamp
+            but there may be some extrapolation on the edges.
+
+        """
+        # The wavelength and the arc data should parallel each other.
+        if wavelength.shape != wave_arclamp.shape:
+            logging.error(
+                error_type=logging.InputError,
+                message=(
+                    "Both the wavelength and the arc lamp array must be"
+                    f" parallel, wrong shapes: {wavelength.shape} and"
+                    f" {wave_arclamp.shape}."
+                ),
+            )
+
+        # Technically, there exists as well a "pixel" wavelength for the raw
+        # data and the arc data. It are these which are more used to correct
+        # for the shift.
+        raw_pixel_domain = np.arange(raw_arclamp.size, dtype=float)
+        arc_pixel_domain = np.arange(wave_arclamp.size, dtype=float)
+
+        if pixel_shift_correct is None:
+            # We attempt to calculate the corrective pixel shift ourselves.
+            pixel_shift = (
+                lezargus.library.convolution.cross_correlation_pixel_shift(
+                    base_array=wave_arclamp,
+                    moving_array=raw_arclamp,
+                )
+            )
+            pixel_shift_correct = -pixel_shift
+
+        # With the shift, we can shift the arc lamp spectra pixel domain
+        # to match with the raw pixel domain.
+        shifted_arc_pixel_domain = arc_pixel_domain + pixel_shift_correct
+
+        # Linear interpolation is best when finding the assigned wavelengths
+        # due to its stability.
+        wavelength_function = lezargus.library.interpolate.Linear1DInterpolate(
+            x=shifted_arc_pixel_domain,
+            v=wavelength,
+            extrapolate=True,
+        )
+        assigned_wavelength = wavelength_function(raw_pixel_domain)
+        # All done.
+        return assigned_wavelength

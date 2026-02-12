@@ -19,6 +19,7 @@ if TYPE_CHECKING:
 import astropy.convolution
 import astropy.modeling
 import numpy as np
+import scipy.signal
 
 from lezargus.library import logging
 
@@ -829,3 +830,61 @@ def kernel_2d_gaussian(
     )
     gaussian_kernel = gaussian2d(xx, yy)
     return gaussian_kernel
+
+
+def cross_correlation_pixel_shift(
+    base_array: hint.NDArray,
+    moving_array: hint.NDArray,
+) -> int:
+    """Find the pixel shift between two arrays using cross-correlation.
+
+    We find the pixel shift of the moving array relative to some base array.
+    This function assumes the arrays have similar signal and is just
+    offset from each other.
+
+    Parameters
+    ----------
+    base_array : NDArray
+        The base reference array which we are determining the moving array's
+        shift relative to.
+    moving_array : NDArray
+        The moving array which we are determining its shift relative to the
+        base array.
+
+    Returns
+    -------
+    pixel_shift : int
+        The pixel shift of the moving array relative to the base array.
+
+    """
+    # Normalizing the correlations.
+    norm_base_array = (base_array - np.nanmean(base_array)) / np.nanstd(
+        base_array,
+    )
+    norm_move_array = (moving_array - np.nanmean(moving_array)) / np.nanstd(
+        moving_array,
+    )
+
+    # Compute the correlation lag, which proxies nicely as all possible pixel
+    # shifts.
+    base_size = norm_base_array.size
+    move_size = norm_move_array.size
+    shift_array = scipy.signal.correlation_lags(
+        base_size,
+        move_size,
+        mode="valid",
+    )
+    # And computing the cross-correlation. Using the Numpy version is slower
+    # but is it more accepting of the different inputs. We do not predict
+    # need to use large cross-correlations.
+    cross_correlation = np.correlate(
+        norm_base_array,
+        norm_move_array,
+        mode="valid",
+    )
+
+    # Finding the shift via the cross-correlation. The best overlap is at the
+    # highest correlation.
+    pixel_shift = shift_array[np.nanargmax(cross_correlation)]
+    # All done.
+    return pixel_shift
