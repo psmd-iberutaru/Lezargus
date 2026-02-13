@@ -7,6 +7,10 @@ There are not that many common functions, so a single module is fine.
 # Import required to remove circular dependencies from type checking.
 from __future__ import annotations
 
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from lezargus.library import hint
 # isort: split
 
 import glob
@@ -16,7 +20,7 @@ import lezargus
 from lezargus.library import logging
 
 
-def find_data_filename(basename: str) -> str:
+def find_data_filename(basename: str) -> str | hint.LezargusFailure:
     """Find the full data filename provided its basename and conventions.
 
     We use this function to find the full filename of a data file. By
@@ -32,10 +36,14 @@ def find_data_filename(basename: str) -> str:
 
     Returns
     -------
-    filename : str
-        The full data file filename.
+    filename : str 
+        The full data file filename. If something failed, we return a 
+        failure class.
 
     """
+    # The failure state, just in case.
+    failure_class = lezargus.library.container.LezargusFailure
+
     # Getting all of the files...
     data_glob_pattern = lezargus.library.path.merge_pathname(
         directory=[lezargus.config.INTERNAL_MODULE_DATA_FILE_DIRECTORY, "**"],
@@ -77,12 +85,11 @@ def find_data_filename(basename: str) -> str:
                 " not point to a data file."
             ),
         )
-        filename = "None"
+        filename = failure_class()
     elif len(potential_filenames) == 1:
         # All good.
         found_filename = potential_filenames[0]
-        filename = os.path.abspath(found_filename)
-        return filename
+        filename = str(os.path.abspath(found_filename))
     elif len(potential_filenames) >= too_many_files:
         # Too many files.
         logging.error(
@@ -93,10 +100,10 @@ def find_data_filename(basename: str) -> str:
             critical_type=logging.DevelopmentError,
             message=(
                 f"Internal data file loading failed; basename {basename} "
-                "points to too many files.."
+                "points to too many files."
             ),
         )
-        filename = "Too Many"
+        filename = failure_class()
     else:
         # The code should not reach here.
         logging.critical(
@@ -106,6 +113,6 @@ def find_data_filename(basename: str) -> str:
                 " been caught."
             ),
         )
-        filename = "LogicFlowError"
+        filename = failure_class()
     # All done.
     return filename

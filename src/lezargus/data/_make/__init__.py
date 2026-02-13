@@ -38,6 +38,9 @@ from lezargus.data._make.make_photometric_filters import (
 from lezargus.data._make.make_spectre_calibrations import (
     make_simulation_arclamp_spectrum,
 )
+from lezargus.data._make.make_spectre_calibrations import (
+    make_solution_arclamp_spectrum,
+)
 
 # Standard star spectrum make functions.
 from lezargus.data._make.make_standard_spectra import make_standard_spectrum

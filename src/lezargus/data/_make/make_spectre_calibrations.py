@@ -88,3 +88,69 @@ def make_simulation_arclamp_spectrum(basename: str) -> hint.LezargusSpectrum:
     )
     # All done.
     return arc_lamp_spectrum
+
+
+
+def make_solution_arclamp_spectrum(basename: str) -> hint.LezargusSpectrum:
+    """Create an arc lamp spectrum for the wavelength solution.
+
+    Parameters
+    ----------
+    basename : str
+        The base filename of the data file which we read to obtain the
+        arclamp spectrum or solution..
+
+    Returns
+    -------
+    arclamp_solution_spectrum : LezargusSpectrum
+        The arc spectrum.
+
+    """
+    # Parsing the filename.
+    arclamp_filename = functionality.find_data_filename(basename=basename)
+    mrt_table = astropy.table.Table.read(
+        arclamp_filename,
+        format="ascii.mrt",
+    )
+    # Extracting the needed data.
+    wavelength = mrt_table["wavelength"]
+    flux = mrt_table["flux"]
+
+    # Corrective constant
+    constant = 1
+    logging.warning(
+        warning_type=logging.AccuracyWarning,
+        message=(
+            "Approximating the solutiion arc lamp level as about the simulation level,"
+            f" multiplying by {constant}"
+        ),
+    )
+
+    # Converting to SI, even though it already is. 
+    wavelength_si = wavelength
+    flux_si = flux
+
+
+
+    arclamp_solution_unit = lezargus.library.conversion.parse_astropy_unit(
+        unit_input="ct",
+    )
+
+    # Creating the spectrum object.
+    arclamp_solution_spectrum = lezargus.library.container.LezargusSpectrum(
+        wavelength=wavelength_si,
+        data=flux_si,
+        uncertainty=None,
+        wavelength_unit="m",
+        data_unit=arclamp_solution_unit,
+        spectral_scale=0,
+        pixel_scale=None,
+        slice_scale=None,
+        mask=None,
+        flags=None,
+        header=None,
+    )
+    # All done.
+    return arclamp_solution_spectrum
+
+

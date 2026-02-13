@@ -150,6 +150,10 @@ class SpectreRetrieval:
         recompute specific parameters for smooth operation, making this the
         preferred method of utilizing a few flat image.
 
+        If the flat image provided fails to generate the needed information 
+        to replace the old flat image, we do not replace the old 
+        flat image.
+
         Parameters
         ----------
         new_flat_image : LezargusImage
@@ -165,12 +169,29 @@ class SpectreRetrieval:
 
         # We also then recompute the slice corners, explicitly, we go through
         # all of the methods per the default.
-        self.slice_corners = self.find_slice_corners(
+        found_slice_corners = self.find_slice_corners(
             flat_image=new_flat_image,
             initial_method=None,
         )
 
+        # Ensuring that if it failed, we do not overwrite the current 
+        # slice corners with a failure.
+        failure_class = lezargus.library.container.LezargusFailure
+        if not isinstance(found_slice_corners, failure_class):
+            # All good.
+            self.slice_corners = found_slice_corners
+        else:
+            # The slice corner finding failed.
+            logging.error(
+                error_type=logging.AlgorithmError,
+                message=(
+                    "Finding slice corners from the new flat field failed;"
+                    "flat image not replaced."
+                ),
+            )
+
         # All done.
+        return None
 
     def replace_arc_image(
         self: hint.Self,
@@ -754,7 +775,10 @@ class SpectreRetrieval:
             the following order (of accuracy and inversely of reliability):
 
             - "flat" : Initial corners determined by corner detection of the
-            current provided flat field image.
+            current provided flat field image. This does a full search which
+            may fail.
+            - "refine" : Initial corners determined by refinement of the
+            predicted corners from a file or a flat field.
             - "file" : Initial corners determined by the provided/stored file.
             - "simulation" : Initial corners determined based on where the
             simulation expects them to be.
@@ -776,29 +800,44 @@ class SpectreRetrieval:
         # go through the methods by accuracy.
         failure_class = lezargus.library.container.LezargusFailure
         initial_corners = failure_class()
-        # Via the flat field itself...
+
+        # Via a full search of the flat field itself...
         if (
             isinstance(initial_corners, failure_class)
             or initial_method == "flat"
         ):
-            try:
-                initial_corners = self._calculate_initial_slice_corners_flat(
-                    flat_array=flat_data,
-                )
-            except logging.UndiscoveredError as error:
-                logging.error(
-                    error_type=logging.AlgorithmError,
-                    message=(
-                        "Initial corner detection via the flat field failed"
-                        f" with: {type(error).__name__} : {error!s}"
-                    ),
-                )
-                initial_corners = failure_class()
+            # Trying a full search of the flat.
+            initial_corners = self._calculate_initial_slice_corners_flat(
+                flat_array=flat_data,
+                full_search=True,
+            )
             # We may need to move on to the next method.
             if isinstance(initial_corners, failure_class):
                 logging.info(
                     message=(
-                        "Flat field failed, moving on to next method of corner"
+                        "Full flat field search failed, moving on to next"
+                        " method of corner retrieval: refine corners of the"
+                        " flat."
+                    ),
+                )
+
+        # Via a corner refinement of the flat field itself...
+        if (
+            isinstance(initial_corners, failure_class)
+            or initial_method == "refine"
+        ):
+            # Trying to do the flat field search, using corner refinement
+            # only.
+            initial_corners = self._calculate_initial_slice_corners_flat(
+                flat_array=flat_data,
+                full_search=False,
+            )
+            # We may need to move on to the next method.
+            if isinstance(initial_corners, failure_class):
+                logging.info(
+                    message=(
+                        "Refined corner detection failed, moving on to next "
+                        "method of corner"
                         " retrieval: a stored corner file."
                     ),
                 )
@@ -808,20 +847,11 @@ class SpectreRetrieval:
             isinstance(initial_corners, failure_class)
             or initial_method == "file"
         ):
-            try:
-                corner_filename = "Dummy"
-                initial_corners = self._calculate_initial_slice_corners_file(
-                    filename=corner_filename,
-                )
-            except logging.UndiscoveredError as error:
-                logging.error(
-                    error_type=logging.AlgorithmError,
-                    message=(
-                        "Initial corner detection via a file table failed"
-                        f" with: {type(error).__name__} : {error!s}"
-                    ),
-                )
-                initial_corners = failure_class()
+            # Using a stored corner file, we assume the class knows the right
+            # paths.
+            initial_corners = self._calculate_initial_slice_corners_file(
+                filename=None,
+            )
             # We may need to move on to the next method.
             if isinstance(initial_corners, failure_class):
                 logging.info(
@@ -836,25 +866,13 @@ class SpectreRetrieval:
             isinstance(initial_corners, failure_class)
             or initial_method == "simulation"
         ):
-            try:
-                initial_corners = (
-                    self._calculate_initial_slice_corners_simulation()
-                )
-            except logging.UndiscoveredError as error:
-                logging.warning(
-                    warning_type=logging.AlgorithmWarning,
-                    message=(
-                        "Initial corner detection via the simulation failed"
-                        f" with: {type(error).__name__} : {error!s}"
-                    ),
-                )
-                initial_corners = failure_class()
+            initial_corners = self._calculate_initial_slice_corners_simulation()
             # We may need to move on to the next method.
             if isinstance(initial_corners, failure_class):
                 logging.info(
                     message=(
                         "The simulation failed, moving on to next method of"
-                        " corner retrieval: rasing an error."
+                        " corner retrieval: failing and rasing an error."
                     ),
                 )
 
@@ -1182,7 +1200,7 @@ class SpectreRetrieval:
         if isinstance(final_labeled_corner_table, failure_class):
             logging.error(
                 error_type=logging.AlgorithmError,
-                message="Failed to get a good labeled corner table.",
+                message=f"Failed to get a good labeled corner table using method {method}.",
             )
 
         return final_labeled_corner_table
@@ -2018,7 +2036,74 @@ class SpectreRetrieval:
         # All done.
         return rotation
 
-    def _rough_assign_wavelength_calibration(
+    def find_slice_arclamp_wavelength_solution(self: hint.Self, arc_slice:hint.LezargusImage) -> hint.NDArray:
+        """Find the wavelength solution for an arc lamp image.
+        
+        This function finds the wavelength solution for an arc lamp image by 
+        comparing it to a known calibrated arc lamp spectrum. We assume that
+        the arc lamp is only offset by a pixel shift.
+
+        Please note that this is an intermediate stage in fully calibrating
+        a science data slice.
+
+        Parameters
+        ----------
+        arc_slice : LezargusImage
+            The arc lamp slice image which we are finding the wavelength 
+            solution for. 
+
+        Returns
+        -------
+        wavelength_solution : NDArray
+            The wavelength solution for the arc lamp image provided. This 
+            will be the same length as the slice's dispersion axis.
+        """
+        # We only need the data from the arc lamp image itself. 
+        raw_arc_array = np.asarray(arc_slice.data, copy=True)
+
+        # We reduce the spatial axis of the arc lamp image to get a 1D 
+        # spectrum. We assume that it is uniform in the horizontal (i.e. x
+        # axis) direction, average it out.
+        raw_arc_flux = np.nanmedian(raw_arc_array, axis=1)
+
+        # We need the appropriate solution to compare to, based on the 
+        # channel.
+        if self.channel == "visible":
+            arclamp_solution = lezargus.data.SPECTRE_ARCLAMP_SOLUTION_VISIBLE
+        elif self.channel == "nearir":
+            arclamp_solution = lezargus.data.SPECTRE_ARCLAMP_SOLUTION_NEARIR
+        elif self.channel == "midir":
+            arclamp_solution = lezargus.data.SPECTRE_ARCLAMP_SOLUTION_MIDIR
+        else:
+            logging.error(
+                error_type=logging.InputError,
+                message=(
+                    f"Invalid channel {self.channel}, cannot determine "
+                    " arc lamp solution to compare to."
+                ),
+            )
+        # Though we only need the wavelength and the arc lamp spectrum data 
+        # from the solution.
+        solution_wavelength = arclamp_solution.wavelength
+        solution_flux = arclamp_solution.data
+
+        # Perhaps we can get away with the assignment function calculating 
+        # the pixel shift for us.
+        pixel_shift_correct = None
+
+        # Finding the wavelength solution by its assignment.
+        wavelength_solution = self._assign_wavelength_calibration(
+            raw_arclamp=raw_arc_flux,
+            wavelength=solution_wavelength,
+            wave_arclamp=solution_flux,
+            pixel_shift_correct=pixel_shift_correct,
+        )
+        # All done.
+        return wavelength_solution
+
+
+
+    def _assign_wavelength_calibration(
         self: hint.Self,
         raw_arclamp: hint.NDArray,
         wavelength: hint.NDArray,

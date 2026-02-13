@@ -628,5 +628,22 @@ def __initialize_data_spectre_calibrations() -> None:
         basename="midir_spex_lxds_arclamp.dat",
     )
 
+    # Arc lamp wavelength solution calibration spectra.
+    # Visible class...
+    global SPECTRE_ARCLAMP_SOLUTION_VISIBLE
+    SPECTRE_ARCLAMP_SOLUTION_VISIBLE = _make.make_solution_arclamp_spectrum(
+        basename="visible_wavelength_solution.dat",
+    )
+    # NearIR class...
+    global SPECTRE_ARCLAMP_SOLUTION_NEARIR
+    SPECTRE_ARCLAMP_SOLUTION_NEARIR = _make.make_solution_arclamp_spectrum(
+        basename="nearir_wavelength_solution.dat",
+    )
+    # MidIR class...
+    global SPECTRE_ARCLAMP_SOLUTION_MIDIR
+    SPECTRE_ARCLAMP_SOLUTION_MIDIR = _make.make_solution_arclamp_spectrum(
+        basename="midir_wavelength_solution.dat",
+    )
+
 
 __initialize_data_all()
