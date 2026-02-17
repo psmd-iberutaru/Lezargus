@@ -36,8 +36,8 @@ def find_data_filename(basename: str) -> str | hint.LezargusFailure:
 
     Returns
     -------
-    filename : str 
-        The full data file filename. If something failed, we return a 
+    filename : str
+        The full data file filename. If something failed, we return a
         failure class.
 
     """

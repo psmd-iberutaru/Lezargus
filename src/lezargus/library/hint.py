@@ -22,6 +22,7 @@ from subprocess import CompletedProcess
 from typing import Any
 from typing import Literal
 from typing import Self
+from typing import Unpack
 
 # Astropy imports.
 from astropy.io.fits import FITS_rec

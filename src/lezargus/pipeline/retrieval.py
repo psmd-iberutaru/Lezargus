@@ -40,10 +40,11 @@ class SpectreRetrieval:
     determined either by the flat field itself or archival positions.
     """
 
-    image: hint.LezargusImage
+    science_image: hint.LezargusImage
     """The data image which we are retrieving slices from. We operate on this
     copy as a de-facto read-only object and thus changing this changes the
-    retrieval."""
+    retrieval. More typically, however, this image is often provided during
+    the function call."""
 
     flat_image: hint.LezargusImage
     """The slice flat field image which we use to determine how and where to
@@ -81,26 +82,26 @@ class SpectreRetrieval:
     def __init__(
         self: SpectreRetrieval,
         channel: str,
+        science_image: hint.LezargusImage | None = None,
         flat_image: hint.LezargusImage | None = None,
         arc_image: hint.LezargusImage | None = None,
-        image: hint.LezargusImage | None = None,
     ) -> None:
         """Initialize the SPECTRE retrieval class.
 
         Parameters
         ----------
+        channel : str
+            The channel that the image exists in.
+        science_image : LezargusImage, default = None
+            The science image we are working with to retrieve. It does 
+            not need to be provided now as it can be provided later or 
+            during retrieval itself.
         flat_image : LezargusImage
             The flat field image used for retrieving the slices for both the
             main image data and the arc lamp data.
         arc_image : LezargusImage
             The arc lamp image used for creating the wavelength solution for
             each slice.
-        channel : str
-            The channel that the image exists in.
-        image : LezargusImage, default = None
-            The image array we are working with to retrieve. It does not need
-            to be provided now as it can be provided later or during
-            retrieval itself.
 
 
         Returns
@@ -134,10 +135,37 @@ class SpectreRetrieval:
             self.replace_arc_image(new_arc_image=arc_image)
 
         # If provided, we can also store the data image.
-        if image is not None:
-            self.image = image
+        if science_image is not None:
+            self.replace_science_image(new_science_image=science_image)
 
         # All done.
+
+    def replace_science_image(
+        self: hint.Self,
+        new_science_image: hint.LezargusImage,
+    ) -> None:
+        """Replace the stored science image with the new one.
+
+        This is a helper function to replace the stored science image
+        with a new science image. This function also calls the needed
+        functions to recompute specific parameters for smooth operation,
+        making this the preferred method of utilizing a new science image.
+
+        Parameters
+        ----------
+        new_science_image : LezargusImage
+            The new science image which we are using to replace.
+
+        Returns
+        -------
+        None
+
+        """
+        # We add the old arc image with the new arc image.
+        self.science_image = new_science_image
+
+        # All done.
+
 
     def replace_flat_image(
         self: hint.Self,
@@ -150,8 +178,8 @@ class SpectreRetrieval:
         recompute specific parameters for smooth operation, making this the
         preferred method of utilizing a few flat image.
 
-        If the flat image provided fails to generate the needed information 
-        to replace the old flat image, we do not replace the old 
+        If the flat image provided fails to generate the needed information
+        to replace the old flat image, we do not replace the old
         flat image.
 
         Parameters
@@ -174,7 +202,7 @@ class SpectreRetrieval:
             initial_method=None,
         )
 
-        # Ensuring that if it failed, we do not overwrite the current 
+        # Ensuring that if it failed, we do not overwrite the current
         # slice corners with a failure.
         failure_class = lezargus.library.container.LezargusFailure
         if not isinstance(found_slice_corners, failure_class):
@@ -191,7 +219,6 @@ class SpectreRetrieval:
             )
 
         # All done.
-        return None
 
     def replace_arc_image(
         self: hint.Self,
@@ -218,6 +245,8 @@ class SpectreRetrieval:
         self.arc_image = new_arc_image
 
         # All done.
+
+
 
     def _calculate_initial_slice_corners_simulation(
         self: hint.Self,
@@ -760,15 +789,16 @@ class SpectreRetrieval:
 
     def find_slice_corners(
         self: hint.Self,
-        flat_image: hint.LezargusImage,
+        flat_image: hint.LezargusImage|None=None,
         initial_method: str | None = None,
     ) -> hint.Table | hint.LezargusFailure:
         """Recompute the slice corners from an image flat.
 
         Parameters
         ----------
-        flat_image : LezargusImage
+        flat_image : LezargusImage, default = None
             The flat field image for which we are determining the corners of.
+            If None, we default to the currently stored flat image.
         initial_method : str, default = None
             The method we get the initial slice corners. If provided, we only
             use the method provided; otherwise we try all of the methods in
@@ -793,6 +823,11 @@ class SpectreRetrieval:
             The new recomputed slice corners.
 
         """
+        # Checking if we need to use the cached version. 
+        if flat_image is None:
+            logging.info(message=f"Provided flat image is {flat_image}, using cached version.")
+            flat_image = self.flat_image
+        
         # We only need the data from the flat image.
         flat_data = flat_image.data
 
@@ -1143,10 +1178,9 @@ class SpectreRetrieval:
         # Second, if the labeled corner table can be found via a flat field.
         # The flat field however depends on this method for its own
         # corner table.
-        if (method is None or method == "flat") and isinstance(
-            labeled_corner_table,
-            failure_class,
-        ):
+        if ((method is None or method == "flat") 
+            and (self.flat_image is not None) 
+            and isinstance(labeled_corner_table,failure_class)):
             flat_corners = self._calculate_initial_slice_corners_flat(
                 flat_array=self.flat_image,
                 full_search=True,
@@ -1200,35 +1234,42 @@ class SpectreRetrieval:
         if isinstance(final_labeled_corner_table, failure_class):
             logging.error(
                 error_type=logging.AlgorithmError,
-                message=f"Failed to get a good labeled corner table using method {method}.",
+                message=(
+                    "Failed to get a good labeled corner table using method"
+                    f" {method}."
+                ),
             )
 
         return final_labeled_corner_table
 
     def retrieve_slice(
         self: hint.Self,
-        image: hint.LezargusImage,
         slice_: int,
+        image: hint.LezargusImage,
         buffer_width: int = 0,
         rebin: bool = True,
         rotate: bool = True,
         force_width: int | None = None,
+        **kwargs:hint.Any,
     ) -> hint.LezargusImage:
         """Fetch/retrieve the slice based on the slice corners.
 
         We extract a slice based on its corners as defined by the current
         flat field. The corners are used as initial anchors which are used to
         define the region we are extracting. Slice rotation and fractional
-        pixel flux is handled as well.
+        pixel flux can be handled as well.
+
+        This function does not perform any flat fielding or wavelength 
+        calibrations; for that functionality, see `retrieve_science_slice`.
 
         Parameters
         ----------
-        image : LezargusImage
-            The image which we are using to fetching the slice data from.
-            Typically a data image, it can be a flat or an arc lamp image.
         slice_ : int
             The slice index which we are fetching from. This is a 1-indexed
             slice index number.
+        image : LezargusImage
+            The image which we are using to fetching the slice data from.
+            Typically a data image, it can be a flat or an arc lamp image.
         buffer_width : int, default = 0
             The number of pixels to buffer on each side from the pixel corners.
             We default to not having a buffer but it is a bad idea.
@@ -1242,14 +1283,20 @@ class SpectreRetrieval:
             The width of the slice after trimming the buffer is determined
             automatically but may be forced to a specific width using this
             parameter.
-
+        **kwargs : Any
+            Keyword argument catch-all.
+            
         Returns
         -------
-        fetched_slice : LezargusImage
+        retrieved_slice : LezargusImage
             The image that contains the slice based on the corners detected
             by the predefined slice and further preprocessing.
 
         """
+        # We do nothing with extra keyword arguments. This is used to 
+        # Ensure no code check errors.
+        lezargus.library.wrapper.do_nothing(kwargs)
+
         # For the given slice, we need to find the corner.
         # Just making sure it exists, though this check is also done later
         # during rough extraction.
@@ -1300,13 +1347,13 @@ class SpectreRetrieval:
         # We first rough retrieve the slice so we know what we are working
         # with. We also need the flat field itself.
         rough_slice_image = self.rough_retrieve_slice(
-            image=image,
             slice_=slice_,
+            image=image,
             buffer_width=buffer_width,
         )
         rough_flat_image = self.rough_retrieve_slice(
-            image=self.flat_image,
             slice_=slice_,
+            image=self.flat_image,
             buffer_width=buffer_width,
         )
 
@@ -1346,7 +1393,7 @@ class SpectreRetrieval:
         )
 
         # Complete, now, we just need to repack everything as needed.
-        fetched_slice = lezargus.library.container.LezargusImage(
+        retrieved_slice = lezargus.library.container.LezargusImage(
             data=trimmed_slice_array,
             uncertainty=None,
             wavelength=image.wavelength,
@@ -1360,12 +1407,12 @@ class SpectreRetrieval:
             header=image.header,
         )
         # All done.
-        return fetched_slice
+        return retrieved_slice
 
     def rough_retrieve_slice(
         self: hint.Self,
-        image: hint.LezargusImage,
         slice_: int,
+        image: hint.LezargusImage,
         buffer_width: int = 0,
     ) -> hint.LezargusImage:
         """Fetch/retrieve the rough slice based on the slice corners.
@@ -1380,12 +1427,12 @@ class SpectreRetrieval:
 
         Parameters
         ----------
-        image : LezargusImage
-            The image which we are using to fetching the slice data from.
-            Typically a data image, it can be a flat or an arc lamp image.
         slice_ : int
             The slice index which we are fetching from. This is a 1-indexed
             slice index number.
+        image : LezargusImage
+            The image which we are using to fetching the slice data from.
+            Typically a data image, it can be a flat or an arc lamp image.
         buffer_width : int, default = 0
             The number of pixels to buffer on each side from the pixel corners.
             We default to not having a buffer.
@@ -2036,10 +2083,12 @@ class SpectreRetrieval:
         # All done.
         return rotation
 
-    def find_slice_arclamp_wavelength_solution(self: hint.Self, arc_slice:hint.LezargusImage) -> hint.NDArray:
+    def find_slice_arclamp_wavelength_solution(
+        self: hint.Self, arc_slice: hint.LezargusImage,
+    ) -> hint.NDArray:
         """Find the wavelength solution for an arc lamp image.
-        
-        This function finds the wavelength solution for an arc lamp image by 
+
+        This function finds the wavelength solution for an arc lamp image by
         comparing it to a known calibrated arc lamp spectrum. We assume that
         the arc lamp is only offset by a pixel shift.
 
@@ -2049,24 +2098,25 @@ class SpectreRetrieval:
         Parameters
         ----------
         arc_slice : LezargusImage
-            The arc lamp slice image which we are finding the wavelength 
-            solution for. 
+            The arc lamp slice image which we are finding the wavelength
+            solution for.
 
         Returns
         -------
         wavelength_solution : NDArray
-            The wavelength solution for the arc lamp image provided. This 
+            The wavelength solution for the arc lamp image provided. This
             will be the same length as the slice's dispersion axis.
+
         """
-        # We only need the data from the arc lamp image itself. 
+        # We only need the data from the arc lamp image itself.
         raw_arc_array = np.asarray(arc_slice.data, copy=True)
 
-        # We reduce the spatial axis of the arc lamp image to get a 1D 
-        # spectrum. We assume that it is uniform in the horizontal (i.e. x
-        # axis) direction, average it out.
+        # We reduce the spatial axis of the arc lamp image to get a 1D
+        # spectrum. We assume that it is uniform in the horizontal (i.e. 
+        # x-axis) direction, average it out.
         raw_arc_flux = np.nanmedian(raw_arc_array, axis=1)
 
-        # We need the appropriate solution to compare to, based on the 
+        # We need the appropriate solution to compare to, based on the
         # channel.
         if self.channel == "visible":
             arclamp_solution = lezargus.data.SPECTRE_ARCLAMP_SOLUTION_VISIBLE
@@ -2082,12 +2132,12 @@ class SpectreRetrieval:
                     " arc lamp solution to compare to."
                 ),
             )
-        # Though we only need the wavelength and the arc lamp spectrum data 
+        # Though we only need the wavelength and the arc lamp spectrum data
         # from the solution.
         solution_wavelength = arclamp_solution.wavelength
         solution_flux = arclamp_solution.data
 
-        # Perhaps we can get away with the assignment function calculating 
+        # Perhaps we can get away with the assignment function calculating
         # the pixel shift for us.
         pixel_shift_correct = None
 
@@ -2100,8 +2150,6 @@ class SpectreRetrieval:
         )
         # All done.
         return wavelength_solution
-
-
 
     def _assign_wavelength_calibration(
         self: hint.Self,
@@ -2184,3 +2232,116 @@ class SpectreRetrieval:
         assigned_wavelength = wavelength_function(raw_pixel_domain)
         # All done.
         return assigned_wavelength
+
+
+    def find_slice_flat_field_solution(self:hint.Self, flat_slice:hint.LezargusImage) -> hint.NDArray:
+        """Find the flat field solution provided the flat lamp.
+
+        This function finds the flat field solution from a provided flat slice.
+        (Ensure any buffers have been trimmed.) The flat field solution is 
+        used to correct for non-uniformity in the science images.
+
+        
+        Parameters
+        ----------
+        flat_slice : LezargusImage
+            A slice image of the flat field which we use to calculate the 
+            flat field solution.
+
+        Returns
+        -------
+        field_solution : NDArray
+            The flat field solution for the provided slice, detailing the 
+            non-uniformity in the slice. (Dividing by this 
+            corrects for said non-uniformity.)
+        """
+        # We only really need the data of the flat slice itself.
+        flat_array = np.asarray(flat_slice.data, copy=True)
+
+        # The finding the flat feild solution is something we need to do, 
+        # but that is later.
+        dummy_flat_field = np.ones_like(flat_array, dtype=float)
+        # Letting know.
+        logging.error(error_type=logging.ToDoError, message=f"Slice flat field solution to be done; not correction made.")
+        # Renaming...
+        field_solution = dummy_flat_field
+
+        # All done.
+        return field_solution
+
+
+    def retrieve_science_slice(self:hint.Self, slice_:int, science_image:hint.LezargusImage|None = None,**kwargs:hint.Any) -> tuple[hint.LezargusImage, hint.NDArray]:
+        """Fetch/retrieve a science slice and perform standard calibrations.
+        
+        This function retrieves a science slice image, based on the provided 
+        index, and the slice corners. In addition, we derive the flat field 
+        and wavelength solutions for the slice; the flat field correction is
+        applied. And, we return the wavelength solution for the slice 
+        along with the retireved slice.
+
+        (There is no good container for a slice with a wavelength, and a
+        cube constructor should shortly remedy it so we feel that having
+        two different objects is acceptable.)
+
+        Parameters
+        ----------
+        slice_ : int 
+            The slice index of the science slice which we are retrieving both
+            the data and the (wavelength) calibrations.
+        science_image : LezargusImage, default = None
+            The science image we are retrieving the slice from. If None, we 
+            use the stored science image.
+        **kwargs : dict
+            Keyword arguments passed to `retrieve_slice` and other functions
+            which this function wraps around.
+
+        Returns
+        -------
+        science_slice : LezargusImage
+            The retrieved and calibrated scientific data slice at the slice
+            index provided.
+        wavelength : NDArray
+            The wavelength solution of the provided science slice. These
+            values are provided parallel with the dispersion direction of the 
+            slice.
+        """
+        # We need to determine which science image we are using.
+        if science_image is None:
+            logging.info(message=f"Provided science image is {science_image}, using cached science image.")
+            science_image = self.science_image
+
+        # This function does flat field and wavelength calibrations, and in 
+        # order to do that, we need to have arc lamp and flat images.
+        if self.flat_image is None:
+            logging.error(error_type=logging.WrongOrderError, message=f"Correct retrieving of a science slice requires a flat field image.")
+        if self.arc_image is None:
+            logging.error(error_type=logging.WrongOrderError, message=f"Wavelength calibration of the science slice requires an arc lamp image.")
+
+        # We need to retrieve the science slice from the science image.
+        retrieve_science_slice = self.retrieve_slice(slice_=slice_, image=science_image, **kwargs)
+        # Repeating the process for the flat field image and the arc lamp 
+        # image for the calibrations.
+        retrieve_flat_slice = self.retrieve_slice(slice_=slice_, image=self.flat_image, **kwargs)
+        retrieve_arc_slice = self.retrieve_slice(slice_=slice_, image=self.arc_image, **kwargs)
+
+        # We need the flat field solution so we can correct the science image
+        # using the flat field.
+        flat_feild_solution = self.find_slice_flat_field_solution(flat_slice=retrieve_flat_slice)
+        # And applying the correction...
+        logging.error(error_type=logging.ToDoError, message=f"A better implementation of flat field correction...")
+        feilded_science_slice = copy.deepcopy(retrieve_science_slice)
+        feilded_science_slice.data /= flat_feild_solution
+        feilded_science_slice.uncertainty /= np.abs(flat_feild_solution)
+
+        # We also will provide the wavelength solution, so we need to derive 
+        # it.
+        wavelength_solution = self.find_slice_arclamp_wavelength_solution(arc_slice=retrieve_arc_slice)
+
+        # Renaming for documentation's sakes.
+        science_slice = feilded_science_slice
+        wavelength = np.asarray(wavelength_solution)
+
+
+        # All done.
+        return science_slice, wavelength
+

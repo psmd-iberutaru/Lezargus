@@ -5,6 +5,17 @@ Python loading this module, is done here. After the program is run, we clean
 up using terminate.py.
 """
 
+# isort: split
+# Import required to remove circular dependencies from type checking.
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from lezargus.library import hint
+# isort: split
+
+
 import glob
 import os
 import sys
@@ -14,7 +25,7 @@ import lezargus
 from lezargus.library import logging
 
 
-def initialize(*args: tuple, **kwargs: object) -> None:
+def initialize(*args: hint.Any, **kwargs: hint.Any) -> None:
     """Initialize the Lezargus module and all its parts.
 
     This initialization function should be the very first thing that is done
@@ -29,10 +40,10 @@ def initialize(*args: tuple, **kwargs: object) -> None:
 
     Parameters
     ----------
-    *args : tuple
+    *args : Any
         Positional arguments. There should be no positional arguments. This
         serves to catch them.
-    **kwargs : dict
+    **kwargs : Any
         Keyword arguments to be passed to all other initialization functions.
 
     Returns
@@ -63,7 +74,7 @@ def initialize(*args: tuple, **kwargs: object) -> None:
     initialize_temporary_directory(**kwargs)
 
 
-def initialize_logging_outputs(*args: tuple, **kwargs: object) -> None:
+def initialize_logging_outputs(*args: hint.Any, **kwargs: hint.Any) -> None:
     """Initialize the default logging console and file outputs.
 
     This function initializes the logging outputs based on configured
@@ -71,10 +82,10 @@ def initialize_logging_outputs(*args: tuple, **kwargs: object) -> None:
 
     Parameters
     ----------
-    *args : tuple
+    *args : Any
         Positional arguments. There should be no positional arguments. This
         serves to catch them.
-    **kwargs : dict
+    **kwargs : Any
         A catch-all keyword argument, used to catch arguments which are not
         relevant or are otherwise passed to other internal functions.
 
@@ -149,17 +160,17 @@ def initialize_logging_outputs(*args: tuple, **kwargs: object) -> None:
             )
 
 
-def initialize_temporary_directory(*args: tuple, **kwargs: object) -> None:
+def initialize_temporary_directory(*args: hint.Any, **kwargs: hint.Any) -> None:
     """Initialize the temporary directory.
 
     We create the temporary directory based on the configured paths.
 
     Parameters
     ----------
-    *args : tuple
+    *args : Any
         Positional arguments. There should be no positional arguments. This
         serves to catch them.
-    **kwargs : dict
+    **kwargs : Any
         A catch-all keyword argument, used to catch arguments which are not
         relevant or are otherwise passed to other internal functions.
 

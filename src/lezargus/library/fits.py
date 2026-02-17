@@ -344,6 +344,8 @@ def write_lezargus_fits_file(
     None
 
     """
+    logging.error(error_type=logging.ToDoError, message=f"Lezargus FITS write needs proper wavelength handling; better to refactor/rewrite it all.")
+
     # We test if the file already exists.
     filename = os.path.abspath(filename)
     if os.path.isfile(filename):

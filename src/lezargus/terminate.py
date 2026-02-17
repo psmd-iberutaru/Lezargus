@@ -9,7 +9,7 @@ from lezargus.library import hint
 from lezargus.library import logging
 
 
-def terminate(*args: tuple, **kwargs: object) -> None:
+def terminate(*args: hint.Any, **kwargs: hint.Any) -> None:
     """Terminate the Lezargus module and all its parts, cleaning up.
 
     The termination function, breaking down what we created and initialized
@@ -17,10 +17,10 @@ def terminate(*args: tuple, **kwargs: object) -> None:
 
     Parameters
     ----------
-    *args : tuple
+    *args : Any
         Positional arguments. There should be no positional arguments. This
         serves to catch them.
-    **kwargs : dict
+    **kwargs : Any
         Keyword arguments to be passed to all other initialization functions.
 
     Returns
@@ -52,17 +52,17 @@ def terminate(*args: tuple, **kwargs: object) -> None:
     # - All of the logging is cleaned up on its own.
 
 
-def terminate_temporary_directory(*args: tuple, **kwargs: hint.Any) -> None:
+def terminate_temporary_directory(*args: hint.Any, **kwargs: hint.Any) -> None:
     """Terminate the temporary directory.
 
     We remove the temporary directory based on the configured paths.
 
     Parameters
     ----------
-    *args : tuple
+    *args : Any
         Positional arguments. There should be no positional arguments. This
         serves to catch them.
-    **kwargs : dict
+    **kwargs : Any
         A catch-all keyword argument, used to catch arguments which are not
         relevant or are otherwise passed to other internal functions.
 

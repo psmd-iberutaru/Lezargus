@@ -121,7 +121,7 @@ def make_solution_arclamp_spectrum(basename: str) -> hint.LezargusSpectrum:
     logging.warning(
         warning_type=logging.AccuracyWarning,
         message=(
-            "Approximating the solutiion arc lamp level as about the simulation level,"
+            "Approximating the solution arc lamp level as about the simulation level,"
             f" multiplying by {constant}"
         ),
     )
@@ -129,8 +129,6 @@ def make_solution_arclamp_spectrum(basename: str) -> hint.LezargusSpectrum:
     # Converting to SI, even though it already is. 
     wavelength_si = wavelength
     flux_si = flux
-
-
 
     arclamp_solution_unit = lezargus.library.conversion.parse_astropy_unit(
         unit_input="ct",
