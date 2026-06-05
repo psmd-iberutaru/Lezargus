@@ -1,5 +1,5 @@
-# SPECTRE Entrance Window dummy data, see Issue #40.
-# Wavelength, efficiency.
+# SPECTRE IFU image slicer dummy data, see Issue #43.
+# Wavelength | efficiency.
 0.350  |  0.900
 0.401  |  0.900
 0.452  |  0.900

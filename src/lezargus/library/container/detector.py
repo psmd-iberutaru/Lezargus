@@ -706,7 +706,7 @@ class DetectorArray:
 
         """
         # We attempt to compute a dark current frame.
-        # The detector detector dark current, either as a value or a map.
+        # The detector dark current, either as a value or a map.
         # The dark current itself may vary from its actual value. We model
         # such variations using a Gaussian. These values may also be
         # calculated from actual darks.

@@ -473,7 +473,6 @@ class LezargusSpectrum(LezargusContainerArithmetic):
                     " implemented; defaulting to Linear."
                 ),
             )
-            # || interpolation_method = lezargus.library.interpolate.FluxConserve1DInterpolate
             using_interpolation = (
                 lezargus.library.interpolate.Linear1DInterpolate
             )

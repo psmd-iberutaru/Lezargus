@@ -88,13 +88,13 @@ cover = [
     "coverage erase",
 ]
 check = [
-    "ruff check src",
+    "ruff check src --no-cache",
     "pylint src",
     "pyright src",
 ]
 checkfix = [
     "format",
-    "ruff check src --fix",
+    "ruff check src --no-cache --fix",
     "format",
 ]
 docs = [

@@ -93,8 +93,8 @@ class SpectreRetrieval:
         channel : str
             The channel that the image exists in.
         science_image : LezargusImage, default = None
-            The science image we are working with to retrieve. It does 
-            not need to be provided now as it can be provided later or 
+            The science image we are working with to retrieve. It does
+            not need to be provided now as it can be provided later or
             during retrieval itself.
         flat_image : LezargusImage
             The flat field image used for retrieving the slices for both the
@@ -166,7 +166,6 @@ class SpectreRetrieval:
 
         # All done.
 
-
     def replace_flat_image(
         self: hint.Self,
         new_flat_image: hint.LezargusImage,
@@ -197,26 +196,21 @@ class SpectreRetrieval:
 
         # We also then recompute the slice corners, explicitly, we go through
         # all of the methods per the default.
-        found_slice_corners = self.find_slice_corners(
-            flat_image=new_flat_image,
-            initial_method=None,
-        )
-
-        # Ensuring that if it failed, we do not overwrite the current
-        # slice corners with a failure.
-        failure_class = lezargus.library.container.LezargusFailure
-        if not isinstance(found_slice_corners, failure_class):
-            # All good.
-            self.slice_corners = found_slice_corners
-        else:
-            # The slice corner finding failed.
+        try:
+            found_slice_corners = self.find_slice_corners(
+                flat_image=new_flat_image,
+                initial_method=None,
+            )
+        except logging.AlgorithmError:
             logging.error(
-                error_type=logging.AlgorithmError,
+                error_type=logging.InputError,
                 message=(
-                    "Finding slice corners from the new flat field failed;"
-                    "flat image not replaced."
+                    "Cannot replace flat field image as slice corners cannot"
+                    " be determined."
                 ),
             )
+        else:
+            self.slice_corners = found_slice_corners
 
         # All done.
 
@@ -246,11 +240,9 @@ class SpectreRetrieval:
 
         # All done.
 
-
-
     def _calculate_initial_slice_corners_simulation(
         self: hint.Self,
-    ) -> hint.Table | hint.LezargusFailure:
+    ) -> hint.Table:
         """Derive the slice corners from the SPECTRE simulation defaults.
 
         One option to derive the slice corners is to use the simulation to
@@ -264,10 +256,9 @@ class SpectreRetrieval:
 
         Returns
         -------
-        initial_slice_corners : Table | LezargusFailure
+        initial_slice_corners : Table
             The initial slice corners as derived from the SPECTRE simulation
-            slice pattern. If LezargusFailure, then the calculation of the
-            initial corners failed.
+            slice pattern.
 
         """
         # Number of slices...
@@ -378,7 +369,7 @@ class SpectreRetrieval:
     def _calculate_initial_slice_corners_file(
         self: hint.Self,
         filename: str | None = None,
-    ) -> hint.Table | hint.LezargusFailure:
+    ) -> hint.Table:
         """Derive the slice corners from a file containing the coordinates.
 
         If there exists already a file table with the corners laid out,
@@ -393,10 +384,8 @@ class SpectreRetrieval:
 
         Returns
         -------
-        initial_slice_corners : Table | LezargusFailure
-            The initial slice corners as derived from reading the file. If
-            LezargusFailure, then the calculation of the initial corners
-            failed.
+        initial_slice_corners : Table
+            The initial slice corners as derived from reading the file.
 
         """
         # We need to see if the filename is to be the default one or not.
@@ -419,7 +408,7 @@ class SpectreRetrieval:
                     ),
                 )
                 # No valid channel.
-                return lezargus.library.container.LezargusFailure()
+                filename = "No valid channel"
 
         # We need to make sure the file actually exists.
         if not os.path.exists(filename):
@@ -438,15 +427,14 @@ class SpectreRetrieval:
                 format="ascii.mrt",
             )
         except FileNotFoundError as error:
-            logging.error(
-                error_type=logging.FileError,
+            logging.critical(
+                critical_type=logging.FileError,
                 message=(
                     f"Cannot parse {filename} as a valid Astropy Table; the"
                     f" following error occurred: {type(error).__name__} :"
                     f" {error!s}"
                 ),
             )
-            return lezargus.library.container.LezargusFailure()
 
         # Number of slices...
         n_slices = lezargus.data.CONST_SPECTRE_SLICES
@@ -529,7 +517,7 @@ class SpectreRetrieval:
         flat_array: hint.NDArray,
         full_search: bool = False,
         use_harris: bool = False,
-    ) -> hint.Table | hint.LezargusFailure:
+    ) -> hint.Table:
         """Derive the slice corners from a flat field image.
 
         This method determines the slice corners via corner detection of the
@@ -555,37 +543,45 @@ class SpectreRetrieval:
 
         Returns
         -------
-        initial_slice_corners : Table | LezargusFailure
-            The initial slice corners as derived from reading the file. If
-            LezargusFailure, then the calculation of the initial corners
-            failed.
+        initial_slice_corners : Table
+            The initial slice corners as derived from reading the file.
 
         """
         # The corners found in this module are unordered so we use the file
         # or simulation corners to help us determine which corners are which.
+        # We cannot use the function bare-bones, as that function calls this
+        # one eventually.
         # We attempt to the file first.
-        failure_class = lezargus.library.container.LezargusFailure
-        file_corners = self.__get_labeled_corner_table(method="file")
-        simulation_corners = self.__get_labeled_corner_table(
-            method="simulation",
-        )
-        if not isinstance(file_corners, failure_class):
-            # Using file corners.
-            labeled_corner_table = file_corners
-        elif not isinstance(simulation_corners, failure_class):
-            # Using simulation corners.
-            labeled_corner_table = simulation_corners
-        else:
-            # We cannot actually determine any search without something to
-            # base off of.
-            logging.error(
-                error_type=logging.AlgorithmError,
-                message=(
-                    "Failed to find labeled corners from file or simulation;"
-                    " flat field corners cannot be found."
-                ),
+        labeled_corner_table = None
+        try:
+            labeled_corner_table = self.__get_labeled_corner_table(
+                method="file",
             )
-            return failure_class()
+        except logging.LezargusError:
+            # We failed to get a labeled corner table using a file.
+            logging.warning(warning_type=logging.AlgorithmWarning, message=f"Failed to get a labeled corner table from a file.")
+            # But we can still attempt the next method.
+            try:
+                labeled_corner_table = self.__get_labeled_corner_table(
+                    method="simulation",
+                )
+            except logging.LezargusError:
+                # Failed to get the labeled corner table via the simulation.
+                # Notate the failure for the next error check.
+                logging.warning(warning_type=logging.AlgorithmWarning, message=f"Failed to get a labeled corner table from the simulation.")
+        finally:
+            # Making sure we actually got a labeled corner table before
+            # proceeding.
+            if labeled_corner_table is None:
+                # We cannot actually determine any search without something to
+                # base off of.
+                logging.critical(
+                    critical_type=logging.AlgorithmError,
+                    message=(
+                        "Failed to find labeled corners from file or"
+                        " simulation; flat field corners cannot be found."
+                    ),
+                )
 
         # A simple percentile cut should be okay if the flat is bright enough
         # and covers the space it usually does properly.
@@ -636,10 +632,45 @@ class SpectreRetrieval:
             dtype=np.float32,
         )
 
+        # If a full search is not needed, then perhaps finding the corners
+        # by corner refinement using previously known corners from the
+        # file or the simulation is better.
+        guess_corners = None
+        if not full_search:
+            # We need to find the guessing corners.
+            try:
+                guess_corners = self._calculate_initial_slice_corners_file(
+                    filename=None,
+                )
+            except logging.UndiscoveredError:
+                # Letting the user know finding corners from the file failed...
+                # Attempting the simulation.
+                guess_corners = None
+                logging.info(
+                    message=(
+                        "Guessing flat field slice corners using file failed,"
+                        " falling back to simulation."
+                    ),
+                )
+                # We backup to the simulation.
+                try:
+                    guess_corners = (
+                        self._calculate_initial_slice_corners_simulation()
+                    )
+                except logging.UndiscoveredError:
+                    # The simulation also failed...
+                    guess_corners = None
+                    logging.warning(
+                        warning_type=logging.AlgorithmWarning,
+                        message=(
+                            "Guessing corners using the file or simulation"
+                            " failed; attempting a full search."
+                        ),
+                    )
+
         # If we need to do a full search of the array, we compute the corners
         # using pure corner detection.
-        guess_corners = lezargus.library.container.LezargusFailure
-        if full_search:
+        if full_search or guess_corners is None:
             # The number of corners to find...
             n_slices = lezargus.data.CONST_SPECTRE_SLICES
             n_corners = n_slices * 4
@@ -667,60 +698,19 @@ class SpectreRetrieval:
                 point_coordinates=raw_corners,
                 labeled_corner_table=labeled_corner_table,
             )
-            return guess_corners
-
-        # If a full search is not needed, then perhaps finding the corners
-        # by corner refinement using previously known corners from the
-        # file or the simulation is better.
-        guess_corners = self._calculate_initial_slice_corners_file(
-            filename=None,
-        )
-        if isinstance(
-            guess_corners,
-            lezargus.library.container.LezargusFailure,
-        ):
-            # Attempting the simulation.
-            logging.info(
-                message=(
-                    "Guessing flat field slice corners using file failed,"
-                    " falling back to simulation."
-                ),
-            )
-            guess_corners = self._calculate_initial_slice_corners_simulation()
-        if isinstance(
-            guess_corners,
-            lezargus.library.container.LezargusFailure,
-        ):
-            # Finding the corners using either the file or the simulation
-            # failed. The only thing left to try is a full search.
-            logging.warning(
-                warning_type=logging.AlgorithmWarning,
-                message=(
-                    "Guessing corners using the file or simulation failed;"
-                    " attempting a full search."
-                ),
-            )
-            guess_corners = self._calculate_initial_slice_corners_flat(
-                flat_array=flat_array,
-                full_search=True,
-                use_harris=use_harris,
-            )
 
         # In either mode, we refine the corners based on the
         # thresholded flat field, this is appropriate for the initial slice
         # corners themselves.
         # Though we cannot do that if the corner guessing failed.
-        if isinstance(
-            guess_corners,
-            lezargus.library.container.LezargusFailure,
-        ):
+        if guess_corners is None:
             logging.critical(
                 critical_type=logging.AlgorithmError,
                 message=(
                     "Could not find initial or guess corners from flat field."
                 ),
             )
-            initial_slice_corners = lezargus.library.container.LezargusFailure()
+            initial_slice_corners = labeled_corner_table
         else:
             initial_slice_corners = self._refine_initial_slice_corners(
                 initial_slice_corners=guess_corners,
@@ -789,7 +779,7 @@ class SpectreRetrieval:
 
     def find_slice_corners(
         self: hint.Self,
-        flat_image: hint.LezargusImage|None=None,
+        flat_image: hint.LezargusImage | None = None,
         initial_method: str | None = None,
     ) -> hint.Table | hint.LezargusFailure:
         """Recompute the slice corners from an image flat.
@@ -823,31 +813,33 @@ class SpectreRetrieval:
             The new recomputed slice corners.
 
         """
-        # Checking if we need to use the cached version. 
+        # Checking if we need to use the cached version.
         if flat_image is None:
-            logging.info(message=f"Provided flat image is {flat_image}, using cached version.")
+            logging.info(
+                message=(
+                    f"Provided flat image is {flat_image}, using cached"
+                    " version."
+                ),
+            )
             flat_image = self.flat_image
-        
+
         # We only need the data from the flat image.
         flat_data = flat_image.data
 
         # We need to find the initial corners (we refine them later). We
         # go through the methods by accuracy.
-        failure_class = lezargus.library.container.LezargusFailure
-        initial_corners = failure_class()
+        initial_corners = None
 
         # Via a full search of the flat field itself...
-        if (
-            isinstance(initial_corners, failure_class)
-            or initial_method == "flat"
-        ):
+        if initial_corners is None or initial_method == "flat":
             # Trying a full search of the flat.
-            initial_corners = self._calculate_initial_slice_corners_flat(
-                flat_array=flat_data,
-                full_search=True,
-            )
-            # We may need to move on to the next method.
-            if isinstance(initial_corners, failure_class):
+            try:
+                initial_corners = self._calculate_initial_slice_corners_flat(
+                    flat_array=flat_data,
+                    full_search=True,
+                )
+            except logging.LezargusError:
+                # We may need to move on to the next method.
                 logging.info(
                     message=(
                         "Full flat field search failed, moving on to next"
@@ -855,20 +847,19 @@ class SpectreRetrieval:
                         " flat."
                     ),
                 )
+                initial_corners = None
 
         # Via a corner refinement of the flat field itself...
-        if (
-            isinstance(initial_corners, failure_class)
-            or initial_method == "refine"
-        ):
-            # Trying to do the flat field search, using corner refinement
-            # only.
-            initial_corners = self._calculate_initial_slice_corners_flat(
-                flat_array=flat_data,
-                full_search=False,
-            )
-            # We may need to move on to the next method.
-            if isinstance(initial_corners, failure_class):
+        if initial_corners is None or initial_method == "refine":
+            try:
+                # Trying to do the flat field search, using corner refinement
+                # only.
+                initial_corners = self._calculate_initial_slice_corners_flat(
+                    flat_array=flat_data,
+                    full_search=False,
+                )
+            except logging.LezargusError:
+                # We may need to move on to the next method.
                 logging.info(
                     message=(
                         "Refined corner detection failed, moving on to next "
@@ -876,43 +867,44 @@ class SpectreRetrieval:
                         " retrieval: a stored corner file."
                     ),
                 )
+                initial_corners = None
 
         # Via a stored corner file.
-        if (
-            isinstance(initial_corners, failure_class)
-            or initial_method == "file"
-        ):
-            # Using a stored corner file, we assume the class knows the right
-            # paths.
-            initial_corners = self._calculate_initial_slice_corners_file(
-                filename=None,
-            )
-            # We may need to move on to the next method.
-            if isinstance(initial_corners, failure_class):
+        if initial_corners is None or initial_method == "file":
+            try:
+                # Using a stored corner file, we assume the class knows the
+                # right paths.
+                initial_corners = self._calculate_initial_slice_corners_file(
+                    filename=None,
+                )
+            except logging.LezargusError:
+                # We may need to move on to the next method.
                 logging.info(
                     message=(
                         "Corner file failed, moving on to next method of corner"
                         " retrieval: the simulation."
                     ),
                 )
+                initial_corners = None
 
         # Via the simulation itself.
-        if (
-            isinstance(initial_corners, failure_class)
-            or initial_method == "simulation"
-        ):
-            initial_corners = self._calculate_initial_slice_corners_simulation()
-            # We may need to move on to the next method.
-            if isinstance(initial_corners, failure_class):
+        if initial_corners is None or initial_method == "simulation":
+            try:
+                initial_corners = (
+                    self._calculate_initial_slice_corners_simulation()
+                )
+            except logging.LezargusError:
+                # We may need to move on to the next method.
                 logging.info(
                     message=(
                         "The simulation failed, moving on to next method of"
                         " corner retrieval: failing and rasing an error."
                     ),
                 )
+                initial_corners = None
 
         # If the corners were still not found, something is wrong.
-        if isinstance(initial_corners, failure_class):
+        if initial_corners is None:
             # The corner was not found, not sure why.
             logging.critical(
                 critical_type=logging.AlgorithmError,
@@ -922,15 +914,15 @@ class SpectreRetrieval:
                     " slice corners are."
                 ),
             )
-            return failure_class()
-
-        # Otherwise, we need to refine where the slice corners are as the
-        # provided methods above mostly only give a rough estimate as to where
-        # they are.
-        refined_slice_corners = self._refine_initial_slice_corners(
-            initial_slice_corners=initial_corners,
-            flat_array=flat_data,
-        )
+            refined_slice_corners = None
+        else:
+            # Otherwise, we need to refine where the slice corners are as the
+            # provided methods above mostly only give a rough estimate as to
+            # where they are.
+            refined_slice_corners = self._refine_initial_slice_corners(
+                initial_slice_corners=initial_corners,
+                flat_array=flat_data,
+            )
 
         # Renaming based on the documentation.
         slice_corners = refined_slice_corners
@@ -1025,8 +1017,7 @@ class SpectreRetrieval:
         # We need a template corner table to actually figure out how to
         # map the raw coordinate points to the labeled points of the
         # slice corner table.
-        failure_class = lezargus.library.container.LezargusFailure
-        if isinstance(template_corner_table, failure_class):
+        if template_corner_table is None:
             logging.critical(
                 critical_type=logging.AlgorithmError,
                 message=(
@@ -1034,7 +1025,6 @@ class SpectreRetrieval:
                     " coordinate point matching."
                 ),
             )
-            return failure_class()
 
         # We start with the template corner table. The table, as formatted,
         # is not really useful for what we are trying to do here. So we
@@ -1068,7 +1058,7 @@ class SpectreRetrieval:
                 slice_corner_table[f"{cornerdex}_y"][rowindex] = np.nan
 
         # Now, for each point provided, we need to find the closest point.
-        # We use a variation of Euclidian seperation, allowing for
+        # We use a variation of Euclidian separation, allowing for
         # more vertical displacement due to the dispersion direction.
         x_cost = 7
         x_max_travel = 5
@@ -1126,7 +1116,7 @@ class SpectreRetrieval:
     def __get_labeled_corner_table(
         self: hint.Self,
         method: str | None = None,
-    ) -> hint.Table | hint.LezargusFailure:
+    ) -> hint.Table:
         """Get the most accurate labeled corner table.
 
         The labeled corner table can from from four different sources.
@@ -1155,92 +1145,109 @@ class SpectreRetrieval:
         """
         # Case...
         method = str(method).casefold() if method is not None else None
-
-        # We need to check at times if finding the labeled corner table
-        # failed in specific ways.
-        failure_class = lezargus.library.container.LezargusFailure
-        labeled_corner_table = failure_class()
-        final_labeled_corner_table = None
+        # Working defaults.
+        labeled_corner_table = None
+        inital_labeled_corner_table = None
 
         # First, if the labeled corner table already exists from this own
         # class.
-        stored_corners = self.slice_corners
-        if not isinstance(
-            stored_corners,
-            (type(None) | failure_class),
-        ) and isinstance(labeled_corner_table, failure_class):
-            # The current best.
-            labeled_corner_table = stored_corners
-        # And if the method is set...
-        if method == "stored":
-            final_labeled_corner_table = labeled_corner_table
+        if (inital_labeled_corner_table is None) and (
+            method is None or method == "stored"
+        ):
+            # We attempt to get the labeled corner table from the stored table
+            # itself.
+            try:
+                stored_corners = self.slice_corners
+                if stored_corners is None:
+                    logging.critical(
+                        critical_type=logging.InputError,
+                        message="There is no valid stored corners to use.",
+                    )
+            except logging.InputError:
+                # A valid failure state.
+                inital_labeled_corner_table = None
+            else:
+                # Getting the corners via the stored corners worked.
+                inital_labeled_corner_table = stored_corners
 
         # Second, if the labeled corner table can be found via a flat field.
         # The flat field however depends on this method for its own
         # corner table.
-        if ((method is None or method == "flat") 
-            and (self.flat_image is not None) 
-            and isinstance(labeled_corner_table,failure_class)):
-            flat_corners = self._calculate_initial_slice_corners_flat(
-                flat_array=self.flat_image,
-                full_search=True,
-                use_harris=False,
-            )
-        else:
-            # Automatically fail this method.
-            flat_corners = failure_class()
-        if not isinstance(
-            flat_corners,
-            (type(None) | failure_class),
-        ) and isinstance(labeled_corner_table, failure_class):
-            # The current best.
-            labeled_corner_table = flat_corners
-        # And if the method is set...
-        if method == "flat":
-            final_labeled_corner_table = labeled_corner_table
+        if (inital_labeled_corner_table is None) and (
+            method is None or method == "flat"
+        ):
+            # Attemping to get the corners from the flat field itself.
+            try:
+                # We need to get from the flat image the flat array data.
+                flat_array = self.flat_image.data
+                # Computing the corners.
+                flat_corners = self._calculate_initial_slice_corners_flat(
+                    flat_array=flat_array,
+                    full_search=True,
+                    use_harris=False,
+                )
+            except AttributeError:
+                # This would likely come up if the flat field is None.
+                # This is a valid failure state.
+                inital_labeled_corner_table = None
+            else:
+                # Getting the corners via the flat field worked!
+                inital_labeled_corner_table = flat_corners
 
         # Third, if the labeled corner table can be found via a corner file.
         # We assume the class can handle the filename best.
-        file_corners = self._calculate_initial_slice_corners_file(filename=None)
-        if not isinstance(file_corners, failure_class) and isinstance(
-            labeled_corner_table,
-            failure_class,
+        if (inital_labeled_corner_table is None) and (
+            method is None or method == "file"
         ):
-            # The current best.
-            labeled_corner_table = file_corners
-        # And if the method is set...
-        if method == "file":
-            final_labeled_corner_table = labeled_corner_table
+            # Attemping to get the corners from a stored file.
+            try:
+                # Attempting to, we assume the provided default filename is
+                # good enough.
+                file_corners = self._calculate_initial_slice_corners_file(
+                    filename=None,
+                )
+            except logging.FileError:
+                # The file is likly missing or is otherwise incomplete. This
+                # is a valid failure mode.
+                inital_labeled_corner_table = None
+            else:
+                # Getting the corners via the flat field worked!
+                inital_labeled_corner_table = file_corners
 
         # Fourth and finally, if the labeled corner table can be found via
         # the simulation.
-        simulation_corners = self._calculate_initial_slice_corners_simulation()
-        if not isinstance(simulation_corners, failure_class) and isinstance(
-            labeled_corner_table,
-            failure_class,
+        if (inital_labeled_corner_table is None) and (
+            method is None or method == "simulation"
         ):
-            # The current best.
-            labeled_corner_table = simulation_corners
-        # And if the method is set...
-        if method == "simulation":
-            final_labeled_corner_table = labeled_corner_table
+            # Attemping to get the corners from the simulation.
+            try:
+                # Running the simulation for the corners.
+                simulation_corners = (
+                    self._calculate_initial_slice_corners_simulation()
+                )
+            except logging.UndiscoveredError:
+                # UNKNOWN
+                # This is a valid failure mode.
+                inital_labeled_corner_table = None
+            else:
+                # Getting the corners via the flat field worked!
+                inital_labeled_corner_table = simulation_corners
 
         # If we get here, the current labeled corner table is the final labeled
         # corner table.
-        if final_labeled_corner_table is None:
-            final_labeled_corner_table = labeled_corner_table
-
-        # We need to make sure to warn if we are giving a bad table.
-        if isinstance(final_labeled_corner_table, failure_class):
+        if inital_labeled_corner_table is None:
+            # We failed to get a labeled corner table from the provided method.
             logging.error(
                 error_type=logging.AlgorithmError,
                 message=(
-                    "Failed to get a good labeled corner table using method"
+                    "Failed to get a good labeled corner table using method(s)"
                     f" {method}."
                 ),
             )
+        else:
+            labeled_corner_table = inital_labeled_corner_table
 
-        return final_labeled_corner_table
+        return labeled_corner_table
 
     def retrieve_slice(
         self: hint.Self,
@@ -1250,7 +1257,7 @@ class SpectreRetrieval:
         rebin: bool = True,
         rotate: bool = True,
         force_width: int | None = None,
-        **kwargs:hint.Any,
+        **kwargs: hint.Any,
     ) -> hint.LezargusImage:
         """Fetch/retrieve the slice based on the slice corners.
 
@@ -1259,7 +1266,7 @@ class SpectreRetrieval:
         define the region we are extracting. Slice rotation and fractional
         pixel flux can be handled as well.
 
-        This function does not perform any flat fielding or wavelength 
+        This function does not perform any flat fielding or wavelength
         calibrations; for that functionality, see `retrieve_science_slice`.
 
         Parameters
@@ -1285,7 +1292,7 @@ class SpectreRetrieval:
             parameter.
         **kwargs : Any
             Keyword argument catch-all.
-            
+
         Returns
         -------
         retrieved_slice : LezargusImage
@@ -1293,7 +1300,7 @@ class SpectreRetrieval:
             by the predefined slice and further preprocessing.
 
         """
-        # We do nothing with extra keyword arguments. This is used to 
+        # We do nothing with extra keyword arguments. This is used to
         # Ensure no code check errors.
         lezargus.library.wrapper.do_nothing(kwargs)
 
@@ -1454,6 +1461,7 @@ class SpectreRetrieval:
                     " based on the slice corners. Replace the flat field."
                 ),
             )
+
         # Otherwise, we just need to search the table for the slice corner
         # coordinates.
         slice_corner_row = self.slice_corners[
@@ -2084,7 +2092,8 @@ class SpectreRetrieval:
         return rotation
 
     def find_slice_arclamp_wavelength_solution(
-        self: hint.Self, arc_slice: hint.LezargusImage,
+        self: hint.Self,
+        arc_slice: hint.LezargusImage,
     ) -> hint.NDArray:
         """Find the wavelength solution for an arc lamp image.
 
@@ -2112,7 +2121,7 @@ class SpectreRetrieval:
         raw_arc_array = np.asarray(arc_slice.data, copy=True)
 
         # We reduce the spatial axis of the arc lamp image to get a 1D
-        # spectrum. We assume that it is uniform in the horizontal (i.e. 
+        # spectrum. We assume that it is uniform in the horizontal (i.e.
         # x-axis) direction, average it out.
         raw_arc_flux = np.nanmedian(raw_arc_array, axis=1)
 
@@ -2233,50 +2242,62 @@ class SpectreRetrieval:
         # All done.
         return assigned_wavelength
 
-
-    def find_slice_flat_field_solution(self:hint.Self, flat_slice:hint.LezargusImage) -> hint.NDArray:
+    def find_slice_flat_field_solution(
+        self: hint.Self,
+        flat_slice: hint.LezargusImage,
+    ) -> hint.NDArray:
         """Find the flat field solution provided the flat lamp.
 
         This function finds the flat field solution from a provided flat slice.
-        (Ensure any buffers have been trimmed.) The flat field solution is 
+        (Ensure any buffers have been trimmed.) The flat field solution is
         used to correct for non-uniformity in the science images.
 
-        
+
         Parameters
         ----------
         flat_slice : LezargusImage
-            A slice image of the flat field which we use to calculate the 
+            A slice image of the flat field which we use to calculate the
             flat field solution.
 
         Returns
         -------
         field_solution : NDArray
-            The flat field solution for the provided slice, detailing the 
-            non-uniformity in the slice. (Dividing by this 
+            The flat field solution for the provided slice, detailing the
+            non-uniformity in the slice. (Dividing by this
             corrects for said non-uniformity.)
+
         """
         # We only really need the data of the flat slice itself.
         flat_array = np.asarray(flat_slice.data, copy=True)
 
-        # The finding the flat feild solution is something we need to do, 
+        # The finding the flat feild solution is something we need to do,
         # but that is later.
         dummy_flat_field = np.ones_like(flat_array, dtype=float)
         # Letting know.
-        logging.error(error_type=logging.ToDoError, message=f"Slice flat field solution to be done; not correction made.")
+        logging.error(
+            error_type=logging.ToDoError,
+            message=(
+                "Slice flat field solution to be done; not correction made."
+            ),
+        )
         # Renaming...
         field_solution = dummy_flat_field
 
         # All done.
         return field_solution
 
-
-    def retrieve_science_slice(self:hint.Self, slice_:int, science_image:hint.LezargusImage|None = None,**kwargs:hint.Any) -> tuple[hint.LezargusImage, hint.NDArray]:
+    def retrieve_science_slice(
+        self: hint.Self,
+        slice_: int,
+        science_image: hint.LezargusImage | None = None,
+        **kwargs: hint.Any,
+    ) -> tuple[hint.LezargusImage, hint.NDArray]:
         """Fetch/retrieve a science slice and perform standard calibrations.
-        
-        This function retrieves a science slice image, based on the provided 
-        index, and the slice corners. In addition, we derive the flat field 
+
+        This function retrieves a science slice image, based on the provided
+        index, and the slice corners. In addition, we derive the flat field
         and wavelength solutions for the slice; the flat field correction is
-        applied. And, we return the wavelength solution for the slice 
+        applied. And, we return the wavelength solution for the slice
         along with the retireved slice.
 
         (There is no good container for a slice with a wavelength, and a
@@ -2285,11 +2306,11 @@ class SpectreRetrieval:
 
         Parameters
         ----------
-        slice_ : int 
+        slice_ : int
             The slice index of the science slice which we are retrieving both
             the data and the (wavelength) calibrations.
         science_image : LezargusImage, default = None
-            The science image we are retrieving the slice from. If None, we 
+            The science image we are retrieving the slice from. If None, we
             use the stored science image.
         **kwargs : dict
             Keyword arguments passed to `retrieve_slice` and other functions
@@ -2302,46 +2323,81 @@ class SpectreRetrieval:
             index provided.
         wavelength : NDArray
             The wavelength solution of the provided science slice. These
-            values are provided parallel with the dispersion direction of the 
+            values are provided parallel with the dispersion direction of the
             slice.
+
         """
         # We need to determine which science image we are using.
         if science_image is None:
-            logging.info(message=f"Provided science image is {science_image}, using cached science image.")
+            logging.info(
+                message=(
+                    f"Provided science image is {science_image}, using cached"
+                    " science image."
+                ),
+            )
             science_image = self.science_image
 
-        # This function does flat field and wavelength calibrations, and in 
+        # This function does flat field and wavelength calibrations, and in
         # order to do that, we need to have arc lamp and flat images.
         if self.flat_image is None:
-            logging.error(error_type=logging.WrongOrderError, message=f"Correct retrieving of a science slice requires a flat field image.")
+            logging.error(
+                error_type=logging.WrongOrderError,
+                message=(
+                    "Correct retrieving of a science slice requires a flat"
+                    " field image."
+                ),
+            )
         if self.arc_image is None:
-            logging.error(error_type=logging.WrongOrderError, message=f"Wavelength calibration of the science slice requires an arc lamp image.")
+            logging.error(
+                error_type=logging.WrongOrderError,
+                message=(
+                    "Wavelength calibration of the science slice requires an"
+                    " arc lamp image."
+                ),
+            )
 
         # We need to retrieve the science slice from the science image.
-        retrieve_science_slice = self.retrieve_slice(slice_=slice_, image=science_image, **kwargs)
-        # Repeating the process for the flat field image and the arc lamp 
+        retrieve_science_slice = self.retrieve_slice(
+            slice_=slice_,
+            image=science_image,
+            **kwargs,
+        )
+        # Repeating the process for the flat field image and the arc lamp
         # image for the calibrations.
-        retrieve_flat_slice = self.retrieve_slice(slice_=slice_, image=self.flat_image, **kwargs)
-        retrieve_arc_slice = self.retrieve_slice(slice_=slice_, image=self.arc_image, **kwargs)
+        retrieve_flat_slice = self.retrieve_slice(
+            slice_=slice_,
+            image=self.flat_image,
+            **kwargs,
+        )
+        retrieve_arc_slice = self.retrieve_slice(
+            slice_=slice_,
+            image=self.arc_image,
+            **kwargs,
+        )
 
         # We need the flat field solution so we can correct the science image
         # using the flat field.
-        flat_feild_solution = self.find_slice_flat_field_solution(flat_slice=retrieve_flat_slice)
+        flat_feild_solution = self.find_slice_flat_field_solution(
+            flat_slice=retrieve_flat_slice,
+        )
         # And applying the correction...
-        logging.error(error_type=logging.ToDoError, message=f"A better implementation of flat field correction...")
+        logging.error(
+            error_type=logging.ToDoError,
+            message="A better implementation of flat field correction...",
+        )
         feilded_science_slice = copy.deepcopy(retrieve_science_slice)
         feilded_science_slice.data /= flat_feild_solution
         feilded_science_slice.uncertainty /= np.abs(flat_feild_solution)
 
-        # We also will provide the wavelength solution, so we need to derive 
+        # We also will provide the wavelength solution, so we need to derive
         # it.
-        wavelength_solution = self.find_slice_arclamp_wavelength_solution(arc_slice=retrieve_arc_slice)
+        wavelength_solution = self.find_slice_arclamp_wavelength_solution(
+            arc_slice=retrieve_arc_slice,
+        )
 
         # Renaming for documentation's sakes.
         science_slice = feilded_science_slice
         wavelength = np.asarray(wavelength_solution)
 
-
         # All done.
         return science_slice, wavelength
-

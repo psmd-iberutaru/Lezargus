@@ -1,5 +1,5 @@
-# SPECTRE H2RG MIR dummy data, see Issue #40.
-# Wavelength, efficiency.
+# SPECTRE H2RG MIR dummy data, see Issue #80.
+# Wavelength | efficiency.
 0.350  |  0.900
 0.401  |  0.900
 0.452  |  0.900

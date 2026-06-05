@@ -523,9 +523,13 @@ def __initialize_data_optic_efficiency_functions() -> None:
     )
 
     # Creating the SPECTRE prism efficiencies.
-    global SPECTRE_EFFICIENCY_PRISM_BK7
-    SPECTRE_EFFICIENCY_PRISM_BK7 = _make.make_optic_efficiency(
-        basename="spectre_efficiency_prism_bk7.dat",
+    global SPECTRE_EFFICIENCY_PRISM_BK7_1
+    SPECTRE_EFFICIENCY_PRISM_BK7_1 = _make.make_optic_efficiency(
+        basename="spectre_efficiency_prism_bk7_1.dat",
+    )
+    global SPECTRE_EFFICIENCY_PRISM_BK7_2
+    SPECTRE_EFFICIENCY_PRISM_BK7_2 = _make.make_optic_efficiency(
+        basename="spectre_efficiency_prism_bk7_2.dat",
     )
     global SPECTRE_EFFICIENCY_PRISM_SILICA
     SPECTRE_EFFICIENCY_PRISM_SILICA = _make.make_optic_efficiency(
@@ -534,6 +538,10 @@ def __initialize_data_optic_efficiency_functions() -> None:
     global SPECTRE_EFFICIENCY_PRISM_ZNSE
     SPECTRE_EFFICIENCY_PRISM_ZNSE = _make.make_optic_efficiency(
         basename="spectre_efficiency_prism_znse.dat",
+    )
+    global SPECTRE_EFFICIENCY_PRISM_CORNING
+    SPECTRE_EFFICIENCY_PRISM_CORNING = _make.make_optic_efficiency(
+        basename="spectre_efficiency_prism_corning.dat",
     )
     global SPECTRE_EFFICIENCY_PRISM_SAPPHIRE
     SPECTRE_EFFICIENCY_PRISM_SAPPHIRE = _make.make_optic_efficiency(

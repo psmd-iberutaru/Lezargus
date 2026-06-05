@@ -90,7 +90,6 @@ def make_simulation_arclamp_spectrum(basename: str) -> hint.LezargusSpectrum:
     return arc_lamp_spectrum
 
 
-
 def make_solution_arclamp_spectrum(basename: str) -> hint.LezargusSpectrum:
     """Create an arc lamp spectrum for the wavelength solution.
 
@@ -121,12 +120,12 @@ def make_solution_arclamp_spectrum(basename: str) -> hint.LezargusSpectrum:
     logging.warning(
         warning_type=logging.AccuracyWarning,
         message=(
-            "Approximating the solution arc lamp level as about the simulation level,"
-            f" multiplying by {constant}"
+            "Approximating the solution arc lamp level as about the simulation"
+            f" level, multiplying by {constant}"
         ),
     )
 
-    # Converting to SI, even though it already is. 
+    # Converting to SI, even though it already is.
     wavelength_si = wavelength
     flux_si = flux
 
@@ -150,5 +149,3 @@ def make_solution_arclamp_spectrum(basename: str) -> hint.LezargusSpectrum:
     )
     # All done.
     return arclamp_solution_spectrum
-
-

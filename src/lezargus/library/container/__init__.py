@@ -34,7 +34,6 @@ from lezargus.library.container.photometry import PhotometricVegaFilter
 
 # Etcetera classes. There are quite specific and more minor than the
 # aforementioned minor classes.
-from lezargus.library.container.failure import LezargusFailure
 
 # isort: split
 

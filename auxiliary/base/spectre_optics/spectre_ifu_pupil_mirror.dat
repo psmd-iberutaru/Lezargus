@@ -1,5 +1,5 @@
-# SPECTRE Entrance Window dummy data, see Issue #40.
-# Wavelength, efficiency.
+# SPECTRE IFU pupil mirror dummy data, see Issue #44.
+# Wavelength | efficiency.
 0.350  |  0.900
 0.401  |  0.900
 0.452  |  0.900
