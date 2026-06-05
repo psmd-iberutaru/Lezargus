@@ -5,7 +5,7 @@ Set-Location "./auxiliary"
 black *.ipynb --ipynb
 
 # We remove all of the files before hand.
-Remove-Item "./products/*" -Recurse -Force
+# Remove-Item "./products/" -Recurse -Force
 
 # Generating the data files, if the script fails, we don't want to continue 
 # and mess up the other files.
@@ -31,7 +31,7 @@ if ( -not ($?)) { Exit }
 
 
 # Copy the files.
-Robocopy.exe "./products/" "./../src/lezargus/data/_files" /MIR
+Copy-Item -Path "./products/*" -Destination "./../src/lezargus/data/_files/" -Recurse
 
 # Remove all other unimportant files.
 Remove-Item "./*.nbconvert.ipynb" -Recurse -Force

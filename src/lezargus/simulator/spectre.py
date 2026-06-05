@@ -302,6 +302,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
     @staticmethod
     def __calculate_field_view_spatial_sampling(
         spatial_oversample: int,
+        location : tuple | str = "center"
     ) -> tuple:
         """Calculate the field of view and spatial sampling values.
 
@@ -352,8 +353,50 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             field_of_view_side / 206265,
             field_of_view_side / 206265,
         )
-        location = "center"
         return field_of_view, spatial_shape, location
+
+    @classmethod
+    def from_cube(cls:type[hint.Self], cube:hint.LezargusCube, channel:str, exposure_time:float, **kwargs:hint.Any) -> hint.Self:
+        """Initialize a SPECTRE simulator via a cube.
+
+        This is a convenience function to create a simulator using a single
+        data cube with typical default environmental parameters. The spatial 
+        resolution of the data cube is the same as the simulation (as the 
+        target data cube is what defines it).
+
+        Parameters
+        ----------
+        cube : LezargusCube
+            The data cube of a point source object which we are attempting to
+            simulate.
+        channel : str
+            The spectroscopic channel which we are simulating.
+        exposure_time : float
+            The exposure time of the observation integration, in seconds.
+        **kwargs : Any
+            Keyword arguments passed to the advanced parameter call.
+
+        Returns
+        -------
+        spectre_simulator : SpectreSimulator
+            The simulator, with the properties provided from the parameters.
+
+        """
+        # Assembling the target.
+        using_target = lezargus.simulator.TargetSimulator.from_cube(
+            cube=cube
+        )
+
+        spectre_simulator = cls.from_advanced_parameters(
+            target=using_target,
+            channel=channel,
+            exposure_time=exposure_time,
+            **kwargs,
+        )
+
+        # Assembling everything else.
+        return spectre_simulator
+
 
     @classmethod
     def from_spectrum(
@@ -362,6 +405,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         channel: str,
         exposure_time: float,
         spatial_oversample: int,
+        location: tuple|str = "center",
         **kwargs: hint.Any,
     ) -> hint.Self:
         """Initialize a SPECTRE simulator via a spectrum.
@@ -383,6 +427,9 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         spatial_oversample : int
             The spatial oversampling ratio of the detector which we are using
             to determine the target simulation spatial grid.
+        location : tuple or str, default = "center"
+            The pixel location of the target/object in the space. It can also
+            be a string instruction. See `broadcast_spectrum_to_cube` [[TODO]].
         **kwargs : Any
             Keyword arguments passed to the advanced parameter call.
 
@@ -395,7 +442,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # Calculating the field of view and spatial shape parameters.
         field_of_view, spatial_shape, location = (
             cls.__calculate_field_view_spatial_sampling(
-                spatial_oversample=spatial_oversample,
+                spatial_oversample=spatial_oversample, location=location
             )
         )
 
@@ -430,6 +477,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         channel: str,
         exposure_time: float,
         spatial_oversample: int,
+        location : tuple | str = "center",
         **kwargs: hint.Any,
     ) -> hint.Self:
         """Initialize a SPECTRE simulator via a blackbody temperature.
@@ -463,6 +511,9 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         spatial_oversample : int
             The spatial oversampling ratio of the detector which we are using
             to determine the target simulation spatial grid.
+        location : tuple or str, default = "center"
+            The pixel location of the target/object in the space. It can also
+            be a string instruction. See `broadcast_spectrum_to_cube` [[TODO]].
         **kwargs : Any
             Keyword arguments passed to the advanced parameter call.
 
@@ -475,7 +526,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # Calculating the field of view and spatial shape parameters.
         field_of_view, spatial_shape, location = (
             cls.__calculate_field_view_spatial_sampling(
-                spatial_oversample=spatial_oversample,
+                spatial_oversample=spatial_oversample, location=location
             )
         )
 
@@ -498,6 +549,8 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             exposure_time=exposure_time,
             **kwargs,
         )
+
+
 
     def clear_cache(self: hint.Self) -> None:
         """Clear the cache of computed result objects.
@@ -1734,17 +1787,17 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # We get the transmission (or reflectivity) spectra of the channel
         # prisms. They are sometimes different materials.
         if self.channel == "visible":
-            bk7_transmission = lezargus.data.SPECTRE_EFFICIENCY_PRISM_BK7
-            prism_transmission = bk7_transmission * bk7_transmission
+            bk7_1_transmission = lezargus.data.SPECTRE_EFFICIENCY_PRISM_BK7_1
+            bk7_2_transmission = lezargus.data.SPECTRE_EFFICIENCY_PRISM_BK7_2
+            # We need to re
+            prism_transmission = bk7_1_transmission * bk7_2_transmission
         elif self.channel == "nearir":
             silica_transmission = lezargus.data.SPECTRE_EFFICIENCY_PRISM_SILICA
             znse_transmission = lezargus.data.SPECTRE_EFFICIENCY_PRISM_ZNSE
             prism_transmission = silica_transmission * znse_transmission
         elif self.channel == "midir":
-            sapphire_transmission = (
-                lezargus.data.SPECTRE_EFFICIENCY_PRISM_SAPPHIRE
-            )
-            prism_transmission = sapphire_transmission * sapphire_transmission
+            corning_transmission = lezargus.data.SPECTRE_EFFICIENCY_PRISM_CORNING
+            prism_transmission = corning_transmission
         else:
             prism_transmission = None
             logging.error(
@@ -2424,9 +2477,16 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # No cached value, we calculate it from the previous state.
         previous_state = self.at_scattered_light
 
+        # Generally, it is physically impossible to have less than zero 
+        # expected photon flux. We set the floor as so, just in case there 
+        # are some straggling parameters.
+        photon_flux = previous_state.data
+        minimum_photon_flux = 0
+        real_photon_flux = np.where(photon_flux >= 0, photon_flux, minimum_photon_flux)
+        
         # We apply photon poisson statstics on the expected value: integrrated
         # flux values.
-        poisson_data = scipy.stats.poisson.rvs(previous_state.data)
+        poisson_data = scipy.stats.poisson.rvs(real_photon_flux)
         poisson_uncertainty = previous_state.uncertainty
         # No change needed.
         poisson_unit = previous_state.data_unit

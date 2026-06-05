@@ -20,7 +20,7 @@ import lezargus
 from lezargus.library import logging
 
 
-def find_data_filename(basename: str) -> str | hint.LezargusFailure:
+def find_data_filename(basename: str) -> str:
     """Find the full data filename provided its basename and conventions.
 
     We use this function to find the full filename of a data file. By
@@ -41,9 +41,6 @@ def find_data_filename(basename: str) -> str | hint.LezargusFailure:
         failure class.
 
     """
-    # The failure state, just in case.
-    failure_class = lezargus.library.container.LezargusFailure
-
     # Getting all of the files...
     data_glob_pattern = lezargus.library.path.merge_pathname(
         directory=[lezargus.config.INTERNAL_MODULE_DATA_FILE_DIRECTORY, "**"],
@@ -85,7 +82,7 @@ def find_data_filename(basename: str) -> str | hint.LezargusFailure:
                 " not point to a data file."
             ),
         )
-        filename = failure_class()
+        filename = "Error"
     elif len(potential_filenames) == 1:
         # All good.
         found_filename = potential_filenames[0]
@@ -103,7 +100,7 @@ def find_data_filename(basename: str) -> str | hint.LezargusFailure:
                 "points to too many files."
             ),
         )
-        filename = failure_class()
+        filename = "Error"
     else:
         # The code should not reach here.
         logging.critical(
@@ -113,6 +110,6 @@ def find_data_filename(basename: str) -> str | hint.LezargusFailure:
                 " been caught."
             ),
         )
-        filename = failure_class()
+        filename = "Error"
     # All done.
     return filename

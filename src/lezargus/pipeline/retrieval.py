@@ -2335,7 +2335,12 @@ class SpectreRetrieval:
                     " science image."
                 ),
             )
-            science_image = self.science_image
+            # We attempt to get the cached science image.
+            science_image = getattr(self, "science_image", None)
+        # We need to make sure we actually have a science image or not...
+        if science_image is None:
+            # It is still None, there is no science image to process.
+            logging.critical(critical_type=logging.InputError, message=f"There is no provided or cached science image; cannot retrieve a science slice.")
 
         # This function does flat field and wavelength calibrations, and in
         # order to do that, we need to have arc lamp and flat images.
