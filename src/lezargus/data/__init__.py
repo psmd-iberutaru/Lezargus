@@ -435,7 +435,7 @@ def __initialize_data_atmosphere_generators() -> None:
     )
 
 
-def __initialize_data_optic_efficiency_functions() -> None:
+def __initialize_data_optic_efficiency_functions() -> None:  # noqa: PLR0915
     """Initialize only the optic efficiency function spectrums.
 
     Parameters

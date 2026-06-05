@@ -559,7 +559,10 @@ class SpectreRetrieval:
             )
         except logging.LezargusError:
             # We failed to get a labeled corner table using a file.
-            logging.warning(warning_type=logging.AlgorithmWarning, message=f"Failed to get a labeled corner table from a file.")
+            logging.warning(
+                warning_type=logging.AlgorithmWarning,
+                message="Failed to get a labeled corner table from a file.",
+            )
             # But we can still attempt the next method.
             try:
                 labeled_corner_table = self.__get_labeled_corner_table(
@@ -568,7 +571,13 @@ class SpectreRetrieval:
             except logging.LezargusError:
                 # Failed to get the labeled corner table via the simulation.
                 # Notate the failure for the next error check.
-                logging.warning(warning_type=logging.AlgorithmWarning, message=f"Failed to get a labeled corner table from the simulation.")
+                logging.warning(
+                    warning_type=logging.AlgorithmWarning,
+                    message=(
+                        "Failed to get a labeled corner table from the"
+                        " simulation."
+                    ),
+                )
         finally:
             # Making sure we actually got a labeled corner table before
             # proceeding.
@@ -583,33 +592,15 @@ class SpectreRetrieval:
                     ),
                 )
 
-        # A simple percentile cut should be okay if the flat is bright enough
-        # and covers the space it usually does properly.
-        # We do a first pass to determine approximately the area coverage of
-        # the flat to the background.
-        rough_background_level = np.nanpercentile(flat_array, 100 - 68.27)
-        rough_minimum = 50
-        first_pass_partition = rough_background_level + rough_minimum
-        first_pass_mask = flat_array <= first_pass_partition
-        first_pass_area_percent = np.sum(first_pass_mask) / flat_array.size
-        # The second pass uses the area and its mask to determine a good
-        # threshold. We add to it a "flat jump" which is a gauge of the
-        # height between the background and the slice signal.
-        second_pass_partition = np.nanpercentile(
-            flat_array,
-            first_pass_area_percent,
+        # Computing the threshold partition.
+        threshold_partition = self._calculate_flat_field_threshold_partition(
+            flat_array=flat_array,
         )
-        second_pass_flat_jump = np.nanpercentile(
-            flat_array[~first_pass_mask],
-            10,
-        )
-        threshold_partition = second_pass_partition + second_pass_flat_jump / 2
 
         # Thresholding the actual data. Truncation thresholding matches what
         # we are trying to accomplish here to ensure the flat is uniform while
         # keeping the edges.
-        two_sigma = 95
-        threshold_fill_value = np.nanpercentile(flat_array, two_sigma)
+        threshold_fill_value = np.nanpercentile(flat_array, 95)
         threshold_array = np.where(
             threshold_partition <= flat_array,
             threshold_fill_value,
@@ -621,7 +612,7 @@ class SpectreRetrieval:
         # done due to data type restrictions on OpenCV functions. The maximum
         # and minimums are mostly just sane values here.
         float32_min = max(0.0, np.nanmin(threshold_array))
-        float32_max = min(10000000000.0, np.nanmax(threshold_array))
+        float32_max = min(1e10, np.nanmax(threshold_array))
         threshold_array_float32 = lezargus.library.sanitize.rescale_values(
             threshold_array,
             out_min=float32_min,
@@ -645,7 +636,6 @@ class SpectreRetrieval:
             except logging.UndiscoveredError:
                 # Letting the user know finding corners from the file failed...
                 # Attempting the simulation.
-                guess_corners = None
                 logging.info(
                     message=(
                         "Guessing flat field slice corners using file failed,"
@@ -659,7 +649,6 @@ class SpectreRetrieval:
                     )
                 except logging.UndiscoveredError:
                     # The simulation also failed...
-                    guess_corners = None
                     logging.warning(
                         warning_type=logging.AlgorithmWarning,
                         message=(
@@ -719,6 +708,53 @@ class SpectreRetrieval:
 
         # All done.
         return initial_slice_corners
+
+    @staticmethod
+    def _calculate_flat_field_threshold_partition(
+        flat_array: hint.NDArray,
+    ) -> float:
+        """Compute the partition value for a flat array from said array data.
+
+        The threshold partition in question is value at which below is
+        considered the dark floor, and above which is considered the signal
+        from the flat field.
+
+        Parameters
+        ----------
+        flat_array : NDArray
+            The flat array which is being used to compute the partition
+            value.
+
+        Returns
+        -------
+        partition : float
+            The flat field threshold partition value.
+
+        """
+        # A simple percentile cut should be okay if the flat is bright enough
+        # and covers the space it usually does properly.
+        # We do a first pass to determine approximately the area coverage of
+        # the flat to the background.
+        rough_background_level = np.nanpercentile(flat_array, 100 - 68.27)
+        rough_minimum = 50
+        first_pass_partition = rough_background_level + rough_minimum
+        first_pass_mask = flat_array <= first_pass_partition
+        first_pass_area_percent = np.sum(first_pass_mask) / flat_array.size
+        # The second pass uses the area and its mask to determine a good
+        # threshold. We add to it a "flat jump" which is a gauge of the
+        # height between the background and the slice signal.
+        second_pass_partition = np.nanpercentile(
+            flat_array,
+            first_pass_area_percent,
+        )
+        second_pass_flat_jump = np.nanpercentile(
+            flat_array[~first_pass_mask],
+            10,
+        )
+        threshold_partition = second_pass_partition + second_pass_flat_jump / 2
+        partition = float(threshold_partition)
+        # All done.
+        return partition
 
     def _refine_initial_slice_corners(
         self: hint.Self,
@@ -1113,7 +1149,7 @@ class SpectreRetrieval:
         # All done.
         return slice_corner_table
 
-    def __get_labeled_corner_table(
+    def __get_labeled_corner_table(  # noqa: PLR0912
         self: hint.Self,
         method: str | None = None,
     ) -> hint.Table:
@@ -1157,13 +1193,9 @@ class SpectreRetrieval:
             # We attempt to get the labeled corner table from the stored table
             # itself.
             try:
-                stored_corners = self.slice_corners
-                if stored_corners is None:
-                    logging.critical(
-                        critical_type=logging.InputError,
-                        message="There is no valid stored corners to use.",
-                    )
-            except logging.InputError:
+                # If there are no slice corners, it is considered a failure.
+                stored_corners = getattr(self, "slice_corners", None)
+            except logging.UndiscoveredError:
                 # A valid failure state.
                 inital_labeled_corner_table = None
             else:
@@ -2340,7 +2372,13 @@ class SpectreRetrieval:
         # We need to make sure we actually have a science image or not...
         if science_image is None:
             # It is still None, there is no science image to process.
-            logging.critical(critical_type=logging.InputError, message=f"There is no provided or cached science image; cannot retrieve a science slice.")
+            logging.critical(
+                critical_type=logging.InputError,
+                message=(
+                    "There is no provided or cached science image; cannot"
+                    " retrieve a science slice."
+                ),
+            )
 
         # This function does flat field and wavelength calibrations, and in
         # order to do that, we need to have arc lamp and flat images.

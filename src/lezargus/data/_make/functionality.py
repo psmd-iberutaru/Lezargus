@@ -7,10 +7,6 @@ There are not that many common functions, so a single module is fine.
 # Import required to remove circular dependencies from type checking.
 from __future__ import annotations
 
-from typing import TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from lezargus.library import hint
 # isort: split
 
 import glob
