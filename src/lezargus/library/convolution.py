@@ -23,6 +23,9 @@ import scipy.signal
 
 from lezargus.library import logging
 
+#needed for Issue 65
+from astropy.modeling import models, fitting
+
 
 def _check_array_dimensionality(array: hint.NDArray, dimensions: int) -> bool:
     """Check if the array has the expected number of dimensions.
@@ -872,7 +875,8 @@ def cross_correlation_pixel_shift(
     shift_array = scipy.signal.correlation_lags(
         base_size,
         move_size,
-        mode="valid",
+        mode="full", #ACAB Issue 65 for Gaussian fit/sub-pixel
+        #mode="valid",
     )
     # And computing the cross-correlation. Using the Numpy version is slower
     # but is it more accepting of the different inputs. We do not predict
@@ -880,11 +884,22 @@ def cross_correlation_pixel_shift(
     cross_correlation = np.correlate(
         norm_base_array,
         norm_move_array,
-        mode="valid",
+        mode="full", #ACAB Issue 65 for Gaussian fit/sub-pixel
+        #mode="valid",
     )
 
     # Finding the shift via the cross-correlation. The best overlap is at the
     # highest correlation.
-    pixel_shift = shift_array[np.nanargmax(cross_correlation)]
+    # ACAB Issue 65 for Gaussian fit/sub-pixel
+    #pixel_shift = shift_array[np.nanargmax(cross_correlation)]
+    model = models.Gaussian1D(amplitude=500., mean=pixel_shift, stddev=1.)
+    fitter = fitting.LevMarLSQFitter()
+    delta=100
+    index=np.where((shift_array > -delta) & (shift_array < delta))
+    fit = fitter(model, shift_array[index], cross_correlation[index],filter_non_finite=True)
+    f_fit=fit(shift_array[index])
+    pixel_shift=fit.mean.value
+    print('***applied pixel shift:', pixel_shift)
+    
     # All done.
     return pixel_shift
