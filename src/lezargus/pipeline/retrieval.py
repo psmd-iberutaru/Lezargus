@@ -2249,6 +2249,19 @@ class SpectreRetrieval:
         raw_pixel_domain = np.arange(raw_arclamp.size, dtype=float)
         arc_pixel_domain = np.arange(wave_arclamp.size, dtype=float)
 
+        #Issue 69: remove NaNs from 'solution spectrum' because NaNs
+        #result in a poor wavelength calibration
+        isnan=np.isnan(wave_arclamp)
+        index=np.where(isnan)
+        wave_arclamp[index]=0
+        if len(index[0])) > 0:
+            logging.error(
+                error_type=logging.InputError,
+                message=(
+                    f"Wavelength solution spectrum SPECTRE channel {self.channel} has NaNs. Please fix?"
+                ),
+            )
+                
         if pixel_shift_correct is None:
             # We attempt to calculate the corrective pixel shift ourselves.
             pixel_shift = (
