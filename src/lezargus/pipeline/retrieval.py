@@ -2270,7 +2270,11 @@ class SpectreRetrieval:
                     moving_array=raw_arclamp,
                 )
             )
+            #Issue 64 partial implementation (would like to have
+            #optional correlation plot as well)
+            print('***Applied pixel shift: ', pixel_shift)
             pixel_shift_correct = -pixel_shift
+            
 
         # With the shift, we can shift the arc lamp spectra pixel domain
         # to match with the raw pixel domain.
