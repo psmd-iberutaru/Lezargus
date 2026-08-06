@@ -480,6 +480,9 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         photometric_filter: (
             hint.PhotometricABFilter | hint.PhotometricVegaFilter
         ),
+        wave_gauss: list,
+        fwhm_gauss: list,
+        ampl_gauss: list,            
         spectral_scale: float,
         channel: str,
         exposure_time: float,
@@ -508,6 +511,21 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             filter.
         photometric_filter : PhotometricABFilter or PhotometricVegaFilter
             The photometric filter (system) that the inputted magnitude is in.
+        wave_gauss : list
+            List of central wavelengths of Gaussian emission lines to
+            be added to the blackbody spectrum. Units: same as input
+            'wavelength'. If no Gaussians are requested, input is
+            empty list ([]). (Issue 93)
+        fwhm_gauss : list
+            List of FWHMS of Gaussian emission lines to be added to
+            the blackbody spectrum. Units: same as input 'wavelength'.
+            If no Gaussians are requested, input is empty list
+            ([]). (Issue 93)
+        ampl_gauss : list
+            List of amplitudes of Gaussian emission lines to be added
+            to the blackbody spectrum. The amplitudes are
+            line/continuum ratios. If no Gaussians are requested,
+            input is empty list ([]). (Issue 93)
         spectral_scale : float
             The spectral scale of the simulated spectra, as a resolution,
             in wavelength separation (in meters) per pixel.
@@ -544,6 +562,9 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             temperature=blackbody_temperature,
             magnitude=magnitude,
             photometric_filter=photometric_filter,
+            wave_gauss=wave_gauss,
+            fwhm_gauss=fwhm_gauss,
+            ampl_gauss=ampl_gauss,
             spatial_grid_shape=spatial_shape,
             spatial_fov_shape=field_of_view,
             spectral_scale=spectral_scale,
