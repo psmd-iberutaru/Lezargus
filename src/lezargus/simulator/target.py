@@ -327,6 +327,18 @@ class TargetSimulator:
         spectrum.pixel_scale = pixel_scale
         spectrum.slice_scale = slice_scale
 
+        #Issue 90: 'location' input parameter in arcsec units, not
+        #pixels, so convert back to pixels here. Must be arcsec
+        #relative to center of FOV, so center has location (0,0)
+        if isinstance(location, (tuple)):
+            #result needs to be a tuple of integer pixels
+            #assumption is that pixel_scale is in radians/pixel
+            location=(int(location[0]/(pixel_scale/(np.pi)*180*3600)), \
+                      int(location[1]/(pixel_scale/(np.pi)*180*3600)))
+            #make it relative to center of FOV
+            location=(int(location[0]-spatial_grid_shape[0]/2), \
+                      int(location[1]-spatial_grid_shape[0]/2))
+        
         # We assume that background space is dark, so a zero fill value.
         background_data = 0
         background_uncertainty = 0
