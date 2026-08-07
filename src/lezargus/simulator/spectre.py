@@ -1076,7 +1076,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             isnan=np.isnan(f)
             index=np.where(isnan)
             arclamp_spectrum.data[index]=0
-            if len(index[0])) > 0:
+            if len(index[0]) > 0:
                 logging.error(
                     error_type=logging.InputError,
                     message=(

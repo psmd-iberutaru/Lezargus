@@ -892,14 +892,14 @@ def cross_correlation_pixel_shift(
     # highest correlation.
     # ACAB Issue 65 for Gaussian fit/sub-pixel
     #pixel_shift = shift_array[np.nanargmax(cross_correlation)]
-    model = models.Gaussian1D(amplitude=500., mean=pixel_shift, stddev=1.)
+    model = models.Gaussian1D(amplitude=500., mean=0, stddev=1.)
     fitter = fitting.LevMarLSQFitter()
     delta=100
     index=np.where((shift_array > -delta) & (shift_array < delta))
     fit = fitter(model, shift_array[index], cross_correlation[index],filter_non_finite=True)
     f_fit=fit(shift_array[index])
     pixel_shift=fit.mean.value
-    print('***applied pixel shift:', pixel_shift)
+    print('***Found pixel shift:', pixel_shift)
     
     # All done.
     return pixel_shift

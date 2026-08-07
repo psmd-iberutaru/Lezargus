@@ -190,6 +190,9 @@ class TargetSimulator:
         #
         #...add only those Gaussian lines that overlap with blackbody
         #   wavelength range
+        wave_gauss=np.asarray(wave_gauss) #these conversions can probably be avoided by defining better input
+        fwhm_gauss=np.asarray(fwhm_gauss)
+        ampl_gauss=np.asarray(ampl_gauss)                
         ind=np.where((wave_gauss > np.min(wavelength)) & (wave_gauss < np.max(wavelength)))
         wave_gauss=wave_gauss[ind]
         fwhm_gauss=fwhm_gauss[ind]
@@ -206,7 +209,7 @@ class TargetSimulator:
             g=g/max(g)*a
             #add to blackbody
             blackbody_flux=blackbody_flux+g
-            print('***added Gaussian at wavelength ,'+str(wave_gauss[i]*1.e6)+' um')
+            print('***added Gaussian at wavelength '+str(wave_gauss[i]*1.e6)+' um')
         # end of adding Gaussians
         #
         # We integrate over the solid angle.

@@ -2254,7 +2254,7 @@ class SpectreRetrieval:
         isnan=np.isnan(wave_arclamp)
         index=np.where(isnan)
         wave_arclamp[index]=0
-        if len(index[0])) > 0:
+        if len(index[0]) > 0:
             logging.error(
                 error_type=logging.InputError,
                 message=(
