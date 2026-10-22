@@ -20,8 +20,8 @@ if TYPE_CHECKING:
 
 import astropy.constants
 import numpy as np
-import math #Issue 93
-from math import e as exp #Issue 93
+import math  # Issue 93
+from math import e as exp  # Issue 93
 
 import lezargus
 from lezargus.library import logging
@@ -186,30 +186,44 @@ class TargetSimulator:
         # will be wrong but it will be fixed.
         blackbody_flux = blackbody_function(wavelength)
 
-        #Issue 93: add Gausian emission lines to blackbody
+        # Issue 93: add Gausian emission lines to blackbody
         #
-        #...add only those Gaussian lines that overlap with blackbody
+        # ...add only those Gaussian lines that overlap with blackbody
         #   wavelength range
-        wave_gauss=np.asarray(wave_gauss) #these conversions can probably be avoided by defining better input
-        fwhm_gauss=np.asarray(fwhm_gauss)
-        ampl_gauss=np.asarray(ampl_gauss)                
-        ind=np.where((wave_gauss > np.min(wavelength)) & (wave_gauss < np.max(wavelength)))
-        wave_gauss=wave_gauss[ind]
-        fwhm_gauss=fwhm_gauss[ind]
-        ampl_gauss=ampl_gauss[ind]        
+        wave_gauss = np.asarray(
+            wave_gauss
+        )  # these conversions can probably be avoided by defining better input
+        fwhm_gauss = np.asarray(fwhm_gauss)
+        ampl_gauss = np.asarray(ampl_gauss)
+        ind = np.where(
+            (wave_gauss > np.min(wavelength))
+            & (wave_gauss < np.max(wavelength))
+        )
+        wave_gauss = wave_gauss[ind]
+        fwhm_gauss = fwhm_gauss[ind]
+        ampl_gauss = ampl_gauss[ind]
         #
-        #....iterate over each Gaussian to add each to blackbody
-        for i in range(0,len(wave_gauss)):
-            #sigma for this line
-            sigma=fwhm_gauss[i]/(2.*(2.*math.log(2.))**0.5)
-            #Gaussian function
-            g = exp**(-(wavelength-wave_gauss[i])**2/(2.*sigma**2))/((2.*math.pi)**0.5*sigma)
-            #normalize to requested amplitude for this line
-            a=np.interp(wave_gauss[i], wavelength, blackbody_flux)*ampl_gauss[i]
-            g=g/max(g)*a
-            #add to blackbody
-            blackbody_flux=blackbody_flux+g
-            print('***added Gaussian at wavelength '+str(wave_gauss[i]*1.e6)+' um')
+        # ....iterate over each Gaussian to add each to blackbody
+        for i in range(0, len(wave_gauss)):
+            # sigma for this line
+            sigma = fwhm_gauss[i] / (2.0 * (2.0 * math.log(2.0)) ** 0.5)
+            # Gaussian function
+            g = exp ** (
+                -((wavelength - wave_gauss[i]) ** 2) / (2.0 * sigma**2)
+            ) / ((2.0 * math.pi) ** 0.5 * sigma)
+            # normalize to requested amplitude for this line
+            a = (
+                np.interp(wave_gauss[i], wavelength, blackbody_flux)
+                * ampl_gauss[i]
+            )
+            g = g / max(g) * a
+            # add to blackbody
+            blackbody_flux = blackbody_flux + g
+            print(
+                "***added Gaussian at wavelength "
+                + str(wave_gauss[i] * 1.0e6)
+                + " um"
+            )
         # end of adding Gaussians
         #
         # We integrate over the solid angle.
@@ -327,18 +341,22 @@ class TargetSimulator:
         spectrum.pixel_scale = pixel_scale
         spectrum.slice_scale = slice_scale
 
-        #Issue 90: 'location' input parameter in arcsec units, not
-        #pixels, so convert back to pixels here. Must be arcsec
-        #relative to center of FOV, so center has location (0,0)
+        # Issue 90: 'location' input parameter in arcsec units, not
+        # pixels, so convert back to pixels here. Must be arcsec
+        # relative to center of FOV, so center has location (0,0)
         if isinstance(location, (tuple)):
-            #result needs to be a tuple of integer pixels
-            #assumption is that pixel_scale is in radians/pixel
-            location=(int(location[0]/(pixel_scale/(np.pi)*180*3600)), \
-                      int(location[1]/(pixel_scale/(np.pi)*180*3600)))
-            #make it relative to center of FOV
-            location=(int(location[0]-spatial_grid_shape[0]/2), \
-                      int(location[1]-spatial_grid_shape[0]/2))
-        
+            # result needs to be a tuple of integer pixels
+            # assumption is that pixel_scale is in radians/pixel
+            location = (
+                int(location[0] / (pixel_scale / (np.pi) * 180 * 3600)),
+                int(location[1] / (pixel_scale / (np.pi) * 180 * 3600)),
+            )
+            # make it relative to center of FOV
+            location = (
+                int(location[0] - spatial_grid_shape[0] / 2),
+                int(location[1] - spatial_grid_shape[0] / 2),
+            )
+
         # We assume that background space is dark, so a zero fill value.
         background_data = 0
         background_uncertainty = 0

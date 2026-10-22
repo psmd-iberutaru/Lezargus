@@ -2197,7 +2197,7 @@ class SpectreRetrieval:
         raw_arclamp: hint.NDArray,
         wavelength: hint.NDArray,
         wave_arclamp: hint.NDArray,
-        pixel_shift_correct: int | None = None,
+        pixel_shift_correct: float | None = None,
     ) -> hint.NDArray:
         """Assign a wavelength calibration to an arc lamp array spectrum.
 
@@ -2217,7 +2217,7 @@ class SpectreRetrieval:
             The calibriated arc lamp spectrum data, parallel with the
             provided wavelength array. This and the `raw_arclamp` should be
             shifted copies of each other.
-        pixel_shift_correct : int, defualt = None
+        pixel_shift_correct : float, defualt = None
             The pixel shift correction value. This value is the amount the
             raw arc lamp needs to be shifted to line up with the calibrated
             arc lamp. That is typically found via cross correlation, and
@@ -2249,19 +2249,20 @@ class SpectreRetrieval:
         raw_pixel_domain = np.arange(raw_arclamp.size, dtype=float)
         arc_pixel_domain = np.arange(wave_arclamp.size, dtype=float)
 
-        #Issue 69: remove NaNs from 'solution spectrum' because NaNs
-        #result in a poor wavelength calibration
-        isnan=np.isnan(wave_arclamp)
-        index=np.where(isnan)
-        wave_arclamp[index]=0
+        # Issue 69: remove NaNs from 'solution spectrum' because NaNs
+        # result in a poor wavelength calibration
+        isnan = np.isnan(wave_arclamp)
+        index = np.where(isnan)
+        wave_arclamp[index] = 0
         if len(index[0]) > 0:
             logging.error(
                 error_type=logging.InputError,
                 message=(
-                    f"Wavelength solution spectrum SPECTRE channel {self.channel} has NaNs. Please fix?"
+                    "Wavelength solution spectrum SPECTRE channel"
+                    f" {self.channel} has NaNs. Please fix?"
                 ),
             )
-                
+
         if pixel_shift_correct is None:
             # We attempt to calculate the corrective pixel shift ourselves.
             pixel_shift = (
@@ -2270,14 +2271,13 @@ class SpectreRetrieval:
                     moving_array=raw_arclamp,
                 )
             )
-            #Issue 64 partial implementation (would like to have
-            #optional correlation plot as well)
-            print('***Applied pixel shift: ', pixel_shift)
             pixel_shift_correct = -pixel_shift
-            
+            # Information about its derivation.
+            logging.debug(message=f"Arclamp pixel shift correction automatically found to be {pixel_shift_correct}")
 
         # With the shift, we can shift the arc lamp spectra pixel domain
         # to match with the raw pixel domain.
+        logging.info(message=f"Arclamp pixel shift correction: {pixel_shift_correct:.2f}")
         shifted_arc_pixel_domain = arc_pixel_domain + pixel_shift_correct
 
         # Linear interpolation is best when finding the assigned wavelengths

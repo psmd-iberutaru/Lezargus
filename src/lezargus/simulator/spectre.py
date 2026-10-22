@@ -482,7 +482,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         ),
         wave_gauss: list,
         fwhm_gauss: list,
-        ampl_gauss: list,            
+        ampl_gauss: list,
         spectral_scale: float,
         channel: str,
         exposure_time: float,
@@ -1072,15 +1072,16 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             #           slice extraction step. Eventually we don't
             #           want any NaNs in the arc spectrum, but this
             #           avoids issues of there are .
-            f=arclamp_spectrum.data
-            isnan=np.isnan(f)
-            index=np.where(isnan)
-            arclamp_spectrum.data[index]=0
+            f = arclamp_spectrum.data
+            isnan = np.isnan(f)
+            index = np.where(isnan)
+            arclamp_spectrum.data[index] = 0
             if len(index[0]) > 0:
                 logging.error(
                     error_type=logging.InputError,
                     message=(
-                        f"Arc spectrum SPECTRE channel {self.channel} has NaNs. Please fix?"
+                        f"Arc spectrum SPECTRE channel {self.channel} has NaNs."
+                        " Please fix?"
                     ),
                 )
             # Parsing the arc lamp spectrum from previous known data upwards.
