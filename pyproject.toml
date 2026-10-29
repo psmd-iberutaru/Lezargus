@@ -97,14 +97,7 @@ checkfix = [
     "ruff check src --no-cache --fix",
     "format",
 ]
-docs = [
-    "sphinx-apidoc -f -e -P -o ./docs/source/code/ ./src/lezargus/",
-    "sphinx-build -a -b html ./docs/source/ ./docs/build/html/",
-    # To build the LaTeX file, uncomment the line below. We do not usually 
-    # build it all the time due to its low usage and cluttering of the Git 
-    # tree with large files.
-    #"sphinx-build -M latexpdf ./docs/source/ ./docs/build/latex/",
-]
+
 
 
 [[tool.hatch.envs.all.matrix]]

@@ -1,3 +1,14 @@
+#!/usr/bin/env pwsh
+
+# This forge script builds needed auxiliary data files which Lezargus uses.
+# As most of the files are generated using Jupyter Notebooks, we just 
+# run each of the note books.
+
+# We need to make sure we have the requirements to do this first.
+./forge_requirements.ps1
+# Jupyter requirements.
+pip install jupyter nbconvert 
+
 # First, entering into the auxiliary directory to process the data.
 Set-Location "./auxiliary"
 
