@@ -17,8 +17,9 @@ if TYPE_CHECKING:
     from lezargus.library import hint
 # isort: split
 
-
+import copy
 import astropy.constants
+import astropy.modeling
 import numpy as np
 import math  # Issue 93
 from math import e as exp  # Issue 93
@@ -43,22 +44,22 @@ class TargetSimulator:
 
     """
 
-    target = None
-    """LezargusCube : The target, represented as a LezargusCube. The exact
+    target: hint.LezargusCube
+    """The target, represented as a LezargusCube. The exact
     properties of the cube are determined from how the simulator was created."""
 
-    target_spectrum = None
-    """LezargusSpectrum : The spectrum of the target. This is only made if the
+    target_spectrum: hint.LezargusSpectrum | None = None
+    """The spectrum of the target. This is only made if the
     target cube was made by extending a point source, making the cube from a
     Spectrum; otherwise, this is None."""
 
-    atmosphere = None
-    """AtmosphereSimulator : The atmosphere simulator which describes and
+    atmosphere: hint.AtmosphereSimulator | None = None
+    """The atmosphere simulator which describes and
     simulates atmospheric effects. If not provided by
     py:meth:`add_atmosphere`, this defaults to None."""
 
-    use_cache = True
-    """bool : If True, we cache calculated values so that they do not need to
+    use_cache: bool = True
+    """If True, we cache calculated values so that they do not need to
     be calculated every time when not needed. If False, caches are never
     returned and instead everything is always recomputed."""
 
@@ -120,6 +121,9 @@ class TargetSimulator:
         spatial_grid_shape: tuple,
         spatial_fov_shape: tuple,
         spectral_scale: float,
+        emission_line_wavelength: list[float] | None = None,
+        emission_line_amplitude: list[float] | None = None,
+        emission_line_sigma: list[float] | None = None,
         **kwargs: hint.Any,
     ) -> hint.Self:
         """Create a target simulation object from a point source blackbody.
@@ -142,21 +146,6 @@ class TargetSimulator:
             The photometric filter which we are using to scale the blackbody
             to match the magnitude provided; which is assumed to be in the
             correct photometric system.
-        wave_gauss : list
-            List of central wavelengths of Gaussian emission lines to
-            be added to the blackbody spectrum. Units: same as input
-            'wavelength'. If no Gaussians are requested, input is
-            empty list ([]). (Issue 93)
-        fwhm_gauss : list
-            List of FWHMS of Gaussian emission lines to be added to
-            the blackbody spectrum. Units: same as input 'wavelength'.
-            If no Gaussians are requested, input is empty list
-            ([]). (Issue 93)
-        ampl_gauss : list
-            List of amplitudes of Gaussian emission lines to be added
-            to the blackbody spectrum. The amplitudes are
-            line/continuum ratios. If no Gaussians are requested,
-            input is empty list ([]). (Issue 93)
         spatial_grid_shape : tuple
             The spatial pixel grid shape. This defines the array shape of the
             simulation's spatial component. The pixel and slice scale is
@@ -168,9 +157,13 @@ class TargetSimulator:
         spectral_scale : float
             The spectral scale of the simulated spectra, as a resolution,
             in wavelength separation (in meters) per pixel.
+
+
         **kwargs : Any
             Additional keyword arguments passed to the py:meth:`from_spectrum`
             function which does the heavy lifting.
+
+
 
         Returns
         -------
@@ -186,46 +179,6 @@ class TargetSimulator:
         # will be wrong but it will be fixed.
         blackbody_flux = blackbody_function(wavelength)
 
-        # Issue 93: add Gausian emission lines to blackbody
-        #
-        # ...add only those Gaussian lines that overlap with blackbody
-        #   wavelength range
-        wave_gauss = np.asarray(
-            wave_gauss
-        )  # these conversions can probably be avoided by defining better input
-        fwhm_gauss = np.asarray(fwhm_gauss)
-        ampl_gauss = np.asarray(ampl_gauss)
-        ind = np.where(
-            (wave_gauss > np.min(wavelength))
-            & (wave_gauss < np.max(wavelength))
-        )
-        wave_gauss = wave_gauss[ind]
-        fwhm_gauss = fwhm_gauss[ind]
-        ampl_gauss = ampl_gauss[ind]
-        #
-        # ....iterate over each Gaussian to add each to blackbody
-        for i in range(0, len(wave_gauss)):
-            # sigma for this line
-            sigma = fwhm_gauss[i] / (2.0 * (2.0 * math.log(2.0)) ** 0.5)
-            # Gaussian function
-            g = exp ** (
-                -((wavelength - wave_gauss[i]) ** 2) / (2.0 * sigma**2)
-            ) / ((2.0 * math.pi) ** 0.5 * sigma)
-            # normalize to requested amplitude for this line
-            a = (
-                np.interp(wave_gauss[i], wavelength, blackbody_flux)
-                * ampl_gauss[i]
-            )
-            g = g / max(g) * a
-            # add to blackbody
-            blackbody_flux = blackbody_flux + g
-            print(
-                "***added Gaussian at wavelength "
-                + str(wave_gauss[i] * 1.0e6)
-                + " um"
-            )
-        # end of adding Gaussians
-        #
         # We integrate over the solid angle.
         solid_angle = np.pi
         integrated_blackbody_flux = blackbody_flux * solid_angle
@@ -417,6 +370,195 @@ class TargetSimulator:
         target_instance = cls(_cube=cube)
         return target_instance
 
+    def add_artificial_target_spectral_lines(
+        self: hint.Self,
+        line_wavelengths: hint.NDArray,
+        line_amplitude_ratio: hint.NDArray,
+        line_sigma: hint.NDArray | None = None,
+        line_equivalent_width: hint.NDArray | None = None,
+    ) -> None:
+        """Add artificial emission or absorption lines to the target spectrum.
+
+        It is often useful to add Gaussian emission or absorption lines to a
+        simple (blackbody) spectrum. Although a full-blown spectrum can be
+        provided with these lines inside, this function serves as a way to
+        conveniently add them. The emission lines can be used to test simulator
+        functionality or as a way to conceptualize the simulator output.
+
+        This function only works if the simulating Target was make by either
+        a blackbody or a spectrum; that is if `target_spectrum` exists. We
+        modify the target_spectrum itself.
+
+        Parameters
+        ----------
+        line_wavelengths : NDArray
+            The list of central wavelengths of the Gaussian emission lines to
+            be added to the target spectrum. Units are the same as the
+            target spectrum wavelength (typically meters).
+        line_amplitude_ratio : NDArray
+            The list of amplitudes of the Gaussian emission lines to be
+            added to the target spectrum. Here the amplitude values are
+            line peak to continuum ratios. If the amplitude is negative,
+            an absorption line is made instead.
+        line_sigma : NDArray, default = None
+            List of the Gaussian sigma width of the emission lines to be added
+            to the target spectrum. Units are the same as the target spectrum
+            wavelength(typically meters). If None, we assume
+            `line_equivalent_width` was provided instead as either must be
+            provided.
+        line_equivalent_width : NDArray, default = None
+            List of the equivalent width values for the widths of the
+            Gaussian emission lines to be added to the target spectrum. Units
+            are the same as the target spectrum wavelength (typically meters).
+            Negative values are absolute valued in favor for the amplitude
+            parameter separating emission from absorption lines. If None, we
+            assume `line_equivalent_width` was provided instead as either
+            must be provided.
+
+        Returns
+        -------
+        None
+        """
+        # This function only works if there is a target spectrum provided.
+        target_spectrum = self.target_spectrum
+        if not isinstance(
+            target_spectrum, lezargus.library.container.LezargusSpectrum
+        ):
+            # It is not a valid spectrum, we cannot continue.
+            logging.error(
+                error_type=logging.WrongOrderError,
+                message=(
+                    f"Adding artificial lines requires a target derived from a"
+                    f" spectrum. It is missing. Not continuing."
+                ),
+            )
+            return None
+
+        # If the user provided a list, we actually need arrays.
+        line_wavelengths = np.asarray(line_wavelengths)
+        line_amplitude_ratio = np.asarray(line_amplitude_ratio)
+        # These could be either or so we need to adapt.
+        line_sigma = None if line_sigma is None else np.asarray(line_sigma)
+        line_equivalent_width = (
+            None
+            if line_equivalent_width is None
+            else np.asarray(line_equivalent_width)
+        )
+
+        # We can only accept sigma or EW as the width describer of the line.
+        if line_sigma is not None and line_equivalent_width is not None:
+            logging.error(
+                error_type=logging.InputError,
+                message=(
+                    f"Spectral line width is defined by either sigma or"
+                    f" equivalent width, not both. Provide only one."
+                ),
+            )
+        # If the sigma is provided, we use it directly.
+        elif line_sigma is not None:
+            gaussian_line_sigma = line_sigma
+        # If the equivalent width was provided, it is easier to compute the
+        # appropriate sigma value for each of the lines.
+        elif line_equivalent_width is not None:
+            # By definition, equivalent width is the width required for a
+            # rectangle of amplitude height to equal the area of the spectral
+            # line. We ignore the sign as amplitude takes care of emission or
+            # absorption description.
+            logging.error(
+                error_type=logging.ToDoError,
+                message=f"Double check math, add to documentation.",
+            )
+            _two_pi = 2 * np.pi
+            _sigma_squared = (1 / _two_pi) * (
+                line_equivalent_width / line_amplitude_ratio
+            ) ** 2
+            gaussian_line_sigma = np.sqrt(_sigma_squared)
+        else:
+            # It seems that neither was provided...?
+            logging.error(
+                error_type=logging.InputError,
+                message=f"Spectral line width, gaussian sigma, not provided.",
+            )
+
+        # The amplitudes define if it is an emission or absorption line.
+        # Namely, a negative amplitude implies absorption.
+        line_sign = np.sign(line_amplitude_ratio)
+
+        # We add each of the gaussian emission/absorption lines one at a time.
+        # There is likely not enough where this becomes the bottle neck.
+        target_base_flux = np.copy(target_spectrum.data)
+        for wave_dex, amprat_dex, sigma_dex, sign_dex in zip(
+            line_wavelengths,
+            line_amplitude_ratio,
+            gaussian_line_sigma,
+            line_sign,
+            strict=True,
+        ):
+            # Defining the Gaussian.
+            # Estimating the continuum, but we do not need all of the other
+            # trash.
+            continuum_estimate, __, __, __ = target_spectrum.interpolate(
+                wavelength=wave_dex
+            )
+            # Gaussian amplitude derived from the ratio.
+            amplitude_dex = amprat_dex * continuum_estimate
+            # And the other param...
+            gaussian_function = astropy.modeling.models.Gaussian1D(
+                amplitude=amplitude_dex, mean=wave_dex, stddev=sigma_dex
+            )
+            # The resulting data.
+            gaussian_spectra = gaussian_function(target_spectrum.wavelength)
+            # Adding (or subtracting it) based on absorption or emission lines.
+            target_base_flux = target_base_flux + (sign_dex * gaussian_spectra)
+
+        # Negative flux is physically impossible. We zero out everything below
+        # it.
+        target_new_lines_flux = np.where(
+            target_base_flux < 0, 0, target_base_flux
+        )
+
+        # Updating the spectral class with the new data.
+        updating_spectrum = copy.deepcopy(target_spectrum)
+        updating_spectrum.data = target_new_lines_flux
+        self.target_spectrum = updating_spectrum
+
+        # All done.
+        return None
+
+    def add_atmosphere(
+        self: hint.Self,
+        atmosphere: hint.AtmosphereSimulator,
+    ) -> None:
+        """Add an atmosphere simulator to simulate the atmospheric effects.
+
+        Note, we only allow one atmosphere at a time.
+
+        Parameters
+        ----------
+        atmosphere : AtmosphereSimulator
+            The atmosphere simulator to add to this target simulator to
+            allow it to simulate different effects of the atmosphere.
+
+        Returns
+        -------
+        None
+
+        """
+        # We just make sure the atmosphere is of the proper type before
+        # just adding it.
+        if isinstance(atmosphere, lezargus.simulator.AtmosphereSimulator):
+            self.atmosphere = atmosphere
+        else:
+            logging.error(
+                error_type=logging.InputError,
+                message=(
+                    f"Input atmosphere, type {type(atmosphere)}, is not an"
+                    " AtmosphereSimulator."
+                ),
+            )
+            self.atmosphere = None
+        # All done.
+
     def clear_cache(self: hint.Self) -> None:
         """Clear the cache of computed result objects.
 
@@ -590,40 +732,6 @@ class TargetSimulator:
         if self.use_cache:
             self._cache_target_photon = target_photon
         return target_photon
-
-    def add_atmosphere(
-        self: hint.Self,
-        atmosphere: hint.AtmosphereSimulator,
-    ) -> None:
-        """Add an atmosphere simulator to simulate the atmospheric effects.
-
-        Note, we only allow one atmosphere at a time.
-
-        Parameters
-        ----------
-        atmosphere : AtmosphereSimulator
-            The atmosphere simulator to add to this target simulator to
-            allow it to simulate different effects of the atmosphere.
-
-        Returns
-        -------
-        None
-
-        """
-        # We just make sure the atmosphere is of the proper type before
-        # just adding it.
-        if isinstance(atmosphere, lezargus.simulator.AtmosphereSimulator):
-            self.atmosphere = atmosphere
-        else:
-            logging.error(
-                error_type=logging.InputError,
-                message=(
-                    f"Input atmosphere, type {type(atmosphere)}, is not an"
-                    " AtmosphereSimulator."
-                ),
-            )
-            self.atmosphere = None
-        # All done.
 
     @property
     def at_transmission(self: hint.Self) -> hint.LezargusCube:

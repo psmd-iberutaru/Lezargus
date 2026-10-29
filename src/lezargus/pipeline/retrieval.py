@@ -2249,17 +2249,27 @@ class SpectreRetrieval:
         raw_pixel_domain = np.arange(raw_arclamp.size, dtype=float)
         arc_pixel_domain = np.arange(wave_arclamp.size, dtype=float)
 
-        # Issue 69: remove NaNs from 'solution spectrum' because NaNs
-        # result in a poor wavelength calibration
-        isnan = np.isnan(wave_arclamp)
-        index = np.where(isnan)
-        wave_arclamp[index] = 0
-        if len(index[0]) > 0:
+        # There should not be any NaNs in the solution spectrum. If that is
+        # the case (which it was in early solution spectrums), it is
+        # considered an error. But, we can still remove them and progress.
+        contains_nans = not np.isfinite(wave_arclamp).all()
+        if contains_nans:
+            # The solution spectrum contains some non-finite value...
             logging.error(
-                error_type=logging.InputError,
+                error_type=logging.DevelopmentError,
                 message=(
-                    "Wavelength solution spectrum SPECTRE channel"
-                    f" {self.channel} has NaNs. Please fix?"
+                    f"The wavelength solution arclamp spectrum should not"
+                    f" contain non-finite values. It needs to be fixed."
+                ),
+            )
+            wave_arclamp = lezargus.library.sanitize.clean_finite_arrays(
+                wave_arclamp
+            )
+            logging.warning(
+                warning_type=logging.AccuracyWarning,
+                message=(
+                    f"Sanitized the solution arclamp spectrum, attempting to"
+                    f" continue. Check the resulting wavelength solution."
                 ),
             )
 
@@ -2271,13 +2281,20 @@ class SpectreRetrieval:
                     moving_array=raw_arclamp,
                 )
             )
-            pixel_shift_correct = -pixel_shift
             # Information about its derivation.
-            logging.debug(message=f"Arclamp pixel shift correction automatically found to be {pixel_shift_correct}")
+            logging.debug(
+                message=(
+                    "Arclamp pixel shift automatically determined,"
+                    f" {pixel_shift_correct}. Correcting with its negative."
+                )
+            )
+            pixel_shift_correct = -pixel_shift
 
         # With the shift, we can shift the arc lamp spectra pixel domain
         # to match with the raw pixel domain.
-        logging.info(message=f"Arclamp pixel shift correction: {pixel_shift_correct:.2f}")
+        logging.info(
+            message=f"Arclamp pixel shift correction: {pixel_shift_correct:.2f}"
+        )
         shifted_arc_pixel_domain = arc_pixel_domain + pixel_shift_correct
 
         # Linear interpolation is best when finding the assigned wavelengths

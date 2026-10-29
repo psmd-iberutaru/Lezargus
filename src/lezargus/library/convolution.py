@@ -25,7 +25,6 @@ import lezargus
 from lezargus.library import logging
 
 
-
 def _check_array_dimensionality(array: hint.NDArray, dimensions: int) -> bool:
     """Check if the array has the expected number of dimensions.
 
@@ -856,7 +855,7 @@ def cross_correlation_pixel_shift(
     Returns
     -------
     pixel_shift : float
-        The pixel shift of the moving array relative to the base array. 
+        The pixel shift of the moving array relative to the base array.
         Subpixel shifts are included.
 
     """
@@ -888,29 +887,39 @@ def cross_correlation_pixel_shift(
 
     # Finding the shift via the cross-correlation. The best overlap is at the
     # highest correlation.
-    # The actual shift should be relatively small, so we don't need the 
+    # The actual shift should be relatively small, so we don't need the
     # extraneous data on either side.
     valid_delta = 100
     valid_index = np.abs(shift_array) <= valid_delta
     # Filtering to...
     valid_shift_array = shift_array[valid_index]
     valid_cross_correlation = cross_correlation[valid_index]
-    valid_shift_array, valid_cross_correlation = lezargus.library.sanitize.clean_finite_arrays(valid_shift_array, valid_cross_correlation)
-    
-    # To get fractional pixel shifts, it is better to fit a Gaussian to 
-    # the cross correlation. We assume some initial conditions, namely, 
-    # estimates of the amplitude (avoiding outliers) and default mean and 
+    valid_shift_array, valid_cross_correlation = (
+        lezargus.library.sanitize.clean_finite_arrays(
+            valid_shift_array, valid_cross_correlation
+        )
+    )
+
+    # To get fractional pixel shifts, it is better to fit a Gaussian to
+    # the cross correlation. We assume some initial conditions, namely,
+    # estimates of the amplitude (avoiding outliers) and default mean and
     # standard deviation estimates (approximately half-width half max).
     initial_amplitude = np.nanmedian(np.sort(valid_cross_correlation)[-10:])
     initial_mean = 0
-    signed_half_width = valid_shift_array[np.nanargmin(np.abs(valid_cross_correlation - initial_amplitude / 2))]
+    signed_half_width = valid_shift_array[
+        np.nanargmin(np.abs(valid_cross_correlation - initial_amplitude / 2))
+    ]
     initial_stddev = np.abs(signed_half_width)
     # Defining the Gaussian model.
-    gaussian_model = astropy.modeling.models.Gaussian1D(amplitude=initial_amplitude, mean=initial_mean, stddev=initial_stddev)
+    gaussian_model = astropy.modeling.models.Gaussian1D(
+        amplitude=initial_amplitude, mean=initial_mean, stddev=initial_stddev
+    )
     # Defining the fitting function.
     fitting_algorithm = astropy.modeling.fitting.TRFLSQFitter()
     # And fitting...
-    fit_gaussian = fitting_algorithm(gaussian_model, valid_shift_array, valid_cross_correlation)
+    fit_gaussian = fitting_algorithm(
+        gaussian_model, valid_shift_array, valid_cross_correlation
+    )
     pixel_shift = float(fit_gaussian.mean.value)
 
     # All done.
