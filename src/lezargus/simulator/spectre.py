@@ -300,7 +300,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         return spectre_simulator
 
     @staticmethod
-    def __calculate_field_view_spatial_sampling(
+    def _calculate_field_view_spatial_sampling(
         spatial_oversample: int,
         location: tuple | str = "center",
     ) -> tuple:
@@ -447,7 +447,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         """
         # Calculating the field of view and spatial shape parameters.
         field_of_view, spatial_shape, location = (
-            cls.__calculate_field_view_spatial_sampling(
+            cls._calculate_field_view_spatial_sampling(
                 spatial_oversample=spatial_oversample,
                 location=location,
             )
@@ -480,9 +480,6 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         photometric_filter: (
             hint.PhotometricABFilter | hint.PhotometricVegaFilter
         ),
-        wave_gauss: list,
-        fwhm_gauss: list,
-        ampl_gauss: list,
         spectral_scale: float,
         channel: str,
         exposure_time: float,
@@ -511,21 +508,6 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             filter.
         photometric_filter : PhotometricABFilter or PhotometricVegaFilter
             The photometric filter (system) that the inputted magnitude is in.
-        wave_gauss : list
-            List of central wavelengths of Gaussian emission lines to
-            be added to the blackbody spectrum. Units: same as input
-            'wavelength'. If no Gaussians are requested, input is
-            empty list ([]). (Issue 93)
-        fwhm_gauss : list
-            List of FWHMS of Gaussian emission lines to be added to
-            the blackbody spectrum. Units: same as input 'wavelength'.
-            If no Gaussians are requested, input is empty list
-            ([]). (Issue 93)
-        ampl_gauss : list
-            List of amplitudes of Gaussian emission lines to be added
-            to the blackbody spectrum. The amplitudes are
-            line/continuum ratios. If no Gaussians are requested,
-            input is empty list ([]). (Issue 93)
         spectral_scale : float
             The spectral scale of the simulated spectra, as a resolution,
             in wavelength separation (in meters) per pixel.
@@ -550,7 +532,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         """
         # Calculating the field of view and spatial shape parameters.
         field_of_view, spatial_shape, location = (
-            cls.__calculate_field_view_spatial_sampling(
+            cls._calculate_field_view_spatial_sampling(
                 spatial_oversample=spatial_oversample,
                 location=location,
             )
@@ -562,9 +544,6 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             temperature=blackbody_temperature,
             magnitude=magnitude,
             photometric_filter=photometric_filter,
-            wave_gauss=wave_gauss,
-            fwhm_gauss=fwhm_gauss,
-            ampl_gauss=ampl_gauss,
             spatial_grid_shape=spatial_shape,
             spatial_fov_shape=field_of_view,
             spectral_scale=spectral_scale,
@@ -640,8 +619,80 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         )
         return photon_container
 
+
+    def add_target_artificial_spectral_lines(
+        self: hint.Self,
+        line_wavelengths: hint.NDArray,
+        line_amplitude_ratio: hint.NDArray,
+        line_sigma: hint.NDArray | None = None,
+        line_equivalent_width: hint.NDArray | None = None,
+    ) -> None:
+        """Add artificial emission or absorption lines to the target spectrum.
+
+        Sometimes it is useful to add Gaussian emission or absorption lines to
+        the spectrum. This is a convenience function to add artificial 
+        spectral lines to an already defined target (blackbody or spectrum
+        only). We modify the spectrum in-place.
+
+        This function wraps and exposes 
+        `lezargus.simulator.TargetSimulator.add_target_artificial_spectral_lines()` 
+        to the main simulator class. For the most part, the parameters 
+        provided to this function are passed to it. See that function for 
+        more information.
+
+        Parameters
+        ----------
+        line_wavelengths : NDArray
+            List of central wavelengths of the emission lines. Units are 
+            the same as the target spectrum wavelength (typically meters).  
+        line_amplitude_ratio : NDArray
+            List of peak amplitude to continuum ratios of the emission lines. 
+            If the amplitude is negative, an absorption line is made.
+        line_sigma : NDArray, default = None
+            List of the (Gaussian) sigma width of the emission lines. Units are 
+            the same as the target spectrum wavelength (typically meters). 
+            Exclusive with `line_equivalent_width`.
+        line_equivalent_width : NDArray, default = None
+            List of the equivalent width values of the emission lines. Units 
+            are the same as the target spectrum wavelength (typically meters). 
+            The amplitude parameter distinguishes absorption and emission, a 
+            negative EW is absolute valued. Exclusive with `line_sigma`.
+            
+
+        Returns
+        -------
+        None
+        """
+        # We are mostly just calling to the inner target function which 
+        # does the actual work.
+
+        # As we are changing the target, all caches are void.
+        self.clear_cache()
+
+        # The new target, with the lines, is purely derived from the old
+        # target.
+        new_target = copy.deepcopy(self.target)
+
+        # If the target does not have a target spectrum class, that means it 
+        # was created by means other than a blackbody or spectrum. The 
+        # addition of artificial spectral lines are a little beyond this now.
+        if not isinstance(new_target.target_spectrum, lezargus.library.container.LezargusSpectrum):
+            logging.error(error_type=logging.WrongOrderError, message=f"No target spectrum, spectral lines cannot be added to simulators defined by cubes.")
+
+        # Adding the emission or absorption lines. 
+        new_target.add_target_artificial_spectral_lines(line_wavelengths=line_wavelengths, line_amplitude_ratio=line_amplitude_ratio, line_sigma=line_sigma, line_equivalent_width=line_equivalent_width)
+
+        # Replacing the current target with the new target.
+        self.target = new_target
+
+        # All done.
+        return None
+
+    
+
+
     @property
-    def at_target_spectrum(self: hint.Self) -> hint.LezargusCube | None:
+    def at_target_spectrum(self: hint.Self) -> hint.LezargusSpectrum | None:
         """Exposing the target's `at_target_spectrum` instance.
 
         See

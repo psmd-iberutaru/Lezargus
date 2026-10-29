@@ -115,15 +115,9 @@ class TargetSimulator:
         photometric_filter: (
             hint.PhotometricABFilter | hint.PhotometricVegaFilter
         ),
-        wave_gauss: list,
-        fwhm_gauss: list,
-        ampl_gauss: list,
         spatial_grid_shape: tuple,
         spatial_fov_shape: tuple,
         spectral_scale: float,
-        emission_line_wavelength: list[float] | None = None,
-        emission_line_amplitude: list[float] | None = None,
-        emission_line_sigma: list[float] | None = None,
         **kwargs: hint.Any,
     ) -> hint.Self:
         """Create a target simulation object from a point source blackbody.
@@ -370,7 +364,7 @@ class TargetSimulator:
         target_instance = cls(_cube=cube)
         return target_instance
 
-    def add_artificial_target_spectral_lines(
+    def add_target_artificial_spectral_lines(
         self: hint.Self,
         line_wavelengths: hint.NDArray,
         line_amplitude_ratio: hint.NDArray,
@@ -426,10 +420,10 @@ class TargetSimulator:
         ):
             # It is not a valid spectrum, we cannot continue.
             logging.error(
-                error_type=logging.WrongOrderError,
+                error_type=logging.AlgorithmError,
                 message=(
                     f"Adding artificial lines requires a target derived from a"
-                    f" spectrum. It is missing. Not continuing."
+                    f" spectrum and not just a cube. Spectrum is missing. Not continuing."
                 ),
             )
             return None
@@ -482,16 +476,19 @@ class TargetSimulator:
 
         # The amplitudes define if it is an emission or absorption line.
         # Namely, a negative amplitude implies absorption.
-        line_sign = np.sign(line_amplitude_ratio)
+        gaussian_line_amplitude = np.abs(line_amplitude_ratio)
+        gaussian_line_sign = np.sign(line_amplitude_ratio)
+        # Other rename...
+        gaussian_line_center = line_wavelengths
 
         # We add each of the gaussian emission/absorption lines one at a time.
         # There is likely not enough where this becomes the bottle neck.
         target_base_flux = np.copy(target_spectrum.data)
         for wave_dex, amprat_dex, sigma_dex, sign_dex in zip(
-            line_wavelengths,
-            line_amplitude_ratio,
+            gaussian_line_center,
+            gaussian_line_amplitude,
             gaussian_line_sigma,
-            line_sign,
+            gaussian_line_sign,
             strict=True,
         ):
             # Defining the Gaussian.
@@ -660,7 +657,7 @@ class TargetSimulator:
         return photon_container
 
     @property
-    def at_target_spectrum(self: hint.Self) -> hint.LezargusCube | None:
+    def at_target_spectrum(self: hint.Self) -> hint.LezargusSpectrum | None:
         """Alias for py:attr:`target_spectrum` to match naming convention.
 
         By self-imposed convention, the attributes are generally named as
