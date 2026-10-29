@@ -14,6 +14,6 @@ Module contents
 
 .. automodule:: lezargus.data
    :members:
-   :undoc-members:
-   :show-inheritance:
    :private-members:
+   :show-inheritance:
+   :undoc-members:

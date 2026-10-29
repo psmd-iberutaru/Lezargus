@@ -9,6 +9,9 @@
 # Building the Lezargus software.
 ./forge_lezargus.ps1
 
+# Requirements for Sphinx documentation.
+pip install sphinx sphinx-book-theme
+
 # Building the API documentation.
 sphinx-apidoc -f -e -P -o ./docs/source/code/ ./src/lezargus/
 

@@ -2,8 +2,9 @@
 
 # This forge script builds a new development version of Lezargus. 
 # Warning!: For the sake of simplicity, it also installs this new development 
-# version of Lezargus onto the system. If you just want to build Lezargus
-# normally, please use `forge_build.ps1` instead.
+# version of Lezargus onto the system. This forge script is mostly for
+# testing and development purposes. A complete distribution-ready build is 
+# invoked using `forge_lezargus.ps1`.
 
 # We need to make sure have the right requirements.
 ./forge_requirements.ps1

@@ -7,6 +7,7 @@ Submodules
 .. toctree::
    :maxdepth: 4
 
+   lezargus.library.container.functionality.arithmetic
    lezargus.library.container.functionality.broadcast
    lezargus.library.container.functionality.convolution
    lezargus.library.container.functionality.stitch
@@ -17,6 +18,6 @@ Module contents
 
 .. automodule:: lezargus.library.container.functionality
    :members:
-   :undoc-members:
-   :show-inheritance:
    :private-members:
+   :show-inheritance:
+   :undoc-members:

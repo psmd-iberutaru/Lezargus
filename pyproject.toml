@@ -66,8 +66,6 @@ dependencies = [
     "pylint[spelling]>=4.0.1",
     "pyright>=1.1.400",
     "ruff>=0.17.0",
-    "sphinx>=7.2.6",
-    "sphinx-book-theme>=1.1.0",
 ]
 [tool.hatch.envs.default.scripts]
 build = [
