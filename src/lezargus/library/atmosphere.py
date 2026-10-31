@@ -16,7 +16,6 @@ if TYPE_CHECKING:
 # isort: split
 
 
-
 import numpy as np
 
 import lezargus
