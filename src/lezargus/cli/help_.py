@@ -5,8 +5,17 @@ Execute: help ... ... ... ...
 We just print the help function really.
 """
 
+# isort: split
+# Import required to remove circular dependencies from type checking.
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from lezargus.library import hint
+# isort: split
+
 import lezargus
-from lezargus.library import hint
 
 
 def help_(parser: hint.ArgumentParser, arguments: dict) -> None:

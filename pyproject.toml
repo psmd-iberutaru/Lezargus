@@ -16,7 +16,7 @@ authors = [
 classifiers = [
     "Development Status :: 2 - Pre-Alpha",
     "Programming Language :: Python",
-    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.14",
     "Programming Language :: Python :: Implementation :: CPython",
     "Programming Language :: Python :: Implementation :: PyPy",
 ]
@@ -63,7 +63,7 @@ dependencies = [
     "coverage[toml]>=7.3.4",
     "pytest>=8.1.0",
     "black[jupyter]>=24.4.0",
-    "pylint[spelling]>=4.0.1",
+    "pylint[spelling]>=4.1.3",
     "pyright>=1.1.400",
     "ruff>=0.17.0",
 ]
@@ -98,8 +98,8 @@ checkfix = [
 
 
 
-[[tool.hatch.envs.all.matrix]]
-python = ["3.10", "3.11", "3.12"]
+[[tool.hatch.envs.default.matrix]]
+python = ["3.14",]
 
 [tool.pytest.ini_options]
 pythonpath = [
@@ -114,7 +114,7 @@ testpaths = [
 ## ## ## ## ## ## ## ## ## ##
 
 [tool.black]
-target-version = ["py311"]
+target-version = ["py314"]
 line-length = 80
 preview = true
 
@@ -124,7 +124,7 @@ preview = true
 ## ## ## ## ## ## ## ## ## ##
 
 [tool.ruff]
-target-version = "py311"
+target-version = "py314"
 line-length = 80
 output-format = "concise"
 
@@ -144,22 +144,16 @@ ignore = [
     # Allow variable assignment for return. It is easier to find and follow the
     # return path.
     "RET504",
-    # Sometimes there are actual reasons for having a lot of arguments.
-    "PLR0913",
     # Our file paths are better represented as base strings, we do not ever
     # need to overcomplicate our paths with OOP. As such, suggestions to 
     # use pathlib really is not needed.
     "PTH",
+    # This should be removed soon, but adding a header to every file may 
+    # harm merging so this really needs its own minor version.
+    "CPY001",
 ]
 unfixable = [
 ]
-
-[tool.ruff.lint.isort]
-known-first-party = ["lezargus"]
-force-single-line = true
-
-[tool.ruff.lint.flake8-tidy-imports]
-ban-relative-imports = "all"
 
 [tool.ruff.lint.per-file-ignores]
 # Tests can use magic values, assertions, and relative imports
@@ -173,11 +167,31 @@ ban-relative-imports = "all"
 # The config file needs not aheare to the line length limit for clarity.
 "src/lezargus/config.py" = ["E501",]
 
+[tool.ruff.lint.isort]
+known-first-party = ["lezargus"]
+force-single-line = true
+
+[tool.ruff.lint.flake8-tidy-imports]
+ban-relative-imports = "all"
+
+[tool.ruff.lint.flake8-copyright]
+# Allow SPDX-based copyrights. This should be default but RUFF does not 
+# get it.
+notice-rgx = "\\# SPDX-FileCopyrightText: \\d{4}(-\\d{4}|-present)? [\\w\\s]+\\w( <.*>)?"
+
+[tool.ruff.lint.pylint]
+# Many functions have many arguments and it is easiest way to program them.
+# Encapsulating arguments is a possibility, but likely an overcomplicating 
+# step. Excessive raising of this limit should be avoided.
+max-args = 15
+max-positional-args = 15
+
 [tool.ruff.lint.mccabe]
 # Flag errors (`C901`) whenever the complexity level exceeds some value.
 # A lot of the functions here exceed the default McCabe complexity value of 10,
-# so we need to raise it. Excessive raising should be avoided.
+# so we need to raise it. Excessive raising of this limit should be avoided.
 max-complexity = 15
+
 
 ## ## ## ## ## ## ## ## ## ##
 # TOOL : PYLINT
@@ -196,14 +210,16 @@ disable = [
     "cyclic-import", 
     "too-many-instance-attributes", 
     "too-few-public-methods", 
-    "too-many-arguments",
     "too-many-locals", 
+    "too-many-arguments",  # Let Ruff handle arguments.
     "too-many-positional-arguments",  # Let Ruff handle arguments.
     "too-many-lines", 
     "ungrouped-imports",  # Let Ruff and isort handle imports.
     "wrong-import-position",  # Let Ruff and isort handle imports.
 ]
 extension-pkg-allow-list = [
+    "numpy",
+    "scipy",
     "PySide6",
 ]
 generated-members = [

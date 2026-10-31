@@ -477,12 +477,10 @@ def add_console_logging_handler(
     console_handler.name = console_handler_name
     # Get the format from the specified configuration.
     color_format_dict = {
-        LOGGING_DEBUG_LEVEL: (lezargus.config.LOGGING_STREAM_DEBUG_COLOR_HEX),
-        LOGGING_INFO_LEVEL: (lezargus.config.LOGGING_STREAM_INFO_COLOR_HEX),
-        LOGGING_WARNING_LEVEL: (
-            lezargus.config.LOGGING_STREAM_WARNING_COLOR_HEX
-        ),
-        LOGGING_ERROR_LEVEL: (lezargus.config.LOGGING_STREAM_ERROR_COLOR_HEX),
+        LOGGING_DEBUG_LEVEL: lezargus.config.LOGGING_STREAM_DEBUG_COLOR_HEX,
+        LOGGING_INFO_LEVEL: lezargus.config.LOGGING_STREAM_INFO_COLOR_HEX,
+        LOGGING_WARNING_LEVEL: lezargus.config.LOGGING_STREAM_WARNING_COLOR_HEX,
+        LOGGING_ERROR_LEVEL: lezargus.config.LOGGING_STREAM_ERROR_COLOR_HEX,
         LOGGING_CRITICAL_LEVEL: (
             lezargus.config.LOGGING_STREAM_CRITICAL_COLOR_HEX
         ),
@@ -532,12 +530,10 @@ def add_stream_logging_handler(
     stream_handler.setLevel(log_level)
     # Get the format from the specified configuration.
     color_format_dict = {
-        LOGGING_DEBUG_LEVEL: (lezargus.config.LOGGING_STREAM_DEBUG_COLOR_HEX),
-        LOGGING_INFO_LEVEL: (lezargus.config.LOGGING_STREAM_INFO_COLOR_HEX),
-        LOGGING_WARNING_LEVEL: (
-            lezargus.config.LOGGING_STREAM_WARNING_COLOR_HEX
-        ),
-        LOGGING_ERROR_LEVEL: (lezargus.config.LOGGING_STREAM_ERROR_COLOR_HEX),
+        LOGGING_DEBUG_LEVEL: lezargus.config.LOGGING_STREAM_DEBUG_COLOR_HEX,
+        LOGGING_INFO_LEVEL: lezargus.config.LOGGING_STREAM_INFO_COLOR_HEX,
+        LOGGING_WARNING_LEVEL: lezargus.config.LOGGING_STREAM_WARNING_COLOR_HEX,
+        LOGGING_ERROR_LEVEL: lezargus.config.LOGGING_STREAM_ERROR_COLOR_HEX,
         LOGGING_CRITICAL_LEVEL: (
             lezargus.config.LOGGING_STREAM_CRITICAL_COLOR_HEX
         ),

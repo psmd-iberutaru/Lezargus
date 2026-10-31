@@ -619,7 +619,6 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         )
         return photon_container
 
-
     def add_target_artificial_spectral_lines(
         self: hint.Self,
         line_wavelengths: hint.NDArray,
@@ -630,40 +629,41 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         """Add artificial emission or absorption lines to the target spectrum.
 
         Sometimes it is useful to add Gaussian emission or absorption lines to
-        the spectrum. This is a convenience function to add artificial 
+        the spectrum. This is a convenience function to add artificial
         spectral lines to an already defined target (blackbody or spectrum
         only). We modify the spectrum in-place.
 
-        This function wraps and exposes 
-        `lezargus.simulator.TargetSimulator.add_target_artificial_spectral_lines()` 
-        to the main simulator class. For the most part, the parameters 
-        provided to this function are passed to it. See that function for 
+        This function wraps and exposes
+        `lezargus.simulator.TargetSimulator.add_target_artificial_spectral_lines()`
+        to the main simulator class. For the most part, the parameters
+        provided to this function are passed to it. See that function for
         more information.
 
         Parameters
         ----------
         line_wavelengths : NDArray
-            List of central wavelengths of the emission lines. Units are 
-            the same as the target spectrum wavelength (typically meters).  
+            List of central wavelengths of the emission lines. Units are
+            the same as the target spectrum wavelength (typically meters).
         line_amplitude_ratio : NDArray
-            List of peak amplitude to continuum ratios of the emission lines. 
+            List of peak amplitude to continuum ratios of the emission lines.
             If the amplitude is negative, an absorption line is made.
         line_sigma : NDArray, default = None
-            List of the (Gaussian) sigma width of the emission lines. Units are 
-            the same as the target spectrum wavelength (typically meters). 
+            List of the (Gaussian) sigma width of the emission lines. Units are
+            the same as the target spectrum wavelength (typically meters).
             Exclusive with `line_equivalent_width`.
         line_equivalent_width : NDArray, default = None
-            List of the equivalent width values of the emission lines. Units 
-            are the same as the target spectrum wavelength (typically meters). 
-            The amplitude parameter distinguishes absorption and emission, a 
+            List of the equivalent width values of the emission lines. Units
+            are the same as the target spectrum wavelength (typically meters).
+            The amplitude parameter distinguishes absorption and emission, a
             negative EW is absolute valued. Exclusive with `line_sigma`.
-            
+
 
         Returns
         -------
         None
+
         """
-        # We are mostly just calling to the inner target function which 
+        # We are mostly just calling to the inner target function which
         # does the actual work.
 
         # As we are changing the target, all caches are void.
@@ -673,23 +673,33 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # target.
         new_target = copy.deepcopy(self.target)
 
-        # If the target does not have a target spectrum class, that means it 
-        # was created by means other than a blackbody or spectrum. The 
+        # If the target does not have a target spectrum class, that means it
+        # was created by means other than a blackbody or spectrum. The
         # addition of artificial spectral lines are a little beyond this now.
-        if not isinstance(new_target.target_spectrum, lezargus.library.container.LezargusSpectrum):
-            logging.error(error_type=logging.WrongOrderError, message=f"No target spectrum, spectral lines cannot be added to simulators defined by cubes.")
+        if not isinstance(
+            new_target.target_spectrum,
+            lezargus.library.container.LezargusSpectrum,
+        ):
+            logging.error(
+                error_type=logging.WrongOrderError,
+                message=(
+                    "No target spectrum, spectral lines cannot be added to"
+                    " simulators defined by cubes."
+                ),
+            )
 
-        # Adding the emission or absorption lines. 
-        new_target.add_target_artificial_spectral_lines(line_wavelengths=line_wavelengths, line_amplitude_ratio=line_amplitude_ratio, line_sigma=line_sigma, line_equivalent_width=line_equivalent_width)
+        # Adding the emission or absorption lines.
+        new_target.add_target_artificial_spectral_lines(
+            line_wavelengths=line_wavelengths,
+            line_amplitude_ratio=line_amplitude_ratio,
+            line_sigma=line_sigma,
+            line_equivalent_width=line_equivalent_width,
+        )
 
         # Replacing the current target with the new target.
         self.target = new_target
 
         # All done.
-        return None
-
-    
-
 
     @property
     def at_target_spectrum(self: hint.Self) -> hint.LezargusSpectrum | None:
@@ -1129,7 +1139,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             arclamp_spectrum.data[index] = 0
             if len(index[0]) > 0:
                 logging.error(
-                    error_type=logging.InputError,
+                    error_type=logging.ToDoError,
                     message=(
                         f"Arc spectrum SPECTRE channel {self.channel} has NaNs."
                         " Please fix?"

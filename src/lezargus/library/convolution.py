@@ -896,7 +896,8 @@ def cross_correlation_pixel_shift(
     valid_cross_correlation = cross_correlation[valid_index]
     valid_shift_array, valid_cross_correlation = (
         lezargus.library.sanitize.clean_finite_arrays(
-            valid_shift_array, valid_cross_correlation
+            valid_shift_array,
+            valid_cross_correlation,
         )
     )
 
@@ -909,16 +910,20 @@ def cross_correlation_pixel_shift(
     signed_half_width = valid_shift_array[
         np.nanargmin(np.abs(valid_cross_correlation - initial_amplitude / 2))
     ]
-    initial_stddev = np.abs(signed_half_width)
+    initial_stddev = np.abs(signed_half_width) / 2.35
     # Defining the Gaussian model.
     gaussian_model = astropy.modeling.models.Gaussian1D(
-        amplitude=initial_amplitude, mean=initial_mean, stddev=initial_stddev
+        amplitude=initial_amplitude,
+        mean=initial_mean,
+        stddev=initial_stddev,
     )
     # Defining the fitting function.
     fitting_algorithm = astropy.modeling.fitting.TRFLSQFitter()
     # And fitting...
     fit_gaussian = fitting_algorithm(
-        gaussian_model, valid_shift_array, valid_cross_correlation
+        gaussian_model,
+        valid_shift_array,
+        valid_cross_correlation,
     )
     pixel_shift = float(fit_gaussian.mean.value)
 

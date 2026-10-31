@@ -8,6 +8,11 @@ the data from the image arrays to the slices (or cube), due to the use of
 extraction referring to spectra from cubes.
 """
 
+# SPDX-FileCopyrightText: 2023-present IRTF <https://irtfweb.ifa.hawaii.edu/>
+# SPDX-FileContributor: KSE (Sparrow) <kemerson@hawaii.edu>
+# SPDX-FileContributor: ACAB <aboogert@hawaii.edu>
+# SPDX-License-Identifier: MIT
+
 # isort: split
 # Import required to remove circular dependencies from type checking.
 from __future__ import annotations
@@ -2258,18 +2263,18 @@ class SpectreRetrieval:
             logging.error(
                 error_type=logging.DevelopmentError,
                 message=(
-                    f"The wavelength solution arclamp spectrum should not"
-                    f" contain non-finite values. It needs to be fixed."
+                    "The wavelength solution arclamp spectrum should not"
+                    " contain non-finite values. It needs to be fixed."
                 ),
             )
             wave_arclamp = lezargus.library.sanitize.clean_finite_arrays(
-                wave_arclamp
+                wave_arclamp,
             )
             logging.warning(
                 warning_type=logging.AccuracyWarning,
                 message=(
-                    f"Sanitized the solution arclamp spectrum, attempting to"
-                    f" continue. Check the resulting wavelength solution."
+                    "Sanitized the solution arclamp spectrum, attempting to"
+                    " continue. Check the resulting wavelength solution."
                 ),
             )
 
@@ -2286,14 +2291,16 @@ class SpectreRetrieval:
                 message=(
                     "Arclamp pixel shift automatically determined,"
                     f" {pixel_shift_correct}. Correcting with its negative."
-                )
+                ),
             )
             pixel_shift_correct = -pixel_shift
 
         # With the shift, we can shift the arc lamp spectra pixel domain
         # to match with the raw pixel domain.
         logging.info(
-            message=f"Arclamp pixel shift correction: {pixel_shift_correct:.2f}"
+            message=(
+                f"Arclamp pixel shift correction: {pixel_shift_correct:.2f}"
+            ),
         )
         shifted_arc_pixel_domain = arc_pixel_domain + pixel_shift_correct
 

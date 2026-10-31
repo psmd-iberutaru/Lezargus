@@ -1,6 +1,8 @@
 """Lezargus: The software package related to IRTF SPECTRE."""
 
-# SPDX-FileCopyrightText: 2022-present Sparrow <psmd.iberutaru@gmail.com>
+# SPDX-FileCopyrightText: 2023-present IRTF <https://irtfweb.ifa.hawaii.edu/>
+# SPDX-FileContributor: KSE (Sparrow) <kemerson@hawaii.edu>
+# SPDX-FileContributor: ACAB <aboogert@hawaii.edu>
 # SPDX-License-Identifier: MIT
 
 

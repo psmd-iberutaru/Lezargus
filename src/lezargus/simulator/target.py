@@ -18,11 +18,10 @@ if TYPE_CHECKING:
 # isort: split
 
 import copy
+
 import astropy.constants
 import astropy.modeling
 import numpy as np
-import math  # Issue 93
-from math import e as exp  # Issue 93
 
 import lezargus
 from lezargus.library import logging
@@ -238,7 +237,7 @@ class TargetSimulator:
         spectrum: hint.LezargusSpectrum,
         spatial_grid_shape: tuple,
         spatial_fov_shape: tuple,
-        location: tuple | str = "center",
+        location: tuple[int, int] | str = "center",
     ) -> hint.Self:
         """Create a target simulation object from a point source spectrum.
 
@@ -257,7 +256,8 @@ class TargetSimulator:
             view shape of the array, and is in radians The pixel and slice
             scale is calculated from this and the field of view.
         location : tuple or str, default = "center"
-            Where the spectra, as a point source, be placed spatially. If a
+            Where the spectra, as a point source, be placed spatially, in
+            units of pixel location. A string instruction can be provided. If a
             string, we compute the location from the instruction:
 
                 - `center` : It is placed in the center, or close to it,
@@ -287,22 +287,6 @@ class TargetSimulator:
         slice_scale = spatial_fov_shape[1] / spatial_grid_shape[1]
         spectrum.pixel_scale = pixel_scale
         spectrum.slice_scale = slice_scale
-
-        # Issue 90: 'location' input parameter in arcsec units, not
-        # pixels, so convert back to pixels here. Must be arcsec
-        # relative to center of FOV, so center has location (0,0)
-        if isinstance(location, (tuple)):
-            # result needs to be a tuple of integer pixels
-            # assumption is that pixel_scale is in radians/pixel
-            location = (
-                int(location[0] / (pixel_scale / (np.pi) * 180 * 3600)),
-                int(location[1] / (pixel_scale / (np.pi) * 180 * 3600)),
-            )
-            # make it relative to center of FOV
-            location = (
-                int(location[0] - spatial_grid_shape[0] / 2),
-                int(location[1] - spatial_grid_shape[0] / 2),
-            )
 
         # We assume that background space is dark, so a zero fill value.
         background_data = 0
@@ -412,21 +396,24 @@ class TargetSimulator:
         Returns
         -------
         None
+
         """
         # This function only works if there is a target spectrum provided.
         target_spectrum = self.target_spectrum
         if not isinstance(
-            target_spectrum, lezargus.library.container.LezargusSpectrum
+            target_spectrum,
+            lezargus.library.container.LezargusSpectrum,
         ):
             # It is not a valid spectrum, we cannot continue.
             logging.error(
                 error_type=logging.AlgorithmError,
                 message=(
-                    f"Adding artificial lines requires a target derived from a"
-                    f" spectrum and not just a cube. Spectrum is missing. Not continuing."
+                    "Adding artificial lines requires a target derived from a"
+                    " spectrum and not just a cube. Spectrum is missing. Not"
+                    " continuing."
                 ),
             )
-            return None
+            return
 
         # If the user provided a list, we actually need arrays.
         line_wavelengths = np.asarray(line_wavelengths)
@@ -444,8 +431,8 @@ class TargetSimulator:
             logging.error(
                 error_type=logging.InputError,
                 message=(
-                    f"Spectral line width is defined by either sigma or"
-                    f" equivalent width, not both. Provide only one."
+                    "Spectral line width is defined by either sigma or"
+                    " equivalent width, not both. Provide only one."
                 ),
             )
         # If the sigma is provided, we use it directly.
@@ -460,7 +447,7 @@ class TargetSimulator:
             # absorption description.
             logging.error(
                 error_type=logging.ToDoError,
-                message=f"Double check math, add to documentation.",
+                message="Double check math, add to documentation.",
             )
             _two_pi = 2 * np.pi
             _sigma_squared = (1 / _two_pi) * (
@@ -471,7 +458,7 @@ class TargetSimulator:
             # It seems that neither was provided...?
             logging.error(
                 error_type=logging.InputError,
-                message=f"Spectral line width, gaussian sigma, not provided.",
+                message="Spectral line width, gaussian sigma, not provided.",
             )
 
         # The amplitudes define if it is an emission or absorption line.
@@ -495,13 +482,15 @@ class TargetSimulator:
             # Estimating the continuum, but we do not need all of the other
             # trash.
             continuum_estimate, __, __, __ = target_spectrum.interpolate(
-                wavelength=wave_dex
+                wavelength=wave_dex,
             )
             # Gaussian amplitude derived from the ratio.
             amplitude_dex = amprat_dex * continuum_estimate
             # And the other param...
             gaussian_function = astropy.modeling.models.Gaussian1D(
-                amplitude=amplitude_dex, mean=wave_dex, stddev=sigma_dex
+                amplitude=amplitude_dex,
+                mean=wave_dex,
+                stddev=sigma_dex,
             )
             # The resulting data.
             gaussian_spectra = gaussian_function(target_spectrum.wavelength)
@@ -511,7 +500,9 @@ class TargetSimulator:
         # Negative flux is physically impossible. We zero out everything below
         # it.
         target_new_lines_flux = np.where(
-            target_base_flux < 0, 0, target_base_flux
+            target_base_flux < 0,
+            0,
+            target_base_flux,
         )
 
         # Updating the spectral class with the new data.
@@ -520,7 +511,7 @@ class TargetSimulator:
         self.target_spectrum = updating_spectrum
 
         # All done.
-        return None
+        return
 
     def add_atmosphere(
         self: hint.Self,

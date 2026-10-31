@@ -18,7 +18,7 @@ hatch build
 
 # Installing the new version. 
 # We need the new filename as Windows does not expand wildcards natively.
-$glob = Get-ChildItem .\dist -Recurse -Filter "lezargus-*.whl"
+$glob = Get-ChildItem ./dist -Recurse -Filter "lezargus-*.whl"
 $wheel_file = $glob.FullName
 # Installing
 pip install $wheel_file
