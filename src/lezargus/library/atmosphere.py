@@ -392,7 +392,7 @@ def relative_atmospheric_refraction(
 
 
 def relative_atmospheric_refraction_function(
-    reference_wavelength: float,
+    reference_wavelength: float | hint.NDArray,
     zenith_angle: float,
     temperature: float,
     pressure: float,

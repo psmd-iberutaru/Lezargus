@@ -5,6 +5,11 @@ of it. We break this module up so that we can potentially simulate different
 telescopes other than the IRTF. This is unlikely, but who knows.
 """
 
+# SPDX-FileCopyrightText: 2023-present IRTF <https://irtfweb.ifa.hawaii.edu/>
+# SPDX-FileContributor: KSE (Sparrow) <kemerson@hawaii.edu>
+# SPDX-FileContributor: ACAB <aboogert@hawaii.edu>
+# SPDX-License-Identifier: MIT
+
 # isort: split
 # Import required to remove circular dependencies from type checking.
 from __future__ import annotations

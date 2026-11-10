@@ -108,7 +108,16 @@ class LezargusImage(LezargusContainerArithmetic):
         # None-like value which is can be more properly handled by the other
         # parts of Lezargus.
         if wavelength is not None:
-            set_wavelength = np.array([float(wavelength)])
+            try:
+                set_wavelength = np.array(wavelength).item()
+            except TypeError as error:
+                logging.critical(
+                    critical_type=logging.InputError,
+                    message=(
+                        "Image wavelength must be a single value. Cannot"
+                        f" convert {wavelength}, errored with {error}."
+                    ),
+                )
         else:
             set_wavelength = np.array([np.nan])
 

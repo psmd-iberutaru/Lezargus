@@ -490,7 +490,7 @@ def _convert_default_configuration_file(
     )
     # Finally, saving the file. We need to make our own new line characters.
     raw_yaml_lines = [linedex + "\n" for linedex in yaml_lines]
-    with open(yaml_random_filename, "xt", encoding="utf-8") as yaml_file:
+    with open(yaml_random_filename, "x", encoding="utf-8") as yaml_file:
         yaml_file.writelines(raw_yaml_lines)
 
     # We yeild to the user to execute the file as they may want to.

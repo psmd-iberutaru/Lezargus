@@ -15,8 +15,8 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
+  <!--
+    this give us a css class that will be invisible only if js is disabled
   -->
   <noscript>
     <style>
@@ -26,42 +26,49 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="_static/styles/sphinx-book-theme.css?v=4418a689" />
   
   <!-- So that users can add custom icons -->
-  <script src="_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script defer src="_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
     <script src="_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="_static/doctools.js?v=9bcbadda"></script>
-    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'genindex';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
+  
+    
+    <script src="_static/searchtools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="searchindex.js"></script>
+  
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
-
+  <body data-default-mode="">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
+  
+  
+  
   
   <dialog id="pst-search-dialog">
     
@@ -87,7 +94,47 @@
 </div>
 
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
     </header>
   
 
@@ -189,6 +236,11 @@
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="code/lezargus.pipeline.html">lezargus.pipeline package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="code/lezargus.pipeline.retrieval.html">lezargus.pipeline.retrieval module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="code/lezargus.pipeline.spectre.html">lezargus.pipeline.spectre module</a></li>
+</ul>
+</details></li>
 <li class="toctree-l3 has-children"><a class="reference internal" href="code/lezargus.simulator.html">lezargus.simulator package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.simulator.atmosphere.html">lezargus.simulator.atmosphere module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="code/lezargus.simulator.spectre.html">lezargus.simulator.spectre module</a></li>
@@ -213,9 +265,14 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -250,7 +307,7 @@
 
 
 <button onclick="toggleFullScreen()"
-  class="btn btn-sm btn-fullscreen-button"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
   title="Fullscreen mode"
   data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
@@ -264,11 +321,18 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div>
 
 
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
@@ -317,7 +381,6 @@
  | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#N"><strong>N</strong></a>
- | <a href="#O"><strong>O</strong></a>
  | <a href="#P"><strong>P</strong></a>
  | <a href="#R"><strong>R</strong></a>
  | <a href="#S"><strong>S</strong></a>
@@ -334,8 +397,6 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/lezargus.library.container.parent.html#lezargus.library.container.parent.LezargusContainerArithmetic.__add__">__add__() (lezargus.library.container.parent.LezargusContainerArithmetic method)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.__calculate_field_view_spatial_sampling">__calculate_field_view_spatial_sampling() (lezargus.simulator.spectre.SpectreSimulator method)</a>
 </li>
       <li><a href="code/lezargus.library.container.photometry.html#lezargus.library.container.photometry.PhotometricVegaFilter.__calculate_zero_point">__calculate_zero_point() (lezargus.library.container.photometry.PhotometricVegaFilter method)</a>
 </li>
@@ -382,56 +443,26 @@
 </li>
         <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.ColoredLogFormatter.__init__">(lezargus.library.logging.ColoredLogFormatter method)</a>
 </li>
-        <li><a href="code/lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.__init__">(lezargus.simulator.atmosphere.AtmosphereSimulator method)</a>
-</li>
-        <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.__init__">(lezargus.simulator.spectre.SpectreSimulator method)</a>
-</li>
-        <li><a href="code/lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.__init__">(lezargus.simulator.target.TargetSimulator method)</a>
-</li>
-        <li><a href="code/lezargus.simulator.telescope.html#lezargus.simulator.telescope.IrtfTelescopeSimulator.__init__">(lezargus.simulator.telescope.IrtfTelescopeSimulator method)</a>
-</li>
       </ul></li>
-      <li><a href="code/lezargus.data.html#lezargus.data.__initialize_data_all">__initialize_data_all() (in module lezargus.data)</a>
-</li>
-      <li><a href="code/lezargus.data.html#lezargus.data.__initialize_data_atmosphere_generators">__initialize_data_atmosphere_generators() (in module lezargus.data)</a>
-</li>
-      <li><a href="code/lezargus.data.html#lezargus.data.__initialize_data_constants">__initialize_data_constants() (in module lezargus.data)</a>
-</li>
-      <li><a href="code/lezargus.data.html#lezargus.data.__initialize_data_detectors">__initialize_data_detectors() (in module lezargus.data)</a>
-</li>
-      <li><a href="code/lezargus.data.html#lezargus.data.__initialize_data_dispersion_patterns">__initialize_data_dispersion_patterns() (in module lezargus.data)</a>
-</li>
-      <li><a href="code/lezargus.data.html#lezargus.data.__initialize_data_optic_efficiency_functions">__initialize_data_optic_efficiency_functions() (in module lezargus.data)</a>
-</li>
-      <li><a href="code/lezargus.data.html#lezargus.data.__initialize_data_photometric_filters">__initialize_data_photometric_filters() (in module lezargus.data)</a>
-</li>
-      <li><a href="code/lezargus.data.html#lezargus.data.__initialize_data_star_spectra">__initialize_data_star_spectra() (in module lezargus.data)</a>
-</li>
       <li><a href="code/lezargus.library.container.parent.html#lezargus.library.container.parent.LezargusContainerArithmetic.__mul__">__mul__() (lezargus.library.container.parent.LezargusContainerArithmetic method)</a>
 </li>
       <li><a href="code/lezargus.library.container.parent.html#lezargus.library.container.parent.LezargusContainerArithmetic.__pow__">__pow__() (lezargus.library.container.parent.LezargusContainerArithmetic method)</a>
 </li>
       <li><a href="code/lezargus.library.container.parent.html#lezargus.library.container.parent.LezargusContainerArithmetic.__radd__">__radd__() (lezargus.library.container.parent.LezargusContainerArithmetic method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/lezargus.library.container.parent.html#lezargus.library.container.parent.LezargusContainerArithmetic.__rmul__">__rmul__() (lezargus.library.container.parent.LezargusContainerArithmetic method)</a>
 </li>
       <li><a href="code/lezargus.library.container.parent.html#lezargus.library.container.parent.LezargusContainerArithmetic.__sub__">__sub__() (lezargus.library.container.parent.LezargusContainerArithmetic method)</a>
 </li>
       <li><a href="code/lezargus.library.container.parent.html#lezargus.library.container.parent.LezargusContainerArithmetic.__truediv__">__truediv__() (lezargus.library.container.parent.LezargusContainerArithmetic method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/lezargus.library.container.parent.html#lezargus.library.container.parent.LezargusContainerArithmetic.__verify_arithmetic_operation">__verify_arithmetic_operation() (lezargus.library.container.parent.LezargusContainerArithmetic method)</a>
 </li>
       <li><a href="code/lezargus.library.interpolate.html#lezargus.library.interpolate.Generic1DInterpolate._apply_extrapolation_criteria">_apply_extrapolation_criteria() (lezargus.library.interpolate.Generic1DInterpolate method)</a>
 </li>
       <li><a href="code/lezargus.library.interpolate.html#lezargus.library.interpolate.Generic1DInterpolate._apply_gap_criteria">_apply_gap_criteria() (lezargus.library.interpolate.Generic1DInterpolate method)</a>
-</li>
-      <li><a href="code/lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator._cache_observed">_cache_observed (lezargus.simulator.target.TargetSimulator attribute)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator._cache_spectral_dispersion">_cache_spectral_dispersion (lezargus.simulator.spectre.SpectreSimulator attribute)</a>
-</li>
-      <li><a href="code/lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator._cache_target_photon">_cache_target_photon (lezargus.simulator.target.TargetSimulator attribute)</a>
 </li>
       <li><a href="code/lezargus.library.interpolate.html#lezargus.library.interpolate.Generic1DInterpolate._calculate_gap_bounds">_calculate_gap_bounds() (lezargus.library.interpolate.Generic1DInterpolate method)</a>
 </li>
@@ -444,14 +475,6 @@
       <li><a href="code/lezargus.library.configuration.html#lezargus.library.configuration._convert_default_configuration_file">_convert_default_configuration_file() (in module lezargus.library.configuration)</a>
 </li>
       <li><a href="code/lezargus.library.configuration.html#lezargus.library.configuration._convert_default_configuration_yaml">_convert_default_configuration_yaml() (in module lezargus.library.configuration)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator._convert_to_photon">_convert_to_photon() (lezargus.simulator.spectre.SpectreSimulator method)</a>
-
-      <ul>
-        <li><a href="code/lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator._convert_to_photon">(lezargus.simulator.target.TargetSimulator static method)</a>
-</li>
-      </ul></li>
-      <li><a href="code/lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator._convolve_atmospheric_spectrum">_convolve_atmospheric_spectrum() (lezargus.simulator.atmosphere.AtmosphereSimulator static method)</a>
 </li>
       <li><a href="code/lezargus.library.container.parent.html#lezargus.library.container.parent.LezargusContainerArithmetic._data">_data (lezargus.library.container.parent.LezargusContainerArithmetic attribute)</a>
 </li>
@@ -483,13 +506,9 @@
         <li><a href="code/lezargus.library.interpolate.html#lezargus.library.interpolate.Repeat3DInterpolate._parent">(lezargus.library.interpolate.Repeat3DInterpolate attribute)</a>
 </li>
       </ul></li>
-      <li><a href="code/lezargus.simulator.telescope.html#lezargus.simulator.telescope.IrtfTelescopeSimulator._primary_reflectivity_interpolator">_primary_reflectivity_interpolator (lezargus.simulator.telescope.IrtfTelescopeSimulator attribute)</a>
-</li>
       <li><a href="code/lezargus.library.container.dispersion.html#lezargus.library.container.dispersion.SpectreDispersionPattern._query_dispersion_table">_query_dispersion_table() (lezargus.library.container.dispersion.SpectreDispersionPattern method)</a>
 </li>
       <li><a href="code/lezargus.library.container.parent.html#lezargus.library.container.parent.LezargusContainerArithmetic._read_fits_file">_read_fits_file() (lezargus.library.container.parent.LezargusContainerArithmetic class method)</a>
-</li>
-      <li><a href="code/lezargus.simulator.telescope.html#lezargus.simulator.telescope.IrtfTelescopeSimulator._secondary_reflectivity_interpolator">_secondary_reflectivity_interpolator (lezargus.simulator.telescope.IrtfTelescopeSimulator attribute)</a>
 </li>
       <li><a href="code/lezargus.library.convolution.html#lezargus.library.convolution._static_astropy_convolve">_static_astropy_convolve() (in module lezargus.library.convolution)</a>
 </li>
@@ -513,8 +532,6 @@
 </li>
       <li><a href="code/lezargus.library.math.html#lezargus.library.math.add">add() (in module lezargus.library.math)</a>
 </li>
-      <li><a href="code/lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.add_atmosphere">add_atmosphere() (lezargus.simulator.target.TargetSimulator method)</a>
-</li>
       <li><a href="code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.add_bias_frame">add_bias_frame() (lezargus.library.container.detector.DetectorArray method)</a>
 </li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.add_console_logging_handler">add_console_logging_handler() (in module lezargus.library.logging)</a>
@@ -533,6 +550,8 @@
 </li>
       <li><a href="code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.add_hot_pixel_map">add_hot_pixel_map() (lezargus.library.container.detector.DetectorArray method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.add_linearity_function">add_linearity_function() (lezargus.library.container.detector.DetectorArray method)</a>
 </li>
       <li><a href="code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.add_read_noise">add_read_noise() (lezargus.library.container.detector.DetectorArray method)</a>
@@ -547,141 +566,15 @@
 </li>
       <li><a href="code/lezargus.library.atmosphere.html#lezargus.library.atmosphere.airmass">airmass() (in module lezargus.library.atmosphere)</a>
 </li>
+      <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.AlgorithmError">AlgorithmError</a>
+</li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.AlgorithmWarning">AlgorithmWarning</a>
 </li>
       <li><a href="code/lezargus.library.configuration.html#lezargus.library.configuration.apply_configuration">apply_configuration() (in module lezargus.library.configuration)</a>
 </li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.arc_lamp_in">arc_lamp_in (lezargus.simulator.spectre.SpectreSimulator attribute)</a>
-</li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.ArithmeticalError">ArithmeticalError</a>
 </li>
       <li><a href="code/lezargus.library.configuration.html#lezargus.library.configuration.assign_configuration">assign_configuration() (in module lezargus.library.configuration)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_advanced_spectral_dispersion">at_advanced_spectral_dispersion() (lezargus.simulator.spectre.SpectreSimulator method)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_calibration_apparatus">at_calibration_apparatus (lezargus.simulator.spectre.SpectreSimulator property)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_cosmic_rays">at_cosmic_rays (lezargus.simulator.spectre.SpectreSimulator property)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_detector_bias">at_detector_bias (lezargus.simulator.spectre.SpectreSimulator property)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_detector_dark_current">at_detector_dark_current (lezargus.simulator.spectre.SpectreSimulator property)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_detector_flat_field">at_detector_flat_field (lezargus.simulator.spectre.SpectreSimulator property)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_detector_gain">at_detector_gain (lezargus.simulator.spectre.SpectreSimulator property)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_detector_hot_dead_pixels">at_detector_hot_dead_pixels (lezargus.simulator.spectre.SpectreSimulator property)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_detector_linearity">at_detector_linearity (lezargus.simulator.spectre.SpectreSimulator property)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_detector_quantum_efficiency">at_detector_quantum_efficiency (lezargus.simulator.spectre.SpectreSimulator property)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_detector_read_noise">at_detector_read_noise (lezargus.simulator.spectre.SpectreSimulator property)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_dichroic">at_dichroic (lezargus.simulator.spectre.SpectreSimulator property)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_fits_file">at_fits_file (lezargus.simulator.spectre.SpectreSimulator property)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_fold_mirror">at_fold_mirror (lezargus.simulator.spectre.SpectreSimulator property)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_foreoptics">at_foreoptics (lezargus.simulator.spectre.SpectreSimulator property)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_ifu_diffraction">at_ifu_diffraction (lezargus.simulator.spectre.SpectreSimulator property)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_ifu_image_slicer">at_ifu_image_slicer (lezargus.simulator.spectre.SpectreSimulator property)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_ifu_pupil_mirror_transmission">at_ifu_pupil_mirror_transmission (lezargus.simulator.spectre.SpectreSimulator property)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_ifu_transmission">at_ifu_transmission (lezargus.simulator.spectre.SpectreSimulator property)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_observed">at_observed (lezargus.simulator.spectre.SpectreSimulator property)</a>
-
-      <ul>
-        <li><a href="code/lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.at_observed">(lezargus.simulator.target.TargetSimulator property)</a>
-</li>
-      </ul></li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_photon_poisson_noise">at_photon_poisson_noise (lezargus.simulator.spectre.SpectreSimulator property)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_primary_emission">at_primary_emission (lezargus.simulator.spectre.SpectreSimulator property)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_primary_reflectivity">at_primary_reflectivity (lezargus.simulator.spectre.SpectreSimulator property)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_prisms_transmission">at_prisms_transmission (lezargus.simulator.spectre.SpectreSimulator property)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_radiance">at_radiance (lezargus.simulator.spectre.SpectreSimulator property)</a>
-
-      <ul>
-        <li><a href="code/lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.at_radiance">(lezargus.simulator.target.TargetSimulator property)</a>
-</li>
-      </ul></li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_readout">at_readout (lezargus.simulator.spectre.SpectreSimulator property)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_refraction">at_refraction (lezargus.simulator.spectre.SpectreSimulator property)</a>
-
-      <ul>
-        <li><a href="code/lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.at_refraction">(lezargus.simulator.target.TargetSimulator property)</a>
-</li>
-      </ul></li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_relay_mirrors">at_relay_mirrors (lezargus.simulator.spectre.SpectreSimulator property)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_scattered_light">at_scattered_light (lezargus.simulator.spectre.SpectreSimulator property)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_secondary_emission">at_secondary_emission (lezargus.simulator.spectre.SpectreSimulator property)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_secondary_reflectivity">at_secondary_reflectivity (lezargus.simulator.spectre.SpectreSimulator property)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_seeing">at_seeing (lezargus.simulator.spectre.SpectreSimulator property)</a>
-
-      <ul>
-        <li><a href="code/lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.at_seeing">(lezargus.simulator.target.TargetSimulator property)</a>
-</li>
-      </ul></li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_spectral_dispersion">at_spectral_dispersion (lezargus.simulator.spectre.SpectreSimulator property)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_target">at_target (lezargus.simulator.spectre.SpectreSimulator property)</a>
-
-      <ul>
-        <li><a href="code/lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.at_target">(lezargus.simulator.target.TargetSimulator property)</a>
-</li>
-      </ul></li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_target_photon">at_target_photon (lezargus.simulator.spectre.SpectreSimulator property)</a>
-
-      <ul>
-        <li><a href="code/lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.at_target_photon">(lezargus.simulator.target.TargetSimulator property)</a>
-</li>
-      </ul></li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_target_spectrum">at_target_spectrum (lezargus.simulator.spectre.SpectreSimulator property)</a>
-
-      <ul>
-        <li><a href="code/lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.at_target_spectrum">(lezargus.simulator.target.TargetSimulator property)</a>
-</li>
-      </ul></li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_telescope">at_telescope (lezargus.simulator.spectre.SpectreSimulator property)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_transmission">at_transmission (lezargus.simulator.spectre.SpectreSimulator property)</a>
-
-      <ul>
-        <li><a href="code/lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.at_transmission">(lezargus.simulator.target.TargetSimulator property)</a>
-</li>
-      </ul></li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_window_emission">at_window_emission (lezargus.simulator.spectre.SpectreSimulator property)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_window_ghost">at_window_ghost (lezargus.simulator.spectre.SpectreSimulator property)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_window_transmission">at_window_transmission (lezargus.simulator.spectre.SpectreSimulator property)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_write_disk">at_write_disk() (lezargus.simulator.spectre.SpectreSimulator method)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.atmosphere">atmosphere (lezargus.simulator.spectre.SpectreSimulator attribute)</a>
-
-      <ul>
-        <li><a href="code/lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.atmosphere">(lezargus.simulator.target.TargetSimulator attribute)</a>
-</li>
-      </ul></li>
-      <li><a href="code/lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator">AtmosphereSimulator (class in lezargus.simulator.atmosphere)</a>
 </li>
       <li><a href="code/lezargus.library.container.atmosphere.html#lezargus.library.container.atmosphere.AtmosphereSpectrumGenerator">AtmosphereSpectrumGenerator (class in lezargus.library.container.atmosphere)</a>
 </li>
@@ -723,23 +616,9 @@
 </li>
       <li><a href="code/lezargus.library.photometry.html#lezargus.library.photometry.calculate_photometric_correction_factor_vega">calculate_photometric_correction_factor_vega() (in module lezargus.library.photometry)</a>
 </li>
-      <li><a href="code/lezargus.library.container.functionality.stitch.html#lezargus.library.container.functionality.stitch.calculate_spectra_scale_factor">calculate_spectra_scale_factor() (in module lezargus.library.container.functionality.stitch)</a>
-
-      <ul>
-        <li><a href="code/lezargus.library.stitch.html#lezargus.library.stitch.calculate_spectra_scale_factor">(in module lezargus.library.stitch)</a>
-</li>
-      </ul></li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.channel">channel (lezargus.simulator.spectre.SpectreSimulator attribute)</a>
+      <li><a href="code/lezargus.library.stitch.html#lezargus.library.stitch.calculate_spectra_scale_factor">calculate_spectra_scale_factor() (in module lezargus.library.stitch)</a>
 </li>
       <li><a href="code/lezargus.library.sanitize.html#lezargus.library.sanitize.clean_finite_arrays">clean_finite_arrays() (in module lezargus.library.sanitize)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.clear_cache">clear_cache() (lezargus.simulator.spectre.SpectreSimulator method)</a>
-
-      <ul>
-        <li><a href="code/lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.clear_cache">(lezargus.simulator.target.TargetSimulator method)</a>
-</li>
-      </ul></li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.coadds">coadds (lezargus.simulator.spectre.SpectreSimulator attribute)</a>
 </li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.ColoredLogFormatter.color_formatting">color_formatting (lezargus.library.logging.ColoredLogFormatter attribute)</a>
 </li>
@@ -753,8 +632,6 @@
 </li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.ConfigurationError">ConfigurationError</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.ConfigurationWarning">ConfigurationWarning</a>
 </li>
       <li><a href="code/lezargus.library.conversion.html#lezargus.library.conversion.convert_units">convert_units() (in module lezargus.library.conversion)</a>
@@ -763,6 +640,8 @@
 </li>
       <li><a href="code/lezargus.library.container.functionality.convolution.html#lezargus.library.container.functionality.convolution.convolve_cube_by_image_kernel">convolve_cube_by_image_kernel() (in module lezargus.library.container.functionality.convolution)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/lezargus.library.container.functionality.convolution.html#lezargus.library.container.functionality.convolution.convolve_cube_by_spectral_kernel">convolve_cube_by_spectral_kernel() (in module lezargus.library.container.functionality.convolution)</a>
 </li>
       <li><a href="code/lezargus.library.container.cube.html#lezargus.library.container.cube.LezargusCube.convolve_image">convolve_image() (lezargus.library.container.cube.LezargusCube method)</a>
@@ -770,6 +649,10 @@
       <li><a href="code/lezargus.library.container.cube.html#lezargus.library.container.cube.LezargusCube.convolve_spectra">convolve_spectra() (lezargus.library.container.cube.LezargusCube method)</a>
 </li>
       <li><a href="code/lezargus.library.container.functionality.convolution.html#lezargus.library.container.functionality.convolution.convolve_spectrum_by_spectral_kernel">convolve_spectrum_by_spectral_kernel() (in module lezargus.library.container.functionality.convolution)</a>
+</li>
+      <li><a href="code/lezargus.library.transform.html#lezargus.library.transform.corner_detection">corner_detection() (in module lezargus.library.transform)</a>
+</li>
+      <li><a href="code/lezargus.library.transform.html#lezargus.library.transform.corner_detection_subpixel_refinement">corner_detection_subpixel_refinement() (in module lezargus.library.transform)</a>
 </li>
       <li><a href="code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.cosmic_ray_rate">cosmic_ray_rate (lezargus.library.container.detector.DetectorArray attribute)</a>
 </li>
@@ -794,6 +677,8 @@
       <li><a href="code/lezargus.library.transform.html#lezargus.library.transform.crop_2d">crop_2d() (in module lezargus.library.transform)</a>
 </li>
       <li><a href="code/lezargus.library.transform.html#lezargus.library.transform.crop_3d">crop_3d() (in module lezargus.library.transform)</a>
+</li>
+      <li><a href="code/lezargus.library.convolution.html#lezargus.library.convolution.cross_correlation_pixel_shift">cross_correlation_pixel_shift() (in module lezargus.library.convolution)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -829,15 +714,13 @@
 </li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.debug">debug() (in module lezargus.library.logging)</a>
 </li>
-      <li><a href="code/lezargus.library.temporary.html#lezargus.library.temporary.delete_temporary_directory">delete_temporary_directory() (in module lezargus.library.temporary)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="code/lezargus.library.temporary.html#lezargus.library.temporary.delete_temporary_directory">delete_temporary_directory() (in module lezargus.library.temporary)</a>
+</li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.DeprecatedError">DeprecatedError</a>
 </li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.DeprecatedWarning">DeprecatedWarning</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.detector">detector (lezargus.simulator.spectre.SpectreSimulator attribute)</a>
 </li>
       <li><a href="code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.detector_gain">detector_gain (lezargus.library.container.detector.DetectorArray attribute)</a>
 </li>
@@ -875,15 +758,11 @@
 </li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.error">error() (in module lezargus.library.logging)</a>
 </li>
-      <li><a href="code/lezargus.cli.__main__.html#lezargus.cli.__main__.execute_primary_action">execute_primary_action() (in module lezargus.cli.__main__)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.ExpectedCaughtError">ExpectedCaughtError</a>
 </li>
       <li><a href="code/lezargus.library.math.html#lezargus.library.math.exponentiate">exponentiate() (in module lezargus.library.math)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.exposure_time">exposure_time (lezargus.simulator.spectre.SpectreSimulator attribute)</a>
 </li>
       <li><a href="code/lezargus.library.interpolate.html#lezargus.library.interpolate.Generic1DInterpolate.extrapolate">extrapolate (lezargus.library.interpolate.Generic1DInterpolate attribute)</a>
 </li>
@@ -905,38 +784,20 @@
 </li>
       <li><a href="code/lezargus.library.container.parent.html#lezargus.library.container.parent.LezargusContainerArithmetic.flags">flags (lezargus.library.container.parent.LezargusContainerArithmetic attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.flat_frame">flat_frame (lezargus.library.container.detector.DetectorArray attribute)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.flat_lamp_in">flat_lamp_in (lezargus.simulator.spectre.SpectreSimulator attribute)</a>
 </li>
       <li><a href="code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.flat_stddev_frame">flat_stddev_frame (lezargus.library.container.detector.DetectorArray attribute)</a>
 </li>
       <li><a href="code/lezargus.library.wrapper.html#lezargus.library.wrapper.flatten_list_recursively">flatten_list_recursively() (in module lezargus.library.wrapper)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.ColoredLogFormatter.format">format() (lezargus.library.logging.ColoredLogFormatter method)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.from_advanced_parameters">from_advanced_parameters() (lezargus.simulator.spectre.SpectreSimulator class method)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.from_blackbody">from_blackbody() (lezargus.simulator.spectre.SpectreSimulator class method)</a>
-
-      <ul>
-        <li><a href="code/lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.from_blackbody">(lezargus.simulator.target.TargetSimulator class method)</a>
-</li>
-      </ul></li>
-      <li><a href="code/lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.from_cube">from_cube() (lezargus.simulator.target.TargetSimulator class method)</a>
 </li>
       <li><a href="code/lezargus.library.container.photometry.html#lezargus.library.container.photometry.PhotometricVegaFilter.from_energy_transmission">from_energy_transmission() (lezargus.library.container.photometry.PhotometricVegaFilter class method)</a>
 </li>
       <li><a href="code/lezargus.library.container.photometry.html#lezargus.library.container.photometry.PhotometricVegaFilter.from_photon_transmission">from_photon_transmission() (lezargus.library.container.photometry.PhotometricVegaFilter class method)</a>
 </li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.from_spectrum">from_spectrum() (lezargus.simulator.spectre.SpectreSimulator class method)</a>
-
-      <ul>
-        <li><a href="code/lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.from_spectrum">(lezargus.simulator.target.TargetSimulator class method)</a>
-</li>
-      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -949,24 +810,16 @@
 </li>
       <li><a href="code/lezargus.library.interpolate.html#lezargus.library.interpolate.Generic1DInterpolate.gap_fill">gap_fill (lezargus.library.interpolate.Generic1DInterpolate attribute)</a>
 </li>
-      <li><a href="code/lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.generate_radiance">generate_radiance() (lezargus.simulator.atmosphere.AtmosphereSimulator method)</a>
-</li>
-      <li><a href="code/lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.generate_refraction_vectors">generate_refraction_vectors() (lezargus.simulator.atmosphere.AtmosphereSimulator method)</a>
-</li>
-      <li><a href="code/lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.generate_seeing_kernels">generate_seeing_kernels() (lezargus.simulator.atmosphere.AtmosphereSimulator method)</a>
-</li>
-      <li><a href="code/lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.generate_transmission">generate_transmission() (lezargus.simulator.atmosphere.AtmosphereSimulator method)</a>
-</li>
       <li><a href="code/lezargus.library.interpolate.html#lezargus.library.interpolate.Generic1DInterpolate">Generic1DInterpolate (class in lezargus.library.interpolate)</a>
 </li>
       <li><a href="code/lezargus.library.configuration.html#lezargus.library.configuration.get_default_configuration">get_default_configuration() (in module lezargus.library.configuration)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/lezargus.library.path.html#lezargus.library.path.get_directory">get_directory() (in module lezargus.library.path)</a>
 </li>
       <li><a href="code/lezargus.library.path.html#lezargus.library.path.get_file_extension">get_file_extension() (in module lezargus.library.path)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/lezargus.library.path.html#lezargus.library.path.get_filename_with_extension">get_filename_with_extension() (in module lezargus.library.path)</a>
 </li>
       <li><a href="code/lezargus.library.path.html#lezargus.library.path.get_filename_without_extension">get_filename_without_extension() (in module lezargus.library.path)</a>
@@ -989,8 +842,6 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/lezargus.library.container.parent.html#lezargus.library.container.parent.LezargusContainerArithmetic.header">header (lezargus.library.container.parent.LezargusContainerArithmetic attribute)</a>
 </li>
-      <li><a href="code/lezargus.cli.help_.html#lezargus.cli.help_.help_">help_() (in module lezargus.cli.help_)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.hot_pixel_map">hot_pixel_map (lezargus.library.container.detector.DetectorArray attribute)</a>
@@ -1011,23 +862,9 @@
 </li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.info">info() (in module lezargus.library.logging)</a>
 </li>
-      <li><a href="code/lezargus.initialize.html#lezargus.initialize.initialize">initialize() (in module lezargus.initialize)</a>
-</li>
-      <li><a href="code/lezargus.initialize.html#lezargus.initialize.initialize_logging_outputs">initialize_logging_outputs() (in module lezargus.initialize)</a>
-</li>
-      <li><a href="code/lezargus.initialize.html#lezargus.initialize.initialize_temporary_directory">initialize_temporary_directory() (in module lezargus.initialize)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.input_atmosphere">input_atmosphere (lezargus.simulator.spectre.SpectreSimulator attribute)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.input_target">input_target (lezargus.simulator.spectre.SpectreSimulator attribute)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.input_telescope">input_telescope (lezargus.simulator.spectre.SpectreSimulator attribute)</a>
-</li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.InputError">InputError</a>
 </li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.InputWarning">InputWarning</a>
-</li>
-      <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.InstrumentError">InstrumentError</a>
 </li>
       <li><a href="code/lezargus.library.math.html#lezargus.library.math.integrate_discrete">integrate_discrete() (in module lezargus.library.math)</a>
 </li>
@@ -1083,8 +920,6 @@
         <li><a href="code/lezargus.library.interpolate.html#lezargus.library.interpolate.RepeatNDInterpolate.interpolator_template">(lezargus.library.interpolate.RepeatNDInterpolate attribute)</a>
 </li>
       </ul></li>
-      <li><a href="code/lezargus.simulator.telescope.html#lezargus.simulator.telescope.IrtfTelescopeSimulator">IrtfTelescopeSimulator (class in lezargus.simulator.telescope)</a>
-</li>
   </ul></td>
 </tr></table>
 
@@ -1106,66 +941,10 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li>
-    lezargus
-
-      <ul>
-        <li><a href="code/lezargus.html#module-lezargus">module</a>
-</li>
-      </ul></li>
-      <li>
-    lezargus.__main__
-
-      <ul>
-        <li><a href="code/lezargus.__main__.html#module-lezargus.__main__">module</a>
-</li>
-      </ul></li>
-      <li>
-    lezargus.__version__
-
-      <ul>
-        <li><a href="code/lezargus.__version__.html#module-lezargus.__version__">module</a>
-</li>
-      </ul></li>
-      <li>
-    lezargus.cli
-
-      <ul>
-        <li><a href="code/lezargus.cli.html#module-lezargus.cli">module</a>
-</li>
-      </ul></li>
-      <li>
-    lezargus.cli.__main__
-
-      <ul>
-        <li><a href="code/lezargus.cli.__main__.html#module-lezargus.cli.__main__">module</a>
-</li>
-      </ul></li>
-      <li>
-    lezargus.cli.help_
-
-      <ul>
-        <li><a href="code/lezargus.cli.help_.html#module-lezargus.cli.help_">module</a>
-</li>
-      </ul></li>
-      <li>
-    lezargus.cli.version
-
-      <ul>
-        <li><a href="code/lezargus.cli.version.html#module-lezargus.cli.version">module</a>
-</li>
-      </ul></li>
-      <li>
     lezargus.config
 
       <ul>
         <li><a href="code/lezargus.config.html#module-lezargus.config">module</a>
-</li>
-      </ul></li>
-      <li>
-    lezargus.data
-
-      <ul>
-        <li><a href="code/lezargus.data.html#module-lezargus.data">module</a>
 </li>
       </ul></li>
       <li>
@@ -1225,17 +1004,17 @@
 </li>
       </ul></li>
       <li>
+    lezargus.data._make.make_spectre_calibrations
+
+      <ul>
+        <li><a href="code/lezargus.data._make.make_spectre_calibrations.html#module-lezargus.data._make.make_spectre_calibrations">module</a>
+</li>
+      </ul></li>
+      <li>
     lezargus.data._make.make_standard_spectra
 
       <ul>
         <li><a href="code/lezargus.data._make.make_standard_spectra.html#module-lezargus.data._make.make_standard_spectra">module</a>
-</li>
-      </ul></li>
-      <li>
-    lezargus.initialize
-
-      <ul>
-        <li><a href="code/lezargus.initialize.html#module-lezargus.initialize">module</a>
 </li>
       </ul></li>
       <li>
@@ -1323,13 +1102,6 @@
 </li>
       </ul></li>
       <li>
-    lezargus.library.container.functionality.stitch
-
-      <ul>
-        <li><a href="code/lezargus.library.container.functionality.stitch.html#module-lezargus.library.container.functionality.stitch">module</a>
-</li>
-      </ul></li>
-      <li>
     lezargus.library.container.functionality.transform
 
       <ul>
@@ -1343,8 +1115,6 @@
         <li><a href="code/lezargus.library.container.image.html#module-lezargus.library.container.image">module</a>
 </li>
       </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     lezargus.library.container.mosaic
 
@@ -1352,6 +1122,8 @@
         <li><a href="code/lezargus.library.container.mosaic.html#module-lezargus.library.container.mosaic">module</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li>
     lezargus.library.container.parent
 
@@ -1399,13 +1171,6 @@
 
       <ul>
         <li><a href="code/lezargus.library.flags.html#module-lezargus.library.flags">module</a>
-</li>
-      </ul></li>
-      <li>
-    lezargus.library.hint
-
-      <ul>
-        <li><a href="code/lezargus.library.hint.html#module-lezargus.library.hint">module</a>
 </li>
       </ul></li>
       <li>
@@ -1478,48 +1243,6 @@
         <li><a href="code/lezargus.library.wrapper.html#module-lezargus.library.wrapper">module</a>
 </li>
       </ul></li>
-      <li>
-    lezargus.simulator
-
-      <ul>
-        <li><a href="code/lezargus.simulator.html#module-lezargus.simulator">module</a>
-</li>
-      </ul></li>
-      <li>
-    lezargus.simulator.atmosphere
-
-      <ul>
-        <li><a href="code/lezargus.simulator.atmosphere.html#module-lezargus.simulator.atmosphere">module</a>
-</li>
-      </ul></li>
-      <li>
-    lezargus.simulator.spectre
-
-      <ul>
-        <li><a href="code/lezargus.simulator.spectre.html#module-lezargus.simulator.spectre">module</a>
-</li>
-      </ul></li>
-      <li>
-    lezargus.simulator.target
-
-      <ul>
-        <li><a href="code/lezargus.simulator.target.html#module-lezargus.simulator.target">module</a>
-</li>
-      </ul></li>
-      <li>
-    lezargus.simulator.telescope
-
-      <ul>
-        <li><a href="code/lezargus.simulator.telescope.html#module-lezargus.simulator.telescope">module</a>
-</li>
-      </ul></li>
-      <li>
-    lezargus.terminate
-
-      <ul>
-        <li><a href="code/lezargus.terminate.html#module-lezargus.terminate">module</a>
-</li>
-      </ul></li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.LezargusBaseError">LezargusBaseError</a>
 </li>
       <li><a href="code/lezargus.library.container.parent.html#lezargus.library.container.parent.LezargusContainerArithmetic">LezargusContainerArithmetic (class in lezargus.library.container.parent)</a>
@@ -1558,8 +1281,6 @@
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="code/lezargus.__main__.html#lezargus.__main__.main">main() (in module lezargus.__main__)</a>
-</li>
       <li><a href="code/lezargus.data._make.make_photometric_filters.html#lezargus.data._make.make_photometric_filters.make_ab_photometric_filter">make_ab_photometric_filter() (in module lezargus.data._make.make_photometric_filters)</a>
 </li>
       <li><a href="code/lezargus.data._make.make_atmosphere_generators.html#lezargus.data._make.make_atmosphere_generators.make_atmosphere_radiance_generator">make_atmosphere_radiance_generator() (in module lezargus.data._make.make_atmosphere_generators)</a>
@@ -1571,6 +1292,10 @@
       <li><a href="code/lezargus.data._make.make_detectors.html#lezargus.data._make.make_detectors.make_detector">make_detector() (in module lezargus.data._make.make_detectors)</a>
 </li>
       <li><a href="code/lezargus.data._make.make_optic_efficiencies.html#lezargus.data._make.make_optic_efficiencies.make_optic_efficiency">make_optic_efficiency() (in module lezargus.data._make.make_optic_efficiencies)</a>
+</li>
+      <li><a href="code/lezargus.data._make.make_spectre_calibrations.html#lezargus.data._make.make_spectre_calibrations.make_simulation_arclamp_spectrum">make_simulation_arclamp_spectrum() (in module lezargus.data._make.make_spectre_calibrations)</a>
+</li>
+      <li><a href="code/lezargus.data._make.make_spectre_calibrations.html#lezargus.data._make.make_spectre_calibrations.make_solution_arclamp_spectrum">make_solution_arclamp_spectrum() (in module lezargus.data._make.make_spectre_calibrations)</a>
 </li>
       <li><a href="code/lezargus.data._make.make_dispersion_patterns.html#lezargus.data._make.make_dispersion_patterns.make_spectre_dispersion_pattern">make_spectre_dispersion_pattern() (in module lezargus.data._make.make_dispersion_patterns)</a>
 </li>
@@ -1594,23 +1319,7 @@
     module
 
       <ul>
-        <li><a href="code/lezargus.html#module-lezargus">lezargus</a>
-</li>
-        <li><a href="code/lezargus.__main__.html#module-lezargus.__main__">lezargus.__main__</a>
-</li>
-        <li><a href="code/lezargus.__version__.html#module-lezargus.__version__">lezargus.__version__</a>
-</li>
-        <li><a href="code/lezargus.cli.html#module-lezargus.cli">lezargus.cli</a>
-</li>
-        <li><a href="code/lezargus.cli.__main__.html#module-lezargus.cli.__main__">lezargus.cli.__main__</a>
-</li>
-        <li><a href="code/lezargus.cli.help_.html#module-lezargus.cli.help_">lezargus.cli.help_</a>
-</li>
-        <li><a href="code/lezargus.cli.version.html#module-lezargus.cli.version">lezargus.cli.version</a>
-</li>
         <li><a href="code/lezargus.config.html#module-lezargus.config">lezargus.config</a>
-</li>
-        <li><a href="code/lezargus.data.html#module-lezargus.data">lezargus.data</a>
 </li>
         <li><a href="code/lezargus.data._make.html#module-lezargus.data._make">lezargus.data._make</a>
 </li>
@@ -1628,9 +1337,9 @@
 </li>
         <li><a href="code/lezargus.data._make.make_photometric_filters.html#module-lezargus.data._make.make_photometric_filters">lezargus.data._make.make_photometric_filters</a>
 </li>
-        <li><a href="code/lezargus.data._make.make_standard_spectra.html#module-lezargus.data._make.make_standard_spectra">lezargus.data._make.make_standard_spectra</a>
+        <li><a href="code/lezargus.data._make.make_spectre_calibrations.html#module-lezargus.data._make.make_spectre_calibrations">lezargus.data._make.make_spectre_calibrations</a>
 </li>
-        <li><a href="code/lezargus.initialize.html#module-lezargus.initialize">lezargus.initialize</a>
+        <li><a href="code/lezargus.data._make.make_standard_spectra.html#module-lezargus.data._make.make_standard_spectra">lezargus.data._make.make_standard_spectra</a>
 </li>
         <li><a href="code/lezargus.library.html#module-lezargus.library">lezargus.library</a>
 </li>
@@ -1656,8 +1365,6 @@
 </li>
         <li><a href="code/lezargus.library.container.functionality.convolution.html#module-lezargus.library.container.functionality.convolution">lezargus.library.container.functionality.convolution</a>
 </li>
-        <li><a href="code/lezargus.library.container.functionality.stitch.html#module-lezargus.library.container.functionality.stitch">lezargus.library.container.functionality.stitch</a>
-</li>
         <li><a href="code/lezargus.library.container.functionality.transform.html#module-lezargus.library.container.functionality.transform">lezargus.library.container.functionality.transform</a>
 </li>
         <li><a href="code/lezargus.library.container.image.html#module-lezargus.library.container.image">lezargus.library.container.image</a>
@@ -1678,8 +1385,6 @@
 </li>
         <li><a href="code/lezargus.library.flags.html#module-lezargus.library.flags">lezargus.library.flags</a>
 </li>
-        <li><a href="code/lezargus.library.hint.html#module-lezargus.library.hint">lezargus.library.hint</a>
-</li>
         <li><a href="code/lezargus.library.interpolate.html#module-lezargus.library.interpolate">lezargus.library.interpolate</a>
 </li>
         <li><a href="code/lezargus.library.logging.html#module-lezargus.library.logging">lezargus.library.logging</a>
@@ -1699,18 +1404,6 @@
         <li><a href="code/lezargus.library.transform.html#module-lezargus.library.transform">lezargus.library.transform</a>
 </li>
         <li><a href="code/lezargus.library.wrapper.html#module-lezargus.library.wrapper">lezargus.library.wrapper</a>
-</li>
-        <li><a href="code/lezargus.simulator.html#module-lezargus.simulator">lezargus.simulator</a>
-</li>
-        <li><a href="code/lezargus.simulator.atmosphere.html#module-lezargus.simulator.atmosphere">lezargus.simulator.atmosphere</a>
-</li>
-        <li><a href="code/lezargus.simulator.spectre.html#module-lezargus.simulator.spectre">lezargus.simulator.spectre</a>
-</li>
-        <li><a href="code/lezargus.simulator.target.html#module-lezargus.simulator.target">lezargus.simulator.target</a>
-</li>
-        <li><a href="code/lezargus.simulator.telescope.html#module-lezargus.simulator.telescope">lezargus.simulator.telescope</a>
-</li>
-        <li><a href="code/lezargus.terminate.html#module-lezargus.terminate">lezargus.terminate</a>
 </li>
       </ul></li>
   </ul></td>
@@ -1744,63 +1437,31 @@
   </ul></td>
 </tr></table>
 
-<h2 id="O">O</h2>
-<table style="width: 100%" class="indextable genindextable"><tr>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.old_from_advanced_parameters">old_from_advanced_parameters() (lezargus.simulator.spectre.SpectreSimulator class method)</a>
-</li>
-  </ul></td>
-</tr></table>
-
 <h2 id="P">P</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="code/lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.parallactic_angle">parallactic_angle (lezargus.simulator.atmosphere.AtmosphereSimulator attribute)</a>
-</li>
-      <li><a href="code/lezargus.__main__.html#lezargus.__main__.parse_arguments">parse_arguments() (in module lezargus.__main__)</a>
-</li>
       <li><a href="code/lezargus.library.conversion.html#lezargus.library.conversion.parse_astropy_unit">parse_astropy_unit() (in module lezargus.library.conversion)</a>
 </li>
       <li><a href="code/lezargus.library.conversion.html#lezargus.library.conversion.parse_numpy_dtype">parse_numpy_dtype() (in module lezargus.library.conversion)</a>
 </li>
       <li><a href="code/lezargus.library.container.photometry.html#lezargus.library.container.photometry.PhotometricABFilter">PhotometricABFilter (class in lezargus.library.container.photometry)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/lezargus.library.container.photometry.html#lezargus.library.container.photometry.PhotometricVegaFilter">PhotometricVegaFilter (class in lezargus.library.container.photometry)</a>
 </li>
       <li><a href="code/lezargus.library.container.parent.html#lezargus.library.container.parent.LezargusContainerArithmetic.pixel_scale">pixel_scale (lezargus.library.container.parent.LezargusContainerArithmetic attribute)</a>
 </li>
       <li><a href="code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.pixel_size">pixel_size (lezargus.library.container.detector.DetectorArray attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="code/lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.ppw">ppw (lezargus.simulator.atmosphere.AtmosphereSimulator attribute)</a>
-</li>
-      <li><a href="code/lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.pressure">pressure (lezargus.simulator.atmosphere.AtmosphereSimulator attribute)</a>
-</li>
-      <li><a href="code/lezargus.simulator.telescope.html#lezargus.simulator.telescope.IrtfTelescopeSimulator.primary_area">primary_area (lezargus.simulator.telescope.IrtfTelescopeSimulator property)</a>
-</li>
-      <li><a href="code/lezargus.simulator.telescope.html#lezargus.simulator.telescope.IrtfTelescopeSimulator.primary_emission">primary_emission() (lezargus.simulator.telescope.IrtfTelescopeSimulator method)</a>
-</li>
-      <li><a href="code/lezargus.simulator.telescope.html#lezargus.simulator.telescope.IrtfTelescopeSimulator.primary_emission_spectrum">primary_emission_spectrum() (lezargus.simulator.telescope.IrtfTelescopeSimulator method)</a>
-</li>
-      <li><a href="code/lezargus.simulator.telescope.html#lezargus.simulator.telescope.IrtfTelescopeSimulator.primary_reflectivity">primary_reflectivity() (lezargus.simulator.telescope.IrtfTelescopeSimulator method)</a>
-</li>
-      <li><a href="code/lezargus.simulator.telescope.html#lezargus.simulator.telescope.IrtfTelescopeSimulator.primary_reflectivity_spectrum">primary_reflectivity_spectrum() (lezargus.simulator.telescope.IrtfTelescopeSimulator method)</a>
-</li>
       <li><a href="code/lezargus.library.container.atmosphere.html#lezargus.library.container.atmosphere.AtmosphereSpectrumGenerator.pwv">pwv (lezargus.library.container.atmosphere.AtmosphereSpectrumGenerator attribute)</a>
-
-      <ul>
-        <li><a href="code/lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.pwv">(lezargus.simulator.atmosphere.AtmosphereSimulator attribute)</a>
 </li>
-      </ul></li>
   </ul></td>
 </tr></table>
 
 <h2 id="R">R</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="code/lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.radiance_generator">radiance_generator (lezargus.simulator.atmosphere.AtmosphereSimulator attribute)</a>
-</li>
       <li><a href="code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.random_state_seed">random_state_seed (lezargus.library.container.detector.DetectorArray attribute)</a>
 </li>
       <li><a href="code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.raw_bias_frames">raw_bias_frames (lezargus.library.container.detector.DetectorArray attribute)</a>
@@ -1847,10 +1508,6 @@
 </li>
       <li><a href="code/lezargus.library.flags.html#lezargus.library.flags.reduce_flags">reduce_flags() (in module lezargus.library.flags)</a>
 </li>
-      <li><a href="code/lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.reference_wavelength">reference_wavelength (lezargus.simulator.atmosphere.AtmosphereSimulator attribute)</a>
-</li>
-      <li><a href="code/lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.reference_zenith_angle">reference_zenith_angle (lezargus.simulator.atmosphere.AtmosphereSimulator attribute)</a>
-</li>
       <li><a href="code/lezargus.library.interpolate.html#lezargus.library.interpolate.RegularNDInterpolate">RegularNDInterpolate (class in lezargus.library.interpolate)</a>
 </li>
       <li><a href="code/lezargus.library.atmosphere.html#lezargus.library.atmosphere.relative_atmospheric_refraction">relative_atmospheric_refraction() (in module lezargus.library.atmosphere)</a>
@@ -1862,6 +1519,8 @@
       <li><a href="code/lezargus.library.interpolate.html#lezargus.library.interpolate.Repeat3DInterpolate">Repeat3DInterpolate (class in lezargus.library.interpolate)</a>
 </li>
       <li><a href="code/lezargus.library.interpolate.html#lezargus.library.interpolate.RepeatNDInterpolate">RepeatNDInterpolate (class in lezargus.library.interpolate)</a>
+</li>
+      <li><a href="code/lezargus.library.sanitize.html#lezargus.library.sanitize.rescale_values">rescale_values() (in module lezargus.library.sanitize)</a>
 </li>
       <li><a href="code/lezargus.library.transform.html#lezargus.library.transform.rotate_2d">rotate_2d() (in module lezargus.library.transform)</a>
 </li>
@@ -1879,21 +1538,7 @@
 </li>
       <li><a href="code/lezargus.library.configuration.html#lezargus.library.configuration.save_configuration_file">save_configuration_file() (in module lezargus.library.configuration)</a>
 </li>
-      <li><a href="code/lezargus.simulator.telescope.html#lezargus.simulator.telescope.IrtfTelescopeSimulator.secondary_area">secondary_area (lezargus.simulator.telescope.IrtfTelescopeSimulator property)</a>
-</li>
-      <li><a href="code/lezargus.simulator.telescope.html#lezargus.simulator.telescope.IrtfTelescopeSimulator.secondary_emission">secondary_emission() (lezargus.simulator.telescope.IrtfTelescopeSimulator method)</a>
-</li>
-      <li><a href="code/lezargus.simulator.telescope.html#lezargus.simulator.telescope.IrtfTelescopeSimulator.secondary_emission_spectrum">secondary_emission_spectrum() (lezargus.simulator.telescope.IrtfTelescopeSimulator method)</a>
-</li>
-      <li><a href="code/lezargus.simulator.telescope.html#lezargus.simulator.telescope.IrtfTelescopeSimulator.secondary_reflectivity">secondary_reflectivity() (lezargus.simulator.telescope.IrtfTelescopeSimulator method)</a>
-</li>
-      <li><a href="code/lezargus.simulator.telescope.html#lezargus.simulator.telescope.IrtfTelescopeSimulator.secondary_reflectivity_spectrum">secondary_reflectivity_spectrum() (lezargus.simulator.telescope.IrtfTelescopeSimulator method)</a>
-</li>
-      <li><a href="code/lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.seeing">seeing (lezargus.simulator.atmosphere.AtmosphereSimulator attribute)</a>
-</li>
       <li><a href="code/lezargus.library.atmosphere.html#lezargus.library.atmosphere.seeing">seeing() (in module lezargus.library.atmosphere)</a>
-</li>
-      <li><a href="code/lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.seeing_function">seeing_function() (lezargus.simulator.atmosphere.AtmosphereSimulator method)</a>
 </li>
       <li><a href="code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.simulate_bias_frame">simulate_bias_frame() (lezargus.library.container.detector.DetectorArray method)</a>
 </li>
@@ -1903,14 +1548,12 @@
 </li>
       <li><a href="code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.simulate_dark_current_frame">simulate_dark_current_frame() (lezargus.library.container.detector.DetectorArray method)</a>
 </li>
-      <li><a href="code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.simulate_flat_frame">simulate_flat_frame() (lezargus.library.container.detector.DetectorArray method)</a>
+      <li><a href="code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.simulate_full_flat_frame">simulate_full_flat_frame() (lezargus.library.container.detector.DetectorArray method)</a>
 </li>
       <li><a href="code/lezargus.library.container.detector.html#lezargus.library.container.detector.DetectorArray.simulate_read_noise_frame">simulate_read_noise_frame() (lezargus.library.container.detector.DetectorArray method)</a>
 </li>
       <li><a href="code/lezargus.library.container.parent.html#lezargus.library.container.parent.LezargusContainerArithmetic.slice_scale">slice_scale (lezargus.library.container.parent.LezargusContainerArithmetic attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/lezargus.library.container.atmosphere.html#lezargus.library.container.atmosphere.AtmosphereSpectrumGenerator.spectral_scale">spectral_scale (lezargus.library.container.atmosphere.AtmosphereSpectrumGenerator attribute)</a>
 
       <ul>
@@ -1919,8 +1562,8 @@
       </ul></li>
       <li><a href="code/lezargus.library.container.dispersion.html#lezargus.library.container.dispersion.SpectreDispersionPattern">SpectreDispersionPattern (class in lezargus.library.container.dispersion)</a>
 </li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator">SpectreSimulator (class in lezargus.simulator.spectre)</a>
-</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/lezargus.library.interpolate.html#lezargus.library.interpolate.Spline1DInterpolate">Spline1DInterpolate (class in lezargus.library.interpolate)</a>
 </li>
       <li><a href="code/lezargus.library.path.html#lezargus.library.path.split_pathname">split_pathname() (in module lezargus.library.path)</a>
@@ -1949,6 +1592,8 @@
 </li>
       <li><a href="code/lezargus.library.stitch.html#lezargus.library.stitch.stitch_wavelengths_discrete">stitch_wavelengths_discrete() (in module lezargus.library.stitch)</a>
 </li>
+      <li><a href="code/lezargus.library.container.image.html#lezargus.library.container.image.LezargusImage.subimage">subimage() (lezargus.library.container.image.LezargusImage method)</a>
+</li>
       <li><a href="code/lezargus.library.math.html#lezargus.library.math.subtract">subtract() (in module lezargus.library.math)</a>
 </li>
   </ul></td>
@@ -1957,42 +1602,18 @@
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.target">target (lezargus.simulator.spectre.SpectreSimulator attribute)</a>
-
-      <ul>
-        <li><a href="code/lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.target">(lezargus.simulator.target.TargetSimulator attribute)</a>
-</li>
-      </ul></li>
-      <li><a href="code/lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.target_spectrum">target_spectrum (lezargus.simulator.target.TargetSimulator attribute)</a>
-</li>
-      <li><a href="code/lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator">TargetSimulator (class in lezargus.simulator.target)</a>
-</li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.telescope">telescope (lezargus.simulator.spectre.SpectreSimulator attribute)</a>
-</li>
-      <li><a href="code/lezargus.simulator.telescope.html#lezargus.simulator.telescope.IrtfTelescopeSimulator.telescope_area">telescope_area (lezargus.simulator.telescope.IrtfTelescopeSimulator property)</a>
-</li>
-      <li><a href="code/lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.temperature">temperature (lezargus.simulator.atmosphere.AtmosphereSimulator attribute)</a>
-
-      <ul>
-        <li><a href="code/lezargus.simulator.telescope.html#lezargus.simulator.telescope.IrtfTelescopeSimulator.temperature">(lezargus.simulator.telescope.IrtfTelescopeSimulator attribute)</a>
-</li>
-      </ul></li>
       <li><a href="code/lezargus.library.interpolate.html#lezargus.library.interpolate.Generic1DInterpolate.template_class">template_class() (lezargus.library.interpolate.Generic1DInterpolate class method)</a>
 </li>
       <li><a href="code/lezargus.library.interpolate.html#lezargus.library.interpolate.Generic1DInterpolate.template_instance">template_instance() (lezargus.library.interpolate.Generic1DInterpolate method)</a>
 </li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.terminal">terminal() (in module lezargus.library.logging)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="code/lezargus.terminate.html#lezargus.terminate.terminate">terminate() (in module lezargus.terminate)</a>
-</li>
-      <li><a href="code/lezargus.terminate.html#lezargus.terminate.terminate_temporary_directory">terminate_temporary_directory() (in module lezargus.terminate)</a>
-</li>
       <li><a href="code/lezargus.library.container.parent.html#lezargus.library.container.parent.LezargusContainerArithmetic.to_unit">to_unit() (lezargus.library.container.parent.LezargusContainerArithmetic method)</a>
 </li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.ToDoError">ToDoError</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/lezargus.library.container.functionality.transform.html#lezargus.library.container.functionality.transform.transform_shear_cube_spectral">transform_shear_cube_spectral() (in module lezargus.library.container.functionality.transform)</a>
 </li>
       <li><a href="code/lezargus.library.transform.html#lezargus.library.transform.translate_2d">translate_2d() (in module lezargus.library.transform)</a>
@@ -2000,8 +1621,6 @@
       <li><a href="code/lezargus.library.container.photometry.html#lezargus.library.container.photometry.PhotometricVegaFilter.transmission_energy">transmission_energy (lezargus.library.container.photometry.PhotometricVegaFilter attribute)</a>
 </li>
       <li><a href="code/lezargus.library.container.photometry.html#lezargus.library.container.photometry.PhotometricVegaFilter.transmission_energy_function">transmission_energy_function() (lezargus.library.container.photometry.PhotometricVegaFilter method)</a>
-</li>
-      <li><a href="code/lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.transmission_generator">transmission_generator (lezargus.simulator.atmosphere.AtmosphereSimulator attribute)</a>
 </li>
       <li><a href="code/lezargus.library.container.photometry.html#lezargus.library.container.photometry.PhotometricVegaFilter.transmission_photon">transmission_photon (lezargus.library.container.photometry.PhotometricVegaFilter property)</a>
 </li>
@@ -2019,20 +1638,14 @@
         <li><a href="code/lezargus.library.container.parent.html#id1">(lezargus.library.container.parent.LezargusContainerArithmetic property)</a>
 </li>
       </ul></li>
-      <li><a href="code/lezargus.library.container.parent.html#lezargus.library.container.parent.LezargusContainerArithmetic.uncertainty_unit">uncertainty_unit (lezargus.library.container.parent.LezargusContainerArithmetic property)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="code/lezargus.library.container.parent.html#lezargus.library.container.parent.LezargusContainerArithmetic.uncertainty_unit">uncertainty_unit (lezargus.library.container.parent.LezargusContainerArithmetic property)</a>
+</li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.UndiscoveredError">UndiscoveredError</a>
 </li>
       <li><a href="code/lezargus.library.logging.html#lezargus.library.logging.update_global_minimum_logging_level">update_global_minimum_logging_level() (in module lezargus.library.logging)</a>
 </li>
-      <li><a href="code/lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.use_cache">use_cache (lezargus.simulator.spectre.SpectreSimulator attribute)</a>
-
-      <ul>
-        <li><a href="code/lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.use_cache">(lezargus.simulator.target.TargetSimulator attribute)</a>
-</li>
-      </ul></li>
   </ul></td>
 </tr></table>
 
@@ -2058,8 +1671,6 @@
       <li><a href="code/lezargus.library.sanitize.html#lezargus.library.sanitize.verify_broadcastability">verify_broadcastability() (in module lezargus.library.sanitize)</a>
 </li>
       <li><a href="code/lezargus.library.container.dispersion.html#lezargus.library.container.dispersion.SpectreDispersionPattern.verify_dispersion_table">verify_dispersion_table() (lezargus.library.container.dispersion.SpectreDispersionPattern static method)</a>
-</li>
-      <li><a href="code/lezargus.cli.version.html#lezargus.cli.version.version">version() (in module lezargus.cli.version)</a>
 </li>
       <li><a href="code/lezargus.library.container.dispersion.html#lezargus.library.container.dispersion.SpectreDispersionPattern.visible_pixel_size">visible_pixel_size (lezargus.library.container.dispersion.SpectreDispersionPattern attribute)</a>
 </li>
@@ -2146,11 +1757,7 @@
       <li><a href="code/lezargus.library.interpolate.html#lezargus.library.interpolate.Repeat3DInterpolate.z">z (lezargus.library.interpolate.Repeat3DInterpolate attribute)</a>
 </li>
       <li><a href="code/lezargus.library.container.atmosphere.html#lezargus.library.container.atmosphere.AtmosphereSpectrumGenerator.zenith_angle">zenith_angle (lezargus.library.container.atmosphere.AtmosphereSpectrumGenerator attribute)</a>
-
-      <ul>
-        <li><a href="code/lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.zenith_angle">(lezargus.simulator.atmosphere.AtmosphereSimulator attribute)</a>
 </li>
-      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="code/lezargus.library.container.photometry.html#lezargus.library.container.photometry.PhotometricVegaFilter.zero_point">zero_point (lezargus.library.container.photometry.PhotometricVegaFilter attribute)</a>
@@ -2222,8 +1829,8 @@ By Sparrow
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script defer src="_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
+<script defer src="_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
 
   <footer class="bd-footer">
   </footer>

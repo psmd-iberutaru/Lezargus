@@ -24,7 +24,7 @@ import numpy as np
 from lezargus.library import logging
 
 
-def clean_finite_arrays(*arrays: hint.NDArray) -> tuple[hint.NDArray]:
+def clean_finite_arrays(*arrays: hint.NDArray) -> tuple[hint.NDArray, ...]:
     """Return parallel arrays with any non-finite number removed from them.
 
     We remove all parallel-aligned values (aligned with each other) which are

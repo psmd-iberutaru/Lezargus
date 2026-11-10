@@ -30,6 +30,13 @@ import os
 # as well.
 META_CONTAINER_FLOAT_DATA_TYPE = "float"
 
+# This is the data type for the Lezargus detector files. Similar to the
+# container data type, this should be changed based on how much memory your
+# device has. Although, much less so, and it will be rare for this to change.
+# The data type names are the same as the Numpy canonical python API name,
+# with some built-in Python types named as well.
+META_DETECTOR_FLOAT_DATA_TYPE = "float16"
+
 # # # # # # # # # # # # # # # # # # # #
 # </END META>
 

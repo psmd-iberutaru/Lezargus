@@ -21,6 +21,7 @@ import astropy.modeling
 import numpy as np
 import scipy.signal
 
+import lezargus
 from lezargus.library import logging
 
 
@@ -694,7 +695,7 @@ def kernel_1d_gaussian_resolution(
             / (base_resolving_power * target_resolving_power)
         )
         logging.warning(
-            warning_type=logging.DeprecationWarning,
+            warning_type=logging.DeprecatedWarning,
             message=(
                 "Resolving power kernel generation should be replaced with"
                 " resolutions computed from resolving power."
@@ -835,7 +836,7 @@ def kernel_2d_gaussian(
 def cross_correlation_pixel_shift(
     base_array: hint.NDArray,
     moving_array: hint.NDArray,
-) -> int:
+) -> float:
     """Find the pixel shift between two arrays using cross-correlation.
 
     We find the pixel shift of the moving array relative to some base array.
@@ -853,8 +854,9 @@ def cross_correlation_pixel_shift(
 
     Returns
     -------
-    pixel_shift : int
+    pixel_shift : float
         The pixel shift of the moving array relative to the base array.
+        Subpixel shifts are included.
 
     """
     # Normalizing the correlations.
@@ -872,7 +874,7 @@ def cross_correlation_pixel_shift(
     shift_array = scipy.signal.correlation_lags(
         base_size,
         move_size,
-        mode="valid",
+        mode="full",
     )
     # And computing the cross-correlation. Using the Numpy version is slower
     # but is it more accepting of the different inputs. We do not predict
@@ -880,11 +882,50 @@ def cross_correlation_pixel_shift(
     cross_correlation = np.correlate(
         norm_base_array,
         norm_move_array,
-        mode="valid",
+        mode="full",
     )
 
     # Finding the shift via the cross-correlation. The best overlap is at the
     # highest correlation.
-    pixel_shift = shift_array[np.nanargmax(cross_correlation)]
+    # The actual shift should be relatively small, so we don't need the
+    # extraneous data on either side.
+    valid_delta = 100
+    valid_index = np.abs(shift_array) <= valid_delta
+    # Filtering to...
+    valid_shift_array = shift_array[valid_index]
+    valid_cross_correlation = cross_correlation[valid_index]
+    valid_shift_array, valid_cross_correlation = (
+        lezargus.library.sanitize.clean_finite_arrays(
+            valid_shift_array,
+            valid_cross_correlation,
+        )
+    )
+
+    # To get fractional pixel shifts, it is better to fit a Gaussian to
+    # the cross correlation. We assume some initial conditions, namely,
+    # estimates of the amplitude (avoiding outliers) and default mean and
+    # standard deviation estimates (approximately half-width half max).
+    initial_amplitude = np.nanmedian(np.sort(valid_cross_correlation)[-10:])
+    initial_mean = 0
+    signed_half_width = valid_shift_array[
+        np.nanargmin(np.abs(valid_cross_correlation - initial_amplitude / 2))
+    ]
+    initial_stddev = np.abs(signed_half_width) / 2.35
+    # Defining the Gaussian model.
+    gaussian_model = astropy.modeling.models.Gaussian1D(
+        amplitude=initial_amplitude,
+        mean=initial_mean,
+        stddev=initial_stddev,
+    )
+    # Defining the fitting function.
+    fitting_algorithm = astropy.modeling.fitting.TRFLSQFitter()
+    # And fitting...
+    fit_gaussian = fitting_algorithm(
+        gaussian_model,
+        valid_shift_array,
+        valid_cross_correlation,
+    )
+    pixel_shift = float(fit_gaussian.mean.value)
+
     # All done.
     return pixel_shift

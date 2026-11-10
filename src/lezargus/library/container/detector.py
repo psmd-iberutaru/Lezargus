@@ -156,7 +156,7 @@ class DetectorArray:
 
     def __init__(
         self: DetectorArray,
-        detector_shape: tuple,
+        detector_shape: tuple | list,
         pixel_size: float,
         detector_gain: float = 1,
         nondestructive_reads: int = 1,
@@ -183,7 +183,7 @@ class DetectorArray:
 
         """
         # Storing the values.
-        self.detector_shape = detector_shape
+        self.detector_shape = tuple(detector_shape)
         self.pixel_size = pixel_size
         self.detector_gain = detector_gain
         self.nondestructive_reads = nondestructive_reads
@@ -235,10 +235,69 @@ class DetectorArray:
             max_seed = time.time_ns() % (2**32 - 1)
             random_generator = np.random.default_rng()
             random_integer = random_generator.integers(min_seed, max_seed)
-            random_state = random_integer
+            random_state = int(random_integer)
         return random_state
 
-    def add_bias_frame(self: hint.Self, bias_frame: hint.NDArray) -> None:
+    def add_bias_frame(
+        self: hint.Self,
+        bias_frame_mean: hint.NDArray,
+        bias_frame_stddev: hint.NDArray,
+    ) -> None:
+        """Replace the computed detector bias frame data with a new one.
+
+        This function replaces the bias frame information parameters, namely,
+        the mean bias and the (Gaussian) standard deviation of the bias signal.
+        If you want the compute the bias frame from a set of observations,
+        see `add_raw_bias_frame` instead. Use this function instead of
+        manually changing the respective attributes as we perform some basic
+        checks.
+
+        Parameters
+        ----------
+        bias_frame_mean : NDArray
+            The per-pixel mean value of the bias across the data frame.
+        bias_frame_stddev : NDArray
+            The per-pixel standard deviation of the bias signal across the
+            data frame.
+
+        Returns
+        -------
+        None
+
+        """
+        # We just need to check it is of proper shape.
+        bias_frame_mean = np.array(bias_frame_mean, copy=True)
+        if bias_frame_mean.shape != self.detector_shape:
+            # It is wrong, we do not do anything as we cannot add it.
+            logging.error(
+                error_type=logging.InputError,
+                message=(
+                    "Input bias frame shape"
+                    f" {bias_frame_mean.shape} mismatches the detector shape"
+                    f" {self.detector_shape}. Will not replace bias values."
+                ),
+            )
+            return
+        bias_frame_stddev = np.array(bias_frame_stddev, copy=True)
+        if bias_frame_stddev.shape != self.detector_shape:
+            # It is wrong, we do not do anything as we cannot add it.
+            logging.error(
+                error_type=logging.InputError,
+                message=(
+                    "Input bias standard deviation frame shape"
+                    f" {bias_frame_stddev.shape} mismatches the detector shape"
+                    f" {self.detector_shape}. Will not replace bias values."
+                ),
+            )
+            return
+
+        # Passed all of the checks. We can replace it now.
+        self.bias_frame = bias_frame_mean
+        self.bias_stddev_frame = bias_frame_stddev
+        # All done.
+        return
+
+    def add_raw_bias_frame(self: hint.Self, bias_frame: hint.NDArray) -> None:
         """Add a detector bias frame to the simulated detector.
 
         Parameters
@@ -265,19 +324,85 @@ class DetectorArray:
             )
             return
 
+        # Data type conversion to match configuration file.
+        using_dtype = lezargus.library.conversion.parse_numpy_dtype(
+            dtype_string=lezargus.config.META_DETECTOR_FLOAT_DATA_TYPE,
+        )
+        using_bias_frame = np.array(input_bias_frame, dtype=using_dtype)
+
         if self.raw_bias_frames is None:
             # This is the first frame.
             self.raw_bias_frames = [
-                input_bias_frame,
+                using_bias_frame,
             ]
         else:
             # We just add it to the rest.
-            self.raw_bias_frames.append(input_bias_frame)
+            self.raw_bias_frames.append(using_bias_frame)
 
         # All done.
         return
 
-    def add_flat_frame(self: hint.Self, flat_frame: hint.NDArray) -> None:
+    def add_flat_frame(
+        self: hint.Self,
+        flat_frame_mean: hint.NDArray,
+        flat_frame_stddev: hint.NDArray,
+    ) -> None:
+        """Replace the computed detector flat frame data with a new one.
+
+        This function replaces the flat frame information parameters, namely,
+        the mean flat and the (Gaussian) standard deviation of the flat field.
+        If you want the compute the flat frame from a set of observations,
+        see `add_raw_flat_frame` instead. Use this function instead of
+        manually changing the respective attributes as we perform some basic
+        checks.
+
+        Parameters
+        ----------
+        flat_frame_mean : NDArray
+            The per-pixel average value of the flat field across the data
+            frame.
+        flat_frame_stddev : NDArray
+            The per-pixel standard deviation of the flat field across the
+            data frame.
+
+        Returns
+        -------
+        None
+
+        """
+        # We just need to check it is of proper shape.
+        flat_frame_mean = np.array(flat_frame_mean, copy=True)
+        if flat_frame_mean.shape != self.detector_shape:
+            # It is wrong, we do not do anything as we cannot add it.
+            logging.error(
+                error_type=logging.InputError,
+                message=(
+                    "Input flat frame shape"
+                    f" {flat_frame_mean.shape} mismatches the detector shape"
+                    f" {self.detector_shape}. Will not replace flat values."
+                ),
+            )
+            return
+        flat_frame_stddev = np.array(flat_frame_stddev, copy=True)
+        if flat_frame_stddev.shape != self.detector_shape:
+            # It is wrong, we do not do anything as we cannot add it.
+            logging.error(
+                error_type=logging.InputError,
+                message=(
+                    "Input flat frame standard deviation shape"
+                    f" {flat_frame_stddev.shape} mismatches the detector shape"
+                    f" {self.detector_shape}. Will not replace flat values."
+                ),
+            )
+            return
+
+        # Passed all of the checks. We can replace it now.
+        self.flat_frame = flat_frame_mean
+        self.flat_stddev_frame = flat_frame_stddev
+        # All done.
+        return
+
+    def add_raw_flat_frame(self: hint.Self, flat_frame: hint.NDArray) -> None:
         """Add a detector flat frame to the simulated detector.
 
         Parameters
@@ -304,19 +429,89 @@ class DetectorArray:
             )
             return
 
+        # Data type conversion to match configuration file.
+        using_dtype = lezargus.library.conversion.parse_numpy_dtype(
+            dtype_string=lezargus.config.META_DETECTOR_FLOAT_DATA_TYPE,
+        )
+        using_flat_frame = np.array(input_flat_frame, dtype=using_dtype)
+
         if self.raw_flat_frames is None:
             # This is the first frame.
             self.raw_flat_frames = [
-                input_flat_frame,
+                using_flat_frame,
             ]
         else:
             # We just add it to the rest.
-            self.raw_flat_frames.append(input_flat_frame)
+            self.raw_flat_frames.append(using_flat_frame)
 
         # All done.
         return
 
     def add_dark_current_frame(
+        self: hint.Self,
+        dark_current_frame_mean: hint.NDArray,
+        dark_current_frame_stddev: hint.NDArray,
+    ) -> None:
+        """Replace the computed detector dark current frame data with a new one.
+
+        This function replaces the dark current frame information parameters,
+        namely, the mean dark current and the (Gaussian) standard deviation
+        of the dark current signal. If you want the compute the dark current
+        frame from a set of observations, see `add_raw_dark_current_frame`
+        instead. Use this function instead of manually changing the respective
+        attributes as we perform some basic checks.
+
+        Parameters
+        ----------
+        dark_current_frame_mean : NDArray
+            The per-pixel mean value of the dark current across the data frame.
+        dark_current_frame_stddev : NDArray
+            The per-pixel standard deviation of the dark current signal
+            across the data frame.
+
+        Returns
+        -------
+        None
+
+        """
+        # We just need to check it is of proper shape.
+        dark_current_frame_mean = np.array(dark_current_frame_mean, copy=True)
+        if dark_current_frame_mean.shape != self.detector_shape:
+            # It is wrong, we do not do anything as we cannot add it.
+            logging.error(
+                error_type=logging.InputError,
+                message=(
+                    "Input dark current frame shape"
+                    f" {dark_current_frame_mean.shape} mismatches the detector"
+                    f" shape {self.detector_shape}. Will not replace dark"
+                    " current values."
+                ),
+            )
+            return
+        dark_current_frame_stddev = np.array(
+            dark_current_frame_stddev,
+            copy=True,
+        )
+        if dark_current_frame_stddev.shape != self.detector_shape:
+            # It is wrong, we do not do anything as we cannot add it.
+            logging.error(
+                error_type=logging.InputError,
+                message=(
+                    "Input dark_current frame shape"
+                    f" {dark_current_frame_stddev.shape} mismatches the"
+                    f" detector shape {self.detector_shape}. Will not replace"
+                    " dark current values."
+                ),
+            )
+            return
+
+        # Passed all of the checks. We can replace it now.
+        self.dark_current_frame = dark_current_frame_mean
+        self.dark_current_stddev_frame = dark_current_frame_stddev
+        # All done.
+        return
+
+    def add_raw_dark_current_frame(
         self: hint.Self,
         dark_current_frame: hint.NDArray,
     ) -> None:
@@ -346,23 +541,35 @@ class DetectorArray:
             )
             return
 
+        # Data type conversion to match configuration file.
+        using_dtype = lezargus.library.conversion.parse_numpy_dtype(
+            dtype_string=lezargus.config.META_DETECTOR_FLOAT_DATA_TYPE,
+        )
+        using_dark_current_frame = np.array(
+            input_dark_current_frame,
+            dtype=using_dtype,
+        )
+
         if self.raw_dark_current_frames is None:
             # This is the first frame.
             self.raw_dark_current_frames = [
-                input_dark_current_frame,
+                using_dark_current_frame,
             ]
         else:
             # We just add it to the rest.
-            self.raw_dark_current_frames.append(input_dark_current_frame)
+            self.raw_dark_current_frames.append(using_dark_current_frame)
 
         # All done.
         return
 
     def add_linearity_function(
         self: hint.Self,
-        linearity_function: hint.Callable[[float], float],
+        linearity_function: hint.Callable[[hint.NDArray], hint.NDArray],
     ) -> None:
         """Add a detector linearity function to the simulated detector.
+
+        If this function is called multiple times, the old linearity function
+        is overwritten and a new one is added.
 
         Parameters
         ----------
@@ -380,7 +587,7 @@ class DetectorArray:
 
     def add_efficiency_function(
         self: hint.Self,
-        efficiency_function: hint.Callable[[float], float],
+        efficiency_function: hint.Callable[[hint.NDArray], hint.NDArray],
     ) -> None:
         """Add an efficiency function to the simulated detector.
 
@@ -389,6 +596,9 @@ class DetectorArray:
         due to the quantum efficiency function of the detector but it
         nessecilarily need not be limited to it. Any efficiency detriment
         is provided here.
+
+        If this function is called multiple times, the old efficiency function
+        is overwritten and a new one is added.
 
         Parameters
         ----------

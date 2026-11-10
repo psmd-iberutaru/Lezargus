@@ -17,6 +17,6 @@ Module contents
 
 .. automodule:: lezargus.simulator
    :members:
-   :undoc-members:
-   :show-inheritance:
    :private-members:
+   :show-inheritance:
+   :undoc-members:

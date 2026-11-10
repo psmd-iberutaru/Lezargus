@@ -10,6 +10,7 @@ Subpackages
    lezargus.cli
    lezargus.data
    lezargus.library
+   lezargus.pipeline
    lezargus.simulator
 
 Submodules
@@ -29,6 +30,6 @@ Module contents
 
 .. automodule:: lezargus
    :members:
-   :undoc-members:
-   :show-inheritance:
    :private-members:
+   :show-inheritance:
+   :undoc-members:

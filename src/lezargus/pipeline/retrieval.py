@@ -8,6 +8,11 @@ the data from the image arrays to the slices (or cube), due to the use of
 extraction referring to spectra from cubes.
 """
 
+# SPDX-FileCopyrightText: 2023-present IRTF <https://irtfweb.ifa.hawaii.edu/>
+# SPDX-FileContributor: KSE (Sparrow) <kemerson@hawaii.edu>
+# SPDX-FileContributor: ACAB <aboogert@hawaii.edu>
+# SPDX-License-Identifier: MIT
+
 # isort: split
 # Import required to remove circular dependencies from type checking.
 from __future__ import annotations
@@ -554,7 +559,7 @@ class SpectreRetrieval:
         # We attempt to the file first.
         labeled_corner_table = None
         try:
-            labeled_corner_table = self.__get_labeled_corner_table(
+            labeled_corner_table = self.get_labeled_corner_table(
                 method="file",
             )
         except logging.LezargusError:
@@ -565,7 +570,7 @@ class SpectreRetrieval:
             )
             # But we can still attempt the next method.
             try:
-                labeled_corner_table = self.__get_labeled_corner_table(
+                labeled_corner_table = self.get_labeled_corner_table(
                     method="simulation",
                 )
             except logging.LezargusError:
@@ -817,7 +822,7 @@ class SpectreRetrieval:
         self: hint.Self,
         flat_image: hint.LezargusImage | None = None,
         initial_method: str | None = None,
-    ) -> hint.Table | hint.LezargusFailure:
+    ) -> hint.Table:
         """Recompute the slice corners from an image flat.
 
         Parameters
@@ -1012,7 +1017,7 @@ class SpectreRetrieval:
         self: hint.Self,
         point_coordinates: list,
         labeled_corner_table: hint.Table | None = None,
-    ) -> hint.Table | hint.LezargusFailure:
+    ) -> hint.Table:
         """Match coordinate points to a labeled slice corner table.
 
         This function takes a set of coordinate points and labels them using
@@ -1046,7 +1051,7 @@ class SpectreRetrieval:
         # We need to see if the labeled corner table is needed to be obtained.
         # If not, we can attempt to find it from a file or a simulation.
         if labeled_corner_table is None:
-            template_corner_table = self.__get_labeled_corner_table(method=None)
+            template_corner_table = self.get_labeled_corner_table(method=None)
         else:
             template_corner_table = labeled_corner_table
 
@@ -1077,9 +1082,10 @@ class SpectreRetrieval:
             ]
             # Breaking it down for every corner as well.
             for cornerdex in corner_names:
-                temp_x = template_slice_row[f"{cornerdex}_x"]
-                temp_y = template_slice_row[f"{cornerdex}_y"]
+                temp_x = float(template_slice_row[f"{cornerdex}_x"].value[0])
+                temp_y = float(template_slice_row[f"{cornerdex}_y"].value[0])
                 # Adding the entry...
+                # The +++ is just an unambiguous deliminator we use later.
                 temp_key = f"{slice_index}+++{cornerdex}"
                 temp_data = [temp_x, temp_y]
                 template_corner_dict[temp_key] = temp_data
@@ -1094,7 +1100,7 @@ class SpectreRetrieval:
                 slice_corner_table[f"{cornerdex}_y"][rowindex] = np.nan
 
         # Now, for each point provided, we need to find the closest point.
-        # We use a variation of Euclidian separation, allowing for
+        # We use a variation of weighted Euclidian separation, allowing for
         # more vertical displacement due to the dispersion direction.
         x_cost = 7
         x_max_travel = 5
@@ -1112,7 +1118,7 @@ class SpectreRetrieval:
             point_y = float(coorddex[1])
 
             # Now, we need to search the entire template for the point of
-            # least seperation.
+            # least separation.
             point_keys = []
             seperation = []
             for keydex, itemdex in template_corner_dict.items():
@@ -1137,6 +1143,7 @@ class SpectreRetrieval:
             closest_index = np.nanargmin(seperation)
             closest_label = point_keys[closest_index]
             # From the key, deriving where this point actually goes.
+            # The +++ is just an unambiguous deliminator from before.
             closest_slice, closest_corner = closest_label.split("+++")
             closest_slice = int(closest_slice)
             slice_corner_table[f"{closest_corner}_x"][
@@ -1149,7 +1156,7 @@ class SpectreRetrieval:
         # All done.
         return slice_corner_table
 
-    def __get_labeled_corner_table(  # noqa: PLR0912
+    def get_labeled_corner_table(  # noqa: PLR0912
         self: hint.Self,
         method: str | None = None,
     ) -> hint.Table:
@@ -2197,7 +2204,7 @@ class SpectreRetrieval:
         raw_arclamp: hint.NDArray,
         wavelength: hint.NDArray,
         wave_arclamp: hint.NDArray,
-        pixel_shift_correct: int | None = None,
+        pixel_shift_correct: float | None = None,
     ) -> hint.NDArray:
         """Assign a wavelength calibration to an arc lamp array spectrum.
 
@@ -2217,7 +2224,7 @@ class SpectreRetrieval:
             The calibriated arc lamp spectrum data, parallel with the
             provided wavelength array. This and the `raw_arclamp` should be
             shifted copies of each other.
-        pixel_shift_correct : int, defualt = None
+        pixel_shift_correct : float, defualt = None
             The pixel shift correction value. This value is the amount the
             raw arc lamp needs to be shifted to line up with the calibrated
             arc lamp. That is typically found via cross correlation, and
@@ -2249,6 +2256,30 @@ class SpectreRetrieval:
         raw_pixel_domain = np.arange(raw_arclamp.size, dtype=float)
         arc_pixel_domain = np.arange(wave_arclamp.size, dtype=float)
 
+        # There should not be any NaNs in the solution spectrum. If that is
+        # the case (which it was in early solution spectrums), it is
+        # considered an error. But, we can still remove them and progress.
+        contains_nans = not np.isfinite(wave_arclamp).all()
+        if contains_nans:
+            # The solution spectrum contains some non-finite value...
+            logging.error(
+                error_type=logging.DevelopmentError,
+                message=(
+                    "The wavelength solution arclamp spectrum should not"
+                    " contain non-finite values. It needs to be fixed."
+                ),
+            )
+            wave_arclamp = lezargus.library.sanitize.clean_finite_arrays(
+                wave_arclamp,
+            )
+            logging.warning(
+                warning_type=logging.AccuracyWarning,
+                message=(
+                    "Sanitized the solution arclamp spectrum, attempting to"
+                    " continue. Check the resulting wavelength solution."
+                ),
+            )
+
         if pixel_shift_correct is None:
             # We attempt to calculate the corrective pixel shift ourselves.
             pixel_shift = (
@@ -2257,10 +2288,22 @@ class SpectreRetrieval:
                     moving_array=raw_arclamp,
                 )
             )
+            # Information about its derivation.
+            logging.debug(
+                message=(
+                    "Arclamp pixel shift automatically determined,"
+                    f" {pixel_shift_correct}. Correcting with its negative."
+                ),
+            )
             pixel_shift_correct = -pixel_shift
 
         # With the shift, we can shift the arc lamp spectra pixel domain
         # to match with the raw pixel domain.
+        logging.info(
+            message=(
+                f"Arclamp pixel shift correction: {pixel_shift_correct:.2f}"
+            ),
+        )
         shifted_arc_pixel_domain = arc_pixel_domain + pixel_shift_correct
 
         # Linear interpolation is best when finding the assigned wavelengths

@@ -393,13 +393,13 @@ def __initialize_data_detectors() -> None:
 
     # Otherwise...
     global SPECTRE_DETECTOR_VISIBLE
-    SPECTRE_DETECTOR_VISIBLE = _make.make_detector()
+    SPECTRE_DETECTOR_VISIBLE = _make.make_detector(channel="visible")
 
     global SPECTRE_DETECTOR_NEARIR
-    SPECTRE_DETECTOR_NEARIR = _make.make_detector()
+    SPECTRE_DETECTOR_NEARIR = _make.make_detector(channel="nearir")
 
     global SPECTRE_DETECTOR_MIDIR
-    SPECTRE_DETECTOR_MIDIR = _make.make_detector()
+    SPECTRE_DETECTOR_MIDIR = _make.make_detector(channel="midir")
 
     # All done.
     return

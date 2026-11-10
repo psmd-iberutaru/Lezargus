@@ -16,8 +16,8 @@
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
     document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
-  <!-- 
-    this give us a css class that will be invisible only if js is disabled 
+  <!--
+    this give us a css class that will be invisible only if js is disabled
   -->
   <noscript>
     <style>
@@ -27,44 +27,51 @@
   </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=90905a2f556bf617f1a9" rel="stylesheet" />
 
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=a746c00c" />
-    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=8f2a1f02" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=4418a689" />
   
   <!-- So that users can add custom icons -->
-  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script defer src="../_static/scripts/fontawesome.js?digest=90905a2f556bf617f1a9"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9" />
 
     <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
-    <script src="../_static/doctools.js?v=9bcbadda"></script>
-    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'code/lezargus.simulator';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="lezargus.simulator.atmosphere module" href="lezargus.simulator.atmosphere.html" />
-    <link rel="prev" title="lezargus.library.wrapper module" href="lezargus.library.wrapper.html" />
+    <link rel="prev" title="lezargus.pipeline.spectre module" href="lezargus.pipeline.spectre.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../_static/searchtools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../searchindex.js"></script>
+  
   </head>
-  
-  
-  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
-
+  <body data-default-mode="">
   
   
   <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
   
   <div id="pst-scroll-pixel-helper"></div>
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
     <i class="fa-solid fa-arrow-up"></i>Back to top</button>
-
+  
+  
+  
   
   <dialog id="pst-search-dialog">
     
@@ -90,7 +97,51 @@
 </div>
 
   
-    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
     </header>
   
 
@@ -190,6 +241,11 @@
 <li class="toctree-l4"><a class="reference internal" href="lezargus.library.wrapper.html">lezargus.library.wrapper module</a></li>
 </ul>
 </details></li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="lezargus.pipeline.html">lezargus.pipeline package</a><details><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.pipeline.retrieval.html">lezargus.pipeline.retrieval module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lezargus.pipeline.spectre.html">lezargus.pipeline.spectre module</a></li>
+</ul>
+</details></li>
 <li class="toctree-l3 current active has-children"><a class="current reference internal" href="#">lezargus.simulator package</a><details open="open"><summary><span class="toctree-toggle" role="presentation"><i class="fa-solid fa-chevron-down"></i></span></summary><ul>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.simulator.atmosphere.html">lezargus.simulator.atmosphere module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="lezargus.simulator.spectre.html">lezargus.simulator.spectre module</a></li>
@@ -214,9 +270,14 @@
   
   
   <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
   </div>
-  
-  <div id="rtd-footer-container"></div>
 
 
       </div>
@@ -299,7 +360,7 @@
 
 
 <button onclick="toggleFullScreen()"
-  class="btn btn-sm btn-fullscreen-button"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
   title="Fullscreen mode"
   data-bs-placement="bottom" data-bs-toggle="tooltip"
 >
@@ -313,17 +374,24 @@
 
 
 
-<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
-  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
-  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
-  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
-</button>
+<div class="theme-switch-container dropdown pst-js-only" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Color mode">
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button dropdown-toggle" aria-label="Color mode" data-bs-toggle="dropdown">
+    <i class="theme-switch fa-solid fa-sun fa-lg fa-fw" data-mode="light" title="Light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg fa-fw" data-mode="dark" title="Dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg fa-fw" data-mode="auto" title="System Settings"></i>
+  </button>
+  <ul class="dropdown-menu dropdown-menu-end">
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg fa-fw me-1"></i>System Settings</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="light"><i class="fa-solid fa-sun fa-lg fa-fw me-1"></i>Light</button></li>
+    <li><button class="dropdown-item d-flex align-items-center theme-change-button" data-mode="dark"><i class="fa-solid fa-moon fa-lg fa-fw me-1"></i>Dark</button></li>
+  </ul>
+</div>
 
 
 <button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
 </button>
-<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
 </button>
 </div></div>
@@ -345,9 +413,9 @@
                 <h2> Contents </h2>
             </div>
             <nav aria-label="Page">
-                <ul class="visible nav section-nav flex-column">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-lezargus.simulator">Module contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-contents">Module contents</a></li>
 </ul>
             </nav>
         </div>
@@ -365,154 +433,15 @@
 <h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="lezargus.simulator.atmosphere.html">lezargus.simulator.atmosphere module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator"><code class="docutils literal notranslate"><span class="pre">AtmosphereSimulator</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.temperature"><code class="docutils literal notranslate"><span class="pre">AtmosphereSimulator.temperature</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.pressure"><code class="docutils literal notranslate"><span class="pre">AtmosphereSimulator.pressure</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.ppw"><code class="docutils literal notranslate"><span class="pre">AtmosphereSimulator.ppw</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.pwv"><code class="docutils literal notranslate"><span class="pre">AtmosphereSimulator.pwv</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.seeing"><code class="docutils literal notranslate"><span class="pre">AtmosphereSimulator.seeing</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.zenith_angle"><code class="docutils literal notranslate"><span class="pre">AtmosphereSimulator.zenith_angle</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.parallactic_angle"><code class="docutils literal notranslate"><span class="pre">AtmosphereSimulator.parallactic_angle</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.reference_wavelength"><code class="docutils literal notranslate"><span class="pre">AtmosphereSimulator.reference_wavelength</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.reference_zenith_angle"><code class="docutils literal notranslate"><span class="pre">AtmosphereSimulator.reference_zenith_angle</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.transmission_generator"><code class="docutils literal notranslate"><span class="pre">AtmosphereSimulator.transmission_generator</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.radiance_generator"><code class="docutils literal notranslate"><span class="pre">AtmosphereSimulator.radiance_generator</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.__init__"><code class="docutils literal notranslate"><span class="pre">AtmosphereSimulator.__init__()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator._convolve_atmospheric_spectrum"><code class="docutils literal notranslate"><span class="pre">AtmosphereSimulator._convolve_atmospheric_spectrum()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.generate_radiance"><code class="docutils literal notranslate"><span class="pre">AtmosphereSimulator.generate_radiance()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.generate_refraction_vectors"><code class="docutils literal notranslate"><span class="pre">AtmosphereSimulator.generate_refraction_vectors()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.generate_seeing_kernels"><code class="docutils literal notranslate"><span class="pre">AtmosphereSimulator.generate_seeing_kernels()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.generate_transmission"><code class="docutils literal notranslate"><span class="pre">AtmosphereSimulator.generate_transmission()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.atmosphere.html#lezargus.simulator.atmosphere.AtmosphereSimulator.seeing_function"><code class="docutils literal notranslate"><span class="pre">AtmosphereSimulator.seeing_function()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="lezargus.simulator.spectre.html">lezargus.simulator.spectre module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.__calculate_field_view_spatial_sampling"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.__calculate_field_view_spatial_sampling()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.__init__"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.__init__()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator._cache_spectral_dispersion"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator._cache_spectral_dispersion</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator._convert_to_photon"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator._convert_to_photon()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.arc_lamp_in"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.arc_lamp_in</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_advanced_spectral_dispersion"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_advanced_spectral_dispersion()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_calibration_apparatus"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_calibration_apparatus</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_cosmic_rays"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_cosmic_rays</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_detector_bias"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_detector_bias</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_detector_dark_current"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_detector_dark_current</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_detector_flat_field"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_detector_flat_field</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_detector_gain"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_detector_gain</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_detector_hot_dead_pixels"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_detector_hot_dead_pixels</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_detector_linearity"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_detector_linearity</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_detector_quantum_efficiency"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_detector_quantum_efficiency</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_detector_read_noise"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_detector_read_noise</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_dichroic"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_dichroic</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_fits_file"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_fits_file</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_fold_mirror"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_fold_mirror</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_foreoptics"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_foreoptics</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_ifu_diffraction"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_ifu_diffraction</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_ifu_image_slicer"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_ifu_image_slicer</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_ifu_pupil_mirror_transmission"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_ifu_pupil_mirror_transmission</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_ifu_transmission"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_ifu_transmission</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_observed"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_observed</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_photon_poisson_noise"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_photon_poisson_noise</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_primary_emission"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_primary_emission</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_primary_reflectivity"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_primary_reflectivity</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_prisms_transmission"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_prisms_transmission</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_radiance"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_radiance</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_readout"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_readout</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_refraction"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_refraction</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_relay_mirrors"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_relay_mirrors</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_scattered_light"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_scattered_light</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_secondary_emission"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_secondary_emission</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_secondary_reflectivity"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_secondary_reflectivity</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_seeing"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_seeing</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_spectral_dispersion"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_spectral_dispersion</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_target"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_target</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_target_photon"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_target_photon</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_target_spectrum"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_target_spectrum</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_telescope"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_telescope</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_transmission"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_transmission</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_window_emission"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_window_emission</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_window_ghost"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_window_ghost</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_window_transmission"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_window_transmission</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.at_write_disk"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.at_write_disk()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.atmosphere"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.atmosphere</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.channel"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.channel</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.clear_cache"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.clear_cache()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.coadds"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.coadds</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.detector"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.detector</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.exposure_time"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.exposure_time</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.flat_lamp_in"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.flat_lamp_in</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.from_advanced_parameters"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.from_advanced_parameters()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.from_blackbody"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.from_blackbody()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.from_spectrum"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.from_spectrum()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.input_atmosphere"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.input_atmosphere</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.input_target"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.input_target</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.input_telescope"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.input_telescope</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.old_from_advanced_parameters"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.old_from_advanced_parameters()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.target"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.target</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.telescope"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.telescope</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.spectre.html#lezargus.simulator.spectre.SpectreSimulator.use_cache"><code class="docutils literal notranslate"><span class="pre">SpectreSimulator.use_cache</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="lezargus.simulator.target.html">lezargus.simulator.target module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator"><code class="docutils literal notranslate"><span class="pre">TargetSimulator</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.__init__"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.__init__()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator._cache_observed"><code class="docutils literal notranslate"><span class="pre">TargetSimulator._cache_observed</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator._cache_target_photon"><code class="docutils literal notranslate"><span class="pre">TargetSimulator._cache_target_photon</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator._convert_to_photon"><code class="docutils literal notranslate"><span class="pre">TargetSimulator._convert_to_photon()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.add_atmosphere"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.add_atmosphere()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.at_observed"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.at_observed</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.at_radiance"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.at_radiance</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.at_refraction"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.at_refraction</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.at_seeing"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.at_seeing</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.at_target"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.at_target</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.at_target_photon"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.at_target_photon</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.at_target_spectrum"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.at_target_spectrum</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.at_transmission"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.at_transmission</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.atmosphere"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.atmosphere</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.clear_cache"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.clear_cache()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.from_blackbody"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.from_blackbody()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.from_cube"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.from_cube()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.from_spectrum"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.from_spectrum()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.target"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.target</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.target_spectrum"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.target_spectrum</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.target.html#lezargus.simulator.target.TargetSimulator.use_cache"><code class="docutils literal notranslate"><span class="pre">TargetSimulator.use_cache</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="lezargus.simulator.telescope.html">lezargus.simulator.telescope module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="lezargus.simulator.telescope.html#lezargus.simulator.telescope.IrtfTelescopeSimulator"><code class="docutils literal notranslate"><span class="pre">IrtfTelescopeSimulator</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.telescope.html#lezargus.simulator.telescope.IrtfTelescopeSimulator.__init__"><code class="docutils literal notranslate"><span class="pre">IrtfTelescopeSimulator.__init__()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.telescope.html#lezargus.simulator.telescope.IrtfTelescopeSimulator._primary_reflectivity_interpolator"><code class="docutils literal notranslate"><span class="pre">IrtfTelescopeSimulator._primary_reflectivity_interpolator</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.telescope.html#lezargus.simulator.telescope.IrtfTelescopeSimulator._secondary_reflectivity_interpolator"><code class="docutils literal notranslate"><span class="pre">IrtfTelescopeSimulator._secondary_reflectivity_interpolator</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.telescope.html#lezargus.simulator.telescope.IrtfTelescopeSimulator.primary_area"><code class="docutils literal notranslate"><span class="pre">IrtfTelescopeSimulator.primary_area</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.telescope.html#lezargus.simulator.telescope.IrtfTelescopeSimulator.primary_emission"><code class="docutils literal notranslate"><span class="pre">IrtfTelescopeSimulator.primary_emission()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.telescope.html#lezargus.simulator.telescope.IrtfTelescopeSimulator.primary_emission_spectrum"><code class="docutils literal notranslate"><span class="pre">IrtfTelescopeSimulator.primary_emission_spectrum()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.telescope.html#lezargus.simulator.telescope.IrtfTelescopeSimulator.primary_reflectivity"><code class="docutils literal notranslate"><span class="pre">IrtfTelescopeSimulator.primary_reflectivity()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.telescope.html#lezargus.simulator.telescope.IrtfTelescopeSimulator.primary_reflectivity_spectrum"><code class="docutils literal notranslate"><span class="pre">IrtfTelescopeSimulator.primary_reflectivity_spectrum()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.telescope.html#lezargus.simulator.telescope.IrtfTelescopeSimulator.secondary_area"><code class="docutils literal notranslate"><span class="pre">IrtfTelescopeSimulator.secondary_area</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.telescope.html#lezargus.simulator.telescope.IrtfTelescopeSimulator.secondary_emission"><code class="docutils literal notranslate"><span class="pre">IrtfTelescopeSimulator.secondary_emission()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.telescope.html#lezargus.simulator.telescope.IrtfTelescopeSimulator.secondary_emission_spectrum"><code class="docutils literal notranslate"><span class="pre">IrtfTelescopeSimulator.secondary_emission_spectrum()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.telescope.html#lezargus.simulator.telescope.IrtfTelescopeSimulator.secondary_reflectivity"><code class="docutils literal notranslate"><span class="pre">IrtfTelescopeSimulator.secondary_reflectivity()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.telescope.html#lezargus.simulator.telescope.IrtfTelescopeSimulator.secondary_reflectivity_spectrum"><code class="docutils literal notranslate"><span class="pre">IrtfTelescopeSimulator.secondary_reflectivity_spectrum()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.telescope.html#lezargus.simulator.telescope.IrtfTelescopeSimulator.telescope_area"><code class="docutils literal notranslate"><span class="pre">IrtfTelescopeSimulator.telescope_area</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="lezargus.simulator.telescope.html#lezargus.simulator.telescope.IrtfTelescopeSimulator.temperature"><code class="docutils literal notranslate"><span class="pre">IrtfTelescopeSimulator.temperature</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="lezargus.simulator.atmosphere.html">lezargus.simulator.atmosphere module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lezargus.simulator.spectre.html">lezargus.simulator.spectre module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lezargus.simulator.target.html">lezargus.simulator.target module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lezargus.simulator.telescope.html">lezargus.simulator.telescope module</a></li>
 </ul>
 </div>
 </section>
-<section id="module-lezargus.simulator">
-<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-lezargus.simulator" title="Link to this heading">#</a></h2>
-<p>All of the simulation aspects of the Lezargus package.</p>
+<section id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Link to this heading">#</a></h2>
 </section>
 </section>
 
@@ -528,12 +457,12 @@
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="lezargus.library.wrapper.html"
+       href="lezargus.pipeline.spectre.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">lezargus.library.wrapper module</p>
+        <p class="prev-next-title">lezargus.pipeline.spectre module</p>
       </div>
     </a>
     <a class="right-next"
@@ -556,14 +485,15 @@
                 <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
 
-  <div class="sidebar-secondary-item">
-  <div class="page-toc tocsection onthispage">
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
     <i class="fa-solid fa-list"></i> Contents
   </div>
-  <nav class="bd-toc-nav page-toc">
-    <ul class="visible nav section-nav flex-column">
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-lezargus.simulator">Module contents</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-contents">Module contents</a></li>
 </ul>
   </nav></div>
 
@@ -612,8 +542,8 @@ By Sparrow
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
-<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=90905a2f556bf617f1a9"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=90905a2f556bf617f1a9"></script>
 
   <footer class="bd-footer">
   </footer>

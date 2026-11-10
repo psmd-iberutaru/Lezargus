@@ -4,11 +4,20 @@ This section parses arguments which is then passed to execution to do exactly
 as expected by the commands.
 """
 
+# isort: split
+# Import required to remove circular dependencies from type checking.
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from lezargus.library import hint
+# isort: split
+
 import argparse
 
 import lezargus
 import lezargus.terminate
-from lezargus.library import hint
 
 
 def parse_arguments() -> tuple[hint.ArgumentParser, dict]:
