@@ -1,0 +1,12 @@
+cosmic_ray_rate: 0
+cosmic_ray_value: 1
+dead_pixel_value: 0
+detector_shape:
+- 2048
+- 2048
+gain: 6.95
+hot_pixel_value: .inf
+nondestructive_reads: 1
+pixel_size: 1.4999999999999999e-05
+read_noise_mean: 3
+read_noise_stddev: 15

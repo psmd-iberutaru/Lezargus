@@ -196,7 +196,7 @@ class TargetSimulator:
         # As we are using a blackbody, we can derive a photometric correction
         # factor outside of the provided wavelengths. (The full wavelength
         # should be in meters, but the notation here makes it easier to read.)
-        photo_wavelength = np.linspace(0.1e-6, 10.0e-6, int(1e5))
+        photo_wavelength = np.linspace(0.1e-6, 10.0e-6, int(1e6))
         photo_blackbody_flux = (
             blackbody_function(photo_wavelength) * solid_angle
         )
@@ -435,6 +435,7 @@ class TargetSimulator:
                     " equivalent width, not both. Provide only one."
                 ),
             )
+            gaussian_line_sigma = line_sigma
         # If the sigma is provided, we use it directly.
         elif line_sigma is not None:
             gaussian_line_sigma = line_sigma

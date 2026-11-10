@@ -695,7 +695,7 @@ def kernel_1d_gaussian_resolution(
             / (base_resolving_power * target_resolving_power)
         )
         logging.warning(
-            warning_type=logging.DeprecationWarning,
+            warning_type=logging.DeprecatedWarning,
             message=(
                 "Resolving power kernel generation should be replaced with"
                 " resolutions computed from resolving power."
