@@ -3,11 +3,11 @@ name: check
 on: [push]
 
 jobs:
-  pylint-linux:
+  linting-check-linux:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.12"]
+        python-version: ["3.14"]
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python-version }}
@@ -27,11 +27,11 @@ jobs:
       run: |
         hatch run check
 
-  pylint-windows:
+  linting-check-windows:
     runs-on: windows-latest
     strategy:
       matrix:
-        python-version: ["3.12"]
+        python-version: ["3.14"]
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python-version }}

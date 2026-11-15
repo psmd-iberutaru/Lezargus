@@ -1100,6 +1100,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
                     " used."
                 ),
             )
+            raw_arclamp_spectrum = None
             if self.channel == "visible":
                 raw_arclamp_spectrum = (
                     lezargus.data.SPECTRE_ARCLAMP_SIMULATION_VISIBLE
@@ -2647,34 +2648,6 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # All done.
         return current_state
 
-    @property
-    def at_detector_gain(
-        self: hint.Self,
-    ) -> hint.LezargusImage:
-        """State of simulation after accounting the detector gain.
-
-        Parameters
-        ----------
-        None
-
-        Returns
-        -------
-        current_state : LezargusImage
-            The state of the simulation after acconting for the detetor gain
-            factor.
-
-        """
-        # No cached value, we calculate it from the previous state.
-        previous_state = self.at_cosmic_rays
-
-        # We need to determine the detector gain.
-        detector_gain_factor = self.detector.detector_gain
-
-        # Applying the gain.
-        current_state = previous_state * detector_gain_factor
-
-        # All done.
-        return current_state
 
     @property
     def at_detector_flat_field(
@@ -2694,7 +2667,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
 
         """
         # No cached value, we calculate it from the previous state.
-        previous_state = self.at_detector_gain
+        previous_state = self.at_cosmic_rays
 
         # We generate a new flat field from the detector simulation.
         flat_field = self.detector.simulate_full_flat_frame()
@@ -2841,40 +2814,6 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # All done.
         return current_state
 
-    @property
-    def at_detector_read_noise(
-        self: hint.Self,
-    ) -> hint.LezargusImage:
-        """State of simulation after the detector read noise.
-
-        Parameters
-        ----------
-        None
-
-        Returns
-        -------
-        current_state : LezargusImage
-            The state of the simulation after acounting for the detector
-            read noise.
-
-        """
-        # No cached value, we calculate it from the previous state.
-        previous_state = self.at_detector_linearity
-
-        # Calculating read noise given the co-adds. The NDR factor is already
-        # taken care of.
-        read_noise = np.zeros_like(previous_state.data)
-        for __ in range(self.coadds):
-            temp_read_noise = self.detector.simulate_read_noise_frame()
-            read_noise = read_noise + temp_read_noise
-
-        # Applying the noise.
-        current_state = copy.deepcopy(previous_state)
-        current_state.data = previous_state.data + read_noise
-        current_state.uncertainty = previous_state.uncertainty
-
-        # All done.
-        return current_state
 
     @property
     def at_detector_hot_dead_pixels(
@@ -2893,7 +2832,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
 
         """
         # No cached value, we calculate it from the previous state.
-        previous_state = self.at_detector_read_noise
+        previous_state = self.at_detector_linearity
 
         # We generated the hot and dead pixel maps from the detector instance.
         # It is easier to just pull the application from it.
@@ -2907,6 +2846,75 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         current_state = copy.deepcopy(previous_state)
         current_state.data[np.where(hot_pixel_map)] = hot_pixel_value
         current_state.data[np.where(dead_pixel_map)] = dead_pixel_value
+
+        # All done.
+        return current_state
+
+
+    @property
+    def at_detector_read_noise(
+        self: hint.Self,
+    ) -> hint.LezargusImage:
+        """State of simulation after the detector read noise.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        current_state : LezargusImage
+            The state of the simulation after acounting for the detector
+            read noise.
+
+        """
+        # No cached value, we calculate it from the previous state.
+        previous_state = self.at_detector_hot_dead_pixels
+
+        # Calculating read noise given the co-adds. The NDR factor is already
+        # taken care of.
+        read_noise = np.zeros_like(previous_state.data)
+        for __ in range(self.coadds):
+            temp_read_noise = self.detector.simulate_read_noise_frame()
+            read_noise = read_noise + temp_read_noise
+
+        # Applying the noise.
+        current_state = copy.deepcopy(previous_state)
+        current_state.data = previous_state.data + read_noise
+        current_state.uncertainty = previous_state.uncertainty
+
+        # All done.
+        return current_state
+
+
+
+    @property
+    def at_detector_gain(
+        self: hint.Self,
+    ) -> hint.LezargusImage:
+        """State of simulation after accounting the detector gain.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        current_state : LezargusImage
+            The state of the simulation after acconting for the detetor gain
+            factor.
+
+        """
+        # No cached value, we calculate it from the previous state.
+        previous_state = self.at_detector_read_noise
+
+        logging.error(error_type=logging.ToDoError, message=f"Proper ADU and electron unit handling between every system.")
+
+        # We need to determine the detector gain.
+        detector_gain_factor = self.detector.detector_gain
+
+        # Applying the gain.
+        current_state = previous_state * detector_gain_factor
 
         # All done.
         return current_state
@@ -2928,7 +2936,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
 
         """
         # No cached value, we calculate it from the previous state.
-        previous_state = self.at_detector_hot_dead_pixels
+        previous_state = self.at_detector_gain
 
         logging.error(
             error_type=logging.ToDoError,
@@ -2940,6 +2948,7 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # All done.
         current_state = previous_state
         return current_state
+
 
     @property
     def at_readout(

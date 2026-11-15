@@ -4,9 +4,9 @@ dead_pixel_value: 0
 detector_shape:
 - 2048
 - 2048
-gain: 6.95
+gain: 1
 hot_pixel_value: .inf
 nondestructive_reads: 32
 pixel_size: 1.8e-05
-read_noise_mean: 3
-read_noise_stddev: 15
+read_noise_mean: 15
+read_noise_stddev: 5

@@ -210,10 +210,12 @@ disable = [
     "duplicate-code", 
     "cyclic-import", 
     "too-many-instance-attributes", 
-    "too-few-public-methods", 
+    "too-few-public-methods",  # Let Ruff handle method count.
+    "too-many-public-methods",  # Let Ruff handle method count.
     "too-many-locals", 
     "too-many-arguments",  # Let Ruff handle arguments.
     "too-many-positional-arguments",  # Let Ruff handle arguments.
+    "too-many-branches", # Let Ruff handle branches.
     "too-many-lines", 
     "ungrouped-imports",  # Let Ruff and isort handle imports.
     "wrong-import-position",  # Let Ruff and isort handle imports.

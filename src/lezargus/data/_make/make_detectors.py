@@ -62,7 +62,7 @@ def make_detector(
     detector_yaml_filename = functionality.find_data_filename(
         basename=f"{channel}_detector_properties.yaml",
     )
-    with open(detector_yaml_filename) as yaml_file:
+    with open(detector_yaml_filename, encoding="utf8") as yaml_file:
         detector_properties = yaml.safe_load(yaml_file)
 
     # Creating the detector.
