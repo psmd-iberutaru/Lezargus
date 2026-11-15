@@ -97,7 +97,7 @@ def reduce_flags(flag_array: hint.NDArray) -> hint.NDArray:
 
     # If the flag value is wholely divisible by a prime number, then they have
     # that flag and we should record it.
-    for primedex in lezargus.library.data.PRIME_FLAGS:
+    for primedex in lezargus.data.PRIME_FLAGS:
         flag_presence = (flag_array % primedex) == 0
         # For where it is present, we apply the flag.
         lowest_flag_array[flag_presence] *= primedex

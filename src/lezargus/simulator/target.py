@@ -427,6 +427,8 @@ class TargetSimulator:
         )
 
         # We can only accept sigma or EW as the width describer of the line.
+        # A basic default, both cases will "override" this.
+        gaussian_line_sigma = np.zeros_like(line_sigma)
         if line_sigma is not None and line_equivalent_width is not None:
             logging.error(
                 error_type=logging.InputError,
@@ -435,9 +437,11 @@ class TargetSimulator:
                     " equivalent width, not both. Provide only one."
                 ),
             )
-            gaussian_line_sigma = line_sigma
+            # No lines to add.
+            return None
+        
         # If the sigma is provided, we use it directly.
-        elif line_sigma is not None:
+        if line_sigma is not None:
             gaussian_line_sigma = line_sigma
         # If the equivalent width was provided, it is easier to compute the
         # appropriate sigma value for each of the lines.
@@ -461,6 +465,7 @@ class TargetSimulator:
                 error_type=logging.InputError,
                 message="Spectral line width, gaussian sigma, not provided.",
             )
+            return None
 
         # The amplitudes define if it is an emission or absorption line.
         # Namely, a negative amplitude implies absorption.

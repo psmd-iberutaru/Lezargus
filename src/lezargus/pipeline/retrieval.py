@@ -1161,30 +1161,36 @@ class SpectreRetrieval:
         method: str | None = None,
     ) -> hint.Table:
         """Get the most accurate labeled corner table.
-
-        The labeled corner table can from from four different sources.
+        
+        The labeled corner table can from four different sources.
         The first is the current corner table itself, else from the
         flat field, else from a file, else from the simulation; in that
         order. However, special considerations need to be taken into account
         as some of the methods described above themselves require the
         labeled corner table.
-
+        
         This function serves as a catch all to ensure the correct labeled
         corner table is provided.
-
+        
         Parameters
         ----------
         method : str, default = None
             The method to use to get the labeled corner table. If not provided,
-            we try all of the methods in order.
+            we try all of the methods in order:
 
+            - `stored`: The currently stored corner table, if present.
+            - `flat`: Compute the labeled corner table from the flat field.
+            - `file`: Get the labeled corner table from the cached file.
+            - `simulation`: Compute the labeled corner table from the Spectre
+            simulation.
+        
         Returns
         -------
         labeled_corner_table : Table
             The labeled corner table, found out of the best possible ways,
             while taking the considerations into account. If we fail, we inform
             with both an error and the failure class.
-
+        
         """
         # Case...
         method = str(method).casefold() if method is not None else None
@@ -2166,6 +2172,7 @@ class SpectreRetrieval:
 
         # We need the appropriate solution to compare to, based on the
         # channel.
+        arclamp_solution = None
         if self.channel == "visible":
             arclamp_solution = lezargus.data.SPECTRE_ARCLAMP_SOLUTION_VISIBLE
         elif self.channel == "nearir":
