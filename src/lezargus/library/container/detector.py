@@ -148,6 +148,21 @@ class DetectorArray:
     """The detector value for when a cosmic ray hits the detector. Though
     we assume a near typical high value, given the variance of cosmic rays."""
 
+    nondestructive_read_overhead: float = 0
+    """The (temporal) overhead for taking a non-destructive read. Typically,
+    this is the amount of time a non-destructive read takes, in seconds."""
+
+    coadd_overhead: float = 0
+    """The (temporal) overhead for taking/applying a co-add readout. Typically,
+    this is the amount of time adding another co-add would take, in seconds."""
+
+    cycle_overhead: float = 0
+    """The (temporal) overhead for taking a new cycle. Typically,
+    this is the amount of time it takes between the end of a cycle and the
+    beginning of a new one. Sometimes the telescope is involved as well, and
+    this value should incorporate these, and all other cycle-relative
+    overheads."""
+
     random_state_seed: int | None = None
     """The random state seed for all of the functions which need to have
     a random number generator used. This is mostly for generating new
