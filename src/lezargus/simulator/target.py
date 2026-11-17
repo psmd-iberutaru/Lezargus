@@ -438,8 +438,8 @@ class TargetSimulator:
                 ),
             )
             # No lines to add.
-            return None
-        
+            return
+
         # If the sigma is provided, we use it directly.
         if line_sigma is not None:
             gaussian_line_sigma = line_sigma
@@ -465,7 +465,7 @@ class TargetSimulator:
                 error_type=logging.InputError,
                 message="Spectral line width, gaussian sigma, not provided.",
             )
-            return None
+            return
 
         # The amplitudes define if it is an emission or absorption line.
         # Namely, a negative amplitude implies absorption.

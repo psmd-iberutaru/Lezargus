@@ -189,6 +189,14 @@ def make_detector(
         dead_pixel_value=dead_pixel_value,
     )
 
+    # Adding NDR, co-add, and cycle clock-time overheads as specified.
+    detector_array.nondestructive_read_overhead = detector_properties.get(
+        "nondestructive_read_overhead",
+        0,
+    )
+    detector_array.coadd_overhead = detector_properties.get("coadd_overhead", 0)
+    detector_array.cycle_overhead = detector_properties.get("cycle_overhead", 0)
+
     # Finally, recalculating the detector, just in case.
     detector_array.recalculate_detector()
     return detector_array

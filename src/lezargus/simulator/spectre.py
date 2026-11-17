@@ -666,12 +666,10 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # We are mostly just calling to the inner target function which
         # does the actual work.
 
-        # As we are changing the target, all caches are void.
-        self.clear_cache()
-
         # The new target, with the lines, is purely derived from the old
         # target.
         new_target = copy.deepcopy(self.target)
+        new_target.clear_cache()
 
         # If the target does not have a target spectrum class, that means it
         # was created by means other than a blackbody or spectrum. The
@@ -696,9 +694,103 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
             line_equivalent_width=line_equivalent_width,
         )
 
+        # As we are changing the target, all caches are void.
+        self.clear_cache()
+
         # Replacing the current target with the new target.
         self.target = new_target
 
+        # All done.
+
+    def change_nondestructive_reads(self: hint.Self, ndr_count: int) -> None:
+        """Change the NDR count.
+
+        We change the number of NDRs the detector uses. We also perform some
+        checks to make sure that the NDR count is physically possible. That is,
+        the integration time is long enough for enough NDRs. See the
+        documentation for more information.
+
+        Parameters
+        ----------
+        ndr_count : int
+            The number of NDRs which is desired.
+
+        Returns
+        -------
+        None
+
+        """
+        # Maybe it will be okay?
+        using_ndr_count = ndr_count
+
+        # By definition, the visible channel NDR must equal 1 as it can only
+        # destructively read.
+        if self.channel == "visible" and ndr_count != 1:
+            logging.error(
+                error_type=logging.InputError,
+                message=(
+                    "Visible CCD NDR must equal 1 as it destructively reads,"
+                    f" it is {ndr_count}."
+                ),
+            )
+            using_ndr_count = 1
+
+        # For both the near infrared and the mid infrared, the NDRs max at
+        # 32, and have a minimum of 1.
+        ndr_minimum = 1
+        ndr_maximum = 32
+        if self.channel in {"nearir", "midir"}:
+            if ndr_count < ndr_minimum:
+                logging.error(
+                    error_type=logging.InputError,
+                    message=(
+                        f"Infrared {self.channel} channel NDR must be at least"
+                        f" {ndr_minimum}, it is {ndr_count}"
+                    ),
+                )
+                using_ndr_count = ndr_minimum
+            elif ndr_count > ndr_maximum:
+                logging.error(
+                    error_type=logging.InputError,
+                    message=(
+                        f"Infrared {self.channel} channel NDR must be no more"
+                        f" than {ndr_maximum}, it is {ndr_count}"
+                    ),
+                )
+                using_ndr_count = ndr_maximum
+
+        # We need to make sure that the number of NDRs can fix within the
+        # current exposure time based on the overheads.
+        ndr_overhead = self.detector.nondestructive_read_overhead
+        exposure_time = self.exposure_time
+        if ndr_overhead * ndr_count > exposure_time:
+            logging.error(
+                error_type=logging.InputError,
+                message=(
+                    f"Too many NDRs {ndr_count} for exposure time"
+                    f" {exposure_time} provided overhead of {ndr_overhead}."
+                ),
+            )
+            # Computing the maximum number of NDR which could fit in the first
+            # place.
+            exptime_ndr_max = int(exposure_time // ndr_overhead)
+            logging.warning(
+                warning_type=logging.AlgorithmWarning,
+                message=(
+                    f"Using {exptime_ndr_max} NDRs, the maximum which could fit"
+                    f" within the {exposure_time} exposure time."
+                ),
+            )
+            using_ndr_count = exptime_ndr_max
+
+        # Finally, replacing it with the provided NDR count.
+        logging.info(
+            message=(
+                f"Changing {self.channel} detector NDR count to"
+                f" {using_ndr_count}."
+            ),
+        )
+        self.detector.nondestructive_reads = using_ndr_count
         # All done.
 
     @property
@@ -2648,7 +2740,6 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # All done.
         return current_state
 
-
     @property
     def at_detector_flat_field(
         self: hint.Self,
@@ -2814,7 +2905,6 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # All done.
         return current_state
 
-
     @property
     def at_detector_hot_dead_pixels(
         self: hint.Self,
@@ -2849,7 +2939,6 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
 
         # All done.
         return current_state
-
 
     @property
     def at_detector_read_noise(
@@ -2886,8 +2975,6 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # All done.
         return current_state
 
-
-
     @property
     def at_detector_gain(
         self: hint.Self,
@@ -2908,7 +2995,12 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # No cached value, we calculate it from the previous state.
         previous_state = self.at_detector_read_noise
 
-        logging.error(error_type=logging.ToDoError, message=f"Proper ADU and electron unit handling between every system.")
+        logging.error(
+            error_type=logging.ToDoError,
+            message=(
+                "Proper ADU and electron unit handling between every system."
+            ),
+        )
 
         # We need to determine the detector gain.
         detector_gain_factor = self.detector.detector_gain
@@ -2948,7 +3040,6 @@ class SpectreSimulator:  # pylint: disable=too-many-public-methods
         # All done.
         current_state = previous_state
         return current_state
-
 
     @property
     def at_readout(
